@@ -1,0 +1,18 @@
+name: null                          # Our env was made with --prefix
+channels:
+  - conda-forge                     # third party stuff
+  - dsdale24                        # third party stuff
+  - defaults
+dependencies:
+  - python=3.7
+  - pip
+  - matplotlib
+  - pymc3=3.9.3
+  - doit
+  - pyyaml
+  - conda-ecosystem-user-package-isolation
+  
+  
+
+
+
