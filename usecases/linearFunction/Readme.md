@@ -64,7 +64,7 @@ samples is n_configurations*(n_function_sensors+n_derivative_sensors)
 The options correlation_length_function and correlation_length_derivative specify the correlation 
 length for the noise (for the function and derivative sensors separately). 
 
-The options for the (virtual) experiment that is used to generate the data is given at the end. Note that c 
+The options for the (virtual) experiment that is used to generate the data are given at the end. Note that c 
 is a quadratic term that is not part of the function to be estimated.
 ```
 f(x) = a+b*x
