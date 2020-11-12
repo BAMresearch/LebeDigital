@@ -1,15 +1,15 @@
 # Installation conda environment
-* create environment within the main project folder
+Create environment within the main project folder
 ```
 conda env create --prefix ./conda-env -f environment.yml 
 ```
 
-* Update environment within main project folder (if environment.yml was changed)
+Update environment within main project folder (if environment.yml was changed)
 ```
 conda env update --prefix ./conda-env -f environment.yml --prune
 ```
 
-* Activate environment
+Activate environment
 ```
 conda activate ./conda-env
 ```
