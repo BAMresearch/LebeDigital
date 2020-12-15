@@ -10,6 +10,8 @@ dependencies:
   - pymc3=3.9.3
   - doit
   - pyyaml
+  - mkl
+  - mkl-service
   - conda-ecosystem-user-package-isolation
   
   
