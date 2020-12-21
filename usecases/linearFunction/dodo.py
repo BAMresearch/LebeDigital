@@ -1,45 +1,30 @@
 from pathlib import Path
 import yaml
 
-def task_computepyMC3():
+def task_generate_virtual_samples():
     """
-    Create one task for each yaml file.
+    Create virtual experiments to be stored in yaml files.
     """
-    parameter_files = (Path(__file__).parents[0]).glob('*.yaml')
-    script = Path(__file__).parents[0] / "ComputepyMC3.py"
-    script_general = Path(__file__).parents[0] / "Correlation.py"
+    script = Path(__file__).parents[0] / "VirtualLinearModelExperiment.py"
 
-    for parameter_file in parameter_files:
-        pickle_file = parameter_file.with_suffix(".pkl")
-        action = f"python {script} {parameter_file}"
-        yield {
-                "basename" : "TASK: compute pyMC3",
-                "name" : parameter_file.name,
-                "actions": [action],
-                "file_dep" : [script, script_general, parameter_file] ,
-                "targets" : [pickle_file],
-                "verbosity": 2, # show stdout
-                }
+    yield {
+            "basename" : "TASK: generate virtual samples",
+            "actions": ["python VirtualLinearModelExperiment.py"],
+            "file_dep" : [script] ,
+            "verbosity": 2, # show stdout
+            }
 
-def task_PostProcess():
+def task_OptimizeLinearModel():
     """
-    Create one task for each pickle (trace) file.
+    Optimize linear model based on experimental data stored in yaml files.
     """
-    parameter_files = (Path(__file__).parents[0]).glob('*.yaml')
-    script = Path(__file__).parents[0] / "PostProcess.py"
-    script_general = Path(__file__).parents[0] / "Correlation.py"
+    script = Path(__file__).parents[0] / "Optimize.py"
+    script_linear_model = Path(__file__).parents[0] / "LinearModel.py"
+    script_linear_model_error = Path(__file__).parents[0] / "LinearModelError.py"
 
-    for parameter_file in parameter_files:
-        plot_file = parameter_file.with_suffix(".png")
-        pickle_file = parameter_file.with_suffix(".pkl")
-
-        action = f"python {script} {parameter_file}"
-        yield {
-                "basename" : "TASK: PostProcess",
-                "name" : parameter_file.name,
-                "actions": [action],
-                "file_dep" : [script, script_general, pickle_file] ,
-                "targets" : [plot_file],
-                "verbosity": 2, # show stdout
-                }
-
+    yield {
+            "basename" : "TASK: Compute linear model error from multiple models",
+            "actions": [f"python {script}"],
+            "file_dep": [script, script_linear_model, script_linear_model_error],
+            "verbosity": 2, # show stdout
+            }
