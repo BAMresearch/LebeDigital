@@ -7,7 +7,6 @@ class LinearModelError:
     def __init__(self, experimental_data_file):
         import yaml
 
-        self._data = {}
         with open(experimental_data_file, "r") as f:
             d = yaml.load(f, Loader=yaml.FullLoader)
 
@@ -18,7 +17,7 @@ class LinearModelError:
         self.a = d['a']
         self.linear_model = LinearModel(self.x_function, self.x_derivative)
 
-    def  __call__(self, parameters):
+    def __call__(self, parameters):
         [f, df] = self.linear_model(parameters)
         return np.concatenate((f-self.data_f, df-self.data_df))
 

@@ -1,5 +1,5 @@
 # virtual experiment yaml files
-LinearModelExperiment_*.yaml
+virtual_*.yaml
 
 # doit helper files 
 .doit.db.*

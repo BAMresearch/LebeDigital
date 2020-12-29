@@ -5,16 +5,19 @@ def task_generate_virtual_samples():
     """
     Create virtual experiments to be stored in yaml files.
     """
-    script = Path(__file__).parents[0] / "virtual_linear_model_experiment.py"
+    script = Path(__file__).parents[0] / "virtual_experiment.py"
+    result_file_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
+    result_file_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
 
     yield {
             "basename" : "TASK: generate virtual samples",
-            "actions": ["python virtual_linear_model_experiment.py"],
-            "file_dep" : [script] ,
+            "actions": [f"python {script}"],
+            "file_dep" : [script],
             "verbosity": 2, # show stdout
+            "targets": [result_file_linear, result_file_quadratic],
             }
 
-def task_OptimizeLinearModel():
+def task_optimize_linear_model():
     """
     Optimize linear model based on experimental data stored in yaml files.
     """
