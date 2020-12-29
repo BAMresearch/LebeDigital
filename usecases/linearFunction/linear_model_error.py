@@ -1,5 +1,5 @@
 import numpy as np
-from LinearModel import LinearModel
+from linear_model import LinearModel
 from bayes.parameters import *
 
 
