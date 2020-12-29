@@ -28,10 +28,12 @@ def task_optimize_linear_model():
     script = Path(__file__).parents[0] / "optimize.py"
     script_linear_model = Path(__file__).parents[0] / "linear_model.py"
     script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
+    exp_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
+    exp_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
 
     yield {
-            "basename" : "TASK: Compute linear model error from multiple models",
+            "basename": "TASK: Compute linear model error from multiple models",
             "actions": [f"python {script}"],
-            "file_dep": [script, script_linear_model, script_linear_model_error],
+            "file_dep": [script, script_linear_model, script_linear_model_error, exp_linear, exp_quadratic],
             "verbosity": 2, # show stdout
             }
