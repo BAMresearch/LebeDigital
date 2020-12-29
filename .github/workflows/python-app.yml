@@ -1,40 +1,35 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# For more information see: https://autobencoder.com/2020-08-24-conda-actions/
 
-name: Python application
+name: Test case for model calibration
 
-on: push
+on: [push]
 
 jobs:
-  test:
-
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - uses: conda-incubator/setup-miniconda@v2
-          with:
-            miniconda-version: "latest"
-            activate-environment: ""
-    - name: Update Conda environment
-      uses: ./
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
       with:
-        args: conda env update --prefix ./conda-env -f ./environment.yml --prune
-    - name: Install Bayesian inference
+        python-version: 3.8
+    - name: Install dependencies
       run: |
-        conda activate ./conda-env
-        pip install flake8 pytest
-        pip install -e ./BayesianInference
-    - name: Show Conda environment info
-      uses: ./
-      with:
-        args: conda info
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        $CONDA/bin/conda env update --file environment.yml --name base
+        $CONDA/bin/conda activate base
+        pip install -e BayesianInference
     - name: Lint with flake8
       run: |
+        $CONDA/bin/conda install flake8
         # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        $CONDA/bin/flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        $CONDA/bin/flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        conda install pytest
+        $CONDA/bin/pytest
+
