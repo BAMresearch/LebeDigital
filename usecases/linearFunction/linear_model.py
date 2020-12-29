@@ -69,7 +69,7 @@ class LinearModel:
                     "Parameter 'b' not given as input to LinearModel."
                 )
             else:
-                return false
+                return False
         if (parameters['b'] <= 0):
             if runtime_error is True:
                 raise RuntimeError(
