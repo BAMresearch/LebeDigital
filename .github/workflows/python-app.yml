@@ -19,6 +19,7 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         $CONDA/bin/conda env update --file environment.yml --name base
+        $CONDA/bin/conda init bash
         $CONDA/bin/conda activate base
         pip install -e BayesianInference
     - name: Lint with flake8
