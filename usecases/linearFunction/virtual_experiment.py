@@ -3,14 +3,27 @@ import numpy as np
 import yaml
 
 class VirtualLinearModelExperiment:
-    """
-    create virtual test data for a function a+b*x+c*x**2
-    evalute the function at positions x_function
-    evaluate the derivate at positions x_derivatives
-    a is a variable that is different in each experiment and
-    creates a constant offset (different, but known)
+    """create virtual test data for a function a+b*x+c*x**2
+
+    Note:
+        The model is actually nonlinear due to the quadratic component c that represents a model bias
+
+    Attributes:
+        b (float): linear coefficient of the model
+        c (float): quadratic coefficient of the model
+        x_function(np.array): positions of function sensors in the interval [0,1]
+        x_derivative(np.array): positions of derivative sensors in the interval [0,1]
     """
     def __init__(self, b, c, num_function_sensors, num_derivative_sensors, center=False):
+        """Create virtual experiment
+
+        Args:
+            b: linear coefficient of the model
+            c: quadratic coefficient of the model
+            num_function_sensors(int): number of derivative sensors in the interval [0,1]
+            num_derivative_sensors(int): number of derivative sensors in the interval [0,1]
+            center: if False, include start and end point, if True, divide in equal intervals and use midpoint
+        """
         self.b = b
         self.c = c
         if center is False:
@@ -30,6 +43,15 @@ class VirtualLinearModelExperiment:
                 self.x_derivative = np.empty( shape=(0, 0))
 
     def write_data_to_yaml(self, virtual_experimental_data_file, a):
+        """Write virtual sensor data to yaml file
+
+        Args:
+            virtual_experimental_data_file(str): file location
+            a(float): deterministic offset
+
+        Returns:
+            writes the experimental data to the yaml file
+        """
         f_x = a * np.ones(len(self.x_function)) + \
                self.b * self.x_function + self.c * np.square(self.x_function)
         df_x = self.b * np.ones(len(self.x_derivative)) + 2. * self.c * self.x_derivative
@@ -45,6 +67,14 @@ class VirtualLinearModelExperiment:
         f.close()
 
     def write_model_to_yaml(self, virtual_experiment_model_file):
+        """Write virtual model data to yaml file
+
+        Args:
+            virtual_experiment_model_file(str): file location
+
+        Returns:
+            writes the model data (b and c) to the yaml file
+        """
         data = {
             "b": self.b,
             "c": self.c
@@ -62,7 +92,7 @@ class TestVirtualExperiments(unittest.TestCase):
 
         #generate 10 experiments with different offset a (here assumed to be 2*number)
         for experiment in range(10):
-            virtual_experiment.write_data_to_yaml(f"virtual_linear_experiment_data_{experiment}.yaml", a=2*experiment)
+            virtual_experiment.write_data_to_yaml(f"virtual_linear_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
 
     def test_quadratic_virtual_data(self):
         virtual_experiment = VirtualLinearModelExperiment(b=0, c=2, num_function_sensors=1000,
@@ -72,7 +102,7 @@ class TestVirtualExperiments(unittest.TestCase):
         # generate 10 experiments with different offset a (here assumed to be 2*number)
 
         for experiment in range(1):
-            virtual_experiment.write_data_to_yaml(f"virtual_quadratic_experiment_data_{experiment}.yaml", a=0 * experiment)
+            virtual_experiment.write_data_to_yaml(f"virtual_quadratic_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
 
 
 if __name__ == "__main__":
