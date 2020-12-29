@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Update Conda environment
       uses: ./
       with:
-        args: conda env update --prefix ./conda-env -f environment.yml --prune
+        args: conda env update --prefix ./conda-env -f ./environment.yml --prune
     - name: Install Bayesian inference
       run: |
         conda activate ./conda-env
         pip install flake8 pytest
-        pip install -e BayesianInference
+        pip install -e ./BayesianInference
     - name: Show Conda environment info
       uses: ./
       with:
