@@ -1,4 +1,5 @@
 from pathlib import Path
+from doit.task import clean_targets
 import yaml
 
 def task_generate_virtual_samples():
@@ -8,13 +9,16 @@ def task_generate_virtual_samples():
     script = Path(__file__).parents[0] / "virtual_experiment.py"
     result_file_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
     result_file_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
+    p = (Path(__file__).parents[0]).glob("virtual_*_experiment_data_*.yaml")
+    result_files_data = [x for x in p if x.is_file()]
 
     yield {
             "basename" : "TASK: generate virtual samples",
             "actions": [f"python {script}"],
             "file_dep" : [script],
             "verbosity": 2, # show stdout
-            "targets": [result_file_linear, result_file_quadratic],
+            "targets": [result_file_linear, result_file_quadratic] + result_files_data,
+            "clean": [clean_targets]
             }
 
 def task_optimize_linear_model():
