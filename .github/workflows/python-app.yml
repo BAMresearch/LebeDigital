@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -18,10 +21,10 @@ jobs:
     - name: Install conda base environment
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
-        $CONDA/bin/conda env update --file ./environment.yml --name base
+        # $CONDA/bin/conda env update --file ./environment.yml --name base
     - name: Pip Bayesian inference
       run: |
-        $CONDA/bin/pip install ./BayesianInference
+        $CONDA/bin/pip install -e ./BayesianInference
     - name: Lint with flake8
       run: |
         $CONDA/bin/conda install flake8
