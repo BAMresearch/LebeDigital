@@ -21,8 +21,7 @@ jobs:
         $CONDA/bin/conda env update --file environment.yml --name base
     - name: Pip Bayesian inference
       run: |
-        $CONDA/bin/conda activate base
-        pip install -e BayesianInference
+        $CONDA/bin/pip install -e BayesianInference
     - name: Lint with flake8
       run: |
         $CONDA/bin/conda install flake8
