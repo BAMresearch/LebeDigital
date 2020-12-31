@@ -1,8 +1,6 @@
 from pathlib import Path
-import pytest
 from doit.task import clean_targets
 import yaml
-from flake8.api import legacy as flake8
 
 DOIT_CONFIG = {"default_tasks": ["test"]}
 
