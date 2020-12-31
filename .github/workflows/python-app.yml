@@ -26,6 +26,7 @@ jobs:
       run: |
         $CONDA/bin/pip install -e ./BayesianInference
     - name: Test
+      shell: bash -l {0} #otherwise python interpreter is not found in actions of pydoit
       run: |
         cd usecases/linearFunction
         $CONDA/bin/doit test
