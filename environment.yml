@@ -13,7 +13,6 @@ dependencies:
   - mkl
   - mkl-service
   - flake8
-  - pytest
   - conda-ecosystem-user-package-isolation
   
   
