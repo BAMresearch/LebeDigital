@@ -1,6 +1,10 @@
 from pathlib import Path
+import pytest
 from doit.task import clean_targets
 import yaml
+from flake8.api import legacy as flake8
+
+DOIT_CONFIG = {"default_tasks": ["test"]}
 
 def task_generate_virtual_samples():
     """
@@ -12,10 +16,9 @@ def task_generate_virtual_samples():
     p = (Path(__file__).parents[0]).glob("virtual_*_experiment_data_*.yaml")
     result_files_data = [x for x in p if x.is_file()]
 
-    yield {
-            "basename" : "TASK: generate virtual samples",
+    return {
             "actions": [f"python {script}"],
-            "file_dep" : [script],
+            "file_dep": [script],
             "verbosity": 2, # show stdout
             "targets": [result_file_linear, result_file_quadratic] + result_files_data,
             "clean": [clean_targets]
@@ -25,15 +28,30 @@ def task_optimize_linear_model():
     """
     Optimize linear model based on experimental data stored in yaml files.
     """
-    script = Path(__file__).parents[0] / "optimize.py"
+    script = Path(__file__).parents[0] / "test_optimize.py"
+    script_dep_task = Path(__file__).parents[0] / "virtual_experiment.py"
     script_linear_model = Path(__file__).parents[0] / "linear_model.py"
     script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
-    exp_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
-    exp_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
 
-    yield {
-            "basename": "TASK: Compute linear model error from multiple models",
+    return {
             "actions": [f"python {script}"],
-            "file_dep": [script, script_linear_model, script_linear_model_error, exp_linear, exp_quadratic],
+            "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error],
+            "setup": ["generate_virtual_samples"],
             "verbosity": 2, # show stdout
             }
+
+def task_flake():
+    return {
+            "actions": [f"flake8 *.py --count --select=E9,F63,F7,F82 --show-source --statistics",
+                        f"flake8 *.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics"],
+            "file_dep": ["dodo.py"],
+            "verbosity": 2, # show stdout
+            }
+
+def task_test():
+    """ group all tests """
+    # specifying each test as a separate tasks allows to include all the dependencies separately
+    return {"actions": None,
+            "task_dep": ["optimize_linear_model"]}
+
+

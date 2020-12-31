@@ -61,7 +61,7 @@ class LinearModel:
                     f"Parameter 'a' in LinearModel must be positive (={parameters['a']}"
                 )
             else:
-                return false
+                return False
 
         if 'b' not in parameters.names:
             if runtime_error is True:

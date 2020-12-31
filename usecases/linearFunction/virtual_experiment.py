@@ -1,4 +1,3 @@
-import unittest
 import numpy as np
 import yaml
 
@@ -83,29 +82,25 @@ class VirtualLinearModelExperiment:
             d = yaml.dump(data, f, default_flow_style=None)
         f.close()
 
-class TestVirtualExperiments(unittest.TestCase):
+def main():
+    # create data with an exactly linear model (no model bias)
+    virtual_experiment = VirtualLinearModelExperiment(b=3, c=0,
+        num_function_sensors=10, num_derivative_sensors=6)
+    virtual_experiment.write_model_to_yaml(f"virtual_linear_experiment_model.yaml")
+    #generate 10 experiments with different offset a (here assumed to be 2*experiment)
+    for experiment in range(10):
+        virtual_experiment.write_data_to_yaml(f"virtual_linear_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
 
-    def test_linear_virtual_data(self):
-        virtual_experiment = VirtualLinearModelExperiment(b=3, c=0,
-            num_function_sensors=10, num_derivative_sensors=6)
-        virtual_experiment.write_model_to_yaml(f"virtual_linear_experiment_model.yaml")
 
-        #generate 10 experiments with different offset a (here assumed to be 2*number)
-        for experiment in range(10):
-            virtual_experiment.write_data_to_yaml(f"virtual_linear_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
-
-    def test_quadratic_virtual_data(self):
-        virtual_experiment = VirtualLinearModelExperiment(b=0, c=2, num_function_sensors=1000,
-                                                          num_derivative_sensors=0, center=True)
-        virtual_experiment.write_model_to_yaml(f"virtual_quadratic_experiment_model.yaml")
-
-        # generate 10 experiments with different offset a (here assumed to be 2*number)
-
-        for experiment in range(1):
-            virtual_experiment.write_data_to_yaml(f"virtual_quadratic_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
-
+    # create data with an exactly linear model (no model bias)
+    virtual_experiment = VirtualLinearModelExperiment(b=0, c=2, num_function_sensors=1000,
+                                                      num_derivative_sensors=0, center=True)
+    virtual_experiment.write_model_to_yaml(f"virtual_quadratic_experiment_model.yaml")
+    # generate 10 experiments with different offset a (here assumed to be 2*experiment)
+    for experiment in range(1):
+        virtual_experiment.write_data_to_yaml(f"virtual_quadratic_experiment_data_{experiment}.yaml", a=1.+2.*experiment)
 
 if __name__ == "__main__":
     import logging
     logging.basicConfig(level=logging.INFO)
-    unittest.main()
+    main()
