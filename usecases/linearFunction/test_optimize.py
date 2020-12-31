@@ -3,9 +3,9 @@ import numpy as np
 from scipy.optimize import least_squares
 from pathlib import Path
 import yaml
-from linear_model_error import *
-from bayes.parameters import *
+from linear_model_error import LinearModelError
 from bayes.multi_model_error import MultiModelError
+
 
 class MultiLinearModelError(MultiModelError):
     """
@@ -20,16 +20,16 @@ class MultiLinearModelError(MultiModelError):
         super().__init__()
         for yaml_file in yaml_file_list:
             single_model_error = LinearModelError(str(yaml_file))
-            #read in the parameters that are given in the experiment (in this case constant offset a)
+            # read in the parameters that are given in the experiment (in this case constant offset a)
             parameter = single_model_error.get_parameter_dict()
-            #add parameters that are model parameters (not given in the experimental data)
+            # add parameters that are model parameters (not given in the experimental data)
             parameter.define("b")
-            key = self.add(single_model_error, parameter)
+            self.add(single_model_error, parameter)
 
-        #define shared parameters (only one parameter b for all linear models)
+        # define shared parameters (only one parameter b for all linear models)
         self.join(shared='b')
-        #set this shared parameter to be latent (free parameters to be optimized)
-        #no key given - shared variable
+        # set this shared parameter to be latent (free parameters to be optimized)
+        # no key given - shared variable
         self.set_latent('b')
 
 
@@ -61,8 +61,6 @@ class TestOptimize(unittest.TestCase):
         start_vector = np.array([0.7])
         result = least_squares(all_experiments_model_error, start_vector)
 
-        #print(f"optimal parameter {result.x} with cost function {result.cost}.")
-
         virtual_experiment_parameter_file = \
             Path(__file__).parent / 'virtual_quadratic_experiment_model.yaml'
         with open(virtual_experiment_parameter_file, "r") as f:
@@ -72,6 +70,7 @@ class TestOptimize(unittest.TestCase):
         # solve(diff(integrate(((c*x**2+b*x)-bbar*x)**2,(x,0,1)),bbar),bbar)
         # accuracy is limited due to integration error with a limited number of samples
         self.assertAlmostEqual(result.x[0], d['b']+3./4.*d['c'], 6)
+
 
 if __name__ == "__main__":
     import logging

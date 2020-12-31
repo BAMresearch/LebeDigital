@@ -1,6 +1,6 @@
 import numpy as np
 from linear_model import LinearModel
-from bayes.parameters import *
+from bayes.parameters import ModelParameters
 
 
 class LinearModelError:
@@ -60,5 +60,3 @@ class LinearModelError:
         prm = ModelParameters()
         prm.define("a", self.a)
         return prm
-
-
