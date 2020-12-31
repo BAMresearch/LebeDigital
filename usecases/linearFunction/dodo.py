@@ -42,8 +42,7 @@ def task_optimize_linear_model():
 
 def task_flake():
     return {
-            "actions": [f"flake8 *.py --count --select=E9,F63,F7,F82 --show-source --statistics",
-                        f"flake8 *.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics"],
+            "actions": [f"flake8 *.py --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics",],
             "file_dep": ["dodo.py"],
             "verbosity": 2, # show stdout
             }
