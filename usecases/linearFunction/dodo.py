@@ -1,8 +1,10 @@
 from pathlib import Path
 from doit.task import clean_targets
 import yaml
+import sys
 
 DOIT_CONFIG = {"default_tasks": ["test"]}
+PYTHON_EXE = sys.executable
 
 def task_generate_virtual_samples():
     """
@@ -15,7 +17,7 @@ def task_generate_virtual_samples():
     result_files_data = [x for x in p if x.is_file()]
 
     return {
-            "actions": [f"python {script}"],
+            "actions": [f"{PYTHON_EXE} {script}"],
             "file_dep": [script],
             "verbosity": 2, # show stdout
             "targets": [result_file_linear, result_file_quadratic] + result_files_data,
@@ -32,7 +34,7 @@ def task_optimize_linear_model():
     script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
 
     return {
-            "actions": [f"python {script}"],
+            "actions": [f"{PYTHON_EXE} {script}"],
             "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error],
             "setup": ["generate_virtual_samples"],
             "verbosity": 2, # show stdout
