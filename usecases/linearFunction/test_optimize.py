@@ -14,6 +14,11 @@ class MultiLinearModelError(MultiModelError):
     def __init__(self, yaml_file_list):
         """Create class combining different linear model errors
 
+        Note:
+            Currently implemented as a class to later add individual routines of adding additional errors
+            e.g. using database queries, etc. currently, everything is only in yaml files and thus in the
+            constructor.
+
         Args:
             yaml_file_list(list of str): list of yaml files with the experimental data
         """

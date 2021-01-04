@@ -30,51 +30,38 @@ class LinearModel:
             [f_x, df_x]: function values and derivatives at the locations defined in the constructor
         """
         self.check_parameters(parameters)
-        f_x = parameters['a'] * np.ones(len(self.x_function)) + parameters['b'] * self.x_function
+        f_x = parameters['a'] + parameters['b'] * self.x_function
         df_x = parameters['b'] * np.ones(len(self.x_derivative))
         return [f_x, df_x]
 
     @staticmethod
-    def check_parameters(parameters, runtime_error=True):
+    def are_parameters_valid(parameters):
         """
         Check the parameters (all required are given and are also within the bounds)
         Args:
             parameters(ModelParameters): a dictionary type of parameter list defined in bayes
-            runtime_error(bool): specify if a RuntimeError is thrown (raise=True) or only
-                         false returned on failed parameter checks
-        Raises:
-            throws a RuntimeError if raise=True when parameters are either not given or
-            out of bounds
         Returns:
-            true: if check is successful, other wise return false (or throw)
+            true: if check is successful, other wise return false
         """
-        if 'a' not in parameters.names:
-            if runtime_error is True:
-                raise RuntimeError(
-                    "Parameter 'a' not given as input to LinearModel."
-                )
-            else:
-                return False
-        if (parameters['a'] <= 0):
-            if runtime_error is True:
-                raise RuntimeError(
-                    f"Parameter 'a' in LinearModel must be positive (={parameters['a']}"
-                )
-            else:
-                return False
-
-        if 'b' not in parameters.names:
-            if runtime_error is True:
-                raise RuntimeError(
-                    "Parameter 'b' not given as input to LinearModel."
-                )
-            else:
-                return False
-        if (parameters['b'] <= 0):
-            if runtime_error is True:
-                raise RuntimeError(
-                    f"Parameter 'b' in LinearModel must be positive (={parameters['b']}"
-                )
-            else:
-                return False
+        try:
+            LinearModel.check_parameters()
+        except Exception as e:
+            print(e)
+            return False
         return True
+
+    @staticmethod
+    def check_parameters(parameters):
+        """
+        Check the parameters (all required are given and are also within the bounds)
+        Args:
+            parameters(ModelParameters): a dictionary type of parameter list defined in bayes
+        Raises:
+            throws an exception when parameters are either not given or
+            out of bounds
+        """
+        assert 'a' in parameters.names
+        assert 'b' in parameters.names
+
+        assert parameters['a'] > 0
+        assert parameters['b'] > 0

@@ -65,7 +65,6 @@ class VirtualLinearModelExperiment:
         }
         with open(virtual_experimental_data_file, "w") as f:
             yaml.dump(data, f, default_flow_style=None)
-        f.close()
 
     def write_model_to_yaml(self, virtual_experiment_model_file):
         """Write virtual model data to yaml file
@@ -82,7 +81,6 @@ class VirtualLinearModelExperiment:
         }
         with open(virtual_experiment_model_file, "w") as f:
             yaml.dump(data, f, default_flow_style=None)
-        f.close()
 
 
 def main():
@@ -90,16 +88,16 @@ def main():
     virtual_experiment = VirtualLinearModelExperiment(
         b=3, c=0, num_function_sensors=10, num_derivative_sensors=6)
     virtual_experiment.write_model_to_yaml("virtual_linear_experiment_model.yaml")
-    # generate 10 experiments with different offset a (here assumed to be 2*experiment)
+    # generate experiments with different offset 'a'
     for experiment in range(10):
         virtual_experiment.write_data_to_yaml(f"virtual_linear_experiment_data_{experiment}.yaml",
                                               a=1. + 2. * experiment)
 
-    # create data with an exactly linear model (no model bias)
+    # create data with an quadratic model (thus the linear model has a model bias)
     virtual_experiment = VirtualLinearModelExperiment(b=0, c=2, num_function_sensors=1000,
                                                       num_derivative_sensors=0, center=True)
     virtual_experiment.write_model_to_yaml("virtual_quadratic_experiment_model.yaml")
-    # generate 10 experiments with different offset a (here assumed to be 2*experiment)
+    # generate experiments with different offset 'a'
     for experiment in range(1):
         virtual_experiment.write_data_to_yaml(f"virtual_quadratic_experiment_data_{experiment}.yaml",
                                               a=1. + 2. * experiment)
