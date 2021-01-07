@@ -1,45 +1,59 @@
 from pathlib import Path
-import yaml
+from doit.task import clean_targets
+import sys
 
-def task_computepyMC3():
+DOIT_CONFIG = {"default_tasks": ["test"]}
+PYTHON_EXE = sys.executable
+
+
+def task_generate_virtual_samples():
     """
-    Create one task for each yaml file.
+    Create virtual experiments to be stored in yaml files.
     """
-    parameter_files = (Path(__file__).parents[0]).glob('*.yaml')
-    script = Path(__file__).parents[0] / "ComputepyMC3.py"
-    script_general = Path(__file__).parents[0] / "Correlation.py"
+    script = Path(__file__).parents[0] / "virtual_experiment.py"
+    result_file_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
+    result_file_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
+    p = (Path(__file__).parents[0]).glob("virtual_*_experiment_data_*.yaml")
+    result_files_data = [x for x in p if x.is_file()]
 
-    for parameter_file in parameter_files:
-        pickle_file = parameter_file.with_suffix(".pkl")
-        action = f"python {script} {parameter_file}"
-        yield {
-                "basename" : "TASK: compute pyMC3",
-                "name" : parameter_file.name,
-                "actions": [action],
-                "file_dep" : [script, script_general, parameter_file] ,
-                "targets" : [pickle_file],
-                "verbosity": 2, # show stdout
-                }
+    return {
+        "actions": [f"{PYTHON_EXE} {script}"],
+        "file_dep": [script],
+        "verbosity": 2,  # show stdout
+        "targets": [result_file_linear, result_file_quadratic] + result_files_data,
+        "clean": [clean_targets]
+    }
 
-def task_PostProcess():
+
+def task_optimize_linear_model():
     """
-    Create one task for each pickle (trace) file.
+    Optimize linear model based on experimental data stored in yaml files.
     """
-    parameter_files = (Path(__file__).parents[0]).glob('*.yaml')
-    script = Path(__file__).parents[0] / "PostProcess.py"
-    script_general = Path(__file__).parents[0] / "Correlation.py"
+    script = Path(__file__).parents[0] / "test_optimize.py"
+    script_dep_task = Path(__file__).parents[0] / "virtual_experiment.py"
+    script_linear_model = Path(__file__).parents[0] / "linear_model.py"
+    script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
 
-    for parameter_file in parameter_files:
-        plot_file = parameter_file.with_suffix(".png")
-        pickle_file = parameter_file.with_suffix(".pkl")
+    return {
+        "actions": [f"{PYTHON_EXE} {script}"],
+        "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error],
+        "setup": ["generate_virtual_samples"],
+        "verbosity": 2,  # show stdout
+    }
 
-        action = f"python {script} {parameter_file}"
-        yield {
-                "basename" : "TASK: PostProcess",
-                "name" : parameter_file.name,
-                "actions": [action],
-                "file_dep" : [script, script_general, pickle_file] ,
-                "targets" : [plot_file],
-                "verbosity": 2, # show stdout
-                }
 
+def task_flake():
+    return {
+        "actions": ["flake8 *.py --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics"],
+        "file_dep": ["dodo.py"],
+        "verbosity": 2,  # show stdout
+    }
+
+
+def task_test():
+    """ group all tests """
+    # specifying each test as a separate tasks allows to include all the dependencies separately
+    return {
+        "actions": None,
+        "task_dep": ["optimize_linear_model"]
+    }

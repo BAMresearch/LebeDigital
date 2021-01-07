@@ -1,15 +1,8 @@
-# images
-*.png
+# virtual experiment yaml files
+virtual_*.yaml
 
-#pickled output of pymc3
-*.pkl
+# doit helper files 
+.doit.db.*
 
-#doit helper files
-.doit.db.bak
-.doit.db.dat
-.doit.db.dir
-
-#conda environment and python cache
-/conda-env/*
-__pycache__
-
+# python cache
+__pycache__/

@@ -12,6 +12,7 @@ dependencies:
   - pyyaml
   - mkl
   - mkl-service
+  - flake8
   - conda-ecosystem-user-package-isolation
   
   
