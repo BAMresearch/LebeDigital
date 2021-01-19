@@ -31,11 +31,8 @@ class MultiLinearModelError(MultiModelError):
             parameter.define("b")
             self.add(single_model_error, parameter)
 
-        # define shared parameters (only one parameter b for all linear models)
-        self.join(shared='b')
-        # set this shared parameter to be latent (free parameters to be optimized)
-        # no key given - shared variable
-        self.set_latent('b')
+        # define one shared latent parameter (only one parameter b for all linear models)
+        self.latent.add_by_name('b')
 
 
 class TestOptimize(unittest.TestCase):
