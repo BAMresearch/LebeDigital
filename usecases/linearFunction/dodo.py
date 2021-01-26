@@ -6,21 +6,39 @@ DOIT_CONFIG = {"default_tasks": ["test"]}
 PYTHON_EXE = sys.executable
 
 
-def task_generate_virtual_samples():
+def task_generate_virtual_metadata():
     """
-    Create virtual experiments to be stored in yaml files.
+    Create the metadata file for virtual experiments to be performed, store in yaml files.
     """
-    script = Path(__file__).parents[0] / "virtual_experiment.py"
-    result_file_linear = Path(__file__).parents[0] / "virtual_linear_experiment_model.yaml"
-    result_file_quadratic = Path(__file__).parents[0] / "virtual_quadratic_experiment_model.yaml"
-    p = (Path(__file__).parents[0]).glob("virtual_*_experiment_data_*.yaml")
-    result_files_data = [x for x in p if x.is_file()]
+    script = Path(__file__).parents[0] / "generate_metadata_virtual_experiment.py"
+    result_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_meta.yaml"
+    result_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_meta.yaml"
 
     return {
         "actions": [f"{PYTHON_EXE} {script}"],
         "file_dep": [script],
         "verbosity": 2,  # show stdout
-        "targets": [result_file_linear, result_file_quadratic] + result_files_data,
+        "targets": [result_file_linear, result_file_quadratic],
+        "clean": [clean_targets]
+    }
+
+
+def task_generate_virtual_samples():
+    """
+    Create virtual experiments to be stored in yaml files.
+    """
+    script = Path(__file__).parents[0] / "virtual_experiment.py"
+    input_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_meta.yaml"
+    input_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_meta.yaml"
+    result_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_data.yaml"
+    result_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_data.yaml"
+
+    return {
+        "actions": [f"{PYTHON_EXE} {script}"],
+        "file_dep": [script, input_file_linear, input_file_quadratic],
+        "verbosity": 2,  # show stdout
+        "targets": [result_file_linear, result_file_quadratic] ,
+        "setup": ["generate_virtual_metadata"],
         "clean": [clean_targets]
     }
 
