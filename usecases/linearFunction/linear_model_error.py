@@ -19,25 +19,24 @@ class LinearModelError:
         data_f (np.array): Array of sensor readings at x_function
         data_df (np.array): Array of sensor reading at x_derivative
         a (float): offset of the linear function (scalar deterministic value)
-        linear_model (LinearModel): linear forward model (a+b*x) , where 'be' is a model parameter
+        linear_model (LinearModel): linear forward model (a+b*x) , where 'b' is a model parameter
     """
 
-    def __init__(self, experimental_data_file):
+    def __init__(self, x_function, x_derivative, data_f, data_df, a):
         """Create a linear model error
 
         Args:
-            experimental_data_file (string): path to a yaml file that stores all relevant information
+            x_function (np.array): Array of positions x where function values are measured
+            x_derivative (np.array): Array of positions x where function derivatives are measured
+            data_f (np.array): Array of sensor readings at x_function
+            data_df (np.array): Array of sensor reading at x_derivative
+            a (float): offset of the linear function (scalar deterministic value)
         """
-        import yaml
-
-        with open(experimental_data_file, "r") as f:
-            d = yaml.load(f, Loader=yaml.FullLoader)
-
-        self.x_function = np.asarray(d['x_function'])
-        self.x_derivative = np.asarray(d['x_derivative'])
-        self.data_f = np.asarray(d['f'])
-        self.data_df = np.asarray(d['df'])
-        self.a = d['a']
+        self.x_function = x_function
+        self.x_derivative = x_derivative
+        self.data_f = data_f
+        self.data_df = data_df
+        self.a = a
         self.linear_model = LinearModel(self.x_function, self.x_derivative)
 
     def __call__(self, parameters):

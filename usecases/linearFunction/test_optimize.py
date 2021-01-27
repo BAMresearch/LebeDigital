@@ -11,7 +11,7 @@ class MultiLinearModelError(MultiModelError):
     """
     Define a class that combines multiple linear model errors
     """
-    def __init__(self, yaml_file_list):
+    def __init__(self, yaml_file_metadata, yaml_file_data):
         """Create class combining different linear model errors
 
         Note:
@@ -23,8 +23,22 @@ class MultiLinearModelError(MultiModelError):
             yaml_file_list(list of str): list of yaml files with the experimental data
         """
         super().__init__()
-        for yaml_file in yaml_file_list:
-            single_model_error = LinearModelError(str(yaml_file))
+
+        with open(yaml_file_metadata, "r") as f:
+            meta_data = yaml.load(f, Loader=yaml.FullLoader)
+
+        x_function = np.asarray(meta_data['x_function'])
+        x_derivative = np.asarray(meta_data['x_derivative'])
+        all_a = np.asarray(meta_data['all_a'])
+
+        with open(yaml_file_data, "r") as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+
+        for idx, a in enumerate(all_a):
+            data_f = np.asarray(data[idx]['f'])
+            data_df = np.asarray(data[idx]['df'])
+            assert(a == data[idx]['a'])
+            single_model_error = LinearModelError(x_function, x_derivative, data_f, data_df, a)
             # read in the parameters that are given in the experiment (in this case constant offset a)
             parameter = single_model_error.get_parameter_dict()
             # add parameters that are model parameters (not given in the experimental data)
@@ -37,16 +51,16 @@ class MultiLinearModelError(MultiModelError):
 
 class TestOptimize(unittest.TestCase):
     def test_linear_virtual_data(self):
-        yaml_file_list_linear_experiment_data = \
-            Path(Path(__file__).parents[0]).glob('virtual_linear_experiment_data_*.yaml')
-        all_experiments_model_error = MultiLinearModelError(yaml_file_list_linear_experiment_data)
+        all_experiments_model_error = \
+            MultiLinearModelError('virtual_experiment_linear_model_meta.yaml',
+                                  'virtual_experiment_linear_model_data.yaml')
 
         start_vector = np.array([0.7])
         result = least_squares(all_experiments_model_error, start_vector)
 
-        virtual_experiment_parameter_file = \
-            Path(__file__).parent / 'virtual_linear_experiment_model.yaml'
-        with open(virtual_experiment_parameter_file, "r") as f:
+        virtual_experiment_metadata_file = \
+            Path(__file__).parent / 'virtual_experiment_linear_model_meta.yaml'
+        with open(virtual_experiment_metadata_file, "r") as f:
             d = yaml.load(f, Loader=yaml.FullLoader)
 
         # assert quadratic component of virtual experiment to be zero
@@ -56,16 +70,16 @@ class TestOptimize(unittest.TestCase):
         # check cost function to be zero
         self.assertAlmostEqual(result.cost, 0)
 
-    def test_quadratic_virtual_data(self):
-        yaml_file_list_quadratic_experiment_data = \
-            Path(Path(__file__).parents[0]).glob('virtual_quadratic_experiment_data_*.yaml')
-        all_experiments_model_error = MultiLinearModelError(yaml_file_list_quadratic_experiment_data)
+#  def test_quadratic_virtual_data(self):
+        all_experiments_model_error = \
+            MultiLinearModelError('virtual_experiment_quadratic_model_meta.yaml',
+                                  'virtual_experiment_quadratic_model_data.yaml')
         start_vector = np.array([0.7])
         result = least_squares(all_experiments_model_error, start_vector)
 
-        virtual_experiment_parameter_file = \
-            Path(__file__).parent / 'virtual_quadratic_experiment_model.yaml'
-        with open(virtual_experiment_parameter_file, "r") as f:
+        virtual_experiment_metadata_file = \
+            Path(__file__).parent / 'virtual_experiment_quadratic_model_meta.yaml'
+        with open(virtual_experiment_metadata_file, "r") as f:
             d = yaml.load(f, Loader=yaml.FullLoader)
 
         # check to obtain linear coefficient using sympy
