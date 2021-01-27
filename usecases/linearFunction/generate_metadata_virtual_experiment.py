@@ -46,11 +46,11 @@ def write_metadata_to_yaml(virtual_experimental_metadata_file,
 def main():
     # create metadata for an exactly linear model (no model bias)
     write_metadata_to_yaml("virtual_experiment_linear_model_meta.yaml",
-        num_a=10, b=3, c=0, num_function_sensors=10, num_derivative_sensors=6, center=False)
+                           num_a=10, b=3, c=0, num_function_sensors=10, num_derivative_sensors=6, center=False)
 
     # create metadata for a quadratic model (thus the linear model has a model bias)
     write_metadata_to_yaml("virtual_experiment_quadratic_model_meta.yaml",
-        num_a=1, b=0, c=2, num_function_sensors=1000, num_derivative_sensors=0, center=True)
+                           num_a=1, b=0, c=2, num_function_sensors=1000, num_derivative_sensors=0, center=True)
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ def task_generate_virtual_samples():
         "actions": [f"{PYTHON_EXE} {script}"],
         "file_dep": [script, input_file_linear, input_file_quadratic],
         "verbosity": 2,  # show stdout
-        "targets": [result_file_linear, result_file_quadratic] ,
+        "targets": [result_file_linear, result_file_quadratic],
         "setup": ["generate_virtual_metadata"],
         "clean": [clean_targets]
     }

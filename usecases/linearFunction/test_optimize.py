@@ -71,8 +71,6 @@ class TestOptimize(unittest.TestCase):
         self.assertAlmostEqual(result.cost, 0)
 
 #  def test_quadratic_virtual_data(self):
-        yaml_file_list_quadratic_experiment_data = \
-            Path(Path(__file__).parents[0]).glob('virtual_quadratic_experiment_data_*.yaml')
         all_experiments_model_error = \
             MultiLinearModelError('virtual_experiment_quadratic_model_meta.yaml',
                                   'virtual_experiment_quadratic_model_data.yaml')
