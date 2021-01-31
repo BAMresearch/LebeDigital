@@ -1,5 +1,6 @@
 import numpy as np
 import yaml
+from pathlib import Path
 
 
 class VirtualLinearModelExperiment:
@@ -60,16 +61,10 @@ class VirtualLinearModelExperiment:
 
 
 def main():
-    # create experiment with an exactly linear model (no model bias)
-    virtual_experiment = VirtualLinearModelExperiment("virtual_experiment_linear_model_meta.yaml")
-    # write experiments raw data to file
-    virtual_experiment.write_data_to_yaml("virtual_experiment_linear_model_data.yaml")
-
-    # create data with an quadratic model (thus the linear model has a model bias)
-    virtual_experiment = VirtualLinearModelExperiment("virtual_experiment_quadratic_model_meta.yaml")
-    # write experiments raw data to file
-    virtual_experiment.write_data_to_yaml("virtual_experiment_quadratic_model_data.yaml")
-
+    metadata_files = Path(__file__).parent.glob("*_meta.yaml")
+    for file in metadata_files:
+        virtual_experiment = VirtualLinearModelExperiment(file)
+        virtual_experiment.write_data_to_yaml(Path(str(file).replace('meta.yaml', 'data.yaml')))
 
 if __name__ == "__main__":
     import logging

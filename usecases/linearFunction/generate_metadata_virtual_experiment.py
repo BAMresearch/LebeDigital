@@ -56,7 +56,13 @@ def main():
     # create metadata for an exactly linear model (no model bias)
     write_metadata_to_yaml("virtual_experiment_linear_model_meta.yaml",
                            num_a=10, b=3, c=0,
-                           num_function_sensors=10, sigma_noise_function=1.,
+                           num_function_sensors=10, sigma_noise_function=0.,
+                           num_derivative_sensors=6, sigma_noise_derivative=0.,
+                           center=False)
+
+    write_metadata_to_yaml("virtual_experiment_linear_model_with_noise_meta.yaml",
+                           num_a=10, b=3, c=0,
+                           num_function_sensors=10, sigma_noise_function=1.0,
                            num_derivative_sensors=6, sigma_noise_derivative=0.01,
                            center=False)
 
