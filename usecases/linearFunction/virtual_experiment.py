@@ -28,7 +28,10 @@ class VirtualLinearModelExperiment:
         self.b = d['b']
         self.c = d['c']
         self.x_function = np.asarray(d['x_function'])
+        self.sigma_noise_function = np.asarray(d['sigma_noise_function'])
         self.x_derivative = np.asarray(d['x_derivative'])
+        self.sigma_noise_derivative = np.asarray(d['sigma_noise_derivative'])
+        self.seed = np.asarray(d['seed'])
 
     def write_data_to_yaml(self, virtual_experimental_data_file):
         """Write virtual sensor data to yaml file
@@ -43,8 +46,11 @@ class VirtualLinearModelExperiment:
             data = {}
             for index, a in enumerate(self.all_a):
                 f_x = a * np.ones(len(self.x_function)) \
-                    + self.b * self.x_function + self.c * np.square(self.x_function)
+                    + self.b * self.x_function + self.c * np.square(self.x_function) \
+                    + np.random.normal(0,self.sigma_noise_function,len(self.x_function))
                 df_x = self.b * np.ones(len(self.x_derivative)) + 2. * self.c * self.x_derivative
+                + np.random.normal(0, self.sigma_noise_derivative, len(self.x_derivative))
+
                 data[index] = {
                     "a": float(a),
                     "f": f_x.tolist(),

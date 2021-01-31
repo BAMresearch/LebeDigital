@@ -51,10 +51,15 @@ def task_optimize_linear_model():
     script_dep_task = Path(__file__).parents[0] / "virtual_experiment.py"
     script_linear_model = Path(__file__).parents[0] / "linear_model.py"
     script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
+    meta_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_meta.yaml"
+    meta_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_meta.yaml"
+    data_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_data.yaml"
+    data_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_data.yaml"
 
     return {
         "actions": [f"{PYTHON_EXE} {script}"],
-        "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error],
+        "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error,
+                     meta_linear, meta_quadratic, data_linear, data_quadratic],
         "setup": ["generate_virtual_samples"],
         "verbosity": 2,  # show stdout
     }
