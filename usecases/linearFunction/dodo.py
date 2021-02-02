@@ -5,6 +5,7 @@ import sys
 DOIT_CONFIG = {"default_tasks": ["test"]}
 PYTHON_EXE = sys.executable
 
+
 def task_generate_virtual_metadata():
     """
     Create the metadata file for virtual experiments to be performed, store in yaml files.

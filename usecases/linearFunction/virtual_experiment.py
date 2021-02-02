@@ -48,7 +48,7 @@ class VirtualLinearModelExperiment:
             for index, a in enumerate(self.all_a):
                 f_x = a * np.ones(len(self.x_function)) \
                     + self.b * self.x_function + self.c * np.square(self.x_function) \
-                    + np.random.normal(0,self.sigma_noise_function,len(self.x_function))
+                    + np.random.normal(0, self.sigma_noise_function, len(self.x_function))
                 df_x = self.b * np.ones(len(self.x_derivative)) + 2. * self.c * self.x_derivative
                 + np.random.normal(0, self.sigma_noise_derivative, len(self.x_derivative))
 
@@ -65,6 +65,7 @@ def main():
     for file in metadata_files:
         virtual_experiment = VirtualLinearModelExperiment(file)
         virtual_experiment.write_data_to_yaml(Path(str(file).replace('meta.yaml', 'data.yaml')))
+
 
 if __name__ == "__main__":
     import logging
