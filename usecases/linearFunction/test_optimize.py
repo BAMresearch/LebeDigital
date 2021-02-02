@@ -51,6 +51,11 @@ class MultiLinearModelError(MultiModelError):
 
 class TestOptimize(unittest.TestCase):
     def test_linear_virtual_data(self):
+        virtual_experiment_metadata_file = \
+            Path(__file__).parent / 'virtual_experiment_linear_model_meta.yaml'
+        with open(virtual_experiment_metadata_file, "r") as f:
+            d = yaml.load(f, Loader=yaml.FullLoader)
+
         all_experiments_model_error = \
             MultiLinearModelError('virtual_experiment_linear_model_meta.yaml',
                                   'virtual_experiment_linear_model_data.yaml')
@@ -58,19 +63,40 @@ class TestOptimize(unittest.TestCase):
         start_vector = np.array([0.7])
         result = least_squares(all_experiments_model_error, start_vector)
 
+        # assert quadratic component of virtual experiment to be zero
+        self.assertAlmostEqual(d['c'], 0.)
+        # check to obtain exact linear coefficient
+        self.assertAlmostEqual(result.x[0], d['b'], 7)
+        # check cost function to be zero
+        self.assertAlmostEqual(result.cost, 0)
+
+    def test_linear_virtual_data_split(self):
         virtual_experiment_metadata_file = \
-            Path(__file__).parent / 'virtual_experiment_linear_model_meta.yaml'
+            Path(__file__).parent / 'virtual_experiment_linear_model_with_noise_meta.yaml'
         with open(virtual_experiment_metadata_file, "r") as f:
             d = yaml.load(f, Loader=yaml.FullLoader)
+
+        all_experiments_model_error = \
+            MultiLinearModelError('virtual_experiment_linear_model_with_noise_meta.yaml',
+                                  'virtual_experiment_linear_model_with_noise_data.yaml')
+
+        def weighted_all_experiments_model_error(prm_vector):
+            all_model_errors = all_experiments_model_error.evaluate(prm_vector)
+            obj = 0.
+            for key, me in all_model_errors.items():
+                obj = obj + np.dot(me['f'], me['f']) / d['sigma_noise_function'] ** 2 + \
+                      np.dot(me['df'], me['df']) / d['sigma_noise_derivative'] ** 2
+            return np.sqrt(obj)
+
+        weighted_start_vector = np.array([0.7])
+        weighted_result = least_squares(weighted_all_experiments_model_error, weighted_start_vector)
 
         # assert quadratic component of virtual experiment to be zero
         self.assertAlmostEqual(d['c'], 0.)
         # check to obtain exact linear coefficient
-        self.assertAlmostEqual(result.x[0], d['b'])
-        # check cost function to be zero
-        self.assertAlmostEqual(result.cost, 0)
+        self.assertAlmostEqual(weighted_result.x[0], d['b'], 4)
 
-#  def test_quadratic_virtual_data(self):
+    def test_quadratic_virtual_data(self):
         all_experiments_model_error = \
             MultiLinearModelError('virtual_experiment_quadratic_model_meta.yaml',
                                   'virtual_experiment_quadratic_model_data.yaml')

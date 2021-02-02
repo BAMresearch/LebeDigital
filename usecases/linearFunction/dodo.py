@@ -11,15 +11,14 @@ def task_generate_virtual_metadata():
     Create the metadata file for virtual experiments to be performed, store in yaml files.
     """
     script = Path(__file__).parents[0] / "generate_metadata_virtual_experiment.py"
-    result_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_meta.yaml"
-    result_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_meta.yaml"
+    metadata_files = Path(__file__).parent.glob('*_meta.yaml')
 
     return {
         "actions": [f"{PYTHON_EXE} {script}"],
         "file_dep": [script],
         "verbosity": 2,  # show stdout
-        "targets": [result_file_linear, result_file_quadratic],
-        "clean": [clean_targets]
+        "targets": [*metadata_files],
+        'uptodate': [len(list(metadata_files)) > 0],
     }
 
 
@@ -27,17 +26,16 @@ def task_generate_virtual_samples():
     """
     Create virtual experiments to be stored in yaml files.
     """
+    metadata_files = Path(__file__).parent.glob('*_meta.yaml')
+    data_files = Path(__file__).parent.glob('*_data.yaml')
+
     script = Path(__file__).parents[0] / "virtual_experiment.py"
-    input_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_meta.yaml"
-    input_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_meta.yaml"
-    result_file_linear = Path(__file__).parents[0] / "virtual_experiment_linear_model_data.yaml"
-    result_file_quadratic = Path(__file__).parents[0] / "virtual_experiment_quadratic_model_data.yaml"
 
     return {
         "actions": [f"{PYTHON_EXE} {script}"],
-        "file_dep": [script, input_file_linear, input_file_quadratic],
+        "file_dep": [script, *metadata_files],
         "verbosity": 2,  # show stdout
-        "targets": [result_file_linear, result_file_quadratic],
+        "targets": [*data_files],
         "setup": ["generate_virtual_metadata"],
         "clean": [clean_targets]
     }
@@ -51,10 +49,13 @@ def task_optimize_linear_model():
     script_dep_task = Path(__file__).parents[0] / "virtual_experiment.py"
     script_linear_model = Path(__file__).parents[0] / "linear_model.py"
     script_linear_model_error = Path(__file__).parents[0] / "linear_model_error.py"
+    metadata_files = Path(__file__).parent.glob("*_meta.yaml")
+    data_files = Path(__file__).parent.glob("*_data.yaml")
 
     return {
         "actions": [f"{PYTHON_EXE} {script}"],
-        "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error],
+        "file_dep": [script, script_dep_task, script_linear_model, script_linear_model_error,
+                     *metadata_files, *data_files],
         "setup": ["generate_virtual_samples"],
         "verbosity": 2,  # show stdout
     }

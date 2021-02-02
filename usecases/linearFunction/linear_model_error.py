@@ -1,6 +1,7 @@
 import numpy as np
 from linear_model import LinearModel
 from bayes.parameters import ModelParameters
+from collections import OrderedDict
 
 
 class LinearModelError:
@@ -50,6 +51,18 @@ class LinearModelError:
         """
         [f, df] = self.linear_model(parameters)
         return np.concatenate((f-self.data_f, df-self.data_df))
+
+    def evaluate(self, parameters):
+        """Evaluate the model error for a specific experiment
+
+        Args:
+            parameters(ModelParameters): a dictionary type of parameter list defined in bayes (a and b)
+
+        Returns:
+            return an OrderDict of the individual model errors (e.g. per sensor)
+        """
+        [f, df] = self.linear_model(parameters)
+        return OrderedDict([('f', f-self.data_f), ('df', df-self.data_df)])
 
     def get_parameter_dict(self):
         """Create a parameter list initialized with parameters given in the experimental data file
