@@ -64,4 +64,4 @@ class LinearModel:
         assert 'b' in parameters.names
 
         assert parameters['a'] > 0
-        assert parameters['b'] > 0
+        #assert parameters['b'] > 0

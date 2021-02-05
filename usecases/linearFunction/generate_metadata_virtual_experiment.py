@@ -58,20 +58,26 @@ def write_metadata_to_yaml(virtual_experimental_metadata_file,
 
 def main():
     # create metadata for an exactly linear model (no model bias)
-    write_metadata_to_yaml("virtual_experiment_linear_model_meta.yaml",
+    write_metadata_to_yaml("virtual_experiment_linear_meta.yaml",
                            num_a=10, b=3, c=0,
                            num_function_sensors=10, sigma_noise_function=0., l_noise_function=0.,
                            num_derivative_sensors=6, sigma_noise_derivative=0., l_noise_derivative=0.,
                            center=False, seed=42)
 
-    write_metadata_to_yaml("virtual_experiment_linear_model_with_noise_meta.yaml",
+    write_metadata_to_yaml("virtual_experiment_linear_with_noise_optimize_meta.yaml",
                            num_a=10, b=3, c=0,
                            num_function_sensors=10, sigma_noise_function=1.0, l_noise_function=1.,
-                           num_derivative_sensors=6, sigma_noise_derivative=0.01, l_noise_derivative=0.1,
+                           num_derivative_sensors=6, sigma_noise_derivative = 0.01, l_noise_derivative=0.1,
+                           center=False, seed=43)
+
+    write_metadata_to_yaml("virtual_experiment_linear_with_noise_mcmc_meta.yaml",
+                           num_a=10, b=3, c=0,
+                           num_function_sensors=5, sigma_noise_function=1.5, l_noise_function=0.0,
+                           num_derivative_sensors=5, sigma_noise_derivative=0.3, l_noise_derivative=0.0,
                            center=False, seed=43)
 
     # create metadata for a quadratic model (thus the linear model has a model bias)
-    write_metadata_to_yaml("virtual_experiment_quadratic_model_meta.yaml",
+    write_metadata_to_yaml("virtual_experiment_quadratic_meta.yaml",
                            num_a=1, b=0, c=2,
                            num_function_sensors=1000, sigma_noise_function=0., l_noise_function=0.,
                            num_derivative_sensors=0, sigma_noise_derivative=0., l_noise_derivative=0.,
