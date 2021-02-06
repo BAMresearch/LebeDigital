@@ -12,11 +12,4 @@ To be added
    :maxdepth: 2
    :caption: Contents:
 
-   doc/model.md
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   docs/model.rst

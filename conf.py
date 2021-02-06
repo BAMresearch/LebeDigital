@@ -13,6 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import  sphinx_rtd_theme
 
 
 # -- Project information -----------------------------------------------------
@@ -30,6 +31,7 @@ author = 'Jörg F. Unger'
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
+    'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -45,7 +47,8 @@ source_suffix = {
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['conda-env','conda-env', '_build', 'Thumbs.db', '.DS_Store']
+
 
 # The master toctree document.
 master_doc = 'index'
