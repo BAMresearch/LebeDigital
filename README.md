@@ -1,4 +1,4 @@
-## Introction - Model calibration
+## Introduction - Model calibration
 Model calibration (or model updating) is a task most scientists are facing when building parameterized models and then
  updating the parameters based on some experimental data in order to generalize the model and make accurate predictions.
 For complex models and complex data sets (different experimental tests with different data structures, sensor
