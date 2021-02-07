@@ -11,4 +11,4 @@ Model calibration (or model updating) is a task most scientists are facing when 
    :maxdepth: 2
    :caption: Contents:
 
-   docs/model.rst
+   docs/motivation.rst

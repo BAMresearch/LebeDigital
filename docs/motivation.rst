@@ -1,11 +1,11 @@
-Forward model
-============
+Motivation
+================================
 The forward model is a python wrapper to a potentially complex simulation software. The input is usually a set a set of scalar or vector valued parameters, and the output is a set of scalars, vectors or matrix type outputs. Usual interfaces such as scipy.optimize only consider a single input and output vector. However, this makes it very difficult in the optimization or inference procedure to extract relevant information.
 
-For the input, giving one specific index in the global parameter vector to each latent variable is tricky.
+For the input, specifying one specific index in the global parameter vector to each latent variable is tricky.
 
 * What exactly is supposed to be a model input is often difficult to define a priori when starting the inference problem, since in many cases during the progress of the project we experienced the problem that additional parameters have to be added or the parameters change their type from being deterministic to be inferred.
-* Combinations of different data sets with different model parameters are difficult to handle. If another model with addditional parameters is added, this changes all subsequent entries.
+* Combinations of different data sets with different model parameters are difficult to handle. If another model with aditional parameters is added, this changes all subsequent entries.
 * Parameters can be either shared between experiments or individual per data set. Assume you have 10 tensile tests that are influenced by temperature - but you forgot to measure this. The single material parameter Young's modulus *E* is shared between all experiments, the temperature *T* for each individual experiment might be another parameter to be identified for each individual experiment. This results in two parameters per individual forward model (*E*, *T*), but on the global inference level there are 11 parameters (Young's modulus plus 10 temperatures).
 
 For the output, just taking the norm of a residual vector is often misleading.
