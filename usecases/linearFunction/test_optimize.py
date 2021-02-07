@@ -47,6 +47,18 @@ class MultiLinearModelError(MultiModelError):
             parameter = single_model_error.get_parameter_dict()
             self.add(single_model_error, parameter)
 
+    def latent_as_tensor_variable(self, model, prior_pymc3):
+        with model:
+            #array = [prior_pymc3[key] for key, var in prior_pymc3.items()]
+            array = []
+            for latent_parameters in self.latent._index_mapping:
+                # latent_parameters is now a dict of all parameters with key related to the model key and value being the name of the variable in this list
+                # get value of first iterator, which is currently supposed to be all identical
+                # TODO we need to define for each latent variable a new name that is then used to identify the prior, or set the initial value
+                var_name = next(iter(latent_parameters.values()))
+                array.append(prior_pymc3[var_name])
+            return tt.as_tensor_variable(array)
+
 
 class TestOptimize(unittest.TestCase):
     def test_linear(self):
@@ -120,6 +132,7 @@ class TestOptimize(unittest.TestCase):
         all_experiments_model_error.latent.add_by_name('sigma_noise_f')
         all_experiments_model_error.latent.add_by_name('sigma_noise_df')
 
+        #define log likelihood
         class LogLike:
             """
             To be used within pymc3
@@ -152,27 +165,29 @@ class TestOptimize(unittest.TestCase):
 
         np.random.seed(42)
 
-        my_loglike = LogLike(all_experiments_model_error)
-        logl = LogLikeWithGrad(my_loglike)
-        with pm.Model():
+        #instantiate log likelihood with the model error
+        loglike_without_gradient = LogLike(all_experiments_model_error)
+        #generate a likelihood function with an automatic generation of the gradient using finite differences
+        loglike = LogLikeWithGrad(loglike_without_gradient)
+        prior_pymc3 = {}
+        with pm.Model() as model:
             # Define priors !Make sure that this list corresponds to the right extraction for latent_parameters
-            b = pm.Normal("b", 5.0, sd=1.0)
+            prior_pymc3['b'] = pm.Normal("b", 5.0, sd=1.0)
             noise_function_prior_mean = 5.  # mean=b/(a-1) var=b**2/(a-1)**/a -> a=mean**2/var but>2, so usually a=4 is a
             # good choice, then b=mean*(alpha-1), with alpha=4 this results in b=mean*3
-            sigma_noise_function = pm.InverseGamma("sigma_noise_function", alpha=4., beta=noise_function_prior_mean * 3)
+            prior_pymc3['sigma_noise_f'] = pm.InverseGamma("sigma_noise_f", alpha=4., beta=noise_function_prior_mean * 3)
             noise_derivative_prior_mean = 0.5  # mean=b/(a-1) var=b**2/(a-1)**/a -> a=mean**2/var but>2, so usually a=4 is a
-            sigma_noise_derivative = pm.InverseGamma("sigma_noise_derivative", alpha=4.,
+            prior_pymc3['sigma_noise_df'] = pm.InverseGamma("sigma_noise_df", alpha=4.,
                                                    beta=noise_derivative_prior_mean * 3)
-
-            theta = tt.as_tensor_variable([b, sigma_noise_function, sigma_noise_derivative])
-            pm.Potential("likelihood", logl(theta))
+            theta = all_experiments_model_error.latent_as_tensor_variable(model, prior_pymc3)
+            pm.Potential("likelihood", loglike(theta))
 
             # Inference!
             trace = pm.sample(
-                draws=2000,
+                draws=1000,
                 step=pm.Metropolis(),
                 chains=4,
-                tune=500, #used for tuning the proposal density to get specified acceptance rate (65?)
+                tune=500, #used for tuning the proposal density to get specified acceptance rate (65%?)
                 discard_tuned_samples=True,
             )
 
@@ -182,10 +197,10 @@ class TestOptimize(unittest.TestCase):
         means = s["mean"]
         sds = s["sd"]
         print(f"PM: Posterior for 'b' = {means['b']:6.3f} with sd {sds['b']:6.3f}.")
-        print(f"PM: Posterior for 'sigma_std_function' = {means['sigma_noise_function']:6.3f} with sd "
-              f"{sds['sigma_noise_function']:6.3f}.")
-        print(f"PM: Posterior for 'sigma_std_derivative' = {means['sigma_noise_derivative']:6.3f} with sd "
-              f"{sds['sigma_noise_derivative']:6.3f}.")
+        print(f"PM: Posterior for 'sigma_std_f' = {means['sigma_noise_f']:6.3f} with sd "
+              f"{sds['sigma_noise_f']:6.3f}.")
+        print(f"PM: Posterior for 'sigma_std_df' = {means['sigma_noise_df']:6.3f} with sd "
+              f"{sds['sigma_noise_df']:6.3f}.")
         # print(trace.stat_names)
         # accept = trace.get_sampler_stats('accept')
         # print("accept", accept)
