@@ -65,10 +65,11 @@ class LinearModelError:
         return OrderedDict([('f', f-self.data_f), ('df', df-self.data_df)])
 
     def get_parameter_dict(self):
-        """Create a parameter list initialized with parameters given in the experimental data file
+        """Create a parameter list initialized with parameters required by the forward model
+        data that is given in the experiment is eventually added
 
         Returns: parameter list
         """
-        prm = ModelParameters()
-        prm.define("a", self.a)
+        prm = self.linear_model.get_parameter_dict()
+        prm["a"] = self.a
         return prm

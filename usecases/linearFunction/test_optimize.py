@@ -43,13 +43,9 @@ class MultiLinearModelError(MultiModelError):
             assert(a == data[idx]['a'])
             single_model_error = LinearModelError(x_function, x_derivative, data_f, data_df, a)
             # read in the parameters that are given in the experiment (in this case constant offset a)
+            # todo can we remove this, if the model error provides the dict, then we can just automatically call get_prm_dict
             parameter = single_model_error.get_parameter_dict()
-            # add parameters that are model parameters (not given in the experimental data)
-            parameter.define("b")
             self.add(single_model_error, parameter)
-
-        # define one shared latent parameter (only one parameter b for all linear models)
-        self.latent.add_by_name('b')
 
 
 class TestOptimize(unittest.TestCase):
@@ -62,7 +58,8 @@ class TestOptimize(unittest.TestCase):
         all_experiments_model_error = \
             MultiLinearModelError('virtual_experiment_linear_meta.yaml',
                                   'virtual_experiment_linear_data.yaml')
-
+        # define one shared latent parameter (only one parameter b for all linear models)
+        all_experiments_model_error.latent.add_by_name('b')
         start_vector = np.array([0.7])
         result = least_squares(all_experiments_model_error, start_vector)
 
@@ -91,6 +88,7 @@ class TestOptimize(unittest.TestCase):
                       np.dot(me['df'], me['df']) / d['sigma_noise_derivative'] ** 2
             return np.sqrt(obj)
 
+        all_experiments_model_error.latent.add_by_name('b')
         weighted_start_vector = np.array([0.7])
         weighted_result = least_squares(weighted_all_experiments_model_error, weighted_start_vector)
 
@@ -118,6 +116,7 @@ class TestOptimize(unittest.TestCase):
             param_list.define('sigma_noise_df', 1.)
 
         # add noise term as global shared parameter (all model errors have the same)
+        all_experiments_model_error.latent.add_by_name('b')
         all_experiments_model_error.latent.add_by_name('sigma_noise_f')
         all_experiments_model_error.latent.add_by_name('sigma_noise_df')
 
@@ -204,6 +203,7 @@ class TestOptimize(unittest.TestCase):
             MultiLinearModelError('virtual_experiment_quadratic_meta.yaml',
                                   'virtual_experiment_quadratic_data.yaml')
         start_vector = np.array([0.7])
+        all_experiments_model_error.latent.add_by_name('b')
         result = least_squares(all_experiments_model_error, start_vector)
 
         virtual_experiment_metadata_file = \
