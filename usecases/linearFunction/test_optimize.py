@@ -37,14 +37,17 @@ class MultiLinearModelError(MultiModelError):
         with open(yaml_file_data, "r") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
 
+        self.linearModelParameters = []
         for idx, a in enumerate(all_a):
             data_f = np.asarray(data[idx]['f'])
             data_df = np.asarray(data[idx]['df'])
             assert(a == data[idx]['a'])
             single_model_error = LinearModelError(x_function, x_derivative, data_f, data_df, a)
             # read in the parameters that are given in the experiment (in this case constant offset a)
-            # todo can we remove this, if the model error provides the dict, then we can just automatically call get_prm_dict
             parameter = single_model_error.get_parameter_dict()
+            # store the parameter list here to access it later, e.g. in the evaluation of the likelihood
+            self.linearModelParameters.append(parameter)
+            # add the parameter list with the model error to the joint latent list
             self.add(single_model_error, parameter)
 
     def latent_as_tensor_variable(self, model, prior_pymc3):
@@ -71,8 +74,11 @@ class TestOptimize(unittest.TestCase):
             MultiLinearModelError('virtual_experiment_linear_meta.yaml',
                                   'virtual_experiment_linear_data.yaml')
         # define one shared latent parameter (only one parameter b for all linear models)
-        all_experiments_model_error.latent.add_by_name('b')
-        start_vector = np.array([0.7])
+        # add all variables 'b' in all model parameter lists as a shared latent variable
+        # return index in the global vector
+        index_b = all_experiments_model_error.latent.add_by_name('b')
+        start_vector = np.empty([len(all_experiments_model_error.latent)])
+        start_vector[index_b] = 0.7
         result = least_squares(all_experiments_model_error, start_vector)
 
         # assert quadratic component of virtual experiment to be zero
@@ -100,8 +106,12 @@ class TestOptimize(unittest.TestCase):
                       np.dot(me['df'], me['df']) / d['sigma_noise_derivative'] ** 2
             return np.sqrt(obj)
 
-        all_experiments_model_error.latent.add_by_name('b')
-        weighted_start_vector = np.array([0.7])
+        # add all variables 'b' in all model parameter lists as a shared latent variable
+        # return index in the global vector
+        index_b = all_experiments_model_error.latent.add_by_name('b')
+        weighted_start_vector = np.empty([len(all_experiments_model_error.latent)])
+        weighted_start_vector[index_b] = 0.7
+
         weighted_result = least_squares(weighted_all_experiments_model_error, weighted_start_vector)
 
         # assert quadratic component of virtual experiment to be zero
@@ -120,17 +130,10 @@ class TestOptimize(unittest.TestCase):
                                   'virtual_experiment_linear_with_noise_mcmc_data.yaml')
 
         # add noise term as local parameter to all model errors
-        #todo change latent in multimodelerror, since this is how we import the complete list
-        #todo do we have to add hyperparameters to the model parameters, since they are not part of the forward model
-        #howto access the parameter list outside (e.g. to add a model parameter)
-        for key, param_list in all_experiments_model_error.latent._all_parameters.items():
+        # currently we have to add hyperparameters to the model parameters, since they are not part of the forward model
+        for param_list in all_experiments_model_error.linearModelParameters:
             param_list.define('sigma_noise_f', 1.)
             param_list.define('sigma_noise_df', 1.)
-
-        # add noise term as global shared parameter (all model errors have the same)
-        all_experiments_model_error.latent.add_by_name('b')
-        all_experiments_model_error.latent.add_by_name('sigma_noise_f')
-        all_experiments_model_error.latent.add_by_name('sigma_noise_df')
 
         #define log likelihood
         class LogLike:
@@ -148,8 +151,7 @@ class TestOptimize(unittest.TestCase):
 
                 with precision = 1. / sigma **2
                 """
-                # should evaluate return a copy or update the parameter vector ? Standard is now a copy
-                # but this is not returned and thus cannot be used in the evaluation of loglike
+
                 multi_model_error_result = self.multi_model_error.evaluate(prm_vector)
                 log_like = 0.
                 for key, me in multi_model_error_result.items():
@@ -169,17 +171,19 @@ class TestOptimize(unittest.TestCase):
         loglike_without_gradient = LogLike(all_experiments_model_error)
         #generate a likelihood function with an automatic generation of the gradient using finite differences
         loglike = LogLikeWithGrad(loglike_without_gradient)
-        prior_pymc3 = {}
+        pyMC3_prior = [None] * 3 # inititalize array of pyMC3 priors with the number of latent parameters
+        # add noise term as global shared parameter (all model errors have the same)
         with pm.Model() as model:
-            # Define priors !Make sure that this list corresponds to the right extraction for latent_parameters
-            prior_pymc3['b'] = pm.Normal("b", 5.0, sd=1.0)
+            # Define priors, add_by_name returns the index in the global parameter vector
+            # this ensures that the pymc3 priors are ordered in the same way as the global vector
+            pyMC3_prior[all_experiments_model_error.latent.add_by_name('b')] = pm.Normal("b", 5.0, sd=1.0)
             noise_function_prior_mean = 5.  # mean=b/(a-1) var=b**2/(a-1)**/a -> a=mean**2/var but>2, so usually a=4 is a
             # good choice, then b=mean*(alpha-1), with alpha=4 this results in b=mean*3
-            prior_pymc3['sigma_noise_f'] = pm.InverseGamma("sigma_noise_f", alpha=4., beta=noise_function_prior_mean * 3)
+            pyMC3_prior[all_experiments_model_error.latent.add_by_name('sigma_noise_f')] = pm.InverseGamma("sigma_noise_f", alpha=4., beta=noise_function_prior_mean * 3)
             noise_derivative_prior_mean = 0.5  # mean=b/(a-1) var=b**2/(a-1)**/a -> a=mean**2/var but>2, so usually a=4 is a
-            prior_pymc3['sigma_noise_df'] = pm.InverseGamma("sigma_noise_df", alpha=4.,
+            pyMC3_prior[all_experiments_model_error.latent.add_by_name('sigma_noise_df')] = pm.InverseGamma("sigma_noise_df", alpha=4.,
                                                    beta=noise_derivative_prior_mean * 3)
-            theta = all_experiments_model_error.latent_as_tensor_variable(model, prior_pymc3)
+            theta = tt.as_tensor_variable(pyMC3_prior)
             pm.Potential("likelihood", loglike(theta))
 
             # Inference!
