@@ -35,7 +35,7 @@ class AsymptoticModel:
             parameters(ModelParameters): a dictionary type of parameter list defined in bayes (mA and mB)
 
         Returns:
-            [MatB_x, MatC_x]: MatB values and MatCs at the locations defined in the constructor
+            [MatB_x, MatC_x, Mat_B_C]: MatB, MatC (virtual experiment) and Mat_B_C (model) values at the locations defined in the constructor
         """
         self.check_parameters(parameters)
         # MatB_x = parameters['a'] * np.ones(len(self.x_Mat_sensors)) + parameters['b'] * self.x_Mat_sensors

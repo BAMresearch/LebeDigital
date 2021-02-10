@@ -55,9 +55,9 @@ class AsymptoticModelError:
             concatenated model error (np.array) of all individual model errors
         """
         # [MatB, MatC, Mat_B_C] = self.asymptotic_model(parameters)
-        [Mat_B_C] = self.asymptotic_model(parameters)
+        Mat_B_C = self.asymptotic_model(parameters)
 #        return np.concatenate((f-self.data_MatB, df-self.data_MatC))
-        return np.concatenate((Mat_B_C - self.data_MatB / self.data_MatC ))
+        return np.concatenate(Mat_B_C-(self.data_MatB / self.data_MatC) )
 
     def evaluate(self, parameters):
         """Evaluate the model error for a specific experiment

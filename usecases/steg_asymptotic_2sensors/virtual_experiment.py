@@ -12,6 +12,7 @@ class VirtualAsymptoticModelExperiment:
       The target property for the model to be calibrated is MatB/MatC = mA * mB / x, where mA and mB are model parameters.
 
     Attributes:
+        a, b, c, d, e (floats) : coefficient of the virtual data series.
         mA (float): coefficient of the model
         mB (float): coefficient of the model
         x_Mat_sensors(np.array): positions of MatB and MatC sensors in the interval [x_start, x_end]
