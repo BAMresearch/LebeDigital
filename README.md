@@ -9,6 +9,11 @@ performing this task.
 Further information can be found in the [documentation](https://modelcalibration.readthedocs.io/en/latest/?).
 
 ## Installation of the conda environment
+Clone the repository and make sure to include the submodules
+```
+git clone --recurse-submodules https://github.com/BAMresearch/ModelCalibration.git
+```
+
 Create environment within the main project folder
 ```
 conda env create --prefix ./conda-env -f environment.yml 
