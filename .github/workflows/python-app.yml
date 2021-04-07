@@ -29,6 +29,10 @@ jobs:
       run: |
         cd usecases/linearFunction
         $CONDA/bin/doit test
+    - name: Test Steg_asymptotic
+      run: |
+        cd usecases/steg_asymptotic_2sensors
+        $CONDA/bin/doit
     - name: Lint with flake8
       run: |
         # show syntax errors as warnings
