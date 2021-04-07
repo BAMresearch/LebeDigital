@@ -57,12 +57,12 @@ def main():
     # create metadata for an exactly asymptotic model (no model bias)
     write_metadata_to_yaml("virtual_experiment_asymptotic_model_meta.yaml",
                            a=-280, b=0.99, c=.0007, d=1., e=0.1, mA=0.99, mB=-280,
-                           num_Mat_sensors=20, sigma_noise_Mat=0.,
-                           center=False)
+                           num_Mat_sensors=10, sigma_noise_Mat=0.,
+                           center=False) # 20 num sensors
 
     write_metadata_to_yaml("virtual_experiment_asymptotic_model_with_noise_meta.yaml",
                            a=-280, b=0.99, c=.0007, d=1., e=0.1, mA=0.99, mB=-280,
-                           num_Mat_sensors=20, sigma_noise_Mat=0.01,
+                           num_Mat_sensors=10, sigma_noise_Mat=0.01,
                            center=False)
 
 

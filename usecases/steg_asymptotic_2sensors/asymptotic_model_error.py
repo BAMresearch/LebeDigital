@@ -25,7 +25,7 @@ class AsymptoticModelError:
         asymptotic_model (AsymptoticModel): asymptotic forward model (mA+mB/x) , where 'mA' and 'mB' are model parameters
     """
 
-    def __init__(self, x_Mat_sensors, data_MatB, data_MatC, data_Mat_B_C,  mA, mB, a, b, c, d): #, a, b, c, d  mA, mB
+    def __init__(self, x_Mat_sensors, data_MatB, data_MatC, data_Mat_B_C, a, b, c, d, e): #, a, b, c, d  mA, mB
         """Create a asymptotic model error
 
         Args:
@@ -38,14 +38,15 @@ class AsymptoticModelError:
         self.data_MatB = data_MatB
         self.data_MatC = data_MatC
         self.data_Mat_B_C = data_Mat_B_C
-#        self.a = a # rather not
-#        self.b = b # rather not
-#        self.c = c # rather not
-#        self.d = d # rather not
-#        self.e = e # rather not
-        self.mA = mA
-        self.mB = mB
-        self.asymptotic_model = AsymptoticModel(self.x_Mat_sensors, mA, mB)  # error, rather not mA, mB
+        self.a = a # rather not
+        self.b = b # rather not
+        self.c = c # rather not
+        self.d = d # rather not
+        self.e = e # rather not
+#        self.mA = mA
+#        self.mB = mB
+        self.asymptotic_model = AsymptoticModel(self.x_Mat_sensors)  # error, rather not mA, mB
+        #self.linear_model = LinearModel(self.x_function, self.x_derivative)
 
 
     def __call__(self, parameters):
@@ -58,9 +59,9 @@ class AsymptoticModelError:
             concatenated model error (np.array) of all individual model errors
         """
         #         [MatB, MatC, Mat_B_C] = self.asymptotic_model(parameters)
-        Mat_B_C = self.asymptotic_model(parameters)
+        [Mat_B_C] = self.asymptotic_model(parameters)
         #        return np.concatenate((f-self.data_MatB, df-self.data_MatC))
-        return np.concatenate(Mat_B_C-(self.data_MatB / self.data_MatC) )    ### this is the model error: me_Mat_B_C = (data_MatB / data_MatC) - (mA +mB/x)
+        return (Mat_B_C-(self.data_MatB / self.data_MatC) )    ### this is the model error: me_Mat_B_C = (data_MatB / data_MatC) - (mA +mB/x)
         #         equivalent to me_Mat_B_C = data_Mat_B_C - (mA +mB/x)
 
     def evaluate(self, parameters):
@@ -73,8 +74,10 @@ class AsymptoticModelError:
             return an OrderDict of the individual model errors (e.g. per sensor)
         """
         [Mat_B_C] = self.asymptotic_model(parameters)
+        #print('DEBUG evaluate',parameters['mA'])
 #    this is the model function values and the model error per data point
-        return OrderedDict([('Mat_B_C', Mat_B_C - self.data_MatB/self.data_MatC)])  # or vice verse?  (data_MatB / data_MatC) - (mA +mB/x)
+        #return OrderedDict([('Mat_B_C', Mat_B_C - self.data_MatB/self.data_MatC)])  # or vice verse?  (data_MatB / data_MatC) - (mA +mB/x)
+        return OrderedDict([ ('Mat_B_C', Mat_B_C - self.data_MatB/self.data_MatC) ])
 
     def get_parameter_dict(self):
         """Create a parameter list initialized with parameters given in the experimental data file
@@ -82,7 +85,11 @@ class AsymptoticModelError:
         Returns: parameter list
         """
         prm = ModelParameters()
-        # prm.define("a", self.a) # old
-        prm.define("mA",self.mA) # maybe?
-        prm.define("mB",self.mB) # maybe?. yepp, seems to work, both mA and mB are parameters to be opt
+        prm.define("a", self.a) # old
+        prm.define("b", self.b)
+        prm.define("c", self.c)
+        prm.define("d", self.d)
+        prm.define("e", self.e)
+        #prm.define("mA",self.mA) # maybe?
+        #prm.define("mB",self.mB) # maybe?. yepp, seems to work, both mA and mB are parameters to be opt
         return prm

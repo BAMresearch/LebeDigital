@@ -31,8 +31,8 @@ class VirtualAsymptoticModelExperiment:
         self.c = dat['c']
         self.d = dat['d']
 #        self.e = dat['e']
-        self.mA = dat['mA'] # maybe not
-        self.mB = dat['mB'] # maybe not
+      #  self.mA = dat['mA'] # maybe not
+       # self.mB = dat['mB'] # maybe not
         self.x_Mat_sensors = np.asarray(dat['x_Mat_sensors'])
         self.sigma_noise_Mat = np.asarray(dat['sigma_noise_Mat']) # only one sensor with one noise parameter for both measurements, MatB and MatC.
         self.seed = np.asarray(dat['seed'])
