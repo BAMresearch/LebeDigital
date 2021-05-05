@@ -4,10 +4,10 @@ channels:
   - dsdale24                        # third party stuff
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.9
   - pip
   - matplotlib
-  - pymc3=3.9.3
+  - pymc3=3.11
   - doit
   - pyyaml
   - mkl
