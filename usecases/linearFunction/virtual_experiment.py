@@ -1,7 +1,8 @@
 import numpy as np
 import yaml
 from pathlib import Path
-import bayes
+
+import bayes.correlation
 
 
 class VirtualLinearModelExperiment:

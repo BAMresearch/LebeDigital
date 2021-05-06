@@ -1,6 +1,6 @@
 import numpy as np
 from linear_model import LinearModel
-from bayes.parameters import ModelParameters
+from bayes.parameters import ParameterList
 from collections import OrderedDict
 
 
@@ -39,20 +39,10 @@ class LinearModelError:
         self.data_df = data_df
         self.a = a
         self.linear_model = LinearModel(self.x_function, self.x_derivative)
+        self.parameter_list = self.linear_model.get_parameter_dict()
+        self.parameter_list['a'] = a
 
-    def __call__(self, parameters):
-        """Evaluate the model error for a specific experiment
-
-        Args:
-            parameters(ModelParameters): a dictionary type of parameter list defined in bayes (a and b)
-
-        Returns:
-            concatenated model error (np.array) of all individual model errors
-        """
-        [f, df] = self.linear_model(parameters)
-        return np.concatenate((f-self.data_f, df-self.data_df))
-
-    def evaluate(self, parameters):
+    def __call__(self):
         """Evaluate the model error for a specific experiment
 
         Args:
@@ -61,15 +51,5 @@ class LinearModelError:
         Returns:
             return an OrderDict of the individual model errors (e.g. per sensor)
         """
-        [f, df] = self.linear_model(parameters)
+        [f, df] = self.linear_model(self.parameter_list)
         return OrderedDict([('f', f-self.data_f), ('df', df-self.data_df)])
-
-    def get_parameter_dict(self):
-        """Create a parameter list initialized with parameters required by the forward model
-        data that is given in the experiment is eventually added
-
-        Returns: parameter list
-        """
-        prm = self.linear_model.get_parameter_dict()
-        prm["a"] = self.a
-        return prm

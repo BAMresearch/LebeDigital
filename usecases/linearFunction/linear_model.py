@@ -1,6 +1,5 @@
 import numpy as np
-from bayes.parameters import ModelParameters
-
+from bayes.parameters import ParameterList
 
 class LinearModel:
     """
@@ -42,7 +41,7 @@ class LinearModel:
 
         Returns: parameter list
         """
-        prm = ModelParameters()
+        prm = ParameterList()
         prm.define("a", None)
         prm.define("b", None)
         return prm
