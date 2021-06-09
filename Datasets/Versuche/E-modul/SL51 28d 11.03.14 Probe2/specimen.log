@@ -1,0 +1,10 @@
+(04/08/2014 08:53:39) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(04/08/2014 08:53:41) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung.000"
+(04/08/2014 08:53:41) Information [MPT Runtime] "Läuft"
+(04/08/2014 08:57:26) Information [MPT/Operator Event] "Bediener Ereignis 'Zurück ' aufgetreten: 'Zurüsck auf +5,0 mm
+'"
+(04/08/2014 08:57:27) Information [MPT Runtime] "Prozedur fertig"
+(04/08/2014 08:57:28) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:03:46 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"

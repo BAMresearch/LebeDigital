@@ -1,0 +1,10 @@
+(07/09/2010 11:47:44) Information [MPT Runtime] "Prozedur beginnt: 1MN Weggeregelt mit 3 W2TK+3 MTS-Thiele.000"
+(07/09/2010 11:47:44) Information [Stmgr] "Test wird ausgeführt"
+(07/09/2010 11:47:44) Information [MPT Runtime] "Läuft"
+(07/09/2010 11:49:24) Information [MPT/Operator Event] "Bediener Ereignis 'Start' aufgetreten: 'Start'"
+(07/09/2010 11:58:37) Information [MPT Runtime] "Prozedur fertig"
+(07/09/2010 11:58:37) Information [Stmgr] "Test angehalten."
+(07/09/2010 11:58:38) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:10:53 
+ Kanalzähler:
+    Ch 1 -          2  Zyklen"

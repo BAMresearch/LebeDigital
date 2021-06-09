@@ -1,0 +1,9 @@
+(10/29/2014 13:00:24) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(10/29/2014 13:06:37) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(10/29/2014 13:06:39) Information [MPT Runtime] "Prozedur beginnt: E-Modul dynamisch mit US-01.000"
+(10/29/2014 13:06:39) Information [MPT Runtime] "Läuft"
+(10/29/2014 13:31:46) Information [MPT Runtime] "Prozedur fertig"
+(10/29/2014 13:31:46) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:25:06 
+ Kanalzähler:
+    Ch 1 -         41  Zyklen"

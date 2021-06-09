@@ -1,0 +1,14 @@
+(01/28/2015 11:02:17) Information [Stmgr] "Regelart umgestellt auf: Ch 1 Kraft"
+(01/28/2015 11:02:17) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(01/28/2015 11:07:52) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(01/28/2015 11:07:54) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung Standart.000"
+(01/28/2015 11:07:54) Information [MPT Runtime] "Läuft"
+(01/28/2015 11:08:34) Information [MPT/Operator Event] "Bediener Ereignis 'Taste 1' aufgetreten: ''"
+(01/28/2015 11:13:21) Information [MPT/Operator Event] "Bediener Ereignis 'Zurück ' aufgetreten: 'Zurüsck auf +5,0 mm
+'"
+(01/28/2015 11:13:22) Information [MPT Runtime] "Prozedur fertig"
+(01/28/2015 11:13:22) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:05:28 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"
+(01/28/2015 11:14:17) Information [Stmgr] "Problem beim Aktivieren des manuellen Sollwerts : Ch 1 Kraft"

@@ -1,0 +1,11 @@
+(09/11/2014 12:09:21) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung Standart.000"
+(09/11/2014 12:09:21) Information [MPT Runtime] "Läuft"
+(09/11/2014 12:09:36) Information [MPT Runtime] "Übergang nach Stopp"
+(09/11/2014 12:09:36) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:00:15 
+ Kanalzähler:
+    Ch 1 -          0  Zyklen"
+(09/11/2014 12:09:45) Information [Stmgr] "Problem beim Aktivieren des manuellen Sollwerts : Ch 1 Kraft"
+(09/11/2014 12:09:49) Information [Stmgr] "Regelart umgestellt auf: Ch 1 Kraft"
+(09/11/2014 12:09:49) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(09/11/2014 12:10:08) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"

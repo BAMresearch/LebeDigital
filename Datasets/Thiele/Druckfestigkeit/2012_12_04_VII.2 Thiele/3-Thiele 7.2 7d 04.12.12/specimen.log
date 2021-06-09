@@ -1,0 +1,13 @@
+(12/13/2012 09:38:18) Information [MPT Runtime] "Prozedur beginnt: Würfeldruckfestigkeit_150mm_MTS 5MN-mit Regelabweichung.000"
+(12/13/2012 09:38:18) Information [Stmgr] "Test wird ausgeführt"
+(12/13/2012 09:38:18) Information [MPT Runtime] "Läuft"
+(12/13/2012 09:38:53) Warning [MPT/Data Limit] "Unterer Grenzwert ausgelöst für 'Ch 1 Kraft'."
+(12/13/2012 09:38:53) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(12/13/2012 09:40:41) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
+(12/13/2012 09:40:41) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(12/13/2012 09:40:43) Information [MPT Runtime] "Prozedur fertig"
+(12/13/2012 09:40:43) Information [Stmgr] "Test angehalten."
+(12/13/2012 09:40:43) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:02:25 
+ Kanalzähler:
+    Ch 1 -          1  Zyklen"

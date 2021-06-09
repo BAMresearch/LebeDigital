@@ -1,0 +1,28 @@
+(07/09/2010 12:19:10) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(07/09/2010 12:19:12) Information [MPT Runtime] "Prozedur beginnt: 1MN Weggeregelt mit 3 W2TK+3 MTS-Thiele.000"
+(07/09/2010 12:19:12) Information [Stmgr] "Test wird ausgeführt"
+(07/09/2010 12:19:12) Information [MPT Runtime] "Läuft"
+(07/09/2010 12:20:36) Information [MPT/Operator Event] "Bediener Ereignis 'Start' aufgetreten: 'Start'"
+(07/09/2010 12:29:05) Warning [Stmgr] "Ch 1 W2TK Mittel -- Verriegelung durch Sättigung des aktiven Istwertsignals."
+(07/09/2010 12:29:05) Warning [Stmgr] "Interlock 4 -- Programmverriegelung."
+(07/09/2010 12:29:05) Information [Stmgr] "Test angehalten."
+(07/09/2010 12:29:05) Information [MPT Runtime] "Übergang nach Stopp"
+(07/09/2010 12:29:05) Error [MPT Runtime] "Prozedurverriegelung: Hydraulikverriegelung ist gesetzt.
+ Laufzeit:  00:09:53 
+ Kanalzähler:
+    Ch 1 -          1  Zyklen"
+(07/09/2010 12:29:05) Information [Stmgr] "HSM 4 -- Kein Druck."
+(07/09/2010 12:29:05) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:09:53 
+ Kanalzähler:
+    Ch 1 -          1  Zyklen"
+(07/09/2010 12:29:32) Information [MPT Runtime] "Prozedur zurücksetzen"
+(07/09/2010 12:29:49) Information [Stmgr] "Problem beim Aktivieren des manuellen Sollwerts : Ch 1 Kraft"
+(07/09/2010 12:29:49) Information [Stmgr] "HSM 4 -- Hochdruck."
+(07/09/2010 12:29:54) Warning [Stmgr] "Ch 1 W2TK Mittel -- Verriegelung durch Sättigung des aktiven Istwertsignals."
+(07/09/2010 12:29:54) Warning [Stmgr] "Ch 1 W2TK Mittel -- Verriegelung durch Sättigung des aktiven Istwertsignals."
+(07/09/2010 12:29:54) Warning [Stmgr] "Interlock 4 -- Programmverriegelung."
+(07/09/2010 12:29:55) Information [Stmgr] "HSM 4 -- Kein Druck."
+(07/09/2010 12:30:08) Information [Stmgr] "Regelart umgestellt auf: Ch 1 Weg"
+(07/09/2010 12:30:08) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Weg"
+(07/09/2010 12:30:17) Information [Stmgr] "HSM 4 -- Hochdruck."
