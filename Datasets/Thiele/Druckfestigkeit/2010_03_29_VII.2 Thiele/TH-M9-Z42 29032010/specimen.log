@@ -1,9 +1,0 @@
-(03/20/2012 11:42:35) Information [MPT Runtime] "Prozedur beginnt: TH14_Stat_Krafger_Bruch_SEA.000"
-(03/20/2012 11:42:35) Information [MPT Runtime] "Läuft"
-(03/20/2012 11:45:49) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
-(03/20/2012 11:45:49) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
-(03/20/2012 11:45:50) Information [MPT Runtime] "Prozedur fertig"
-(03/20/2012 11:45:50) Information [MPT Runtime] "Angehalten
- Laufzeit:  00:03:15 
- Kanalzähler:
-    Ch 1 -          1  Zyklen"
