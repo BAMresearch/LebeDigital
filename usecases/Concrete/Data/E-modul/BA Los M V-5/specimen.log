@@ -1,0 +1,10 @@
+(09/11/2014 12:34:28) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung Standart.000"
+(09/11/2014 12:34:28) Information [MPT Runtime] "Läuft"
+(09/11/2014 12:36:10) Information [MPT/Operator Event] "Bediener Ereignis 'Taste 1' aufgetreten: ''"
+(09/11/2014 12:40:13) Information [MPT/Operator Event] "Bediener Ereignis 'Zurück ' aufgetreten: 'Zurüsck auf +5,0 mm
+'"
+(09/11/2014 12:40:14) Information [MPT Runtime] "Prozedur fertig"
+(09/11/2014 12:40:14) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:05:46 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"

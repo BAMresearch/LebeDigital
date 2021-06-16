@@ -1,0 +1,13 @@
+(03/18/2014 15:28:55) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(03/18/2014 15:29:06) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(03/18/2014 15:29:07) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung.000"
+(03/18/2014 15:29:07) Information [MPT Runtime] "Läuft"
+(03/18/2014 15:37:29) Information [MPT/Operator Event] "Bediener Ereignis 'Bruchrampe' aufgetreten: 'Bruchrampe
+'"
+(03/18/2014 15:40:48) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
+(03/18/2014 15:40:48) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(03/18/2014 15:42:11) Information [MPT Runtime] "Übergang nach Stopp"
+(03/18/2014 15:42:12) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:13:04 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"

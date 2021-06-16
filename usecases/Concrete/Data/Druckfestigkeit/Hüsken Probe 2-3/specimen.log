@@ -1,0 +1,11 @@
+(03/18/2014 14:56:27) Information [MPT Runtime] "Prozedur beginnt: Druckfestigkeit Zylinder 100mm_MTS 1MN-mit Regelabweichung.000"
+(03/18/2014 14:56:27) Information [MPT Runtime] "Läuft"
+(03/18/2014 14:57:01) Warning [MPT/Data Limit] "Unterer Grenzwert ausgelöst für 'Ch 1 Kraft'."
+(03/18/2014 14:57:01) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(03/18/2014 15:01:03) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
+(03/18/2014 15:01:03) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(03/18/2014 15:01:05) Information [MPT Runtime] "Prozedur fertig"
+(03/18/2014 15:01:05) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:04:38 
+ Kanalzähler:
+    Ch 1 -          1  Zyklen"

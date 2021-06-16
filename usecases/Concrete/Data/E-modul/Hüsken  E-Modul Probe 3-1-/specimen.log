@@ -1,0 +1,21 @@
+(03/18/2014 16:01:59) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung.000"
+(03/18/2014 16:01:59) Information [MPT Runtime] "Läuft"
+(03/18/2014 16:10:06) Information [MPT/Operator Event] "Bediener Ereignis 'Bruchrampe' aufgetreten: 'Bruchrampe
+'"
+(03/18/2014 16:13:25) Warning [Stmgr] "Ch 1 Kraft Abs. Fehler -- Innerer Grenzwert ausgelöst."
+(03/18/2014 16:13:26) Information [MPT Runtime] "Übergang nach Stopp"
+(03/18/2014 16:13:26) Error [MPT Runtime] "Prozedurverriegelung: Eine 'Rampe auf' oder 'Wert halten'-Aktion wurde ausgelöst.
+ Laufzeit:  00:11:26 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"
+(03/18/2014 16:13:26) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
+(03/18/2014 16:13:26) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(03/18/2014 16:13:26) Error [MPT Runtime] "Prozedurverriegelung: Eine 'Rampe auf' oder 'Wert halten'-Aktion wurde ausgelöst.
+ Laufzeit:  00:11:26 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"
+(03/18/2014 16:13:26) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:11:27 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"
+(03/18/2014 17:04:14) Information [Stmgr] "Problem beim Aktivieren des manuellen Sollwerts : Ch 1 Kraft"
