@@ -1,0 +1,18 @@
+(07/22/2014 06:16:34) Warning [Stmgr] "HSM Einschub 5 Kanal 2 entdeckt Querhaupt-Ereignis aktiv."
+(07/22/2014 06:16:34) Warning [Stmgr] "Programm Stopp Interlock 4 -- Externe Hardwareverriegelung."
+(07/22/2014 06:17:06) Information [Stmgr] "Regelart umgestellt auf: Ch 1 Kraft"
+(07/22/2014 06:17:06) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(07/22/2014 06:17:25) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(07/22/2014 06:17:47) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung Standart.000"
+(07/22/2014 06:17:47) Information [MPT Runtime] "Läuft"
+(07/22/2014 06:24:51) Information [MPT/Operator Event] "Bediener Ereignis 'Bruchrampe' aufgetreten: 'Bruchrampe
+'"
+(07/22/2014 06:24:57) Warning [MPT/Data Limit] "Unterer Grenzwert ausgelöst für 'Ch 1 Kraft'."
+(07/22/2014 06:24:57) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(07/22/2014 06:26:51) Warning [MPT/Data Limit] "Oberer Grenzwert wurde ausgelöst von 'Ch 1 Kraft Abs. Fehler'."
+(07/22/2014 06:26:51) Warning [MPT/Data Limit] "Grenzwertprozess beendet"
+(07/22/2014 06:26:52) Information [MPT Runtime] "Prozedur fertig"
+(07/22/2014 06:26:52) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:09:04 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"

@@ -1,0 +1,26 @@
+(08/27/2014 19:37:13) Warning [Stmgr] "Interlock 4 -- Externe Hardwareverriegelung."
+(08/27/2014 19:37:13) Warning [Stmgr] "HSM Einschub 5 Kanal 2 entdeckt J43 Verriegelung."
+(08/28/2014 17:13:38) Information [Stmgr] "'Station Desktop Organizer' ist nicht mehr mit der Station verbunden."
+(08/28/2014 17:13:49) Information [Stmgr] "'Station Desktop Organizer' ist mit der Station verbunden."
+(08/30/2014 20:29:58) Information [Stmgr] "'Station Desktop Organizer' ist nicht mehr mit der Station verbunden."
+(08/30/2014 20:30:09) Information [Stmgr] "'Station Desktop Organizer' ist mit der Station verbunden."
+(08/31/2014 01:50:28) Information [Stmgr] "'Station Desktop Organizer' ist nicht mehr mit der Station verbunden."
+(08/31/2014 01:50:43) Information [Stmgr] "'Station Desktop Organizer' ist mit der Station verbunden."
+(09/01/2014 09:13:13) Information [Stmgr] "HPU -- Hochdruck."
+(09/01/2014 11:57:48) Information [Stmgr] "HPU -- Kein Druck."
+(09/01/2014 11:58:10) Information [Stmgr] "HPU -- Hochdruck."
+(09/01/2014 11:58:10) Information [Stmgr] "HSM 4 -- Hochdruck."
+(09/01/2014 12:11:16) Warning [Stmgr] "HSM Einschub 5 Kanal 2 entdeckt Querhaupt-Ereignis aktiv."
+(09/01/2014 12:11:16) Warning [Stmgr] "Programm Stopp Interlock 4 -- Externe Hardwareverriegelung."
+(09/01/2014 12:16:44) Information [Stmgr] "Regelart umgestellt auf: Ch 1 Kraft"
+(09/01/2014 12:16:44) Information [Stmgr] "Manueller Sollwert aktiviert: Ch 1 Kraft"
+(09/01/2014 12:17:07) Information [Stmgr] "Manueller Sollwert deaktiviert: Ch 1 Kraft"
+(09/01/2014 12:21:59) Information [MPT Runtime] "Prozedur beginnt: E-Modul-mit  Druckversuch 100erZylinder mit Regelabweichung Standart.000"
+(09/01/2014 12:21:59) Information [MPT Runtime] "Läuft"
+(09/01/2014 12:27:18) Information [MPT/Operator Event] "Bediener Ereignis 'Zurück ' aufgetreten: 'Zurüsck auf +5,0 mm
+'"
+(09/01/2014 12:27:19) Information [MPT Runtime] "Prozedur fertig"
+(09/01/2014 12:27:20) Information [MPT Runtime] "Angehalten
+ Laufzeit:  00:05:20 
+ Kanalzähler:
+    Ch 1 -          5  Zyklen"
