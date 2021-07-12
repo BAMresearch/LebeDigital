@@ -1,0 +1,88 @@
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie> a <http://www.w3.org/2002/07/owl#Ontology>;
+  <http://purl.org/dc/terms/description> "Ontologie for creating a queryable graph based on the MSEO & some extensions, for the Usecase of Model Calibration of Concrete compression and tensile tests. "@en;
+  <http://purl.org/dc/terms/title> "ConcreteStressTestOntologie"@en;
+  <http://www.w3.org/2002/07/owl#imports> <http://www.daml.org/2003/01/periodictable/PeriodicTable>,
+    <https://mobi.com/ontologies/6/2021/WCTmid>, <https://purl.matolab.org/mseo/mid> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Concrete> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "Concrete is a Matterobject which is used in many cases as a Building material. A Object O is made_out_of  some Object o if the Material which is used to build O is o."@en;
+  <http://purl.org/dc/terms/title> "Concrete"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#ConcreteCompressionTest>
+  a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "A Test designed to gain information about the compressive strength of some Specimen."@en;
+  <http://purl.org/dc/terms/title> "ConcreteCompressionTest"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#ConcreteTensileTest>
+  a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "A Test designed to gain information about the tensile strength of some Specimen."@en;
+  <http://purl.org/dc/terms/title> "ConcreteTensileTest"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#AbsorbedAmount> a
+    <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "Amount of some object that got absorbet. For example absorbed water might be neglected for considerations about the chemical reation present when creating Concrete"@en;
+  <http://purl.org/dc/terms/title> "AbsorbedAmount"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Amount> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#ActOfCreation> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "a process where the goal is to creat something"@en;
+  <http://purl.org/dc/terms/title> "Act of Creation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Air> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "a gas almost everywhere available on the surface of earth. It's mainly a mixture out of nitrogen (80%) and Oxygen (20%)"@en;
+  <http://purl.org/dc/terms/title> "Air"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Cement> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "Cement. the material that is used to make Concrete"@en;
+  <http://purl.org/dc/terms/title> "Cement"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Grain> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "A material with a grain structure like sand. often used as additive in the procress of concrete creaton"@en;
+  <http://purl.org/dc/terms/title> "Grain"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#KNumber> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "the k-number or \"k-wert\" is a quality of grainy material."@en;
+  <http://purl.org/dc/terms/title> "KNumber"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#LimestonePowder> a
+    <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "Limestone powder is a potential component of Concrete"@en;
+  <http://purl.org/dc/terms/title> "LimestonePowder"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#MaximumDiameter> a
+    <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "the maximal diameter that something might have "@en;
+  <http://purl.org/dc/terms/title> "MaximumDiameter"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Diameter> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#MicroSilicates> a
+    <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "Silicates with a small grain size"@en;
+  <http://purl.org/dc/terms/title> "MicroSilicates"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#MinimumDiameter> a
+    <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "the minimum diameter that something might have "@en;
+  <http://purl.org/dc/terms/title> "MinimumDiameter"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Diameter> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Volume> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "the Volume of an object is a three dimensional extent quality usually given in units of m^3, cm^3, mm^3 or Liter"@en;
+  <http://purl.org/dc/terms/title> "Volume"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalExtent> .
+
+<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Water> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.org/dc/terms/description> "The molecule water (H2O). "@en;
+  <http://purl.org/dc/terms/title> "Water"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00277> .

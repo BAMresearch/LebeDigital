@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <Literal xml:lang="en">Ontologie for creating a queryable graph based on the MSEO &amp; some extensions, for the Usecase of Model Calibration of Concrete compression and tensile tests. </Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <Literal xml:lang="en">ConcreteStressTestOntologie</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#AbsorbedAmount"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ActOfCreation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Air"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cement"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Concrete"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConcreteCompressionTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConcreteTensileTest"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Grain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#KNumber"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LimestonePowder"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MaximumDiameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MicroSilicates"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MinimumDiameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Volume"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Water"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Amount"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalExtent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00277"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#AbsorbedAmount"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Amount"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ActOfCreation"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Air"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cement"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Concrete"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConcreteCompressionTest"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConcreteTensileTest"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Grain"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#KNumber"/>
+        <Class IRI="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LimestonePowder"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MaximumDiameter"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MicroSilicates"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MinimumDiameter"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Volume"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalExtent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Water"/>
+        <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00277"/>
+    </SubClassOf>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#AbsorbedAmount</IRI>
+        <Literal xml:lang="en">Amount of some object that got absorbet. For example absorbed water might be neglected for considerations about the chemical reation present when creating Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#AbsorbedAmount</IRI>
+        <Literal xml:lang="en">AbsorbedAmount</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#ActOfCreation</IRI>
+        <Literal xml:lang="en">a process where the goal is to creat something</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#ActOfCreation</IRI>
+        <Literal xml:lang="en">Act of Creation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Air</IRI>
+        <Literal xml:lang="en">a gas almost everywhere available on the surface of earth. It&apos;s mainly a mixture out of nitrogen (80%) and Oxygen (20%)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Air</IRI>
+        <Literal xml:lang="en">Air</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Cement</IRI>
+        <Literal xml:lang="en">Cement. the material that is used to make Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Cement</IRI>
+        <Literal xml:lang="en">Cement</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">Concrete is a Matterobject which is used in many cases as a Building material. A Object O is made_out_of  some Object o if the Material which is used to build O is o.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#ConcreteCompressionTest</IRI>
+        <Literal xml:lang="en">A Test designed to gain information about the compressive strength of some Specimen.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#ConcreteCompressionTest</IRI>
+        <Literal xml:lang="en">ConcreteCompressionTest</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#ConcreteTensileTest</IRI>
+        <Literal xml:lang="en">A Test designed to gain information about the tensile strength of some Specimen.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#ConcreteTensileTest</IRI>
+        <Literal xml:lang="en">ConcreteTensileTest</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Grain</IRI>
+        <Literal xml:lang="en">A material with a grain structure like sand. often used as additive in the procress of concrete creaton</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Grain</IRI>
+        <Literal xml:lang="en">Grain</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#KNumber</IRI>
+        <Literal xml:lang="en">the k-number or &quot;k-wert&quot; is a quality of grainy material.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#KNumber</IRI>
+        <Literal xml:lang="en">KNumber</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#LimestonePowder</IRI>
+        <Literal xml:lang="en">Limestone powder is a potential component of Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#LimestonePowder</IRI>
+        <Literal xml:lang="en">LimestonePowder</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#MaximumDiameter</IRI>
+        <Literal xml:lang="en">the maximal diameter that something might have </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#MaximumDiameter</IRI>
+        <Literal xml:lang="en">MaximumDiameter</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#MicroSilicates</IRI>
+        <Literal xml:lang="en">Silicates with a small grain size</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#MicroSilicates</IRI>
+        <Literal xml:lang="en">MicroSilicates</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#MinimumDiameter</IRI>
+        <Literal xml:lang="en">the minimum diameter that something might have </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#MinimumDiameter</IRI>
+        <Literal xml:lang="en">MinimumDiameter</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Volume</IRI>
+        <Literal xml:lang="en">the Volume of an object is a three dimensional extent quality usually given in units of m^3, cm^3, mm^3 or Liter</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Volume</IRI>
+        <Literal xml:lang="en">Volume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="en">The molecule water (H2O). </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="en">Water</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
