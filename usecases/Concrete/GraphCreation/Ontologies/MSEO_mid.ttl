@@ -973,7 +973,11 @@
 
 <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00236> a <http://www.w3.org/2002/07/owl#Class>;
   <http://purl.obolibrary.org/obo/IAO_0000116> "Very undetermined! Coincedent with Region of Interest? Its more scope of an investigation then an actual site on a object.";
+<<<<<<< HEAD
   <http://www.w3.org/2000/01/rdf-schema#comment> """Measurement range: The area/volume in which the measurement
+=======
+  <http://www.w3.org/2000/01/rdf-schema#comment> """Measurement range: The area/volume in which the measurement
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
 is performed.""";
   <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MeasurementRange";
   <http://www.w3.org/2002/07/owl#deprecated> true .
@@ -1427,6 +1431,7 @@ _:node1f5v2j6a0x149696 a <http://www.w3.org/2002/07/owl#Restriction>;
   <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral> .
 
 <https://purl.matolab.org/mseo/mid> a <http://www.w3.org/2002/07/owl#Ontology>;
+<<<<<<< HEAD
   <http://www.w3.org/2000/01/rdf-schema#comment> """Contact:
 Christoph Schweizer
 Fraunhofer-Institut für Werkstoffmechanik IWM
@@ -1446,6 +1451,27 @@ philipp.von.hartrott@iwm.fraunhofer.de"""@de,
 Thomas Hanke
 Fraunhofer-Institut für Mikrostruktur von Werkstoffen und Systemen IMWS
 Walter-Hülse-Strasse 1, 06120 Halle (Saale)
+=======
+  <http://www.w3.org/2000/01/rdf-schema#comment> """Contact:
+Christoph Schweizer
+Fraunhofer-Institut für Werkstoffmechanik IWM
+Wöhlerstraße 11, 79108 Freiburg
+christoph.schweizer@iwm.fraunhofer.de"""@de,
+    """Contact:
+Martin Huschka 
+Fraunhofer Institute for High-Speed Dynamics , Ernst-Mach-Institut, EMI
+Ernst-Zermelo-Strasse 4, 79104 Freiburg , Germany
+Martin.Huschka@EMI.Fraunhofer.de"""@de,
+    """Contact:
+Philipp von Hartrott
+Fraunhofer-Institut für Werkstoffmechanik IWM
+Wöhlerstraße 11, 79108 Freiburg
+philipp.von.hartrott@iwm.fraunhofer.de"""@de,
+    """Contact:
+Thomas Hanke
+Fraunhofer-Institut für Mikrostruktur von Werkstoffen und Systemen IMWS
+Walter-Hülse-Strasse 1, 06120 Halle (Saale)
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
 thomas.hanke@imws.fraunhofer.de"""@de,
     "This is the mid-level module of the Material Sience and Engineering Ontology MSEO."@en;
   <http://www.w3.org/2002/07/owl#imports> <http://www.daml.org/2003/01/periodictable/PeriodicTable.owl>,

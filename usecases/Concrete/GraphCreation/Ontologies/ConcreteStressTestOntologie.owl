@@ -13,7 +13,11 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+<<<<<<< HEAD
         <Literal xml:lang="en">Ontologie for creating a queryable graph based on the MSEO &amp; some extensions, for the Usecase of Model Calibration of Concrete compression tests. </Literal>
+=======
+        <Literal xml:lang="en">Ontologie for creating a queryable graph based on the MSEO &amp; some extensions, for the Usecase of Model Calibration of Concrete compression and tensile tests. </Literal>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
     </Annotation>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
@@ -23,7 +27,11 @@
         <Class IRI="#AbsorbedAmount"/>
     </Declaration>
     <Declaration>
+<<<<<<< HEAD
         <Class IRI="#Aggregate"/>
+=======
+        <Class IRI="#ActOfCreation"/>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
     </Declaration>
     <Declaration>
         <Class IRI="#Air"/>
@@ -41,12 +49,15 @@
         <Class IRI="#ConcreteTensileTest"/>
     </Declaration>
     <Declaration>
+<<<<<<< HEAD
         <Class IRI="#CreationProcess"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Dynamic"/>
     </Declaration>
     <Declaration>
+=======
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
         <Class IRI="#Grain"/>
     </Declaration>
     <Declaration>
@@ -80,9 +91,12 @@
         <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
     </Declaration>
     <Declaration>
+<<<<<<< HEAD
         <Class IRI="http://purl.obolibrary.org/obo/BFO_0000015"/>
     </Declaration>
     <Declaration>
+=======
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
         <Class IRI="http://purl.obolibrary.org/obo/BFO_0000019"/>
     </Declaration>
     <Declaration>
@@ -92,6 +106,12 @@
         <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalExtent"/>
     </Declaration>
     <Declaration>
+<<<<<<< HEAD
+=======
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
+    </Declaration>
+    <Declaration>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
         <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151"/>
     </Declaration>
     <Declaration>
@@ -105,8 +125,13 @@
         <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Amount"/>
     </SubClassOf>
     <SubClassOf>
+<<<<<<< HEAD
         <Class IRI="#Aggregate"/>
         <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
+=======
+        <Class IRI="#ActOfCreation"/>
+        <Class IRI="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Air"/>
@@ -129,6 +154,7 @@
         <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151"/>
     </SubClassOf>
     <SubClassOf>
+<<<<<<< HEAD
         <Class IRI="#CreationProcess"/>
         <Class IRI="http://purl.obolibrary.org/obo/BFO_0000015"/>
     </SubClassOf>
@@ -137,6 +163,8 @@
         <Class IRI="http://purl.obolibrary.org/obo/BFO_0000019"/>
     </SubClassOf>
     <SubClassOf>
+=======
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
         <Class IRI="#Grain"/>
         <Class IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278"/>
     </SubClassOf>
@@ -180,6 +208,7 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+<<<<<<< HEAD
         <IRI>#Aggregate</IRI>
         <Literal xml:lang="en">Aggregte : A; Def A: A is a Aggregate if A is made_out_of List_of_Entities  where List of Entities has atleast 2 elements</Literal>
     </AnnotationAssertion>
@@ -187,6 +216,15 @@
         <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
         <IRI>#Aggregate</IRI>
         <Literal xml:lang="en">Aggregate</Literal>
+=======
+        <IRI>#ActOfCreation</IRI>
+        <Literal xml:lang="en">a process where the goal is to creat something</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+        <IRI>#ActOfCreation</IRI>
+        <Literal xml:lang="en">Act of Creation</Literal>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
@@ -240,6 +278,7 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+<<<<<<< HEAD
         <IRI>#CreationProcess</IRI>
         <Literal xml:lang="en">CreationProcess &apos;CP&apos;; Def. CP: P is a CP if P has_output O and P has_input IP with O and IP are MeterialEntities and O is not made_out_of IP (therefor O is not just the sum of IP)</Literal>
     </AnnotationAssertion>
@@ -263,6 +302,8 @@ in the case of an compression test this means wether of not we had multiple cycl
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+=======
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
         <IRI>#Grain</IRI>
         <Literal xml:lang="en">A material with a grain structure like sand. often used as additive in the procress of concrete creaton</Literal>
     </AnnotationAssertion>

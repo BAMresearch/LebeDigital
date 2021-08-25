@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
@@ -8,3 +9,14 @@
         <uri id="Automatically generated entry, Timestamp=1629884910986" name="https://purl.matolab.org/mseo/mid" uri="MSEO_mid.owl"/>
     </group>
 </catalog>
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1625757479094" name="http://www.daml.org/2003/01/periodictable/PeriodicTable" uri="PeriodicTable.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1625757479094" name="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/MergedAllCoreOntology" uri="MergedAllCoreOntology.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1625757479094" name="https://mobi.com/ontologies/6/2021/WCTmid" uri="WCTmid.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1625757479094" name="https://purl.matolab.org/mseo/mid" uri="MSEO_mid.owl"/>
+    </group>
+</catalog>
+>>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
