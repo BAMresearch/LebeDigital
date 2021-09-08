@@ -1,6 +1,4 @@
-from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import RDFS
-from SPARQLWrapper import SPARQLWrapper, JSON, POST, BASIC, DIGEST
+from SPARQLWrapper import SPARQLWrapper, JSON, POST, BASIC
 import yaml
 
 data = {}

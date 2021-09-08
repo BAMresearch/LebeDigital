@@ -1,10 +1,6 @@
 
 <https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie> a <http://www.w3.org/2002/07/owl#Ontology>;
-<<<<<<< HEAD
   <http://purl.org/dc/terms/description> "Ontologie for creating a queryable graph based on the MSEO & some extensions, for the Usecase of Model Calibration of Concrete compression tests. "@en;
-=======
-  <http://purl.org/dc/terms/description> "Ontologie for creating a queryable graph based on the MSEO & some extensions, for the Usecase of Model Calibration of Concrete compression and tensile tests. "@en;
->>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
   <http://purl.org/dc/terms/title> "ConcreteStressTestOntologie"@en;
   <http://www.w3.org/2002/07/owl#imports> <http://www.daml.org/2003/01/periodictable/PeriodicTable>,
     <https://mobi.com/ontologies/6/2021/WCTmid>, <https://purl.matolab.org/mseo/mid> .
@@ -32,14 +28,6 @@
   <http://purl.org/dc/terms/title> "AbsorbedAmount"@en;
   <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Amount> .
 
-<<<<<<< HEAD
-=======
-<https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#ActOfCreation> a <http://www.w3.org/2002/07/owl#Class>;
-  <http://purl.org/dc/terms/description> "a process where the goal is to creat something"@en;
-  <http://purl.org/dc/terms/title> "Act of Creation"@en;
-  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct> .
-
->>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
 <https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#Air> a <http://www.w3.org/2002/07/owl#Class>;
   <http://purl.org/dc/terms/description> "a gas almost everywhere available on the surface of earth. It's mainly a mixture out of nitrogen (80%) and Oxygen (20%)"@en;
   <http://purl.org/dc/terms/title> "Air"@en;
@@ -93,7 +81,6 @@
   <http://purl.org/dc/terms/description> "The molecule water (H2O). "@en;
   <http://purl.org/dc/terms/title> "Water"@en;
   <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00277> .
-<<<<<<< HEAD
 
 <https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#CreationProcess> a
     <http://www.w3.org/2002/07/owl#Class>;
@@ -113,5 +100,3 @@ What ever \"dynamic\" means it an arbitrarily case.
 in the case of an compression test this means wether of not we had multiple cycles of compression and decompression."""@en;
   <http://purl.org/dc/terms/title> "Dynamic"@en;
   <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
-=======
->>>>>>> 0185d83ede7232a3ea52487a9e8fd4ab8dfecec2
