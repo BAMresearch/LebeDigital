@@ -1,0 +1,1589 @@
+
+<http://purl.obolibrary.org/obo/BFO_0000002> <https://www.materials.fraunhofer.de/ontologies/graph_designer#ItemFormat>
+    "{\"ic\":[70,130,180], \"iw\":0.8}" .
+
+<https://www.materials.fraunhofer.de/ontologies/graph_designer#ItemFormat> a <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+
+<http://purl.obolibrary.org/obo/BFO_0000003> <https://www.materials.fraunhofer.de/ontologies/graph_designer#ItemFormat>
+    "{\"ic\":[28,158,113], \"iw\":0.8}" .
+
+<http://purl.obolibrary.org/obo/BFO_0000015> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00017> .
+
+<http://purl.obolibrary.org/obo/BFO_0000019> a <http://www.w3.org/2002/07/owl#Class>;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#ItemFormat> "{\"ic\":[218,218,218], \"sym\":[16], \"tc\":[0,0,0], \"iw\":0.8}" .
+
+<http://purl.obolibrary.org/obo/BFO_0000024> a <http://www.w3.org/2002/07/owl#Class> .
+
+<http://purl.obolibrary.org/obo/BFO_0000029> a <http://www.w3.org/2002/07/owl#Class> .
+
+<http://purl.obolibrary.org/obo/BFO_0000030> a <http://www.w3.org/2002/07/owl#Class> .
+
+<http://purl.obolibrary.org/obo/BFO_0000031> a <http://www.w3.org/2002/07/owl#Class> .
+
+<http://purl.obolibrary.org/obo/BFO_0000051> <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat>
+    "{\"rc\":[0,0,0], \"lw\":0.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00323> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasPart";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty>;
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> "{\"rc\":[0,0,0], \"lw\":0.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> a <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+
+<http://purl.obolibrary.org/obo/BFO_0000141> a <http://www.w3.org/2002/07/owl#Class> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00328> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasParticipant";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00014>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00333> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete obsolete hasStructuralQuantity";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00320>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#Block> <http://www.w3.org/2000/01/rdf-schema#label>
+    "Periodic Table Block";
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "We shouldnt use subclassing here! Every chemical emlent is an Named Individual of this class. Not a Subclass! I think its even  more a kind of Identifier.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Periodic Table Element Identifer"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#Classification> <http://www.w3.org/2000/01/rdf-schema#label>
+    "Periodic Table Classification";
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#Element> <http://purl.obolibrary.org/obo/IAO_0000118>
+    "Element";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Periodic Table Element";
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021>;
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00105> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#Group> <http://www.w3.org/2000/01/rdf-schema#label>
+    "Periodic Table Group";
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#Period> <http://www.w3.org/2000/01/rdf-schema#label>
+    "Periodic Table Period";
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#StandardState> <http://www.w3.org/2000/01/rdf-schema#subClassOf>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00021> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#element> <http://www.w3.org/2000/01/rdf-schema#label>
+    "is element";
+  <http://www.w3.org/2000/01/rdf-schema#range> <http://www.daml.org/2003/01/periodictable/PeriodicTable#Element> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Amount> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00143> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00143> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Amount";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Facility> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00027> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00027> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Building"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/SpatialOrientation> <http://www.ontologyrepository.com/CommonCoreOntologies/alternative_label>
+    "Angle" .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Strength> <http://purl.obolibrary.org/obo/IAO_0000118>
+    "Resistance" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00319> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Indicates properties, such as IDs, names etc. which are used to identify objects, processes etc.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasIdentifier";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00001>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00320>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasRealLiteral";
+  <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#float>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00315>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/has_double_value> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00314> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00314> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasDoubleLiteral";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00315>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/has_integer_value> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasIntegerLiteral";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00315>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/has_output> <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat>
+    "{\"rc\":[0,0,0], \"lw\":1.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00331> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasOutput";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00324>;
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> "{\"rc\":[0,0,0], \"lw\":1.75}" .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/has_text_value> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasStringLiteral";
+  <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00315>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00320> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "has info"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00341> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "E.g. a process quantity or material data set is representative for a certain temporal state of an object";
+  <http://www.w3.org/2000/01/rdf-schema#domain> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00012>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete isRepresentativeFor";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00321>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of> <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat>
+    "{\"rc\":[67,129,191], \"lw\":1.25}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00337> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete isInputFor";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00324>;
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> "{\"rc\":[67,129,191], \"lw\":1.25}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00322> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete isComposedOf";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00002>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00323>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00338> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "in accordance with"@en;
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00008>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.ontologyrepository.com/CommonCoreOntologies/described_by> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/process_precedes> <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat>
+    "{\"rc\":[0,0,0], \"lw\":1.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00335> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete precedes";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00324>;
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> "{\"rc\":[0,0,0], \"lw\":1.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00834> a <http://www.w3.org/2002/07/owl#AnnotationProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "author"@en .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00835> a <http://www.w3.org/2002/07/owl#AnnotationProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "curator"@en .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00001> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Identifier";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00002> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Pourly defined! Nealy any material is or can be manipulated or arragend to another.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete EngineeringMaterial";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00003> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Temporal Data Set";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00004> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.ontologyrepository.com/CommonCoreOntologies/definition> "An  Agent which is designated by a Name. More Complex Definition see definition source...";
+  <http://www.ontologyrepository.com/CommonCoreOntologies/definition_source> "https://en.wikipedia.org/wiki/Person";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Person"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Agent> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Some kind of field data (tables, columns, matrices...)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "FieldData"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00006> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is not a quality";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SpecificTextualInput";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00007> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "StructuralInfo"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/NominalMeasurementInformationContentEntity> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00008> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Regulation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/PlanSpecification> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00009> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A set of parameters, that is used to control a process. Those are usually quantities of type \"as supposed\".";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Process Parameter Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00068> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00068> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of data set, that is the output of a process (e.g. raw data, analysed data, files, quantities...)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Process Data Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00010> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Physikalische und nichtphysikalische Größen";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Quantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00011> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete QuantityKind";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00012> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of information content entity (e.g. files, data sets...)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete InformationContentEntity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Software"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00014> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Physics Model"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Algorithm> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00015> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Use Measurement Unit ICE instead";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete UnitSymbol";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00016> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Use Measurement Unit ICE instead";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Unit";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00017> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "can also be aa process data set, cause any process can be a partof another process or process aggregate";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SubprocessSet";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00018> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "PostProcessing"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00019> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Simulation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/ActOfPrediction> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00022> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Figure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00023> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of specific data format, e.g. file types like .txt, .xls, .png, .pdf, ...";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SpecificDataFormat";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "this should not be collections of information bearer, they are collections of other ICEs";
+  <http://www.ontologyrepository.com/CommonCoreOntologies/definition> "A collection of Information Content Entitys with the purpose to gather them in a particular context.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of data set";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Data Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationContentEntity> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/InformationContentEntity>
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00012> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00025> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionOther";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Naming Convention"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00008> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SpecimenName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00029> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Name";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00030> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete s";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00031> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "DocumentFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "File"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00033> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is not a quality its a process parameter";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Force";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00035> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "A Component is defined with the realtion is part of! And anything is a part of another thing. So its kind of pouly defined isnt it?"@en;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Some kind of component";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Component";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00036> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete TechnologicalProduct";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00037> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete StartDateTime";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00038> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "DateTime Cell"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Cell"@de;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00039> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SoftwareTool"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00040> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is a kind of identifer"@en;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete IDNumber";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00044> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Volume Ratio"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of quantity, that describes the composition of materials";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Composition"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00046> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of ZIP-File";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ZIPFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00047> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Use Measurement Unit ICE instead";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete DerivedUnit";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00048> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.ontologyrepository.com/CommonCoreOntologies/definition> "An Artifact manufactured with the purpose to be the scope Act of Observation or Measurement."@en;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Specimen"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00051> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionSS";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00052> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionJIS";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00053> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of two dimensional field data, e.g. an Excel sheet, a table...";
+  <http://www.w3.org/2000/01/rdf-schema#label> "TwoDimensionalFieldData"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00054> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Consumables are products that consumers use recurrently, i.e., items which \"get used up\" or discarded.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Consumable"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00055> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "The location (a point) at which some quantity is measured";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Measurement Location"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000029> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00056> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Measurement related fiat object part, e.g. measurement range or measurement location";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Measurement Related Fiat Object Part"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Structure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00058> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Voltage"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000144> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00059> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Act of Concluding"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00060> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete CognitiveProcess";
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00133> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00063> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "The process of evaluating some kind of data";
+  <http://www.w3.org/2000/01/rdf-schema#label> "DataEvaluation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "DataTransformation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Date and time at the end of a process";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProcessEndDateTime";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00066> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete EndDateTime";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00067> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of raw data set. Raw data refers to the original data set.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Raw Data Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00068> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00069> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Weight Ratio"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00070> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Equipment"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00071> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SoftwareVersion";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00072> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "ProcessSetup"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00073> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00073> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "ObjectSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00078> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Abstract"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00079> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "no need for the class equivilent of data property rdfs:literal";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Literal";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00080> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A data set containing material specific data";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Data Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00081> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "PNGImage"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00082> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00082> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Image"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00022> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00083> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Industry Project"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00084> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00084> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Project"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/PlanSpecification> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00086> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Shouldnt that be more specific?";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Energy"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Is the deginative Name of a Organisation.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of the producer of any kind of product";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProducerName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00088> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Atomic Fraction"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00089> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete BaseQuantityKind";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00091> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete AmountOfSubstance";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00092> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SimulationSoftware"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00093> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Weight Concentration"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00094> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Use Measurement Unit ICE instead";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete BaseUnit";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00097> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SimulationStep"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00098> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Angle";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00099> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A series of images taken in a plane, which form a set of images (e.g. images of a microsection or a fracture surface)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "PlanarImageSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00100> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00100> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A set of images";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ImageSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00101> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "unspecific, what quality can a speciman have that a actifact can not?";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SpecimenRelatedQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00102> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete StructuralQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00104> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "An excel sheet";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ExcelSheet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00053> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00105> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Symbol of a chemical element (e.g. H for hydrogen, Si for silicon Al for Aluminium, Fe for iron)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ChemicalElementSymbol";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00106> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Electric Capacitance"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00109> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete TemperatureRelatedQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00110> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "MagneticFlux"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Magnetic> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00111> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "An input file is a file with no specific file ending, that is used as input for a simulation";
+  <http://www.w3.org/2000/01/rdf-schema#label> "InputFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00112> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "JPGImage"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00082> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00114> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Pourly defined! Nearly any object is or can be manipulated or arragend to another.",
+    "definitions dont work well with artifact Ontologie";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Engineering Object";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00115> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SpecificHeatCapacity"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00117> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Manufacturing";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00118> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionUNS";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00119> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Nano Structure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "not a quantity, formats are information bearers classes";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete FormatDescription";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00122> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "This is not a quality. Time is descripte relational or as interval.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Time";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00124> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Ratio Of Substances"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00126> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Volume Concentration"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00127> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Length";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00128> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Electrical Conductance"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00129> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Diameter";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00130> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete GeneralGeometricQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00131> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Atom"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00132> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00132> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Matter Object"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000030> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00133> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Not quite sure about this...";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Act of Analysing"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00135> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "ChemicalComposition"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00136> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00136> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "MaterialStructureInfo"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00007> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00137> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Metadata set included in images. E.g. microscopes write the process specific metadata into the image file.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ImageMetadataSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00138> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of analysed data set. This usually means, that it is the result of some kind of postprocessing/analysis process of a raw data file.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Analysed Data Set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00068> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00139> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Weight Fraction"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00140> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A descriptive text";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Description"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00141> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Density: Mass/Volume";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Density";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00142> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Number"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Amount> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00144> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Electric Charge"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000016> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00146> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Frequency";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00147> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of three dimensional field data";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ThreeDimensionalFieldData"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00148> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Microstructure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00149> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Power";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00150> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "GeneralExperimentRelatedProcess"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00151> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Experiment"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00153> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Volume";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00157> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "DOCXFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00031> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00158> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Pressure";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00160> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Act of Summarising"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00162> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Conclusion"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00163> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SpecimenGeometryParameter"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00164> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00164> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Data set containing geometric information content";
+  <http://www.w3.org/2000/01/rdf-schema#label> "GeometryInfo"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00007> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00165> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Velocity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00166> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Machine specific software, e.g. used to control the process or acquire data";
+  <http://www.w3.org/2000/01/rdf-schema#label> "MachineSoftware"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00167> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A workshop dealing with mechanical manufacturing processes such as turning, wire eroding, separating, sawing...";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Mechanical Workshop"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Facility> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00168> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "too unspecific";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MicrostructuralQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00169> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "InfrastructureEquipmentSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00170> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00170> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "EquipmentSet"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00073> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00171> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Control Software"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00172> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionAFNOR";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00174> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionBS";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00178> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is an artifact identifer"@en;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of a consumable";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Consumable Name";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00179> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "MaterialSurfaceStructureInfo"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00136> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00180> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Is the base element of a chemical composition, e.g. Ni in Ni-alloys, Al in Al-alloys.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Base Element Of Composition"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00181> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Public Project"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00084> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00184> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Interpolation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00185> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Amount Of Substance Quantity"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00186> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Procedure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00008> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00187> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Event"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00188> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "PreProcessing"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00189> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Electric Current"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000144> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00190> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "NumberFraction"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Amount> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00192> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Report"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00031> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00193> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Diagram"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00022> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00194> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "The process of exporting data (e.g. from a output file generated by some simulation software)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "DataExport"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00196> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Resistance";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00197> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "STEPFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00198> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00198> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "CADFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete PersonName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00201> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionENMaterialNumber";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00202> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Pourly defined class! What is it tempurally site where a artifact is. Sound like the english counterpart of a fraunhofer noun.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A site related to a technological product";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete TechnologicalProductRelatedSite";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "MaterialStructureRelatedObject"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000030> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00206> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete TimeRelatedQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00207> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "not a quantity, beeing a consumable is a artifact function";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A structural quantity related to some kind of consumable";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ConsumableRelatedQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00208> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Use Measurement Unit ICE instead";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Second";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00209> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Software used for preprocessing";
+  <http://www.w3.org/2000/01/rdf-schema#label> "PreprocessingSoftware"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00092> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00213> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "CSVFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00214> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Luminous Intensity"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00215> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "DataReduction"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00216> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionENShortName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00218> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of one dimensional field data";
+  <http://www.w3.org/2000/01/rdf-schema#label> "OneDimensionalFieldData"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00224> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Mass";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00226> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "MaterialVolumeStructureInfo"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00136> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00230> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Structure Related Fiat Object Part"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00231> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Is not a quality its a unit";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete DimensionlessRatio";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00233> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "isnt that a quantity kind?";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MechanicalQuantity";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00234> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Documenting";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00235> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "unspecific! what is prepared and why? If i prepare myself then this can be an Act of Planning. If a speciment is prepared this must be an Act of Artifact Processing";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Preparation";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00236> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Very undetermined! Coincedent with Region of Interest? Its more scope of an investigation then an actual site on a object.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> """Measurement range: The area/volume in which the measurement
+is performed.""";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MeasurementRange";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00240> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "XLSFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Is the desinative Name of a Software instance.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete SoftwareName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00242> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A data set containg the information content of a withdrawal plan (e.g. PDFFile, CADFile...)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Withdrawal Plan"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/PlanSpecification> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00243> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Comment"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00244> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Region Of Interest"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000029> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "This is the designative name of a plan.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of a procedure (e.g. norm, standard, internal procedure)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProcedureName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00248> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Data Acquisition Software"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00249> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Technological Product Related Fiat Object Part"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00253> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Concentration Of Substance"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00254> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Summary"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingArtifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00258> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "PDFFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00031> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Date and time at the start of a process";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProcessStartDateTime";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00264> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionGOST";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00266> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Temperature";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00268> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Meso Structure"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00120> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00269> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Fraction";
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00276> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00270> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SI Unit"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00271> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00271> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "System Of Units"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/ReferenceSystem> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00272> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Windows Media-Audio/-Video file";
+  <http://www.w3.org/2000/01/rdf-schema#label> "WMVFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00273> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "shouldnt be here - is connected to a spatial regian and therfor no specifically dependent continuant";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Cartesian coordinates (e.g. x, y, z)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete CartesianCoordinate";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00274> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Extrapolation"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00064> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00275> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SoftwareScript"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00013> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00276> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Volume Fraction"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00045> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00277> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Molecule"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00278> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Cluster"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00132> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "If it is a Object Aggregate with a name then the Instance will have with class Object Aggregate with a designative name.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of a specific object aggregate";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ObjectAggregateName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00281> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "TXTFile"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00032> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00283> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "ISOStandard"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00008> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00284> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "TestSetup"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00072> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00285> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "TIFFImage"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00082> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00286> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Area";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00287> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A column (e.g. in a table)";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Column"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00218> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "If it is a Equipment with a name then the Instance will have with class Object Aggregate with a designative name";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of an equipment";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Equipment Name";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00292> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A series of images, that form a vertical stack (e.g. a series of images generated by tomography).";
+  <http://www.w3.org/2000/01/rdf-schema#label> "ImageStack"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00100> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00296> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Software Architecture"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/Artifact> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00297> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Publication"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00031> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00298> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Concentration"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000016> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00299> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is definatly not a quality, more a information content entity";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete Ratio";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00302> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete MaterialNamingConventionAISI";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00303> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "If it is a Fiat Object Part, then it must be a subclass of fiat object part and not an instance of an other class.";
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Name of a fiat object part";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete FiatObjectPartName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00304> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Any kind of table";
+  <http://www.w3.org/2000/01/rdf-schema#label> "Table"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00053> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00306> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "Is the designative Name of a Project";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProjectName";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00307> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "NumberDensity"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00308> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material Defect"@en;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://purl.obolibrary.org/obo/BFO_0000029> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00310> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete ProcessEvaluation";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00312> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is obsolete! use relation has measurement unit use annotation property SI unit label";
+  <http://www.w3.org/2000/01/rdf-schema#domain> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00010>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasUnitSymbol";
+  <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00315> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasValue";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#deprecated> true;
+  <https://www.materials.fraunhofer.de/ontologies/graph_designer#RelationFormat> "{\"rc\":[255,128,0], \"lw\":0.75}" .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "is obsolet! use relation is element";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete refersToElementSymbol";
+  <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00321> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete refersTo";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00324> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete chronologicalConnection";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topObjectProperty>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00325> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasTemporalInfo";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00003>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00326>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00326> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "has attached dataset"@en;
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00024>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00320> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00327> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasOperator";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00004>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00328>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00329> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#domain> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "has values of type"@en;
+  <http://www.w3.org/2000/01/rdf-schema#range> _:node1f5v2j6a0x149696, _:node1f5v2j6a0x149697,
+    _:node1f5v2j6a0x149698, _:node1f5v2j6a0x149699, _:node1f5v2j6a0x149700, _:node1f5v2j6a0x149701,
+    _:node1f5v2j6a0x149702, _:node1f5v2j6a0x149703, _:node1f5v2j6a0x149704, _:node1f5v2j6a0x149705,
+    _:node1f5v2j6a0x149706, _:node1f5v2j6a0x149707, _:node1f5v2j6a0x149708, _:node1f5v2j6a0x149709,
+    _:node1f5v2j6a0x149710, _:node1f5v2j6a0x149711, _:node1f5v2j6a0x149712, _:node1f5v2j6a0x149713,
+    _:node1f5v2j6a0x149714, _:node1f5v2j6a0x149715, _:node1f5v2j6a0x149716, _:node1f5v2j6a0x149717,
+    _:node1f5v2j6a0x149718, _:node1f5v2j6a0x149719, _:node1f5v2j6a0x149720, _:node1f5v2j6a0x149721,
+    _:node1f5v2j6a0x149722, _:node1f5v2j6a0x149723, _:node1f5v2j6a0x149724, _:node1f5v2j6a0x149725,
+    _:node1f5v2j6a0x149726, _:node1f5v2j6a0x149727, _:node1f5v2j6a0x149728, _:node1f5v2j6a0x149729;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.obolibrary.org/obo/RO_0010001>;
+  <http://www.w3.org/2002/07/owl#equivalentProperty> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00330> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00330> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://purl.obolibrary.org/obo/IAO_0000116> "too unspecific! what is the purpose of that relation?";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete isOfType";
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00332> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "A reference, that indicates that something is defined by something else. E.g. the location/shape of a geometric feature is defined by the CAD file.";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete isDefinedBy";
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00321>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00334> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> "Specific textual input (such as comments, descriptions) is attached to any kind of entity";
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasTextualInfo";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00006>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00326>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00336> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "has structural info"@en;
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00007>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00320>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00326> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00339> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#domain> <http://purl.obolibrary.org/obo/BFO_0000015>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "has parameter set"@en;
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00009>;
+  <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00326> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00340> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+  <http://www.w3.org/2000/01/rdf-schema#domain> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00010>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "obsolete hasQuantityKind";
+  <http://www.w3.org/2000/01/rdf-schema#range> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00011>;
+  <http://www.w3.org/2002/07/owl#deprecated> true .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Zero Dimensional Field Data"@de;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00005> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00001> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "AFNOR"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00002> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "AISI"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00003> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "BS"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00004> a <http://www.w3.org/2002/07/owl#Class>;
+  <http://www.ontologyrepository.com/CommonCoreOntologies/definition> "A number designating a particular form of something that is slightly different from other forms of the same thing."@en;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Version Number"@de;
+  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologyrepository.com/CommonCoreOntologies/CodeIdentifier> .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00005> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "EN Material Number"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00006> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "EN Short Name"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00007> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "GOST"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00008> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "JIS"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00009> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "Material_Naming_Convention_Other"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00010> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "SS"@de .
+
+<https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#PLC_00011> a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00026>;
+  <http://www.w3.org/2000/01/rdf-schema#label> "UNS"@de .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Velocity> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00165> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Second> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00208> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/TimeOfDay> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00122> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/AbbreviatedName> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeName> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00029>, <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199>, <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00306> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfArea> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00286> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ActOfArtifactModification>
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00235> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ActOfEstimation> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00310> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ActOfManufacturing> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00117> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ActOfOfficialDocumentation>
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00234> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ArbitraryIdentifier> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00071> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00040> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactIdentifier> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00001>, <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028>,
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00178> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfAngle> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00098> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/CartesianCoordinateSystem>
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00273> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/RatioMeasurementInformationContentEntity>
+  <http://www.w3.org/2002/07/owl#equivalentClass> <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00231> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00094> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfTime> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00030> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Density> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00141> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Diameter> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00129> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Frequency> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00146> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Force> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00033> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Length> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00127> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Mass> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00224> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Power> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00149> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Pressure> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00158> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ProcessBeginning> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00037> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/ProcessEnding> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00066> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/Temperature> <http://www.w3.org/2002/07/owl#equivalentClass>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00266> .
+
+<http://www.ontologyrepository.com/CommonCoreOntologies/designated_by> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00319> .
+
+<http://www.daml.org/2003/01/periodictable/PeriodicTable#symbol> <http://www.w3.org/2002/07/owl#equivalentProperty>
+    <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318> .
+
+_:node1f5v2j6a0x149696 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral> .
+
+<https://purl.matolab.org/mseo/mid> a <http://www.w3.org/2002/07/owl#Ontology>;
+  <http://www.w3.org/2000/01/rdf-schema#comment> """Contact:
+Christoph Schweizer
+Fraunhofer-Institut für Werkstoffmechanik IWM
+Wöhlerstraße 11, 79108 Freiburg
+christoph.schweizer@iwm.fraunhofer.de"""@de,
+    """Contact:
+Martin Huschka 
+Fraunhofer Institute for High-Speed Dynamics , Ernst-Mach-Institut, EMI
+Ernst-Zermelo-Strasse 4, 79104 Freiburg , Germany
+Martin.Huschka@EMI.Fraunhofer.de"""@de,
+    """Contact:
+Philipp von Hartrott
+Fraunhofer-Institut für Werkstoffmechanik IWM
+Wöhlerstraße 11, 79108 Freiburg
+philipp.von.hartrott@iwm.fraunhofer.de"""@de,
+    """Contact:
+Thomas Hanke
+Fraunhofer-Institut für Mikrostruktur von Werkstoffen und Systemen IMWS
+Walter-Hülse-Strasse 1, 06120 Halle (Saale)
+thomas.hanke@imws.fraunhofer.de"""@de,
+    "This is the mid-level module of the Material Sience and Engineering Ontology MSEO."@en;
+  <http://www.w3.org/2002/07/owl#imports> <http://www.daml.org/2003/01/periodictable/PeriodicTable.owl>,
+    <https://gitlab.cc-asp.fraunhofer.de/iwm-hub/mdbw_rdf/-/raw/master/gd.owl>, <https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/master/AllCoreOntology.ttl>;
+  <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00834> "Christoph Schweizer (Fraunhofer IWM)"@de;
+  <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00835> "Martin Huschka (Fraunhofer EMI)"@en,
+    "Philipp von Hartrott (Fraunhofer IWM)"@en, "Simon Stier (Fraunhofer ISC)"@en;
+  <http://www.w3.org/2002/07/owl#priorVersion> "BWMD_mid"@de;
+  <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00835> "Thomas Hanke (Fraunhofer IMWS)"@en .
+
+_:node1f5v2j6a0x149697 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> .
+
+_:node1f5v2j6a0x149698 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+
+_:node1f5v2j6a0x149699 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#NCName> .
+
+_:node1f5v2j6a0x149700 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#NMTOKEN> .
+
+_:node1f5v2j6a0x149701 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#Name> .
+
+_:node1f5v2j6a0x149702 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#anyURI> .
+
+_:node1f5v2j6a0x149703 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#base64Binary> .
+
+_:node1f5v2j6a0x149704 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#boolean> .
+
+_:node1f5v2j6a0x149705 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#byte> .
+
+_:node1f5v2j6a0x149706 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#dateTime> .
+
+_:node1f5v2j6a0x149707 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#dateTimeStamp> .
+
+_:node1f5v2j6a0x149708 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+
+_:node1f5v2j6a0x149709 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#double> .
+
+_:node1f5v2j6a0x149710 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#float> .
+
+_:node1f5v2j6a0x149711 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#hexBinary> .
+
+_:node1f5v2j6a0x149712 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#int> .
+
+_:node1f5v2j6a0x149713 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#integer> .
+
+_:node1f5v2j6a0x149714 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#language> .
+
+_:node1f5v2j6a0x149715 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#long> .
+
+_:node1f5v2j6a0x149716 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#negativeInteger> .
+
+_:node1f5v2j6a0x149717 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+_:node1f5v2j6a0x149718 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#nonPositiveInteger> .
+
+_:node1f5v2j6a0x149719 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#normalizedString> .
+
+_:node1f5v2j6a0x149720 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#positiveInteger> .
+
+_:node1f5v2j6a0x149721 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#short> .
+
+_:node1f5v2j6a0x149722 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#string> .
+
+_:node1f5v2j6a0x149723 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#token> .
+
+_:node1f5v2j6a0x149724 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#unsignedByte> .
+
+_:node1f5v2j6a0x149725 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#unsignedInt> .
+
+_:node1f5v2j6a0x149726 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#unsignedLong> .
+
+_:node1f5v2j6a0x149727 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2001/XMLSchema#unsignedShort> .
+
+_:node1f5v2j6a0x149728 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2002/07/owl#rational> .
+
+_:node1f5v2j6a0x149729 a <http://www.w3.org/2002/07/owl#Restriction>;
+  <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2002/07/owl#topDataProperty>;
+  <http://www.w3.org/2002/07/owl#someValuesFrom> <http://www.w3.org/2002/07/owl#real> .
