@@ -1,0 +1,295 @@
+ @prefix Con: <https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix mseo: <https://purl.matolab.org/mseo/mid/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tt: <httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulus> .
+
+obo:BFO_0000051 a owl:ObjectProperty ;
+    rdfs:label "b f o_0000051" ;
+    rdfs:range mseo:MeasurementRegion .
+
+obo:RO_0000086 a owl:ObjectProperty ;
+    rdfs:label "r o_0000086" .
+
+obo:RO_0010001 a owl:ObjectProperty ;
+    rdfs:label "r o_0010001" .
+
+cco:designated_by a owl:ObjectProperty ;
+    rdfs:label "designated_by" .
+
+cco:has_URI_value a owl:ObjectProperty ;
+    rdfs:label "has_ u r i_value" .
+
+cco:has_accessory a owl:ObjectProperty ;
+    rdfs:label "has_accessory" ;
+    rdfs:domain cco:ActOfMeasuring .
+
+cco:has_agent a owl:ObjectProperty ;
+    rdfs:label "has_agent" .
+
+cco:has_function a owl:ObjectProperty ;
+    rdfs:label "has_function" ;
+    rdfs:range cco:ArtifactFunction .
+
+cco:has_output a owl:ObjectProperty ;
+    rdfs:label "has_output" ;
+    rdfs:domain Con:DeterminationOfSecantModulusOfElasticity .
+
+cco:has_process_part a owl:ObjectProperty ;
+    rdfs:label "has_process_part" .
+
+cco:has_text_value a owl:ObjectProperty ;
+    rdfs:label "has_text_value" .
+
+cco:interval_finished_by a owl:ObjectProperty ;
+    rdfs:label "interval_finished_by" .
+
+cco:is_cause_of a owl:ObjectProperty ;
+    rdfs:label "is_cause_of" .
+
+cco:is_input_of a owl:ObjectProperty ;
+    rdfs:label "is_input_of" .
+
+cco:is_measured_by a owl:ObjectProperty ;
+    rdfs:label "is_measured_by" ;
+    rdfs:domain cco:Diameter,
+        cco:Length .
+
+cco:occures_on a owl:ObjectProperty ;
+    rdfs:label "occures_on" ;
+    rdfs:domain Con:DeterminationOfSecantModulusOfElasticity .
+
+cco:process_preceeds a owl:ObjectProperty ;
+    rdfs:label "process_preceeds" ;
+    rdfs:range cco:ActOfMeasuring,
+        mseo:ActOfAnalysing .
+
+mseo: a owl:Ontology ;
+    dc:creator "Sven Iwaszko" ;
+    dc:description "Ontology code created by Chowlk" ;
+    dc:title "Determination of young's modulus" ;
+    owl:versionInfo "0.0.1" .
+
+mseo:ForceMeasurementArtifactFunction a owl:Class ;
+    rdfs:label "Force Measurement Artifact Function" .
+
+mseo:in_accordance_with a owl:ObjectProperty ;
+    rdfs:label "in_accordance_with" .
+
+tt:CaliperIdentifer a owl:NamedIndividual .
+
+tt:DIN_EN_12390_3 a cco:Document,
+        owl:NamedIndividual .
+
+tt:DiameterMeasurementInformation a cco:DistanceMeasurementInformationContentEntity,
+        owl:NamedIndividual .
+
+tt:EndOfExperiment a owl:NamedIndividual,
+        mseo:EndOfExperiment .
+
+tt:ExperimentDate a cco:Day,
+        owl:NamedIndividual .
+
+tt:LenghtMeasurementDevice a owl:NamedIndividual,
+        Con:Transducer .
+
+tt:LenghtMeasurementDeviceIdentifer a owl:NamedIndividual .
+
+tt:LenghtMeasurementInformation a cco:DistanceMeasurementInformationContentEntity,
+        owl:NamedIndividual .
+
+tt:LengthMeasurementInformation a cco:DistanceMeasurementInformationContentEntity,
+        owl:NamedIndividual .
+
+tt:LoadCell a owl:NamedIndividual,
+        mseo:MeasurementDevice .
+
+tt:LoadCellIdentifer a cco:NonNameIdentifier,
+        owl:NamedIndividual .
+
+tt:LoadRate a owl:NamedIndividual,
+        Con:ForceRate,
+        mseo:ProcessParameterSet ;
+    cco:is_input_of tt:YoungsModulusTest .
+
+tt:MeasurementRegion a owl:NamedIndividual,
+        mseo:MeasurementRegion ;
+    obo:RO_0000086 tt:SpecimenThickness .
+
+tt:Operator a cco:Agent,
+        owl:NamedIndividual .
+
+tt:OperatorName a cco:DesignativeName,
+        owl:NamedIndividual .
+
+tt:RawDataFile a owl:NamedIndividual,
+        mseo:RawDataSet .
+
+tt:Specimen a owl:NamedIndividual,
+        mseo:Specimen .
+
+tt:SpecimenLenght a cco:Length,
+        owl:NamedIndividual .
+
+tt:SpecimenName a cco:NonNameIdentifier,
+        owl:NamedIndividual .
+
+tt:SpecimenShape a cco:Cylindrical,
+        owl:NamedIndividual .
+
+tt:Standard a owl:NamedIndividual,
+        mseo:Regulation .
+
+tt:StandardIdentifier a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    obo:RO_0010001 tt:StandardCode .
+
+tt:TestMachine a owl:NamedIndividual,
+        mseo:UniversalTestingMachine .
+
+tt:TestMachineIdentifer a cco:NonNameIdentifier,
+        owl:NamedIndividual .
+
+tt:TestTimeInterval a owl:NamedIndividual,
+        mseo:ExperimentTime .
+
+tt:ThirdLoadingCycle a obo:BFO_0000015,
+        owl:NamedIndividual .
+
+tt:YoungsModulusTestSpecimen a cco:ArtifactFunction,
+        owl:NamedIndividual .
+
+obo:BFO_0000015 a owl:Class ;
+    rdfs:label "B F O_0000015" .
+
+cco:ActOfPositionChange a owl:Class ;
+    rdfs:label "Act Of Position Change" .
+
+cco:Agent a owl:Class ;
+    rdfs:label "Agent" .
+
+cco:Cylindrical a owl:Class ;
+    rdfs:label "Cylindrical" .
+
+cco:Day a owl:Class ;
+    rdfs:label "Day" .
+
+cco:DesignativeName a owl:Class ;
+    rdfs:label "Designative Name" .
+
+cco:DistanceMeasurementArtifactFunction a owl:Class ;
+    rdfs:label "Distance Measurement Artifact Function" .
+
+cco:Document a owl:Class ;
+    rdfs:label "Document" .
+
+cco:InformationLine a owl:Class ;
+    rdfs:label "Information Line" .
+
+cco:RatioMeasurementInformationContentEntity a owl:Class ;
+    rdfs:label "Ratio Measurement Information Content Entity" .
+
+Con:ForceRate a owl:Class ;
+    rdfs:label "Force Rate" .
+
+Con:Transducer a owl:Class ;
+    rdfs:label "Transducer" .
+
+mseo:EndOfExperiment a owl:Class ;
+    rdfs:label "End Of Experiment" .
+
+mseo:ExperimentTime a owl:Class ;
+    rdfs:label "Experiment Time" .
+
+mseo:ProcessParameterSet a owl:Class ;
+    rdfs:label "Process Parameter Set" .
+
+mseo:RawDataSet a owl:Class ;
+    rdfs:label "Raw Data Set" .
+
+mseo:Regulation a owl:Class ;
+    rdfs:label "Regulation" .
+
+mseo:Specimen a owl:Class ;
+    rdfs:label "Specimen" .
+
+mseo:UniversalTestingMachine a owl:Class ;
+    rdfs:label "Universal Testing Machine" .
+
+tt:ActofCompression a cco:ActOfMeasuring,
+        owl:NamedIndividual .
+
+tt:AlignSpecimen a cco:ActOfPositionChange,
+        owl:NamedIndividual .
+
+tt:Caliper a owl:NamedIndividual,
+        mseo:MeasurementDevice .
+
+tt:ForceMeasurementInformation a cco:RatioMeasurementInformationContentEntity,
+        owl:NamedIndividual .
+
+tt:GetCharacteristicValues a owl:NamedIndividual,
+        mseo:ActOfAnalysing .
+
+tt:MeasureDiameter a cco:ActOfMeasuring,
+        owl:NamedIndividual ;
+    cco:has_accessory tt:Caliper .
+
+tt:MeasureForce a cco:ActOfMeasuring,
+        owl:NamedIndividual ;
+    cco:has_output tt:ForceMeasurementInformation .
+
+tt:MeasureLength a cco:ActOfMeasuring,
+        owl:NamedIndividual .
+
+tt:SpecimenThickness a cco:Diameter,
+        owl:NamedIndividual .
+
+tt:StandardCode a cco:InformationLine,
+        owl:NamedIndividual .
+
+tt:YoungsModulusTest a owl:NamedIndividual,
+        Con:DeterminationOfSecantModulusOfElasticity ;
+    cco:has_process_part tt:ActofCompression,
+        tt:AlignSpecimen,
+        tt:GetCharacteristicValues,
+        tt:MeasureDiameter,
+        tt:MeasureForce,
+        tt:MeasureLength .
+
+cco:ArtifactFunction a owl:Class ;
+    rdfs:label "Artifact Function" .
+
+cco:Diameter a owl:Class ;
+    rdfs:label "Diameter" .
+
+cco:Length a owl:Class ;
+    rdfs:label "Length" .
+
+mseo:ActOfAnalysing a owl:Class ;
+    rdfs:label "Act Of Analysing" .
+
+mseo:MeasurementDevice a owl:Class ;
+    rdfs:label "Measurement Device" .
+
+mseo:MeasurementRegion a owl:Class ;
+    rdfs:label "Measurement Region" .
+
+cco:DistanceMeasurementInformationContentEntity a owl:Class ;
+    rdfs:label "Distance Measurement Information Content Entity" .
+
+Con:DeterminationOfSecantModulusOfElasticity a owl:Class ;
+    rdfs:label "Determination Of Secant Modulus Of Elasticity" .
+
+cco:NonNameIdentifier a owl:Class,
+        owl:DatatypeProperty ;
+    rdfs:label "Non Name Identifier",
+        "non name identifier" ;
+    rdfs:domain cco:DistanceMeasurementArtifactFunction .
+
+cco:ActOfMeasuring a owl:Class ;
+    rdfs:label "Act Of Measuring" .
+

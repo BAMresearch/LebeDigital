@@ -1,0 +1,1394 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
+     xml:base="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:mid1="https://purl.matolab.org/mseo/mid/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:graph_designer="https://www.materials.fraunhofer.de/ontologies/graph_designer#"
+     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
+    <owl:Ontology rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl">
+        <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#hasClassification -->
+
+    <owl:ObjectProperty rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#hasClassification">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompactionClass"/>
+        <rdfs:range rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass"/>
+        <rdfs:range rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlowClass"/>
+        <rdfs:range rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlumpClass"/>
+        <rdfs:range rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VebeClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313">
+        <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine"/>
+        <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipmentName"/>
+        <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName"/>
+        <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TestingMachine"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317">
+        <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343">
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065"/>
+        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Pressure -->
+
+    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure">
+        <owl:equivalentClass rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </rdf:Description>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ActuatorEquipment -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ActuatorEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Admixture -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Admixture">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+        <rdfs:comment>Material added during the mixing process of concrete in amall quantities related to the mass of cement to modify the properties of fresh or hardened concrete</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Aggregate -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Aggregate">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+        <rdfs:comment>granular mineral material suitable for use in concrete. Aggregates may be natural, artificial or recycled fom material previously used in construction</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Air -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Air">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+        <rdfs:comment></rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtPreloadStressOnLoadingCycleN -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtPreloadStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CalibrationOfEquipment -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CalibrationOfEquipment">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Cement -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Cement">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+        <rdfs:comment>a finely ground onorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Classification -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Classification">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ColumnNumber -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ColumnNumber">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>The column number within a file</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CommaDelimiter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CommaDelimiter">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+        <rdfs:comment>Delimiter symbol is a comma</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompactionClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompactionClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompositeMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompositeMaterial">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+        <rdfs:comment>A material which is produced from two or more constituent materials.</rdfs:comment>
+        <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Composite_material</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TestingMachine"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Classification"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrength -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrength">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCube -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCube">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrength"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCylinder -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCylinder">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompressiveStrength"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Concrete -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Concrete">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
+        <rdfs:comment>Concrete is a mixture of paste and aggregates.</rdfs:comment>
+        <rdfs:label>Concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Classification"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DATFile -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DATFile">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/File"/>
+        <rdfs:comment>A data file (.dat) is a standard data document that contains data and is recognized by any text editing or word processing software.</rdfs:comment>
+        <rdfs:label>DATFile</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DINStandard -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DINStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <rdfs:comment>Any kind of standard as published by the Deutsche Institut für Normung (DIN)</rdfs:comment>
+        <rdfs:label>DINStandard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperator -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperator">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
+        <rdfs:comment>The symbol used for the decimal separator</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperatorComma -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperatorComma">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperator"/>
+        <rdfs:comment>The decimal separator symbol is a comma</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperatorDot -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperatorDot">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DecimalSeperator"/>
+        <rdfs:comment>The decimal separator symbol is a dot</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Delimiter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Delimiter">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
+        <rdfs:comment>The delimiter symbol between columns</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Desktop -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Desktop">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DestructiveTesting -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DestructiveTesting">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <owl:disjointWith rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DestructiveTesting"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_precedes"/>
+                <owl:someValuesFrom rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DestructiveTesting"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceded_by"/>
+                <owl:someValuesFrom rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DifferenceBetweenMeasuredStresses -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DifferenceBetweenMeasuredStresses">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ENStandard -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ENStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <rdfs:comment>Any kind of standard as published by one of the following Institutions:
+CEN (Comité Européen de Normalisation)
+CENELEC (European Committee for Electronical Standards)
+ETSI (European Telecommunications Standard Institute)</rdfs:comment>
+        <rdfs:label>ENStandard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EngineeringMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EngineeringMaterial">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#WaterCementRatio"/>
+        <rdfs:comment>ratio by mass of the effective water content to the combined cement content and the k-value to take int account additions</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlowClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlowClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlyAsh -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlyAsh">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ForceRate -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ForceRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FreshConcrete -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FreshConcrete">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Concrete"/>
+        <owl:disjointWith rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#HardenedConcrete"/>
+        <rdfs:comment>concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Grain -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Grain">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#HardenedConcrete -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#HardenedConcrete">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Concrete"/>
+        <rdfs:comment>concrete which is in a solid state and which has developed a certain strength</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#IECStandard -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#IECStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <rdfs:comment>Any kind of standard as published by the International Electrotechnical Comission (IEC)</rdfs:comment>
+        <rdfs:label>IECStandard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipment -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipmentName -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipmentName">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InitialSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InitialSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty"/>
+        <owl:disjointWith rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
+        <owl:disjointWith rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#OrganicMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentSet -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentSet">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Laptop -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Laptop">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LoadingRate -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#LoadingRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MaxDiameter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MaxDiameter">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStrain -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStrain">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalLowerStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalLowerStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalPreloadStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalUpperStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalUpperStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+        <rdfs:comment>Measured stress corresponding to nominal upper stress, σa</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MetallicMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MetallicMaterial">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MinDiameter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MinDiameter">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Mixer -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Mixer">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Mortar -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Mortar">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalLowerStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalLowerStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalPreloadStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+        <rdfs:comment>arbitrary value between 10% and 15% of fc</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalUpperStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalUpperStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NumberOfHeaderLines -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NumberOfHeaderLines">
+        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Number of header lines (with metadata) in file before the column with values start.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#OperatorOfProcess -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#OperatorOfProcess">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Person"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#OrganicMaterial -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#OrganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#RelativeDensity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#RelativeDensity">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+        <rdfs:comment>Delimiter symbol is a semicolon</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Server -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Server">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SilicaFume -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SilicaFume">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlagCement -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlagCement">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlumpClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlumpClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecificGravity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecificGravity">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_output_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stoffraum -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stoffraum"/>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringFirstLoadingCycle -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringFirstLoadingCycle">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringThirdLoadingCycle -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringThirdLoadingCycle">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Stress">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Force"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StressRate -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StressRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TabDelimiter -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TabDelimiter">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+        <rdfs:comment>Delimiter symbol is a tab character</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TensileSplittingStrength -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TensileSplittingStrength">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TestingMachine -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TestingMachine">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ActuatorEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Transducer -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Transducer">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VDEStandard -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VDEStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <rdfs:comment>Any kind of standard as published by the Verband Deutscher Elektrotechniker (VDE)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VebeClass -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VebeClass">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Volume -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Volume">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Water -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Water">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#WaterCementRatio -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#WaterCementRatio">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ProportionalRatioMeasurementInformationContentEntity"/>
+        <rdfs:comment>ratio of the effective water content to cement content by mass in the fresh concrete</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#kValueAccountingForFlyAsh -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#kValueAccountingForFlyAsh">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio"/>
+    </owl:Class>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#kValueAccountingForSilicaFume -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#kValueAccountingForSilicaFume">
+        <rdfs:subClassOf rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio"/>
+    </owl:Class>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/RawDataSet -->
+
+    <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/RawDataSet">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_URI_value"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121">
+        <rdfs:comment>FormatDescription</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00169 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00169">
+        <rdfs:comment>InfrastructureEquipmentSet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00171 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00171">
+        <rdfs:comment>ControlSoftware</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199">
+        <rdfs:comment>PersonName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203">
+        <rdfs:comment>MaterialStructureRealatedObject</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241">
+        <rdfs:comment>SoftwareName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245">
+        <rdfs:comment>ProcedureName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00248 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00248">
+        <rdfs:comment>DataAcquisitionSoftware</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>ProcessStartDateTime</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280">
+        <rdfs:comment>ObjectAggregateName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00284 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00284">
+        <rdfs:comment>TestSetup</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289">
+        <rdfs:comment>EquipmentName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00296 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00296">
+        <rdfs:comment>SoftwareArchitecture</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342 -->
+
+    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342">
+        <rdfs:comment>MaterialName</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DIN_EN_12390-13 -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DIN_EN_12390-13">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#DINStandard"/>
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ENStandard"/>
+        <rdfs:comment>Prüfung von Festbeton –
+Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
+(Sekantenmodul)</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EN12390-3 -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#EN12390-3">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ENStandard"/>
+        <rdfs:comment>Testing hardened concrete –
+Part 13: Determination of secant modulus of elasticity in compression</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MegaPascalPerSecond -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MegaPascalPerSecond">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StressRate"/>
+        <owl:sameAs rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Meter -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Meter"/>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeterKilogramPerSecondSquarred -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeterKilogramPerSecondSquarred">
+        <owl:sameAs rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Newton"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodA -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodA">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodB -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodB">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Newton -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Newton"/>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StressRate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Second -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Second"/>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#YoungsModulusTest -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#YoungsModulusTest"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CommaDelimiter"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#TabDelimiter"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompactionClass"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#FlowClass"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#SlumpClass"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#VebeClass"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MetallicMaterial"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Desktop"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Laptop"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#Server"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalLowerStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalPreloadStress"/>
+            <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#NominalUpperStress"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
