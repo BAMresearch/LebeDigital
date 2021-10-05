@@ -14,11 +14,21 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
+      - name: create data folder
+        run: |
+          test -d "data" && echo "data folder was created" || mkdir data
       - name: install chowlk and convert drawio to ontology xml
         run: |
           git clone https://github.com/oeg-upm/Chowlk.git
           cd Chowlk
           pip install -r requirements.txt
-          python converter.py ${GITHUB_WORKSPACE}/Concrete/ConcreteOntology/EM.drawio ${GITHUB_WORKSPACE}/Concrete/ConcreteOntology/EM.xml --type ontology --format xml
-          ls ${GITHUB_WORKSPACE}/knowledgeGraph/lebedigital-ontologies
-          
+          python converter.py ${GITHUB_WORKSPACE}/usecases/Concrete/ConcreteOntology/EM.drawio ${GITHUB_WORKSPACE}/usecases/Concrete/ConcreteOntology/EM.xml --type ontology --format xml
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/ConcreteOntology
+      - name: install python packages
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "usecases/Concrete/knowledgeGraph/requirements.txt"
+      - name: execute extract metadata script
+        run: |
+          python usecases/Concrete/knowledgeGraph/metadata-extraction.py
+          ls data/
