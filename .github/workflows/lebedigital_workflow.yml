@@ -1,0 +1,24 @@
+name: lebedigital workflow of building knowledge graph
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-knowledge-graph:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: install chowlk and convert drawio to ontology xml
+        run: |
+          git clone https://github.com/oeg-upm/Chowlk.git
+          cd Chowlk
+          pip install -r requirements.txt
+          python converter.py ${GITHUB_WORKSPACE}/Concrete/ConcreteOntology/EM.drawio ${GITHUB_WORKSPACE}/Concrete/ConcreteOntology/EM.xml --type ontology --format xml
+          ls ${GITHUB_WORKSPACE}/knowledgeGraph/lebedigital-ontologies
+          
