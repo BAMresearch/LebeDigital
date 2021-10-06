@@ -4,3 +4,4 @@ pandas==0.25.1
 Owlready2==0.33
 rdflib==5.0.0
 SPARQLWrapper==1.8.5
+requests==2.22.0
