@@ -21,14 +21,15 @@
 
 # In[1]:
 
-
 from owlready2 import *
 import pandas as pd
 import urllib.parse
 from pathlib import Path
 import os
 
-# In[23]:
+
+# In[2]:
+
 
 baseDir = Path(__file__).resolve().parents[1]
 ontologyPath = os.path.join(baseDir,'ConcreteOntology')
@@ -66,6 +67,8 @@ lebedigital_concrete.imported_ontologies.append(PeriodicTable_ontology)
 lebedigital_concrete.imported_ontologies.append(WCTmidonto)
 lebedigital_concrete.imported_ontologies.append(CSTonto)
 lebedigital_concrete.imported_ontologies.append(mseo_mid)
+
+
 
 
 # <h3 style="color:#1f5dbf">metadata from Emodul experiments</h3>  
@@ -192,12 +195,20 @@ for i in data.index:
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen.iri))
             )
         )
-        # add testers (prüfers) as instances in class Person
+        # add testers (prüfers) as instances in class Agent
         g.add(
             (
                 URIRef(urllib.parse.quote(CCO.Agent(data['tester'][i].replace(' ','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Agent.iri))
+            )
+        )
+        # add person/tester in class DesignativeName
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.DesignativeName(data['tester'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.DesignativeName.iri))
             )
         )
         # add start date as instances in class Day
@@ -235,7 +246,7 @@ for i in data.index:
         # add Weight of the specimen in class Mass
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Mass(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Mass(data['weight'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Mass.iri))
             )
@@ -254,6 +265,50 @@ for i in data.index:
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(lebedigital_concrete.MeasurementRegion.iri))
+            )
+        )
+        # add weight, diameter, length, dataset path, tester name value, force rate value
+        # in class InformationBearingEntity
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
 
@@ -276,7 +331,7 @@ for i in data.index:
 
 # <h5 style="color:#1f5dbf">adding data with object properties and data properties</h5>  
 
-# In[21]:
+# In[20]:
 
 
 for i in data.index:
@@ -356,99 +411,110 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.Diameter(data['weight'][i]).iri))
             )
         )
+        # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.Diameter(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.Diameter(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.Diameter(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate(data['control'][i]).iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri))
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.DesignativeName(data['tester'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)),
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri))
+            )
+        )
 
 
-# <h5 style="color:#1f5dbf">create more data properties </h5>  
+# <h5 style="color:#1f5dbf">adding data with data properties</h5>  
 
-# with bwmd_mid:
-#     class hasSpecimenName(DataProperty):
-#         range = [str]
-#     class hasName(DataProperty):
-#         range = [str]
-#     class hasDiameter(DataProperty):
-#         range = [str]
-#     class hasWeight(DataProperty):
-#         range = [str]
-#     class hasLength(DataProperty):
-#         range = [str]
-# with lebedigital_concrete:
-#     class hasValue(DataProperty):
-#         range = [str]
-#     class hasFilePath(DataProperty):
-#         range = [str]
-#     
+# In[21]:
 
-# <h5 style="color:#1f5dbf">data properties for specimen and remark of experiment </h5>  
 
-# for i in data.index:
-#     # specimen hasSpecimenName
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00048(data['sample name'][i].replace(' ','_')).iri)), 
-#             URIRef(urllib.parse.quote(bwmd_mid.hasSpecimenName.iri)),
-#             Literal(data['sample name'][i].replace(' ','_'))
-#         )
-#     )
-#     # specimen hasDiameter
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00048(data['sample name'][i].replace(' ','_')).iri)), 
-#             URIRef(urllib.parse.quote(bwmd_mid.hasDiameter.iri)),
-#             Literal(data['diameter'][i])
-#         )
-#     )
-#     # specimen hasWeight
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00048(data['sample name'][i].replace(' ','_')).iri)), 
-#             URIRef(urllib.parse.quote(bwmd_mid.hasWeight.iri)),
-#             Literal(data['weight'][i])
-#         )
-#     )
-#     # specimen hasLength
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00048(data['sample name'][i].replace(' ','_')).iri)), 
-#             URIRef(urllib.parse.quote(bwmd_mid.hasLength.iri)),
-#             Literal(data['length'][i])
-#         )
-#     )
-#     # StressRate hasValue
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(lebedigital_concrete.StressRate(data['control'][i]).iri)), 
-#             URIRef(urllib.parse.quote(lebedigital_concrete.hasValue.iri)), 
-#             Literal(data['control value'][i])
-#         )
-#     )
-#     # file hasFilePath
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00068(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
-#             URIRef(urllib.parse.quote(lebedigital_concrete.hasFilePath.iri)), 
-#             Literal(data['file path'][i])
-#         )
-#     )
+# add weight, diameter, length, dataset path, tester name value, force rate value
+for i in data.index:
+    with lebedigital_concrete:
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
+                Literal(data['weight_number'][i])
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
+                Literal(data['diameter_number'][i])
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
+                Literal(data['length_number'][i])
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
+                Literal(data['file path'][i])
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_text_value.iri)), 
+                Literal(data['tester'][i])
+            )
+        )
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_text_value.iri)), 
+                Literal(data['control value'][i])
+            )
+        )
 
-# <h5 style="color:#1f5dbf">data properties for person </h5>  
 
-# for i in data.index:
-#     # person hasName
-#     g.add(
-#         (
-#             URIRef(urllib.parse.quote(bwmd_mid.BWMD_00004(data['tester'][i].replace(' ','_')).iri)), 
-#             URIRef(urllib.parse.quote(bwmd_mid.hasName.iri)), 
-#             Literal(data['tester'][i].replace(' ','_'))
-#         )
-#     )
-
-# In[24]:
+# In[22]:
 
 
 g.serialize(destination=graphPath, format="turtle")
 
 
-# In[26]:
+# In[23]:
 
 
 q = """
@@ -485,15 +551,60 @@ q = """
 """
 
 
-# In[28]:
+# In[24]:
 
 
 results = g.query(q)
 
 
+# In[25]:
+
+
+for result in results:
+    print(result)
+
+
+# In[30]:
+
+
+q = """
+    prefix ns1: <http://www.w3.org/2002/07/owl#> 
+    prefix ns10: <https://www.materials.fraunhofer.de/ontologies/graph_designer#> 
+    prefix ns11: <http://purl.org/dc/terms/> 
+    prefix ns2: <http://www.ontologyrepository.com/CommonCoreOntologies/> 
+    prefix ns3: <http://purl.obolibrary.org/obo/> 
+    prefix ns4: <http://www.geneontology.org/formats/oboInOwl#> 
+    prefix ns5: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> 
+    prefix ns6: <http%3A//www.ontologyrepository.com/CommonCoreOntologies/> 
+    prefix ns7: <http%3A//purl.obolibrary.org/obo/> 
+    prefix ns8: <http://purl.org/dc/elements/1.1/> 
+    prefix ns9: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#> 
+    prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+    prefix con: <https://git.material-digital.de/lebedigital/concreteontology/-/blob/Concrete_Ontology_MSEO.owl>
+
+    SELECT ?s ?p ?o
+    WHERE {
+        {
+        <https%3A//purl.matolab.org/mseo/mid/Kh>
+        ?p
+        ?o
+        }
+        UNION
+        {
+        ?s
+        ?p
+        <https%3A//purl.matolab.org/mseo/mid/Kh>
+        }
+    }
+"""
+
+
 # In[31]:
 
-print('Example query results for the question: when the experiment E-modul_experiment_BA-Losert_E-Modul_28d_v._04.08.14_Probe_4  occured and by whom?')
+
+results = g.query(q)
 for result in results:
     print(result)
 
