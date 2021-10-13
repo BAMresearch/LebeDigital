@@ -664,6 +664,15 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate -->
+
+    <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit"/>
+        <rdfs:label>Measurement Unit of Force Rate</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MetallicMaterial -->
 
     <owl:Class rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MetallicMaterial">
@@ -1248,6 +1257,15 @@ Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
         <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#ENStandard"/>
         <rdfs:comment>Testing hardened concrete –
 Part 13: Determination of secant modulus of elasticity in compression</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#KiloNewtonPerSecondMeasurementUnit -->
+
+    <owl:NamedIndividual rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#KiloNewtonPerSecondMeasurementUnit">
+        <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate"/>
+        <rdfs:label>Kilo Newton Per Second Measurement Unit</rdfs:label>
     </owl:NamedIndividual>
     
 
