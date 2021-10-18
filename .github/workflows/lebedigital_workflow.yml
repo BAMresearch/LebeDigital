@@ -40,7 +40,7 @@ jobs:
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/processeddata
       - name: execute extract metadata script
         run: |
-          python usecases/Concrete/knowledgeGraph/metadata-extraction.py
+          python usecases/Concrete/knowledgeGraph/metadata_extraction.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/
       - name: execute mapping script
         run: |

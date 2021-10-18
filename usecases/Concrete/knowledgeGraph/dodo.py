@@ -1,16 +1,15 @@
 import os
 from pathlib import Path
-import git
 
 baseDir = Path(__file__).resolve().parents[0]
 
 DOIT_CONFIG = {'verbosity': 2}
 
-def task_create_data_folder():
+def task_emodul():
     if os.path.exists(os.path.join(baseDir,'E-modul-processed-data')):
         yield {
-        'basename': 'checking folder',
-        'actions': ['echo folder existed']
+            'basename': 'checking folder',
+            'actions': ['echo folder existed']
         }
     else:
 
@@ -27,14 +26,21 @@ def task_create_data_folder():
             'actions': ['mkdir E-modul-processed-data/processeddata']
         }
 
-def chowlk_convert_drawio_to_xml():
-
-    def clone_chowlk():
-        if os.path.exists(os.path.join(baseDir,'bamChowlk')):
-            print('chowlk is already existed')
-        else:
-            git.Git(baseDir).clone('https://github.com/firmao/bamChowlk')
-
     yield {
-            'actions': [clone_chowlk]
-        }
+        'basename': 'generate processed data',
+        'actions': ['python generate_Emodul_processed_data.py']
+    }
+    yield {
+        'basename': 'extract metadata',
+        'actions': ['python metadata_extraction.py']
+    }
+    yield {
+        'basename': 'map ontology and metadata',
+        'actions': ['python mapping_ontology_data.py']
+    }
+    yield {
+        'basename': 'run query script',
+        'actions': ['python query.py']
+    }
+
+    
