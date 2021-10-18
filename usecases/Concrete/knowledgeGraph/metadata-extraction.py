@@ -5,6 +5,11 @@ import sys
 import pandas as pd
 from pathlib import Path
 
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir0 = Path(__file__).resolve().parents[0]
+dataPath = os.path.join(baseDir1,'Data/E-modul')
+listDataFolders = os.listdir(dataPath)
+
 # the function read each line and return metadata as key and value
 def get_metadata_in_one_line(line):
     s = re.sub('\t+', '\t', line)
@@ -89,10 +94,6 @@ def eModul_metadata(filePath, fileName ):
 
 # print(data)
 
-baseDir = Path(__file__).resolve().parents[1]
-dataPath = os.path.join(baseDir,'usecases/Concrete/Data/E-modul')
-listDataFolders = os.listdir(dataPath)
-
 metadata = []
 for folder in listDataFolders:
     path = os.path.join(dataPath,folder)
@@ -127,6 +128,6 @@ dataFrame = pd.DataFrame({
     'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
 })
 
-dataFrame.to_csv('data/metadata.csv', index = False)
+dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/metadata.csv'), index = False)
 
 print(dataFrame.head())

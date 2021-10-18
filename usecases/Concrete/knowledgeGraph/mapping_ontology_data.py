@@ -31,11 +31,12 @@ import os
 # In[2]:
 
 
-baseDir = Path(__file__).resolve().parents[1]
-ontologyPath = os.path.join(baseDir,'ConcreteOntology')
-metadataPath = 'data/metadata.csv'
-graphPath = 'data/EM_Graph.ttl'
-importedOntologiesPath = os.path.join(baseDir,'GraphCreation/Ontologies')
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir0 = Path(__file__).resolve().parents[0]
+ontologyPath = os.path.join(baseDir1,'ConcreteOntology')
+metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
+graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
+importedOntologiesPath = os.path.join(baseDir1,'GraphCreation/Ontologies')
 
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
@@ -79,11 +80,6 @@ lebedigital_concrete.imported_ontologies.append(mseo_mid)
 data = pd.read_csv(metadataPath)
 
 
-# In[8]:
-
-
-data.head()
-
 
 # In[9]:
 
@@ -91,12 +87,6 @@ data.head()
 data['experiment name'] = ['E-modul experiment ' + data['sample name'][i]
                            for i in data.index
                           ]
-
-
-# In[10]:
-
-
-data.head()
 
 
 # <h5 style="color:#1f5dbf">splitting string from remark in control and the value of control force/stress</h5>  
@@ -114,11 +104,6 @@ data['control unit'] = [
     data['remark'][i].split()[2] for i in data.index
 ]
 
-# In[12]:
-
-
-data.head()
-
 
 # <h5 style="color:#1f5dbf">add 1 column for example file path in data</h5>  
 
@@ -131,11 +116,6 @@ data['file path'] = [
     for i in data.index
 ]
 
-
-# In[14]:
-
-
-data.head()
 
 
 # <h5 style="color:#1f5dbf">convert string to number in the columns</h5>  
@@ -157,10 +137,6 @@ data['length_number'] = [
 ]
 
 
-# In[16]:
-
-
-data.head()
 
 
 # <h3 style="color:#1f5dbf">Generate a graph and add triples to this graph</h3>  
@@ -527,11 +503,7 @@ for i in data.index:
 
 g.serialize(destination=graphPath, format="turtle")
 
-
-# In[30]:
-
 print('---------------------------------------------------------------------')
-print('sample queries')
 print('number of EModul experiments: ', 39)
 print('number of classes in Emodul ontology: ', len(list(lebedigital_concrete.classes())))
 
@@ -551,10 +523,5 @@ q = """
 results = g.query(q)
 for result in results:
     print('number of triples', result)
-
-
-# In[ ]:
-
-
 
 
