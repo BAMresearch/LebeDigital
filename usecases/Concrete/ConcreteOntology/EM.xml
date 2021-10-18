@@ -7,381 +7,503 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceeds">
-    <rdfs:label>process_preceeds</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="https://purl.matolab.org/mseo/mid/ActOfAnalysing"/>
-    <rdfs:range rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenShape">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Cylindrical"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/EndOfExperiment">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>End Of Experiment</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementRegion"/>
-    <rdfs:label>b f o_0000051</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimenName">
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLoadCellIdentifer">
     <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/MeasurementRegion">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Measurement Region</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusForceMeasurementInformation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/RatioMeasurementInformationContentEntity"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusDeterminYoungsModulus">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ActOfAnalysing"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureForce">
-    <cco:has_output rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusForceMeasurementInformation"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0010001">
-    <rdfs:label>r o_0010001</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureDiameter">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
-    <cco:has_accessory rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusCaliper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Agent">
-    <rdfs:label>Agent</rdfs:label>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Cylindrical">
+    <rdfs:label>Cylindrical</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/MeasurementDevice">
-    <rdfs:label>Measurement Device</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLoadRate">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ProcessParameterSet"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <cco:is_input_of rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusYoungsModulusTest"/>
-    <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlForceRate"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by">
-    <rdfs:label>designated_by</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimen">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_accessory">
-    <rdfs:label>has_accessory</rdfs:label>
-    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ProcessParameterSet">
-    <rdfs:label>Process Parameter Set</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_output">
-    <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>has_output</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/Specimen">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Specimen</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusYoungsModulusTest">
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusActofCompression"/>
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureForce"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureLength"/>
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureDiameter"/>
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusDeterminYoungsModulus"/>
-    <cco:has_process_part rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusAlignSpecimen"/>
-    <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>non name identifier</rdfs:label>
-    <rdfs:label>Non Name Identifier</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementArtifactFunction"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_measured_by">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>is_measured_by</rdfs:label>
-    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Length"/>
-    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLengthMeasurementInformation">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/RawDataSet">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Raw Data Set</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_function">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
-    <rdfs:label>has_function</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasureLength">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusAlignSpecimen">
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusAlignSpecimen">
     <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfPositionChange"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusStandard">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimenShape">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Cylindrical"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0000086">
-    <rdfs:label>r o_0000086</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusTestMachine">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/UniversalTestingMachine"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ExperimentTime">
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mass">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Experiment Time</rdfs:label>
+    <rdfs:label>Mass</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_input">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>has_input</rdfs:label>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/">
+    <dc:creator>Sven Iwaszko</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <owl:versionInfo>0.0.1</owl:versionInfo>
+    <dc:title>Determination of young's modulus</dc:title>
+    <dc:description>Ontology code created by Chowlk</dc:description>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Distance Measurement Information Content Entity</rdfs:label>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusRawDataFile">
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFileName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFilePath"/>
+    <cco:is_input_of rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusProcessingOfData"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLoadCell">
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLoadCell">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
     <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfPositionChange">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Act Of Position Change</rdfs:label>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenLenght">
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenLengthValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Length"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_URI_value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has_ u r i_value</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/InformationLine">
     <rdfs:label>Information Line</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_cause_of">
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_output">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>is_cause_of</rdfs:label>
+    <rdfs:label>has_output</rdfs:label>
+    <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusActofCompression">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenDiameter">
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenDiameterValue"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity">
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlTransducer">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Determination Of Secant Modulus Of Elasticity</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlTransducer">
     <rdfs:label>Transducer</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusEndOfExperiment">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/EndOfExperiment"/>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusProcessedDataFile">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/">
-    <dc:title>Determination of young's modulus</dc:title>
-    <owl:versionInfo>0.0.1</owl:versionInfo>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-    <dc:creator>Sven Iwaszko</dc:creator>
-    <dc:description>Ontology code created by Chowlk</dc:description>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusThirdLoadingCycle">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/UniversalTestingMachine">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Universal Testing Machine</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Cylindrical">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Cylindrical</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/RatioMeasurementInformationContentEntity">
-    <rdfs:label>Ratio Measurement Information Content Entity</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/occures_on">
-    <rdfs:domain rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>occures_on</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusOperator">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Agent"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Day">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Day</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Act Of Measuring</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_URI_value">
-    <rdfs:label>has_ u r i_value</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ForceMeasurementArtifactFunction">
-    <rdfs:label>Force Measurement Artifact Function</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_agent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>has_agent</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/Regulation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Regulation</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLenghtMeasurementInformation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/in_accordance_with">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>in_accordance_with</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>is_input_of</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusCaliper">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusDiameterMeasurementInformation">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Artifact Function</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusDIN_EN_12390_3">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Document"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ActOfAnalysing">
-    <rdfs:label>Act Of Analysing</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusTestTimeInterval">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ExperimentTime"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Document">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Document</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusMeasurementRegion">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementRegion"/>
-    <obo:RO_0000086 rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimenDiameter"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusOperatorName">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeName"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlForceRate">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label>Force Rate</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Length">
-    <rdfs:label>Length</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusStandardIdentifier">
-    <obo:RO_0010001 rdf:resource="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusStandardCode"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusStandardCode">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationLine"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLenghtMeasurementDeviceIdentifer">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter">
-    <rdfs:label>Diameter</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusTestMachineIdentifer">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusYoungsModulusTestSpecimen">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/interval_finished_by">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label>interval_finished_by</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementArtifactFunction">
-    <rdfs:label>Distance Measurement Artifact Function</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimenLenght">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Length"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusRawDataFile">
-    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusExperimentDate">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Day"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015">
-    <rdfs:label>B F O_0000015</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFilePath"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/AnalysedDataSet"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeName">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:label>Designative Name</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLoadCellIdentifer">
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLenghtMeasurementInformation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLoadRateValue">
+    <cco:has_decimal_value rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulus3.9"/>
+    <cco:uses_measurement_unit rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlKiloNewtonPerSecondMeasurementUnit"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenDiameterValue">
+    <cco:has_decimal_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">100.0</cco:has_decimal_value>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <cco:uses_measurement_unit rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MillimeterMeasurementUnit"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfLength">
+    <rdfs:label>Measurement Unit Of Length</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenName">
     <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusEndTime">
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStartTimeValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/EndOfExperiment"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_function">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has_function</rdfs:label>
+    <rdfs:range rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
+    <rdfs:range rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementArtifactFunction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureDiameter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+    <cco:has_accessory rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusCaliper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStandardCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationLine"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_process_part">
     <rdfs:label>has_process_part</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusSpecimenDiameter">
-    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000015">
+    <rdfs:label>B F O_0000015</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlForceRate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Force Rate</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasurementRegion">
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementRegion"/>
+    <obo:RO_0000086 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenMass"/>
+    <obo:RO_0000086 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenShape"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <obo:RO_0000086 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenLenght"/>
+    <obo:RO_0000086 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenDiameter"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlKiloNewtonPerSecondMeasurementUnit">
+    <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlMeasurementUnitOfForceRate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/MillimeterMeasurementUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfLength"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/MeasurementDevice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Measurement Device</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusCaliper">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusProcessingOfData">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <cco:has_output rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusProcessedDataFile"/>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/bfo#BFO_0000015"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ExperimentTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Experiment Time</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementArtifactFunction">
+    <rdfs:label>Distance Measurement Artifact Function</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/Specimen">
+    <rdfs:label>Specimen</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureForce">
+    <cco:has_output rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusForceMeasurementInformation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Information Bearing Entity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_input">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has_input</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStartTimeValue">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusDiameterMeasurementInformation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Length">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Length</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/uses_measurement_unit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>uses_measurement_unit</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenMassValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <cco:uses_measurement_unit rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/GramMeasurementUnit"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_measured_by">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    <rdfs:label>is_measured_by</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Length"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusYoungsModulusTest">
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureForce"/>
+    <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusDeterminYoungsModulus"/>
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusActofCompression"/>
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusAlignSpecimen"/>
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureDiameter"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <cco:has_process_part rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureLength"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceeds">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+    <rdfs:label>process_preceeds</rdfs:label>
+    <rdfs:range rdf:resource="https://purl.matolab.org/mseo/mid/ActOfAnalysing"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/GramMeasurementUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfMass"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusExperimentDate">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Day"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Agent">
+    <rdfs:label>Agent</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenLengthValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <cco:uses_measurement_unit rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MillimeterMeasurementUnit"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusOperatorNameValue">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStandardIdentifier">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStandardCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusMeasureLength">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of">
+    <rdfs:label>is_input_of</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusTestMachineIdentifer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Distance Measurement Information Content Entity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenMass">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mass"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimenMassValue"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLenghtMeasurementDevice">
+    <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlTransducer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLoadRate">
+    <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlForceRate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLoadRateValue"/>
+    <cco:is_input_of rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusYoungsModulusTest"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ProcessParameterSet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ProcessParameterSet">
+    <rdfs:label>Process Parameter Set</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_datetime_value">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has_datetime_value</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlMeasurementUnitOfForceRate">
+    <rdfs:label>Measurement Unit Of Force Rate</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_accessory">
+    <rdfs:label>has_accessory</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value">
+    <rdfs:label>has_decimal_value</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>b f o_0000051</rdfs:label>
+    <rdfs:range rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementRegion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusActofCompression">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusDeterminYoungsModulus">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ActOfAnalysing"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLenghtMeasurementDeviceIdentifer">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStartTime">
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/ExperimentTime"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStartTimeValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusSpecimen">
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/RatioMeasurementInformationContentEntity">
+    <rdfs:label>Ratio Measurement Information Content Entity</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0000086">
+    <rdfs:label>r o_0000086</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFileName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/occures_on">
+    <rdfs:label>occures_on</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfMass">
+    <rdfs:label>Measurement Unit Of Mass</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusDIN_EN_12390_3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Document"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/Regulation">
+    <rdfs:label>Regulation</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusThirdLoadingCycle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusLengthMeasurementInformation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DistanceMeasurementInformationContentEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulus3.9">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0010001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>r o_0010001</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Diameter</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier">
+    <rdfs:label>Non Name Identifier</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction">
+    <rdfs:label>Artifact Function</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/RawDataSet">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Raw Data Set</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/EndOfExperiment">
+    <rdfs:label>End Of Experiment</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusStandard">
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Day">
+    <rdfs:label>Day</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_text_value">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:label>has_text_value</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusLenghtMeasurementDevice">
-    <rdf:type rdf:resource="https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owlTransducer"/>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusForceMeasurementInformation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/RatioMeasurementInformationContentEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfPositionChange">
+    <rdfs:label>Act Of Position Change</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusYoungsModulusTestSpecimen">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/interval_finished_by">
+    <rdfs:label>interval_finished_by</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusTestMachine">
+    <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/UniversalTestingMachine"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </rdf:Description>
-  <rdf:Description rdf:about="httptt: git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/YoungsModulusCaliperIdentifer">
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_cause_of">
+    <rdfs:label>is_cause_of</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusOperatorName">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeName"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusOperatorNameValue"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusCaliperIdentifer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owlDeterminationOfSecantModulusOfElasticity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Determination Of Secant Modulus Of Elasticity</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/bfo#BFO_0000015">
+    <rdfs:label>B F O_0000015</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ForceMeasurementArtifactFunction">
+    <rdfs:label>Force Measurement Artifact Function</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusOperator">
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Agent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_agent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>has_agent</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/in_accordance_with">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>in_accordance_with</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/ActOfAnalysing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Act Of Analysing</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Document">
+    <rdfs:label>Document</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/AnalysedDataSet">
+    <rdfs:label>Analysed Data Set</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/UniversalTestingMachine">
+    <rdfs:label>Universal Testing Machine</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFilePath">
+    <cco:has_URI_value rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">processed_data_location</cco:has_URI_value>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <obo:RO_0010001 rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/YoungsModulusFileName"/>
+    <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/InformationBearingEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/MeasurementRegion">
+    <rdfs:label>Measurement Region</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by">
+    <rdfs:label>designated_by</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/ActOfMeasuring">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>Act Of Measuring</rdfs:label>
   </rdf:Description>
 </rdf:RDF>
