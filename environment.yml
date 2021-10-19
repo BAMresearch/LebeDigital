@@ -6,7 +6,6 @@ dependencies:
   - python=3.7
   - pip
   - matplotlib
-  - probeye
   - pymc3=3.9.3
   - doit
   - pyyaml

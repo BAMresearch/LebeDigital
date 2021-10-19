@@ -28,3 +28,8 @@ Activate environment
 ```
 conda activate ./conda-env
 ```
+
+Install probeye from PyPI
+```
+pip install probeye
+```
