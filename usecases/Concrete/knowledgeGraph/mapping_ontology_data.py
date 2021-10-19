@@ -115,7 +115,11 @@ data['file path'] = [
     + '/' + data['sample name'][i]
     for i in data.index
 ]
-
+data['processed data file path'] = [
+    'https://github.com/BAMresearch/ModelCalibration/tree/main/usecases/Concrete/knowledgeGraph/E-modul-processed-data/processeddata'
+    + '/processed_' + data['sample name'][i].replace(' ','_')
+    for i in data.index
+]
 
 
 # <h5 style="color:#1f5dbf">convert string to number in the columns</h5>  
@@ -289,6 +293,30 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
+        # add processed data into class bfo:BFO_0000015
+        g.add(
+            (
+                URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(OBO.BFO_0000015.iri))
+            )
+        )
+        # add processed data into class AnalysedDataSet
+        g.add(
+            (
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet.iri))
+            )
+        )
+        # add processed data into class InformationBearingEntity
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
 
 
 # <h5 style="color:#1f5dbf">adding data type in process dataset</h5>  
@@ -306,6 +334,7 @@ for i in data.index:
                 )
             )
 
+# -------------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with object properties and data properties</h5>  
 
@@ -440,7 +469,33 @@ for i in data.index:
                 URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri))
             )
         )
+        # RawDataSet cco:is_input_of bfo:BFO_0000015
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                    URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
 
+        # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_output.iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+        # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+
+#-----------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with data properties</h5>  
 
@@ -499,6 +554,14 @@ for i in data.index:
                 Literal(data['control unit'][i])
             )
         )
+        # cco: InformationBearingEntity of processed dataset has filepath 
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
+                    Literal(data['processed data file path'][i])
+                )
+            )
 
 
 g.serialize(destination=graphPath, format="turtle")
