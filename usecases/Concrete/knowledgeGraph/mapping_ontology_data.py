@@ -567,12 +567,10 @@ for i in data.index:
 g.serialize(destination=graphPath, format="turtle")
 
 print('---------------------------------------------------------------------')
-print('number of EModul experiments: ', 39)
+print('number of EModul experiments: ', data.shape[0])
 print('number of classes in Emodul ontology: ', len(list(lebedigital_concrete.classes())))
 
 q = """
-    
-
     SELECT (count(*) as ?Triples)
     WHERE {
         {?s ?p ?o}

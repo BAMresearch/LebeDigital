@@ -6,6 +6,7 @@ import os
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
+prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
 
 graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
@@ -13,15 +14,36 @@ graph.parse(triplePath, format='n3')
 print('---------------------------------------------------------------------')
 print('sample queries')
 
-q = """
-    prefix a: <http://www.ontologyrepository.com/CommonCoreOntologies/>
-    select ?s ?p ?o
-    where {
-        ?s ?p "Kh"
-    }
-    limit 10
+q = f"""
+    prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+    prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
+    prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
+    prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
+    prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+    select ?rawdatapath
+    where {{
+        {{
+            select ?rawdatafile
+            where {{
+                {{
+                    select ?outputfile
+                    where {{
+                        mseo:E-modul_experiment_BA_Los_M_V-4 cco:has_output ?outputfile
+                    }}
+                }}
+                ?outputfile
+                obo:RO_0010001
+                ?rawdatafile
+            }}
+        }}
+        ?rawdatafile
+        cco:has_URI_value
+        ?rawdatapath
+    }}
+        
 """
 
 results = graph.query(q)
 for result in results:
     print(result)
+
