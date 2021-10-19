@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 baseDir = Path(__file__).resolve().parents[0]
+rawdataFolder = os.path.join(os.path.join(baseDir,'E-modul-processed-data'),'rawdata')
+processeddataFolder = os.path.join(os.path.join(baseDir,'E-modul-processed-data'),'processeddata')
 
 DOIT_CONFIG = {'verbosity': 2}
 
@@ -19,11 +21,11 @@ def task_emodul():
         }
         yield {
             'basename': 'create rawdata folder',
-            'actions': ['mkdir E-modul-processed-data/rawdata']
+            'actions': ['mkdir %s ' % rawdataFolder]
         }
         yield {
             'basename': 'create processeddata folder',
-            'actions': ['mkdir E-modul-processed-data/processeddata']
+            'actions': ['mkdir %s ' % processeddataFolder]
         }
 
     yield {
