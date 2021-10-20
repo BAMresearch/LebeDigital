@@ -31,12 +31,13 @@ import os
 # In[2]:
 
 
-baseDir = Path(__file__).resolve().parents[1]
-ontologyPath = os.path.join(baseDir,'ConcreteOntology')
-metadataPath = 'data/metadata.csv'
-graphPath = 'data/EM_Graph.ttl'
-importedOntologiesPath = os.path.join(baseDir,'GraphCreation/Ontologies')
-
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir0 = Path(__file__).resolve().parents[0]
+ontologyPath = os.path.join(baseDir1,'ConcreteOntology')
+metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
+graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
+importedOntologiesPath = os.path.join(baseDir1,'GraphCreation/Ontologies')
+processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'E-modul-processed-data'),'processeddata'),'processed_')
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
 
@@ -59,7 +60,7 @@ WCTmid = My_world.get_namespace("https://mobi.com/ontologies/6/2021/WCTmid#")
 #WCT = My_world.get_namespace("https://mobi.com/ontologies/6/202https://mobi.com/ontologies/6/2021/WoodCompressionTest#1/WoodCompressionTest#")
 CCO = My_world.get_namespace("http://www.ontologyrepository.com/CommonCoreOntologies/")
 CST = My_world.get_namespace("https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#")
-COM = My_world.get_namespace('https://git.material-digital.de/lebedigital/concreteontology/-/blob/Ontology/Concrete_Ontology_MSEO.owl')
+COM = My_world.get_namespace('https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl')
 OBO = My_world.get_namespace("http://purl.obolibrary.org/obo/")
 
 lebedigital_concrete.imported_ontologies.append(cco_ontology)
@@ -79,11 +80,6 @@ lebedigital_concrete.imported_ontologies.append(mseo_mid)
 data = pd.read_csv(metadataPath)
 
 
-# In[8]:
-
-
-data.head()
-
 
 # In[9]:
 
@@ -91,12 +87,6 @@ data.head()
 data['experiment name'] = ['E-modul experiment ' + data['sample name'][i]
                            for i in data.index
                           ]
-
-
-# In[10]:
-
-
-data.head()
 
 
 # <h5 style="color:#1f5dbf">splitting string from remark in control and the value of control force/stress</h5>  
@@ -108,14 +98,11 @@ data['control'] = [
     data['remark'][i].split()[0] for i in data.index
 ]
 data['control value'] = [
-    data['remark'][i].split()[1] + data['remark'][i].split()[2] for i in data.index
+    float(data['remark'][i].split()[1].replace(',','.')) for i in data.index
 ]
-
-
-# In[12]:
-
-
-data.head()
+data['control unit'] = [
+    data['remark'][i].split()[2] for i in data.index
+]
 
 
 # <h5 style="color:#1f5dbf">add 1 column for example file path in data</h5>  
@@ -129,11 +116,12 @@ data['file path'] = [
     for i in data.index
 ]
 
-
-# In[14]:
-
-
-data.head()
+data['processed data file path'] = [
+    processedDataPath
+    + data['sample name'][i].replace(' ','_').replace('.','_')
+    + '.csv'
+    for i in data.index
+]
 
 
 # <h5 style="color:#1f5dbf">convert string to number in the columns</h5>  
@@ -155,10 +143,6 @@ data['length_number'] = [
 ]
 
 
-# In[16]:
-
-
-data.head()
 
 
 # <h3 style="color:#1f5dbf">Generate a graph and add triples to this graph</h3>  
@@ -181,8 +165,7 @@ for i in data.index:
         # add experiments as instances in class DeterminationOfSecantModulusOfElasticity
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
-                                          .iri)), 
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
             )
@@ -227,6 +210,14 @@ for i in data.index:
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate.iri))
             )
         )
+        # add unit in MeasurementUnitOfForceRate
+        g.add(
+            (
+                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate.iri))
+            )
+        )
         # add length of the specimen in class Length
         g.add(
             (
@@ -251,14 +242,7 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.Mass.iri))
             )
         )
-#         # add name of the operator in class DesignativeName
-#         g.add(
-#             (
-#                 Literal(data['tester'][i]), 
-#                 RDF.type, 
-#                 URIRef(urllib.parse.quote(CCO.DesignativeName.iri))
-#             )
-#         )
+#        
         # add specimen region as instances in class MeasurementRegion
         g.add(
             (
@@ -306,7 +290,31 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i] ).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
+        # add processed data into class bfo:BFO_0000015
+        g.add(
+            (
+                URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(OBO.BFO_0000015.iri))
+            )
+        )
+        # add processed data into class AnalysedDataSet
+        g.add(
+            (
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet.iri))
+            )
+        )
+        # add processed data into class InformationBearingEntity
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -328,6 +336,7 @@ for i in data.index:
                 )
             )
 
+# -------------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with object properties and data properties</h5>  
 
@@ -454,7 +463,41 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri))
             )
         )
+        # InformationBearingEntity of ForceRate uses_measurement_unit MeasurementUnitOfForceRate
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i] ).iri)), 
+                URIRef(urllib.parse.quote(CCO.uses_measurement_unit.iri)), 
+                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri))
+            )
+        )
+        # RawDataSet cco:is_input_of bfo:BFO_0000015
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                    URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
 
+        # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_output.iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+        # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+
+#-----------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with data properties</h5>  
 
@@ -501,102 +544,38 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri)), 
-                URIRef(urllib.parse.quote(CCO.has_text_value.iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)), 
                 Literal(data['control value'][i])
             )
         )
-
-
-# In[22]:
+        g.add(
+            (
+                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.has_text_value.iri)), 
+                Literal(data['control unit'][i])
+            )
+        )
+        # cco: InformationBearingEntity of processed dataset has filepath 
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
+                    Literal(data['processed data file path'][i])
+                )
+            )
 
 
 g.serialize(destination=graphPath, format="turtle")
 
-
-# In[23]:
-
-
-q = """
-    prefix ns1: <http://www.w3.org/2002/07/owl#> 
-    prefix ns10: <https://www.materials.fraunhofer.de/ontologies/graph_designer#> 
-    prefix ns11: <http://purl.org/dc/terms/> 
-    prefix ns2: <http://www.ontologyrepository.com/CommonCoreOntologies/> 
-    prefix ns3: <http://purl.obolibrary.org/obo/> 
-    prefix ns4: <http://www.geneontology.org/formats/oboInOwl#> 
-    prefix ns5: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> 
-    prefix ns6: <http%3A//www.ontologyrepository.com/CommonCoreOntologies/> 
-    prefix ns7: <http%3A//purl.obolibrary.org/obo/> 
-    prefix ns8: <http://purl.org/dc/elements/1.1/> 
-    prefix ns9: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#> 
-    prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
-    prefix con: <https://git.material-digital.de/lebedigital/concreteontology/-/blob/Concrete_Ontology_MSEO.owl>
-
-    SELECT ?o
-    WHERE {
-        {
-        <https%3A//purl.matolab.org/mseo/mid/E-modul_experiment_BA-Losert_E-Modul_28d_v._04.08.14_Probe_4>
-        ns6:has_agent 
-        ?o
-        }
-        UNION
-        {
-        <https%3A//purl.matolab.org/mseo/mid/E-modul_experiment_BA-Losert_E-Modul_28d_v._04.08.14_Probe_4>
-        ns6:occures_on 
-        ?o
-        }
-    }
-"""
-
-
-# In[24]:
-
-
-results = g.query(q)
-
-
-# In[25]:
-
-
-for result in results:
-    print(result)
-
-
-# In[30]:
-
+print('---------------------------------------------------------------------')
+print('number of EModul experiments: ', data.shape[0])
+print('number of classes in Emodul ontology: ', len(list(lebedigital_concrete.classes())))
 
 q = """
-    prefix ns1: <http://www.w3.org/2002/07/owl#> 
-    prefix ns10: <https://www.materials.fraunhofer.de/ontologies/graph_designer#> 
-    prefix ns11: <http://purl.org/dc/terms/> 
-    prefix ns2: <http://www.ontologyrepository.com/CommonCoreOntologies/> 
-    prefix ns3: <http://purl.obolibrary.org/obo/> 
-    prefix ns4: <http://www.geneontology.org/formats/oboInOwl#> 
-    prefix ns5: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> 
-    prefix ns6: <http%3A//www.ontologyrepository.com/CommonCoreOntologies/> 
-    prefix ns7: <http%3A//purl.obolibrary.org/obo/> 
-    prefix ns8: <http://purl.org/dc/elements/1.1/> 
-    prefix ns9: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#> 
-    prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
-    prefix con: <https://git.material-digital.de/lebedigital/concreteontology/-/blob/Concrete_Ontology_MSEO.owl>
-
-    SELECT ?s ?p ?o
+    SELECT (count(*) as ?Triples)
     WHERE {
-        {
-        <https%3A//purl.matolab.org/mseo/mid/Kh>
-        ?p
-        ?o
-        }
-        UNION
-        {
-        ?s
-        ?p
-        <https%3A//purl.matolab.org/mseo/mid/Kh>
-        }
+        {?s ?p ?o}
     }
 """
 
@@ -606,11 +585,6 @@ q = """
 
 results = g.query(q)
 for result in results:
-    print(result)
-
-
-# In[ ]:
-
-
+    print('number of triples', result)
 
 

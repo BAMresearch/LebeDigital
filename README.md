@@ -2,16 +2,16 @@
 Model calibration (or model updating) is a task most scientists are facing when building parameterized models and then
  updating the parameters based on some experimental data in order to generalize the model and make accurate predictions.
 For complex models and complex data sets (different experimental tests with different data structures, sensor
-types and different models) this task is often tedious, difficult to reproduce and often error prone due to complex
-challenges related to data processing, forward model development and inference. The aim of this roject is to make
-the process more transparent, easier to setup and work with and more transparent when different people are jointly
+types and different models) this task is often tedious, difficult to reproduce and often error-prone due to complex
+challenges related to data processing, forward model development and inference. The aim of this project is to make
+the process more transparent, easier to set up and work with and more transparent when different people are jointly
 performing this task.
 Further information can be found in the [documentation](https://modelcalibration.readthedocs.io/en/latest/?).
 
 ## Installation of the conda environment
 Clone the repository and make sure to include the submodules
 ```
-git clone --recurse-submodules https://github.com/BAMresearch/ModelCalibration.git
+git clone https://github.com/BAMresearch/ModelCalibration.git
 ```
 
 Create environment within the main project folder
@@ -29,10 +29,7 @@ Activate environment
 conda activate ./conda-env
 ```
 
-Install submodule Bayes
+Install probeye from PyPI
 ```
-git pull --recurse-submodules
-pip install -e BayesianInference
+pip install probeye
 ```
-
-
