@@ -37,7 +37,7 @@ ontologyPath = os.path.join(baseDir1,'ConcreteOntology')
 metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
 graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 importedOntologiesPath = os.path.join(baseDir1,'GraphCreation/Ontologies')
-
+processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'E-modul-processed-data'),'processeddata'),'processed_')
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
 
@@ -116,6 +116,12 @@ data['file path'] = [
     for i in data.index
 ]
 
+data['processed data file path'] = [
+    processedDataPath
+    + data['sample name'][i].replace(' ','_').replace('.','_')
+    + '.csv'
+    for i in data.index
+]
 
 
 # <h5 style="color:#1f5dbf">convert string to number in the columns</h5>  
@@ -289,6 +295,30 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
+        # add processed data into class bfo:BFO_0000015
+        g.add(
+            (
+                URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(OBO.BFO_0000015.iri))
+            )
+        )
+        # add processed data into class AnalysedDataSet
+        g.add(
+            (
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet.iri))
+            )
+        )
+        # add processed data into class InformationBearingEntity
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
+            )
+        )
 
 
 # <h5 style="color:#1f5dbf">adding data type in process dataset</h5>  
@@ -306,6 +336,7 @@ for i in data.index:
                 )
             )
 
+# -------------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with object properties and data properties</h5>  
 
@@ -323,7 +354,7 @@ for i in data.index:
                 URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri))
             )
         )
-        # experiment hasOperator from class person
+        # experiment has_agent from class person
         g.add(
             (
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
@@ -432,6 +463,14 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri))
             )
         )
+        # Agent designated_by DesignativeName
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.Agent(data['tester'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(CCO.designated_by.iri)),
+                URIRef(urllib.parse.quote(CCO.DesignativeName(data['tester'][i].replace(' ','_')).iri))
+            )
+        )
         # InformationBearingEntity of ForceRate uses_measurement_unit MeasurementUnitOfForceRate
         g.add(
             (
@@ -440,7 +479,33 @@ for i in data.index:
                 URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri))
             )
         )
+        # RawDataSet cco:is_input_of bfo:BFO_0000015
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                    URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
 
+        # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_output.iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+        # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                )
+            )
+
+#-----------------------------------------------------------------------------------------------------
 
 # <h5 style="color:#1f5dbf">adding data with data properties</h5>  
 
@@ -499,17 +564,23 @@ for i in data.index:
                 Literal(data['control unit'][i])
             )
         )
+        # cco: InformationBearingEntity of processed dataset has filepath 
+        g.add(
+                (
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
+                    Literal(data['processed data file path'][i])
+                )
+            )
 
 
 g.serialize(destination=graphPath, format="turtle")
 
 print('---------------------------------------------------------------------')
-print('number of EModul experiments: ', 39)
+print('number of EModul experiments: ', data.shape[0])
 print('number of classes in Emodul ontology: ', len(list(lebedigital_concrete.classes())))
 
 q = """
-    
-
     SELECT (count(*) as ?Triples)
     WHERE {
         {?s ?p ?o}

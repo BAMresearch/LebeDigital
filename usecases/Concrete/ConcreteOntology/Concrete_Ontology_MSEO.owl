@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
-     xml:base="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
+<rdf:RDF xmlns="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#"
+     xml:base="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
+     xmlns:con="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl"
+     xmlns:mid="https://purl.matolab.org/mseo/mid/"
      xmlns:obo="http://purl.obolibrary.org/obo/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:mid1="https://purl.matolab.org/mseo/mid/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:terms="http://purl.org/dc/terms/"
      xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
@@ -32,15 +32,15 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#hasClassification -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#hasClassification -->
 
-    <owl:ObjectProperty rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#hasClassification">
+    <owl:ObjectProperty rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#hasClassification">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompactionClass"/>
-        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass"/>
-        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlowClass"/>
-        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlumpClass"/>
-        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VebeClass"/>
+        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompactionClass"/>
+        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStregthClass"/>
+        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlowClass"/>
+        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlumpClass"/>
+        <rdfs:range rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VebeClass"/>
     </owl:ObjectProperty>
     
 
@@ -59,10 +59,10 @@
     <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313 -->
 
     <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313">
-        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine"/>
-        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipmentName"/>
-        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName"/>
-        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TestingMachine"/>
+        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressionTestingMachine"/>
+        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipmentName"/>
+        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LabInfrastructureEquipmentName"/>
+        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TestingMachine"/>
         <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028"/>
         <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087"/>
         <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199"/>
@@ -84,7 +84,7 @@
     <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317 -->
 
     <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317">
-        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
+        <rdfs:domain rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStrain"/>
     </owl:DatatypeProperty>
     
 
@@ -118,90 +118,90 @@
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Pressure -->
 
     <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure">
-        <owl:equivalentClass rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+        <owl:equivalentClass rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </rdf:Description>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ActuatorEquipment -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ActuatorEquipment -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ActuatorEquipment">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ActuatorEquipment">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Admixture -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Admixture -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Admixture">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Admixture">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
         <rdfs:comment>Material added during the mixing process of concrete in amall quantities related to the mass of cement to modify the properties of fresh or hardened concrete</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Aggregate -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Aggregate -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Aggregate">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Aggregate">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
         <rdfs:comment>granular mineral material suitable for use in concrete. Aggregates may be natural, artificial or recycled fom material previously used in construction</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Air -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Air -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Air">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Air">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtLowerStressOnLoadingCycleN -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtLowerStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
         <rdfs:comment></rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtPreloadStressOnLoadingCycleN -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtPreloadStressOnLoadingCycleN -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtPreloadStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtPreloadStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtUpperStressOnLoadingCycleN -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtUpperStressOnLoadingCycleN">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CalibrationOfEquipment -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CalibrationOfEquipment -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CalibrationOfEquipment">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CalibrationOfEquipment">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Cement -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Cement -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Cement">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Cement">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
         <rdfs:comment>a finely ground onorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Classification -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Classification -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Classification">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Classification">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -213,9 +213,9 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ColumnNumber -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ColumnNumber -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ColumnNumber">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ColumnNumber">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -228,94 +228,94 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CommaDelimiter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CommaDelimiter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CommaDelimiter">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CommaDelimiter">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Delimiter"/>
         <rdfs:comment>Delimiter symbol is a comma</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompactionClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompactionClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompactionClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompactionClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompositeMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompositeMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompositeMaterial">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompositeMaterial">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EngineeringMaterial"/>
         <rdfs:comment>A material which is produced from two or more constituent materials.</rdfs:comment>
         <rdfs:isDefinedBy>https://en.wikipedia.org/wiki/Composite_material</rdfs:isDefinedBy>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressionTestingMachine -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressionTestingMachine">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TestingMachine"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressionTestingMachine">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TestingMachine"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStregthClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStregthClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Classification"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStregthClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Classification"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrength -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrength -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrength">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrength">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCube -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrengthCube -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCube">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrength"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrengthCube">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrength"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCylinder -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrengthCylinder -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrengthCylinder">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompressiveStrength"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrengthCylinder">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompressiveStrength"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Concrete -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Concrete -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Concrete">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Concrete">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompositeMaterial"/>
         <rdfs:comment>Concrete is a mixture of paste and aggregates.</rdfs:comment>
         <rdfs:label>Concrete</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Classification"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Classification"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DATFile -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DATFile -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DATFile">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DATFile">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/File"/>
         <rdfs:comment>A data file (.dat) is a standard data document that contains data and is recognized by any text editing or word processing software.</rdfs:comment>
         <rdfs:label>DATFile</rdfs:label>
@@ -323,9 +323,9 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DINStandard -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DINStandard -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DINStandard">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DINStandard">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
         <rdfs:comment>Any kind of standard as published by the Deutsche Institut für Normung (DIN)</rdfs:comment>
         <rdfs:label>DINStandard</rdfs:label>
@@ -333,67 +333,67 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperator -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperator -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperator">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperator">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
         <rdfs:comment>The symbol used for the decimal separator</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperatorComma -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperatorComma -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperatorComma">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperator"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperatorComma">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperator"/>
         <rdfs:comment>The decimal separator symbol is a comma</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperatorDot -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperatorDot -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperatorDot">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DecimalSeperator"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperatorDot">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DecimalSeperator"/>
         <rdfs:comment>The decimal separator symbol is a dot</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Delimiter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Delimiter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Delimiter">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Delimiter">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
         <rdfs:comment>The delimiter symbol between columns</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Desktop -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Desktop -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Desktop">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Desktop">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DestructiveTesting -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DestructiveTesting -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DestructiveTesting">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DestructiveTesting">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting"/>
+        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonDestructiveTesting"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfCompressiveStrength -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DestructiveTesting"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DestructiveTesting"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenAfterTesting"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -405,7 +405,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_precedes"/>
-                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfSecantModulusOfElasticity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -418,14 +418,14 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfSecantModulusOfElasticity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DestructiveTesting"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DestructiveTesting"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenAfterTesting"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -437,7 +437,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceded_by"/>
-                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DeterminationOfCompressiveStrength"/>
+                <owl:someValuesFrom rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DeterminationOfCompressiveStrength"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -450,17 +450,17 @@
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DifferenceBetweenMeasuredStresses -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DifferenceBetweenMeasuredStresses -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DifferenceBetweenMeasuredStresses">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DifferenceBetweenMeasuredStresses">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ENStandard -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ENStandard -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ENStandard">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ENStandard">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
         <rdfs:comment>Any kind of standard as published by one of the following Institutions:
 CEN (Comité Européen de Normalisation)
@@ -471,77 +471,77 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EngineeringMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EngineeringMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EngineeringMaterial">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EngineeringMaterial">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EquivalentWaterCementRatio -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#WaterCementRatio"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EquivalentWaterCementRatio">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#WaterCementRatio"/>
         <rdfs:comment>ratio by mass of the effective water content to the combined cement content and the k-value to take int account additions</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlowClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlowClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlowClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlowClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlyAsh -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlyAsh -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlyAsh">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlyAsh">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SupplementaryCementiousMaterials"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ForceRate -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ForceRate -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ForceRate">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ForceRate">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FreshConcrete -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FreshConcrete -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FreshConcrete">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Concrete"/>
-        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#HardenedConcrete"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FreshConcrete">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Concrete"/>
+        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#HardenedConcrete"/>
         <rdfs:comment>concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Grain -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Grain -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Grain">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Grain">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#HardenedConcrete -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#HardenedConcrete -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#HardenedConcrete">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Concrete"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#HardenedConcrete">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Concrete"/>
         <rdfs:comment>concrete which is in a solid state and which has developed a certain strength</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#IECStandard -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#IECStandard -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#IECStandard">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#IECStandard">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
         <rdfs:comment>Any kind of standard as published by the International Electrotechnical Comission (IEC)</rdfs:comment>
         <rdfs:label>IECStandard</rdfs:label>
@@ -549,222 +549,222 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipment -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipment -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipment">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipment">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipmentName -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipmentName -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipmentName">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipmentName">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InfrastructureEquipment -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InfrastructureEquipment">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InitialSecantModulusOfElasticity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InitialSecantModulusOfElasticity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InitialSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty"/>
-        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InitialSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SecantModulusOfElasticty"/>
+        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StabilizedSecantModulusOfElasticity"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
-        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#OrganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonMettalicMaterial"/>
+        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#OrganicMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LabInfrastructureEquipmentName -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentName">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LabInfrastructureEquipmentName">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentSet -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LabInfrastructureEquipmentSet -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LabInfrastructureEquipmentSet">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LabInfrastructureEquipmentSet">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Laptop -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Laptop -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Laptop">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Laptop">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LoadingRate -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LoadingRate -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#LoadingRate">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#LoadingRate">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MaxDiameter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MaxDiameter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MaxDiameter">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MaxDiameter">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStrain -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStrain -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStrain">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStrain">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalLowerStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalLowerStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalLowerStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalLowerStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalPreloadStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalPreloadStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalPreloadStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalUpperStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalUpperStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStressCorrespondingToNominalUpperStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStressCorrespondingToNominalUpperStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
         <rdfs:comment>Measured stress corresponding to nominal upper stress, σa</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasurementUnitOfForceRate -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasurementUnitOfForceRate">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit"/>
         <rdfs:label>Measurement Unit of Force Rate</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MetallicMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MetallicMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MetallicMaterial">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MetallicMaterial">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EngineeringMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MinDiameter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MinDiameter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MinDiameter">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MinDiameter">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Mixer -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Mixer -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Mixer">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InfrastructureEquipment"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Mixer">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InfrastructureEquipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Mortar -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Mortar -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Mortar">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Mortar">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompositeMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalLowerStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalLowerStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalLowerStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalLowerStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalPreloadStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalPreloadStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalPreloadStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
         <rdfs:comment>arbitrary value between 10% and 15% of fc</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalUpperStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalUpperStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalUpperStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalUpperStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonDestructiveTesting -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonDestructiveTesting">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonDestructiveTesting">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonMettalicMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EngineeringMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonMettalicMaterial">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EngineeringMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NumberOfHeaderLines -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NumberOfHeaderLines -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NumberOfHeaderLines">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NumberOfHeaderLines">
         <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -777,90 +777,90 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#OperatorOfProcess -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#OperatorOfProcess -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#OperatorOfProcess">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#OperatorOfProcess">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Person"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#OrganicMaterial -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#OrganicMaterial -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#OrganicMaterial">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#OrganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonMettalicMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#RelativeDensity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#RelativeDensity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#RelativeDensity">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#RelativeDensity">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SecantModulusOfElasticty -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SecantModulusOfElasticty">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SemicolonDelimiter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SemicolonDelimiter">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Delimiter"/>
         <rdfs:comment>Delimiter symbol is a semicolon</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Server -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Server -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Server">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ITEquipment"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Server">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ITEquipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SilicaFume -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SilicaFume -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SilicaFume">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SilicaFume">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SupplementaryCementiousMaterials"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlagCement -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlagCement -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlagCement">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlagCement">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SupplementaryCementiousMaterials"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlumpClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlumpClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlumpClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlumpClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecificGravity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecificGravity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecificGravity">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecificGravity">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenAfterTesting -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenAfterTesting">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenAfterTesting">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -868,14 +868,14 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
                 <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting"/>
+        <owl:disjointWith rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenBeforeTesting"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenBeforeTesting -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SpecimenBeforeTesting">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SpecimenBeforeTesting">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -887,187 +887,187 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StabilizedSecantModulusOfElasticity -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StabilizedSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SecantModulusOfElasticty"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SecantModulusOfElasticty"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stoffraum -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stoffraum -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stoffraum"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stoffraum"/>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtLowerStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtLowerStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtPreloadStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtPreloadStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtUpperStress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtUpperStress">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringFirstLoadingCycle -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainDifferenceDuringFirstLoadingCycle -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringFirstLoadingCycle">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainDifferenceDuringFirstLoadingCycle">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringThirdLoadingCycle -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainDifferenceDuringThirdLoadingCycle -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainDifferenceDuringThirdLoadingCycle">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Strain"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainDifferenceDuringThirdLoadingCycle">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Strain"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainMeasuringInstrument -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainMeasuringInstrument">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Stress">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Stress">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Force"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StressRate -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StressRate -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StressRate">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StressRate">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SupplementaryCementiousMaterials -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SupplementaryCementiousMaterials">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SupplementaryCementiousMaterials">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TabDelimiter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TabDelimiter -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TabDelimiter">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Delimiter"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TabDelimiter">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Delimiter"/>
         <rdfs:comment>Delimiter symbol is a tab character</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TensileSplittingStrength -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TensileSplittingStrength -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TensileSplittingStrength">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TensileSplittingStrength">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TestingMachine -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TestingMachine -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TestingMachine">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ActuatorEquipment"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TestingMachine">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ActuatorEquipment"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Transducer -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Transducer -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Transducer">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainMeasuringInstrument"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Transducer">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainMeasuringInstrument"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VDEStandard -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VDEStandard -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VDEStandard">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VDEStandard">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
         <rdfs:comment>Any kind of standard as published by the Verband Deutscher Elektrotechniker (VDE)</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VebeClass -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VebeClass -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VebeClass">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ConsistenceClass"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VebeClass">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ConsistenceClass"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Volume -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Volume -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Volume">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Volume">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Water -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Water -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Water">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#InorganicMaterial"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Water">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#InorganicMaterial"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#WaterCementRatio -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#WaterCementRatio -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#WaterCementRatio">
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#WaterCementRatio">
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ProportionalRatioMeasurementInformationContentEntity"/>
         <rdfs:comment>ratio of the effective water content to cement content by mass in the fresh concrete</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#kValueAccountingForFlyAsh -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#kValueAccountingForFlyAsh -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#kValueAccountingForFlyAsh">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#kValueAccountingForFlyAsh">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EquivalentWaterCementRatio"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#kValueAccountingForSilicaFume -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#kValueAccountingForSilicaFume -->
 
-    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#kValueAccountingForSilicaFume">
-        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EquivalentWaterCementRatio"/>
+    <owl:Class rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#kValueAccountingForSilicaFume">
+        <rdfs:subClassOf rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EquivalentWaterCementRatio"/>
     </owl:Class>
     
 
@@ -1239,11 +1239,11 @@ ETSI (European Telecommunications Standard Institute)</rdfs:comment>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DIN_EN_12390-13 -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DIN_EN_12390-13 -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DIN_EN_12390-13">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#DINStandard"/>
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ENStandard"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DIN_EN_12390-13">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#DINStandard"/>
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ENStandard"/>
         <rdfs:comment>Prüfung von Festbeton –
 Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
 (Sekantenmodul)</rdfs:comment>
@@ -1251,87 +1251,87 @@ Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EN12390-3 -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EN12390-3 -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#EN12390-3">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#ENStandard"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#EN12390-3">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#ENStandard"/>
         <rdfs:comment>Testing hardened concrete –
 Part 13: Determination of secant modulus of elasticity in compression</rdfs:comment>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#KiloNewtonPerSecondMeasurementUnit -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#KiloNewtonPerSecondMeasurementUnit -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#KiloNewtonPerSecondMeasurementUnit">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasurementUnitOfForceRate"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#KiloNewtonPerSecondMeasurementUnit">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasurementUnitOfForceRate"/>
         <rdfs:label>Kilo Newton Per Second Measurement Unit</rdfs:label>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MegaPascalPerSecond -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MegaPascalPerSecond -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MegaPascalPerSecond">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StressRate"/>
-        <owl:sameAs rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MegaPascalPerSecond">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StressRate"/>
+        <owl:sameAs rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NewtonSecondPerMilimeterSquared"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Meter -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Meter -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Meter"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Meter"/>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeterKilogramPerSecondSquarred -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeterKilogramPerSecondSquarred -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeterKilogramPerSecondSquarred">
-        <owl:sameAs rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Newton"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeterKilogramPerSecondSquarred">
+        <owl:sameAs rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Newton"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodA -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodA -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodA">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodA">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodB -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodB -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodB">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodB">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Newton -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Newton -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Newton"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Newton"/>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NewtonSecondPerMilimeterSquared -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NewtonSecondPerMilimeterSquared">
-        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StressRate"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NewtonSecondPerMilimeterSquared">
+        <rdf:type rdf:resource="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StressRate"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Second -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Second -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Second"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Second"/>
     
 
 
-    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#YoungsModulusTest -->
+    <!-- https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#YoungsModulusTest -->
 
-    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#YoungsModulusTest"/>
+    <owl:NamedIndividual rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#YoungsModulusTest"/>
     
 
 
@@ -1346,62 +1346,62 @@ Part 13: Determination of secant modulus of elasticity in compression</rdfs:comm
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtLowerStressOnLoadingCycleN"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#AverageStrainAtUpperStressOnLoadingCycleN"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtLowerStressOnLoadingCycleN"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#AverageStrainAtUpperStressOnLoadingCycleN"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStrain"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtLowerStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtPreloadStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtUpperStress"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CommaDelimiter"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SemicolonDelimiter"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#TabDelimiter"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CommaDelimiter"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SemicolonDelimiter"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#TabDelimiter"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompactionClass"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#FlowClass"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#SlumpClass"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#VebeClass"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompactionClass"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#FlowClass"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#SlumpClass"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#VebeClass"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#CompositeMaterial"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MetallicMaterial"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NonMettalicMaterial"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#CompositeMaterial"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MetallicMaterial"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NonMettalicMaterial"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Desktop"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Laptop"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#Server"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Desktop"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Laptop"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#Server"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#MeasuredStrain"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtLowerStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtPreloadStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#StrainAlongEachMeasuringLineAtUpperStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#MeasuredStrain"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtLowerStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtPreloadStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#StrainAlongEachMeasuringLineAtUpperStress"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalLowerStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalPreloadStress"/>
-            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#NominalUpperStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalLowerStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalPreloadStress"/>
+            <rdf:Description rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/#NominalUpperStress"/>
         </owl:members>
     </rdf:Description>
 </rdf:RDF>
