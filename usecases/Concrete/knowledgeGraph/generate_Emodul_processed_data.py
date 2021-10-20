@@ -57,7 +57,7 @@ exampleRawDataframe = pd.read_csv(os.path.join(emodulOutputRawData,'BA-Losert_MI
 exampleProcessedDataframe = pd.read_csv(os.path.join(emodulOutputProcessedData,'processed_BA-Losert_MI_E-Modul_28d_v__04_08_14_Probe_4.csv'))
 
 print('-----------------------')
-print('print example processed data csv file')
+print('print example raw data csv file')
 print(exampleRawDataframe.head())
 print('-----------------------')
 

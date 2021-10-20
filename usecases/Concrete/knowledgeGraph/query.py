@@ -19,8 +19,12 @@ graph.parse(triplePath, format='n3')
 print('---------------------------------------------------------------------')
 print(prefixPath)
 print('sample queries')
+print("""
+    input: name of the emodul experiment
+    output: raw data file path
+""")
 
-q = f"""
+q1 = f"""
     prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
     prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
     prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
@@ -48,17 +52,59 @@ q = f"""
     }}
         
 """
-q1 = """
-    select ?s ?p ?o
-    where {
-        ?s ?p ?o
-    }
-"""
-
-results = graph.query(q)
+results = graph.query(q1)
 for result in results:
     if sys.platform == 'win32':
         print(f"{result}".encode("utf-8"))
     else:
         print(result)
+print('---------------------------------------------------------------------')
+print("""
+    input: name who did the experiments
+    output: processed data path
+""")
+
+q2 = f"""
+    prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+    prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
+    prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
+    prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
+    prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+    select ?experiment
+    where {{
+        {{
+            select ?agent
+            where {{
+                    {{
+                    select ?designativeName
+                    where {{
+                        {{
+                            select ?person
+                            where {{
+                                ?person cco:has_text_value "Kh"
+                            }}
+                        }}
+                        ?designativeName
+                        obo:RO_0010001
+                        ?person
+                    }}
+                }}
+                ?agent
+                cco:designated_by
+                ?designativeName
+            }}
+        }}
+        ?experiment
+        cco:has_agent
+        ?agent
+    }}
+    
+"""
+results = graph.query(q2)
+for result in results:
+    if sys.platform == 'win32':
+        print(f"{result}".encode("utf-8"))
+    else:
+        print(result)
+
 
