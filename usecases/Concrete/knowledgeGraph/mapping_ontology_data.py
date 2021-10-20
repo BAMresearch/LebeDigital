@@ -354,7 +354,7 @@ for i in data.index:
                 URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri))
             )
         )
-        # experiment hasOperator from class person
+        # experiment has_agent from class person
         g.add(
             (
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
@@ -461,6 +461,14 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.DesignativeName(data['tester'][i].replace(' ','_')).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)),
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['tester'][i].replace(' ','_')).iri))
+            )
+        )
+        # Agent designated_by DesignativeName
+        g.add(
+            (
+                URIRef(urllib.parse.quote(CCO.Agent(data['tester'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(CCO.designated_by.iri)),
+                URIRef(urllib.parse.quote(CCO.DesignativeName(data['tester'][i].replace(' ','_')).iri))
             )
         )
         # InformationBearingEntity of ForceRate uses_measurement_unit MeasurementUnitOfForceRate
