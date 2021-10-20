@@ -25,7 +25,10 @@ def task_emodul():
             'basename': 'create processeddata folder',
             'actions': ['mkdir E-modul-processed-data/processeddata']
         }
-
+    yield {
+        'basename': 'install python packages',
+        'actions': ['pip install -r requirements.txt']
+    }
     yield {
         'basename': 'generate processed data',
         'actions': ['python generate_Emodul_processed_data.py']
