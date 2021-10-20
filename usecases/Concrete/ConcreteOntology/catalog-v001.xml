@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1634722782017" name="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology" uri="Concrete_Ontology_MSEO%20-%20Kopie.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1634722782017" name="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl" uri="Concrete_Ontology_MSEO.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1634732179225" name="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl" uri="Concrete_Ontology_MSEO.owl"/>
     </group>
 </catalog>
