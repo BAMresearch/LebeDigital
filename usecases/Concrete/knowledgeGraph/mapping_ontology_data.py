@@ -37,7 +37,7 @@ ontologyPath = os.path.join(baseDir1,'ConcreteOntology')
 metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
 graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 importedOntologiesPath = os.path.join(baseDir1,'GraphCreation/Ontologies')
-
+processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'E-modul-processed-data'),'processeddata'),'processed_')
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
 
@@ -115,9 +115,11 @@ data['file path'] = [
     + '/' + data['sample name'][i]
     for i in data.index
 ]
+
 data['processed data file path'] = [
-    'https://github.com/BAMresearch/ModelCalibration/tree/main/usecases/Concrete/knowledgeGraph/E-modul-processed-data/processeddata'
-    + '/processed_' + data['sample name'][i].replace(' ','_')
+    processedDataPath
+    + data['sample name'][i].replace(' ','_').replace('.','_')
+    + '.csv'
     for i in data.index
 ]
 

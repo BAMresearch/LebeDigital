@@ -2,16 +2,22 @@ import rdflib
 from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
+import sys
 
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
-prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
+print(baseDir0)
+if sys.platform == 'win32':
+    prefixPath = 'file:///' + os.path.join(baseDir0,'E-modul-processed-data').replace('\\','/') + '/'
+else:
+    prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
 
 graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
 
 print('---------------------------------------------------------------------')
+print(prefixPath)
 print('sample queries')
 
 q = f"""
@@ -42,8 +48,17 @@ q = f"""
     }}
         
 """
+q1 = """
+    select ?s ?p ?o
+    where {
+        ?s ?p ?o
+    }
+"""
 
 results = graph.query(q)
 for result in results:
-    print(result)
+    if sys.platform == 'win32':
+        print(f"{result}".encode("utf-8"))
+    else:
+        print(result)
 
