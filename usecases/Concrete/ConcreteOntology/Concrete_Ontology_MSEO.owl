@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#"
-     xml:base="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl"
+<rdf:RDF xmlns="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
+     xml:base="http://www.semanticweb.org/siwaszko/ontologies/2021/6/Concrete_Ontology"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:con="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl"
-     xmlns:mid="https://purl.matolab.org/mseo/mid/"
+     xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
      xmlns:obo="http://purl.obolibrary.org/obo/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:mid1="https://purl.matolab.org/mseo/mid/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:terms="http://purl.org/dc/terms/"
      xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
      xmlns:graph_designer="https://www.materials.fraunhofer.de/ontologies/graph_designer#"
      xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
-    <owl:Ontology rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl">
+    <owl:Ontology rdf:about="https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO/">
         <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
     </owl:Ontology>
     
