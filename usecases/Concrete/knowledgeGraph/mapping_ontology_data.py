@@ -221,7 +221,7 @@ for i in data.index:
         # add length of the specimen in class Length
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Length(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Length(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Length.iri))
             )
@@ -229,7 +229,7 @@ for i in data.index:
         # add Diameter of the specimen in class Diameter
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Diameter.iri))
             )
@@ -237,7 +237,7 @@ for i in data.index:
         # add Weight of the specimen in class Mass
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Mass(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Mass(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Mass.iri))
             )
@@ -255,21 +255,21 @@ for i in data.index:
         # in class InformationBearingEntity
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -403,43 +403,43 @@ for i in data.index:
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['diameter'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri))
             )
         )
         g.add(
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['length'][i]).iri))
             )
         )
         g.add(
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['weight'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri))
             )
         )
         # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri))
             )
         )
         g.add(
@@ -517,21 +517,21 @@ for i in data.index:
     with lebedigital_concrete:
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['weight_number'][i])
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['diameter_number'][i])
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['length_number'][i])
             )

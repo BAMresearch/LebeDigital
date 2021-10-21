@@ -1,3 +1,4 @@
+from xml.dom.minidom import NamedNodeMap
 import rdflib
 from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
@@ -7,7 +8,7 @@ import sys
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
-print(baseDir0)
+
 if sys.platform == 'win32':
     prefixPath = 'file:///' + os.path.join(baseDir0,'E-modul-processed-data').replace('\\','/') + '/'
 else:
@@ -16,95 +17,137 @@ else:
 graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
 
-print('---------------------------------------------------------------------')
-print(prefixPath)
-print('sample queries')
-print("""
-    input: name of the emodul experiment
-    output: raw data file path
-""")
+def input_emodul_data_for_calibration(nameOfExperiment):
+    nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_')
+    q1 = f"""
+            prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+            prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
+            prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
+            prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
+            prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
 
-q1 = f"""
-    prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
-    prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
-    prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
-    prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
-    prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
-    select ?rawdatapath
-    where {{
-        {{
-            select ?rawdatafile
+            select ?rawdatapath
             where {{
                 {{
-                    select ?outputfile
-                    where {{
-                        mseo:E-modul_experiment_BA_Los_M_V-4 cco:has_output ?outputfile
-                    }}
-                }}
-                ?outputfile
-                obo:RO_0010001
-                ?rawdatafile
-            }}
-        }}
-        ?rawdatafile
-        cco:has_URI_value
-        ?rawdatapath
-    }}
-        
-"""
-results = graph.query(q1)
-for result in results:
-    if sys.platform == 'win32':
-        print(f"{result}".encode("utf-8"))
-    else:
-        print(result)
-print('---------------------------------------------------------------------')
-print("""
-    input: name who did the experiments
-    output: processed data path
-""")
-
-q2 = f"""
-    prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
-    prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
-    prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
-    prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
-    prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
-    select ?experiment
-    where {{
-        {{
-            select ?agent
-            where {{
-                    {{
-                    select ?designativeName
+                    select ?info
                     where {{
                         {{
-                            select ?person
-                            where {{
-                                ?person cco:has_text_value "Kh"
+                            select ?analyseddata
+                            where{{
+                                {{
+                                    select ?bfo
+                                    where {{
+                                        {{
+                                            select ?rawdata
+                                            where {{
+                                                mseo:{nameOfExperiment}
+                                                cco:has_output
+                                                ?rawdata
+                                            }}
+                                        }}
+                                        ?rawdata
+                                        cco:is_input_of
+                                        ?bfo
+                                    }}
+                                }}
+                                ?bfo
+                                cco:has_output
+                                ?analyseddata
                             }}
                         }}
-                        ?designativeName
+                        ?analyseddata
                         obo:RO_0010001
-                        ?person
+                        ?info
+                    }}
+                    
+                }}
+                ?info
+                cco:has_URI_value
+                ?rawdatapath
+            }}
+            limit 1
+        """
+    results = graph.query(q1)
+    for result in results:
+        if sys.platform == 'win32':
+            print(f"{result['rawdatapath']}".encode("utf-8"))
+            processedDataPath = f"{result['rawdatapath']}".encode("utf-8")
+        else:
+            print(str(result['rawdatapath']))
+            processedDataPath = str(result['rawdatapath'])
+
+
+    
+    specimenParameterNames = ['Mass', 'Diameter', 'Length']
+    specimenParameters = []
+    for parameter in specimenParameterNames:
+        q2 = f"""
+            prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+            prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
+            prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
+            prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
+            prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+
+            select ?parametervalue
+            where {{
+                {{
+                    select ?info
+                    where {{
+                        {{
+                            select ?parameterclass
+                            where {{
+                                {{
+                                    select ?parameterclass
+                                    where {{
+                                        {{
+                                            select ?measurementregion
+                                            where {{
+                                                {{
+                                                    select ?specimen
+                                                    where {{
+                                                        ?specimen
+                                                        cco:is_input_of
+                                                        mseo:{nameOfExperiment}
+                                                    }}
+                                                }}
+                                                ?specimen
+                                                obo:BFO_0000051
+                                                ?measurementregion
+                                            }}
+                                        }}
+                                        ?measurementregion
+                                        obo:RO_0000086
+                                        ?parameterclass
+                                    }}
+                                }}
+                                ?parameterclass
+                                a
+                                cco:{parameter}
+                            }}
+                        }}
+                        ?parameterclass
+                        obo:RO_0010001
+                        ?info
                     }}
                 }}
-                ?agent
-                cco:designated_by
-                ?designativeName
+                ?info
+                cco:has_decimal_value
+                ?parametervalue
             }}
-        }}
-        ?experiment
-        cco:has_agent
-        ?agent
-    }}
-    
-"""
-results = graph.query(q2)
-for result in results:
-    if sys.platform == 'win32':
-        print(f"{result}".encode("utf-8"))
-    else:
-        print(result)
+            """
+        results = graph.query(q2)
+        for result in results:
+            if sys.platform == 'win32':
+                print(f"{result['parametervalue']}".encode("utf-8"))
+                specimenParameters.append(f"{result['parametervalue']}".encode("utf-8"))
+            else:
+                print(str(result['parametervalue']))
+                specimenParameters.append(str(result['parametervalue']))
 
-
+    return {
+        'processedDataPath': processedDataPath,
+        'specimenMass': specimenParameters[0],
+        'specimenDiameter': specimenParameters[1],
+        'specimenLength': specimenParameters[2]
+    }
+print(input_emodul_data_for_calibration('BA Los M V-5'))
