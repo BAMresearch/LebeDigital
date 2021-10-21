@@ -24,6 +24,7 @@ def get_file_information(path, file):
     return fileExtention, folderName
 
 def eModul_metadata(filePath, fileName ):
+    
     if sys.platform == 'windows':
         data = open(r"{}\{}".format(filePath,fileName),encoding="utf8", errors='ignore')
     else:
@@ -82,9 +83,9 @@ def eModul_metadata(filePath, fileName ):
         }
         
     }
-
+    experimentNameDict = {'experimentName': experimentName}
     # aggregate the metadata
-    metadata = [dataType, serviceInformationDict,dataCollectionInformationDict,columnsDict]
+    metadata = [experimentNameDict,dataType, serviceInformationDict,dataCollectionInformationDict,columnsDict]
     # jsonData = json.dumps(serviceInformationDict,ensure_ascii=False)
     
     return metadata
@@ -109,11 +110,13 @@ def column_data(listName, index, firstKey, secondKey):
         data.append(i[index][firstKey][secondKey])
     return data
 
-dataTypeIndex = 0
-operatorIndex = 1
-dataCollectionIndex = 2
+experimentNameIndex = 0
+dataTypeIndex = 1
+operatorIndex = 2
+dataCollectionIndex = 3
 
 dataFrame = pd.DataFrame({
+    'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
     'data type': [i[dataTypeIndex]['data type'] for i in metadata],
     'operator time': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeit'),
     'operator timestamp': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeitpunkt'),

@@ -84,10 +84,12 @@ data = pd.read_csv(metadataPath)
 # In[9]:
 
 
-data['experiment name'] = ['E-modul experiment ' + data['sample name'][i]
+data['experiment name'] = ['E-modul_experiment_' + data['experiment raw name'][i].replace(' ','_').replace('.','_')
                            for i in data.index
                           ]
-
+data['sample name 1'] = [data['sample name'][i].replace(' ','_').replace('.','_')
+                           for i in data.index
+                          ]
 
 # <h5 style="color:#1f5dbf">splitting string from remark in control and the value of control force/stress</h5>  
 
@@ -118,7 +120,7 @@ data['file path'] = [
 
 data['processed data file path'] = [
     processedDataPath
-    + data['sample name'][i].replace(' ','_').replace('.','_')
+    + data['experiment raw name'][i].replace(' ','_').replace('.','_')
     + '.csv'
     for i in data.index
 ]
@@ -165,7 +167,7 @@ for i in data.index:
         # add experiments as instances in class DeterminationOfSecantModulusOfElasticity
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
             )
@@ -173,7 +175,7 @@ for i in data.index:
         # add specimens as instances in class Specimen
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name 1'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen.iri))
             )
@@ -221,7 +223,7 @@ for i in data.index:
         # add length of the specimen in class Length
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Length(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Length(data['sample name 1'][i] + data['length'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Length.iri))
             )
@@ -229,7 +231,7 @@ for i in data.index:
         # add Diameter of the specimen in class Diameter
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['diameter'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Diameter.iri))
             )
@@ -237,7 +239,7 @@ for i in data.index:
         # add Weight of the specimen in class Mass
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Mass(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Mass(data['sample name 1'][i] + data['weight'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Mass.iri))
             )
@@ -246,7 +248,7 @@ for i in data.index:
         # add specimen region as instances in class MeasurementRegion
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(lebedigital_concrete.MeasurementRegion.iri))
             )
@@ -255,28 +257,28 @@ for i in data.index:
         # in class InformationBearingEntity
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['weight'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['diameter'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + 'specimen.dat').iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -290,7 +292,7 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i] ).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i] ).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -298,7 +300,7 @@ for i in data.index:
         # add processed data into class bfo:BFO_0000015
         g.add(
             (
-                URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name 1'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(OBO.BFO_0000015.iri))
             )
@@ -306,7 +308,7 @@ for i in data.index:
         # add processed data into class AnalysedDataSet
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name 1'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet.iri))
             )
@@ -314,7 +316,7 @@ for i in data.index:
         # add processed data into class InformationBearingEntity
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name 1'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -330,7 +332,7 @@ for i in data.index:
     with lebedigital_concrete:
         g.add(
                 (
-                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri)), 
                     RDF.type, 
                     URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet.iri))
                 )
@@ -351,13 +353,13 @@ for i in data.index:
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.has_output.iri)), 
-                URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri))
+                URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri))
             )
         )
         # experiment has_agent from class person
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.has_agent.iri)), 
                 URIRef(urllib.parse.quote(CCO.Agent(data['tester'][i].replace(' ','_')).iri))
@@ -366,9 +368,9 @@ for i in data.index:
         # specimen is_input_of experiment
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri))
             )
         )
@@ -377,14 +379,14 @@ for i in data.index:
             (
                 URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate(data['control'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri))
             )
         )
         # Experiment occures_on Day
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.occures_on.iri)), 
                 URIRef(urllib.parse.quote(CCO.Day(data['operator date'][i]).iri))
@@ -393,53 +395,53 @@ for i in data.index:
         # specimen obo:BFO_0000051 MeasurementRegion
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.BFO_0000051.iri)), 
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri))
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri))
             )
         )
         # MeasurementRegion obo:BFO_0000086 Diameter, Length, Mass
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['diameter'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['length'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['weight'][i]).iri))
             )
         )
         # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['diameter'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['diameter'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['length'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri))
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['weight'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['weight'][i]).iri))
             )
         )
         g.add(
@@ -451,9 +453,9 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + 'specimen.dat').iri))
             )
         )
         g.add(
@@ -474,7 +476,7 @@ for i in data.index:
         # InformationBearingEntity of ForceRate uses_measurement_unit MeasurementUnitOfForceRate
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i] ).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i] ).iri)), 
                 URIRef(urllib.parse.quote(CCO.uses_measurement_unit.iri)), 
                 URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri))
             )
@@ -482,26 +484,26 @@ for i in data.index:
         # RawDataSet cco:is_input_of bfo:BFO_0000015
         g.add(
                 (
-                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri)), 
                     URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
-                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name 1'][i]).iri))
                 )
             )
 
         # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
         g.add(
                 (
-                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(OBO.BFO_0000015('processed_' + data['sample name 1'][i]).iri)), 
                     URIRef(urllib.parse.quote(CCO.has_output.iri)), 
-                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name 1'][i]).iri))
                 )
             )
         # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
         g.add(
                 (
-                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(lebedigital_concrete.AnalysedDataSet('processed_' + data['sample name 1'][i]).iri)), 
                     URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri))
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name 1'][i]).iri))
                 )
             )
 
@@ -517,28 +519,28 @@ for i in data.index:
     with lebedigital_concrete:
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['weight'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['weight'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['weight_number'][i])
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['diameter'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['diameter'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['diameter_number'][i])
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
                 Literal(data['length_number'][i])
             )
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + 'specimen.dat').iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + 'specimen.dat').iri)), 
                 URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
                 Literal(data['file path'][i])
             )
@@ -552,7 +554,7 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name'][i].replace(' ','_') + '_' + data['control'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)), 
                 Literal(data['control value'][i])
             )
@@ -567,7 +569,7 @@ for i in data.index:
         # cco: InformationBearingEntity of processed dataset has filepath 
         g.add(
                 (
-                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.quote(CCO.InformationBearingEntity('processed_' + data['sample name 1'][i]).iri)), 
                     URIRef(urllib.parse.quote(CCO.has_URI_value.iri)), 
                     Literal(data['processed data file path'][i])
                 )

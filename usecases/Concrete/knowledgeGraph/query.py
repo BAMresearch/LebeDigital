@@ -18,7 +18,7 @@ graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
 
 def input_emodul_data_for_calibration(nameOfExperiment):
-    nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_')
+    nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_').replace('.','_')
     q1 = f"""
             prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
             prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
@@ -68,12 +68,11 @@ def input_emodul_data_for_calibration(nameOfExperiment):
             limit 1
         """
     results = graph.query(q1)
+    processedDataPath = ''
     for result in results:
         if sys.platform == 'win32':
-            print(f"{result['rawdatapath']}".encode("utf-8"))
             processedDataPath = f"{result['rawdatapath']}".encode("utf-8")
         else:
-            print(str(result['rawdatapath']))
             processedDataPath = str(result['rawdatapath'])
 
 
@@ -138,16 +137,12 @@ def input_emodul_data_for_calibration(nameOfExperiment):
         results = graph.query(q2)
         for result in results:
             if sys.platform == 'win32':
-                print(f"{result['parametervalue']}".encode("utf-8"))
                 specimenParameters.append(f"{result['parametervalue']}".encode("utf-8"))
             else:
-                print(str(result['parametervalue']))
-                specimenParameters.append(str(result['parametervalue']))
-
+                specimenParameters.append(float(str(result['parametervalue'])))
     return {
         'processedDataPath': processedDataPath,
         'specimenMass': specimenParameters[0],
         'specimenDiameter': specimenParameters[1],
         'specimenLength': specimenParameters[2]
     }
-print(input_emodul_data_for_calibration('BA Los M V-5'))
