@@ -1,6 +1,10 @@
 from compression_query import input_compression_data_for_calibration
 import pandas as pd
 
+print('--------------------------------')
+print('compression test query')
+print('input: name of the compression expriment')
+print('output: processed data of that experiment and the specimen parameters')
 nameOfExperiment = 'Hüsken Probe 1-2'
 df = pd.read_csv(input_compression_data_for_calibration(nameOfExperiment)['processedDataPath'])
 

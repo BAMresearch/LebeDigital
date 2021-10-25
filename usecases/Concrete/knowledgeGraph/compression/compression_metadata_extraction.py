@@ -102,7 +102,7 @@ for folder in listDataFolders:
             print('something wrong')
             print(folder)
     else:
-        print('not a right data')
+        print('------')
 
 def column_data(listName, index, firstKey, secondKey):
     data = []
