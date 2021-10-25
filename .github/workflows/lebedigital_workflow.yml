@@ -16,10 +16,10 @@ jobs:
           python-version: 3.7
       - name: create data folder
         run: |
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/rawdata 
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/processeddata
-          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/rawdata 
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/processeddata
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
       - name: install chowlk and convert drawio to ontology xml
         run: |
           git clone https://github.com/firmao/bamChowlk
@@ -33,20 +33,20 @@ jobs:
           path: "usecases/Concrete/knowledgeGraph/requirements.txt"
       - name: execute extract generate processed data script
         run: |
-          python usecases/Concrete/knowledgeGraph/generate_Emodul_processed_data.py
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_generate_processed_data.py
           echo "list of all clean raw data (no header)"
-          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/rawdata
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/rawdata
           echo "list of all clean processed data from raw data, that contains 4 columns with meaningful names"
-          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/processeddata
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/processeddata
       - name: execute extract metadata script
         run: |
-          python usecases/Concrete/knowledgeGraph/metadata_extraction.py
-          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_metadata_extraction.py
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
       - name: execute mapping script
         run: |
-          python usecases/Concrete/knowledgeGraph/mapping_ontology_data.py
-          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/E-modul-processed-data/
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_mapping.py
+          ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
       - name: execute query script
         run: |
-          python usecases/Concrete/knowledgeGraph/query.py
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_query.py
          
