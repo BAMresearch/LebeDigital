@@ -3,9 +3,12 @@ import os
 from pathlib import Path
 
 
-dataFolder = '/home/dung/Desktop/work/material-digital/data/concrete_research_data/ModelCalibration/usecases/Concrete/Data/Druckfestigkeit'
-emodulOutputRawData = os.path.join('/home/dung/Desktop/work/material-digital/test','rawdata')
-emodulOutputProcessedData = os.path.join('/home/dung/Desktop/work/material-digital/test','processeddata')
+baseDir0 = Path(__file__).resolve().parents[0]
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+dataFolder = os.path.join(baseDir2,'Data/Druckfestigkeit')
+compressionOutputRawData = os.path.join(os.path.join(baseDir0,'compression-processed-data'),'rawdata')
+compressionOutputProcessedData = os.path.join(os.path.join(baseDir0,'compression-processed-data'),'processeddata')
 
 def convert_string_to_number(listStrings):
     listNumbers = []
@@ -39,7 +42,7 @@ def dataframe_from_dat(dataPath, csvStoredFileName):
         print('not a right data format')
 
     df = pd.DataFrame(columns=[str(n) for n in range(1,numberOfColumn+1)], data=rawDataValue)
-    df.to_csv(os.path.join(emodulOutputRawData,csvStoredFileName), index=False)
+    df.to_csv(os.path.join(compressionOutputRawData,csvStoredFileName), index=False)
 
 for folder in os.listdir(dataFolder):
     if folder != 'Maack 8.2 Drucklversuch Probe BK 03 B':
@@ -48,17 +51,17 @@ for folder in os.listdir(dataFolder):
         except:
             print('something wrong!')
     else:
-        print('no good data')
+        print('bad data')
 
 def processed_data_from_rawdata(data):
-    df = pd.read_csv(os.path.join(emodulOutputRawData,data))
+    df = pd.read_csv(os.path.join(compressionOutputRawData,data))
     processedDataFrame = pd.DataFrame(columns= ['time [s]',
                                                 'Force [kN]',
                                                 'Transducer [mm]',
                                                ],
                                       data = df[['3', '5', '6']].values
                                      )
-    processedDataFrame.to_csv(os.path.join(emodulOutputProcessedData,'processed_'+ data), index=False)
+    processedDataFrame.to_csv(os.path.join(compressionOutputProcessedData,'processed_'+ data), index=False)
         
-for data in os.listdir(emodulOutputRawData):
+for data in os.listdir(compressionOutputRawData):
     processed_data_from_rawdata(data)

@@ -132,6 +132,6 @@ dataFrame = pd.DataFrame({
     'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
 })
 
-dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/metadata.csv'), index = False)
+dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv'), index = False)
 
 print(dataFrame.head())

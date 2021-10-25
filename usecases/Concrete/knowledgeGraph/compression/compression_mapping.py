@@ -31,13 +31,14 @@ import os
 # In[2]:
 
 
-baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
-ontologyPath = os.path.join(baseDir1,'ConcreteOntology')
-metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
-graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
-importedOntologiesPath = os.path.join(baseDir1,'GraphCreation/Ontologies')
-processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'E-modul-processed-data'),'processeddata'),'processed_')
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+ontologyPath = os.path.join(baseDir2,'ConcreteOntology')
+metadataPath = os.path.join(baseDir0,'compression-processed-data/compression_metadata.csv')
+graphPath = os.path.join(baseDir0,'compression-processed-data/compression_Graph.ttl')
+importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
+processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'compression-processed-data'),'processeddata'),'processed_')
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
 
@@ -79,33 +80,24 @@ lebedigital_concrete.imported_ontologies.append(mseo_mid)
 
 data = pd.read_csv(metadataPath)
 
-
+def german_to_english(s):
+    s = s.replace('ü','ue')
+    s = s.replace('ö','oe')
+    s = s.replace('ä','ae')
+    return s
 
 # In[9]:
 
 
-data['experiment name'] = ['E-modul_experiment_' + data['experiment raw name'][i].replace(' ','_').replace('.','_')
+data['experiment name'] = ['compression_experiment_' + german_to_english(data['experiment raw name'][i].replace(' ','_').replace('.','_'))
                            for i in data.index
                           ]
-data['sample name 1'] = [data['sample name'][i].replace(' ','_').replace('.','_')
+data['sample name 1'] = [german_to_english(data['sample name'][i].replace(' ','_').replace('.','_'))
                            for i in data.index
                           ]
-
-# <h5 style="color:#1f5dbf">splitting string from remark in control and the value of control force/stress</h5>  
-
-# In[11]:
-
-
-data['control'] = [
-    data['remark'][i].split()[0] for i in data.index
-]
-data['control value'] = [
-    float(data['remark'][i].split()[1].replace(',','.')) for i in data.index
-]
-data['control unit'] = [
-    data['remark'][i].split()[2] for i in data.index
-]
-
+data['operator date'] = [data['data collection timestamp'][i].split()[0]
+                           for i in data.index
+                          ]
 
 # <h5 style="color:#1f5dbf">add 1 column for example file path in data</h5>  
 
@@ -113,8 +105,8 @@ data['control unit'] = [
 
 
 data['file path'] = [
-    'https://github.com/BAMresearch/ModelCalibration/tree/main/usecases/Concrete/Data/E-modul'
-    + '/' + data['sample name'][i]
+    'https://github.com/BAMresearch/ModelCalibration/tree/main/usecases/Concrete/Data/Druckfestigkeit'
+    + '/' + data['experiment raw name'][i]
     for i in data.index
 ]
 
@@ -139,8 +131,8 @@ data['diameter_number'] = [
     float(data['diameter'][i].replace(',','.'))
     for i in data.index
 ]
-data['length_number'] = [
-    float(data['length'][i].replace(',','.'))
+data['height_number'] = [
+    float(data['height'][i].replace(',','.'))
     for i in data.index
 ]
 
@@ -164,12 +156,12 @@ g = My_world.as_rdflib_graph()
 
 for i in data.index:
     with lebedigital_concrete:
-        # add experiments as instances in class DeterminationOfSecantModulusOfElasticity
+        # add experiments as instances in class DeterminationOfCompressiveStrength
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_')).iri)), 
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength(data['experiment name'][i].replace(' ','_').replace('.','_')).iri)), 
                 RDF.type, 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength.iri))
             )
         )
         # add specimens as instances in class Specimen
@@ -204,26 +196,11 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.Day.iri))
             )
         )
-        # add controls as instances in class ForceRate
+        
+        # add height of the specimen in class Length
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate(data['control'][i]).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate.iri))
-            )
-        )
-        # add unit in MeasurementUnitOfForceRate
-        g.add(
-            (
-                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate.iri))
-            )
-        )
-        # add length of the specimen in class Length
-        g.add(
-            (
-                URIRef(urllib.parse.quote(CCO.Length(data['sample name 1'][i] + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Length(data['sample name 1'][i] + data['height'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.Length.iri))
             )
@@ -271,7 +248,7 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['height'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
@@ -290,13 +267,7 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
             )
         )
-        g.add(
-            (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i] ).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity.iri))
-            )
-        )
+        
         # add processed data into class bfo:BFO_0000015
         g.add(
             (
@@ -350,7 +321,7 @@ for i in data.index:
         # experiment has_output RawDataSet ('specimen.dat')
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength(data['experiment name'][i].replace(' ','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.has_output.iri)), 
                 URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri))
@@ -359,7 +330,7 @@ for i in data.index:
         # experiment has_agent from class person
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.has_agent.iri)), 
                 URIRef(urllib.parse.quote(CCO.Agent(data['tester'][i].replace(' ','_')).iri))
@@ -370,23 +341,15 @@ for i in data.index:
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen(data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri))
             )
         )
-        # ForceRate is_input_of experiment
-        g.add(
-            (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate(data['control'][i]).iri)), 
-                URIRef(urllib.parse.quote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
-                                          .iri))
-            )
-        )
+        
         # Experiment occures_on Day
         g.add(
             (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
+                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.DeterminationOfCompressiveStrength(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.quote(CCO.occures_on.iri)), 
                 URIRef(urllib.parse.quote(CCO.Day(data['operator date'][i]).iri))
@@ -412,7 +375,7 @@ for i in data.index:
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.Specimen('MeasurementRegion_' + data['sample name 1'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['height'][i]).iri))
             )
         )
         g.add(
@@ -432,9 +395,9 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.Diameter(data['sample name 1'][i] + data['height'][i]).iri)), 
                 URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri))
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['height'][i]).iri))
             )
         )
         g.add(
@@ -444,13 +407,7 @@ for i in data.index:
                 URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['weight'][i]).iri))
             )
         )
-        g.add(
-            (
-                URIRef(urllib.parse.quote(ConcreteMSEO_ontology.ForceRate(data['control'][i]).iri)), 
-                URIRef(urllib.parse.quote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['control'][i]).iri))
-            )
-        )
+        
         g.add(
             (
                 URIRef(urllib.parse.quote(lebedigital_concrete.RawDataSet(data['sample name 1'][i] + 'specimen.dat').iri)), 
@@ -474,13 +431,7 @@ for i in data.index:
             )
         )
         # InformationBearingEntity of ForceRate uses_measurement_unit MeasurementUnitOfForceRate
-        g.add(
-            (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i] ).iri)), 
-                URIRef(urllib.parse.quote(CCO.uses_measurement_unit.iri)), 
-                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri))
-            )
-        )
+      
         # RawDataSet cco:is_input_of bfo:BFO_0000015
         g.add(
                 (
@@ -533,9 +484,9 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['length'][i]).iri)), 
+                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + data['height'][i]).iri)), 
                 URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)),
-                Literal(data['length_number'][i])
+                Literal(data['height_number'][i])
             )
         )
         g.add(
@@ -552,20 +503,7 @@ for i in data.index:
                 Literal(data['tester'][i])
             )
         )
-        g.add(
-            (
-                URIRef(urllib.parse.quote(CCO.InformationBearingEntity(data['sample name 1'][i] + '_' + data['control'][i]).iri)), 
-                URIRef(urllib.parse.quote(CCO.has_decimal_value.iri)), 
-                Literal(data['control value'][i])
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.quote(COM.MeasurementUnitOfForceRate(data['control unit'][i]).iri)), 
-                URIRef(urllib.parse.quote(CCO.has_text_value.iri)), 
-                Literal(data['control unit'][i])
-            )
-        )
+       
         # cco: InformationBearingEntity of processed dataset has filepath 
         g.add(
                 (
@@ -579,8 +517,8 @@ for i in data.index:
 g.serialize(destination=graphPath, format="turtle")
 
 print('---------------------------------------------------------------------')
-print('number of EModul experiments: ', data.shape[0])
-print('number of classes in Emodul ontology: ', len(list(lebedigital_concrete.classes())))
+print('number of compression experiments: ', data.shape[0])
+print('number of classes in compression ontology: ', len(list(lebedigital_concrete.classes())))
 
 q = """
     SELECT (count(*) as ?Triples)

@@ -38,20 +38,24 @@ def task_emodul():
         }
     
     yield {
-        'basename': 'generate processed data',
+        'basename': 'generate emodul processed data',
         'actions': ['python emodul/emodul_generate_processed_data.py']
     }
     yield {
-        'basename': 'extract metadata',
+        'basename': 'extract emodul metadata',
         'actions': ['python emodul/emodul_metadata_extraction.py']
     }
     yield {
-        'basename': 'map ontology and metadata',
+        'basename': 'map emodul ontology and metadata',
         'actions': ['python emodul/emodul_mapping.py']
     }
     yield {
-        'basename': 'run query script',
+        'basename': 'run emodul query script',
         'actions': ['python emodul/emodul_query.py']
+    }
+    yield {
+        'basename': 'run emodul test query',
+        'actions': ['python emodul/emodul_test.py']
     }
 
 def task_compression():
@@ -74,3 +78,23 @@ def task_compression():
             'basename': 'create compression processeddata folder',
             'actions': ['mkdir %s ' % compressionProcesseddataFolder]
         }
+    yield {
+        'basename': 'generate compression processed data',
+        'actions': ['python compression/compression_generate_processed_data.py']
+    }
+    yield {
+        'basename': 'extract compression metadata',
+        'actions': ['python compression/compression_metadata_extraction.py']
+    }
+    yield {
+        'basename': 'map compression ontology and metadata',
+        'actions': ['python compression/compression_mapping.py']
+    }
+    yield {
+        'basename': 'run compression query script',
+        'actions': ['python compression/compression_query.py']
+    }
+    yield {
+        'basename': 'run compression test query',
+        'actions': ['python compression/compression_test.py']
+    }

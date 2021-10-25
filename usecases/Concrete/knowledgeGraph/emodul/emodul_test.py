@@ -1,4 +1,4 @@
-from query import input_emodul_data_for_calibration
+from emodul_query import input_emodul_data_for_calibration
 import pandas as pd
 
 nameOfExperiment = 'Werner 7.0 M IV E-Modul 28d v. 06.08.14 Probe 6'

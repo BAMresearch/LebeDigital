@@ -5,9 +5,12 @@ import sys
 import pandas as pd
 from pathlib import Path
 
-dataPath = '/home/dung/Desktop/work/material-digital/data/concrete_research_data/ModelCalibration/usecases/Concrete/Data/Druckfestigkeit'
+baseDir0 = Path(__file__).resolve().parents[0]
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+dataPath = os.path.join(baseDir2,'Data/Druckfestigkeit')
 
-csvPath = 'compression_metadata.csv'
+csvPath = os.path.join(os.path.join(baseDir0,'compression-processed-data'),'compression_metadata.csv')
 
 listDataFolders = os.listdir(dataPath)
 

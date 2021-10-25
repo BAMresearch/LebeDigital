@@ -35,7 +35,7 @@ baseDir0 = Path(__file__).resolve().parents[0]
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir2 = Path(__file__).resolve().parents[2]
 ontologyPath = os.path.join(baseDir2,'ConcreteOntology')
-metadataPath = os.path.join(baseDir0,'E-modul-processed-data/metadata.csv')
+metadataPath = os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv')
 graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
 processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'E-modul-processed-data'),'processeddata'),'processed_')
@@ -115,7 +115,7 @@ data['control unit'] = [
 
 data['file path'] = [
     'https://github.com/BAMresearch/ModelCalibration/tree/main/usecases/Concrete/Data/E-modul'
-    + '/' + data['sample name'][i]
+    + '/' + data['experiment raw name'][i]
     for i in data.index
 ]
 
