@@ -2,9 +2,10 @@ import pandas as pd
 import os
 from pathlib import Path
 
-baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
-dataFolder = os.path.join(baseDir1,'Data/E-modul')
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+dataFolder = os.path.join(baseDir2,'Data/E-modul')
 emodulOutputRawData = os.path.join(baseDir0,'E-modul-processed-data/rawdata')
 emodulOutputProcessedData = os.path.join(baseDir0,'E-modul-processed-data/processeddata')
 

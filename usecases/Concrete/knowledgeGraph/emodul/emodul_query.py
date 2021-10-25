@@ -5,8 +5,9 @@ from pathlib import Path
 import os
 import sys
 
-baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 
 if sys.platform == 'win32':

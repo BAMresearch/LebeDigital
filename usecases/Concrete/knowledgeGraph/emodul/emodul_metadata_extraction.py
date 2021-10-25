@@ -5,9 +5,10 @@ import sys
 import pandas as pd
 from pathlib import Path
 
-baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
-dataPath = os.path.join(baseDir1,'Data/E-modul')
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+dataPath = os.path.join(baseDir2,'Data/E-modul')
 listDataFolders = os.listdir(dataPath)
 
 # the function read each line and return metadata as key and value
