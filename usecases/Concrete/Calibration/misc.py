@@ -2,8 +2,13 @@
 
 import pandas as pd
 import numpy as np
-from knowledgeGraph.emodul.emodul_query import input_emodul_data_for_calibration
+import emodul_query
+import os
+from pathlib import Path
+import sys
 
+baseDir1 = Path(__file__).resolve().parents[1]
+sys.path.append(os.path.join(os.path.join(baseDir1,'knowledgeGraph'),'emodul'))
 
 def load_experimental_data(exp_name, skip_init, skip_last):
     """
@@ -19,13 +24,13 @@ def load_experimental_data(exp_name, skip_init, skip_last):
             The experiment values with keys as 'height' (int), 'diameter' (int), 'displacement' (np.array), 'stress' (np.array)
     """
 
-    df = pd.read_csv(input_emodul_data_for_calibration(exp_name)['processedDataPath'], skipfooter=skip_last)
+    df = pd.read_csv(emodul_query.input_emodul_data_for_calibration(exp_name)['processedDataPath'], skipfooter=skip_last)
     df = df.drop(labels=range(0, skip_init), axis=0)
 
     df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
-    dia = input_emodul_data_for_calibration(exp_name)['specimenDiameter']
+    dia = emodul_query.input_emodul_data_for_calibration(exp_name)['specimenDiameter']
     df['stress'] = df['Force [kN]'] / (np.pi * (dia / 2) ** 2)
-    height = input_emodul_data_for_calibration(exp_name)['specimenLength']
+    height = emodul_query.input_emodul_data_for_calibration(exp_name)['specimenLength']
 
     output = {
         'height': height,
