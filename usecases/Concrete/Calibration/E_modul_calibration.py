@@ -8,7 +8,7 @@ from probeye.definition.forward_model import ForwardModelBase
 from probeye.definition.sensor import Sensor
 from probeye.definition.inference_problem import InferenceProblem
 from probeye.definition.noise_model import NormalNoiseModel
-from probeye.inference.torch_.solver import run_pyro_solver
+from probeye.inference.torch_.solver import PyroSolver
 from probeye.postprocessing.sampling import create_trace_plot, create_pair_plot
 
 
@@ -69,7 +69,8 @@ problem.add_experiment(f'TestSeries_1', fwd_model_name="LinearModel",
 problem.info()
 
 # -- Solve inference problem
-pos = run_pyro_solver(problem,n_steps=1000,n_initial_steps=100)
+solver = PyroSolver(problem)
+pos = solver.run_mcmc(n_steps=500,n_initial_steps=100)
 
 # -- Visualisation
 create_trace_plot(pos, problem)
