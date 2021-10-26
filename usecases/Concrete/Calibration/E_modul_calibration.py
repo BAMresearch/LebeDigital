@@ -71,7 +71,8 @@ problem.info()
 # -- Solve inference problem
 solver = PyroSolver(problem)
 pos = solver.run_mcmc(n_steps=500,n_initial_steps=100)
-
+mcmc_pyro = solver.raw_results
+mcmc_pyro.summary()
 # -- Visualisation
 create_trace_plot(pos, problem)
 

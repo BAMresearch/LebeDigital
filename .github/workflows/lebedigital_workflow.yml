@@ -1,4 +1,4 @@
-name: lebedigital workflow of building knowledge graph
+name: lebedigital workflow of building knowledge graph and running calibration
 
 on: [push]
 
