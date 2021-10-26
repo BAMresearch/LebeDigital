@@ -2,13 +2,14 @@
 
 import pandas as pd
 import numpy as np
-import emodul_query
 import os
 from pathlib import Path
 import sys
 
 baseDir1 = Path(__file__).resolve().parents[1]
 sys.path.append(os.path.join(os.path.join(baseDir1,'knowledgeGraph'),'emodul'))
+
+import emodul_query
 
 def load_experimental_data(exp_name, skip_init, skip_last):
     """
