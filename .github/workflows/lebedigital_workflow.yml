@@ -72,3 +72,6 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_test.py
          
+      - name: execute emodul calibration script
+        run: |
+          python usecases/Concrete/Calibration/E_modul_calibration.py
