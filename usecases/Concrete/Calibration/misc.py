@@ -2,7 +2,7 @@
 
 import pandas as pd
 import numpy as np
-from usecases.Concrete.knowledgeGraph.query import input_emodul_data_for_calibration
+from usecases.Concrete.knowledgeGraph.emodul.emodul_query import input_emodul_data_for_calibration
 
 
 def load_experimental_data(exp_name, skip_init, skip_last):

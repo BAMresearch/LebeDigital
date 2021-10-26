@@ -1,6 +1,7 @@
 # -- PKM TUM -- atul.agrawal@tum.de -- #
 
 from misc import load_experimental_data
+import numpy as np
 import matplotlib.pyplot as plt
 
 from probeye.definition.forward_model import ForwardModelBase
@@ -10,21 +11,21 @@ from probeye.definition.noise_model import NormalNoiseModel
 from probeye.inference.torch_.solver import run_pyro_solver
 from probeye.postprocessing.sampling import create_trace_plot, create_pair_plot
 
-import numpy as np
-import matplotlib.pyplot as plt
 
 # -- Loading the experiment
 # for concrete E 60 - 85 Gpa/60 - 85 10^9N/m2 /60-85 KN/mm^2
 skip_last = 145
 skip_init = 330
-exp_output = load_experimental_data('Wolf 8.2 Probe 1',skip_init,skip_last)
+experiment_name = 'Wolf 8.2 Probe 1'
+exp_output = load_experimental_data(experiment_name,skip_init,skip_last)
 plt.plot(exp_output['stress'],exp_output['displacement']/exp_output['height'])  # checking loading data
 
 # -- Set Numerical values
+# "uninformed" Normal prior for the E modulus
 loc_E = 100
 scale_E = 100 # this can be inferred too
 
-# sigma prior parameters
+# Uniform prior for experimental noise/model discrepancy
 low_sigma = 0
 high_sigma = 0.005
 
@@ -73,4 +74,4 @@ pos = run_pyro_solver(problem,n_steps=1000,n_initial_steps=100)
 # -- Visualisation
 create_trace_plot(pos, problem)
 
-create_pair_plot(pos,problem)
+create_pair_plot(pos,problem,focus_on_posterior=True)
