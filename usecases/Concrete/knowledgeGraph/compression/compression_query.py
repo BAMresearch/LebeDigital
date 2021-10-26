@@ -4,21 +4,23 @@ from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
 import sys
+from compression_mapping import german_to_english
 
-baseDir1 = Path(__file__).resolve().parents[1]
 baseDir0 = Path(__file__).resolve().parents[0]
-triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
+baseDir1 = Path(__file__).resolve().parents[1]
+baseDir2 = Path(__file__).resolve().parents[2]
+triplePath = os.path.join(baseDir0,'compression-processed-data/compression_Graph.ttl')
 
 if sys.platform == 'win32':
-    prefixPath = 'file:///' + os.path.join(baseDir0,'E-modul-processed-data').replace('\\','/') + '/'
+    prefixPath = 'file:///' + os.path.join(baseDir0,'compression-processed-data').replace('\\','/') + '/'
 else:
-    prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
+    prefixPath = 'file://' + os.path.join(baseDir0,'compression-processed-data') + '/'
 
 graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
 
-def input_emodul_data_for_calibration(nameOfExperiment):
-    nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_').replace('.','_')
+def input_compression_data_for_calibration(nameOfExperiment):
+    nameOfExperiment = 'compression_experiment_' + german_to_english(nameOfExperiment.replace(' ','_').replace('.','_'))
     q1 = f"""
             prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
             prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
@@ -77,7 +79,7 @@ def input_emodul_data_for_calibration(nameOfExperiment):
 
 
     
-    specimenParameterNames = ['Mass', 'Diameter', 'Length']
+    specimenParameterNames = ['Mass', 'Diameter','Length']
     specimenParameters = []
     for parameter in specimenParameterNames:
         q2 = f"""
@@ -144,5 +146,5 @@ def input_emodul_data_for_calibration(nameOfExperiment):
         'processedDataPath': processedDataPath,
         'specimenMass': specimenParameters[0],
         'specimenDiameter': specimenParameters[1],
-        'specimenLength': specimenParameters[2]
+        'specimenHeight': specimenParameters[2]
     }
