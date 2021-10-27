@@ -72,7 +72,7 @@ def input_emodul_data_for_calibration(nameOfExperiment):
     processedDataPath = ''
     for result in results:
         if sys.platform == 'win32':
-            processedDataPath = f"{result['rawdatapath']}".encode("utf-8")
+            processedDataPath = result['rawdatapath'].value
         else:
             processedDataPath = str(result['rawdatapath'])
 
@@ -138,7 +138,7 @@ def input_emodul_data_for_calibration(nameOfExperiment):
         results = graph.query(q2)
         for result in results:
             if sys.platform == 'win32':
-                specimenParameters.append(f"{result['parametervalue']}".encode("utf-8"))
+                specimenParameters.append(result['parametervalue'].value)
             else:
                 specimenParameters.append(float(str(result['parametervalue'])))
     return {

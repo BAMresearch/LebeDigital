@@ -2,11 +2,13 @@ import os
 from pathlib import Path
 
 baseDir = Path(__file__).resolve().parents[0]
-emodulRawdataFolder = os.path.join(os.path.join(os.path.join(baseDir,'emodul'),'E-modul-processed-data'),'rawdata')
-emodulProcesseddataFolder = os.path.join(os.path.join(os.path.join(baseDir,'emodul'),'E-modul-processed-data'),'processeddata')
+emodulFolder = os.path.join(os.path.join(baseDir,'emodul'),'E-modul-processed-data')
+emodulRawdataFolder = os.path.join(emodulFolder,'rawdata')
+emodulProcesseddataFolder = os.path.join(emodulFolder,'processeddata')
 
-compressionRawdataFolder = os.path.join(os.path.join(os.path.join(baseDir,'compression'),'compression-processed-data'),'rawdata')
-compressionProcesseddataFolder = os.path.join(os.path.join(os.path.join(baseDir,'compression'),'compression-processed-data'),'processeddata')
+compressionFolder = os.path.join(os.path.join(baseDir,'compression'),'compression-processed-data')
+compressionRawdataFolder = os.path.join(compressionFolder,'rawdata')
+compressionProcesseddataFolder = os.path.join(compressionFolder,'processeddata')
 
 DOIT_CONFIG = {'verbosity': 2}
 
@@ -26,7 +28,7 @@ def task_emodul():
 
         yield {
             'basename': 'create E-modul-processed-data folder',
-            'actions': ['mkdir emodul/E-modul-processed-data']
+            'actions': ['mkdir %s ' % emodulFolder]
         }
         yield {
             'basename': 'create rawdata folder',
@@ -68,7 +70,7 @@ def task_compression():
 
         yield {
             'basename': 'create compression-processed-data folder',
-            'actions': ['mkdir compression/compression-processed-data']
+            'actions': ['mkdir %s ' % compressionFolder]
         }
         yield {
             'basename': 'create compression rawdata folder',
