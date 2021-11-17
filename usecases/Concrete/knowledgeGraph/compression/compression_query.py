@@ -10,6 +10,7 @@ baseDir0 = Path(__file__).resolve().parents[0]
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir2 = Path(__file__).resolve().parents[2]
 triplePath = os.path.join(baseDir0,'compression-processed-data/compression_Graph.ttl')
+demoPath = os.path.join(baseDir0,'compression-processed-data/demo.xml')
 
 if sys.platform == 'win32':
     prefixPath = 'file:///' + os.path.join(baseDir0,'compression-processed-data').replace('\\','/') + '/'
@@ -148,3 +149,29 @@ def input_compression_data_for_calibration(nameOfExperiment):
         'specimenDiameter': specimenParameters[1],
         'specimenHeight': specimenParameters[2]
     }
+def turtle_file_for_demo(nameOfExperiment):
+    nameOfExperiment = 'compression_experiment_' + german_to_english(nameOfExperiment.replace(' ','_').replace('.','_'))
+    q = f"""
+            prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+            prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
+            prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
+            prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
+            prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+            select ?s ?p ?o
+            where {{
+                {{
+                    ?s
+                    ?p
+                    mseo:{nameOfExperiment}
+                }}
+                union
+                {{
+                    mseo:{nameOfExperiment}
+                    ?p
+                    ?o
+                }}
+            }}
+        """
+    results = graph.query(q)
+    results.serialize(destination=demoPath, format="xml")
+turtle_file_for_demo('Hüsken Probe 1-2')
