@@ -37,7 +37,7 @@ baseDir2 = Path(__file__).resolve().parents[2]
 ontologyPath = os.path.join(baseDir2,'ConcreteOntology')
 metadataPath = os.path.join(baseDir0,'compression-processed-data/compression_metadata.csv')
 graphPath = os.path.join(baseDir0,'compression-processed-data/compression_Graph.ttl')
-importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
+#importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
 processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'compression-processed-data'),'processeddata'),'processed_')
 
 # <h3 style="color:#1f5dbf">load concrete material ontology for Emodul experiment</h3>   
@@ -48,12 +48,12 @@ processedDataPath = os.path.join(os.path.join(os.path.join(baseDir0,'compression
 onto_path.append(".")
 My_world = World()
 
-cco_ontology = My_world.get_ontology(importedOntologiesPath + "/MergedAllCoreOntology.owl").load()
-mseo_mid = My_world.get_ontology(importedOntologiesPath + "/MSEO_mid.owl").load()
-PeriodicTable_ontology = My_world.get_ontology(importedOntologiesPath + "/PeriodicTable.owl").load()
-WCTmidonto = My_world.get_ontology(importedOntologiesPath + "/WCTmid.owl").load()
-CSTonto = My_world.get_ontology(importedOntologiesPath + "/ConcreteStressTestOntologie.owl").load()
-lebedigital_concrete = My_world.get_ontology(os.path.join(ontologyPath,'EM.xml')).load()
+cco_ontology = My_world.get_ontology(ontologyPath + "/MergedAllCoreOntology.owl").load()
+mseo_mid = My_world.get_ontology(ontologyPath + "/MSEO_mid.owl").load()
+PeriodicTable_ontology = My_world.get_ontology(ontologyPath + "/PeriodicTable.owl").load()
+WCTmidonto = My_world.get_ontology(ontologyPath + "/WCTmid.owl").load()
+CSTonto = My_world.get_ontology(ontologyPath + "/ConcreteStressTestOntologie.owl").load()
+lebedigital_concrete = My_world.get_ontology(os.path.join(ontologyPath,'compression_cyl.xml')).load()
 ConcreteMSEO_ontology = My_world.get_ontology(ontologyPath + "/Concrete_Ontology_MSEO.owl").load()
 
 BWMD = My_world.get_namespace("https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#")
