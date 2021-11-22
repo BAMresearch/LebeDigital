@@ -21,11 +21,11 @@ graph.parse(triplePath, format='n3')
 def input_emodul_data_for_calibration(nameOfExperiment):
     nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_').replace('.','_')
     q1 = f"""
-            prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
-            prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
-            prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
-            prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
-            prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+            prefix bwmd: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+            prefix mseo: <https://purl.matolab.org/mseo/mid/>
+            prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/>
+            prefix obo: <http://purl.obolibrary.org/obo/>
+            prefix con: <https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
 
             select ?rawdatapath
             where {{
@@ -82,11 +82,11 @@ def input_emodul_data_for_calibration(nameOfExperiment):
     specimenParameters = []
     for parameter in specimenParameterNames:
         q2 = f"""
-            prefix bwmd: <{prefixPath}https%3A//www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
-            prefix mseo: <{prefixPath}https%3A//purl.matolab.org/mseo/mid/>
-            prefix cco: <{prefixPath}http%3A//www.ontologyrepository.com/CommonCoreOntologies/>
-            prefix obo: <{prefixPath}http%3A//purl.obolibrary.org/obo/>
-            prefix con: <{prefixPath}https%3A//github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
+            prefix bwmd: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#>
+            prefix mseo: <https://purl.matolab.org/mseo/mid/>
+            prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/>
+            prefix obo: <http://purl.obolibrary.org/obo/>
+            prefix con: <https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl#>
 
             select ?parametervalue
             where {{
