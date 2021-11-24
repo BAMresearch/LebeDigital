@@ -591,7 +591,7 @@ for i in data.index:
                 (
                     URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['operator date'][i]).iri)), 
                     URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
-                    Literal(datetime.datetime.strptime(data['operator date'][i], '%d.%m.%Y'))
+                    Literal(datetime.datetime.strptime(data['data collection timestamp'][i], '%d.%m.%Y %H:%M:%S'))
                 )
             )
 
