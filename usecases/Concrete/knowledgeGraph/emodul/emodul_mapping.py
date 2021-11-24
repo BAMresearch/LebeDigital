@@ -26,6 +26,7 @@ import pandas as pd
 import urllib.parse
 from pathlib import Path
 import os
+import datetime
 
 
 # In[2]:
@@ -201,7 +202,7 @@ for i in data.index:
         # add start date as instances in class Day
         g.add(
             (
-                URIRef(urllib.parse.unquote(CCO.Day(data['operator date'][i]).iri)), 
+                URIRef(urllib.parse.unquote(CCO.Day('Day_' + data['operator date'][i]).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.unquote(CCO.Day.iri))
             )
@@ -255,7 +256,7 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(lebedigital_concrete.MeasurementRegion.iri))
             )
         )
-        # add weight, diameter, length, dataset path, tester name value, force rate value
+        # add weight, diameter, length, dataset path, tester name value, force rate value, day
         # in class InformationBearingEntity
         g.add(
             (
@@ -299,6 +300,14 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
             )
         )
+        g.add(
+            (
+                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['operator date'][i]).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+            )
+        )
+
         # add processed data into class bfo:BFO_0000015
         g.add(
             (
@@ -391,7 +400,7 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.unquote(CCO.occures_on.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Day(data['operator date'][i]).iri))
+                URIRef(urllib.parse.unquote(CCO.Day('Day_' + data['operator date'][i]).iri))
             )
         )
         # specimen obo:BFO_0000051 MeasurementRegion
@@ -574,6 +583,15 @@ for i in data.index:
                     URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + data['sample name 1'][i]).iri)), 
                     URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
                     Literal(data['processed data file path'][i])
+                )
+            )
+
+        # Day has_datetime_value
+        g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['operator date'][i]).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
+                    Literal(datetime.datetime.strptime(data['operator date'][i], '%d.%m.%Y'))
                 )
             )
 
