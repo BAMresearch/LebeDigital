@@ -219,9 +219,9 @@ for i in data.index:
         # add unit in MeasurementUnitOfForceRate
         g.add(
             (
-                URIRef(urllib.parse.unquote(COM.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri)), 
+                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri)), 
                 RDF.type, 
-                URIRef(urllib.parse.unquote(COM.MeasurementUnitOfForceRate.iri))
+                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate.iri))
             )
         )
         # add length of the specimen in class Length
@@ -499,7 +499,7 @@ for i in data.index:
             (
                 URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['sample name 1'][i] + '_' + data['control'][i] ).iri)), 
                 URIRef(urllib.parse.unquote(CCO.uses_measurement_unit.iri)), 
-                URIRef(urllib.parse.unquote(COM.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri))
+                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri))
             )
         )
         # RawDataSet cco:is_input_of bfo:BFO_0000015
@@ -582,7 +582,7 @@ for i in data.index:
         )
         g.add(
             (
-                URIRef(urllib.parse.unquote(COM.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri)), 
+                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + data['sample name 1'][i]+ data['control unit'][i]).iri)), 
                 URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
                 Literal(data['control unit'][i])
             )
