@@ -26,6 +26,7 @@ import pandas as pd
 import urllib.parse
 from pathlib import Path
 import os
+import datetime
 
 
 # In[2]:
@@ -63,6 +64,7 @@ CCO = My_world.get_namespace("http://www.ontologyrepository.com/CommonCoreOntolo
 CST = My_world.get_namespace("https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#")
 COM = My_world.get_namespace('https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl')
 OBO = My_world.get_namespace("http://purl.obolibrary.org/obo/")
+My_world.get_namespace('https://purl.matolab.org/mseo/mid/')
 
 lebedigital_concrete.imported_ontologies.append(cco_ontology)
 lebedigital_concrete.imported_ontologies.append(PeriodicTable_ontology)
@@ -201,7 +203,7 @@ for i in data.index:
         # add start date as instances in class Day
         g.add(
             (
-                URIRef(urllib.parse.unquote(CCO.Day(data['operator date'][i]).iri)), 
+                URIRef(urllib.parse.unquote(CCO.Day('Day_' + data['data collection timestamp'][i].replace(' ','_')).iri)), 
                 RDF.type, 
                 URIRef(urllib.parse.unquote(CCO.Day.iri))
             )
@@ -255,7 +257,7 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(lebedigital_concrete.MeasurementRegion.iri))
             )
         )
-        # add weight, diameter, length, dataset path, tester name value, force rate value
+        # add weight, diameter, length, dataset path, tester name value, force rate value, day
         # in class InformationBearingEntity
         g.add(
             (
@@ -299,6 +301,14 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
             )
         )
+        g.add(
+            (
+                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['data collection timestamp'][i].replace(' ','_')).iri)), 
+                RDF.type, 
+                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+            )
+        )
+
         # add processed data into class bfo:BFO_0000015
         g.add(
             (
@@ -391,7 +401,7 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(data['experiment name'][i].replace(' ','_').replace('.','_'))
                                           .iri)), 
                 URIRef(urllib.parse.unquote(CCO.occures_on.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Day(data['operator date'][i]).iri))
+                URIRef(urllib.parse.unquote(CCO.Day('Day_' + data['data collection timestamp'][i].replace(' ','_')).iri))
             )
         )
         # specimen obo:BFO_0000051 MeasurementRegion
@@ -425,6 +435,7 @@ for i in data.index:
             )
         )
         # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
+        # Day obo:RO_0010001 InformationBearingEntity
         g.add(
             (
                 URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + data['sample name 1'][i] + data['diameter'][i].replace(',','_')).iri)), 
@@ -465,6 +476,14 @@ for i in data.index:
                 URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + data['sample name 1'][i] + data['tester'][i].replace(' ','_')).iri)), 
                 URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
                 URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['tester'][i].replace(' ','_')).iri))
+            )
+        )
+
+        g.add(
+            (
+                URIRef(urllib.parse.unquote(CCO.Day('Day_' + data['data collection timestamp'][i].replace(' ','_')).iri)), 
+                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
+                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['data collection timestamp'][i].replace(' ','_')).iri))
             )
         )
         # Agent designated_by DesignativeName
@@ -574,6 +593,15 @@ for i in data.index:
                     URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + data['sample name 1'][i]).iri)), 
                     URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
                     Literal(data['processed data file path'][i])
+                )
+            )
+
+        # Day has_datetime_value
+        g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + data['data collection timestamp'][i].replace(' ','_')).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
+                    Literal(datetime.datetime.strptime(data['data collection timestamp'][i], '%d.%m.%Y %H:%M:%S'))
                 )
             )
 
