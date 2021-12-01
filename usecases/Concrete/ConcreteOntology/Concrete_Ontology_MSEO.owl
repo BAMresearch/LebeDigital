@@ -2,7 +2,7 @@
 <rdf:RDF xmlns="http://w3id.org/concrete#"
      xml:base="http://w3id.org/concrete"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:con="http://w3id.org/concrete"
+     xmlns:con="http://w3id.org/concrete#"
      xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
      xmlns:obo="http://purl.obolibrary.org/obo/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
