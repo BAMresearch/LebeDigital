@@ -61,7 +61,7 @@ WCTmid = My_world.get_namespace("https://mobi.com/ontologies/6/2021/WCTmid#")
 #WCT = My_world.get_namespace("https://mobi.com/ontologies/6/202https://mobi.com/ontologies/6/2021/WoodCompressionTest#1/WoodCompressionTest#")
 CCO = My_world.get_namespace("http://www.ontologyrepository.com/CommonCoreOntologies/")
 CST = My_world.get_namespace("https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#")
-COM = My_world.get_namespace('https://github.com/BAMresearch/ModelCalibration/blob/Datasets/usecases/Concrete/ConcreteOntology/Concrete_Ontology_MSEO.owl')
+CON = My_world.get_namespace('http://w3id.org/concrete')
 OBO = My_world.get_namespace("http://purl.obolibrary.org/obo/")
 
 lebedigital_concrete.imported_ontologies.append(cco_ontology)
