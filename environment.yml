@@ -14,7 +14,7 @@ dependencies:
   - flake8
   - sphinx
   - sphinx_rtd_theme
-  - conda-ecosystem-user-package-isolation
+#  - conda-ecosystem-user-package-isolation
   
   
 
