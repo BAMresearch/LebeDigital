@@ -22,15 +22,15 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         $CONDA/bin/conda env update --file ./environment.yml --name base
-    - name: Pip Bayesian inference
+    - name: Install probeye from PyPI
       run: |
-        $CONDA/bin/pip install -e ./BayesianInference
-    - name: Test
-      run: |
-        cd usecases/linearFunction
-        $CONDA/bin/doit test
-    - name: Lint with flake8
-      run: |
-        # show syntax errors as warnings
-        $CONDA/bin/flake8 usecases/linearFunction --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
+        python -m pip install --upgrade pip
+        python -m pip install probeye
+#    - name: Test
+#      run: |
+#        cd usecases/linearFunction
+#        $CONDA/bin/doit test
+#    - name: Lint with flake8
+#      run: |
+#        # show syntax errors as warnings
+#        $CONDA/bin/flake8 usecases/linearFunction --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

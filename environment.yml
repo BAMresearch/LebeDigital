@@ -11,10 +11,10 @@ dependencies:
   - pyyaml
   - mkl
   - mkl-service
-  - flake8
-  - sphinx
-  - sphinx_rtd_theme
-  - conda-ecosystem-user-package-isolation
+#  - flake8
+#  - sphinx
+#  - sphinx_rtd_theme
+#  - conda-ecosystem-user-package-isolation
   
   
 
