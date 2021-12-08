@@ -1,1471 +1,1428 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://w3id.org/concrete#"
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
      xml:base="http://w3id.org/concrete"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:con="http://w3id.org/concrete#"
-     xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
-     xmlns:obo="http://purl.obolibrary.org/obo/"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:mid1="https://purl.matolab.org/mseo/mid/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
-     xmlns:graph_designer="https://www.materials.fraunhofer.de/ontologies/graph_designer#"
-     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
-    <owl:Ontology rdf:about="http://w3id.org/concrete">
-        <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
-    </owl:Ontology>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://w3id.org/concrete#hasClassification -->
-
-    <owl:ObjectProperty rdf:about="http://w3id.org/concrete#hasClassification">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <rdfs:range rdf:resource="http://w3id.org/concrete#CompactionClass"/>
-        <rdfs:range rdf:resource="http://w3id.org/concrete#CompressiveStregthClass"/>
-        <rdfs:range rdf:resource="http://w3id.org/concrete#FlowClass"/>
-        <rdfs:range rdf:resource="http://w3id.org/concrete#SlumpClass"/>
-        <rdfs:range rdf:resource="http://w3id.org/concrete#VebeClass"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Data properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313 -->
-
-    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313">
-        <rdfs:domain rdf:resource="http://w3id.org/concrete#CompressionTestingMachine"/>
-        <rdfs:domain rdf:resource="http://w3id.org/concrete#ITEquipmentName"/>
-        <rdfs:domain rdf:resource="http://w3id.org/concrete#LabInfrastructureEquipmentName"/>
-        <rdfs:domain rdf:resource="http://w3id.org/concrete#TestingMachine"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316 -->
-
-    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317 -->
-
-    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317">
-        <rdfs:domain rdf:resource="http://w3id.org/concrete#MeasuredStrain"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318 -->
-
-    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318"/>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343 -->
-
-    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343">
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065"/>
-        <rdfs:domain rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://w3id.org/concrete#ActuatorEquipment -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ActuatorEquipment">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Admixture -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Admixture">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <CommonCoreOntologies:definition xml:lang="de">Betonzusatzstoffe sind feine anorganische oder organische Stoffe, die im Beton verwendet werden, um Eigenschaften gezielt zu verbessern oder zu erreichen. Siehe https://www.betontechnische-daten.de/de/4-betonzusatzstoffe-und-fasern</CommonCoreOntologies:definition>
-        <CommonCoreOntologies:definition xml:lang="en">Material added during the mixing process of concrete in amall quantities related to the mass of cement to modify the properties of fresh or hardened concrete</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="en">Admixture</rdfs:label>
-        <rdfs:label xml:lang="de">Betonzusatzstoff</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Aggregate -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Aggregate">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <rdfs:comment xml:lang="en">granular mineral material suitable for use in concrete. Aggregates may be natural, artificial or recycled fom material previously used in construction</rdfs:comment>
-        <rdfs:label xml:lang="en">Aggregate</rdfs:label>
-        <rdfs:label xml:lang="de">Als Gesteinskörnung werden im Bauwesen natürliche und künstliche Gesteinskörnerbezeichnet. Sie stammen entweder aus natürlichen Lagerstätten oder fallen bei der Wiederverwertung von Baustoffen oder als industrielles Nebenerzeugnis an. Die Gesteine liegen entweder als Rundkorn oder in gebrochener Form vor. https://de.wikipedia.org/wiki/Gesteinsk%C3%B6rnung</rdfs:label>
-        <rdfs:label xml:lang="de">Gesteinskörnung</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Air -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Air">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <rdfs:label xml:lang="en">Air</rdfs:label>
-        <rdfs:label xml:lang="de">Luft</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#AverageStrainAtLowerStressOnLoadingCycleN -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#AverageStrainAtLowerStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#AverageStrainAtPreloadStressOnLoadingCycleN -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#AverageStrainAtPreloadStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#AverageStrainAtUpperStressOnLoadingCycleN -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#AverageStrainAtUpperStressOnLoadingCycleN">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CalibrationOfEquipment -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CalibrationOfEquipment">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <rdfs:label xml:lang="en">Calibration of Equipment</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Cement -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Cement">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <rdfs:comment>a finely ground onorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water</rdfs:comment>
-        <rdfs:label xml:lang="en">Cement</rdfs:label>
-        <rdfs:label xml:lang="de">Zement</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Classification -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Classification">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ColumnNumber -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ColumnNumber">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>The column number within a file</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CommaDelimiter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CommaDelimiter">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Delimiter"/>
-        <rdfs:comment>Delimiter symbol is a comma</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompactionClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompactionClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistenceClass"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompositeMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompositeMaterial">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
-        <rdfs:comment xml:lang="en">A material which is produced from two or more constituent materials.</rdfs:comment>
-        <rdfs:isDefinedBy xml:lang="de">https://de.wikipedia.org/wiki/Verbundwerkstoff</rdfs:isDefinedBy>
-        <rdfs:isDefinedBy xml:lang="en">https://en.wikipedia.org/wiki/Composite_material</rdfs:isDefinedBy>
-        <rdfs:label xml:lang="en">Composite Material</rdfs:label>
-        <rdfs:label xml:lang="de">Verbundwerkstoff</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompressionTestingMachine -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompressionTestingMachine">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#TestingMachine"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompressiveStregthClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStregthClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Classification"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompressiveStrength -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrength">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="en">Compressive Strength</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompressiveStrengthCube -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrengthCube">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompressiveStrength"/>
-        <rdfs:label xml:lang="en">Compressive Strength Cube</rdfs:label>
-        <rdfs:label xml:lang="de">Würfeldruckfestigkeit</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#CompressiveStrengthCylinder -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrengthCylinder">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompressiveStrength"/>
-        <rdfs:label xml:lang="en">Compressive Strength Cylinder</rdfs:label>
-        <rdfs:label xml:lang="de">Zylinderdruckfestigkeit</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Concrete -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Concrete">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompositeMaterial"/>
-        <CommonCoreOntologies:definition xml:lang="de">Beton ist ein Baustoff, erzeugt durch Mischen von Zement, grober und feiner Gesteinskörnung und Wasser, mit oder ohne Zugabe von Zusatzmitteln, Zusatzstoffen und Fasern. Siehe https://www.betontechnische-daten.de/de/6-1-begriffe</CommonCoreOntologies:definition>
-        <rdfs:comment xml:lang="en">Concrete is a mixture of paste and aggregates.</rdfs:comment>
-        <rdfs:label xml:lang="de">Beton</rdfs:label>
-        <rdfs:label xml:lang="en">Concrete</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ConsistenceClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ConsistenceClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Classification"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DATFile -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DATFile">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/File"/>
-        <rdfs:comment>A data file (.dat) is a standard data document that contains data and is recognized by any text editing or word processing software.</rdfs:comment>
-        <rdfs:label>DATFile</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DINStandard -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DINStandard">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
-        <rdfs:comment>Any kind of standard as published by the Deutsche Institut für Normung (DIN)</rdfs:comment>
-        <rdfs:label>DINStandard</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DecimalSeperator -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DecimalSeperator">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
-        <rdfs:comment>The symbol used for the decimal separator</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DecimalSeperatorComma -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DecimalSeperatorComma">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DecimalSeperator"/>
-        <rdfs:comment>The decimal separator symbol is a comma</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DecimalSeperatorDot -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DecimalSeperatorDot">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DecimalSeperator"/>
-        <rdfs:comment>The decimal separator symbol is a dot</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Delimiter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Delimiter">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
-        <rdfs:comment>The delimiter symbol between columns</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Desktop -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Desktop">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DestructiveTesting -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DestructiveTesting">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/concrete#NonDestructiveTesting"/>
-        <rdfs:label xml:lang="en">Destructive Testing</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DeterminationOfCompressiveStrength -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DeterminationOfCompressiveStrength">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DestructiveTesting"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#SpecimenAfterTesting"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_precedes"/>
-                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
-                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:label>Determination of Compressive Strength</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DestructiveTesting"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#SpecimenAfterTesting"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
-                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceded_by"/>
-                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#DeterminationOfCompressiveStrength"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
-                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:label>Determination of Secant Modulus of Elasticity</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#DifferenceBetweenMeasuredStresses -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#DifferenceBetweenMeasuredStresses">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ENStandard -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ENStandard">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
-        <rdfs:comment>Any kind of standard as published by one of the following Institutions:
+     ontologyIRI="http://w3id.org/concrete">
+    <Prefix name="" IRI="http://w3id.org/concrete"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="con" IRI="http://w3id.org/concrete#"/>
+    <Prefix name="mid" IRI="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"/>
+    <Prefix name="obo" IRI="http://purl.obolibrary.org/obo/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="foaf" IRI="http://xmlns.com/foaf/0.1/"/>
+    <Prefix name="mid1" IRI="https://purl.matolab.org/mseo/mid/"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="terms" IRI="http://purl.org/dc/terms/"/>
+    <Prefix name="oboInOwl" IRI="http://www.geneontology.org/formats/oboInOwl#"/>
+    <Prefix name="graph_designer" IRI="https://www.materials.fraunhofer.de/ontologies/graph_designer#"/>
+    <Prefix name="CommonCoreOntologies" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/"/>
+    <Import>https://purl.matolab.org/mseo/mid</Import>
+    <Declaration>
+        <Class IRI="#ActuatorEquipment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Admixture"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Aggregate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Air"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AverageStrainAtPreloadStressOnLoadingCycleN"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CalibrationOfEquipment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cement"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Classification"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompactionClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompositeMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompressionTestingMachine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompressiveStregthClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompressiveStrength"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompressiveStrengthCube"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompressiveStrengthCylinder"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Concrete"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConsistenceClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DATFile"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DINStandard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Desktop"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DestructiveTesting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DifferenceBetweenMeasuredStresses"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ENStandard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EngineeringMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EquivalentWaterCementRatio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlowClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlyAsh"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ForceRate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FreshConcrete"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HardenedConcrete"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IECStandard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ITEquipment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InfrastructureEquipment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InitialSecantModulusOfElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InorganicMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LabInfrastructureEquipmentSet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Laptop"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LoadingRate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MaxDiameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeasuredStrain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeasuredStressCorrespondingToNominalLowerStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeasuredStressCorrespondingToNominalPreloadStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeasuredStressCorrespondingToNominalUpperStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeasurementUnitOfForceRate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MetallicMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MinDiameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Mixer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Mortar"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NominalLowerStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NominalPreloadStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NominalUpperStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NonDestructiveTesting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NonMettalicMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OperatorOfProcess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OrganicMaterial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RelativeDensity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SecantModulusOfElasticty"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Server"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SilicaFume"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SlagCement"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SlumpClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecificGravity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecimenAfterTesting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecimenBeforeTesting"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StabilizedSecantModulusOfElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Stoffraum"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Strain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainDifferenceDuringFirstLoadingCycle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainDifferenceDuringThirdLoadingCycle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StrainMeasuringInstrument"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Stress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#StressRate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TensileSplittingStrength"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TestingMachine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Transducer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VDEStandard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VebeClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Volume"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Water"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#WaterCementRatio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#kValueAccountingForFlyAsh"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#kValueAccountingForSilicaFume"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasClassification"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="mid:BWMD_00313"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="mid:BWMD_00316"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="mid:BWMD_00317"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="mid:BWMD_00318"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="mid:BWMD_00343"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DIN_EN_12390-13"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#EN12390-3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#KiloNewtonPerSecondMeasurementUnit"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MegaPascalPerSecond"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Meter"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MeterKilogramPerSecondSquarred"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MethodA"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MethodB"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Newton"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#NewtonSecondPerMilimeterSquared"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Second"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#YoungsModulusTest"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Stress"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Pressure"/>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#ActuatorEquipment"/>
+        <Class abbreviatedIRI="mid1:Equipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Admixture"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Aggregate"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Air"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AverageStrainAtPreloadStressOnLoadingCycleN"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CalibrationOfEquipment"/>
+        <Class abbreviatedIRI="obo:BFO_0000015"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cement"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Classification"/>
+        <Class abbreviatedIRI="obo:BFO_0000019"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Classification"/>
+        <DataAllValuesFrom>
+            <DataProperty abbreviatedIRI="mid:BWMD_00313"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompactionClass"/>
+        <Class IRI="#ConsistenceClass"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompositeMaterial"/>
+        <Class IRI="#EngineeringMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompressionTestingMachine"/>
+        <Class IRI="#TestingMachine"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompressiveStregthClass"/>
+        <Class IRI="#Classification"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompressiveStrength"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompressiveStrengthCube"/>
+        <Class IRI="#CompressiveStrength"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CompressiveStrengthCylinder"/>
+        <Class IRI="#CompressiveStrength"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Concrete"/>
+        <Class IRI="#CompositeMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConsistenceClass"/>
+        <Class IRI="#Classification"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DATFile"/>
+        <Class abbreviatedIRI="mid1:File"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DINStandard"/>
+        <Class abbreviatedIRI="mid1:ISOStandard"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Desktop"/>
+        <Class IRI="#ITEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DestructiveTesting"/>
+        <Class abbreviatedIRI="obo:BFO_0000015"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+        <Class IRI="#DestructiveTesting"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:has_output"/>
+            <Class IRI="#SpecimenAfterTesting"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:has_output"/>
+            <Class abbreviatedIRI="mid1:RawDataSet"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:process_precedes"/>
+            <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfCompressiveStrength"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="mid1:in_accordance_with"/>
+            <Class abbreviatedIRI="mid1:Regulation"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        <Class IRI="#DestructiveTesting"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:has_output"/>
+            <Class IRI="#SpecimenAfterTesting"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:has_output"/>
+            <Class abbreviatedIRI="mid1:RawDataSet"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:process_preceded_by"/>
+            <Class IRI="#DeterminationOfCompressiveStrength"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DeterminationOfSecantModulusOfElasticity"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="mid1:in_accordance_with"/>
+            <Class abbreviatedIRI="mid1:Regulation"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DifferenceBetweenMeasuredStresses"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ENStandard"/>
+        <Class abbreviatedIRI="mid1:ISOStandard"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EngineeringMaterial"/>
+        <Class abbreviatedIRI="obo:BFO_0000030"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EquivalentWaterCementRatio"/>
+        <Class IRI="#WaterCementRatio"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlowClass"/>
+        <Class IRI="#ConsistenceClass"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlyAsh"/>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ForceRate"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FreshConcrete"/>
+        <Class IRI="#Concrete"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HardenedConcrete"/>
+        <Class IRI="#Concrete"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#IECStandard"/>
+        <Class abbreviatedIRI="mid1:ISOStandard"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ITEquipment"/>
+        <Class abbreviatedIRI="mid1:Equipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InfrastructureEquipment"/>
+        <Class abbreviatedIRI="mid1:Equipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InitialSecantModulusOfElasticity"/>
+        <Class IRI="#SecantModulusOfElasticty"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InorganicMaterial"/>
+        <Class IRI="#NonMettalicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LabInfrastructureEquipmentSet"/>
+        <Class abbreviatedIRI="mid1:Equipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Laptop"/>
+        <Class IRI="#ITEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LoadingRate"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MaxDiameter"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Diameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeasuredStrain"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeasuredStressCorrespondingToNominalLowerStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeasuredStressCorrespondingToNominalPreloadStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeasuredStressCorrespondingToNominalUpperStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeasurementUnitOfForceRate"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:MeasurementUnit"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MetallicMaterial"/>
+        <Class IRI="#EngineeringMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+        <Class abbreviatedIRI="mid1:Procedure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+        <Class abbreviatedIRI="mid1:Procedure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MinDiameter"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Diameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Mixer"/>
+        <Class IRI="#InfrastructureEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Mortar"/>
+        <Class IRI="#CompositeMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NominalLowerStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NominalPreloadStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NominalUpperStress"/>
+        <Class IRI="#Stress"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NonDestructiveTesting"/>
+        <Class abbreviatedIRI="obo:BFO_0000015"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NonMettalicMaterial"/>
+        <Class IRI="#EngineeringMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OperatorOfProcess"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OrganicMaterial"/>
+        <Class IRI="#NonMettalicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RelativeDensity"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Density"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SecantModulusOfElasticty"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Server"/>
+        <Class IRI="#ITEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SilicaFume"/>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SlagCement"/>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SlumpClass"/>
+        <Class IRI="#ConsistenceClass"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecificGravity"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Density"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecimenAfterTesting"/>
+        <Class abbreviatedIRI="mid1:Specimen"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecimenAfterTesting"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:is_output_of"/>
+            <Class abbreviatedIRI="obo:BFO_0000015"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecimenBeforeTesting"/>
+        <Class abbreviatedIRI="mid1:Specimen"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecimenBeforeTesting"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:is_input_of"/>
+            <Class abbreviatedIRI="obo:BFO_0000015"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StabilizedSecantModulusOfElasticity"/>
+        <Class IRI="#SecantModulusOfElasticty"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Strain"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainDifferenceDuringFirstLoadingCycle"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainDifferenceDuringThirdLoadingCycle"/>
+        <Class IRI="#Strain"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StrainMeasuringInstrument"/>
+        <Class abbreviatedIRI="mid1:MeasurementDevice"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Stress"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Force"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#StressRate"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TensileSplittingStrength"/>
+        <Class abbreviatedIRI="obo:BFO_0000144"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TestingMachine"/>
+        <Class IRI="#ActuatorEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transducer"/>
+        <Class IRI="#StrainMeasuringInstrument"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VDEStandard"/>
+        <Class abbreviatedIRI="mid1:ISOStandard"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VebeClass"/>
+        <Class IRI="#ConsistenceClass"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Volume"/>
+        <Class abbreviatedIRI="obo:BFO_0000019"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Water"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#WaterCementRatio"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:ProportionalRatioMeasurementInformationContentEntity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#kValueAccountingForFlyAsh"/>
+        <Class IRI="#EquivalentWaterCementRatio"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#kValueAccountingForSilicaFume"/>
+        <Class IRI="#EquivalentWaterCementRatio"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="mid1:RawDataSet"/>
+        <DataSomeValuesFrom>
+            <DataProperty abbreviatedIRI="CommonCoreOntologies:has_URI_value"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
+        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
+        <Class IRI="#MeasuredStrain"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#CompactionClass"/>
+        <Class IRI="#FlowClass"/>
+        <Class IRI="#SlumpClass"/>
+        <Class IRI="#VebeClass"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#CompositeMaterial"/>
+        <Class IRI="#MetallicMaterial"/>
+        <Class IRI="#NonMettalicMaterial"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Desktop"/>
+        <Class IRI="#Laptop"/>
+        <Class IRI="#Server"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#DestructiveTesting"/>
+        <Class IRI="#NonDestructiveTesting"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#FreshConcrete"/>
+        <Class IRI="#HardenedConcrete"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#InitialSecantModulusOfElasticity"/>
+        <Class IRI="#StabilizedSecantModulusOfElasticity"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#InorganicMaterial"/>
+        <Class IRI="#OrganicMaterial"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#MeasuredStrain"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
+        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#NominalLowerStress"/>
+        <Class IRI="#NominalPreloadStress"/>
+        <Class IRI="#NominalUpperStress"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#SpecimenAfterTesting"/>
+        <Class IRI="#SpecimenBeforeTesting"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#DINStandard"/>
+        <NamedIndividual IRI="#DIN_EN_12390-13"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ENStandard"/>
+        <NamedIndividual IRI="#DIN_EN_12390-13"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ENStandard"/>
+        <NamedIndividual IRI="#EN12390-3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MeasurementUnitOfForceRate"/>
+        <NamedIndividual IRI="#KiloNewtonPerSecondMeasurementUnit"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#StressRate"/>
+        <NamedIndividual IRI="#MegaPascalPerSecond"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+        <NamedIndividual IRI="#MethodA"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+        <NamedIndividual IRI="#MethodB"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#StressRate"/>
+        <NamedIndividual IRI="#NewtonSecondPerMilimeterSquared"/>
+    </ClassAssertion>
+    <SameIndividual>
+        <NamedIndividual IRI="#MegaPascalPerSecond"/>
+        <NamedIndividual IRI="#NewtonSecondPerMilimeterSquared"/>
+    </SameIndividual>
+    <SameIndividual>
+        <NamedIndividual IRI="#MeterKilogramPerSecondSquarred"/>
+        <NamedIndividual IRI="#Newton"/>
+    </SameIndividual>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasClassification"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasClassification"/>
+        <Class IRI="#CompactionClass"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasClassification"/>
+        <Class IRI="#CompressiveStregthClass"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasClassification"/>
+        <Class IRI="#FlowClass"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasClassification"/>
+        <Class IRI="#SlumpClass"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasClassification"/>
+        <Class IRI="#VebeClass"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="mid:BWMD_00313"/>
+        <Class IRI="#CompressionTestingMachine"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="mid:BWMD_00313"/>
+        <Class IRI="#TestingMachine"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="mid:BWMD_00317"/>
+        <Class IRI="#MeasuredStrain"/>
+    </DataPropertyDomain>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Admixture</IRI>
+        <Literal xml:lang="de">Betonzusatzstoffe sind feine anorganische oder organische Stoffe, die im Beton verwendet werden, um Eigenschaften gezielt zu verbessern oder zu erreichen. Siehe https://www.betontechnische-daten.de/de/4-betonzusatzstoffe-und-fasern</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Admixture</IRI>
+        <Literal xml:lang="en">Material added during the mixing process of concrete in amall quantities related to the mass of cement to modify the properties of fresh or hardened concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Admixture</IRI>
+        <Literal xml:lang="en">Admixture</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Admixture</IRI>
+        <Literal xml:lang="de">Betonzusatzmittel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="de">Als Gesteinskörnung werden im Bauwesen natürliche und künstliche Gesteinskörnerbezeichnet. Sie stammen entweder aus natürlichen Lagerstätten oder fallen bei der Wiederverwertung von Baustoffen oder als industrielles Nebenerzeugnis an. Die Gesteine liegen entweder als Rundkorn oder in gebrochener Form vor. https://de.wikipedia.org/wiki/Gesteinsk%C3%B6rnung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="en">granular mineral material suitable for use in concrete. Aggregates may be natural, artificial or recycled fom material previously used in construction</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="en">Aggregate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="de">Gesteinskörnung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Air</IRI>
+        <Literal xml:lang="en">Air</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Air</IRI>
+        <Literal xml:lang="de">Luft</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#AverageStrainAtLowerStressOnLoadingCycleN</IRI>
+        <Literal></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CalibrationOfEquipment</IRI>
+        <Literal xml:lang="en">Calibration of Equipment</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Cement</IRI>
+        <Literal>a finely ground onorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Cement</IRI>
+        <Literal xml:lang="en">Cement</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Cement</IRI>
+        <Literal xml:lang="de">Zement</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CompositeMaterial</IRI>
+        <Literal xml:lang="en">A material which is produced from two or more constituent materials.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#CompositeMaterial</IRI>
+        <Literal xml:lang="de">https://de.wikipedia.org/wiki/Verbundwerkstoff</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#CompositeMaterial</IRI>
+        <Literal xml:lang="en">https://en.wikipedia.org/wiki/Composite_material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompositeMaterial</IRI>
+        <Literal xml:lang="en">Composite Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompositeMaterial</IRI>
+        <Literal xml:lang="de">Verbundwerkstoff</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStregthClass</IRI>
+        <Literal xml:lang="en">Compressive Strength Class</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStregthClass</IRI>
+        <Literal xml:lang="de">Druckfestigkeitsklasse</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStrength</IRI>
+        <Literal xml:lang="en">Compressive Strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStrengthCube</IRI>
+        <Literal xml:lang="en">Compressive Strength Cube</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStrengthCube</IRI>
+        <Literal xml:lang="de">Würfeldruckfestigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStrengthCylinder</IRI>
+        <Literal xml:lang="en">Compressive Strength Cylinder</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressiveStrengthCylinder</IRI>
+        <Literal xml:lang="de">Zylinderdruckfestigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="de">Beton ist ein Baustoff, erzeugt durch Mischen von Zement, grober und feiner Gesteinskörnung und Wasser, mit oder ohne Zugabe von Zusatzmitteln, Zusatzstoffen und Fasern. Siehe https://www.betontechnische-daten.de/de/6-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">Concrete is a mixture of paste and aggregates.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="de">Beton</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#DATFile</IRI>
+        <Literal>A data file (.dat) is a standard data document that contains data and is recognized by any text editing or word processing software.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DATFile</IRI>
+        <Literal>DATFile</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#DINStandard</IRI>
+        <Literal>Any kind of standard as published by the Deutsche Institut für Normung (DIN)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DINStandard</IRI>
+        <Literal>DINStandard</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#DIN_EN_12390-13</IRI>
+        <Literal>Prüfung von Festbeton –
+Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
+(Sekantenmodul)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DestructiveTesting</IRI>
+        <Literal xml:lang="en">Destructive Testing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DestructiveTesting</IRI>
+        <Literal xml:lang="de">Zerstörende Prüfung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DeterminationOfCompressiveStrength</IRI>
+        <Literal>Determination of Compressive Strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DeterminationOfSecantModulusOfElasticity</IRI>
+        <Literal>Determination of Secant Modulus of Elasticity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#EN12390-3</IRI>
+        <Literal>Testing hardened concrete –
+Part 13: Determination of secant modulus of elasticity in compression</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ENStandard</IRI>
+        <Literal>Any kind of standard as published by one of the following Institutions:
 CEN (Comité Européen de Normalisation)
 CENELEC (European Committee for Electronical Standards)
-ETSI (European Telecommunications Standard Institute)</rdfs:comment>
-        <rdfs:label>ENStandard</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#EngineeringMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#EngineeringMaterial">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
-        <rdfs:label>Engineering Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#EquivalentWaterCementRatio -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#EquivalentWaterCementRatio">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#WaterCementRatio"/>
-        <rdfs:comment>ratio by mass of the effective water content to the combined cement content and the k-value to take int account additions</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#FlowClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#FlowClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistenceClass"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#FlyAsh -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#FlyAsh">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials"/>
-        <CommonCoreOntologies:definition xml:lang="de">Flugasche wird durch die elektrostatische oder mechanische Abscheidung staubartiger Partikel aus den Rauchgasen von Kohlekraftwerken gewonnen. Sie liegt überwiegend in kugelig glasiger Form vor. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="de">Flugasche</rdfs:label>
-        <rdfs:label xml:lang="en">Fly Ash</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ForceRate -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ForceRate">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="en">Force Rate</rdfs:label>
-        <rdfs:label xml:lang="de">Kraftgeschwindigkeit</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#FreshConcrete -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#FreshConcrete">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/concrete#HardenedConcrete"/>
-        <rdfs:comment>concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Grain -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Grain">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#HardenedConcrete -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#HardenedConcrete">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
-        <rdfs:comment>concrete which is in a solid state and which has developed a certain strength</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#IECStandard -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#IECStandard">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
-        <rdfs:comment>Any kind of standard as published by the International Electrotechnical Comission (IEC)</rdfs:comment>
-        <rdfs:label>IECStandard</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ITEquipment -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ITEquipment">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#ITEquipmentName -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#ITEquipmentName">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#InfrastructureEquipment -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#InfrastructureEquipment">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#InitialSecantModulusOfElasticity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#InitialSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SecantModulusOfElasticty"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/concrete#StabilizedSecantModulusOfElasticity"/>
-        <rdfs:label xml:lang="en">Initial Secant Modulus of Elasticity</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#InorganicMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#InorganicMaterial">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#NonMettalicMaterial"/>
-        <owl:disjointWith rdf:resource="http://w3id.org/concrete#OrganicMaterial"/>
-        <rdfs:label>Inorganic Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#LabInfrastructureEquipmentName -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#LabInfrastructureEquipmentName">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#LabInfrastructureEquipmentSet -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#LabInfrastructureEquipmentSet">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Laptop -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Laptop">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#LoadingRate -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#LoadingRate">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="en">Loading Rate</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MaxDiameter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MaxDiameter">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MeasuredStrain -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStrain">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalLowerStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalLowerStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalPreloadStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalPreloadStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalUpperStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalUpperStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-        <rdfs:comment>Measured stress corresponding to nominal upper stress, σa</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MeasurementUnitOfForceRate -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MeasurementUnitOfForceRate">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit"/>
-        <rdfs:label>Measurement Unit of Force Rate</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MetallicMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MetallicMaterial">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
-        <CommonCoreOntologies:definition>Any kind of metallic material</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="en">Metallic Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#MinDiameter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#MinDiameter">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Mixer -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Mixer">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InfrastructureEquipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Mortar -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Mortar">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompositeMaterial"/>
-        <CommonCoreOntologies:definition>Mortar is a workable paste which hardens to bind building blocks such as stones, bricks and concrete masonry units, to fill and seal the irregular gaps between themas descibed by https://en.wikipedia.org/wiki/Mortar_(masonry)</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="en">Mortar</rdfs:label>
-        <rdfs:label xml:lang="de">Mörtel</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NominalLowerStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NominalLowerStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NominalPreloadStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NominalPreloadStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-        <rdfs:comment>arbitrary value between 10% and 15% of fc</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NominalUpperStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NominalUpperStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NonDestructiveTesting -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NonDestructiveTesting">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-        <rdfs:label xml:lang="en">Nondestructive Testing</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NonMettalicMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NonMettalicMaterial">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
-        <CommonCoreOntologies:definition>Any kind of non-metallic material (either organic or inorganic)</CommonCoreOntologies:definition>
-        <rdfs:label>Nonmetallic Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#NumberOfHeaderLines -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#NumberOfHeaderLines">
-        <rdfs:subClassOf rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>Number of header lines (with metadata) in file before the column with values start.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#OperatorOfProcess -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#OperatorOfProcess">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Person"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#OrganicMaterial -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#OrganicMaterial">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#NonMettalicMaterial"/>
-        <rdfs:label>Organic Material</rdfs:label>
-        <rdfs:label>Organisches Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#RelativeDensity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#RelativeDensity">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SecantModulusOfElasticty -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SecantModulusOfElasticty">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="en">Secant Modulus of Elasticity</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SemicolonDelimiter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SemicolonDelimiter">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Delimiter"/>
-        <rdfs:comment>Delimiter symbol is a semicolon</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Server -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Server">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SilicaFume -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SilicaFume">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials"/>
-        <CommonCoreOntologies:definition xml:lang="de">Silikastaub entsteht in Lichtbogenöfen bei der Herstellung von Silicium- und Ferrosiliciumlegierungen. Er besteht aus sehr feinen kugeligen Partikeln mit einem Gehalt an amorphem Siliciumdioxid von mindestens 85 M.-% und weist puzzolanische Eigenschaften auf. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="en">Silica Fume</rdfs:label>
-        <rdfs:label xml:lang="de">Silikastaub</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SlagCement -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SlagCement">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials"/>
-        <CommonCoreOntologies:definition xml:lang="de">Hüttensand entsteht durch schnelles Abkühlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. In feingemahlenem Zustand ist er ein latenthydraulischer Stoff, der zum hydraulischen Erhärten einen Anreger braucht. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition>
-        <rdfs:label xml:lang="de">Hüttensand</rdfs:label>
-        <rdfs:label xml:lang="en">Slag Cement</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SlumpClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SlumpClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistenceClass"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SpecificGravity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SpecificGravity">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SpecimenAfterTesting -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SpecimenAfterTesting">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_output_of"/>
-                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="http://w3id.org/concrete#SpecimenBeforeTesting"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SpecimenBeforeTesting -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SpecimenBeforeTesting">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of"/>
-                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StabilizedSecantModulusOfElasticity -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StabilizedSecantModulusOfElasticity">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SecantModulusOfElasticty"/>
-        <rdfs:label xml:lang="en">Sttabilized Secant Modulus of Elasticity</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Stoffraum -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Stoffraum"/>
-    
-
-
-    <!-- http://w3id.org/concrete#Strain -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Strain">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="en">Strain</rdfs:label>
-        <rdfs:label xml:lang="de">Verformung</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainAlongEachMeasuringLineAtLowerStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtLowerStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainAlongEachMeasuringLineAtPreloadStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtPreloadStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainAlongEachMeasuringLineAtUpperStress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtUpperStress">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainDifferenceDuringFirstLoadingCycle -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainDifferenceDuringFirstLoadingCycle">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainDifferenceDuringThirdLoadingCycle -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainDifferenceDuringThirdLoadingCycle">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StrainMeasuringInstrument -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StrainMeasuringInstrument">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Stress -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Stress">
-        <owl:equivalentClass rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure"/>
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Force"/>
-        <rdfs:label xml:lang="de">Mechanische Spannung</rdfs:label>
-        <rdfs:label xml:lang="en">Stress</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#StressRate -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#StressRate">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label xml:lang="de">Spannungsgeschwindigkeit</rdfs:label>
-        <rdfs:label xml:lang="en">Stress Rate</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#SupplementaryCementiousMaterials -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#SupplementaryCementiousMaterials">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <rdfs:label>Supplementary Cementious Material</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#TabDelimiter -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#TabDelimiter">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Delimiter"/>
-        <rdfs:comment>Delimiter symbol is a tab character</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#TensileSplittingStrength -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#TensileSplittingStrength">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-        <rdfs:label>Tensile Splitting Strength</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#TestingMachine -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#TestingMachine">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ActuatorEquipment"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Transducer -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Transducer">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#StrainMeasuringInstrument"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#VDEStandard -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#VDEStandard">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
-        <rdfs:comment>Any kind of standard as published by the Verband Deutscher Elektrotechniker (VDE)</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#VebeClass -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#VebeClass">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistenceClass"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Volume -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Volume">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#Water -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#Water">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
-        <rdfs:label xml:lang="de">Wasser</rdfs:label>
-        <rdfs:label xml:lang="en">Water</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#WaterCementRatio -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#WaterCementRatio">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ProportionalRatioMeasurementInformationContentEntity"/>
-        <rdfs:comment>ratio of the effective water content to cement content by mass in the fresh concrete</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#kValueAccountingForFlyAsh -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#kValueAccountingForFlyAsh">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EquivalentWaterCementRatio"/>
-    </owl:Class>
-    
-
-
-    <!-- http://w3id.org/concrete#kValueAccountingForSilicaFume -->
-
-    <owl:Class rdf:about="http://w3id.org/concrete#kValueAccountingForSilicaFume">
-        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EquivalentWaterCementRatio"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Pressure -->
-
-    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure"/>
-    
-
-
-    <!-- https://purl.matolab.org/mseo/mid/RawDataSet -->
-
-    <rdf:Description rdf:about="https://purl.matolab.org/mseo/mid/RawDataSet">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_URI_value"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </rdf:Description>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00028"/>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00065">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00087"/>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00121">
-        <rdfs:comment>FormatDescription</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00169 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00169">
-        <rdfs:comment>InfrastructureEquipmentSet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00171 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00171">
-        <rdfs:comment>ControlSoftware</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00199">
-        <rdfs:comment>PersonName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00203">
-        <rdfs:comment>MaterialStructureRealatedObject</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00241">
-        <rdfs:comment>SoftwareName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00245">
-        <rdfs:comment>ProcedureName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00248 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00248">
-        <rdfs:comment>DataAcquisitionSoftware</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00261">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>ProcessStartDateTime</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00280">
-        <rdfs:comment>ObjectAggregateName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00284 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00284">
-        <rdfs:comment>TestSetup</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00289">
-        <rdfs:comment>EquipmentName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00296 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00296">
-        <rdfs:comment>SoftwareArchitecture</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342 -->
-
-    <owl:Class rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00342">
-        <rdfs:comment>MaterialName</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Individuals
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://w3id.org/concrete#DIN_EN_12390-13 -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#DIN_EN_12390-13">
-        <rdf:type rdf:resource="http://w3id.org/concrete#DINStandard"/>
-        <rdf:type rdf:resource="http://w3id.org/concrete#ENStandard"/>
-        <rdfs:comment>Prüfung von Festbeton –
-Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
-(Sekantenmodul)</rdfs:comment>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#EN12390-3 -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#EN12390-3">
-        <rdf:type rdf:resource="http://w3id.org/concrete#ENStandard"/>
-        <rdfs:comment>Testing hardened concrete –
-Part 13: Determination of secant modulus of elasticity in compression</rdfs:comment>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#KiloNewtonPerSecondMeasurementUnit -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#KiloNewtonPerSecondMeasurementUnit">
-        <rdf:type rdf:resource="http://w3id.org/concrete#MeasurementUnitOfForceRate"/>
-        <rdfs:label>Kilo Newton Per Second Measurement Unit</rdfs:label>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#MegaPascalPerSecond -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MegaPascalPerSecond">
-        <rdf:type rdf:resource="http://w3id.org/concrete#StressRate"/>
-        <owl:sameAs rdf:resource="http://w3id.org/concrete#NewtonSecondPerMilimeterSquared"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#Meter -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Meter"/>
-    
-
-
-    <!-- http://w3id.org/concrete#MeterKilogramPerSecondSquarred -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MeterKilogramPerSecondSquarred">
-        <owl:sameAs rdf:resource="http://w3id.org/concrete#Newton"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#MethodA -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MethodA">
-        <rdf:type rdf:resource="http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#MethodB -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MethodB">
-        <rdf:type rdf:resource="http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#Newton -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Newton"/>
-    
-
-
-    <!-- http://w3id.org/concrete#NewtonSecondPerMilimeterSquared -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#NewtonSecondPerMilimeterSquared">
-        <rdf:type rdf:resource="http://w3id.org/concrete#StressRate"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://w3id.org/concrete#Second -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Second"/>
-    
-
-
-    <!-- http://w3id.org/concrete#YoungsModulusTest -->
-
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#YoungsModulusTest"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // General axioms
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#AverageStrainAtLowerStressOnLoadingCycleN"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#AverageStrainAtUpperStressOnLoadingCycleN"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#MeasuredStrain"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtLowerStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtPreloadStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtUpperStress"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#CommaDelimiter"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#SemicolonDelimiter"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#TabDelimiter"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#CompactionClass"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#FlowClass"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#SlumpClass"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#VebeClass"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#CompositeMaterial"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#MetallicMaterial"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#NonMettalicMaterial"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#Desktop"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#Laptop"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#Server"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#MeasuredStrain"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtLowerStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtPreloadStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#StrainAlongEachMeasuringLineAtUpperStress"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://w3id.org/concrete#NominalLowerStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#NominalPreloadStress"/>
-            <rdf:Description rdf:about="http://w3id.org/concrete#NominalUpperStress"/>
-        </owl:members>
-    </rdf:Description>
-</rdf:RDF>
+ETSI (European Telecommunications Standard Institute)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ENStandard</IRI>
+        <Literal>ENStandard</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#EngineeringMaterial</IRI>
+        <Literal xml:lang="en">Engineering Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#EquivalentWaterCementRatio</IRI>
+        <Literal>ratio by mass of the effective water content to the combined cement content and the k-value to take int account additions</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#FlyAsh</IRI>
+        <Literal xml:lang="de">Flugasche wird durch die elektrostatische oder mechanische Abscheidung staubartiger Partikel aus den Rauchgasen von Kohlekraftwerken gewonnen. Sie liegt überwiegend in kugelig glasiger Form vor. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FlyAsh</IRI>
+        <Literal xml:lang="de">Flugasche</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FlyAsh</IRI>
+        <Literal xml:lang="en">Fly Ash</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ForceRate</IRI>
+        <Literal xml:lang="en">Force Rate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ForceRate</IRI>
+        <Literal xml:lang="de">Kraftgeschwindigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#FreshConcrete</IRI>
+        <Literal>concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FreshConcrete</IRI>
+        <Literal xml:lang="en">Fresh Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#FreshConcrete</IRI>
+        <Literal xml:lang="de">Frischbeton</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#HardenedConcrete</IRI>
+        <Literal>concrete which is in a solid state and which has developed a certain strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#HardenedConcrete</IRI>
+        <Literal xml:lang="en">Hardened Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#IECStandard</IRI>
+        <Literal>Any kind of standard as published by the International Electrotechnical Comission (IEC)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IECStandard</IRI>
+        <Literal>IECStandard</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#InitialSecantModulusOfElasticity</IRI>
+        <Literal xml:lang="en">Initial Secant Modulus of Elasticity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#InorganicMaterial</IRI>
+        <Literal>Inorganic Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#KiloNewtonPerSecondMeasurementUnit</IRI>
+        <Literal>Kilo Newton Per Second Measurement Unit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#LoadingRate</IRI>
+        <Literal xml:lang="en">Loading Rate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#MeasuredStressCorrespondingToNominalUpperStress</IRI>
+        <Literal>Measured stress corresponding to nominal upper stress, σa</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MeasurementUnitOfForceRate</IRI>
+        <Literal>Measurement Unit of Force Rate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#MetallicMaterial</IRI>
+        <Literal>Any kind of metallic material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MetallicMaterial</IRI>
+        <Literal xml:lang="en">Metallic Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Mortar</IRI>
+        <Literal>Mortar is a workable paste which hardens to bind building blocks such as stones, bricks and concrete masonry units, to fill and seal the irregular gaps between themas descibed by https://en.wikipedia.org/wiki/Mortar_(masonry)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mortar</IRI>
+        <Literal xml:lang="en">Mortar</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mortar</IRI>
+        <Literal xml:lang="de">Mörtel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#NominalPreloadStress</IRI>
+        <Literal>arbitrary value between 10% and 15% of fc</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NonDestructiveTesting</IRI>
+        <Literal xml:lang="en">Nondestructive Testing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NonDestructiveTesting</IRI>
+        <Literal xml:lang="de">Zerstörungsfreie Prüfung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#NonMettalicMaterial</IRI>
+        <Literal>Any kind of non-metallic material (either organic or inorganic)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#NonMettalicMaterial</IRI>
+        <Literal>Nonmetallic Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OrganicMaterial</IRI>
+        <Literal>Organic Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OrganicMaterial</IRI>
+        <Literal>Organisches Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SecantModulusOfElasticty</IRI>
+        <Literal xml:lang="en">Secant Modulus of Elasticity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SilicaFume</IRI>
+        <Literal xml:lang="de">Silikastaub entsteht in Lichtbogenöfen bei der Herstellung von Silicium- und Ferrosiliciumlegierungen. Er besteht aus sehr feinen kugeligen Partikeln mit einem Gehalt an amorphem Siliciumdioxid von mindestens 85 M.-% und weist puzzolanische Eigenschaften auf. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SilicaFume</IRI>
+        <Literal xml:lang="en">Silica Fume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SilicaFume</IRI>
+        <Literal xml:lang="de">Silikastaub</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SlagCement</IRI>
+        <Literal xml:lang="de">Hüttensand entsteht durch schnelles Abkühlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. In feingemahlenem Zustand ist er ein latenthydraulischer Stoff, der zum hydraulischen Erhärten einen Anreger braucht. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SlagCement</IRI>
+        <Literal xml:lang="de">Hüttensand</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SlagCement</IRI>
+        <Literal xml:lang="en">Slag Cement</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StabilizedSecantModulusOfElasticity</IRI>
+        <Literal xml:lang="en">Sttabilized Secant Modulus of Elasticity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Strain</IRI>
+        <Literal xml:lang="en">Strain</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Strain</IRI>
+        <Literal xml:lang="de">Verformung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Stress</IRI>
+        <Literal xml:lang="de">Mechanische Spannung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Stress</IRI>
+        <Literal xml:lang="en">Stress</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StressRate</IRI>
+        <Literal xml:lang="de">Spannungsgeschwindigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#StressRate</IRI>
+        <Literal xml:lang="en">Stress Rate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="de">Betonzusatzstoffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="en">Supplementary Cementious Material</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TensileSplittingStrength</IRI>
+        <Literal>Tensile Splitting Strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#VDEStandard</IRI>
+        <Literal>Any kind of standard as published by the Verband Deutscher Elektrotechniker (VDE)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="de">Wasser</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="en">Water</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#WaterCementRatio</IRI>
+        <Literal>ratio of the effective water content to cement content by mass in the fresh concrete</Literal>
+    </AnnotationAssertion>
+</Ontology>
 
 
 
