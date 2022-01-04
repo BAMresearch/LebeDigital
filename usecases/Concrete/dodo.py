@@ -48,6 +48,10 @@ def task_emodul():
         'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py']
     }
     yield {
+        'basename': 'calculate emodul',
+        'actions': ['python knowledgeGraph/emodul/emodul_calculation.py']
+    }
+    yield {
         'basename': 'map emodul ontology and metadata',
         'actions': ['python knowledgeGraph/emodul/emodul_mapping.py']
     }

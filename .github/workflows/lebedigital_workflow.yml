@@ -55,6 +55,7 @@ jobs:
       - name: execute extract metadata script
         run: |
           python usecases/Concrete/knowledgeGraph/emodul/emodul_metadata_extraction.py
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_calculation.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
 
           python usecases/Concrete/knowledgeGraph/compression/compression_metadata_extraction.py
