@@ -59,6 +59,7 @@ jobs:
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/
 
           python usecases/Concrete/knowledgeGraph/compression/compression_metadata_extraction.py
+          python usecases/Concrete/knowledgeGraph/compression/compression_calculation.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
       - name: execute mapping script
         run: |

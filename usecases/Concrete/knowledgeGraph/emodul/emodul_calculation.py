@@ -14,7 +14,7 @@ processedDataPath = os.path.join(baseDir0, 'E-modul-processed-data/processeddata
 
 df_metadata = pd.read_csv(metadataFilePath)
 
-rawDataFileNames = [df_metadata['experiment raw name'][i] for i in df_metadata.index]
+processedDataFileNames = [df_metadata['experiment raw name'][i] for i in df_metadata.index]
 
 def find_third_element_smaller_than_number(l, m):
     count = 0
@@ -25,7 +25,7 @@ def find_third_element_smaller_than_number(l, m):
                 return i
 
 emodulValues = []
-for file in rawDataFileNames:
+for file in processedDataFileNames:
     processedDataFileName = 'processed_' + file.replace(' ','_').replace('.','_') + '.csv'
     df = pd.read_csv(os.path.join(processedDataPath, processedDataFileName))
     df['Transducer_average'] = [

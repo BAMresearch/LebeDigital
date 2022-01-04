@@ -93,6 +93,10 @@ def task_compression():
         'actions': ['python knowledgeGraph/compression/compression_metadata_extraction.py']
     }
     yield {
+        'basename': 'calculate compressive strength',
+        'actions': ['python knowledgeGraph/compression/compression_calculation.py']
+    }
+    yield {
         'basename': 'map compression ontology and metadata',
         'actions': ['python knowledgeGraph/compression/compression_mapping.py']
     }
