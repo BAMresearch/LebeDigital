@@ -207,6 +207,9 @@
         <Class IRI="#OrganicMaterial"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#QuantityInMix"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#RelativeDensity"/>
     </Declaration>
     <Declaration>
@@ -325,6 +328,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#KiloNewtonPerSecondMeasurementUnit"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#KilogramPerCubicDecimeterMeasurementUnit"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#MegaPascalPerSecond"/>
@@ -665,6 +671,10 @@
         <Class IRI="#NonMettalicMaterial"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#QuantityInMix"/>
+        <Class abbreviatedIRI="CommonCoreOntologies:Density"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#RelativeDensity"/>
         <Class abbreviatedIRI="CommonCoreOntologies:Density"/>
     </SubClassOf>
@@ -875,6 +885,10 @@
     <ClassAssertion>
         <Class IRI="#MeasurementUnitOfForceRate"/>
         <NamedIndividual IRI="#KiloNewtonPerSecondMeasurementUnit"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="CommonCoreOntologies:MeasurementUnitOfDensity"/>
+        <NamedIndividual IRI="#KilogramPerCubicDecimeterMeasurementUnit"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#StressRate"/>
