@@ -27,6 +27,9 @@
         <Class IRI="#ActuatorEquipment"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Addition"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Admixture"/>
     </Declaration>
     <Declaration>
@@ -34,15 +37,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Air"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AverageStrainAtPreloadStressOnLoadingCycleN"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
     </Declaration>
     <Declaration>
         <Class IRI="#CalibrationOfEquipment"/>
@@ -76,6 +70,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Concrete"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConcreteCompressiveStrength"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConsistenceClass"/>
@@ -246,21 +243,6 @@
         <Class IRI="#Strain"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#StrainDifferenceDuringFirstLoadingCycle"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#StrainDifferenceDuringThirdLoadingCycle"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#StrainMeasuringInstrument"/>
     </Declaration>
     <Declaration>
@@ -277,6 +259,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#TestingMachine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TimeInterval"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Transducer"/>
@@ -368,6 +353,10 @@
         <Class abbreviatedIRI="mid1:Equipment"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Addition"/>
+        <Class IRI="#InorganicMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Admixture"/>
         <Class IRI="#InorganicMaterial"/>
     </SubClassOf>
@@ -378,18 +367,6 @@
     <SubClassOf>
         <Class IRI="#Air"/>
         <Class IRI="#InorganicMaterial"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#AverageStrainAtPreloadStressOnLoadingCycleN"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
-        <Class IRI="#Strain"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#CalibrationOfEquipment"/>
@@ -432,15 +409,19 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#CompressiveStrengthCube"/>
-        <Class IRI="#CompressiveStrength"/>
+        <Class IRI="#ConcreteCompressiveStrength"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#CompressiveStrengthCylinder"/>
-        <Class IRI="#CompressiveStrength"/>
+        <Class IRI="#ConcreteCompressiveStrength"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Concrete"/>
         <Class IRI="#CompositeMaterial"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConcreteCompressiveStrength"/>
+        <Class IRI="#CompressiveStrength"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConsistenceClass"/>
@@ -733,26 +714,6 @@
         <Class abbreviatedIRI="obo:BFO_0000144"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#StrainDifferenceDuringFirstLoadingCycle"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#StrainDifferenceDuringThirdLoadingCycle"/>
-        <Class IRI="#Strain"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#StrainMeasuringInstrument"/>
         <Class abbreviatedIRI="mid1:MeasurementDevice"/>
     </SubClassOf>
@@ -775,6 +736,10 @@
     <SubClassOf>
         <Class IRI="#TestingMachine"/>
         <Class IRI="#ActuatorEquipment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TimeInterval"/>
+        <Class abbreviatedIRI="obo:BFO_0000038"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Transducer"/>
@@ -816,14 +781,6 @@
         </DataSomeValuesFrom>
     </SubClassOf>
     <DisjointClasses>
-        <Class IRI="#AverageStrainAtLowerStressOnLoadingCycleN"/>
-        <Class IRI="#AverageStrainAtUpperStressOnLoadingCycleN"/>
-        <Class IRI="#MeasuredStrain"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
-    </DisjointClasses>
-    <DisjointClasses>
         <Class IRI="#CompactionClass"/>
         <Class IRI="#FlowClass"/>
         <Class IRI="#SlumpClass"/>
@@ -854,12 +811,6 @@
     <DisjointClasses>
         <Class IRI="#InorganicMaterial"/>
         <Class IRI="#OrganicMaterial"/>
-    </DisjointClasses>
-    <DisjointClasses>
-        <Class IRI="#MeasuredStrain"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtLowerStress"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtPreloadStress"/>
-        <Class IRI="#StrainAlongEachMeasuringLineAtUpperStress"/>
     </DisjointClasses>
     <DisjointClasses>
         <Class IRI="#NominalLowerStress"/>
@@ -952,6 +903,21 @@
     </DataPropertyDomain>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="en">a material that is interground or blended in limited amounts into a hydraulic cement during manufacture either as a processing addition to aid in manufacturing and handling the cement or as a functional addition to modify the use properties of the finished product.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="en">Addition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#Admixture</IRI>
         <Literal xml:lang="de">Betonzusatzstoffe sind feine anorganische oder organische Stoffe, die im Beton verwendet werden, um Eigenschaften gezielt zu verbessern oder zu erreichen. Siehe https://www.betontechnische-daten.de/de/4-betonzusatzstoffe-und-fasern</Literal>
     </AnnotationAssertion>
@@ -973,7 +939,17 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#Aggregate</IRI>
-        <Literal xml:lang="de">Als Gesteinskörnung werden im Bauwesen natürliche und künstliche Gesteinskörnerbezeichnet. Sie stammen entweder aus natürlichen Lagerstätten oder fallen bei der Wiederverwertung von Baustoffen oder als industrielles Nebenerzeugnis an. Die Gesteine liegen entweder als Rundkorn oder in gebrochener Form vor. https://de.wikipedia.org/wiki/Gesteinsk%C3%B6rnung</Literal>
+        <Literal xml:lang="de">Als Gesteinskörnung werden im Bauwesen natürliche und künstliche Gesteinskörner bezeichnet. Sie stammen entweder aus natürlichen Lagerstätten oder fallen bei der Wiederverwertung von Baustoffen oder als industrielles Nebenerzeugnis an. Die Gesteine liegen entweder als Rundkorn oder in gebrochener Form vor. https://de.wikipedia.org/wiki/Gesteinsk%C3%B6rnung</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="en">granular material, such as sand, gravel, crushed stone, crushed hydraulic-cement concrete, or iron blast-furnace slag, used with a cementing medium to produce either concrete or mortar.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Aggregate</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -999,11 +975,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Air</IRI>
         <Literal xml:lang="de">Luft</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#AverageStrainAtLowerStressOnLoadingCycleN</IRI>
-        <Literal></Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1066,6 +1037,21 @@
         <Literal xml:lang="en">Compressive Strength</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:alternative_label"/>
+        <IRI>#CompressiveStrengthCube</IRI>
+        <Literal xml:lang="en">cube strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#CompressiveStrengthCube</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#CompressiveStrengthCube</IRI>
+        <Literal xml:lang="en">concrete compressive strength determined using a standard cube test specimen.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#CompressiveStrengthCube</IRI>
         <Literal xml:lang="en">Compressive Strength Cube</Literal>
@@ -1074,6 +1060,16 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#CompressiveStrengthCube</IRI>
         <Literal xml:lang="de">Würfeldruckfestigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:alternative_label"/>
+        <IRI>#CompressiveStrengthCylinder</IRI>
+        <Literal xml:lang="en">cylinder strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#CompressiveStrengthCylinder</IRI>
+        <Literal xml:lang="en">concrete compressive strength determined using a standard cylinder test specimen.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1091,6 +1087,16 @@
         <Literal xml:lang="de">Beton ist ein Baustoff, erzeugt durch Mischen von Zement, grober und feiner Gesteinskörnung und Wasser, mit oder ohne Zugabe von Zusatzmitteln, Zusatzstoffen und Fasern. Siehe https://www.betontechnische-daten.de/de/6-1-begriffe</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">mixture of hydraulic cement, aggregates, and water, with or without admixtures, fibers, or other cementitious materials.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Concrete</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Concrete</IRI>
         <Literal xml:lang="en">Concrete is a mixture of paste and aggregates.</Literal>
@@ -1104,6 +1110,26 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Concrete</IRI>
         <Literal xml:lang="en">Concrete</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#ConcreteCompressiveStrength</IRI>
+        <Literal xml:lang="en">the measured maximum resistance of a concrete specimen to axial compressive loading and expressed as force per unit cross-sectional area.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#ConcreteCompressiveStrength</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ConcreteCompressiveStrength</IRI>
+        <Literal xml:lang="de">Betondruckfestigkeit</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ConcreteCompressiveStrength</IRI>
+        <Literal xml:lang="en">concrete compressive strength</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1185,6 +1211,16 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#FlyAsh</IRI>
         <Literal xml:lang="de">Flugasche wird durch die elektrostatische oder mechanische Abscheidung staubartiger Partikel aus den Rauchgasen von Kohlekraftwerken gewonnen. Sie liegt überwiegend in kugelig glasiger Form vor. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#FlyAsh</IRI>
+        <Literal xml:lang="en">the finely divided residue that results from the combustion of ground or powdered coal and that is transported by flue gases from the combustion zone to the particle removal system.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#FlyAsh</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1283,6 +1319,26 @@ ETSI (European Telecommunications Standard Institute)</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Mixer</IRI>
+        <Literal xml:lang="en">a machine used for blending the constituents of concrete, grout, mortar, cement paste, or other mixture.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Mixer</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mixer</IRI>
+        <Literal xml:lang="de">Mischer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mixer</IRI>
+        <Literal xml:lang="en">mixer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#Mortar</IRI>
         <Literal>Mortar is a workable paste which hardens to bind building blocks such as stones, bricks and concrete masonry units, to fill and seal the irregular gaps between themas descibed by https://en.wikipedia.org/wiki/Mortar_(masonry)</Literal>
     </AnnotationAssertion>
@@ -1342,6 +1398,16 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <Literal xml:lang="de">Silikastaub entsteht in Lichtbogenöfen bei der Herstellung von Silicium- und Ferrosiliciumlegierungen. Er besteht aus sehr feinen kugeligen Partikeln mit einem Gehalt an amorphem Siliciumdioxid von mindestens 85 M.-% und weist puzzolanische Eigenschaften auf. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SilicaFume</IRI>
+        <Literal xml:lang="en">very fine noncrystalline silica produced in electric arc furnaces as a by-product of the production of elemental silicon or alloys containing silicon.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#SilicaFume</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SilicaFume</IRI>
         <Literal xml:lang="en">Silica Fume</Literal>
@@ -1355,6 +1421,16 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#SlagCement</IRI>
         <Literal xml:lang="de">Hüttensand entsteht durch schnelles Abkühlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. In feingemahlenem Zustand ist er ein latenthydraulischer Stoff, der zum hydraulischen Erhärten einen Anreger braucht. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SlagCement</IRI>
+        <Literal xml:lang="en">granulated blast-furnace slag that has been finely ground and that is hydraulic cement.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#SlagCement</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1400,6 +1476,16 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#StressRate</IRI>
         <Literal xml:lang="en">Stress Rate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="en">inorganic material such as fly ash, silica fume, metakaolin, or slag cement that reacts pozzolanically or hydraulically.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
