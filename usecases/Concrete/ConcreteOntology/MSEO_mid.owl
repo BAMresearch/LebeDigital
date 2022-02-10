@@ -18,6 +18,7 @@
     <owl:Ontology rdf:about="https://purl.matolab.org/mseo/mid">
         <owl:imports rdf:resource="http://www.daml.org/2003/01/periodictable/PeriodicTable.owl"/>
         <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/2021-03-01/AllCoreOntology"/>
+        <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/2021-03-01/MergedAllCoreOntology"/>
         <rdfs:comment xml:lang="de">Contact:
 Christoph Schweizer
 Fraunhofer-Institut für Werkstoffmechanik IWM
@@ -57,6 +58,12 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#minQualifiedCardinality -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#minQualifiedCardinality"/>
     
 
 
@@ -113,22 +120,6 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
         <rdfs:range rdf:resource="http://www.daml.org/2003/01/periodictable/PeriodicTable#Element"/>
         <rdfs:label>is element</rdfs:label>
     </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/designated_by -->
-
-    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by">
-        <owl:equivalentProperty rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00319"/>
-    </rdf:Description>
-    
-
-
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/is_subject_of -->
-
-    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/is_subject_of">
-        <owl:equivalentProperty rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00320"/>
-    </rdf:Description>
     
 
 
@@ -605,22 +596,6 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
     
 
 
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value -->
-
-    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value">
-        <owl:equivalentProperty rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00317"/>
-    </rdf:Description>
-    
-
-
-    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/has_double_value -->
-
-    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_double_value">
-        <owl:equivalentProperty rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00314"/>
-    </rdf:Description>
-    
-
-
     <!-- http://www.ontologyrepository.com/CommonCoreOntologies/has_integer_value -->
 
     <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/has_integer_value">
@@ -756,6 +731,28 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://org.semanticweb.owlapi/error#Error1 -->
+
+    <owl:Class rdf:about="http://org.semanticweb.owlapi/error#Error1"/>
+    
+
+
+    <!-- http://org.semanticweb.owlapi/error#Error2 -->
+
+    <owl:Class rdf:about="http://org.semanticweb.owlapi/error#Error2">
+        <owl:equivalentClass rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+    </owl:Class>
+    
+
+
+    <!-- http://org.semanticweb.owlapi/error#Error3 -->
+
+    <owl:Class rdf:about="http://org.semanticweb.owlapi/error#Error3">
+        <owl:equivalentClass rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+    </owl:Class>
     
 
 
@@ -3367,20 +3364,6 @@ The derived SI unit of shear modulus is the pascal (Pa), although it is usually 
     <!-- https://purl.matolab.org/mseo/mid/Specimen -->
 
     <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Specimen">
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0000085"/>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementSpecimenFunction"/>
-            </owl:Restriction>
-        </owl:equivalentClass>
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by"/>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity"/>
-            </owl:Restriction>
-        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
         <cco:definition xml:lang="en">An Artifact manufactured with the purpose to be the scope Act of Observation or Measurement.</cco:definition>
         <rdfs:label xml:lang="en">Specimen</rdfs:label>
@@ -3517,18 +3500,12 @@ where e is the engineering strain. The logarithmic strain provides the correct m
     <!-- https://purl.matolab.org/mseo/mid/UniversalTestingMachine -->
 
     <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/UniversalTestingMachine">
+        <rdfs:subClassOf rdf:resource="http://org.semanticweb.owlapi/error#Error1"/>
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by"/>
                 <owl:someValuesFrom rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <cco:definition xml:lang="en">A machine capitable of performing komplex mechanical experiments, by applying force or displacement controlled regimes on specimen.</cco:definition>
@@ -3757,6 +3734,15 @@ where e is the engineering strain. The logarithmic strain provides the correct m
         <rdf:type rdf:resource="https://purl.matolab.org/mseo/mid/MaterialNamingConvention"/>
         <rdfs:label xml:lang="de">UNS</rdfs:label>
     </owl:NamedIndividual>
+    <rdf:Description>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </rdf:Description>
+    <rdf:Description>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </rdf:Description>
+    <rdf:Description>
+        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+    </rdf:Description>
     
 
 
