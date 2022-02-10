@@ -109,10 +109,10 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#element -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#element">
+    <owl:ObjectProperty rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#element">
         <rdfs:range rdf:resource="http://www.daml.org/2003/01/periodictable/PeriodicTable#Element"/>
         <rdfs:label>is element</rdfs:label>
-    </rdf:Description>
+    </owl:ObjectProperty>
     
 
 
@@ -599,9 +599,9 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#symbol -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#symbol">
+    <owl:DatatypeProperty rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#symbol">
         <owl:equivalentProperty rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00318"/>
-    </rdf:Description>
+    </owl:DatatypeProperty>
     
 
 
@@ -803,56 +803,56 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#Block -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Block">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Block">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
         <rdfs:label>Periodic Table Block</rdfs:label>
-    </rdf:Description>
+    </owl:Class>
     
 
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#Classification -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Classification">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Classification">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
         <rdfs:label>Periodic Table Classification</rdfs:label>
-    </rdf:Description>
+    </owl:Class>
     
 
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#Element -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Element">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Element">
         <owl:equivalentClass rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00105"/>
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
         <obo:IAO_0000118>Element</obo:IAO_0000118>
         <rdfs:label>Periodic Table Element</rdfs:label>
-    </rdf:Description>
+    </owl:Class>
     
 
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#Group -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Group">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Group">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
         <rdfs:label>Periodic Table Group</rdfs:label>
-    </rdf:Description>
+    </owl:Class>
     
 
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#Period -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Period">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#Period">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
         <rdfs:label>Periodic Table Period</rdfs:label>
-    </rdf:Description>
+    </owl:Class>
     
 
 
     <!-- http://www.daml.org/2003/01/periodictable/PeriodicTable#StandardState -->
 
-    <rdf:Description rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#StandardState">
+    <owl:Class rdf:about="http://www.daml.org/2003/01/periodictable/PeriodicTable#StandardState">
         <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/PeriodicTableElementIdentifer"/>
-    </rdf:Description>
+    </owl:Class>
     
 
 
@@ -1116,6 +1116,14 @@ thomas.hanke@imws.fraunhofer.de</rdfs:comment>
     <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Velocity">
         <owl:equivalentClass rdf:resource="https://purl.matolab.org/mseo/mid/BWMD_00165"/>
     </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/ns/csvw#Column -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/csvw#Column">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Table"/>
+    </owl:Class>
     
 
 
@@ -3035,6 +3043,17 @@ Subscript 0 denotes the original dimensions of the sample. The SI unit for stres
     
 
 
+    <!-- https://purl.matolab.org/mseo/mid/MeasurementSpecimenFunction -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/MeasurementSpecimenFunction">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ArtifactFunction"/>
+        <cco:definition xml:lang="en">An artifact function gained by a preparation processedure aiming modifing an object to meet the specifications of a test procedure.</cco:definition>
+        <rdfs:label xml:lang="en">Measurement Specimen Function</rdfs:label>
+        <rdfs:label xml:lang="de">Prüfkörper Funktion</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://purl.matolab.org/mseo/mid/MechanicalStrength -->
 
     <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/MechanicalStrength">
@@ -3348,6 +3367,20 @@ The derived SI unit of shear modulus is the pascal (Pa), although it is usually 
     <!-- https://purl.matolab.org/mseo/mid/Specimen -->
 
     <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Specimen">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0000085"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementSpecimenFunction"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/designated_by"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/DesignativeInformationContentEntity"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
         <cco:definition xml:lang="en">An Artifact manufactured with the purpose to be the scope Act of Observation or Measurement.</cco:definition>
         <rdfs:label xml:lang="en">Specimen</rdfs:label>

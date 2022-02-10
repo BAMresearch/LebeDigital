@@ -23,6 +23,10 @@
     <Prefix name="graph_designer" IRI="https://www.materials.fraunhofer.de/ontologies/graph_designer#"/>
     <Prefix name="CommonCoreOntologies" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/"/>
     <Import>https://purl.matolab.org/mseo/mid</Import>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Concrete Ontology</Literal>
+    </Annotation>
     <Declaration>
         <Class IRI="#ActuatorEquipment"/>
     </Declaration>
@@ -54,6 +58,9 @@
         <Class IRI="#CompositeMaterial"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#CompressionTest"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#CompressionTestingMachine"/>
     </Declaration>
     <Declaration>
@@ -73,6 +80,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ConcreteCompressiveStrength"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConcreteSpecimen"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConsistenceClass"/>
@@ -237,9 +247,6 @@
         <Class IRI="#StabilizedSecantModulusOfElasticity"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Stoffraum"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Strain"/>
     </Declaration>
     <Declaration>
@@ -396,6 +403,10 @@
         <Class IRI="#EngineeringMaterial"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#CompressionTest"/>
+        <Class IRI="#DestructiveTesting"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#CompressionTestingMachine"/>
         <Class IRI="#TestingMachine"/>
     </SubClassOf>
@@ -422,6 +433,10 @@
     <SubClassOf>
         <Class IRI="#ConcreteCompressiveStrength"/>
         <Class IRI="#CompressiveStrength"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConcreteSpecimen"/>
+        <Class abbreviatedIRI="mid1:Specimen"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConsistenceClass"/>
@@ -781,6 +796,42 @@
         </DataSomeValuesFrom>
     </SubClassOf>
     <DisjointClasses>
+        <Class IRI="#Addition"/>
+        <Class IRI="#Aggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Addition"/>
+        <Class IRI="#Air"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Admixture"/>
+        <Class IRI="#Aggregate"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Admixture"/>
+        <Class IRI="#Air"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Aggregate"/>
+        <Class IRI="#Air"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Aggregate"/>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Aggregate"/>
+        <Class IRI="#Water"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Air"/>
+        <Class IRI="#Cement"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Air"/>
+        <Class IRI="#SupplementaryCementiousMaterials"/>
+    </DisjointClasses>
+    <DisjointClasses>
         <Class IRI="#CompactionClass"/>
         <Class IRI="#FlowClass"/>
         <Class IRI="#SlumpClass"/>
@@ -902,6 +953,16 @@
         <Class IRI="#MeasuredStrain"/>
     </DataPropertyDomain>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:alternative_label"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="de">Betonzusätze</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="de">Stoffe, die dem Beton zur Beeinflussung bestimmter Eigenschaften zugegeben werden. Sie können sowohl die Eigenschaften des Frischbetons als auch die des Festbetons verändern. Häufig werden durch Betonzusätze einige Betoneigenschaften in dem gewünschten Sinne günstig, gleichzeitig jedoch andere Eigenschaften ungünstig beeinflusst. Nach Art und Zugabemenge unterscheidet man Betonzusatzmittel und Betonzusatzstoffe.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#Addition</IRI>
         <Literal xml:lang="en">a material that is interground or blended in limited amounts into a hydraulic cement during manufacture either as a processing addition to aid in manufacturing and handling the cement or as a functional addition to modify the use properties of the finished product.</Literal>
@@ -912,9 +973,19 @@
         <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="de">https://www.beton.wiki/index.php?title=Betonzus%C3%A4tze</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Addition</IRI>
         <Literal xml:lang="en">Addition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Addition</IRI>
+        <Literal xml:lang="de">Betonzusatz</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
@@ -1020,6 +1091,21 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#CompositeMaterial</IRI>
         <Literal xml:lang="de">Verbundwerkstoff</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="obo:IAO_0000115"/>
+        <IRI>#CompressionTest</IRI>
+        <Literal xml:lang="en">test made on a test specimen of mortar or concrete to determine either the compressive strength or the youngs modulus</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressionTest</IRI>
+        <Literal xml:lang="de">Druckversuch</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CompressionTest</IRI>
+        <Literal xml:lang="en">compression test</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1130,6 +1216,11 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConcreteCompressiveStrength</IRI>
         <Literal xml:lang="en">concrete compressive strength</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="obo:IAO_0000115"/>
+        <IRI>#ConcreteSpecimen</IRI>
+        <Literal>An Artifact made out of Concrete manufactured with the purpose to be the scope Act of Observation or Measurement.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1388,6 +1479,21 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <Literal>Organisches Material</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#QuantityInMix</IRI>
+        <Literal xml:lang="de">Die Stoffmenge eines Stoffes ergibt sich aus dem Produkt aus der Dichte des Stoffes und dem Stoffraum.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QuantityInMix</IRI>
+        <Literal xml:lang="en">Quantity in mix</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QuantityInMix</IRI>
+        <Literal xml:lang="de">Stoffmenge</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SecantModulusOfElasticty</IRI>
         <Literal xml:lang="en">Secant Modulus of Elasticity</Literal>
@@ -1480,12 +1586,22 @@ ETSI (European Telecommunications Standard Institute)</Literal>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
         <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="de">Betonzusatzstoffe sind fein aufgeteilte Zusätze, wie z.B. Trass, Gesteinsmehl (Quarzmehl/Kalksteinmehl), Flugasche, Silikastaub und Pigmente zum Einfärben des Betons, die bestimmte Eigenschaften des Betons beeinflussen. Dies sind vorrangig die Verarbeitbarkeit des Frischbetons und die Festigkeit und Dichtigkeit des Festbetons.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
         <Literal xml:lang="en">inorganic material such as fly ash, silica fume, metakaolin, or slag cement that reacts pozzolanically or hydraulically.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
         <IRI>#SupplementaryCementiousMaterials</IRI>
         <Literal xml:lang="en">ACI CT-21: ACI Concrete Terminology</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#SupplementaryCementiousMaterials</IRI>
+        <Literal xml:lang="de">https://www.beton.wiki/index.php?title=Kategorie:Betonzusatzstoffe</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -1506,6 +1622,18 @@ ETSI (European Telecommunications Standard Institute)</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#VDEStandard</IRI>
         <Literal>Any kind of standard as published by the Verband Deutscher Elektrotechniker (VDE)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="de">Chemische Verbindung von Wasserstoff und Sauerstoff (H2O). 1 cm³ Wasser von 4 °C besitzt die Masse von 1 g. Beim Erstarren dehnt sich Wasser aus, was z. B. ein wesentliches Element der mechanischen Verwitterung ist.
+
+Zement benötigt zum Erhärten Wasser. Wenn es dem Beton im Mischer zugegeben wird, wird es als Zugabewasser bezeichnet. Zugabewasser und Oberflächenfeuchte der Gesteinskörnung ergeben zusammen den Wassergehalt. Wassergehalt zuzüglich der Porenfeuchte (Kornfeuchte) der Gesteinskörnung ergeben den Gesamtwassergehalt eines Betons. Um die Schädigung eines Betons durch angreifende Wasser zu verhindern ist wasserundurchlässiger Beton erforderlich.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="CommonCoreOntologies:definition_source"/>
+        <IRI>#Water</IRI>
+        <Literal xml:lang="de">https://www.beton.wiki/index.php?title=Wasser</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
