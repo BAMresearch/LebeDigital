@@ -17,7 +17,7 @@
      xmlns:graph_designer="https://www.materials.fraunhofer.de/ontologies/graph_designer#">
     <owl:Ontology rdf:about="https://purl.matolab.org/mseo/mid">
         <owl:imports rdf:resource="http://www.daml.org/2003/01/periodictable/PeriodicTable.owl"/>
-        <owl:imports rdf:resource="https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/master/AllCoreOntology.ttl"/>
+        <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/2021-03-01/AllCoreOntology"/>
         <rdfs:comment xml:lang="de">Contact:
 Christoph Schweizer
 Fraunhofer-Institut für Werkstoffmechanik IWM
