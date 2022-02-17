@@ -67,7 +67,7 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_mapping.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
-      - run: echo ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl
+      - run: cat ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl
       - name: initialize docker container for shacl validation
         run: |
           git clone https://github.com/Mat-O-Lab/RDFConverter.git
