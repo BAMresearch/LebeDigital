@@ -48,6 +48,10 @@ def task_emodul():
         'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py']
     }
     yield {
+        'basename': 'calculate emodul',
+        'actions': ['python knowledgeGraph/emodul/emodul_calculation.py']
+    }
+    yield {
         'basename': 'map emodul ontology and metadata',
         'actions': ['python knowledgeGraph/emodul/emodul_mapping.py']
     }
@@ -87,6 +91,10 @@ def task_compression():
     yield {
         'basename': 'extract compression metadata',
         'actions': ['python knowledgeGraph/compression/compression_metadata_extraction.py']
+    }
+    yield {
+        'basename': 'calculate compressive strength',
+        'actions': ['python knowledgeGraph/compression/compression_calculation.py']
     }
     yield {
         'basename': 'map compression ontology and metadata',
