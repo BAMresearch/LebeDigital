@@ -67,13 +67,13 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_mapping.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
-      - run: cat ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl
       - name: initialize docker container for shacl validation
         run: |
           git clone https://github.com/Mat-O-Lab/RDFConverter.git
           docker-compose -f RDFConverter/docker-compose.yml up -d app
       - name: validate emodul data against shacl shape
         run: |
+          # TODO: remove sleep after migration from current validator to new one (local or hosted)
           sleep 2
           shacl_shape=${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/shape.ttl
           passed=()
@@ -89,12 +89,12 @@ jobs:
               fi
           done
           echo "files that passed shacl validation:"
-          for passed_file in passed
+          for passed_file in $passed
           do
             echo $passed_file
           done
           echo "files that failed shacl validation:"
-          for failed_file in failed
+          for failed_file in $failed
           do
             echo $failed_file
           done
