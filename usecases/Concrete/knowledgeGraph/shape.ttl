@@ -39,7 +39,7 @@ schema:Specimen
         sh:node tt:YoungsModulusTest
     ] .
 
-shema:SpecimenShape
+schema:SpecimenShape
     a sh:NodeShape ;
     sh:targetClass mseo:MeasurementRegion ;
     sh:property [
@@ -47,7 +47,7 @@ shema:SpecimenShape
         sh:node tt:SpecimenShape
     ] .
 
-shema:SpecimenName
+schema:SpecimenName
     a sh:NodeShape ;
     sh:targetNode tt:Specimen ;
     sh:property [
