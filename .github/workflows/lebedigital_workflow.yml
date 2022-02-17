@@ -69,7 +69,7 @@ jobs:
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
       - name: initialize docker container for shacl validation
         run: |
-          git pull https://github.com/Mat-O-Lab/RDFConverter.git
+          git clone https://github.com/Mat-O-Lab/RDFConverter.git
           docker-compose -f RDFConverter/docker-compose.yml up -d app
       - name: validate emodul data against shacl shape
         run: |
