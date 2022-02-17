@@ -66,6 +66,35 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_mapping.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
+      - name: initialize docker container for shacl validation
+      - run: |
+          git pull https://github.com/Mat-O-Lab/RDFConverter.git
+          docker-compose -f RDFConverter/docker-compose.yml up -d app
+      - name: validate emodul data against shacl shape
+      - run: |
+          sleep 1
+          passed=()
+          failed=()
+          for rdf_file in ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/*.ttl
+          do 
+            RESULT=$(curl -s -F "rdf=@$rdf_file" -F "shaclShape=@${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/shape.ttl" "http://localhost:8080/rdfconv/validate")
+              if [ "$RESULT" != "VALID" ]
+              then
+                failed+=($rdf_file)
+              else
+                passed+=($rdf_file)
+              fi
+          done
+          echo "files that passed shacl validation:"
+          for passed_file in passed
+          do
+            echo $passed_file
+          done
+          echo "files that failed shacl validation:"
+          for failed_file in failed
+          do
+            echo $failed_file
+          done
       - name: execute test query script
         run: |
           python usecases/Concrete/knowledgeGraph/emodul/emodul_test.py
