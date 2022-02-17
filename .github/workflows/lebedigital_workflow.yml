@@ -78,25 +78,28 @@ jobs:
           shacl_shape=${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/shape.ttl
           passed=()
           failed=()
+          validation_errors=()
           for rdf_file in ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/*.ttl
           do 
             RESULT=$(curl -s -F "rdf=@$rdf_file" -F "shaclShape=@$shacl_shape" "http://localhost:8080/rdfconv/validate")
               if [ "$RESULT" != "VALID" ]
               then
                 failed+=($rdf_file)
+                validation_errors+=($RESULT)
               else
                 passed+=($rdf_file)
               fi
           done
           echo "files that passed shacl validation:"
-          for passed_file in $passed
+          for i in {1..${#passed[@]}}
           do
-            echo $passed_file
+            echo $i. $passed_file[i]
           done
           echo "files that failed shacl validation:"
-          for failed_file in $failed
+          for i in {1..${#failed[@]}}
           do
-            echo $failed_file
+            echo $i. $failed[i]
+            echo $validation_errors[i]
           done
       - name: execute test query script
         run: |
