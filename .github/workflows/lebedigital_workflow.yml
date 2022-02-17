@@ -72,7 +72,7 @@ jobs:
           git pull https://github.com/Mat-O-Lab/RDFConverter.git
           docker-compose -f RDFConverter/docker-compose.yml up -d app
       - name: validate emodul data against shacl shape
-      - run: |
+        run: |
           sleep 1
           passed=()
           failed=()
