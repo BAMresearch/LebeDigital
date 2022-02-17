@@ -1,0 +1,56 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ns1: <http://www.w3.org/2002/07/owl#> .
+@prefix ns2: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix ns3: <http://purl.obolibrary.org/obo/> .
+@prefix ns4: <http://www.geneontology.org/formats/oboInOwl#> .
+@prefix ns5: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> .
+@prefix ns6: <http://purl.org/dc/elements/1.1/> .
+@prefix ns7: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#> .
+@prefix ns8: <https://www.materials.fraunhofer.de/ontologies/graph_designer#> .
+@prefix ns9: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mseo: <https://purl.matolab.org/mseo/mid/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix con: <http://w3id.org/concrete> .
+@prefix tt: <http://w3id.org/concrete/youngs> .
+
+schema:SpecimenDiameter
+    a sh:NodeShape ;
+    sh:targetNode tt:SpecimenDiameter ;
+    sh:property [
+        sh:path cco:has_decimal:value ;
+        sh:datatype xsd:decimal ;
+    ] ;
+    sh:property [
+        sh:path cco:uses_measurement_unit ;
+        sh:class cco:MeasurementUnitOfLength ;
+    ] .
+
+schema:Specimen
+    a sh:NodeShape ;
+    sh:targetNode  tt:Specimen ;
+    sh:property [
+        sh:path cco:is_input_of ;
+        sh:node tt:YoungsModulusTest
+    ] .
+
+shema:SpecimenShape
+    a sh:NodeShape ;
+    sh:targetClass mseo:MeasurementRegion ;
+    sh:property [
+        sh:path obo:RO_0000086 ;
+        sh:node tt:SpecimenShape
+    ] .
+
+shema:SpecimenName
+    a sh:NodeShape ;
+    sh:targetNode tt:Specimen ;
+    sh:property [
+        sh:path cco:designated_by ;
+        sh:node tt:SpecimenName ;
+    ] .
