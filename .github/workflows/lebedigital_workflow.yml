@@ -94,7 +94,7 @@ jobs:
           for i in "${!passed[@]}"
           do
             pos=$(( $i +1 ))
-            echo "$pos. ${passed_file[$i]}"
+            echo "$pos. ${passed[$i]}"
           done
           echo "files that failed shacl validation:"
           for i in "${!failed[@]}"
