@@ -91,12 +91,12 @@ jobs:
               fi
           done
           echo "files that passed shacl validation:"
-          for ((i=1; i<=${#passed[@]}; i++))
+          for (( i=1; i<=${#passed[@]}; i++ ))
           do
             echo "$i. $passed_file[i]"
           done
           echo "files that failed shacl validation:"
-          for ((i=1; i<=${#failed[@]}; i++))
+          for (( i=1; i<=${#failed[@]}; i++ ))
           do
             echo "$i. $failed[i]"
             echo "$validation_errors[i]"
