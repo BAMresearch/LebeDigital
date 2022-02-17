@@ -91,15 +91,17 @@ jobs:
               fi
           done
           echo "files that passed shacl validation:"
-          for (( i=1; i<=${#passed[@]}; i++ ))
+          for i in "${!passed[@]}"
           do
-            echo "$i. $passed_file[i]"
+            pos=$(( $i +1 ))
+            echo "$pos. ${passed_file[$i]}"
           done
           echo "files that failed shacl validation:"
-          for (( i=1; i<=${#failed[@]}; i++ ))
+          for i in "${!failed[@]}"
           do
-            echo "$i. $failed[i]"
-            echo "$validation_errors[i]"
+            pos=$(( $i +1 ))
+            echo "$pos. ${failed[$i]}"
+            echo "${validation_errors[$i]}"
           done
       - name: execute test query script
         run: |
