@@ -19,6 +19,8 @@
 @prefix con: <http://w3id.org/concrete> .
 @prefix tt: <http://w3id.org/concrete/youngs> .
 
+# for a documentation of shacl see https://www.w3.org/TR/shacl/
+
 # this shape tests that the diameter of the specimen has a decimal value and a unit of that value
 
 schema:SpecimenDiameter
