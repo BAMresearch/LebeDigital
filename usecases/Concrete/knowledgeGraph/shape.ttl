@@ -19,6 +19,8 @@
 @prefix con: <http://w3id.org/concrete> .
 @prefix tt: <http://w3id.org/concrete/youngs> .
 
+# this shape tests that the diameter of the specimen has a decimal value and a unit of that value
+
 schema:SpecimenDiameter
     a sh:NodeShape ;
     sh:targetNode tt:SpecimenDiameter ;
@@ -31,6 +33,8 @@ schema:SpecimenDiameter
         sh:class cco:MeasurementUnitOfLength ;
     ] .
 
+# this shape tests that the Specimen is the input of the YoungsModulusTest
+
 schema:Specimen
     a sh:NodeShape ;
     sh:targetNode  tt:Specimen ;
@@ -39,6 +43,8 @@ schema:Specimen
         sh:node tt:YoungsModulusTest
     ] .
 
+# this shape tests that the specimen has a shape attached to it
+
 schema:SpecimenShape
     a sh:NodeShape ;
     sh:targetClass mseo:MeasurementRegion ;
@@ -46,6 +52,8 @@ schema:SpecimenShape
         sh:path obo:RO_0000086 ;
         sh:node tt:SpecimenShape
     ] .
+
+# this shape tests that the specimen has a name attached to it
 
 schema:SpecimenName
     a sh:NodeShape ;
