@@ -17,11 +17,7 @@ graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 processedDataPath = os.path.join(baseDir0,'E-modul-processed-data')
 
 # clone and run rdfconverter docker
-try:
-    Repo.clone_from('https://github.com/Mat-O-Lab/RDFConverter.git', os.path.join(baseDir1, 'RDFConverter'))
-except:
-    pass
-
+Repo.clone_from('https://github.com/Mat-O-Lab/RDFConverter.git', os.path.join(baseDir1, 'RDFConverter'))
 subprocess.run(['docker-compose', '-f', os.path.join(baseDir1, 'RDFConverter/docker-compose.yml'), 'up', '-d', 'app'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
 passed = [] #list of filenames of files that passed validation
