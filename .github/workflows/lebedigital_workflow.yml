@@ -67,42 +67,9 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_mapping.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
-      - name: initialize docker container for shacl validation
+      - name: execute validation script
         run: |
-          git clone https://github.com/Mat-O-Lab/RDFConverter.git
-          docker-compose -f RDFConverter/docker-compose.yml up -d app
-      - name: validate emodul data against shacl shape
-        run: |
-          # TODO: remove sleep after migration from current validator to new one (local or hosted)
-          sleep 3
-          shacl_shape=${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/shape.ttl
-          passed=()
-          failed=()
-          validation_errors=()
-          for rdf_file in ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/emodul/E-modul-processed-data/*.ttl
-          do 
-            RESULT=$(curl -s -F "rdf=@$rdf_file" -F "shaclShape=@$shacl_shape" "http://localhost:8080/rdfconv/validate")
-              if [ "$RESULT" != "VALID" ]
-              then
-                failed+=($rdf_file)
-                validation_errors+=($RESULT)
-              else
-                passed+=($rdf_file)
-              fi
-          done
-          echo "files that passed shacl validation:"
-          for i in "${!passed[@]}"
-          do
-            pos=$(( $i +1 ))
-            echo "$pos. ${passed[$i]}"
-          done
-          echo "files that failed shacl validation:"
-          for i in "${!failed[@]}"
-          do
-            pos=$(( $i +1 ))
-            echo "$pos. ${failed[$i]}"
-            echo "${validation_errors[$i]}"
-          done
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_validation.py
       - name: execute test query script
         run: |
           python usecases/Concrete/knowledgeGraph/emodul/emodul_test.py
