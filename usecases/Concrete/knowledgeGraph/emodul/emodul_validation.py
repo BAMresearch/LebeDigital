@@ -16,7 +16,9 @@ graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 #importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
 processedDataPath = os.path.join(baseDir0,'E-modul-processed-data')
 
-# clone and run rdfconverter docker
+"""
+Clone and run the RDFConverter microservice through docker. This allows access to the schacl validation api via POST request.
+"""
 Repo.clone_from('https://github.com/Mat-O-Lab/RDFConverter.git', os.path.join(baseDir1, 'RDFConverter'))
 subprocess.run(['docker-compose', '-f', os.path.join(baseDir1, 'RDFConverter/docker-compose.yml'), 'up', '-d', 'app'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
@@ -27,15 +29,19 @@ failed = [] #list of tuples (filenames, reports) of files that failed validaton
 with open(os.path.join(baseDir1, 'shape.ttl'), 'r') as f:
     shacl_shape = f.read()
 
+# sleep shortly to avoid access of the validation service before it is ready
 sleep(3)
 s = requests.session()
 
-# iterate over all files ending in .ttl
+"""
+Iterate over all rdf files in the processedDataPath. For each file f, we call the shacl validation service with our predefined shacl shape and validate this shape against f. This is done via HTTP POST request to the microservice.
+"""
 for rdf_file in (os.path.join(processedDataPath, f) for f in os.listdir(processedDataPath) if os.fsdecode(f).endswith('.ttl')):
     with open(rdf_file, 'r') as f:
         post_data = {'rdf': f.read(), 'shaclShape': shacl_shape}
     # post files and obtain result of validation
     r = s.post('http://localhost:8080/rdfconv/validate', files=post_data)
+    # check if the validation was successful or not
     if r.text.startswith('VALID'):
         passed.append(rdf_file)
     else:
