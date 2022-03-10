@@ -21,46 +21,63 @@
 
 # for a documentation of shacl see https://www.w3.org/TR/shacl/
 
-# this shape tests that the diameter of the specimen has a decimal value and a unit of that value
-
-schema:SpecimenDiameter
+# this shape tests properties about the diameter
+schema:SpecimenDiameterShape
     a sh:NodeShape ;
-    sh:targetNode tt:SpecimenDiameter ;
+    sh:targetClass cco:Diameter ;
+    # there is exactly one InformationBearingEntity attached to the Diameter
     sh:property [
-        sh:path cco:has_decimal:value ;
-        sh:datatype xsd:decimal ;
+        sh:path obo:RO_0010001 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cco:InformationBearingEntity ;
     ] ;
+    # the InformationBearingEntity has a decimal value
     sh:property [
-        sh:path cco:uses_measurement_unit ;
+        sh:path (obo:RO_0010001 cco:has_decimal_value) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:dataytpe xsd:decimal ;
+    ] ;
+   # the InformationBearingEntity has a measurement unit specified
+    sh:property [
+        sh:path (obo:RO_0010001 cco:uses_measurement_unit) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:class cco:MeasurementUnitOfLength ;
     ] .
 
-# this shape tests that the Specimen is the input of the YoungsModulusTest
-
-schema:Specimen
-    a sh:NodeShape ;
-    sh:targetNode  tt:Specimen ;
-    sh:property [
-        sh:path cco:is_input_of ;
-        sh:node tt:YoungsModulusTest
-    ] .
-
-# this shape tests that the specimen has a shape attached to it
-
+# this shape tests properties about the Specimen
 schema:SpecimenShape
     a sh:NodeShape ;
-    sh:targetClass mseo:MeasurementRegion ;
+    sh:targetClass  mseo:Specimen ;
+    # the Specimen is input of one (and only one) YoungsModulusTest
     sh:property [
-        sh:path obo:RO_0000086 ;
-        sh:node tt:SpecimenShape
-    ] .
-
-# this shape tests that the specimen has a name attached to it
-
-schema:SpecimenName
-    a sh:NodeShape ;
-    sh:targetNode tt:Specimen ;
+        sh:path cco:is_input_of ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node tt:YoungsModulusTest ;
+    ] ;
+    # the Specimen has a quality (shape) attached to it
+    sh:property [
+        sh:path (obo:BFO_0000051 obo:RO_0000086) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    # the Specimen is designated by one Identifyier
     sh:property [
         sh:path cco:designated_by ;
-        sh:node tt:SpecimenName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cco:NonNameIdentifier ;
+    ] .
+
+# THIS IS A SHAPE THAT MUST FAIL!
+schema:InformationBearingEntityShape
+    a sh:NodeShape ;
+    sh:targetClass cco:InformationBearingEntity ;
+    # each InformationBearingEntity must use at least two measurement units (nonsensical)
+    sh:property [
+        sh:path cco:uses_measurement_unit ;
+        sh:minCount 2 ;
     ] .
