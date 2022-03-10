@@ -41,7 +41,8 @@ def test_file(shapepath: str, filepath: str) -> Graph:
 
     # only parse graph if it contains any violations
     if not r.text.startswith('VALID'):
-        result_graph.parse(data=r.text, format='ttl')
+        res = r.text[6:] #remove the 'fail: ' prefix from the result
+        result_graph.parse(data=res, format='ttl')
 
         # also add nodes from data and shacl shapes to graph to be able to search backwards for the violated shapes
         shacl_graph = Graph()
