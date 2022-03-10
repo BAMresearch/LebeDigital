@@ -2,13 +2,16 @@ from operator import imod
 import subprocess
 from time import sleep
 from turtle import pos
+from typing import Tuple
+
+from torch import true_divide
 import requests
 import os
 import sys
 from pathlib import Path
 from git import Repo
-from rdflib import Graph, URIRef
-from rdflib.namespace import SH
+from rdflib import Graph, URIRef, Namespace
+from rdflib.namespace import SH, RDF
 
 baseDir0 = Path(__file__).resolve().parents[0]
 baseDir1 = Path(__file__).resolve().parents[1]
@@ -18,6 +21,8 @@ metadataPath = os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv
 graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 #importedOntologiesPath = os.path.join(baseDir2,'GraphCreation/Ontologies')
 processedDataPath = os.path.join(baseDir0,'E-modul-processed-data')
+
+SCHEMA = Namespace('http://schema.org/')
 
 """
 Given a path to a shacl shape and a path to an rdf file, this function tests the rdf data against the specified shacl shapes.
@@ -32,20 +37,42 @@ def test_file(shapepath: str, filepath: str) -> Graph:
     # post both files to the validation endpoint of the docker app
     post_data = {'rdf': rdf_data, 'shaclShape': shacl_shape}
     r = s.post('http://localhost:8080/rdfconv/validate', files=post_data)
-    g = Graph()
+    result_graph = Graph()
 
     # only parse graph if it contains any violations
     if not r.text.startswith('VALID'):
-        g.parse(data=r.text, format='ttl')
+        result_graph.parse(data=r.text, format='ttl')
+
+        # also add nodes from data and shacl shapes to graph to be able to search backwards for the violated shapes
+        shacl_graph = Graph()
+        data_graph = Graph()
+        shacl_graph.parse(data=shacl_shape, format='ttl')
+        data_graph.parse(data=rdf_data, format='ttl')
+        result_graph += shacl_graph
+        result_graph += data_graph
     
-    return g
+    return result_graph
 
 """
 Returns true if the given shape is violated in the report.
 """
 def violates_shape(validation_report: Graph, shape: URIRef):
-    validation_report.subjects(SH.sourceShape, None)
-    # check if the generator contains anything
+
+    # get the class that is targeted by the specified shape
+    target_class = validation_report.value(shape, SH.targetClass, None, any=False)
+    if target_class is None:
+        raise ValueError(f'The shapes graph does not contain a {shape} shape.')
+
+    
+    # get all classes that have been violated
+    # check if any of the violated classes is the class that is targeted by the specified shape
+    for o in validation_report.objects(None, SH.focusNode):
+        if validation_report.value(o, RDF.type, None, any=False) == target_class:
+            return True
+
+    # no violated class is targeted by the specified shape, thus the shape is not violated
+    return False
+
 
 """
 Clone and run the RDFConverter microservice through docker. This allows access to the schacl validation api via POST request.
@@ -55,6 +82,7 @@ subprocess.run(['docker-compose', '-f', os.path.join(baseDir1, 'RDFConverter/doc
 
 # read shacl shape
 shacl_path = os.path.join(baseDir1, 'shape.ttl')
+sh_graph = Graph()
 
 # sleep shortly to avoid access of the validation service before it is ready
 sleep(3)
@@ -71,7 +99,8 @@ subprocess.run(['docker-compose', '-f', os.path.join(baseDir1, 'RDFConverter/doc
 
 # Tests specific assertions about the shacl validation report.
 # assert that certain violations did not occur:
-assert not violates_shape(g, None)
+assert not violates_shape(g, SCHEMA.SpecimenDiameterShape)
+assert not violates_shape(g, SCHEMA.SpecimenShape)
 
 # assert that certain violations occurred:
-# assert violates_shape(g, None)
+assert violates_shape(g, SCHEMA.InformationBearingEntityShape)
