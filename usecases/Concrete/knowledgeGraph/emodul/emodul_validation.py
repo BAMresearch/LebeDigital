@@ -68,7 +68,7 @@ def violates_shape(validation_report: Graph, shape: URIRef):
     # get all classes that have been violated
     # check if any of the violated classes is the class that is targeted by the specified shape
     for o in validation_report.objects(None, SH.focusNode):
-        if validation_report.value(o, RDF.type, None, any=False) == target_class:
+        if target_class in validation_report.objects(o, RDF.type, None):
             return True
 
     # no violated class is targeted by the specified shape, thus the shape is not violated
