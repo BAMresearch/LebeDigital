@@ -25,7 +25,68 @@
     <Import>https://purl.matolab.org/mseo/mid</Import>
     <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal>Concrete Ontology</Literal>
+        <Literal>Concrete Ontology curated within the LeBeDigital-project.
+For more information visit https://material-digital.de/project/3</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Contact
+David Alós Shepherd
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Straße 3, 76131 Karlsruhe
+david.alosshepherd@kit.edu</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Contact
+Ravi Ajitbhai Patel
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Straße 3, 76131 Karlsruhe
+ravi.patel@kit.edu</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Contact
+Stephan Pirskawetz
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+stephan.pirskawetz@bam.de</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Contact
+Sven Iwaszko
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+sven.iwaszko@bam.de</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Contact:
+Juliette Winkler
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+juliette.winkler@bam.de</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="mid1:curator"/>
+        <Literal>David Alós Shepherd (KIT)</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="mid1:curator"/>
+        <Literal>Juliette Winkler (BAM)</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="mid1:curator"/>
+        <Literal>Ravi Ajitbhai Patel (KIT)</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="mid1:curator"/>
+        <Literal>Stephan Pirskawetz (BAM)</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="mid1:curator"/>
+        <Literal>Sven Iwaszko (BAM)</Literal>
     </Annotation>
     <Declaration>
         <Class IRI="#ActuatorEquipment"/>
@@ -351,6 +412,13 @@
     <Declaration>
         <NamedIndividual IRI="#YoungsModulusTest"/>
     </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#ConcreteSpecimen"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="CommonCoreOntologies:is_made_of"/>
+            <Class IRI="#Concrete"/>
+        </ObjectSomeValuesFrom>
+    </EquivalentClasses>
     <EquivalentClasses>
         <Class IRI="#Stress"/>
         <Class abbreviatedIRI="CommonCoreOntologies:Pressure"/>
