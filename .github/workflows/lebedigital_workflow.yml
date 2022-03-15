@@ -2,7 +2,6 @@ name: lebedigital workflow of building knowledge graph and running calibration
 
 on: [push]
 
-
 jobs:
   build-knowledge-graph:
     runs-on: ubuntu-latest
@@ -68,12 +67,15 @@ jobs:
 
           python usecases/Concrete/knowledgeGraph/compression/compression_mapping.py
           ls ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph/compression/compression-processed-data/
+      - name: execute validation script
+        run: |
+          python usecases/Concrete/knowledgeGraph/emodul/emodul_validation.py
       - name: execute test query script
         run: |
           python usecases/Concrete/knowledgeGraph/emodul/emodul_test.py
 
           python usecases/Concrete/knowledgeGraph/compression/compression_test.py
-         
+
       - name: execute emodul calibration script
         run: |
           python usecases/Concrete/Calibration/E_modul_calibration.py
