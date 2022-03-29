@@ -12,8 +12,8 @@ dependencies:
   - boost-cpp=1.74.0=h312852a_4
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.17.1=h7f98852_1
-  - ca-certificates=2022.3.18=h06a4308_0
-  - certifi=2021.10.8=py39h06a4308_2
+  - ca-certificates=2021.10.8=ha878542_0
+  - certifi=2021.10.8=py39hf3d152e_1
   - cmake=3.21.1=h8897547_0
   - eigen=3.3.9=h4bd325d_1
   - expat=2.4.1=h9c3ff4c_0
@@ -68,6 +68,7 @@ dependencies:
   - mpi4py=3.0.3=py39h6438238_7
   - mpich=3.4.2=h846660c_100
   - mpmath=1.2.1=pyhd8ed1ab_0
+  - mshr=2019.1.0=py39h9761ab4_4
   - mumps-include=5.2.1=ha770c72_10
   - mumps-mpi=5.2.1=hd6b9cac_10
   - ncurses=6.3=h7f8727e_2

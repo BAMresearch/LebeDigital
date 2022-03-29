@@ -2,3 +2,4 @@ from usecases.Concrete.simulation_model.experimental_setups.concrete_column impo
 from usecases.Concrete.simulation_model.experimental_setups.concrete_cube import ConcreteCubeExperiment
 from usecases.Concrete.simulation_model.experimental_setups.concrete_beam import ConcreteBeamExperiment
 from usecases.Concrete.simulation_model.experimental_setups.minimal_cube import MinimalCubeExperiment
+from usecases.Concrete.simulation_model.experimental_setups.concrete_youngs_modulus import ConcreteYoungsModulusExperiment

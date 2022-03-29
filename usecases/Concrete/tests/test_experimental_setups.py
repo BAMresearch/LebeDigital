@@ -40,7 +40,7 @@ def simple_simulation(parameters,experiment):
                                             Simulation.Setups.ConcreteColumnExperiment,
                                             Simulation.Setups.ConcreteBeamExperiment,
                                             ])
-def test_experiemental_setup(dim, get_experiment):
+def old_test_experiemental_setup(dim, get_experiment):
 
     parameters = Simulation.Parameters() # using the current default values
 
@@ -52,3 +52,33 @@ def test_experiemental_setup(dim, get_experiment):
 
     simple_simulation(parameters, experiment)
 
+
+def test_new_setup():
+
+    parameters = Simulation.Parameters() # using the current default values
+
+    parameters['dim'] = 3
+    parameters['mesh_density'] = 2
+    parameters['log_level'] = 'WARNING'
+
+    experiment = Simulation.Setups.ConcreteYoungsModulusExperiment(parameters)
+
+    problem = Simulation.Models.ConcreteThermoMechanical(experiment, parameters, pv_name='testing_cylinder')
+
+    # data for time stepping
+    dt = 1200  # 20 min step
+    time = dt * 3  # total simulation time in s
+
+    # set time step
+    problem.set_timestep(dt)  # for time integration scheme
+
+    # initialize time
+    t = dt  # first time step time
+
+    while t <= time:  # time
+        # solve temp-hydration-mechanics
+        problem.solve(t=t)  # solving this
+        problem.pv_plot(t)
+
+        # prepare next timestep
+        t += dt
