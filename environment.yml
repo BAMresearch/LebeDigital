@@ -1,4 +1,4 @@
-name: null                          # Our env was made with --prefix
+name: demonstrator                         # Our env was made with --prefix
 channels:
   - conda-forge                     # third party stuff
   - defaults
