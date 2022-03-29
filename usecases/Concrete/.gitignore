@@ -1,5 +1,6 @@
 ConcreteOntology/catalog-v001.xml
 knowledgeGraph/emodul/E-modul-processed-data/
 knowledgeGraph/compression/compression-processed-data/
+knowledgeGraph/RDFConverter/
 __pycache__/
 .doit.*

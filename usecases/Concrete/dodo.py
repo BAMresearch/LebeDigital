@@ -45,15 +45,17 @@ def task_emodul():
     }
     yield {
         'basename': 'extract emodul metadata',
-        'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py'],
+        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/emodul_metadata.csv']
     }
     yield {
         'basename': 'calculate emodul',
-        'actions': ['python knowledgeGraph/emodul/emodul_calculation.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_calculation.py'],
     }
     yield {
         'basename': 'map emodul ontology and metadata',
-        'actions': ['python knowledgeGraph/emodul/emodul_mapping.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_mapping.py'],
+        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl']
     }
     yield {
         'basename': 'validate rdf files against shacl shape',
