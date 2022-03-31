@@ -60,7 +60,15 @@ class LinearElasticity(MaterialProblem):
         u_trial = df.TrialFunction(self.V)
         v = df.TestFunction(self.V)
         self.a = df.inner(self.sigma(u_trial), df.grad(v)) * df.dx
-        f = df.Constant((0, 0, 0))
+
+        if self.p.dim == 2:
+            f = df.Constant((0, 0))
+        elif self.p.dim == 3:
+            f = df.Constant((0, 0, 0))
+        else:
+            raise Exception(f'wrong dimension {self.p.dim} for problem setup')
+
+
         self.L = df.inner(f, v) * df.dx
 
         # bounary conditions only after function space

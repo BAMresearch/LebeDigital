@@ -77,7 +77,11 @@ def test_new_setup():
     # initialize time
     t = dt  # first time step time
 
-    while t <= time:  # time
+    for displ in [10,50,100]:
+    #while t <= time:  # time
+
+
+        problem.experiment.apply_displ_load(displ)
         # solve temp-hydration-mechanics
         problem.solve(t=t)  # solving this
         problem.pv_plot(t)
