@@ -28,6 +28,7 @@ outputs:
       - structural_simulation/KPI_demoulding_time
     type: float
     doc: min time for demoulding
+    
 steps:
   - id: mix_design_performance_prediction_test
     in:

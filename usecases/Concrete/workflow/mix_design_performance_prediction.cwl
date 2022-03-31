@@ -22,6 +22,9 @@ inputs:
   mix_wz:
     type: float
     doc: "water cement ratio of the mix"
+  radius:
+    type: float
+    doc: "radius again..."
 
 outputs:
   CO2:
