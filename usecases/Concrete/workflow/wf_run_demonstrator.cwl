@@ -2,17 +2,25 @@ class: Workflow
 cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
+  
 inputs:
   - id: mix_wz
     type: float
     doc: water cement ratio of the mix design
     default: 1
+    
 outputs:
   - id: KPI_CO2_emission
     outputSource:
       - structural_simulation/KPI_CO2_emission
     type: float
     doc: C02 emission of the global structure
+    
+  - id: KPI_demoulding_time
+    outputSource:
+      - structural_simulation/KPI_demoulding_time
+    type: float
+    doc: min time for demoulding
 steps:
   - id: mix_design_performance_prediction
     in:
