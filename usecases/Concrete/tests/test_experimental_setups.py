@@ -11,7 +11,7 @@ import pytest
 
 def simple_simulation(parameters,experiment):
 
-    problem = Simulation.Models.ConcreteThermoMechanical(experiment, parameters)
+    problem = Simulation.Models.LinearElasticity(experiment, parameters)
 
     # data for time stepping
     dt = 1200  # 20 min step
@@ -60,10 +60,12 @@ def test_new_setup():
     parameters['dim'] = 3
     parameters['mesh_density'] = 2
     parameters['log_level'] = 'WARNING'
+    parameters['E'] = 3000
+    parameters['nu'] = 0.2
 
     experiment = Simulation.Setups.ConcreteYoungsModulusExperiment(parameters)
 
-    problem = Simulation.Models.ConcreteThermoMechanical(experiment, parameters, pv_name='testing_cylinder')
+    problem = Simulation.Models.LinearElasticity(experiment, parameters, pv_name='testing_cylinder')
 
     # data for time stepping
     dt = 1200  # 20 min step

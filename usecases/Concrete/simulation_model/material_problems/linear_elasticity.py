@@ -35,48 +35,66 @@ class LinearElasticity(MaterialProblem):
         # setup initial temperatre material paramters
         default_p = Parameters()
         # Material parameter for concrete model with temperature and hydration
-        default_p['E'] = 3000
-        default_p['nu'] = 0.2
+        default_p['density'] = 2350  # in kg/m^3 density of concrete
+        default_p['density_binder'] = 1440  # in kg/m^3 density of the binder
+        default_p['themal_cond'] = 2.0  # effective thermal conductivity, approx in Wm^-3K^-1, concrete!
+        # self.specific_heat_capacity = 9000  # effective specific heat capacity in J kg⁻1 K⁻1
+        default_p['vol_heat_cap'] = 2.4e6  # volumetric heat cap J/(m3 K)
+        default_p['b_ratio'] = 0.2  # volume percentage of binder
+        default_p['Q_pot'] = 500e3  # potential heat per weight of binder in J/kg
+        # p['Q_inf'] = self.Q_pot * self.density_binder * self.b_ratio  # potential heat per concrete volume in J/m3
+        default_p['B1'] = 2.916E-4  # in 1/s
+        default_p['B2'] = 0.0024229  # -
+        default_p['eta'] = 5.554  # something about diffusion
+        default_p['alpha_max'] = 0.875  # also possible to approximate based on equation with w/c
+        default_p['E_act'] = 5653 * self.p.igc  # activation energy in Jmol^-1
+        default_p['T_ref'] = 25  # reference temperature in degree celsius
+        # setting for temperature adjustment
+        # option: 'exponential' and 'off'
+        default_p['temp_adjust_law'] = 'exponential'
         # polinomial degree
-        default_p['degree'] = 2
+        default_p['degree'] = 2  # default boundary setting
 
+        ### paramters for mechanics problem
+        default_p['E_28'] = 15000000  # Youngs Modulus N/m2 or something... TODO: check units!
+        default_p['nu'] = 0.2  # Poissons Ratio
+
+        # required paramters for alpha to E mapping
+        default_p['alpha_t'] = 0.2
+        default_p['alpha_0'] = 0.05
+        default_p['a_E'] = 0.6
+
+        # required paramters for alpha to tensile and compressive stiffness mapping
+        default_p['fc_inf'] = 6210000
+        default_p['a_fc'] = 1.2
+        default_p['ft_inf'] = 467000
+        default_p['a_ft'] = 1.0
 
         self.p = default_p + self.p
 
+        # setting up the two nonlinear problems
+        self.temperature_problem = ConcreteTempHydrationModel(self.experiment.mesh, self.p, pv_name=self.pv_name)
 
+        # here I "pass on the parameters from temperature to mechanics problem.."
+        self.mechanics_problem = ConcreteMechanicsModel(self.experiment.mesh, self.p, pv_name=self.pv_name)
+        # coupling of the output files
+        self.mechanics_problem.pv_file = self.temperature_problem.pv_file
 
-        mu = E / (2.0 * (1.0 + nu))
-        lmbda = E * nu / ((1.0 + nu) * (1.0 - 2.0 * nu))
+        # initialize concrete temperature as given in experimental setup
+        self.set_inital_T(self.p.T_0)
 
-        # setting up  problems
-
-        V = VectorFunctionSpace(mesh, "Lagrange", 2)  # 2 for quadratic elements
-
-        # Stress computation for linear elastic problem
-        def sigma(v):
-            return 2.0 * mu * sym(grad(v)) + lmbda * tr(sym(grad(v))) * Identity(len(v))
-
-            # Define variational problem
-            u = TrialFunction(V)
-            v = TestFunction(V)
-            a = inner(sigma(u), grad(v)) * dx
-            f = Constant((0, 0, 0))
-            L = inner(f, v) * dx
-
-
-            # solve
-            u = Function(V)
-            solve(a == L, u, bcs)
-
-
-            # compute reaction forces
-            residual = action(a,u) - L
-            v_reac = Function(V)
-            bc_z = DirichletBC(V.sub(2), Constant(1.), bottom_surface)
-            bc_z.apply(v_reac.vector())
         # setting bcs
+        self.mechanics_problem.set_bcs(self.experiment.create_displ_bcs(self.mechanics_problem.V))
+        self.temperature_problem.set_bcs(self.experiment.create_temp_bcs(self.temperature_problem.V))
 
         # setting up the solvers
+        self.temperature_solver = df.NewtonSolver()
+        self.temperature_solver.parameters['absolute_tolerance'] = 1e-9
+        self.temperature_solver.parameters['relative_tolerance'] = 1e-8
+
+        self.mechanics_solver = df.NewtonSolver()
+        self.mechanics_solver.parameters['absolute_tolerance'] = 1e-9
+        self.mechanics_solver.parameters['relative_tolerance'] = 1e-8
 
 
 
