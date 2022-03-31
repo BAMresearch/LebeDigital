@@ -28,5 +28,6 @@ steps:
           - mix_design_performance_prediction/CO2
     out:
       - id: KPI_CO2_emission
+      - id: KPI_demoulding_time
     run: structural_simulation.cwl
 requirements: []
