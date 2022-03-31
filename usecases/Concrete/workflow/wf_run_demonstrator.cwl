@@ -30,7 +30,6 @@ steps:
   - id: structural_simulation
     in:
       - id: CO2
-        linkMerge: merge_flattened
         source:
           - mix_design_performance_prediction/CO2
     out:
