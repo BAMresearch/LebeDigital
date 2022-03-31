@@ -18,11 +18,6 @@ inputs:
     default: 300
     
 outputs:
-  - id: KPI_CO2_emission
-    outputSource:
-      - structural_simulation/KPI_CO2_emission
-    type: float
-    doc: C02 emission of the global structure
   - id: KPI_demoulding_time
     outputSource:
       - structural_simulation/KPI_demoulding_time
@@ -47,7 +42,6 @@ steps:
       - id: height
         source: height
     out:
-      - id: KPI_CO2_emission
       - id: KPI_demoulding_time
     run: structural_simulation.cwl
 requirements: []
