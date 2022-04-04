@@ -22,9 +22,6 @@ inputs:
   mix_wz:
     type: float
     doc: "water cement ratio of the mix"
-  radius:
-    type: float
-    doc: "radius again..."
 
 outputs:
   CO2:
@@ -40,3 +37,5 @@ outputs:
             CO2_string = CO2_string.split("\n")[0];
             return parseFloat(CO2_string);
         }
+
+

@@ -85,9 +85,7 @@ class LinearElasticity(MaterialProblem):
         return 2.0 * self.p.mu * df.sym(df.grad(v)) + self.p.lmbda * df.tr(df.sym(df.grad(v))) * df.Identity(len(v))
 
     def solve(self, t=1.0):
-        # TODO: apply the displecement load...
-        #       - how do I define "steps"?,
-
+        # time in this example only relevant for the naming of the paraview steps and the sensor output
         # solve
         df.solve(self.a == self.L, self.u, self.bcs)
 

@@ -31,7 +31,6 @@ class Experiment:
             return None
         return bc_empty
 
-
     def boundary_left(self, end = None):
         #print(self.p.dim)
         # Left and right are defined as x (x[0]) in 1D, 2D and 3D

@@ -2,52 +2,40 @@ class: Workflow
 cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
-  
 inputs:
   - id: mix_wz
     type: float
     doc: water cement ratio of the mix design
     default: 1
-  - id: radius
-    type: float
-    doc: radius of test cylinder in mm
-    default: 75
-  - id: height
-    type: float
-    doc: height of test cylinder in mm
-    default: 300
-    
+    'sbg:x': -183
+    'sbg:y': -153
 outputs:
   - id: KPI_CO2_emission
     outputSource:
       - structural_simulation/KPI_CO2_emission
     type: float
     doc: C02 emission of the global structure
-  - id: KPI_demoulding_time
-    outputSource:
-      - structural_simulation/KPI_demoulding_time
-    type: float
-    doc: min time for demoulding
-    
+    'sbg:x': 571.2452392578125
+    'sbg:y': 7
 steps:
-  - id: mix_design_performance_prediction_test
+  - id: mix_design_performance_prediction
     in:
       - id: mix_wz
         source: mix_wz
-      - id: radius
-        source: radius
     out:
       - id: CO2
     run: mix_design_performance_prediction.cwl
+    'sbg:x': 124.109375
+    'sbg:y': 0
   - id: structural_simulation
     in:
       - id: CO2
+        linkMerge: merge_flattened
         source:
-          - mix_design_performance_prediction/CO2          
-      - id: height
-        source: height
+          - mix_design_performance_prediction/CO2
     out:
       - id: KPI_CO2_emission
-      - id: KPI_demoulding_time
     run: structural_simulation.cwl
+    'sbg:x': 335.4375
+    'sbg:y': 0
 requirements: []

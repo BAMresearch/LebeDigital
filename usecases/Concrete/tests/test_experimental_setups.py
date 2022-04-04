@@ -58,12 +58,15 @@ def test_new_setup():
     parameters = Simulation.Parameters() # using the current default values
 
     parameters['dim'] = 3
-    parameters['mesh_density'] = 2
+    parameters['mesh_density'] = 15
     parameters['log_level'] = 'WARNING'
     parameters['E'] = 3000
     parameters['nu'] = 0.2
+    parameters['radius'] = 75
+    parameters['height'] = 300
+    parameters['bc_setting'] = 'fixed'
 
-    experiment = Simulation.Setups.ConcreteYoungsModulusExperiment(parameters)
+    experiment = Simulation.Setups.ConcreteCylinderExperiment(parameters)
 
     problem = Simulation.Models.LinearElasticity(experiment, parameters, pv_name='testing_cylinder')
 
@@ -77,7 +80,7 @@ def test_new_setup():
     # initialize time
     t = dt  # first time step time
 
-    for displ in [10,50,100]:
+    for displ in [-10,-50,-100]:
     #while t <= time:  # time
 
 
