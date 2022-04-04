@@ -2,13 +2,15 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 inputs:
-  script:
-  test:
-  mix_wz:
-
+  simulation_module:
+  model_parameters:
+  displ_list:
+  force:
+  
 outputs:
-  height:
-  radius:
+  sim_force_list:
+  displacement:
+  model_parameters:
 
 
 
