@@ -29,10 +29,8 @@ class ConcreteCylinderExperiment(Experiment):
 
     def setup(self):
         if self.p.dim == 2:
-            md_width = int(self.p.radius*2 * self.p.mesh_density)
-            md_height = int(self.p.height * self.p.mesh_density)
             self.mesh = df.RectangleMesh(df.Point(0., 0.), df.Point(self.p.radius*2, self.p.height),
-                                         md_width, md_height, diagonal='right')
+                                         self.p.mesh_density, self.p.mesh_density, diagonal='right')
         elif self.p.dim == 3:
             # The mesh geometry
             # Cylinder ( center bottom, center top, radius bottom, radius top )
@@ -52,7 +50,12 @@ class ConcreteCylinderExperiment(Experiment):
         # define displacement boundary
         displ_bcs = []
 
-        def boundary_node(point):
+        def boundary_node_2D(point):
+            def bc_node(x, on_boundary):
+                return df.near(x[0], point[0]) and df.near(x[1], point[1])
+            return bc_node
+
+        def boundary_node_3D(point):
             def bc_node(x, on_boundary):
                 return df.near(x[0], point[0]) and df.near(x[1], point[1]) and df.near(x[2], point[2])
             return bc_node
@@ -70,7 +73,12 @@ class ConcreteCylinderExperiment(Experiment):
                 displ_bcs.append(df.DirichletBC(V, df.Constant((0, 0, 0)),  self.boundary_bottom()))
 
         elif self.p.bc_setting == 'free':
-            if self.p.dim == 3:
+            if self.p.dim == 2:
+                displ_bcs.append(df.DirichletBC(V.sub(1), self.top_displacement, self.boundary_top()))  # displacement
+                displ_bcs.append(df.DirichletBC(V.sub(1), 0.0, self.boundary_bottom()))
+                displ_bcs.append(df.DirichletBC(V.sub(0), 0.0, boundary_node_2D(df.Point(0,0)), method="pointwise"))
+
+            elif self.p.dim == 3:
                 # getting nodes at the bottom of the mesh to apply correct boundary condition to arbitrary cylinder mesh
                 mesh_points = self.mesh.coordinates()  # list of all nodal coordinates
                 mesh_points = mesh_points[mesh_points[:, 2].argsort()]  # sorting by z coordinate
@@ -86,10 +94,12 @@ class ConcreteCylinderExperiment(Experiment):
                     0]  # sorting by y coordinate
 
                 displ_bcs.append(df.DirichletBC(V.sub(2), self.top_displacement, self.boundary_top()))  # displacement
-                displ_bcs.append(df.DirichletBC(V.sub(2), 0.9, self.boundary_bottom()))
-                displ_bcs.append(df.DirichletBC(V.sub(1), 0.0, boundary_node(x_min_boundary_point), method="pointwise"))
-                displ_bcs.append(df.DirichletBC(V.sub(1), 0.0, boundary_node(x_max_boundary_point), method="pointwise"))
-                displ_bcs.append(df.DirichletBC(V.sub(0), 0.0, boundary_node(y_boundary_point), method="pointwise"))
+                displ_bcs.append(df.DirichletBC(V.sub(2), 0.0, self.boundary_bottom()))
+                displ_bcs.append(df.DirichletBC(V.sub(1), 0.0, boundary_node_3D(x_min_boundary_point), method="pointwise"))
+                displ_bcs.append(df.DirichletBC(V.sub(1), 0.0, boundary_node_3D(x_max_boundary_point), method="pointwise"))
+                displ_bcs.append(df.DirichletBC(V.sub(0), 0.0, boundary_node_3D(y_boundary_point), method="pointwise"))
+            else:
+                raise Exception(f'dim setting: {self.p.dim}, not implemented for cylinder bc setup: free')
 
         else:
             raise Exception(f'Wrong boundary setting: {self.p.bc_setting}, for cylinder setup')
