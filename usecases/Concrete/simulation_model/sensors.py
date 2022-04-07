@@ -121,8 +121,8 @@ class MaxYieldSensor(Sensor):
 
 class ReactionForceSensor(Sensor):
     def __init__(self):
-        self.data = [0.0]
-        self.time = [0.0]
+        self.data = []
+        self.time = []
 
     def measure(self, problem, t=1.0):
 

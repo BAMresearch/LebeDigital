@@ -1,2 +1,1 @@
-from usecases.Concrete.simulation_model.experimental_setups.minimal_cube import MinimalCubeExperiment
 from usecases.Concrete.simulation_model.experimental_setups.concrete_cylinder import ConcreteCylinderExperiment

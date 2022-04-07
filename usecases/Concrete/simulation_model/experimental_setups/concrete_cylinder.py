@@ -1,6 +1,7 @@
 from usecases.Concrete.simulation_model.experimental_setups.template_experiment import Experiment
 from usecases.Concrete.simulation_model.helpers import Parameters
 import dolfin as df
+import numpy as np
 import mshr
 
 
@@ -32,16 +33,40 @@ class ConcreteCylinderExperiment(Experiment):
             self.mesh = df.RectangleMesh(df.Point(0., 0.), df.Point(self.p.radius*2, self.p.height),
                                          self.p.mesh_density, self.p.mesh_density, diagonal='right')
         elif self.p.dim == 3:
-            # The mesh geometry
-            # Cylinder ( center bottom, center top, radius bottom, radius top )
+            def create_cylinder_mesh(radius,paramters):
+                # Cylinder ( center bottom, center top, radius bottom, radius top )
+                cylinder_geometry = mshr.Cylinder(df.Point(0, 0, 0), df.Point(0, 0, paramters.height),
+                                                  radius, radius)
+                # mesh ( geometry , mesh density )
+                mesh = mshr.generate_mesh(cylinder_geometry, paramters.mesh_density)
 
-            # testing mesh generation....
+                # compute bottom surface area
+                class BottomSurface(df.SubDomain):
+                    def inside(self, x, on_boundary):
+                        return on_boundary and df.near(x[2], 0.0)
 
-            cylinder_geometry = mshr.Cylinder(df.Point(0, 0, 0), df.Point(0, 0, self.p.height),
-                                              self.p.radius, self.p.radius)
+                bottom_surface = BottomSurface()
+                boundaries = df.MeshFunction("size_t", mesh, mesh.geometric_dimension() - 1)
+                boundaries.set_all(0)
+                bottom_surface.mark(boundaries, 1)
+                ds = df.Measure("ds", domain=mesh, subdomain_data=boundaries)
+                bottom_area = df.assemble(1 * ds(1))
 
-            # mesh ( geometry , mesh density )
-            self.mesh = mshr.generate_mesh(cylinder_geometry, self.p.mesh_density)
+                return bottom_area, mesh
+
+            # create a discretized cylinder mesh with the same crosssectional area as the round cylinder
+            target_area = np.pi*self.p.radius**2
+            effective_radius = self.p.radius
+            mesh_area = 0
+            area_error = 1e-6
+            #
+            #iteratively improve the radius of the mesh till the bottom area matches the target
+            while abs(target_area - mesh_area) > target_area*area_error:
+                # generate mesh
+                self.p['mesh_radius'] = effective_radius # no required, but maybe interesting as meta data???
+                mesh_area, self.mesh = create_cylinder_mesh(effective_radius,self.p)
+                # new guess
+                effective_radius = np.sqrt(target_area/mesh_area)*effective_radius
 
         else:
             raise Exception(f'wrong dimension {self.p.dim} for problem setup')
