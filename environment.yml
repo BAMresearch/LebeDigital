@@ -3,6 +3,14 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=3.7
+  - pip
+  - matplotlib
+  - pymc3=3.9.3
+  - doit
+  - pyyaml
+  - mkl
+  - mkl-service
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=4.5=1_gnu
   - attrs=21.4.0=pyhd3eb1b0_0
