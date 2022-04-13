@@ -52,6 +52,10 @@ def task_emodul():
         'actions': ['python knowledgeGraph/emodul/emodul_mapping.py']
     }
     yield {
+        'basename': 'validate rdf files against shacl shape',
+        'actions': ['python knowledgeGraph/emodul/emodul_validation.py']
+    }
+    yield {
         'basename': 'run emodul query script',
         'actions': ['python knowledgeGraph/emodul/emodul_query.py']
     }
