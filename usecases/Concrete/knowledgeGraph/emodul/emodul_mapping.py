@@ -623,8 +623,8 @@ q = """
 # In[31]:
 
 
-results = g.query(q)
-for result in results:
-    print('number of triples', result)
+# results = g.query(q)
+# for result in results:
+#     print('number of triples', result)
 
 
