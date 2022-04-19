@@ -18,6 +18,7 @@ jobs:
           path: "usecases/Concrete/knowledgeGraph/requirements.txt"
       - name: run pydoit
         run: |
-          cd usecases/Concrete/knowledgeGraph
+          cd usecases/Concrete
+          ls
           doit
  
