@@ -1,5 +1,4 @@
-name: lebedigital workflow of building knowledge graph and running calibration
-
+name: lebedigital minimum working example
 on: [push]
 
 jobs:
@@ -19,6 +18,6 @@ jobs:
           path: "usecases/Concrete/knowledgeGraph/requirements.txt"
       - name: run pydoit
         run: |
-          cd ${GITHUB_WORKSPACE}/usecases/Concrete/knowledgeGraph
+          cd usecases/Concrete/knowledgeGraph
           doit
  
