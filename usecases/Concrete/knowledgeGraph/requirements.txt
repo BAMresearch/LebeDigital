@@ -8,4 +8,4 @@ SPARQLWrapper==1.8.5
 requests==2.22.0
 GitPython==3.1.24
 probeye==1.0.6
-PyYAML==5.3.1
+pyaml==21.10.1
