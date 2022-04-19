@@ -1,6 +1,4 @@
-from xml.dom.minidom import NamedNodeMap
 import rdflib
-from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
 import sys
@@ -9,11 +7,6 @@ baseDir0 = Path(__file__).resolve().parents[0]
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir2 = Path(__file__).resolve().parents[2]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
-
-if sys.platform == 'win32':
-    prefixPath = 'file:///' + os.path.join(baseDir0,'E-modul-processed-data').replace('\\','/') + '/'
-else:
-    prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
 
 graph = rdflib.Graph()
 graph.parse(triplePath, format='n3')
