@@ -5,6 +5,7 @@ baseDir = Path(__file__).resolve().parents[0]
 emodulFolder = os.path.join(os.path.join(os.path.join(baseDir,'knowledgeGraph'),'emodul'),'E-modul-processed-data')
 emodulRawdataFolder = os.path.join(emodulFolder,'rawdata')
 emodulProcesseddataFolder = os.path.join(emodulFolder,'processeddata')
+emodulYAMLmetadataFolder = os.path.join(emodulFolder,'metadata_yaml_files')
 
 compressionFolder = os.path.join(os.path.join(os.path.join(baseDir,'knowledgeGraph'),'compression'),'compression-processed-data')
 compressionRawdataFolder = os.path.join(compressionFolder,'rawdata')
@@ -37,6 +38,10 @@ def task_emodul():
         yield {
             'basename': 'create processeddata folder',
             'actions': ['mkdir %s ' % emodulProcesseddataFolder]
+        }
+        yield {
+            'basename': 'create folder contains metadata yaml files',
+            'actions': ['mkdir %s ' % emodulYAMLmetadataFolder]
         }
     
     yield {
