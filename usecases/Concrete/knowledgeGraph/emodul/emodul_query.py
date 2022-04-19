@@ -71,11 +71,7 @@ def input_emodul_data_for_calibration(nameOfExperiment):
     results = graph.query(q1)
     processedDataPath = ''
     for result in results:
-        if sys.platform == 'win32':
-            processedDataPath = result['rawdatapath'].value
-        else:
-            processedDataPath = str(result['rawdatapath'])
-
+        processedDataPath = result['rawdatapath'].value
 
     
     specimenParameterNames = ['Mass', 'Diameter', 'Length']
