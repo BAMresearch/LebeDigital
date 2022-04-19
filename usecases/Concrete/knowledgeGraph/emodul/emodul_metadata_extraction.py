@@ -110,18 +110,23 @@ def generate_metadata_yaml_file_from_emodul_BAM(locationOfRawData, locationOfMet
 
     listDataFolders = os.listdir(locationOfRawData)
     metadata = []
+    experimentNameIndex = 0
+    dataTypeIndex = 1
+    operatorIndex = 2
+    dataCollectionIndex = 3
+
     for folder in listDataFolders:
         path = os.path.join(dataPath,folder)
+        
         try:
+            dictToYaml = eModul_metadata(path, 'specimen.dat')
+            with open(os.path.join(baseDir0,'E-modul-processed-data/metadata_yaml_files/' + folder + '.yaml'), 'w') as yamlFile:
+                documents = pyaml.dump(dictToYaml, yamlFile)
             metadata.append(eModul_metadata(path, 'specimen.dat'))
         except:
             print('data file below not in the common structure')
             print(path)
 
-    experimentNameIndex = 0
-    dataTypeIndex = 1
-    operatorIndex = 2
-    dataCollectionIndex = 3
 
     metadataDict = [{
         'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
@@ -138,6 +143,7 @@ def generate_metadata_yaml_file_from_emodul_BAM(locationOfRawData, locationOfMet
         'data collection time': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeit'),
         'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
     }]
+
 
     dataFrame = pd.DataFrame({
         'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
