@@ -9,7 +9,7 @@ baseDir2 = Path(__file__).resolve().parents[2]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 
 graph = rdflib.Graph()
-graph.parse(triplePath, format='n3')
+graph.parse(triplePath, format='turtle')
 
 def input_emodul_data_for_calibration(nameOfExperiment):
     nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_').replace('.','_')
