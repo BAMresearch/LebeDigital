@@ -70,10 +70,10 @@ def task_emodul():
         'basename': 'run emodul query script',
         'actions': ['python knowledgeGraph/emodul/emodul_query.py']
     }
-    # yield {
-    #     'basename': 'run emodul test query',
-    #     'actions': ['python knowledgeGraph/emodul/emodul_test.py']
-    # }
+    yield {
+        'basename': 'run emodul test query',
+        'actions': ['python knowledgeGraph/emodul/emodul_test.py']
+    }
 
 # def task_compression():
 #     if os.path.exists(os.path.join(os.path.join(os.path.join(baseDir,'knowledgeGraph'),'compression'),'compression-processed-data')):
