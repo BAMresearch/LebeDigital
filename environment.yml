@@ -1,8 +1,10 @@
 name: ModelCalibration
 channels:
   - conda-forge
+  - etamsen
   - defaults
 dependencies:
+  - fenics-concrete
   - pip
   - matplotlib
   - pymc3=3.9.3
