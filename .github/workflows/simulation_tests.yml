@@ -20,7 +20,7 @@ jobs:
         channels: conda-forge, etamsen
         channel-priority: strict
         auto-update-conda: true  
-        environment-file: environment.yml
+        environment-file: environment-sim.yml
     
     - name: Run tests
       shell: bash -l {0}
