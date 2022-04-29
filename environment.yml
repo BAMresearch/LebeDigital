@@ -23,6 +23,7 @@ dependencies:
   - cmake=3.21.1=h8897547_0
   - eigen=3.3.9=h4bd325d_1
   - expat=2.4.1=h9c3ff4c_0
+  - fenics_concrete
   - fenics=2019.1.0=py39hf3d152e_21
   - fenics-dijitso=2019.1.0=py39hf3d152e_21
   - fenics-dolfin=2019.1.0=py39hc6fefde_21
