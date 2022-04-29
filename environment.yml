@@ -4,7 +4,7 @@ channels:
   - etamsen
   - defaults
 dependencies:
-  - fenics-concrete
+  - fenics_concrete
   - pip
   - matplotlib
   - pymc3=3.9.3
