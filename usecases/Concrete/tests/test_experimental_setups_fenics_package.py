@@ -7,7 +7,7 @@ import pytest
 
 @pytest.mark.parametrize("dim", [2, 3])
 @pytest.mark.parametrize("boundary_setting", ['free', 'fixed'])
-def test_experiemental_setup(dim, boundary_setting):
+def test_experiemental_setup_2(dim, boundary_setting):
     parameters = fenics_concrete.Parameters()  # using the current default values
 
     parameters['mesh_density'] = 4
