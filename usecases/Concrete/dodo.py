@@ -1,7 +1,7 @@
 import graphlib
 import os
 from pathlib import Path
-from emodul import emodul_validation as validation
+from knowledgeGraph.emodul import validation
 
 baseDir = Path(__file__).resolve().parents[0]
 emodulFolder = os.path.join(os.path.join(baseDir,'knowledgeGraph'),'emodul')
@@ -13,7 +13,7 @@ compressionRawdataFolder = os.path.join(compressionFolder,'rawdata')
 compressionProcesseddataFolder = os.path.join(compressionFolder,'processeddata')
 
 graph_path = os.path.join(emodulProcesseddataFolder, 'EM_Graph.ttl')
-shapes_path = os.path.join(os.path.join(baseDir, 'knowledgeGraph'), 'shape.ttl')
+shapes_path = os.path.join(baseDir, 'shape.ttl')
 
 DOIT_CONFIG = {'verbosity': 2}
 
