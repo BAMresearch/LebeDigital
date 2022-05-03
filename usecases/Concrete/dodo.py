@@ -13,7 +13,7 @@ compressionRawdataFolder = os.path.join(compressionFolder,'rawdata')
 compressionProcesseddataFolder = os.path.join(compressionFolder,'processeddata')
 
 graph_path = os.path.join(emodulProcesseddataFolder, 'EM_Graph.ttl')
-shapes_path = os.path.join(baseDir, 'shape.ttl')
+shapes_path = os.path.join(emodulFolder, 'shape_ym.ttl')
 
 DOIT_CONFIG = {'verbosity': 2}
 
