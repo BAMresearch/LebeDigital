@@ -25,5 +25,5 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
-        export PYTHONPATH=$PYTHONPATH:usecases
-        pytest usecases/Concrete/tests/ -s -W error::UserWarning
+        pytest -s -W error::UserWarning
+        # pytest usecases/Concrete/tests/ -s -W error::UserWarning
