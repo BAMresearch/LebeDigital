@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, run tests with concrete model
 
-name: Tests for the fem model
+name: Testing tests for the knowledge graph
 
 on: [push]
 
@@ -17,12 +17,12 @@ jobs:
       with:
         python-version: "3.9"
         mamba-version: "*"
-        channels: conda-forge, etamsen
+        channels: conda-forge
         channel-priority: strict
         auto-update-conda: true  
-        environment-file: environment_sim.yml
+        environment-file: environment.yml
     
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest usecases/Concrete/tests/ -s -W error::UserWarning
+        pytest usecases/Concrete/knowledgeGraph/ -s -W error::UserWarning
