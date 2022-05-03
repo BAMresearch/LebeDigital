@@ -67,7 +67,7 @@ def task_emodul():
     yield {
         'basename': 'validate rdf files against shacl shape',
         'actions': [(validate_graph, [graph_path, shapes_path])],
-        'file_dep': [graph_path]
+        'file_dep': [graph_path, shapes_path]
     }
     yield {
         'basename': 'run emodul query script',
