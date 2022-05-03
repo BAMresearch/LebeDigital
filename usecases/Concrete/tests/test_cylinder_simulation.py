@@ -4,18 +4,26 @@ import fenics_concrete
 
 import pytest
 
-def simple_setup(p, displacement, sensor):
+def test_cylinder_simulation():
     parameters = fenics_concrete.Parameters()  # using the current default values
 
+    parameters['E'] = 3000
+    parameters['nu'] = 0.2
+    parameters['radius'] = 75
+    parameters['height'] = 300
+    parameters['dim'] = 3
+
     parameters['log_level'] = 'WARNING'
-    parameters['bc_setting'] = 'free'
+    parameters['bc_setting'] = 'fixed'
     parameters['mesh_density'] = 6
 
-    parameters = parameters + p
+    displacement = -3
 
     experiment = fenics_concrete.ConcreteCylinderExperiment(parameters)
 
     problem = fenics_concrete.LinearElasticity(experiment, parameters)
+    sensor = fenics_concrete.sensors.ReactionForceSensorBottom()
+
     problem.add_sensor(sensor)
 
     problem.experiment.apply_displ_load(displacement)
@@ -23,36 +31,6 @@ def simple_setup(p, displacement, sensor):
     problem.solve()  # solving this
 
     # last measurement
-    return problem.sensors[sensor.name].data[-1]
+    measured_force = problem.sensors[sensor.name].data[-1]
 
-# testing the linear elastic response
-def test_force_response_2D():
-    p = fenics_concrete.Parameters()  # using the current default values
-
-    p['E'] = 1023
-    p['nu'] = 0.0
-    p['radius'] = 6
-    p['height'] = 12
-    displacement = -3
-    p['dim'] = 2
-
-    sensor = fenics_concrete.sensors.ReactionForceSensor()
-    measured = simple_setup(p, displacement, sensor)
-
-    assert measured == pytest.approx(p.E*p.radius*2*displacement/p.height)
-
-def test_force_response_3D():
-    p = fenics_concrete.Parameters()  # using the current default values
-
-    p['E'] = 1023
-    p['nu'] = 0.0
-    p['radius'] = 6
-    p['height'] = 12
-    displacement = -3
-    p['dim'] = 3
-
-    sensor = fenics_concrete.sensors.ReactionForceSensor()
-    measured = simple_setup(p, displacement, sensor)
-
-    # due to meshing errors, only aprroximate results to be expected. within 1% is good enough
-    assert measured == pytest.approx(p.E*np.pi*p.radius**2*displacement/p.height, 0.01)
+    assert measured_force == pytest.approx(-544257.9621015909)
