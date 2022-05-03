@@ -5,10 +5,4 @@ channels:
   - defaults
 dependencies:
   - fenics_concrete
-#  - fenics=2019.1.0
-#  - scipy>=1
-#  - numpy>=1
-#  - loguru<1
-#  - pytest>=7
-#  - mshr=2019.1.0=py38h255090a_2
 
