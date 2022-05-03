@@ -27,7 +27,7 @@ def simple_setup(p, displacement, sensor):
 
 # testing the linear elastic response
 def test_force_response_2D():
-    p = Simulation.Parameters()  # using the current default values
+    p = fenics_concrete.Parameters()  # using the current default values
 
     p['E'] = 1023
     p['nu'] = 0.0
