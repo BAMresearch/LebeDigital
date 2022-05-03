@@ -1,16 +1,29 @@
+import graphlib
 import os
 from pathlib import Path
+from emodul import emodul_validation as validation
 
 baseDir = Path(__file__).resolve().parents[0]
-emodulFolder = os.path.join(os.path.join(os.path.join(baseDir,'knowledgeGraph'),'emodul'),'E-modul-processed-data')
+emodulFolder = os.path.join(os.path.join(baseDir,'knowledgeGraph'),'emodul')
 emodulRawdataFolder = os.path.join(emodulFolder,'rawdata')
-emodulProcesseddataFolder = os.path.join(emodulFolder,'processeddata')
+emodulProcesseddataFolder = os.path.join(emodulFolder,'E-modul-processed-data')
 
 compressionFolder = os.path.join(os.path.join(os.path.join(baseDir,'knowledgeGraph'),'compression'),'compression-processed-data')
 compressionRawdataFolder = os.path.join(compressionFolder,'rawdata')
 compressionProcesseddataFolder = os.path.join(compressionFolder,'processeddata')
 
+graph_path = os.path.join(emodulProcesseddataFolder, 'EM_Graph.ttl')
+shapes_path = os.path.join(os.path.join(baseDir, 'knowledgeGraph'), 'shape.ttl')
+
 DOIT_CONFIG = {'verbosity': 2}
+
+def validate_graph(graph_path, shapes_path):
+    g = validation.read_graph_from_file(graph_path)
+    s = validation.read_graph_from_file(shapes_path)
+    r = validation.test_graph(g, s)
+    assert validation.violates_shape(r, validation.SCHEMA.InformationBearingEntityShape)
+    assert not validation.violates_shape(r, validation.SCHEMA.SpecimenDiameterShape)
+    assert not validation.violates_shape(r, validation.SCHEMA.SpecimenShape)
 
 def task_installation():
     yield {
@@ -53,7 +66,8 @@ def task_emodul():
     }
     yield {
         'basename': 'validate rdf files against shacl shape',
-        'actions': ['python knowledgeGraph/emodul/emodul_validation.py']
+        'actions': [(validate_graph, [graph_path, shapes_path])],
+        'file_dep': [graph_path]
     }
     yield {
         'basename': 'run emodul query script',
