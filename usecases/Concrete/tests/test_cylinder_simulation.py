@@ -5,6 +5,10 @@ import fenics_concrete
 import pytest
 
 def test_cylinder_simulation():
+    """Tesing the cylinder simulation
+    
+    This test is checking if the conda package is correctly installed"""
+    
     parameters = fenics_concrete.Parameters()  # using the current default values
 
     parameters['E'] = 3000
