@@ -1,0 +1,8 @@
+name: ModelCalibration
+channels:
+  - conda-forge
+  - etamsen
+  - defaults
+dependencies:
+  - fenics_concrete
+
