@@ -16,7 +16,8 @@ DOIT_CONFIG = {'verbosity': 2}
 def task_installation():
     yield {
         'basename': 'install python packages',
-        'actions': ['pip install -r knowledgeGraph/requirements.txt']
+        'actions': ['pip install -r knowledgeGraph/requirements.txt'],
+        'file_dep': ['knowledgeGraph/requirements.txt']
     }
 
 def task_emodul():
@@ -46,21 +47,25 @@ def task_emodul():
     
     yield {
         'basename': 'generate emodul processed data',
-        'actions': ['python knowledgeGraph/emodul/emodul_generate_processed_data.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_generate_processed_data.py'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_generate_processed_data.py']
     }
     yield {
         'basename': 'extract emodul metadata',
         'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py'],
-        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/emodul_metadata.csv']
+        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/emodul_metadata.csv'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_metadata_extraction.py']
     }
     yield {
         'basename': 'calculate emodul',
         'actions': ['python knowledgeGraph/emodul/emodul_calculation.py'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_calculation.py']
     }
     yield {
         'basename': 'map emodul ontology and metadata',
         'actions': ['python knowledgeGraph/emodul/emodul_mapping.py'],
-        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl']
+        'targets': ['knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_mapping.py']
     }
     # yield {
     #     'basename': 'validate rdf files against shacl shape',
@@ -68,11 +73,13 @@ def task_emodul():
     # }
     yield {
         'basename': 'run emodul query script',
-        'actions': ['python knowledgeGraph/emodul/emodul_query.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_query.py'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_query.py']
     }
     yield {
         'basename': 'run emodul test query',
-        'actions': ['python knowledgeGraph/emodul/emodul_test.py']
+        'actions': ['python knowledgeGraph/emodul/emodul_test.py'],
+        'file_dep': ['knowledgeGraph/emodul/emodul_test.py']
     }
 
 # def task_compression():
