@@ -3,105 +3,78 @@ import unittest
 import os
 from pathlib import Path
 from datetime import datetime
+import sys
+import inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
+from knowledgeGraph.emodul.emodul_metadata_extraction import eModul_metadata as emodul
 
 class test_generate_metadata_from_emodul_BAM(unittest.TestCase):
     
     # read specimen.dat file to make sure that headers work correctly
-    def read_specimen_file(self, file):
-        with open(file) as specimen:
-            print ('test')
-            #lines = specimen.readlines()
-            # TODO: if checking line by line is needed it has to change
-            for i, line in enumerate(specimen):
-                if (specimen.name.__contains__('BA Los M VI-6')):
-                    if ("Bediener" in line):
-                        date_val = line.split('\t')
-                        origin_date = date_val[9]
-                        str_date = ''.join(origin_date.split())
-                        str_date_time = datetime.strptime(str_date, '%d.%m.%Y%H:%M:%S')
-                        self.assertIsInstance(str_date_time, datetime)
-                        self.assertListEqual([str_date_time.year, str_date_time.month, str_date_time.day, 
-                        str_date_time.hour, str_date_time.minute, str_date_time.second], 
-                        [2014, 9, 11, 13, 22, 36])
+    def read_specimen_file(self, metadata):
+        # separate between two headers of selected files
+        if (metadata[0][0]['experimentName'] == 'BA Los M VI-6'):
+            date_val = metadata[0][2]['Bediener Information']['Zeitpunkt']
+            str_date_time = datetime.strptime(date_val, '%d.%m.%Y %H:%M:%S')
+            self.assertIsInstance(str_date_time, datetime)
+            self.assertListEqual([str_date_time.year, str_date_time.month, str_date_time.day, 
+            str_date_time.hour, str_date_time.minute, str_date_time.second], 
+            [2014, 9, 11, 13, 22, 36])
 
-                        zeit_val = date_val[7]
-                        self.assertAlmostEqual(zeit_val, '17,580078')
+            zeit_val = metadata[0][2]['Bediener Information']['Zeit']
+            self.assertAlmostEqual(zeit_val, '17,580078')
 
-                    if ("Probenbezeichnung " in line):
-                        design_val = line.split(':')
-                        str_design_val = ''.join(design_val[1].split())
-                        self.assertEqual(str_design_val, 'BALosMVI-6')
+            design_val = metadata[0][2]['Bediener Information']['Probenbezeichnung']
+            self.assertEqual(design_val, 'BA Los M VI-6')
 
-                    if ("Masse" in line):
-                        dimension = line.split(':')
-                        dimension_val = ''.join(dimension[1].split())
-                        self.assertEqual(dimension_val, '5367,6')
-                    
-                    if ("Durchmesser" in line):
-                        diameter_val = line.split(':')
-                        str_diameter_val = ''.join(diameter_val[1].split())
-                        self.assertEqual(str_diameter_val, '98,7')
+            dimension = metadata[0][2]['Bediener Information']['Masse']
+            self.assertEqual(dimension, '5367,6')
+            
+            diameter_val = metadata[0][2]['Bediener Information']['Durchmesser']
+            self.assertEqual(diameter_val, '98,7')
 
-                    if ("Länge" in line):
-                        length_val = line.split(':')
-                        str_length_val = ''.join(length_val[1].split())
-                        self.assertEqual(str_length_val, '300,3')
+            length_val = metadata[0][2]['Bediener Information']['Lnge']
+            self.assertEqual(length_val, '300,3')
 
-                    if ("Prüfer" in line):
-                        examiner = line.split(':')
-                        examiner_val = ''.join(examiner[1].split())
-                        self.assertTrue(examiner_val.__eq__('Kh'))
+            examiner = metadata[0][2]['Bediener Information']['Prfer']
+            self.assertTrue(examiner.__eq__('Kh'))
 
-                if (specimen.name.__contains__('Hüsken  E-Modul Probe 2-1')):
-                    if ("Bediener" in line):
-                        date_val = line.split('\t')
-                        origin_date = date_val[9]
-                        str_date = ''.join(origin_date.split())
-                        str_date_time = datetime.strptime(str_date, '%d.%m.%Y%H:%M:%S')
-                        self.assertIsInstance(str_date_time, datetime)
-                        self.assertListEqual([str_date_time.year, str_date_time.month, str_date_time.day, 
-                        str_date_time.hour, str_date_time.minute, str_date_time.second], 
-                        [2014, 3, 18, 15, 46, 41])
+        if (metadata[0][0]['experimentName'] == 'Hüsken  E-Modul Probe 2-1'):
+            date_val = metadata[0][2]['Bediener Information']['Zeitpunkt']
+            str_date_time = datetime.strptime(date_val, '%d.%m.%Y %H:%M:%S')
+            self.assertIsInstance(str_date_time, datetime)
+            self.assertListEqual([str_date_time.year, str_date_time.month, str_date_time.day, 
+            str_date_time.hour, str_date_time.minute, str_date_time.second], 
+            [2014, 3, 18, 15, 46, 41])
 
-                        zeit_val = date_val[7]
-                        self.assertAlmostEqual(zeit_val, '56,78418')
-                    if ("Probenbezeichnung " in line):
-                        design_val = line.split(':')
-                        str_design_val = ''.join(design_val[1].split())
-                        self.assertEqual(str_design_val, 'HüskenE-ModulProbe2-1')
+            zeit_val = metadata[0][2]['Bediener Information']['Zeit']
+            self.assertAlmostEqual(zeit_val, '56,78418')
 
-                    if ("Masse" in line):
-                        dimension = line.split(':')
-                        dimension_val = ''.join(dimension[1].split())
-                        self.assertEqual(dimension_val, '5853')
+            design_val = metadata[0][2]['Bediener Information']['Probenbezeichnung']
+            self.assertEqual(design_val, 'Hsken  E-Modul Probe 2-1')
 
-                    if ("Durchmesser" in line):
-                        diameter_val = line.split(':')
-                        str_diameter_val = ''.join(diameter_val[1].split())
-                        self.assertEqual(str_diameter_val, '100')
+            dimension = metadata[0][2]['Bediener Information']['Masse']
+            self.assertEqual(dimension, '5853')
 
-                    if ("Länge" in line):
-                        length_val = line.split(':')
-                        str_length_val = ''.join(length_val[1].split())
-                        self.assertEqual(str_length_val, '300')
+            diameter_val = metadata[0][2]['Bediener Information']['Durchmesser']
+            self.assertEqual(diameter_val, '100')
+            
+            length_val = metadata[0][2]['Bediener Information']['Lnge']
+            self.assertEqual(length_val, '300')
 
-                    if ("Prüfer" in line):
-                        examiner = line.split(':')
-                        examiner_val = ''.join(examiner[1].split())
-                        self.assertTrue(examiner_val.__eq__('Machura,Be'))
+            examiner = metadata[0][2]['Bediener Information']['Prfer']
+            self.assertTrue(examiner.__eq__('Machura, Be'))
 
-                
-                # break in line 9 which is the end of the header
-                if (i == 9):
-                    break
 
     # read the directory content to find specimen.dat file
     def read_directory(self,path):
         filename = 'specimen.dat'
-        with os.scandir(path) as items:
-            for item in items:
-                if item.name == filename:
-                    self.read_specimen_file(item)
+        metadata = []
+        # call emodul_metadata function from the script
+        metadata.append(emodul(path, filename))
+        self.read_specimen_file(metadata)
 
 
     def test_generate_metadata_yaml_file_from_emodul_BAM(self):
@@ -115,10 +88,7 @@ class test_generate_metadata_from_emodul_BAM(unittest.TestCase):
             for item in sub_dirs:
                 inputParam = os.path.join(dataPath, item)
                 self.read_directory(inputParam)
-
         return file_paths
-
-
 
 if __name__ == '__main__':
     unittest.main()
