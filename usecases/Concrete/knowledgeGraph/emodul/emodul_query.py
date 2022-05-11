@@ -1,6 +1,6 @@
 from xml.dom.minidom import NamedNodeMap
 import rdflib
-from SPARQLWrapper import SPARQLWrapper
+#from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
 import sys

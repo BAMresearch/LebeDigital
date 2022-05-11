@@ -2,15 +2,18 @@ name: null                          # Our env was made with --prefix
 channels:
   - conda-forge                     # third party stuff
   - defaults
+  - etamsen
 dependencies:
-  - python=3.7
-  - pip
+  #- python=3.7
+  - pip:
+    - probeye==1.0.6
+    - rdflib==5.0.0
   - matplotlib
-  - pymc3=3.9.3
   - doit
   - pyyaml
   - mkl
   - mkl-service
+  - fenics_concrete
 #  - flake8
 #  - sphinx
 #  - sphinx_rtd_theme
