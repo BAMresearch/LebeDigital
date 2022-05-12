@@ -168,4 +168,3 @@ def generate_metadata_yaml_file_from_emodul_BAM(locationOfRawData, locationOfMet
 
     return metadataDict
 
-generate_metadata_yaml_file_from_emodul_BAM(dataPath, os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.yaml'))
