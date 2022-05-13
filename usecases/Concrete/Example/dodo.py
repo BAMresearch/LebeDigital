@@ -49,35 +49,3 @@ def task_emodul():
         'actions': ['python %s' % EMODUL_METADATA_EXTRACTION_SCRIPT],
         # 'file_dep': ['knowledgeGraph/emodul/emodul_generate_processed_data.py']
     }
-#     yield {
-#         'basename': 'extract emodul metadata',
-#         'actions': ['python knowledgeGraph/emodul/emodul_metadata_extraction.py'],
-#         'targets': ['knowledgeGraph/emodul/E-modul-processed-data/emodul_metadata.csv'],
-#         'file_dep': ['knowledgeGraph/emodul/emodul_metadata_extraction.py']
-#     }
-#     yield {
-#         'basename': 'calculate emodul',
-#         'actions': ['python knowledgeGraph/emodul/emodul_calculation.py'],
-#         'file_dep': ['knowledgeGraph/emodul/emodul_calculation.py']
-#     }
-#     yield {
-#         'basename': 'map emodul ontology and metadata',
-#         'actions': ['python knowledgeGraph/emodul/emodul_mapping.py'],
-#         'targets': ['knowledgeGraph/emodul/E-modul-processed-data/EM_Graph.ttl'],
-#         'file_dep': ['knowledgeGraph/emodul/emodul_mapping.py']
-#     }
-#     # yield {
-#     #     'basename': 'validate rdf files against shacl shape',
-#     #     'actions': ['python knowledgeGraph/emodul/emodul_validation.py']
-#     # }
-#     yield {
-#         'basename': 'run emodul query script',
-#         'actions': ['python knowledgeGraph/emodul/emodul_query.py'],
-#         'file_dep': ['knowledgeGraph/emodul/emodul_query.py']
-#     }
-#     yield {
-#         'basename': 'run emodul test query',
-#         'actions': ['python knowledgeGraph/emodul/emodul_test.py'],
-#         'file_dep': ['knowledgeGraph/emodul/emodul_test.py']
-#     }
-
