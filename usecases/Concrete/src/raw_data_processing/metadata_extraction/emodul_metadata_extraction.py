@@ -84,7 +84,7 @@ def eModul_metadata(locationOfRawData, fileName,locationOfMetaData ):
     # aggregate the metadata
     metadata = [experimentNameDict,dataType, serviceInformationDict,dataCollectionInformationDict,columnsDict]
 
-    metadataDict = [{
+    metadataDict = {
         'experimentName': metadata[0]['experimentName'],
         'dataType': metadata[1]['data type'],
         'operatorTime': metadata[2]['Bediener Information']['Zeit'],
@@ -96,7 +96,7 @@ def eModul_metadata(locationOfRawData, fileName,locationOfMetaData ):
         'weight': metadata[2]['Bediener Information']['Masse'],
         'diameter': metadata[2]['Bediener Information']['Durchmesser'],
         'length': metadata[2]['Bediener Information']['Lnge'],
-    }]
+    }
 
     with open(os.path.join(locationOfMetaData, experimentName + '.yaml'), 'w') as yamlFile:
         documents = pyaml.dump(metadataDict, yamlFile)
