@@ -67,420 +67,420 @@ def metadata_ontology_mapping(locationOfMetadata, locationOfKnowledgeGraph):
     processedDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfProcessedDataFile)
 
     g = My_world.as_rdflib_graph()
-    with lebedigital_concrete:
-        g.add(
-        (
-            URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-            RDF.type, 
-            URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
-        )
-        )
-        # add specimens as instances in class Specimen
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen.iri))
-            )
-        )
-        # add testers (prüfers) as instances in class Agent
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.Agent.iri))
-            )
-        )
-        # add person/tester in class DesignativeName
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.DesignativeName.iri))
-            )
-        )
-        # add start date as instances in class Day
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.Day.iri))
-            )
-        )
-        # add controls as instances in class ForceRate
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate.iri))
-            )
-        )
-        # add unit in MeasurementUnitOfForceRate
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate.iri))
-            )
-        )
-        # add length of the specimen in class Length
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Length('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.Length.iri))
-            )
-        )
-        # add Diameter of the specimen in class Diameter
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.Diameter.iri))
-            )
-        )
-        # add Weight of the specimen in class Mass
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Mass('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.Mass.iri))
-            )
-        )
-#        
-        # add specimen region as instances in class MeasurementRegion
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.MeasurementRegion.iri))
-            )
-        )
-        # add weight, diameter, length, dataset path, tester name value, force rate value, day
-        # in class InformationBearingEntity
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName) + controlValue ).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-
-        # add processed data into class bfo:BFO_0000015
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(OBO.BFO_0000015.iri))
-            )
-        )
-        # add processed data into class AnalysedDataSet
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet.iri))
-            )
-        )
-        # add processed data into class InformationBearingEntity
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet.iri))
-            )
-        )
-        # adding object properties
-
-        # the experiment has output raw data
-        g.add(
+    try:
+        with lebedigital_concrete:
+            g.add(
             (
                 URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
+                RDF.type, 
+                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
             )
-        )
+            )
+            # add specimens as instances in class Specimen
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen.iri))
+                )
+            )
+            # add testers (prüfers) as instances in class Agent
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.Agent.iri))
+                )
+            )
+            # add person/tester in class DesignativeName
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.DesignativeName.iri))
+                )
+            )
+            # add start date as instances in class Day
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.Day.iri))
+                )
+            )
+            # add controls as instances in class ForceRate
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate.iri))
+                )
+            )
+            # add unit in MeasurementUnitOfForceRate
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate.iri))
+                )
+            )
+            # add length of the specimen in class Length
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Length('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.Length.iri))
+                )
+            )
+            # add Diameter of the specimen in class Diameter
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.Diameter.iri))
+                )
+            )
+            # add Weight of the specimen in class Mass
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Mass('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.Mass.iri))
+                )
+            )
+    #        
+            # add specimen region as instances in class MeasurementRegion
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.MeasurementRegion.iri))
+                )
+            )
+            # add weight, diameter, length, dataset path, tester name value, force rate value, day
+            # in class InformationBearingEntity
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName) + controlValue ).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
 
-        # experiment has operator
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_agent.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri))
+            # add processed data into class bfo:BFO_0000015
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(OBO.BFO_0000015.iri))
+                )
             )
-        )
+            # add processed data into class AnalysedDataSet
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet.iri))
+                )
+            )
+            # add processed data into class InformationBearingEntity
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
+                    RDF.type, 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet.iri))
+                )
+            )
+            # adding object properties
 
-        # specimen is the input of the experiment
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+            # the experiment has output raw data
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
+                )
             )
-        )
 
-        # ForceRate is_input_of experiment
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+            # experiment has operator
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_agent.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri))
+                )
             )
-        )
-        # Experiment occures_on Day
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.occures_on.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri))
-            )
-        )
 
-        # specimen obo:BFO_0000051 MeasurementRegion
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.BFO_0000051.iri)), 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri))
+            # specimen is the input of the experiment
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+                )
             )
-        )
-        # MeasurementRegion obo:BFO_0000086 Diameter, Length, Mass
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri))
-            )
-        )
 
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri))
+            # ForceRate is_input_of experiment
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri))
+            # Experiment occures_on Day
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.occures_on.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri))
+                )
             )
-        )
 
-        # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
-        # Day obo:RO_0010001 InformationBearingEntity
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri))
+            # specimen obo:BFO_0000051 MeasurementRegion
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.BFO_0000051.iri)), 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri))
+            # MeasurementRegion obo:BFO_0000086 Diameter, Length, Mass
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri))
-            )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri))
-            )
-        )
-        # Agent designated_by DesignativeName
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
-                URIRef(urllib.parse.unquote(CCO.designated_by.iri)),
-                URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri))
-            )
-        )
-        # RawDataSet cco:is_input_of bfo:BFO_0000015
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-            )
-        )
-        # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
-                URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-            )
-        )
 
-        # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri))
+                )
             )
-        )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri))
+                )
+            )
 
-        # add data properties
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                Literal(specimenMass)
+            # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
+            # Day obo:RO_0010001 InformationBearingEntity
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                Literal(specimenDiameter)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                Literal(specimenLength)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
-                Literal(rawDataPath)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
-                Literal(operator)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)), 
-                Literal(controlValue)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri))
+                )
             )
-        )
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
-                Literal(controlUnit)
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri))
+                )
             )
-        )
-        # cco: InformationBearingEntity of processed dataset has filepath 
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
-                Literal(processedDataPath)
+            # Agent designated_by DesignativeName
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.designated_by.iri)),
+                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri))
+                )
             )
-        )
-        # Day has_datetime_value
-        g.add(
-            (
-                URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
-                Literal(operatorTime)
+            # RawDataSet cco:is_input_of bfo:BFO_0000015
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
+                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
+                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+                )
             )
-        )
+            # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+                )
+            )
 
-        g.serialize(destination=locationOfKnowledgeGraph, format="turtle")
+            # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
+                )
+            )
 
-    print(data)
-    # except:
-    #     print('Please check the file path')
+            # add data properties
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
+                    Literal(specimenMass)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
+                    Literal(specimenDiameter)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
+                    Literal(specimenLength)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
+                    Literal(rawDataPath)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
+                    Literal(operator)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)), 
+                    Literal(controlValue)
+                )
+            )
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
+                    Literal(controlUnit)
+                )
+            )
+            # cco: InformationBearingEntity of processed dataset has filepath 
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
+                    Literal(processedDataPath)
+                )
+            )
+            # Day has_datetime_value
+            g.add(
+                (
+                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
+                    URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
+                    Literal(operatorTime)
+                )
+            )
+
+            g.serialize(destination=locationOfKnowledgeGraph, format="turtle")
+
+    except:
+        print('Please check the file path')
 
     
 
