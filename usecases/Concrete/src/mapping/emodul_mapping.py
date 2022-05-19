@@ -485,4 +485,4 @@ def metadata_ontology_mapping(locationOfMetadata, locationOfKnowledgeGraph):
     
 
 
-metadata_ontology_mapping('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files\\BA Los M V-4.yaml','C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\triples\\BA Los M V-4.ttl')
+metadata_ontology_mapping('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files\\BA Los M V-4.yaml','C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\triples\\emodul_knowledge_graph.ttl')
