@@ -15,10 +15,14 @@ jobs:
       - name: install python packages
         uses: py-actions/py-dependency-install@v2
         with:
-          path: "usecases/Concrete/knowledgeGraph/requirements.txt"
+          path: "usecases/Concrete/Example/requirements.txt"
+      - name: create data folder
+        run: |
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/metadata_yaml_files
+          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/processeddata
       - name: run pydoit
         run: |
-          cd usecases/Concrete
-          pip freeze
+          cd usecases/Concrete/Example/
           doit
  

@@ -98,11 +98,10 @@ def eModul_metadata(locationOfRawData, fileName,locationOfMetaData ):
         'length': metadata[2]['Bediener Information']['Lnge'],
     }
 
-    with open(os.path.join(locationOfMetaData, experimentName + '.yaml'), 'w') as yamlFile:
+    with open(locationOfMetaData, 'w') as yamlFile:
         documents = pyaml.dump(metadataDict, yamlFile)
-    print(metadataDict)
     return metadataDict
 
 
 
-eModul_metadata('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\Data\\E-modul\\BA Los M V-4', 'specimen.dat', 'C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files')
+# eModul_metadata('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\Data\\E-modul\\BA Los M V-4', 'specimen.dat', 'C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files')

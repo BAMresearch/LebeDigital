@@ -41,33 +41,39 @@ lebedigital_concrete.imported_ontologies.append(CSTonto)
 lebedigital_concrete.imported_ontologies.append(mseo_mid)
 
 def make_valid_uri_from_string(s):
-    return s.replace('.','_').replace(' ','_').replace(':','_')
+    return s.replace('.','_').replace(' ','_').replace(':','_').replace(',','_')
+
+def string_to_number(s):
+    if type(s) == int or type(s) == float:
+        return s
+    else:
+        return float(s.replace(',','.'))
 
 def metadata_ontology_mapping(locationOfMetadata, locationOfKnowledgeGraph):
-    # try:
-    with open(locationOfMetadata) as f:
-        data = yaml.load(f, Loader=SafeLoader)
-    nameOfExperiment = data['experimentName']
-    operatorTime = datetime.datetime.strptime(data['operatorTimestamp'], '%d.%m.%Y %H:%M:%S')
-    operatorDay = data['operatorDate']
-    operator = data['tester']
-    dataType = data['dataType']
-    specimenName = data['specimenName']
-    # convert string to number of some specimen parameters values
-    specimenDiameter = float(data['diameter'].replace(',','.'))
-    specimenLength = float(data['length'].replace(',','.'))
-    specimenMass = float(data['weight'].replace(',','.'))
-    # control remark in the experiment
-    remark = data['remark'].split()[0]
-    controlValue = data['remark'].split()[1]
-    controlUnit = data['remark'].split()[2]
-    # raw data path and processed data path
-    rawDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfExperiment)
-    nameOfProcessedDataFile = 'processed_' + make_valid_uri_from_string(nameOfExperiment) + '.csv'
-    processedDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfProcessedDataFile)
-
-    g = My_world.as_rdflib_graph()
     try:
+        with open(locationOfMetadata) as f:
+            data = yaml.load(f, Loader=SafeLoader)
+        nameOfExperiment = data['experimentName']
+        operatorTime = datetime.datetime.strptime(data['operatorTimestamp'], '%d.%m.%Y %H:%M:%S')
+        operatorDay = data['operatorDate']
+        operator = make_valid_uri_from_string(data['tester'])
+        dataType = data['dataType']
+        specimenName = data['specimenName']
+        # convert string to number of some specimen parameters values
+        specimenDiameter = string_to_number(data['diameter'])
+        specimenLength = string_to_number(data['length'])
+        specimenMass = string_to_number(data['weight'])
+        # control remark in the experiment
+        remark = data['remark'].split()[0]
+        controlValue = data['remark'].split()[1]
+        controlUnit = data['remark'].split()[2]
+        # raw data path and processed data path
+        rawDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfExperiment)
+        nameOfProcessedDataFile = 'processed_' + make_valid_uri_from_string(nameOfExperiment) + '.csv'
+        processedDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfProcessedDataFile)
+
+        g = My_world.as_rdflib_graph()
+
         with lebedigital_concrete:
             g.add(
             (
@@ -485,4 +491,4 @@ def metadata_ontology_mapping(locationOfMetadata, locationOfKnowledgeGraph):
     
 
 
-metadata_ontology_mapping('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files\\BA Los M V-4.yaml','C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\triples\\emodul_knowledge_graph.ttl')
+# metadata_ontology_mapping('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files\\BA Los M V-4.yaml','C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\triples\\emodul_knowledge_graph.ttl')

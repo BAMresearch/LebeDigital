@@ -33,6 +33,6 @@ def processed_data_from_rawdata(locationOfRawData, locationOfProcessedData):
                                                ],
                                       data = rawDataDataFrame[['4', '6', '7', '8']].values
                                      )
-    processedDataDataFrame.to_csv(os.path.join(locationOfProcessedData,'processed_'+ experimentName.replace('.','_').replace(' ','_')), index=False)
+    processedDataDataFrame.to_csv(locationOfProcessedData, index=False)
         
-processed_data_from_rawdata('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\Data\\E-modul\\BA Los M V-4', 'C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\processeddata')
+# processed_data_from_rawdata('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\Data\\E-modul\\BA Los M V-4', 'C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\processeddata')
