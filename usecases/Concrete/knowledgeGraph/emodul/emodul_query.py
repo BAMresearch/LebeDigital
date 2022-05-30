@@ -1,6 +1,4 @@
-from xml.dom.minidom import NamedNodeMap
 import rdflib
-from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
 import sys
@@ -10,13 +8,8 @@ baseDir1 = Path(__file__).resolve().parents[1]
 baseDir2 = Path(__file__).resolve().parents[2]
 triplePath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
 
-if sys.platform == 'win32':
-    prefixPath = 'file:///' + os.path.join(baseDir0,'E-modul-processed-data').replace('\\','/') + '/'
-else:
-    prefixPath = 'file://' + os.path.join(baseDir0,'E-modul-processed-data') + '/'
-
 graph = rdflib.Graph()
-graph.parse(triplePath, format='n3')
+graph.parse(triplePath, format='turtle')
 
 def input_emodul_data_for_calibration(nameOfExperiment):
     nameOfExperiment = 'E-modul experiment '.replace(' ','_') + nameOfExperiment.replace(' ','_').replace('.','_')
@@ -71,11 +64,7 @@ def input_emodul_data_for_calibration(nameOfExperiment):
     results = graph.query(q1)
     processedDataPath = ''
     for result in results:
-        if sys.platform == 'win32':
-            processedDataPath = result['rawdatapath'].value
-        else:
-            processedDataPath = str(result['rawdatapath'])
-
+        processedDataPath = result['rawdatapath'].value
 
     
     specimenParameterNames = ['Mass', 'Diameter', 'Length']
