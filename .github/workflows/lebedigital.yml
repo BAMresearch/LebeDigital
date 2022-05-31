@@ -26,6 +26,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: environment.yml
+          mamba-version: "*"
           miniforge-version: latest
           activate-environment: lebedigital
 
@@ -38,7 +39,6 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --channel conda-forge doit=0.33.1
           cd $GITHUB_WORKSPACE/usecases/Concrete/Example/
           doit
  

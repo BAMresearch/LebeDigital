@@ -99,7 +99,7 @@ def eModul_metadata(locationOfRawData, fileName,locationOfMetaData ):
     }
 
     with open(locationOfMetaData, 'w') as yamlFile:
-        documents = pyaml.dump(metadataDict, yamlFile)
+        documents = yaml.dump(metadataDict, yamlFile)
     return metadataDict
 
 
