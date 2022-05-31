@@ -27,7 +27,7 @@ jobs:
         with:
           environment-file: environment.yml
           mamba-version: "*"
-          miniforge-version: latest
+          auto-update-conda: true
           activate-environment: lebedigital
 
       - name: run-pytest
@@ -35,7 +35,7 @@ jobs:
         run: |
           conda install --channel conda-forge pytest
           cd $GITHUB_WORKSPACE/usecases/Concrete/tests/
-          pytest
+          pytest -s -W error::UserWarning
 
   minimum-working-example:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         with:
           environment-file: environment.yml
           mamba-version: "*"
-          miniforge-version: latest
+          auto-update-conda: true
           activate-environment: lebedigital
 
       - name: run-minimum-working-example
