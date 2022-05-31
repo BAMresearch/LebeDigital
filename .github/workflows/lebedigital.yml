@@ -1,7 +1,8 @@
 name: lebedigital
 on:
   push:
-    branches: [ main ]
+    branches-ignore:
+      
   pull_request:
     branches: [ main ]
 
