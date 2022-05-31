@@ -18,12 +18,6 @@ emodulMetadataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Exampl
 emodulProcessedDataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul'), 'processeddata')
 emodulTriplesFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul'), 'triples')
 
-def task_installation():
-    yield {
-        'basename': 'install python packages',
-        'actions': ['pip install -r requirements.txt'],
-        'file_dep': ['requirements.txt']
-    }
 
 def task_emodul():
     if os.path.exists(emodulResultFolder):

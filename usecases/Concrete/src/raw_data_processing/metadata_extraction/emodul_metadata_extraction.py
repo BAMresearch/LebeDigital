@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import pandas as pd
-import pyaml
+import yaml
 from pathlib import Path
 
 

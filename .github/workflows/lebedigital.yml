@@ -1,8 +1,11 @@
-name: lebedigital minimum working example
+name: lebedigital
 on: [push]
 
+# Allows you to run this workflow manually from the Actions tab
+workflow_dispatch:
+
 jobs:
-  build-knowledge-graph:
+  minimum-working-example:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,17 +15,24 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - name: install python packages
-        uses: py-actions/py-dependency-install@v2
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          path: "usecases/Concrete/Example/requirements.txt"
+          environment-file: environment.yaml
+          miniforge-version: latest
+          activate-environment: lebedigital
+
       - name: create data folder
         run: |
           mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/
           mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/metadata_yaml_files
           mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/processeddata
-      - name: run pydoit
+
+      - name: run-workflow
+        shell: bash -l {0}
         run: |
-          cd usecases/Concrete/Example/
+          conda install --channel conda-forge doit=0.33.1
+          cd $GITHUB_WORKSPACE/usecases/Concrete/Example/
           doit
  
