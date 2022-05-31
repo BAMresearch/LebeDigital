@@ -56,12 +56,6 @@ jobs:
           miniforge-version: latest
           activate-environment: lebedigital
 
-      - name: create data folder
-        run: |
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/metadata_yaml_files
-          mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/processeddata
-
       - name: run-minimum-working-example
         shell: bash -l {0}
         run: |
