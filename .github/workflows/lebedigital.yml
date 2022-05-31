@@ -11,6 +11,32 @@ on:
 
 
 jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: environment.yml
+          mamba-version: "*"
+          miniforge-version: latest
+          activate-environment: lebedigital
+
+      - name: run-minimum-working-example
+        shell: bash -l {0}
+        run: |
+          conda install --channel conda-forge pytest
+          cd $GITHUB_WORKSPACE/usecases/Concrete/tests/
+          pytest
+
   minimum-working-example:
     runs-on: ubuntu-latest
 
@@ -36,9 +62,8 @@ jobs:
           mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/metadata_yaml_files
           mkdir ${GITHUB_WORKSPACE}/usecases/Concrete/Example/emodul/processeddata
 
-      - name: run-workflow
+      - name: run-minimum-working-example
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/usecases/Concrete/Example/
           doit
- 
