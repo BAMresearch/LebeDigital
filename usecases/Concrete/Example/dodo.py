@@ -11,7 +11,7 @@ sys.path.insert(0, PARENTDIR)
 from lebedigital.raw_data_processing.metadata_extraction\
     .emodul_metadata_extraction import eModul_metadata
 from lebedigital.raw_data_processing.processed_data_generation.emodul_generate_processed_data import processed_data_from_rawdata
-from src.mapping.emodul_mapping import metadata_ontology_mapping
+from lebedigital.mapping.emodul_mapping import metadata_ontology_mapping
 
 emodulRawDataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'Data'),'E-modul')
 emodulResultFolder = os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul')

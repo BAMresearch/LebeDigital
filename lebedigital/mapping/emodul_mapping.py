@@ -9,12 +9,14 @@ from rdflib import URIRef, Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF
 
 
-BASEDIR4 = Path(__file__).resolve().parents[4]
-BASEDIR1 = Path(__file__).resolve().parents[1]
+
 BASEDIR2 = Path(__file__).resolve().parents[2]
-E_MODUL_RAWDATA_PATH = os.path.join(os.path.join(os.path.join(BASEDIR2,'Example'),'Data'),'E-modul')
-E_MODUL_PROCESSED_DATA_PATH = os.path.join(os.path.join(os.path.join(BASEDIR2,'Example'),'emodul'),'processeddata')
-ontologyPath = os.path.join(BASEDIR4, 'lebedigital', 'ConcreteOntology')
+E_MODUL_RAWDATA_PATH = os.path.join(
+    BASEDIR2, 'Example', 'Data', 'E-modul')
+E_MODUL_PROCESSED_DATA_PATH = os.path.join(
+    BASEDIR2, 'Example', 'emodul', 'processeddata')
+ontologyPath = os.path.join(
+    BASEDIR2, 'lebedigital', 'ConcreteOntology')
 
 onto_path.append(".")
 My_world = World()
