@@ -34,7 +34,7 @@ jobs:
         shell: bash -l {0}
         run: |
           conda install --channel conda-forge pytest
-          cd $GITHUB_WORKSPACE/usecases/Concrete/tests/
+          cd $GITHUB_WORKSPACE/tests/
           pytest -s -W error::UserWarning
 
   minimum-working-example:
@@ -59,5 +59,5 @@ jobs:
       - name: run-minimum-working-example
         shell: bash -l {0}
         run: |
-          cd $GITHUB_WORKSPACE/usecases/Concrete/Example/
+          cd $GITHUB_WORKSPACE/usecases/MinimumWorkingExample/
           doit
