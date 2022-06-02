@@ -8,8 +8,9 @@ from doit.tools import create_folder
 DOIT_CONFIG = {'verbosity': 2}
 PARENTDIR = os.path.dirname(Path(__file__).resolve().parents[0])
 sys.path.insert(0, PARENTDIR)
-from src.raw_data_processing.metadata_extraction.emodul_metadata_extraction import eModul_metadata
-from src.raw_data_processing.processed_data_generation.emodul_generate_processed_data import processed_data_from_rawdata
+from lebedigital.raw_data_processing.metadata_extraction\
+    .emodul_metadata_extraction import eModul_metadata
+from lebedigital.raw_data_processing.processed_data_generation.emodul_generate_processed_data import processed_data_from_rawdata
 from src.mapping.emodul_mapping import metadata_ontology_mapping
 
 emodulRawDataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'Data'),'E-modul')
