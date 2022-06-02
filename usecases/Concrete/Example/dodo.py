@@ -20,30 +20,6 @@ emodulTriplesFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example
 
 
 def task_emodul():
-    if os.path.exists(emodulResultFolder):
-        yield {
-            'basename': 'checking folder',
-            'actions': ['echo folder existed']
-        }
-    else:
-
-        yield {
-            'basename': 'create emodul folder',
-            'actions': ['mkdir %s ' % emodulResultFolder]
-        }
-        yield {
-            'basename': 'create metadata folder',
-            'actions': ['mkdir %s ' % emodulMetadataFolder]
-        }
-        yield {
-            'basename': 'create processeddata folder',
-            'actions': ['mkdir %s ' % emodulProcessedDataFolder]
-        }
-        yield {
-            'basename': 'create triples folder',
-            'actions': ['mkdir %s ' % emodulTriplesFolder]
-        }
-
     def emodul_metadata_extraction(locationOfRawData, fileName,targets):
         eModul_metadata(locationOfRawData, fileName,targets[0])
 
