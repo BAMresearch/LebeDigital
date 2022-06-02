@@ -8,8 +8,6 @@ import datetime
 from rdflib import URIRef, Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF
 
-
-
 BASEDIR2 = Path(__file__).resolve().parents[2]
 E_MODUL_RAWDATA_PATH = os.path.join(
     BASEDIR2, 'Example', 'Data', 'E-modul')
