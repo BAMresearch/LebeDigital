@@ -13,12 +13,16 @@ from lebedigital.raw_data_processing.metadata_extraction\
 from lebedigital.raw_data_processing.processed_data_generation.emodul_generate_processed_data import processed_data_from_rawdata
 from lebedigital.mapping.emodul_mapping import metadata_ontology_mapping
 
-emodulRawDataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'Data'),'E-modul')
-emodulResultFolder = os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul')
-emodulMetadataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul'), 'metadata_yaml_files')
-emodulProcessedDataFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul'), 'processeddata')
-emodulTriplesFolder = os.path.join(os.path.join(os.path.join(PARENTDIR, 'Example'), 'emodul'), 'triples')
-
+emodulRawDataFolder = os.path.join(
+    PARENTDIR, 'MinimumWorkingExample', 'Data','E-modul')
+emodulResultFolder = os.path.join(
+    PARENTDIR, 'MinimumWorkingExample', 'emodul')
+emodulMetadataFolder = os.path.join(
+    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'metadata_yaml_files')
+emodulProcessedDataFolder = os.path.join(
+    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'processeddata')
+emodulTriplesFolder = os.path.join(
+    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'triples')
 
 def task_emodul():
     def emodul_metadata_extraction(locationOfRawData, fileName,targets):
