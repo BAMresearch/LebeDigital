@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 from doit import create_after
 from doit.tools import create_folder
+from doit.task import clean_targets
 
 from lebedigital.raw_data_processing.metadata_extraction \
     .emodul_metadata_extraction import eModul_metadata
@@ -37,6 +38,7 @@ def task_extract_metadata_emodul():
                                                f.name + '.yaml'])],
                 'file_dep': [raw_data_file],
                 'targets': [yaml_meta_data_file],
+                'clean': [clean_targets]
             }
 
 
@@ -51,9 +53,8 @@ def task_extract_processed_data_emodul():
                                  f.name + '.csv')
             yield {
                 'name': csv_data_file,
-                'actions': [(processed_data_from_rawdata, [raw_data_file,
-                                               processed_data_emodulus_directory,
-                                               f.name + '.csv'])],
+                'actions': [(processed_data_from_rawdata, [f,
+                                               csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
             }
