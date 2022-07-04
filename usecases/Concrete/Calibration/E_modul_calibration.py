@@ -66,7 +66,7 @@ problem.add_experiment(f'TestSeries_1', fwd_model_name="LinearModel",
                        sensor_values={isensor.name: exp_output['displacement']/exp_output['height'],
                                       osensor.name: exp_output['stress']})
 
-problem.info()
+# problem.info()
 
 # -- Solve inference problem
 solver = PyroSolver(problem)

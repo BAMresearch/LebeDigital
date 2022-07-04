@@ -1,12 +1,6 @@
-## Introduction - Model calibration
-Model calibration (or model updating) is a task most scientists are facing when building parameterized models and then
- updating the parameters based on some experimental data in order to generalize the model and make accurate predictions.
-For complex models and complex data sets (different experimental tests with different data structures, sensor
-types and different models) this task is often tedious, difficult to reproduce and often error-prone due to complex
-challenges related to data processing, forward model development and inference. The aim of this project is to make
-the process more transparent, easier to set up and work with and more transparent when different people are jointly
-performing this task.
-Further information can be found in the [documentation](https://modelcalibration.readthedocs.io/en/latest/?).
+## Overview
+This repository contains an automatic workflow to extract relevant 
+metadata from concrete tests (e.g. Young's modulus, compression tests).  
 
 ## Installation of the conda environment
 Clone the repository and make sure to include the submodules
@@ -29,7 +23,9 @@ Activate environment
 conda activate ./conda-env
 ```
 
-Install probeye from PyPI
-```
-pip install probeye
-```
+## Structure
+All the implemented functions that perform a certain action should be 
+implemented in a local modul called lebedigital. This is installed thus 
+allowing to import these classes and functions in other files, e.g. the test 
+files or the usecases. For the usecases, we intend to have two, one is a 
+minimum working example, and another one relates to the final demonstrator. 
