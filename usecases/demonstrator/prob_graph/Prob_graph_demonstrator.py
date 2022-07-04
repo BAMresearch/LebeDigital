@@ -1,20 +1,21 @@
 import graphviz
-dot = graphviz.Digraph('LebeDigital', comment='LebeDigital ')
+dot = graphviz.Digraph('LebeDigital', comment='LebeDigital '2
+)
 
+
+dot.node('cemI', 'cem I content c [kg/m³]')
 
 dot.node('cemII', 'cem II content c [kg/m³]')
 
-dot.node('cemIII', 'cem III content c [kg/m³]')
-
 dot.node('c', 'total cement content c [kg/m³]')
 
+dot.edge('cemI', 'c')
 dot.edge('cemII', 'c')
-dot.edge('cemIII', 'c')
 
-dot.node('ratio_cem3_cem2', 'ratio of cem II/III\n r_II/III [-]')
+dot.node('ratio_cemI_cemII', 'ratio of cem I/II\n r_I/II [-]')
 
-dot.edge('cemII', 'ratio_cem3_cem2')
-dot.edge('cemIII', 'ratio_cem3_cem2')
+dot.edge('cemI', '@')
+dot.edge('cemII', 'ratio_cemI_cemII')
 
 dot.node('w', 'water content\n w [kg/m³]')
 
