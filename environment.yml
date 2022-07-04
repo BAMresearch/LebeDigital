@@ -17,6 +17,7 @@ dependencies:
   - owlready2
   - rdflib
   - sparqlwrapper
+  - pytest
 #  - requests
 #  - gitpython
   - pyshacl

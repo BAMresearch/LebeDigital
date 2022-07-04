@@ -35,7 +35,7 @@ jobs:
         run: |
           conda install --channel conda-forge pytest
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning
+          pytest -s -W error::UserWarning --ignore=$GITHUB_WORKSPACE/tests/simulation
 
   minimum-working-example:
     runs-on: ubuntu-latest
