@@ -1,60 +1,59 @@
-from doctest import Example
 import os
 from pathlib import Path
 import sys
 from doit import create_after
 from doit.tools import create_folder
 
-DOIT_CONFIG = {'verbosity': 2}
-PARENTDIR = os.path.dirname(Path(__file__).resolve().parents[0])
-sys.path.insert(0, PARENTDIR)
-from lebedigital.raw_data_processing.metadata_extraction\
+from lebedigital.raw_data_processing.metadata_extraction \
     .emodul_metadata_extraction import eModul_metadata
-from lebedigital.raw_data_processing.processed_data_generation.emodul_generate_processed_data import processed_data_from_rawdata
-from lebedigital.mapping.emodul_mapping import metadata_ontology_mapping
 
-emodulRawDataFolder = os.path.join(
-    PARENTDIR, 'MinimumWorkingExample', 'Data','E-modul')
-emodulResultFolder = os.path.join(
-    PARENTDIR, 'MinimumWorkingExample', 'emodul')
-emodulMetadataFolder = os.path.join(
-    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'metadata_yaml_files')
-emodulProcessedDataFolder = os.path.join(
-    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'processeddata')
-emodulTriplesFolder = os.path.join(
-    PARENTDIR, 'MinimumWorkingExample', 'emodul', 'triples')
+from lebedigital.raw_data_processing.processed_data_generation \
+    .emodul_generate_processed_data import processed_data_from_rawdata
 
-def task_emodul():
-    def emodul_metadata_extraction(locationOfRawData, fileName,targets):
-        eModul_metadata(locationOfRawData, fileName,targets[0])
 
-    listRawData = os.listdir(emodulRawDataFolder)
-    for rawData in listRawData:
-        yield {
-            'actions': [(emodul_metadata_extraction, [os.path.join(emodulRawDataFolder, rawData), 'specimen.dat'])],
-            'targets': [os.path.join(emodulMetadataFolder, rawData + '.yaml')],
-            'basename': rawData + ' metadata extraction'
-        }
+DOIT_CONFIG = {'verbosity': 2}
+#parent directory of the minimum working example
+ParentDir = os.path.dirname(Path(__file__))
 
-    def emodul_processed_data_generation(locationOfRawData,targets):
-        processed_data_from_rawdata(locationOfRawData,targets[0])
+#raw data files is a subdirectory
+raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')
+#meta data is in a different subdirectory
+meta_data_emodulus_directory = Path(ParentDir, 'emodul',
+                                    'meta_data_yaml_files')
+#processed data is in a different subdirectory
+processed_data_emodulus_directory = Path(ParentDir, 'emodul',
+                                    'processed_data')
 
-    listRawData = os.listdir(emodulRawDataFolder)
-    for rawData in listRawData:
-        yield {
-            'actions': [(emodul_processed_data_generation, [os.path.join(emodulRawDataFolder, rawData)])],
-            'targets': [os.path.join(emodulProcessedDataFolder, 'processed_' + rawData.replace('.','_').replace(' ','_') + '.csv')],
-            'basename': rawData + ' processed data generation'
-        }
-    
-    def emodul_knowledge_graph_generation(locationOfMetadata,targets):
-        metadata_ontology_mapping(locationOfMetadata,targets[0])
+#extract standardized meta data for Young' modulus tests
+def task_extract_metadata_emodul():
+    for f in os.scandir(raw_data_emodulus_directory):
+        if f.is_dir():
+            raw_data_file = Path(f, 'specimen.dat')
+            yaml_meta_data_file = Path(meta_data_emodulus_directory, f.name + '.yaml')
+            yield {
+                'name': yaml_meta_data_file,
+                'actions': [(eModul_metadata, [raw_data_file,
+                                               meta_data_emodulus_directory,
+                                               f.name + '.yaml'])],
+                'file_dep': [raw_data_file],
+                'targets': [yaml_meta_data_file],
+            }
 
-    listMetadata = os.listdir(emodulMetadataFolder)
-    for metadata in listMetadata:
-        yield {
-            'actions': [(emodul_knowledge_graph_generation, [os.path.join(emodulMetadataFolder, metadata)])],
-            'targets': [os.path.join(emodulTriplesFolder, metadata.replace('.yaml', '.ttl'))],
-            'basename': metadata.replace('.yaml', '') + ' knowledge graph generation',
-        }
 
+#extract standardized processed data for Young' modulus tests
+def task_extract_processed_data_emodul():
+    for f in os.scandir(raw_data_emodulus_directory):
+        if f.is_dir():
+            raw_data_file = Path(f, 'specimen.dat')
+            #the name of the csv file is the file name of the raw data
+            # is processed_data_directory + directory_raw_data.csv
+            csv_data_file = Path(processed_data_emodulus_directory,
+                                 f.name + '.csv')
+            yield {
+                'name': csv_data_file,
+                'actions': [(processed_data_from_rawdata, [raw_data_file,
+                                               processed_data_emodulus_directory,
+                                               f.name + '.csv'])],
+                'file_dep': [raw_data_file],
+                'targets': [csv_data_file],
+            }
