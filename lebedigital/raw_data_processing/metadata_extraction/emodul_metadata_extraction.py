@@ -17,31 +17,36 @@ def get_metadata_in_one_line(line):
     return result
 
 
+# function to convert german formatting to english
 def replace_comma(string):
     string = string.replace(',', '.')
     return string
 
 
-def emodul_metadata(rawDataPath, metaDataFile):
-    """Creates a yaml file with extracted metadata
+def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
+    """Return a dictionary with extracted metadata
 
     Parameters
     ----------
     rawDataFile : string
         Path to the raw data file
-    metaDataFile : string
-        Path to the output data file
+    specimen_file : string
+        Name of the file containing most meta data
+    mix_file : string
+        File name containing the name of the file with the mix data
+
+    Returns
+    -------
+    metadata : dict
+        Return the dictionary with the extracted metadata
     """
 
-    # define file names for each data set
-    mix_file = 'mix.dat'
-    specimen_file = 'specimen.dat'
+    # create empty dictionary for metadata
+    metadata = {}
 
     # read raw data file
     with open(str(rawDataPath)+'/'+str(specimen_file), encoding="utf8", errors='ignore') as data:
 
-        # create empty dictionary for metadata
-        metadata = {}
 
         # get metadata from file and location
         # get the name of the folder of the file
@@ -56,6 +61,9 @@ def emodul_metadata(rawDataPath, metaDataFile):
 
         # set software header
         metadata['software_specification'] = get_metadata_in_one_line(lines[0])[0]
+
+        # specific testing machine and software version this script is optimized for
+        assert metadata['software_specification'] == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A'
 
         # get empty lines (where start and end the header)
         emptyLineIndex = []
@@ -119,7 +127,28 @@ def emodul_metadata(rawDataPath, metaDataFile):
         except:
             metadata['mix_file'] = None
 
+    return metadata
 
+
+def emodul_metadata(rawDataPath, metaDataFile):
+    """Creates a yaml file with extracted metadata
+
+    Parameters
+    ----------
+    rawDataFile : string
+        Path to the raw data file
+    metaDataFile : string
+        Path to the output data file
+    """
+
+    # define file names for each data set
+    mix_file = 'mix.dat'
+    specimen_file = 'specimen.dat'
+
+    # extracting the metadata
+    metadata = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file)
+
+    # writing the metadata to yaml file
     with open(metaDataFile, 'w') as yamlFile:
         yaml.dump(metadata, yamlFile)
 
@@ -137,7 +166,7 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/metaData.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
 
     # run extraction and write metadata file
     emodul_metadata(args.input, args.output)
