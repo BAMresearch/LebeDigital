@@ -37,7 +37,7 @@ def task_extract_metadata_emodul():
                 'actions': [(emodul_metadata, [raw_data_path,
                                                yaml_metadata_file])],
                 'file_dep': [raw_data_file],
-                'targets': [yaml_meta_data_file],
+                'targets': [yaml_metadata_file],
                 'clean': [clean_targets]
             }
 
