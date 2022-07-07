@@ -41,7 +41,6 @@ def task_extract_metadata_emodul():
                 'clean': [clean_targets]
             }
 
-
 #extract standardized processed data for Young' modulus tests
 def task_extract_processed_data_emodul():
     for f in os.scandir(raw_data_emodulus_directory):

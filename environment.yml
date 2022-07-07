@@ -1,4 +1,4 @@
-name: lebedigital
+name: lebedigital_test
 channels:
   - conda-forge                     # third party stuff
   - etamsen
