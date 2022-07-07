@@ -33,7 +33,7 @@ jobs:
       - name: run-pytest
         shell: bash -l {0}
         run: |
-          conda install --channel conda-forge pytest
+          pip install pytest
           cd $GITHUB_WORKSPACE/tests/
           pytest -s -W error::UserWarning
 
