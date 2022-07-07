@@ -1,4 +1,5 @@
 import rdflib
+from SPARQLWrapper import SPARQLWrapper
 from pathlib import Path
 import os
 import sys

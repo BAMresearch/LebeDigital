@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 from doit import create_after
 from doit.tools import create_folder
+from doit.task import clean_targets
 
 from lebedigital.raw_data_processing.metadata_extraction \
     .emodul_metadata_extraction import emodul_metadata
@@ -37,23 +38,22 @@ def task_extract_metadata_emodul():
                                                yaml_metadata_file])],
                 'file_dep': [raw_data_file],
                 'targets': [yaml_metadata_file],
+                'clean': [clean_targets]
             }
 
-#
-# #extract standardized processed data for Young' modulus tests
-# def task_extract_processed_data_emodul():
-#     for f in os.scandir(raw_data_emodulus_directory):
-#         if f.is_dir():
-#             raw_data_file = Path(f, 'specimen.dat')
-#             #the name of the csv file is the file name of the raw data
-#             # is processed_data_directory + directory_raw_data.csv
-#             csv_data_file = Path(processed_data_emodulus_directory,
-#                                  f.name + '.csv')
-#             yield {
-#                 'name': csv_data_file,
-#                 'actions': [(processed_data_from_rawdata, [raw_data_file,
-#                                                processed_data_emodulus_directory,
-#                                                f.name + '.csv'])],
-#                 'file_dep': [raw_data_file],
-#                 'targets': [csv_data_file],
-#             }
+#extract standardized processed data for Young' modulus tests
+def task_extract_processed_data_emodul():
+    for f in os.scandir(raw_data_emodulus_directory):
+        if f.is_dir():
+            raw_data_file = Path(f, 'specimen.dat')
+            #the name of the csv file is the file name of the raw data
+            # is processed_data_directory + directory_raw_data.csv
+            csv_data_file = Path(processed_data_emodulus_directory,
+                                 f.name + '.csv')
+            yield {
+                'name': csv_data_file,
+                'actions': [(processed_data_from_rawdata, [f,
+                                               csv_data_file])],
+                'file_dep': [raw_data_file],
+                'targets': [csv_data_file],
+            }

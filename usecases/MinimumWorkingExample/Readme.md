@@ -1,0 +1,4 @@
+- Code automation is performed in the dodo file.
+- In your local machine, run doit command to execute the dodo.py file
+  - This will generate the experimental metadata, process the raw data, combine with ontology to generate knowledge graph
+  - 

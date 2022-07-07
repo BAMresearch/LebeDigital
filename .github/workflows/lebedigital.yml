@@ -35,7 +35,7 @@ jobs:
         run: |
           pip install pytest
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning
+          pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation
 
   minimum-working-example:
     runs-on: ubuntu-latest

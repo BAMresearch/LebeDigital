@@ -1,4 +1,4 @@
-name: lebedigital_test
+name: lebedigital
 channels:
   - conda-forge                     # third party stuff
   - etamsen
@@ -26,8 +26,3 @@ dependencies:
   - pip:
     - probeye==2.3.2
     - -e .
-
-  
-
-
-
