@@ -10,6 +10,17 @@ def convert_string_to_number(listStrings):
 
 
 def processed_data_from_rawdata(locationOfRawData, locationOfProcessedData):
+    """
+    Extracts relevant information from the raw data files and stores as a csv file
+    Args:
+        locationOfRawData (): string
+            The path to the raw data
+        locationOfProcessedData (): string
+            The path where the processed data needs to be stored
+
+    Returns:
+
+    """
     data = open(os.path.join(locationOfRawData, 'specimen.dat'), encoding="utf8", errors='ignore')
     experimentName = os.path.basename(locationOfRawData)
     lines = data.readlines()
