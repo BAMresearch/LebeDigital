@@ -39,21 +39,21 @@ def task_extract_metadata_emodul():
                 'targets': [yaml_metadata_file],
             }
 
-
-#extract standardized processed data for Young' modulus tests
-def task_extract_processed_data_emodul():
-    for f in os.scandir(raw_data_emodulus_directory):
-        if f.is_dir():
-            raw_data_file = Path(f, 'specimen.dat')
-            #the name of the csv file is the file name of the raw data
-            # is processed_data_directory + directory_raw_data.csv
-            csv_data_file = Path(processed_data_emodulus_directory,
-                                 f.name + '.csv')
-            yield {
-                'name': csv_data_file,
-                'actions': [(processed_data_from_rawdata, [raw_data_file,
-                                               processed_data_emodulus_directory,
-                                               f.name + '.csv'])],
-                'file_dep': [raw_data_file],
-                'targets': [csv_data_file],
-            }
+#
+# #extract standardized processed data for Young' modulus tests
+# def task_extract_processed_data_emodul():
+#     for f in os.scandir(raw_data_emodulus_directory):
+#         if f.is_dir():
+#             raw_data_file = Path(f, 'specimen.dat')
+#             #the name of the csv file is the file name of the raw data
+#             # is processed_data_directory + directory_raw_data.csv
+#             csv_data_file = Path(processed_data_emodulus_directory,
+#                                  f.name + '.csv')
+#             yield {
+#                 'name': csv_data_file,
+#                 'actions': [(processed_data_from_rawdata, [raw_data_file,
+#                                                processed_data_emodulus_directory,
+#                                                f.name + '.csv'])],
+#                 'file_dep': [raw_data_file],
+#                 'targets': [csv_data_file],
+#             }
