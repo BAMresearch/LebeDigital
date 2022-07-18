@@ -33,7 +33,6 @@ jobs:
       - name: run-pytest
         shell: bash -l {0}
         run: |
-          pip install pytest
           cd $GITHUB_WORKSPACE/tests/
           pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation
 

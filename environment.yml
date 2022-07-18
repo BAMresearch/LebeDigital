@@ -22,6 +22,7 @@ dependencies:
   - pyshacl
   - conda-ecosystem-user-package-isolation
   - fenics_concrete
+  - pytest
   - pip
   - pip:
     - probeye==2.3.2
