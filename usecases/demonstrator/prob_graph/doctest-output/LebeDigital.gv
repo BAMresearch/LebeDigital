@@ -1,0 +1,42 @@
+// LebeDigital 
+digraph LebeDigital {
+	cemI [label="cem I content c [kg/m³]"]
+	cemII [label="cem II content c [kg/m³]"]
+	c [label="total cement content c [kg/m³]"]
+	plasticizer [label="plasticizer content [kg/m³]"]
+	"aggregate content" [label="aggregate content [kg/m³]"]
+	cemI -> c
+	cemII -> c
+	ratio_cemI_cemII [label="ratio of cem I/II
+ r_I/II [-]"]
+	cemI -> ratio_cemI_cemII
+	cemII -> ratio_cemI_cemII
+	w [label="water content
+ w [kg/m³]"]
+	"w/c" [label="water cement ratio
+ w/c [-]"]
+	w -> "w/c"
+	c -> "w/c"
+	"Phi GP strength paste" [label="Phi GP strength paste"]
+	"Phi GP strength paste" -> "paste strength 28d"
+	"paste strength 28d" [label="GP(paste strength after 28 days) [N/mm2]"]
+	"paste strength 28d" -> "concrete strength, E 28d"
+	"aggregate content" -> "paste/aggregate volume ratio"
+	plasticizer -> "paste strength 28d"
+	plasticizer -> "E paste"
+	"paste/aggregate volume ratio" [label="paste aggregate volume ratio []"]
+	"paste/aggregate volume ratio" -> "concrete strength, E 28d"
+	ratio_cemI_cemII -> "E paste"
+	ratio_cemI_cemII -> "paste strength 28d"
+	"E paste" [label="GP(paste Youngs modulus 28d) [N/mm2]"]
+	"E paste" -> "concrete strength, E 28d"
+	"w/c" -> "E paste"
+	"w/c" -> "paste strength 28d"
+	"nu paste, E,nu aggregates" [label="paste nu and aggregate E/nu[-]"]
+	"nu paste, E,nu aggregates" -> "concrete strength, E 28d"
+	"concrete strength, E 28d" [label="concrete strength, E after 28 days [N/mm2]"]
+	"concrete strength, E 28d" -> "load bearing capacity"
+	"cross section" [label="cross section properties [mm]"]
+	"cross section" -> "load bearing capacity"
+	"load bearing capacity" [label="maximum traffic load in center 28d [kN]"]
+}
