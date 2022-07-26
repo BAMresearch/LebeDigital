@@ -1,24 +1,29 @@
-name: null                          # Our env was made with --prefix
+name: lebedigital
 channels:
   - conda-forge                     # third party stuff
+  - etamsen
   - defaults
 dependencies:
-  - python=3.7
-  - pip
+  - python=3.9.7
   - matplotlib
-  - pymc3=3.9.3
+  - mamba
+  - scipy
   - doit
+  - docker-compose
+  - cython
+  - numpy
+  - pandas
   - pyyaml
-  - mkl
-  - mkl-service
+  - owlready2
   - rdflib
+  - sparqlwrapper
+  - requests
+  - gitpython
   - pyshacl
-#  - flake8
-#  - sphinx
-#  - sphinx_rtd_theme
-#  - conda-ecosystem-user-package-isolation
-  
-  
-
-
-
+  - conda-ecosystem-user-package-isolation
+  - fenics_concrete
+  - pytest
+  - pip
+  - pip:
+    - probeye==2.3.2
+    - -e .

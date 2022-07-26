@@ -3,13 +3,14 @@ import json
 import os
 import sys
 import pandas as pd
+import pyaml
 from pathlib import Path
 
 baseDir0 = Path(__file__).resolve().parents[0]
 baseDir1 = Path(__file__).resolve().parents[1]
 baseDir2 = Path(__file__).resolve().parents[2]
 dataPath = os.path.join(baseDir2,'Data/E-modul')
-listDataFolders = os.listdir(dataPath)
+
 
 # the function read each line and return metadata as key and value
 def get_metadata_in_one_line(line):
@@ -96,14 +97,7 @@ def eModul_metadata(filePath, fileName ):
 
 # print(data)
 
-metadata = []
-for folder in listDataFolders:
-    path = os.path.join(dataPath,folder)
-    try:
-        metadata.append(eModul_metadata(path, 'specimen.dat'))
-    except:
-        print('something wrong')
-        print(folder)
+
 
 def column_data(listName, index, firstKey, secondKey):
     data = []
@@ -111,27 +105,67 @@ def column_data(listName, index, firstKey, secondKey):
         data.append(i[index][firstKey][secondKey])
     return data
 
-experimentNameIndex = 0
-dataTypeIndex = 1
-operatorIndex = 2
-dataCollectionIndex = 3
+def generate_metadata_yaml_file_from_emodul_BAM(locationOfRawData, locationOfMetaData):
 
-dataFrame = pd.DataFrame({
-    'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
-    'data type': [i[dataTypeIndex]['data type'] for i in metadata],
-    'operator time': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeit'),
-    'operator timestamp': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeitpunkt'),
-    'operator date': column_data(metadata, operatorIndex, 'Bediener Information', 'Datum'),
-    'tester': column_data(metadata, operatorIndex, 'Bediener Information', 'Prfer'),
-    'sample name': column_data(metadata, operatorIndex, 'Bediener Information', 'Probenbezeichnung'),
-    'remark': column_data(metadata, operatorIndex, 'Bediener Information', 'Bemerkungen'),
-    'weight': column_data(metadata, operatorIndex, 'Bediener Information', 'Masse'),
-    'diameter': column_data(metadata, operatorIndex, 'Bediener Information', 'Durchmesser'),
-    'length': column_data(metadata, operatorIndex, 'Bediener Information', 'Lnge'),
-    'data collection time': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeit'),
-    'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
-})
+    listDataFolders = os.listdir(locationOfRawData)
+    metadata = []
+    experimentNameIndex = 0
+    dataTypeIndex = 1
+    operatorIndex = 2
+    dataCollectionIndex = 3
 
-dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv'), index = False)
+    for folder in listDataFolders:
+        path = os.path.join(dataPath,folder)
+        
+        try:
+            dictToYaml = eModul_metadata(path, 'specimen.dat')
+            with open(os.path.join(baseDir0,'E-modul-processed-data/metadata_yaml_files/' + folder + '.yaml'), 'w') as yamlFile:
+                documents = pyaml.dump(dictToYaml, yamlFile)
+            metadata.append(eModul_metadata(path, 'specimen.dat'))
+        except:
+            print('data file below not in the common structure')
+            print(path)
 
-print(dataFrame.head())
+
+    metadataDict = [{
+        'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
+        'data type': [i[dataTypeIndex]['data type'] for i in metadata],
+        'operator time': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeit'),
+        'operator timestamp': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeitpunkt'),
+        'operator date': column_data(metadata, operatorIndex, 'Bediener Information', 'Datum'),
+        'tester': column_data(metadata, operatorIndex, 'Bediener Information', 'Prfer'),
+        'sample name': column_data(metadata, operatorIndex, 'Bediener Information', 'Probenbezeichnung'),
+        'remark': column_data(metadata, operatorIndex, 'Bediener Information', 'Bemerkungen'),
+        'weight': column_data(metadata, operatorIndex, 'Bediener Information', 'Masse'),
+        'diameter': column_data(metadata, operatorIndex, 'Bediener Information', 'Durchmesser'),
+        'length': column_data(metadata, operatorIndex, 'Bediener Information', 'Lnge'),
+        'data collection time': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeit'),
+        'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
+    }]
+
+
+    dataFrame = pd.DataFrame({
+        'experiment raw name': [i[experimentNameIndex]['experimentName'] for i in metadata],
+        'data type': [i[dataTypeIndex]['data type'] for i in metadata],
+        'operator time': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeit'),
+        'operator timestamp': column_data(metadata, operatorIndex, 'Bediener Information', 'Zeitpunkt'),
+        'operator date': column_data(metadata, operatorIndex, 'Bediener Information', 'Datum'),
+        'tester': column_data(metadata, operatorIndex, 'Bediener Information', 'Prfer'),
+        'sample name': column_data(metadata, operatorIndex, 'Bediener Information', 'Probenbezeichnung'),
+        'remark': column_data(metadata, operatorIndex, 'Bediener Information', 'Bemerkungen'),
+        'weight': column_data(metadata, operatorIndex, 'Bediener Information', 'Masse'),
+        'diameter': column_data(metadata, operatorIndex, 'Bediener Information', 'Durchmesser'),
+        'length': column_data(metadata, operatorIndex, 'Bediener Information', 'Lnge'),
+        'data collection time': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeit'),
+        'data collection timestamp': column_data(metadata, dataCollectionIndex, 'Datenerfassung', 'Zeitpunkt')
+    })
+
+    dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv'), index = False)
+
+    # dataFrame.to_csv(os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv'), index = False)
+    with open(locationOfMetaData, 'w') as yamlFile:
+        documents = pyaml.dump(metadataDict, yamlFile)
+
+    return metadataDict
+
+generate_metadata_yaml_file_from_emodul_BAM(dataPath, os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.yaml'))

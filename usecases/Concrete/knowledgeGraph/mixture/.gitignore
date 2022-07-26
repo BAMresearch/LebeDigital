@@ -1,0 +1,12 @@
+# Files to ignore:
+
+metadata_output.xlsx
+desktop.ini
+*.yaml
+*.pkl
+review_excel.py
+test_extraction.py
+
+# Directory to ignore:
+Output/
+

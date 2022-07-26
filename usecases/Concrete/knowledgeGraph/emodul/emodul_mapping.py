@@ -625,6 +625,6 @@ q = """
 
 results = g.query(q)
 for result in results:
-    print('number of triples', result)
+    print('number of triples ', result)
 
 
