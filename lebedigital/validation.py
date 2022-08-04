@@ -3,24 +3,25 @@ from rdflib import Graph, URIRef, Namespace
 from rdflib.util import guess_format
 from rdflib.namespace import SH, RDF
 
-"""
-baseDir0 = Path(__file__).resolve().parents[0]
-baseDir1 = Path(__file__).resolve().parents[1]
-baseDir2 = Path(__file__).resolve().parents[2]
-ontologyPath = os.path.join(baseDir2,'ConcreteOntology')
-metadataPath = os.path.join(baseDir0,'E-modul-processed-data/emodul_metadata.csv')
-graphPath = os.path.join(baseDir0,'E-modul-processed-data/EM_Graph.ttl')
-processedDataPath = os.path.join(baseDir0,'E-modul-processed-data')
-"""
-
 SCHEMA = Namespace('http://schema.org/')
 
-"""
-Given a path to a shacl shape and a path to an rdf file, this function tests the rdf data against the specified shacl shapes.
-The result is an rdflib graph containing the validation report, if it is empty the validation was successful.
-"""
-def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
 
+def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
+    """
+    Tests an RDF graph against a SHACL shapes graph.
+
+    Parameters
+    ----------
+    rdf_graph
+        An rdflib Graph object containing the triples to test against.
+    shapes_graph
+        An rdflib Graph object containing the shapes to test.
+
+    Returns
+    -------
+    result_graph
+        An rdflib Graph object containing the SHACL validation report (which is empty if no SHACl shapes were violated).
+    """
     conforms, result_graph, _ = validate(
             rdf_graph,
             shapes_graph,
@@ -42,11 +43,21 @@ def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
     
     return result_graph
 
-"""
-Returns true if the given shape is violated in the report.
-"""
 def violates_shape(validation_report: Graph, shape: URIRef) -> bool:
+    """
+    Returns true if the given shape is violated in the report.
 
+    Parameters
+    ----------
+    validation_report
+        An rdflib Graph object containing a validation report from the test_graph function.
+    shape
+        A URIRef object containing the URI of a shape.
+    
+    Returns
+    -------
+        True, if the specified shape appears as violated in the validation report, False otherwise.
+    """
     # get the class that is targeted by the specified shape
     target_class = validation_report.value(shape, SH.targetClass, None, any=False)
     if target_class is None:
@@ -63,10 +74,21 @@ def violates_shape(validation_report: Graph, shape: URIRef) -> bool:
     # no violated class is targeted by the specified shape, thus the shape is not violated
     return False
 
-"""
-Reads a graph from a file into a Graph object.
-"""
+
 def read_graph_from_file(filepath: str) -> Graph:
+    """
+    Reads a file containing an RDF graph into an rdflib Graph object.
+
+    Parameters
+    ----------
+    filepath
+        The path to the file containing the graph.
+
+    Returns
+    -------
+    graph
+        The rdflib Graph object containing the triples from the file.
+    """
     with open(filepath, 'r') as f:
         graph = Graph()
         graph.parse(file=f, format=guess_format(filepath))
