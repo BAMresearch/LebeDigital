@@ -93,9 +93,3 @@ def read_graph_from_file(filepath: str) -> Graph:
         graph = Graph()
         graph.parse(file=f, format=guess_format(filepath))
     return graph
-
-
-# assert that certain violations occurred / did not occur:
-# assert violates_shape(g, SCHEMA.InformationBearingEntityShape)
-# assert not violates_shape(g, SCHEMA.InformationBearingEntityShape)
-
