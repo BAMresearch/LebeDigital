@@ -1,495 +1,185 @@
-from owlready2 import *
-import yaml
-from yaml.loader import SafeLoader
-import urllib.parse
-from pathlib import Path
+# standard library
 import os
+import yaml
 import datetime
+
+# third party imports
+import numpy as np
+import arviz as az
+from owlready2 import *
+from yaml.loader import SafeLoader
 from rdflib import URIRef, Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF
 
-BASEDIR2 = Path(__file__).resolve().parents[2]
-E_MODUL_RAWDATA_PATH = os.path.join(
-    BASEDIR2, 'Example', 'Data', 'E-modul')
-E_MODUL_PROCESSED_DATA_PATH = os.path.join(
-    BASEDIR2, 'Example', 'emodul', 'processeddata')
-ontologyPath = os.path.join(
-    BASEDIR2, 'lebedigital', 'ConcreteOntology')
+myDir = os.path.dirname(__file__)
+owlPath = os.path.join( myDir, "lebedigital", "ConcreteOntology")
 
-onto_path.append(".")
-My_world = World()
+def import_metadata(locationOfMetadata):
+    try:
+        with open(locationOfMetadata) as metaDataFile:
+            metaDataDict = yaml.load(metaDataFile, Loader=SafeLoader)
+    except Exception as e:
+        print("Path error: " + locationOfMetadata + "do not exist.", file=sys.stderr)
+        print(e, file=sys.stderr)
+    return metaDataDict
 
-cco_ontology = My_world.get_ontology(ontologyPath + "/MergedAllCoreOntology.owl").load()
-mseo_mid = My_world.get_ontology(ontologyPath + "/MSEO_mid.owl").load()
-PeriodicTable_ontology = My_world.get_ontology(ontologyPath + "/PeriodicTable.owl").load()
-WCTmidonto = My_world.get_ontology(ontologyPath + "/WCTmid.owl").load()
-CSTonto = My_world.get_ontology(ontologyPath + "/ConcreteStressTestOntologie.owl").load()
-lebedigital_concrete = My_world.get_ontology(os.path.join(ontologyPath,'EM.xml')).load()
-ConcreteMSEO_ontology = My_world.get_ontology(ontologyPath + "/Concrete_Ontology_MSEO.owl").load()
+def import_ontology(locationOfOntology,my_world):
+    assert os.path.isfile(locationOfOntology), f"Could not find '{locationOfOntology}'"
+    imp_ontology = my_world.get_ontology(locationOfOntology).load()
+    return imp_ontology
 
-BWMD = My_world.get_namespace("https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#")
-WCTmid = My_world.get_namespace("https://mobi.com/ontologies/6/2021/WCTmid#")
-CCO = My_world.get_namespace("http://www.ontologyrepository.com/CommonCoreOntologies/")
-CST = My_world.get_namespace("https://mobi.com/ontologies/7/2021/ConcreteStressTestOntologie#")
-CON = My_world.get_namespace('http://w3id.org/concrete')
-OBO = My_world.get_namespace("http://purl.obolibrary.org/obo/")
-My_world.get_namespace('https://purl.matolab.org/mseo/mid/')
+def print_ontology_classes(onto):
+    c_list = list(onto.classes())
+    print("List of classes: ")
+    for c in c_list:
+        print(c)
+    print(f"There are '{len(c_list)}' classes")
 
-lebedigital_concrete.imported_ontologies.append(cco_ontology)
-lebedigital_concrete.imported_ontologies.append(PeriodicTable_ontology)
-lebedigital_concrete.imported_ontologies.append(WCTmidonto)
-lebedigital_concrete.imported_ontologies.append(CSTonto)
-lebedigital_concrete.imported_ontologies.append(mseo_mid)
+def print_ontology_instances(onto):
+    i_list = list(onto.individuals())
+    print("List of individuals: ")
+    for i in i_list:
+        print(i)
+    print(f"There are '{len(i_list)}' instancies")
+
+def export_knowledge_graph_to_ttl(onto, locationOfKnowledgeGraph):
+    """ Since owlready is not used to create knowledge graphs 
+        we need to export it using RDFLIB"""
+    knowledge_graph = onto.as_rdflib_graph()
+    knowledge_graph.serialize(destination=locationOfKnowledgeGraph, format="turtle")
 
 def make_valid_uri_from_string(s):
     return s.replace('.','_').replace(' ','_').replace(':','_').replace(',','_')
 
-def string_to_number(s):
-    if type(s) == int or type(s) == float:
-        return s
-    else:
-        return float(s.replace(',','.'))
+def get_date_time_value(metadata):
+    str_date_time = metadata['operator_date'] + ' ' +metadata['operator_timestamp']
+    date_time = datetime.datetime.strptime(str_date_time, "%d.%m.%Y %H:%M:%S")
+    return date_time
+    
+def generate_knowledge_graph(ontologyPath, metadataPath):
+    My_world = World()
 
-def metadata_ontology_mapping(locationOfMetadata, locationOfKnowledgeGraph):
-    try:
-        with open(locationOfMetadata) as f:
-            data = yaml.load(f, Loader=SafeLoader)
-        nameOfExperiment = data['experimentName']
-        operatorTime = datetime.datetime.strptime(data['operatorTimestamp'], '%d.%m.%Y %H:%M:%S')
-        operatorDay = data['operatorDate']
-        operator = make_valid_uri_from_string(data['tester'])
-        dataType = data['dataType']
-        specimenName = data['specimenName']
-        # convert string to number of some specimen parameters values
-        specimenDiameter = string_to_number(data['diameter'])
-        specimenLength = string_to_number(data['length'])
-        specimenMass = string_to_number(data['weight'])
-        # control remark in the experiment
-        remark = data['remark'].split()[0]
-        controlValue = data['remark'].split()[1]
-        controlUnit = data['remark'].split()[2]
-        # raw data path and processed data path
-        rawDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfExperiment)
-        nameOfProcessedDataFile = 'processed_' + make_valid_uri_from_string(nameOfExperiment) + '.csv'
-        processedDataPath = os.path.join(E_MODUL_RAWDATA_PATH, nameOfProcessedDataFile)
+    #Load all ontologies
+    cco_ontology = My_world.get_ontology(ontologyPath + "/MergedAllCoreOntology.owl").load()
+    mseo_mid = My_world.get_ontology(ontologyPath + "/MSEO_mid.owl").load()
+    PeriodicTable_ontology = My_world.get_ontology(ontologyPath + "/PeriodicTable.owl").load()
+    WCTmidonto = My_world.get_ontology(ontologyPath + "/WCTmid.owl").load()
+    CSTonto = My_world.get_ontology(ontologyPath + "/ConcreteStressTestOntologie.owl").load()
+    impO = My_world.get_ontology(os.path.join(ontologyPath,'EM.xml')).load()
+    ConcreteMSEO_ontology = My_world.get_ontology(ontologyPath + "/Concrete_Ontology_MSEO.owl").load()
 
-        g = My_world.as_rdflib_graph()
+    #Get all namespaces
+    bfo = impO.get_namespace("http://purl.obolibrary.org/obo/")
+    cco = impO.get_namespace("http://www.ontologyrepository.com/CommonCoreOntologies/")
+    mseo = impO.get_namespace("https://purl.matolab.org/mseo/mid/")
+    con = impO.get_namespace('http://w3id.org/concrete/#')
+    xml = impO.get_namespace('http://www.w3.org/2001/XMLSchema#')
 
-        with lebedigital_concrete:
-            g.add(
-            (
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                RDF.type, 
-                URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity.iri))
-            )
-            )
-            # add specimens as instances in class Specimen
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen.iri))
-                )
-            )
-            # add testers (prüfers) as instances in class Agent
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.Agent.iri))
-                )
-            )
-            # add person/tester in class DesignativeName
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.DesignativeName.iri))
-                )
-            )
-            # add start date as instances in class Day
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.Day.iri))
-                )
-            )
-            # add controls as instances in class ForceRate
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate.iri))
-                )
-            )
-            # add unit in MeasurementUnitOfForceRate
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate.iri))
-                )
-            )
-            # add length of the specimen in class Length
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Length('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.Length.iri))
-                )
-            )
-            # add Diameter of the specimen in class Diameter
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.Diameter.iri))
-                )
-            )
-            # add Weight of the specimen in class Mass
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Mass('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.Mass.iri))
-                )
-            )
-    #        
-            # add specimen region as instances in class MeasurementRegion
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.MeasurementRegion.iri))
-                )
-            )
-            # add weight, diameter, length, dataset path, tester name value, force rate value, day
-            # in class InformationBearingEntity
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName) + controlValue ).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
+    #I need to redefined the property because the property was not defined as functional
+    with impO:
+        infoBearing = cco.InformationBearingEntity
+        class has_decimal_value(DataProperty, FunctionalProperty): # Redefining that shit as functional
+            domain    = [cco.InformationBearingEntity]
+            range     = [float]
+        class has_text_value(DataProperty, FunctionalProperty):
+            domain    = [cco.InformationBearingEntity]
+            range     = [str]
+    
+    #Extract metadata
+    metadata = import_metadata(metadataPath)
+    
+    ###########################################################################
+    ########################ADD INDIVIDUALS####################################
+    ###########################################################################
+    
+    #Root
+    concreteSpecimenIndividual = impO.Specimen(make_valid_uri_from_string(metadata['experimentName']))
 
-            # add processed data into class bfo:BFO_0000015
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(OBO.BFO_0000015.iri))
-                )
-            )
-            # add processed data into class AnalysedDataSet
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet.iri))
-                )
-            )
-            # add processed data into class InformationBearingEntity
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity.iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                    RDF.type, 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet.iri))
-                )
-            )
-            # adding object properties
+    #Individuals needed to give a Diameter value
+    specimenDiameter = cco.Diameter()
+    specimenDiameterValue = cco.InformationBearingEntity()
+    
+    #Individuals for length
+    specimenLength = cco.Length()
+    specimenLengthValue = cco.InformationBearingEntity()
+    
+    #Individuals for Mass
+    specimenMass = cco.Mass()
+    specimenMassValue = cco.InformationBearingEntity()
 
-            # the experiment has output raw data
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
-                )
-            )
+    #Add comment'
+    specimenSecantModulus = ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(make_valid_uri_from_string(metadata['experimentName']))
 
-            # experiment has operator
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_agent.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri))
-                )
-            )
+    #Add filename, filePath
+    specimenRawDatafile = mseo.RawDataSet()
+    specimenFilename =cco.InformationBearingEntity()
+    specimenFilePath = cco.InformationBearingEntity()
 
-            # specimen is the input of the experiment
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-                )
-            )
+    #Add date
+    experimentDate = cco.Day()
+    experimentDateValue = cco.InformationBearingEntity()
 
-            # ForceRate is_input_of experiment
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-                )
-            )
-            # Experiment occures_on Day
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity('Experiment_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.occures_on.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri))
-                )
-            )
+    #Add operator Name
+    experimentOperator = cco.Agent()
+    experimentOperatorName = cco.DesignativeName()
+    experimentOperatorNameValue = cco.InformationBearingEntity()
 
-            # specimen obo:BFO_0000051 MeasurementRegion
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('Specimen_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.BFO_0000051.iri)), 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri))
-                )
-            )
-            # MeasurementRegion obo:BFO_0000086 Diameter, Length, Mass
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri))
-                )
-            )
+    ###########################################################################
+    #########################ADD PROPERTIES####################################
+    ###########################################################################
+    
+    #Begin Path to SecantDetermination
+    concreteSpecimenIndividual.is_input_of= [specimenSecantModulus]
 
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.Specimen('MeasurementRegion_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0000086.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri))
-                )
-            )
+    #Add path to diameter value
+    concreteSpecimenIndividual.RO_0000086 = [specimenDiameter]
+    specimenDiameter.RO_0010001 = [specimenDiameterValue]
+    specimenDiameterValue.has_decimal_value = metadata['diameter']
+    specimenDiameterValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
+   
+    #Add path to length value
+    concreteSpecimenIndividual.RO_0000086 =[specimenLength]
+    specimenLength.RO_0010001 = [specimenLengthValue]
+    specimenLengthValue.has_decimal_value = metadata['length']
+    #Add length unit
+    if(metadata['length_unit'] == "mm"):
+        specimenLengthValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
+    
+    #Add path to Mass
+    concreteSpecimenIndividual.RO_0000086 = [specimenMass]
+    specimenMass.RO_0010001 = [specimenMassValue]
+    specimenMassValue.has_decimal_value = metadata['weight']
+    #Add unit
+    if(metadata['weight_unit'] == 'g'):
+        specimenMassValue.uses_measurement_unit = [cco.GramMeasurementUnit]
 
-            # Diameter, Length, Mass, ForceRate, RawDataSet, DesignativeName obo:RO_0010001 InformationBearingEntity
-            # Day obo:RO_0010001 InformationBearingEntity
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Diameter_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Length_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Diameter('Mass_' + make_valid_uri_from_string(specimenName)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(ConcreteMSEO_ontology.ForceRate('ForceRate_' + make_valid_uri_from_string(nameOfExperiment) + remark).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri))
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Day('Day_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)),
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri))
-                )
-            )
-            # Agent designated_by DesignativeName
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.Agent('Agent_' + operator).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.designated_by.iri)),
-                    URIRef(urllib.parse.unquote(CCO.DesignativeName('DesignativeName_' + operator).iri))
-                )
-            )
-            # RawDataSet cco:is_input_of bfo:BFO_0000015
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.RawDataSet('RawDataSet_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                    URIRef(urllib.parse.unquote(CCO.is_input_of.iri)), 
-                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-                )
-            )
-            # bfo:BFO_0000015 cco:has_output mseo:AnalysedDataSet
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(OBO.BFO_0000015('BFO_0000015_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_output.iri)), 
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-                )
-            )
+    #Add path to filename
+    specimenSecantModulus.has_output= [specimenRawDatafile]
+    specimenRawDatafile.RO_0010001= [specimenFilename]
+    specimenFilename.has_text_value= metadata['mix_file']
 
-            # mseo:AnalysedDataSet obo:RO_0010001 cco:InformationBearingEntity
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(lebedigital_concrete.AnalysedDataSet('AnalysedDataSet_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(OBO.RO_0010001.iri)), 
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri))
-                )
-            )
+    #Add path to Rawfile URI
+    #Where to find that
 
-            # add data properties
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenMass))).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                    Literal(specimenMass)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenDiameter))).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                    Literal(specimenDiameter)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(specimenName + str(specimenLength))).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)),
-                    Literal(specimenLength)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(nameOfExperiment) + 'specimen_dat').iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
-                    Literal(rawDataPath)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + operator).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
-                    Literal(operator)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_decimal_value.iri)), 
-                    Literal(controlValue)
-                )
-            )
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CON.MeasurementUnitOfForceRate('MeasurementUnitOfForceRate_' + make_valid_uri_from_string(nameOfExperiment + controlUnit)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_text_value.iri)), 
-                    Literal(controlUnit)
-                )
-            )
-            # cco: InformationBearingEntity of processed dataset has filepath 
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + 'processed_' + make_valid_uri_from_string(nameOfExperiment)).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_URI_value.iri)), 
-                    Literal(processedDataPath)
-                )
-            )
-            # Day has_datetime_value
-            g.add(
-                (
-                    URIRef(urllib.parse.unquote(CCO.InformationBearingEntity('InformationBearingEntity_' + make_valid_uri_from_string(str(operatorDay))).iri)), 
-                    URIRef(urllib.parse.unquote(CCO.has_datetime_value.iri)), 
-                    Literal(operatorTime)
-                )
-            )
+    #Add path to date
+    specimenSecantModulus.occures_on = [experimentDate]
+    experimentDate.RO_0010001 = [experimentDateValue]
+    operatorTime = get_date_time_value(metadata)
+    experimentDateValue.has_datetime_value = [operatorTime]
 
-            g.serialize(destination=locationOfKnowledgeGraph, format="turtle")
+    #Add Path to operator
+    specimenSecantModulus.has_agent = [experimentOperator]
+    experimentOperator.designated_by = [experimentOperatorName]
+    experimentOperatorName.RO_0010001 =[experimentOperatorNameValue]
+    experimentOperatorNameValue.has_text_value = metadata['tester_name']
 
-    except:
-        print('Please check the file path')
-
+    ###########################################################################
+    #########################Export Graph######################################
+    ###########################################################################
+    
+    export_knowledge_graph_to_ttl(My_world, "knowledgeGraph.ttl")
     
 
+metadataPath = "/home/gilif/BAM/LeBeDigital_Projects/mapping_script_Lebedigital/usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml"
 
-# metadata_ontology_mapping('C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\metadata_yaml_files\\BA Los M V-4.yaml','C:\\Users\\vdo\\Desktop\\LeBeDigital\\Code\\minimum_working_example\\ModelCalibration\\usecases\\Concrete\\Example\\emodul\\triples\\emodul_knowledge_graph.ttl')
+# generate_knowledge_graph(owlPath, metadataPath)
