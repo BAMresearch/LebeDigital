@@ -39,4 +39,19 @@ digraph LebeDigital {
 	"cross section" [label="cross section properties [mm]"]
 	"cross section" -> "load bearing capacity"
 	"load bearing capacity" [label="maximum traffic load in center 28d [kN]"]
+	"demolding time" [label="time of demolding [h]"]
+	"fem model" [label="structural model"]
+	"fem model" -> "demolding time"
+	"concrete homogenization" [label="concrete homogenization"]
+	"hydration model" [label="hydration model"]
+	"mechanics model" [label="mechanics model"]
+	"E(DoH)" [label="function E(DoH)"]
+	"fc(DoH)" [label="function fc(DoH)"]
+	"max temp" [label="temperature constraint"]
+	"max temp" -> "demolding time"
+	"concrete homogenization" -> "fem model"
+	"hydration model" -> "fem model"
+	"mechanics model" -> "fem model"
+	"E(DoH)" -> "mechanics model"
+	"fc(DoH)" -> "mechanics model"
 }

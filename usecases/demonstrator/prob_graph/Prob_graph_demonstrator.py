@@ -88,6 +88,31 @@ dot.edge('cross section', 'load bearing capacity')
 
 dot.node('load bearing capacity', 'maximum traffic load in center 28d [kN]')
 
+# new part from Erik
+
+
+dot.node('demolding time', 'time of demolding [h]')
+dot.node('fem model', 'structural model')
+dot.edge('fem model','demolding time')
+
+
+dot.node('concrete homogenization', 'concrete homogenization')
+dot.node('hydration model', 'hydration model')
+dot.node('mechanics model', 'mechanics model')
+dot.node('E(DoH)', 'function E(DoH)')
+dot.node('fc(DoH)', 'function fc(DoH)')
+
+dot.node('max temp', 'temperature constraint')
+dot.edge('max temp','demolding time')
+
+
+dot.edge('concrete homogenization', 'fem model')
+dot.edge('hydration model', 'fem model')
+dot.edge('mechanics model', 'fem model')
+dot.edge('E(DoH)', 'mechanics model')
+dot.edge('fc(DoH)', 'mechanics model')
+
+
 
 dot.render(directory='doctest-output', view=True)
 
