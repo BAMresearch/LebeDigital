@@ -9,10 +9,13 @@ import arviz as az
 from owlready2 import *
 from yaml.loader import SafeLoader
 from rdflib import URIRef, Graph, Literal, BNode
-from rdflib.namespace import FOAF, RDF
+from rdflib.namespace import FOAF, RDF, XSD
+from pathlib import Path
 
-myDir = os.path.dirname(__file__)
-owlPath = os.path.join( myDir, "lebedigital", "ConcreteOntology")
+# myDir = os.path.dirname(__file__)
+# owlPath = os.path.join( myDir, "lebedigital", "ConcreteOntology")
+
+baseDir = Path(__file__).parents[2]
 
 def import_metadata(locationOfMetadata):
     try:
@@ -77,17 +80,18 @@ def generate_knowledge_graph(ontologyPath, metadataPath):
 
     #I need to redefined the property because the property was not defined as functional
     with impO:
-        infoBearing = cco.InformationBearingEntity
-        class has_decimal_value(DataProperty, FunctionalProperty): # Redefining that shit as functional
-            domain    = [cco.InformationBearingEntity]
-            range     = [float]
+        # infoBearing = cco.InformationBearingEntity
+        # class has_decimal_value(DataProperty):
+        #     domain    = [cco.InformationBearingEntity]
+        #     range     = [float]
         class has_text_value(DataProperty, FunctionalProperty):
             domain    = [cco.InformationBearingEntity]
             range     = [str]
-    
+        print(xml)
     #Extract metadata
     metadata = import_metadata(metadataPath)
-    
+    rawPath = os.path.join(baseDir, 'usecases', 'MinimumWorkingExample', 'Data', 'E-modul',
+            metadata['experimentName'])
     ###########################################################################
     ########################ADD INDIVIDUALS####################################
     ###########################################################################
@@ -134,13 +138,13 @@ def generate_knowledge_graph(ontologyPath, metadataPath):
     #Add path to diameter value
     concreteSpecimenIndividual.RO_0000086 = [specimenDiameter]
     specimenDiameter.RO_0010001 = [specimenDiameterValue]
-    specimenDiameterValue.has_decimal_value = metadata['diameter']
+    specimenDiameterValue.has_decimal_value = [float(metadata['diameter'])]
     specimenDiameterValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
    
     #Add path to length value
     concreteSpecimenIndividual.RO_0000086 =[specimenLength]
     specimenLength.RO_0010001 = [specimenLengthValue]
-    specimenLengthValue.has_decimal_value = metadata['length']
+    specimenLengthValue.has_decimal_value = [float(metadata['length'])]
     #Add length unit
     if(metadata['length_unit'] == "mm"):
         specimenLengthValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
@@ -148,18 +152,16 @@ def generate_knowledge_graph(ontologyPath, metadataPath):
     #Add path to Mass
     concreteSpecimenIndividual.RO_0000086 = [specimenMass]
     specimenMass.RO_0010001 = [specimenMassValue]
-    specimenMassValue.has_decimal_value = metadata['weight']
+    specimenMassValue.has_decimal_value = [float(metadata['weight'])]
     #Add unit
     if(metadata['weight_unit'] == 'g'):
         specimenMassValue.uses_measurement_unit = [cco.GramMeasurementUnit]
 
-    #Add path to filename
-    specimenSecantModulus.has_output= [specimenRawDatafile]
-    specimenRawDatafile.RO_0010001= [specimenFilename]
-    specimenFilename.has_text_value= metadata['mix_file']
-
-    #Add path to Rawfile URI
-    #Where to find that
+    #Add path to Rawfile
+    specimenSecantModulus.has_output = [specimenRawDatafile]
+    specimenRawDatafile.RO_0010001 = [specimenFilename, specimenFilePath]
+    specimenFilename.has_text_value =metadata['experimentName']
+    specimenFilePath.has_text_value = rawPath
 
     #Add path to date
     specimenSecantModulus.occures_on = [experimentDate]
@@ -180,6 +182,6 @@ def generate_knowledge_graph(ontologyPath, metadataPath):
     export_knowledge_graph_to_ttl(My_world, "knowledgeGraph.ttl")
     
 
-metadataPath = "/home/gilif/BAM/LeBeDigital_Projects/mapping_script_Lebedigital/usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml"
+# metadataPath = "/home/gilif/BAM/LeBeDigital_Projects/mapping_script_Lebedigital/usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml"
 
 # generate_knowledge_graph(owlPath, metadataPath)
