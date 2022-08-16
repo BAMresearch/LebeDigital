@@ -17,25 +17,19 @@ digraph LebeDigital {
  w/c [-]"]
 	w -> "w/c"
 	c -> "w/c"
-	"Phi GP strength paste" [label="Phi GP strength paste"]
-	"Phi GP strength paste" -> "paste strength 28d"
-	"paste strength 28d" [label="GP(paste strength after 28 days) [N/mm2]"]
-	"paste strength 28d" -> "concrete strength, E 28d"
-	"aggregate content" -> "paste/aggregate volume ratio"
 	plasticizer -> "paste strength 28d"
 	plasticizer -> "E paste"
 	"paste/aggregate volume ratio" [label="paste aggregate volume ratio []"]
-	"paste/aggregate volume ratio" -> "concrete strength, E 28d"
 	ratio_cemI_cemII -> "E paste"
 	ratio_cemI_cemII -> "paste strength 28d"
-	"E paste" [label="GP(paste Youngs modulus 28d) [N/mm2]"]
-	"E paste" -> "concrete strength, E 28d"
 	"w/c" -> "E paste"
 	"w/c" -> "paste strength 28d"
-	"nu paste, E,nu aggregates" [label="paste nu and aggregate E/nu[-]"]
-	"nu paste, E,nu aggregates" -> "concrete strength, E 28d"
-	"concrete strength, E 28d" [label="concrete strength, E after 28 days [N/mm2]"]
-	"concrete strength, E 28d" -> "load bearing capacity"
+	"concrete E 28d" [label="concrete E 28 days [N/mm2]"]
+	"concrete E 28d" -> "load bearing capacity"
+	"concrete strength 28d" [label="concrete strength 28 days [N/mm2]"]
+	"concrete tensile strength 28d" [label="concrete tensile strength 28 days [N/mm2]"]
+	"concrete strength 28d" -> "load bearing capacity"
+	"concrete strength 28d" -> "concrete tensile strength 28d"
 	"cross section" [label="cross section properties [mm]"]
 	"cross section" -> "load bearing capacity"
 	"load bearing capacity" [label="maximum traffic load in center 28d [kN]"]
@@ -47,11 +41,57 @@ digraph LebeDigital {
 	"mechanics model" [label="mechanics model"]
 	"E(DoH)" [label="function E(DoH)"]
 	"fc(DoH)" [label="function fc(DoH)"]
+	"ft(DoH)" [label="function ft(DoH)"]
+	"concrete tensile strength 28d" -> "ft(DoH)"
+	"ft(DoH)" -> "mechanics model"
 	"max temp" [label="temperature constraint"]
 	"max temp" -> "demolding time"
-	"concrete homogenization" -> "fem model"
+	"ft paramter" [label="parameter ft(DoH): a_ft"]
+	"ft paramter" -> "ft(DoH)"
+	"fc paramter" [label="parameter fc(DoH): a_fc"]
+	"fc paramter" -> "fc(DoH)"
+	"E paramter" [label="parameter E(DoH): alpha_t, alpha_0, a_E"]
+	"E paramter" -> "E(DoH)"
 	"hydration model" -> "fem model"
 	"mechanics model" -> "fem model"
 	"E(DoH)" -> "mechanics model"
 	"fc(DoH)" -> "mechanics model"
+	"aggregate data" [label="aggregate data: E, nu, rho, C, kappa"]
+	"aggregate data" -> "concrete homogenization"
+	"paste data" [label="paste data: nu, rho, C, kappa"]
+	"paste data" -> "concrete homogenization"
+	"Phi GP strength paste" [label="Phi GP strength paste"]
+	"Phi GP strength paste" -> "paste strength 28d"
+	"paste strength 28d" [label="GP(paste strength after 28 days) [N/mm2]"]
+	"paste strength 28d" -> "concrete homogenization"
+	"concrete homogenization" -> "concrete strength 28d"
+	"concrete homogenization" -> "concrete E 28d"
+	"E paste" [label="GP(paste Youngs modulus 28d) [N/mm2]"]
+	"E paste" -> "concrete homogenization"
+	"aggregate content" -> "paste/aggregate volume ratio"
+	"paste/aggregate volume ratio" -> "concrete homogenization"
+	geometry [label="part geometry"]
+	geometry -> "fem model"
+	geometry -> "cross section"
+	"concrete density" [label="concrete density"]
+	"concrete nu" [label="concrete nu"]
+	"concrete thermal" [label="concrete thermal conductivity (kappa) / heat capacity (C)"]
+	"concrete homogenization" -> "concrete density"
+	"concrete homogenization" -> "concrete nu"
+	"concrete homogenization" -> "concrete thermal"
+	"concrete density" -> "hydration model"
+	"concrete thermal" -> "hydration model"
+	"concrete nu" -> "mechanics model"
+	"concrete density" -> load
+	"concrete strength 28d" -> "fc(DoH)"
+	"concrete E 28d" -> "E(DoH)"
+	"hydration parameters" [label="hydration parameters: eta, B1, B2, Q_pot, T_ref, E_act"]
+	"hydration parameters" -> "hydration model"
+	"w/c" -> missing
+	missing [label="???????"]
+	missing -> "alpha max"
+	"alpha max" [label="max degree of hydration"]
+	"alpha max" -> "hydration model"
+	load [label="load at demolding"]
+	load -> "fem model"
 }
