@@ -33,9 +33,8 @@ jobs:
       - name: run-pytest
         shell: bash -l {0}
         run: |
-          conda install --channel conda-forge pytest
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning
+          pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation
 
   minimum-working-example:
     runs-on: ubuntu-latest
