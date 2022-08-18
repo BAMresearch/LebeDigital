@@ -1,29 +1,29 @@
 // LebeDigital 
 digraph LebeDigital {
 	cemI [label="cem I content 
-[kg/m³]" color=green]
+[kg/m³]" color=green shape=rectangle]
+	cemI -> "volume computation"
+	cemII -> "volume computation"
+	w -> "volume computation"
+	"volume computation" -> ratio_cemI_cemII
 	cemII [label="cem II content 
-[kg/m³]" color=green]
-	c [label="total cement content c 
-[kg/m³]"]
-	plasticizer [label="plasticizer content [kg/m³]" color=green]
+[kg/m³]" color=green shape=rectangle]
+	plasticizer [label="plasticizer content [kg/m³]" color=green shape=rectangle]
 	"aggregate content" [label="aggregate content 
-[kg/m³]" color=green]
-	cemI -> c
-	cemII -> c
+[kg/m³]" color=green shape=rectangle]
 	ratio_cemI_cemII [label="ratio of cem I/II [-]"]
-	ratio_cemI_cemII -> "paste data"
-	cemI -> ratio_cemI_cemII
-	cemII -> ratio_cemI_cemII
 	w [label="water content
- w [kg/m³]" color=green]
+ w [kg/m³]" color=green shape=rectangle]
+	"volume computation" -> "w/c"
 	"w/c" [label="water cement ratio
- w/c [-]" color=red]
-	w -> "w/c"
-	c -> "w/c"
+ w/c [-]"]
 	plasticizer -> "paste strength 28d"
 	plasticizer -> "E paste"
-	"paste/aggregate volume ratio" [label="paste aggregate volume ratio []"]
+	"volume computation" [label="computation of volume contents
+and ratios" color=blue]
+	"aggregate volume content" [label="aggregate volume content []"]
+	"aggregate volume content" -> "concrete homogenization"
+	"volume computation" -> "aggregate volume content"
 	ratio_cemI_cemII -> "E paste"
 	ratio_cemI_cemII -> "paste strength 28d"
 	"w/c" -> "E paste"
@@ -33,95 +33,76 @@ digraph LebeDigital {
 	"concrete E 28d" -> "load bearing capacity"
 	"concrete strength 28d" [label="concrete strength 
 28 days [N/mm2]"]
+	"ft(fc)" -> "concrete tensile strength 28d"
 	"concrete tensile strength 28d" [label="concrete tensile strength 
 28 days [N/mm2]"]
+	"ft(fc)" [label="function ft(fc)" color=blue]
 	"concrete strength 28d" -> "load bearing capacity"
-	"concrete strength 28d" -> "concrete tensile strength 28d"
+	"concrete strength 28d" -> "ft(fc)"
 	"cross section" [label="cross section properties 
 [mm]"]
 	"cross section" -> "load bearing capacity"
-	"load bearing capacity" [label="maximum traffic load 
-in center 28d [kN]"]
-	"demolding time" [label="time of demolding [h]"]
-	"fem model" [label="structural model" color=blue]
+	"load bearing capacity" [label="design code" color=blue]
+	"load bearing capacity" -> "kpi load bearing capacity"
+	"kpi load bearing capacity" [label="maximum traffic load 
+in center 28d [kN]" color=orange shape=rectangle]
+	"demolding time" [label="time of demolding [h]" color=orange shape=rectangle]
+	"fem model" [label="fem model" color=blue]
 	"fem model" -> "demolding time"
 	"concrete homogenization" [label="concrete homogenization" color=blue]
-	"hydration model" [label="hydration model" color=blue]
-	"mechanics model" [label="mechanics model" color=blue]
-	"E(DoH)" [label="function E(DoH)" color=blue]
-	"fc(DoH)" [label="function fc(DoH)" color=blue]
-	"ft(DoH)" [label="function ft(DoH)" color=blue]
-	"concrete tensile strength 28d" -> "ft(DoH)"
-	"ft(DoH)" -> "mechanics model"
+	"concrete tensile strength 28d" -> "fem model"
 	"max temp" [label="temperature constraint" color=green]
 	"max temp" -> "demolding time"
-	"ft paramter" [label="parameter ft(DoH): a_ft" color=red]
-	"ft paramter" -> "ft(DoH)"
-	"cem I fc paramter" [label="cem I parameter fc(DoH): a_fc" color=green]
-	"cem II fc paramter" [label="cem II parameter fc(DoH): a_fc" color=green]
-	"cem I fc paramter" -> "mix fc fkt"
-	"cem II fc paramter" -> "mix fc fkt"
-	"mix fc fkt" [label="interpolation or GP???" color=red]
-	"mix fc fkt" -> "fc(DoH)"
-	"cem I E paramter" [label="cem I parameter E(DoH): 
+	"ft paramter" [label="parameter ft(DoH): a_ft" color=green]
+	"ft paramter" -> "fem model"
+	"fc paramter" [label="parameter fc(DoH): a_fc" color=green]
+	"fc paramter" -> "fem model"
+	"E paramter" [label="parameter E(DoH): 
 alpha_t, alpha_0, a_E" color=green]
-	"cem II E paramter" [label="cem II parameter E(DoH): 
-alpha_t, alpha_0, a_E" color=green]
-	"cem I E paramter" -> "mix E fkt"
-	"cem II E paramter" -> "mix E fkt"
-	"mix E fkt" [label="interpolation or GP???" color=red]
-	"mix E fkt" -> "E(DoH)"
-	"hydration model" -> "fem model"
-	"mechanics model" -> "fem model"
-	"E(DoH)" -> "mechanics model"
-	"fc(DoH)" -> "mechanics model"
+	"E paramter" -> "fem model"
 	"aggregate data" [label="aggregate data: E, nu, rho, C, kappa" color=green]
 	"aggregate data" -> "concrete homogenization"
-	"cem I paste data" [label="cem I paste data: nu, rho, C, kappa" color=green]
-	"cem I paste data" -> "paste data"
-	"cem II paste data" [label="cem II paste data: nu, rho, C, kappa" color=green]
-	"cem II paste data" -> "paste data"
-	"paste data" [label="paste data: nu, rho, C, kappa" color=blue]
+	"paste data" [label="paste data: nu, rho, C, kappa" color=green]
 	"paste data" -> "concrete homogenization"
 	"paste strength 28d" [label="GP(paste strength after 28 days) 
 [N/mm2]" color=blue]
-	"paste strength 28d" -> "concrete homogenization"
+	"param paste strength 28d" [label="paste strength after 28 days 
+[N/mm2]"]
+	"paste strength 28d" -> "param paste strength 28d"
+	"param paste strength 28d" -> "concrete homogenization"
 	"concrete homogenization" -> "concrete strength 28d"
 	"concrete homogenization" -> "concrete E 28d"
 	"E paste" [label="GP(paste Youngs modulus 28d) 
 [N/mm2]" color=blue]
-	"E paste" -> "concrete homogenization"
-	"aggregate content" -> "paste/aggregate volume ratio"
-	"paste/aggregate volume ratio" -> "concrete homogenization"
+	"E paste" -> "param E paste"
+	"param E paste" [label="paste Youngs modulus 28d 
+[N/mm2]"]
+	"param E paste" -> "concrete homogenization"
+	"aggregate content" -> "volume computation"
 	geometry [label="part geometry" color=green]
 	geometry -> "fem model"
 	geometry -> "cross section"
 	"concrete density" [label="concrete density"]
+	"concrete density" -> "fem model"
 	"concrete nu" [label="concrete nu"]
 	"concrete thermal" [label="concrete thermal conductivity (kappa) 
 concrete heat capacity (C)"]
 	"concrete homogenization" -> "concrete density"
 	"concrete homogenization" -> "concrete nu"
 	"concrete homogenization" -> "concrete thermal"
-	"concrete density" -> "hydration model"
-	"concrete thermal" -> "hydration model"
-	"concrete nu" -> "mechanics model"
-	"concrete density" -> load
-	"concrete strength 28d" -> "fc(DoH)"
-	"concrete E 28d" -> "E(DoH)"
+	"concrete thermal" -> "fem model"
+	"concrete nu" -> "fem model"
+	"concrete strength 28d" -> "fem model"
+	"concrete E 28d" -> "fem model"
 	"cem I hydration parameters" [label="cem I hydration parameters: 
 eta, B1, B2, Q_pot, T_ref, E_act" color=green]
 	"cem I hydration parameters" -> interpolation
 	"cem II hydration parameters" [label="cem II hydration parameters: 
 eta, B1, B2, Q_pot, T_ref, E_act" color=green]
 	"cem II hydration parameters" -> interpolation
-	interpolation [label="interpolation or parallel models" color=red]
-	interpolation -> "hydration model"
-	"w/c" -> missing
-	missing [label="analytical function or GP???" color=red]
-	missing -> "alpha max"
-	"alpha max" [label="max degree of hydration"]
-	"alpha max" -> "hydration model"
-	load [label="load at demolding"]
-	load -> "fem model"
+	interpolation [label="TODO:
+interpolation or parallel models" color=red]
+	interpolation -> "fem model"
+	ratio_cemI_cemII -> interpolation
+	"w/c" -> "fem model"
 }
