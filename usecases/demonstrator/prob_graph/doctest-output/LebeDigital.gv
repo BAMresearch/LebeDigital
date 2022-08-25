@@ -79,9 +79,12 @@ alpha_t, alpha_0, a_E" color=green]
 [N/mm2]"]
 	"param E paste" -> "concrete homogenization"
 	"aggregate content" -> "volume computation"
-	geometry [label="part geometry" color=green]
+	geometry [label="part geometry" color=green shape=rectangle]
 	geometry -> "fem model"
 	geometry -> "cross section"
+	"fem temperature" [label="initial and boundary temperature" color=green shape=rectangle]
+	"fem temperature" -> "fem model"
+	"concrete density" -> "fem model"
 	"concrete density" [label="concrete density"]
 	"concrete density" -> "fem model"
 	"concrete nu" [label="concrete nu"]
@@ -94,15 +97,22 @@ concrete heat capacity (C)"]
 	"concrete nu" -> "fem model"
 	"concrete strength 28d" -> "fem model"
 	"concrete E 28d" -> "fem model"
-	"cem I hydration parameters" [label="cem I hydration parameters: 
-eta, B1, B2, Q_pot, T_ref, E_act" color=green]
-	"cem I hydration parameters" -> interpolation
-	"cem II hydration parameters" [label="cem II hydration parameters: 
-eta, B1, B2, Q_pot, T_ref, E_act" color=green]
-	"cem II hydration parameters" -> interpolation
-	interpolation [label="TODO:
-interpolation or parallel models" color=red]
-	interpolation -> "fem model"
+	phi [label=phi color=green]
+	phi -> interpolation
+	interpolation [label="function to \"interpolate\" paramters 
+f(phi,cem ratio)" color=blue]
+	interpolation -> "hydration parameters"
+	"hydration parameters" [label="hydration parameters: 
+eta, B1, B2, Q_pot, T_ref, E_act"]
+	"hydration parameters" -> "fem model"
+	"time vector" [label="time vector" color=green]
+	"time vector" -> "hydration model"
+	"reaction temperature" [label="reaction temperature" color=green]
+	"reaction temperature" -> "hydration model"
+	"hydration parameters" -> "hydration model"
+	"hydration model" [label="hydration model" color=blue]
+	"hydration model" -> "hydration output"
+	"hydration output" [label="data: heat over time" shape=rectangle]
 	ratio_cemI_cemII -> interpolation
 	"w/c" -> "fem model"
 }

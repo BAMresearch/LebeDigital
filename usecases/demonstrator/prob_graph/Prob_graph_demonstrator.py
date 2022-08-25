@@ -177,6 +177,10 @@ dot.node('hydration parameters', 'hydration parameters: \neta, B1, B2, Q_pot, T_
 dot.edge('hydration parameters','fem model')
 dot.node('time vector','time vector', color=input)
 dot.edge('time vector','hydration model')
+
+dot.node('reaction temperature','reaction temperature', color=input)
+dot.edge('reaction temperature','hydration model')
+
 dot.edge('hydration parameters','hydration model')
 dot.node('hydration model','hydration model', color=process)
 dot.edge('hydration model','hydration output')
