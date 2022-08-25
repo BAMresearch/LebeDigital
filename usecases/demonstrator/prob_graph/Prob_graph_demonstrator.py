@@ -134,11 +134,14 @@ dot.edge('param E paste', 'concrete homogenization')
 
 dot.edge('aggregate content','volume computation')
 
-dot.node('geometry', 'part geometry', color=input)
+dot.node('geometry', 'part geometry', color=input, shape='rectangle')
 dot.edge('geometry', 'fem model')
 dot.edge('geometry', 'cross section')
 
 
+dot.node('fem temperature','initial and boundary temperature', color=input, shape='rectangle')
+dot.edge('fem temperature','fem model')
+dot.edge('concrete density', 'fem model')
 dot.node('concrete density', 'concrete density')
 dot.edge('concrete density', 'fem model')
 dot.node('concrete nu', 'concrete nu')
@@ -155,20 +158,34 @@ dot.edge('concrete nu', 'fem model')
 dot.edge('concrete strength 28d', 'fem model')
 dot.edge('concrete E 28d', 'fem model')
 
-dot.node('cem I hydration parameters', 'cem I hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
-dot.edge('cem I hydration parameters','interpolation')
-dot.node('cem II hydration parameters', 'cem II hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
-dot.edge('cem II hydration parameters','interpolation')
-dot.node('interpolation','TODO:\ninterpolation or parallel models', color=problem)
-dot.edge('interpolation','fem model')
-dot.edge('ratio_cemI_cemII','interpolation')
+dot.node('phi', 'phi', color=input)
+dot.edge('phi','interpolation')
+# dot.node('cem II hydration parameters', 'cem II hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
+# dot.edge('cem II hydration parameters','interpolation')
+# dot.node('cem I hydration parameters', 'cem I hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
+# dot.edge('cem I hydration parameters','interpolation')
+# dot.node('cem II hydration parameters', 'cem II hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
+# dot.edge('cem II hydration parameters','interpolation')
 
+
+
+dot.node('interpolation','function to "interpolate" paramters \nf(phi,cem ratio)', color=process)
+dot.edge('interpolation','hydration parameters')
+
+
+dot.node('hydration parameters', 'hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act',)
+dot.edge('hydration parameters','fem model')
+dot.node('time vector','time vector', color=input)
+dot.edge('time vector','hydration model')
+dot.edge('hydration parameters','hydration model')
+dot.node('hydration model','hydration model', color=process)
+dot.edge('hydration model','hydration output')
+dot.node('hydration output','data: heat over time', shape='rectangle')
+
+dot.edge('ratio_cemI_cemII','interpolation')
 dot.edge('w/c', 'fem model')
 
 
 
+
 dot.render(directory='doctest-output', view=True)
-
-
-
-#dot.edge('c', 'wc', constraint='false')
