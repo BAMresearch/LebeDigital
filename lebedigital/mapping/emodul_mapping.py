@@ -16,6 +16,8 @@ from pathlib import Path
 # owlPath = os.path.join( myDir, "lebedigital", "ConcreteOntology")
 
 baseDir = Path(__file__).parents[2]
+print(baseDir)
+ontologyPath = os.path.join(baseDir, 'lebedigital','ConcreteOntology')
 
 def import_metadata(locationOfMetadata):
     try:
@@ -59,7 +61,7 @@ def get_date_time_value(metadata):
     date_time = datetime.datetime.strptime(str_date_time, "%d.%m.%Y %H:%M:%S")
     return date_time
     
-def generate_knowledge_graph(ontologyPath, metadataPath):
+def generate_knowledge_graph(metadataPath, knowledgeFile):
     My_world = World()
 
     #Load all ontologies
@@ -179,7 +181,7 @@ def generate_knowledge_graph(ontologyPath, metadataPath):
     #########################Export Graph######################################
     ###########################################################################
     
-    export_knowledge_graph_to_ttl(My_world, "knowledgeGraph.ttl")
+    export_knowledge_graph_to_ttl(My_world, knowledgeFile)
     
 
 # metadataPath = "/home/gilif/BAM/LeBeDigital_Projects/mapping_script_Lebedigital/usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml"

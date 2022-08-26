@@ -8,6 +8,8 @@ from doit.task import clean_targets
 from lebedigital.raw_data_processing.metadata_extraction \
     .emodul_metadata_extraction import emodul_metadata
 
+from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
+
 from lebedigital.raw_data_processing.processed_data_generation \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
@@ -24,6 +26,8 @@ metadata_emodulus_directory = Path(ParentDir, 'emodul',
 #processed data is in a different subdirectory
 processed_data_emodulus_directory = Path(ParentDir, 'emodul',
                                     'processed_data')
+
+knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
 
 #extract standardized meta data for Young' modulus tests
 def task_extract_metadata_emodul():
@@ -56,4 +60,20 @@ def task_extract_processed_data_emodul():
                                                csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
+            }
+
+#generate knowledgeGraphs
+def task_export_knowledgeGraph_emodul():
+    for f in os.scandir(metadata_emodulus_directory):
+        if f.is_file():
+            metadata_file_path = Path(f.path)
+            name_of_ttl = f.name.replace('.yaml', '.tll')
+            knowledge_graph_file = Path(knowledge_graphs_directory,
+                                        name_of_ttl)
+            yield{
+                'name': knowledge_graph_file,
+                'actions': [(generate_knowledge_graph, [metadata_file_path,
+                                                    name_of_ttl])],
+                'file_dep': [metadata_file_path],
+                'targets': [name_of_ttl],
             }

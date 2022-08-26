@@ -27,7 +27,6 @@ def print_first():
     print("###################First Query####################################")
 
 def test_generate_knowledge_graph():
-    ontologyPath = '../../lebedigital/ConcreteOntology/'
     metadataPath = '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
     filename = "knowledgeGraph.ttl"
     print("Start testing:")
@@ -35,7 +34,7 @@ def test_generate_knowledge_graph():
     print("Generate metadata for test:")
     test_metadata_extraction_emodul()
     print("Generate knowledgeGraph:")
-    generate_knowledge_graph(ontologyPath, metadataPath)
+    generate_knowledge_graph(metadataPath, filename)
 
     target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
                    'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
@@ -107,6 +106,9 @@ def test_generate_knowledge_graph():
         assert rawPath == str(row.o)
     
     print('Pass all tests')
+
+    print("Deleting test files:")
+    os.remove(filename)
 
     print("End testing")
 
