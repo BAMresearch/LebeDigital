@@ -138,110 +138,115 @@ def generate_knowledge_graph(metadataPath, knowledgeFile):
             domain    = [cco.InformationBearingEntity]
             range     = [str]
     #Extract metadata
-    metadata = import_metadata(metadataPath)
-    rawPath = os.path.join(rawBaseDir, metadata['experimentName'])
-    processedFile = os.path.join(processedDataDir, metadata['experimentName'])
-    ###########################################################################
-    ########################ADD INDIVIDUALS####################################
-    ###########################################################################
-    
-    #Root
-    concreteSpecimenIndividual = impO.Specimen(make_valid_uri_from_string(metadata['experimentName']))
+    with open(metadataPath) as metadataFile:
+        try:
+            metadata = yaml.load(metadataFile, Loader=SafeLoader)
+            rawPath = os.path.join(rawBaseDir, metadata['experimentName'])
+            processedFile = os.path.join(processedDataDir, metadata['experimentName'])
+            ###########################################################################
+            ########################ADD INDIVIDUALS####################################
+            ###########################################################################
+            
+            #Root
+            concreteSpecimenIndividual = impO.Specimen(make_valid_uri_from_string(metadata['experimentName']))
 
-    #Individuals needed to give a Diameter value
-    specimenDiameter = cco.Diameter()
-    specimenDiameterValue = cco.InformationBearingEntity()
-    
-    #Individuals for length
-    specimenLength = cco.Length()
-    specimenLengthValue = cco.InformationBearingEntity()
-    
-    #Individuals for Mass
-    specimenMass = cco.Mass()
-    specimenMassValue = cco.InformationBearingEntity()
+            #Individuals needed to give a Diameter value
+            specimenDiameter = cco.Diameter()
+            specimenDiameterValue = cco.InformationBearingEntity()
+            
+            #Individuals for length
+            specimenLength = cco.Length()
+            specimenLengthValue = cco.InformationBearingEntity()
+            
+            #Individuals for Mass
+            specimenMass = cco.Mass()
+            specimenMassValue = cco.InformationBearingEntity()
 
-    #Add comment'
-    specimenSecantModulus = ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(make_valid_uri_from_string(metadata['experimentName']))
+            #Add comment'
+            specimenSecantModulus = ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(make_valid_uri_from_string(metadata['experimentName']))
 
-    #Add filename, filePath of RawData
-    specimenRawDatafile = mseo.RawDataSet()
-    specimenRawFilename =cco.InformationBearingEntity()
-    specimenRawFilePath = cco.InformationBearingEntity()
+            #Add filename, filePath of RawData
+            specimenRawDatafile = mseo.RawDataSet()
+            specimenRawFilename =cco.InformationBearingEntity()
+            specimenRawFilePath = cco.InformationBearingEntity()
 
-    #Add date
-    experimentDate = cco.Day()
-    experimentDateValue = cco.InformationBearingEntity()
+            #Add date
+            experimentDate = cco.Day()
+            experimentDateValue = cco.InformationBearingEntity()
 
-    #Add operator Name
-    experimentOperator = cco.Agent()
-    experimentOperatorName = cco.DesignativeName()
-    experimentOperatorNameValue = cco.InformationBearingEntity()
+            #Add operator Name
+            experimentOperator = cco.Agent()
+            experimentOperatorName = cco.DesignativeName()
+            experimentOperatorNameValue = cco.InformationBearingEntity()
 
-    #Add Filename, filePath of Processed Data
-    specimenProcessingOfData = bfo.BFO_0000015()
-    specimenProcessedDatafile = mseo.AnalysedDataSet()
-    specimenProcessedFilename = cco.InformationBearingEntity()
-    specimenProcessedPath = cco.InformationBearingEntity()
-    
-    ###########################################################################
-    #########################ADD PROPERTIES####################################
-    ###########################################################################
-    
-    #Begin Path to SecantDetermination
-    concreteSpecimenIndividual.is_input_of= [specimenSecantModulus]
+            #Add Filename, filePath of Processed Data
+            specimenProcessingOfData = bfo.BFO_0000015()
+            specimenProcessedDatafile = mseo.AnalysedDataSet()
+            specimenProcessedFilename = cco.InformationBearingEntity()
+            specimenProcessedPath = cco.InformationBearingEntity()
+            
+            ###########################################################################
+            #########################ADD PROPERTIES####################################
+            ###########################################################################
+            
+            #Begin Path to SecantDetermination
+            concreteSpecimenIndividual.is_input_of= [specimenSecantModulus]
 
-    #Add path to diameter value
-    concreteSpecimenIndividual.RO_0000086 = [specimenDiameter]
-    specimenDiameter.RO_0010001 = [specimenDiameterValue]
-    specimenDiameterValue.has_decimal_value = [float(metadata['diameter'])]
-    specimenDiameterValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
-   
-    #Add path to length value
-    concreteSpecimenIndividual.RO_0000086 =[specimenLength]
-    specimenLength.RO_0010001 = [specimenLengthValue]
-    specimenLengthValue.has_decimal_value = [float(metadata['length'])]
-    #Add length unit
-    if(metadata['length_unit'] == "mm"):
-        specimenLengthValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
-    
-    #Add path to Mass
-    concreteSpecimenIndividual.RO_0000086 = [specimenMass]
-    specimenMass.RO_0010001 = [specimenMassValue]
-    specimenMassValue.has_decimal_value = [float(metadata['weight'])]
-    #Add unit
-    if(metadata['weight_unit'] == 'g'):
-        specimenMassValue.uses_measurement_unit = [cco.GramMeasurementUnit]
+            #Add path to diameter value
+            concreteSpecimenIndividual.RO_0000086 = [specimenDiameter]
+            specimenDiameter.RO_0010001 = [specimenDiameterValue]
+            specimenDiameterValue.has_decimal_value = [float(metadata['diameter'])]
+            specimenDiameterValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
+        
+            #Add path to length value
+            concreteSpecimenIndividual.RO_0000086 =[specimenLength]
+            specimenLength.RO_0010001 = [specimenLengthValue]
+            specimenLengthValue.has_decimal_value = [float(metadata['length'])]
+            #Add length unit
+            if(metadata['length_unit'] == "mm"):
+                specimenLengthValue.uses_measurement_unit = [cco.MillimeterMeasurementUnit]
+            
+            #Add path to Mass
+            concreteSpecimenIndividual.RO_0000086 = [specimenMass]
+            specimenMass.RO_0010001 = [specimenMassValue]
+            specimenMassValue.has_decimal_value = [float(metadata['weight'])]
+            #Add unit
+            if(metadata['weight_unit'] == 'g'):
+                specimenMassValue.uses_measurement_unit = [cco.GramMeasurementUnit]
 
-    #Add path to Rawfile
-    specimenSecantModulus.has_output = [specimenRawDatafile]
-    specimenRawDatafile.RO_0010001 = [specimenRawFilename, specimenRawFilePath]
-    specimenRawFilename.has_text_value =metadata['experimentName']
-    specimenRawFilePath.has_text_value = rawPath
+            #Add path to Rawfile
+            specimenSecantModulus.has_output = [specimenRawDatafile]
+            specimenRawDatafile.RO_0010001 = [specimenRawFilename, specimenRawFilePath]
+            specimenRawFilename.has_text_value =metadata['experimentName']
+            specimenRawFilePath.has_text_value = rawPath
 
-    #Add path to Processedfile
-    specimenRawDatafile.is_input_of = [specimenProcessingOfData]
-    specimenProcessingOfData.has_output = [specimenProcessedDatafile]
-    specimenProcessedDatafile.RO_0010001 = [specimenProcessedFilename,
-                                            specimenProcessedPath]
-    specimenProcessedFilename.has_text_value = metadata['experimentName'] + '.csv'
-    specimenProcessedPath.has_text_value = processedDataDir
-    #Add path to date
-    specimenSecantModulus.occures_on = [experimentDate]
-    experimentDate.RO_0010001 = [experimentDateValue]
-    operatorTime = get_date_time_value(metadata)
-    experimentDateValue.has_datetime_value = [operatorTime]
+            #Add path to Processedfile
+            specimenRawDatafile.is_input_of = [specimenProcessingOfData]
+            specimenProcessingOfData.has_output = [specimenProcessedDatafile]
+            specimenProcessedDatafile.RO_0010001 = [specimenProcessedFilename,
+                                                    specimenProcessedPath]
+            specimenProcessedFilename.has_text_value = metadata['experimentName'] + '.csv'
+            specimenProcessedPath.has_text_value = processedDataDir
+            #Add path to date
+            specimenSecantModulus.occures_on = [experimentDate]
+            experimentDate.RO_0010001 = [experimentDateValue]
+            operatorTime = get_date_time_value(metadata)
+            experimentDateValue.has_datetime_value = [operatorTime]
 
-    #Add Path to operator
-    specimenSecantModulus.has_agent = [experimentOperator]
-    experimentOperator.designated_by = [experimentOperatorName]
-    experimentOperatorName.RO_0010001 =[experimentOperatorNameValue]
-    experimentOperatorNameValue.has_text_value = metadata['tester_name']
+            #Add Path to operator
+            specimenSecantModulus.has_agent = [experimentOperator]
+            experimentOperator.designated_by = [experimentOperatorName]
+            experimentOperatorName.RO_0010001 =[experimentOperatorNameValue]
+            experimentOperatorNameValue.has_text_value = metadata['tester_name']
 
-    ###########################################################################
-    #########################Export Graph######################################
-    ###########################################################################
-    
-    export_knowledge_graph_to_ttl(My_world, knowledgeFile)
+            ###########################################################################
+            #########################Export Graph######################################
+            ###########################################################################
+            
+            export_knowledge_graph_to_ttl(My_world, knowledgeFile)
+        except Exception as e:
+            print("Path error: ", file=sys.stderr)
+            print(e, file=sys.stderr)
     
 
 # metadataPath = "/home/gilif/BAM/LeBeDigital_Projects/mapping_script_Lebedigital/usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml"
