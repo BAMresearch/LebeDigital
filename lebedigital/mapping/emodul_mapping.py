@@ -43,7 +43,7 @@ def import_metadata(locationOfMetadata):
         with open(locationOfMetadata) as metaDataFile:
             metaDataDict = yaml.load(metaDataFile, Loader=SafeLoader)
     except Exception as e:
-        print("Path error: " + locationOfMetadata + "do not exist.", file=sys.stderr)
+        print("Path error: ", file=sys.stderr)
         print(e, file=sys.stderr)
     return metaDataDict
 
