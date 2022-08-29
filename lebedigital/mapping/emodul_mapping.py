@@ -12,14 +12,33 @@ from rdflib import URIRef, Graph, Literal, BNode
 from rdflib.namespace import FOAF, RDF, XSD
 from pathlib import Path
 
-# myDir = os.path.dirname(__file__)
-# owlPath = os.path.join( myDir, "lebedigital", "ConcreteOntology")
+#This script is fully dependent on the ontology that on can find at
+#lebedigital/ConcreteOntology/ 
+#Here we generate the Path to get all the ontologies needed to run the script
+#Warnings: If the architecture of the lebedigital change this may need to be changed
 
+#Settings for files and directories:
+ontologyDirName = 'ConcreteOntology'
+lebedigitalPkgName = 'lebedigital'
 baseDir = Path(__file__).parents[2]
-print(baseDir)
-ontologyPath = os.path.join(baseDir, 'lebedigital','ConcreteOntology')
+ontologyPath = os.path.join(baseDir, lebedigitalPkgName, ontologyDirName)
+MinWorkingExpDir = os.path.join(baseDir, 'usecases', 'MinimumWorkingExample')
+rawBaseDir = os.path.join(MinWorkingExpDir, 'Data', 'E-modul')
+processedDataDir =os.path.join(MinWorkingExpDir, 'emodul', 'processed_data')
+
 
 def import_metadata(locationOfMetadata):
+    """Import metadata from a file and return it as a dict
+    
+    Parameters
+    ----------
+    locationOfMetadata: string
+        Path to the metadata File
+    
+    Returns
+    -------
+    metaDataDict: dict
+        Dictionary that represent the metadata in the given file"""
     try:
         with open(locationOfMetadata) as metaDataFile:
             metaDataDict = yaml.load(metaDataFile, Loader=SafeLoader)
@@ -28,11 +47,8 @@ def import_metadata(locationOfMetadata):
         print(e, file=sys.stderr)
     return metaDataDict
 
-def import_ontology(locationOfOntology,my_world):
-    assert os.path.isfile(locationOfOntology), f"Could not find '{locationOfOntology}'"
-    imp_ontology = my_world.get_ontology(locationOfOntology).load()
-    return imp_ontology
-
+###############################################################################
+#Utilitys that can be useful for testing if we need to change the script
 def print_ontology_classes(onto):
     c_list = list(onto.classes())
     print("List of classes: ")
@@ -47,9 +63,27 @@ def print_ontology_instances(onto):
         print(i)
     print(f"There are '{len(i_list)}' instancies")
 
+###############################################################################
 def export_knowledge_graph_to_ttl(onto, locationOfKnowledgeGraph):
-    """ Since owlready is not used to create knowledge graphs 
-        we need to export it using RDFLIB"""
+    """Export the knowledge graph that we generate by adding instances to our ontology
+    Parameters
+    ----------
+    onto: owlready2 ontology
+        the object containing our knowledge graph
+    locationOfKnowledgeGraph: str
+        Path to the file
+    
+    Returns:
+    --------
+        void
+
+    Warnings:
+    -Since owlready2 is not used to create knowledge graphs 
+    we need to export it using RDFLIB.
+    -Owlready2 is not designed for knowledge graph generation so using it this 
+    way may result in ambiguous results.
+
+    """
     knowledge_graph = onto.as_rdflib_graph()
     knowledge_graph.serialize(destination=locationOfKnowledgeGraph, format="turtle")
 
@@ -62,6 +96,20 @@ def get_date_time_value(metadata):
     return date_time
     
 def generate_knowledge_graph(metadataPath, knowledgeFile):
+    """
+    Generate a knowledge graph
+
+    Parameters
+    ----------
+    metadataPath: str
+        Path to the file containing the metadata
+    knowledgeFile: str
+        Path to the file in which we want to export the knowledge graph
+    
+    Returns
+    -------
+        void
+    """    
     My_world = World()
 
     #Load all ontologies
@@ -89,11 +137,10 @@ def generate_knowledge_graph(metadataPath, knowledgeFile):
         class has_text_value(DataProperty, FunctionalProperty):
             domain    = [cco.InformationBearingEntity]
             range     = [str]
-        print(xml)
     #Extract metadata
     metadata = import_metadata(metadataPath)
-    rawPath = os.path.join(baseDir, 'usecases', 'MinimumWorkingExample', 'Data', 'E-modul',
-            metadata['experimentName'])
+    rawPath = os.path.join(rawBaseDir, metadata['experimentName'])
+    processedFile = os.path.join(processedDataDir, metadata['experimentName'])
     ###########################################################################
     ########################ADD INDIVIDUALS####################################
     ###########################################################################
@@ -116,10 +163,10 @@ def generate_knowledge_graph(metadataPath, knowledgeFile):
     #Add comment'
     specimenSecantModulus = ConcreteMSEO_ontology.DeterminationOfSecantModulusOfElasticity(make_valid_uri_from_string(metadata['experimentName']))
 
-    #Add filename, filePath
+    #Add filename, filePath of RawData
     specimenRawDatafile = mseo.RawDataSet()
-    specimenFilename =cco.InformationBearingEntity()
-    specimenFilePath = cco.InformationBearingEntity()
+    specimenRawFilename =cco.InformationBearingEntity()
+    specimenRawFilePath = cco.InformationBearingEntity()
 
     #Add date
     experimentDate = cco.Day()
@@ -130,6 +177,12 @@ def generate_knowledge_graph(metadataPath, knowledgeFile):
     experimentOperatorName = cco.DesignativeName()
     experimentOperatorNameValue = cco.InformationBearingEntity()
 
+    #Add Filename, filePath of Processed Data
+    specimenProcessingOfData = bfo.BFO_0000015()
+    specimenProcessedDatafile = mseo.AnalysedDataSet()
+    specimenProcessedFilename = cco.InformationBearingEntity()
+    specimenProcessedPath = cco.InformationBearingEntity()
+    
     ###########################################################################
     #########################ADD PROPERTIES####################################
     ###########################################################################
@@ -161,10 +214,17 @@ def generate_knowledge_graph(metadataPath, knowledgeFile):
 
     #Add path to Rawfile
     specimenSecantModulus.has_output = [specimenRawDatafile]
-    specimenRawDatafile.RO_0010001 = [specimenFilename, specimenFilePath]
-    specimenFilename.has_text_value =metadata['experimentName']
-    specimenFilePath.has_text_value = rawPath
+    specimenRawDatafile.RO_0010001 = [specimenRawFilename, specimenRawFilePath]
+    specimenRawFilename.has_text_value =metadata['experimentName']
+    specimenRawFilePath.has_text_value = rawPath
 
+    #Add path to Processedfile
+    specimenRawDatafile.is_input_of = [specimenProcessingOfData]
+    specimenProcessingOfData.has_output = [specimenProcessedDatafile]
+    specimenProcessedDatafile.RO_0010001 = [specimenProcessedFilename,
+                                            specimenProcessedPath]
+    specimenProcessedFilename.has_text_value = metadata['experimentName'] + '.csv'
+    specimenProcessedPath.has_text_value = processedDataDir
     #Add path to date
     specimenSecantModulus.occures_on = [experimentDate]
     experimentDate.RO_0010001 = [experimentDateValue]

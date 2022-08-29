@@ -7,7 +7,7 @@ def test_metadata_extraction_emodul():
     """Tesing the metadata extraction on a single example"""
 
     # setting up the test example
-    input = '../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
+    input = '/../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     mix_file = 'mix.dat'
     specimen_file = 'specimen.dat'
 

@@ -2,11 +2,11 @@ import pytest
 import rdflib
 import datetime
 import os
+import yaml
 
 from pathlib import Path
 
 from lebedigital.mapping.emodul_mapping import generate_knowledge_graph, get_date_time_value
-from test_metadata_extraction_emodul import test_metadata_extraction_emodul
 
 def query_and_test_result(typeOfQuery, predicate, prop, g):
     print(f"""Query for {typeOfQuery}:""")
@@ -27,28 +27,29 @@ def print_first():
     print("###################First Query####################################")
 
 def test_generate_knowledge_graph():
-    metadataPath = '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
+    metadataPath = 'testMetaData.yaml'
     filename = "knowledgeGraph.ttl"
     print("Start testing:")
     #Generate a testMetadata file
-    print("Generate metadata for test:")
-    test_metadata_extraction_emodul()
+    print("Generate metadata file for test:")
+    target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
+            'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
+            'operator_timestamp': '13:25:39',
+            'operator_date': '01.09.2014',
+            'tester_name': 'Kh',
+            'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
+            'remark': 'Kraftgeregelt 3,9 kN/s',
+            'weight': 5342.0,
+            'weight_unit': 'g',
+            'diameter': 98.6,
+            'length': 300.3,
+            'length_unit': 'mm',
+            'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+
+    with open(metadataPath, 'w') as yamlFile:
+        yaml.dump(target_data, yamlFile)
     print("Generate knowledgeGraph:")
     generate_knowledge_graph(metadataPath, filename)
-
-    target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
-                   'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
-                   'operator_timestamp': '13:25:39',
-                   'operator_date': '01.09.2014',
-                   'tester_name': 'Kh',
-                   'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
-                   'remark': 'Kraftgeregelt 3,9 kN/s',
-                   'weight': 5342.0,
-                   'weight_unit': 'g',
-                   'diameter': 98.6,
-                   'length': 300.3,
-                   'length_unit': 'mm',
-                   'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
     
     g = rdflib.Graph()
     result = g.parse(filename, format='ttl')
@@ -109,7 +110,8 @@ def test_generate_knowledge_graph():
 
     print("Deleting test files:")
     os.remove(filename)
+    os.remove(metadataPath)
 
     print("End testing")
 
-#test_generate_knowledge_graph()
+test_generate_knowledge_graph()
