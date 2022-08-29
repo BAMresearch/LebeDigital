@@ -1,38 +1,45 @@
-import pytest
 import rdflib
-import datetime
-import os
-import yaml
+def query_objects(queries, graph):
+        # function to get objects from specific subject, predicate pairs, knowing there is only one result
+        results = {}
+        for query in queries:
+                q = f"""
+                        SELECT ?object
+                        WHERE {{
+                                {queries[query]['subject']}  {queries[query]['predicate']} ?object
+                        }}
+                """
 
-from pathlib import Path
+                result = graph.query(q)
+                for r in result:
+                        results[query] = r["object"]
 
-from lebedigital.mapping.emodul_mapping import generate_knowledge_graph, get_date_time_value
+        return results
 
-def calibrate_E_from_KG(KG_file):
-    print('Path to file', KG_file)
+# define queries
+queries = {
+        'diameter' :  {'subject' : 'ns1:informationbearingentity1', 'predicate' : 'ns1:has_decimal_value' },
+        'length' :    {'subject' : 'ns1:informationbearingentity2', 'predicate' : 'ns1:has_decimal_value' },
+        'path' :      {'subject' : 'ns1:informationbearingentity9', 'predicate' : 'ns9:has_text_value' },
+        'file_name' : {'subject' : 'ns1:informationbearingentity8', 'predicate' : 'ns9:has_text_value' }
+}
 
-    g = rdflib.Graph()
-    result = g.parse(KG_file, format='ttl')
-    print("Query knowledgeGraph:")
-
-    result = query_and_test_result('diameter', 'ns1:informationbearingentity1','ns7:has_decimal_value', g)
-    print(result)
-    for row in result:
-        print(row)
-        print('TEST')
-        print('Diameter:',float(row.o))
-
-
-def query_and_test_result(typeOfQuery, predicate, prop, g):
-    print(f"""Query for {typeOfQuery}:""")
-    q = f"""
-            SELECT ?o WHERE {{
-                    {predicate} {prop} ?o .
-            }}
-            """
-    print(q)
-    result = g.query(q)
-    return result
-
+# Path to KG
 path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.tll'
-calibrate_E_from_KG(path_to_KG)
+
+# initialize the graph
+knowledge_graph = rdflib.Graph()
+knowledge_graph.parse(path_to_KG, format='ttl')
+
+# queries
+results = query_objects(queries,knowledge_graph)
+
+# geometry
+length = results['length']
+print('Length: ', length)
+diameter = results['diameter']
+print('Diameter: ',diameter)
+
+# experimental data
+file_path = results['path'] + '/' + results['file_name']
+print(file_path)
