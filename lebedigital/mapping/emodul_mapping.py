@@ -39,6 +39,7 @@ def import_metadata(locationOfMetadata):
     -------
     metaDataDict: dict
         Dictionary that represent the metadata in the given file"""
+    metaDataDict = {}
     try:
         with open(locationOfMetadata) as metaDataFile:
             metaDataDict = yaml.load(metaDataFile, Loader=SafeLoader)
