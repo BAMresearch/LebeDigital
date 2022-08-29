@@ -65,7 +65,7 @@ def task_extract_processed_data_emodul():
 #generate knowledgeGraphs
 def task_export_knowledgeGraph_emodul():
     for f in os.scandir(metadata_emodulus_directory):
-        if f.is_file():
+        if f.is_file() and f.name != ".gitignore":
             metadata_file_path = Path(f.path)
             name_of_ttl = f.name.replace('.yaml', '.tll')
             knowledge_graph_file = Path(knowledge_graphs_directory,
@@ -73,7 +73,7 @@ def task_export_knowledgeGraph_emodul():
             yield{
                 'name': knowledge_graph_file,
                 'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    name_of_ttl])],
+                                                    knowledge_graph_file])],
                 'file_dep': [metadata_file_path],
                 'targets': [name_of_ttl],
             }
