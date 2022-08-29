@@ -73,7 +73,7 @@ def task_export_knowledgeGraph_emodul():
             yield{
                 'name': knowledge_graph_file,
                 'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    name_of_ttl])],
+                                                    knowledge_graph_file])],
                 'file_dep': [metadata_file_path],
                 'targets': [name_of_ttl],
             }
