@@ -39,14 +39,13 @@ def import_metadata(locationOfMetadata):
     -------
     metaDataDict: dict
         Dictionary that represent the metadata in the given file"""
-    metaDataDict = {}
-    try:
-        with open(locationOfMetadata) as metaDataFile:
+    with open(locationOfMetadata) as metaDataFile:
+        try:
             metaDataDict = yaml.load(metaDataFile, Loader=SafeLoader)
-    except Exception as e:
-        print("Path error: ", file=sys.stderr)
-        print(e, file=sys.stderr)
-    return metaDataDict
+            return metaDataDict
+        except Exception as e:
+            print("Path error: ", file=sys.stderr)
+            print(e, file=sys.stderr)
 
 ###############################################################################
 #Utilitys that can be useful for testing if we need to change the script
