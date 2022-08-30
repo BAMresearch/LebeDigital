@@ -18,7 +18,7 @@ def cylinder_simulation(parameters):
                 slope of the linear load displacement function
                 """
 
-        parameters['nu'] = 0.2
+        parameters['nu'] = 0.25
         parameters['dim'] = 3
 
         parameters['mesh_density'] = 10
@@ -40,7 +40,7 @@ def cylinder_simulation(parameters):
         # compute slope of linear problem
         slope = measured_force/test_load
 
-        return slope
+        return slope,measured_force
 
 def query_objects(queries, graph):
         # function to get objects from specific subject, predicate pairs, knowing there is only one result
@@ -113,7 +113,7 @@ parameters['height'] = length   # in mm
 parameters['E'] = 100  # in kN/mm^2
 print(' - Youngs modulus: ', parameters['E'])
 
-simulation_slope = cylinder_simulation(parameters)
+simulation_slope, force = cylinder_simulation(parameters)
 
 print('Slope:', simulation_slope)
 
@@ -124,8 +124,8 @@ force_list_3 = displacement_list_3*simulation_slope
 print('STEP 4 : TODO optimization')
 
 
-
-
+#
+#
 
 
 
