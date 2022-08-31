@@ -107,6 +107,8 @@ eta, B1, B2, Q_pot, T_ref, E_act"]
 	"hydration parameters" -> "fem model"
 	"time vector" [label="time vector" color=green]
 	"time vector" -> "hydration model"
+	"reaction temperature" [label="reaction temperature" color=green]
+	"reaction temperature" -> "hydration model"
 	"hydration parameters" -> "hydration model"
 	"hydration model" [label="hydration model" color=blue]
 	"hydration model" -> "hydration output"
