@@ -9,6 +9,7 @@ kpi = 'orange'
 dot = graphviz.Digraph('LebeDigital', comment='LebeDigital ')
 
 
+
 dot.node('cemI', 'cem I content \n[kg/m³]', color=input, shape='rectangle')
 dot.edge('cemI','volume computation')
 dot.edge('cemII','volume computation')
@@ -160,14 +161,6 @@ dot.edge('concrete E 28d', 'fem model')
 
 dot.node('phi', 'phi', color=input)
 dot.edge('phi','interpolation')
-# dot.node('cem II hydration parameters', 'cem II hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
-# dot.edge('cem II hydration parameters','interpolation')
-# dot.node('cem I hydration parameters', 'cem I hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
-# dot.edge('cem I hydration parameters','interpolation')
-# dot.node('cem II hydration parameters', 'cem II hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act', color=input)
-# dot.edge('cem II hydration parameters','interpolation')
-
-
 
 dot.node('interpolation','function to "interpolate" paramters \nf(phi,cem ratio)', color=process)
 dot.edge('interpolation','hydration parameters')
@@ -188,8 +181,6 @@ dot.node('hydration output','data: heat over time', shape='rectangle')
 
 dot.edge('ratio_cemI_cemII','interpolation')
 dot.edge('w/c', 'fem model')
-
-
 
 
 dot.render(directory='doctest-output', view=True)
