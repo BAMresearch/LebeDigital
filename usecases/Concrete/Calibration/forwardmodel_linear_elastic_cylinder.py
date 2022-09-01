@@ -7,9 +7,8 @@ from probeye.definition.sensor import Sensor
 class LinearElasticityCylinder(ForwardModelBase):
     """Probeye forward model for a compression test on a linear elastic cylinder"""
 
-    def definition(self):
+    def interface(self):
         """Definition of the variable parameter, the input and output sensors
-
         E                 : Young's modulus in N/mm²
         nu                : Poisson's ratio
         height            : height of the cylinder in mm
@@ -23,7 +22,7 @@ class LinearElasticityCylinder(ForwardModelBase):
                               Sensor("height"),
                               Sensor("radius"),
                               Sensor("displacement_list")]
-        self.output_sensors = [Sensor('force_list')]
+        self.output_sensors = [Sensor('force_list', std_model="sigma")]
 
     def response(self, inp: dict) -> dict:
         """Setup of the FEM problem

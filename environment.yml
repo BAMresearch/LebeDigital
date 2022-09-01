@@ -17,6 +17,7 @@ dependencies:
   - owlready2
   - rdflib
   - sparqlwrapper
+  - seaborn
   - requests
   - gitpython
   - pyshacl
@@ -25,5 +26,5 @@ dependencies:
   - pytest
   - pip
   - pip:
-    - probeye==2.3.2
+    - probeye==2.3.0
     - -e .
