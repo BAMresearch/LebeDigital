@@ -68,7 +68,7 @@ queries = {
 }
 
 # Path to KG, for testing
-path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.tll'
+path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
 
 # initialize the graph
 knowledge_graph = rdflib.Graph()
