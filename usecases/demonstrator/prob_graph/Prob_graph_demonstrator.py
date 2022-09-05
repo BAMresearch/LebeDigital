@@ -180,7 +180,13 @@ dot.edge('hydration model','hydration output')
 dot.node('hydration output','data: heat over time', shape='rectangle')
 
 dot.edge('ratio_cemI_cemII','interpolation')
-dot.edge('w/c', 'fem model')
+
+dot.node('fkt_alpha_max','function: DoH_max(w/c)', color=process)
+dot.edge('fkt_alpha_max','alpha_max')
+dot.edge('w/c','fkt_alpha_max')
+dot.node('alpha_max','max degree of hydration')
+dot.edge('alpha_max', 'hydration model')
+dot.edge('alpha_max', 'fem model')
 
 
 dot.render(directory='doctest-output', view=True)
