@@ -108,9 +108,7 @@ dot.node('E paramter', 'parameter E(DoH): \nalpha_t, alpha_0, a_E', color=input)
 dot.edge('E paramter','fem model')
 
 
-
-
-
+# just a test comment
 
 dot.node('aggregate data', 'aggregate data: E, nu, rho, C, kappa', color=input)
 dot.edge('aggregate data', 'concrete homogenization')
@@ -151,9 +149,7 @@ dot.edge('concrete homogenization', 'concrete density')
 dot.edge('concrete homogenization', 'concrete nu')
 dot.edge('concrete homogenization', 'concrete thermal')
 
-
 dot.edge('concrete thermal', 'fem model')
-
 
 dot.edge('concrete nu', 'fem model')
 dot.edge('concrete strength 28d', 'fem model')
@@ -164,7 +160,6 @@ dot.edge('phi','interpolation')
 
 dot.node('interpolation','function to "interpolate" paramters \nf(phi,cem ratio)', color=process)
 dot.edge('interpolation','hydration parameters')
-
 
 dot.node('hydration parameters', 'hydration parameters: \neta, B1, B2, Q_pot, T_ref, E_act',)
 dot.edge('hydration parameters','fem model')
@@ -187,6 +182,5 @@ dot.edge('w/c','fkt_alpha_max')
 dot.node('alpha_max','max degree of hydration')
 dot.edge('alpha_max', 'hydration model')
 dot.edge('alpha_max', 'fem model')
-
 
 dot.render(directory='doctest-output', view=True)
