@@ -12,6 +12,7 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 
 from lebedigital.raw_data_processing.processed_data_generation \
     .emodul_generate_processed_data import processed_data_from_rawdata
+from lebedigital.calibration.calibrationWorkflow import perform_calibration
 
 
 DOIT_CONFIG = {'verbosity': 2}
@@ -29,51 +30,62 @@ processed_data_emodulus_directory = Path(ParentDir, 'emodul',
 
 knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
 
+calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')
+
 #extract standardized meta data for Young' modulus tests
-def task_extract_metadata_emodul():
-    for f in os.scandir(raw_data_emodulus_directory):
-        if f.is_dir():
-            raw_data_path = Path(f)
-            raw_data_file = Path(f, 'specimen.dat')
-            yaml_metadata_file = Path(metadata_emodulus_directory, f.name + '.yaml')
-            yield {
-                'name': yaml_metadata_file,
-                'actions': [(emodul_metadata, [raw_data_path,
-                                               yaml_metadata_file])],
-                'file_dep': [raw_data_file],
-                'targets': [yaml_metadata_file],
-                'clean': [clean_targets]
-            }
+# def task_extract_metadata_emodul():
+#     for f in os.scandir(raw_data_emodulus_directory):
+#         if f.is_dir():
+#             raw_data_path = Path(f)
+#             raw_data_file = Path(f, 'specimen.dat')
+#             yaml_metadata_file = Path(metadata_emodulus_directory, f.name + '.yaml')
+#             yield {
+#                 'name': yaml_metadata_file,
+#                 'actions': [(emodul_metadata, [raw_data_path,
+#                                                yaml_metadata_file])],
+#                 'file_dep': [raw_data_file],
+#                 'targets': [yaml_metadata_file],
+#                 'clean': [clean_targets]
+#             }
+#
+# #extract standardized processed data for Young' modulus tests
+# def task_extract_processed_data_emodul():
+#     for f in os.scandir(raw_data_emodulus_directory):
+#         if f.is_dir():
+#             raw_data_file = Path(f, 'specimen.dat')
+#             #the name of the csv file is the file name of the raw data
+#             # is processed_data_directory + directory_raw_data.csv
+#             csv_data_file = Path(processed_data_emodulus_directory,
+#                                  f.name + '.csv')
+#             yield {
+#                 'name': csv_data_file,
+#                 'actions': [(processed_data_from_rawdata, [f,
+#                                                csv_data_file])],
+#                 'file_dep': [raw_data_file],
+#                 'targets': [csv_data_file],
+#             }
+#
+# #generate knowledgeGraphs
+# def task_export_knowledgeGraph_emodul():
+#     for f in os.scandir(metadata_emodulus_directory):
+#         if f.is_file():
+#             metadata_file_path = Path(f.path)
+#             name_of_ttl = f.name.replace('.yaml', '.ttl')
+#             knowledge_graph_file = Path(knowledge_graphs_directory,
+#                                         name_of_ttl)
+#             yield{
+#                 'name': knowledge_graph_file,
+#                 'actions': [(generate_knowledge_graph, [metadata_file_path,
+#                                                     knowledge_graph_file])],
+#                 'file_dep': [metadata_file_path],
+#                 'targets': [name_of_ttl],
+#             }
 
-#extract standardized processed data for Young' modulus tests
-def task_extract_processed_data_emodul():
-    for f in os.scandir(raw_data_emodulus_directory):
-        if f.is_dir():
-            raw_data_file = Path(f, 'specimen.dat')
-            #the name of the csv file is the file name of the raw data
-            # is processed_data_directory + directory_raw_data.csv
-            csv_data_file = Path(processed_data_emodulus_directory,
-                                 f.name + '.csv')
-            yield {
-                'name': csv_data_file,
-                'actions': [(processed_data_from_rawdata, [f,
-                                               csv_data_file])],
-                'file_dep': [raw_data_file],
-                'targets': [csv_data_file],
-            }
-
-#generate knowledgeGraphs
-def task_export_knowledgeGraph_emodul():
-    for f in os.scandir(metadata_emodulus_directory):
-        if f.is_file():
-            metadata_file_path = Path(f.path)
-            name_of_ttl = f.name.replace('.yaml', '.ttl')
-            knowledge_graph_file = Path(knowledge_graphs_directory,
-                                        name_of_ttl)
-            yield{
-                'name': knowledge_graph_file,
-                'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    knowledge_graph_file])],
-                'file_dep': [metadata_file_path],
-                'targets': [name_of_ttl],
-            }
+# perform calibration
+def task_perform_calibration():
+    exp_name = 'Wolf 8.2 Probe 1'
+    yield {
+        'basename': 'calibrate',
+        'actions': [(perform_calibration,[str(knowledge_graphs_directory),calibrated_data_directory,exp_name])],
+        'file_dep': [knowledge_graphs_directory],
+    }

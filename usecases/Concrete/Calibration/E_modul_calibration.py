@@ -1,8 +1,7 @@
 # -- PKM TUM -- atul.agrawal@tum.de -- #
 # 01.02.2022 : Deprecated, please dont use
 
-from utils import load_experimental_data
-import numpy as np
+from lebedigital.calibration.utils import load_experimental_data
 import matplotlib.pyplot as plt
 
 from probeye.definition.forward_model import ForwardModelBase

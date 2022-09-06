@@ -11,9 +11,20 @@ baseDir1 = Path(__file__).resolve().parents[1]
 sys.path.append(os.path.join(os.path.join(baseDir1, 'knowledgeGraph'), 'emodul'))
 sys.path.append(os.path.join(baseDir1, 'Data'))
 
-import emodul_query
+#import emodul_query
 
-def query_KG(path: str) -> dict:
+def query_KG(path: str, skip_last = 145, skip_init = 330 ) -> dict:
+    """
+    Queries KG, the updated one done by Illias (I think from KG team). Lot of funky words as I dont know what they are.
+    Returns:
+    Args:
+        path ():
+        skip_last (): Last datavalues to skip as we only need the third loading cycle.
+        skip_init (): Initial datavalues to skip as we only need the third loading cycle.
+
+    Returns:
+
+    """
     """
     Queries KG, the updated one done by Illias (I think from KG team). Lot of funky words as I dont know what they are.
     Returns:
@@ -57,8 +68,8 @@ def query_KG(path: str) -> dict:
 
     # read csv into dataframe
     file_path = results['path'] + '/' + results['file_name']
-    skip_last = 145 # hard coded to get the third loading cycle. need somthing better
-    skip_init = 330
+    #skip_last = 145 # hard coded to get the third loading cycle. need somthing better
+    #skip_init = 330
     df = pd.read_csv(file_path, skipfooter=skip_last)
     df = df.drop(labels=range(0, skip_init), axis=0)
     df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
