@@ -6,7 +6,7 @@ problem = 'red'
 kpi = 'orange'
 
 
-dot = graphviz.Digraph('LebeDigital', comment='LebeDigital ')
+dot = graphviz.Digraph('LebeDigital', comment='LebeDigital', format='png')
 
 
 dot.node('cemI', 'cem I content \n[kg/m³]', color=input, shape='rectangle')
@@ -180,4 +180,4 @@ dot.node('alpha_max','max degree of hydration')
 dot.edge('alpha_max', 'hydration model')
 dot.edge('alpha_max', 'fem model')
 
-dot.render(directory='prob_graph-output', view=True)
+dot.render(view=True)
