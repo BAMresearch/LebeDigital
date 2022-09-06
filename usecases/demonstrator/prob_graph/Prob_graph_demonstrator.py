@@ -106,6 +106,7 @@ dot.edge('E paramter','fem model')
 
 
 # just a test comment
+dot.node('test', 'test', color=input)
 
 dot.node('aggregate data', 'aggregate data: E, nu, rho, C, kappa', color=input)
 dot.edge('aggregate data', 'concrete homogenization')
