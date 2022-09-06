@@ -28,8 +28,6 @@ dot.node('ratio_cemI_cemII', 'ratio of cem I/II [-]')
 
 
 
-
-
 dot.node('w', 'water content\n w [kg/m³]', color=input, shape='rectangle')
 
 dot.edge('volume computation','w/c')
