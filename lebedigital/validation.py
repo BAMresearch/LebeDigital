@@ -24,7 +24,7 @@ def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
     """
     conforms, result_graph, _ = validate(
             rdf_graph,
-            shapes_graph,
+            shacl_graph=shapes_graph,
             ont_graph=None,  # can use a Web URL for a graph containing extra ontological information
             inference='none',
             abort_on_first=False,
@@ -35,11 +35,8 @@ def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
             js=False,
             debug=False)
 
-    # only add other graphs if any violations occurred
-    if not conforms:
-        # also add nodes from data and shacl shapes to graph to be able to search backwards for the violated shapes
-        result_graph += shapes_graph
-        result_graph += rdf_graph
+    result_graph += shapes_graph
+    result_graph += rdf_graph
     
     return result_graph
 
@@ -73,6 +70,8 @@ def violates_shape(validation_report: Graph, shape: URIRef) -> bool:
 
     # no violated class is targeted by the specified shape, thus the shape is not violated
     return False
+
+
 
 
 def read_graph_from_file(filepath: str) -> Graph:
