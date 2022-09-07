@@ -22,7 +22,7 @@ def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
     result_graph
         An rdflib Graph object containing the SHACL validation report (which is empty if no SHACl shapes were violated).
     """
-    conforms, result_graph, _ = validate(
+    _, result_graph, _ = validate(
             rdf_graph,
             shacl_graph=shapes_graph,
             ont_graph=None,  # can use a Web URL for a graph containing extra ontological information
