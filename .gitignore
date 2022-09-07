@@ -136,3 +136,9 @@ dmypy.json
 # doit stuff
 .doit.*
 
+# ignore the output form doit
+usecases/MinimumWorkingExample/emodul/processed_data/*
+usecases/MinimumWorkingExample/emodul/metadata_yaml_files/*
+usecases/MinimumWorkingExample/emodul/knowledge_graphs/*
+usecases/MinimumWorkingExample/emodul/calibrated_data/*
+

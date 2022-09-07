@@ -23,7 +23,7 @@ from lebedigital.calibration.utils import query_KG, PosteriorPredictive
 from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import LinearElasticityCylinder
 
 
-def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment_name='Wolf 8.2 Probe 1'):
+def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment_name='Wolf 8.2 Probe 1', mode = 'full'):
     # =========================================
     #       Loading the experiment
     # =========================================
@@ -130,11 +130,19 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
 
     # run inference step using emcee
     emcee_solver = EmceeSolver(problem, show_progress=True)
-    inference_data = emcee_solver.run_mcmc(
-        n_walkers=5,
-        n_steps=40,
-        n_initial_steps=5,
-    )
+
+    if mode == 'cheap':
+        inference_data = emcee_solver.run_mcmc(
+            n_walkers=4,
+            n_steps=1,
+            n_initial_steps=4,
+        )
+    else:
+        inference_data = emcee_solver.run_mcmc(
+            n_walkers=5,
+            n_steps=40,
+            n_initial_steps=5,
+        )
 
     # export the results from the 'inference_data' object to the graph
     export_results_to_knowledge_graph(
@@ -158,7 +166,11 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     E_pos = sample_dict['E'] * 1000  # N/mm2 ~ E_mean ~ 95E03N/mm2
     # three_point = three_point_bending_example()
     pos_pred = PosteriorPredictive(three_point_bending_example, known_input_solver=nu, parameter=E_pos)
-    mean, sd = pos_pred.get_stats(samples=10)  # mean : ~365 N/mm2, sd = 30
+
+    if mode == 'cheap':
+        mean, sd = pos_pred.get_stats(samples=1)  # mean : ~365 N/mm2, sd = 30
+    else:
+        mean, sd = pos_pred.get_stats(samples=10)  # mean : ~365 N/mm2, sd = 30
     # ---- visualize posterior predictive
     posterior_pred_samples = pos_pred._samples
     # np.save('./post_pred.npy', posterior_pred_samples)
@@ -173,10 +185,10 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
 
 
 # testing things
-from pathlib import Path
+#from pathlib import Path
 #parent directory of the minimum working example
-ParentDir = '../../usecases/MinimumWorkingExample'
-exp_name = 'Wolf 8.2 Probe 1'
-knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
-calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')
-perform_calibration(str(knowledge_graphs_directory),calibrated_data_directory,exp_name)
+#ParentDir = '../../usecases/MinimumWorkingExample'
+#exp_name = 'Wolf 8.2 Probe 1'
+#knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
+#calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')
+#perform_calibration(str(knowledge_graphs_directory),calibrated_data_directory,exp_name)
