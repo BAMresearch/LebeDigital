@@ -26,17 +26,24 @@ DOIT_CONFIG = {'verbosity': 2}
 ParentDir = os.path.dirname(Path(__file__))
 
 # defining paths
+emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
-metadata_emodulus_directory = Path(ParentDir, 'emodul', 'metadata_yaml_files')  # folder with metadata yaml files
-processed_data_emodulus_directory = Path(ParentDir, 'emodul', 'processed_data')  # folder with csv data files
-knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')  # folder with KG ttl files
-calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')  # folder with calibration output
+metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
+processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
+knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')  # folder with calibration output
 
 # when "cheap option" is run, only this souce of raw data is processed
 cheap_example_name = 'Wolf 8.2 Probe 1'
 
+# create folder, if it is not there
+Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
+
 #extract standardized meta data for Young' modulus tests
 def task_extract_metadata_emodul():
+    # create folder, if it is not there
+    Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
+
     # setting for fast test, defining the list
     if config['mode'] == 'cheap':
         list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
@@ -58,6 +65,9 @@ def task_extract_metadata_emodul():
 
 #extract standardized processed data for Young' modulus tests
 def task_extract_processed_data_emodul():
+    # create folder, if it is not there
+    Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
+
     # setting for fast test, defining the list
     if config['mode'] == 'cheap':
         list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
@@ -80,12 +90,17 @@ def task_extract_processed_data_emodul():
 
 #generate knowledgeGraphs
 def task_export_knowledgeGraph_emodul():
+    # create folder, if it is not there
+    Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
+
     # setting for fast test, defining the list
     if config['mode'] == 'cheap':
         list_metadata_yaml_files = [ Path(metadata_emodulus_directory, cheap_example_name + '.yaml') ]
     else: # go through all files
         # list of all meta data files....
         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
+
+    # check directory, if
 
     for f in list_metadata_yaml_files:
         if f.is_file():
@@ -108,6 +123,9 @@ def task_export_knowledgeGraph_emodul():
 
 # perform calibration
 def task_perform_calibration():
+    # create folder, if it is not there
+    Path(calibrated_data_directory).mkdir(parents=True, exist_ok=True)
+
     # TODO implement "expensive" option on all files!!!
     knowledge_graphs_file = Path(knowledge_graphs_directory, cheap_example_name + '.ttl')
 
