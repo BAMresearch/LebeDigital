@@ -70,7 +70,7 @@ def query_KG(path: str, skip_last = 145, skip_init = 330 ) -> dict:
     file_path = results['path'] + '/' + results['file_name']
     #skip_last = 145 # hard coded to get the third loading cycle. need somthing better
     #skip_init = 330
-    df = pd.read_csv(file_path, skipfooter=skip_last)
+    df = pd.read_csv(file_path, skipfooter=skip_last, engine='python')
     df = df.drop(labels=range(0, skip_init), axis=0)
     df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
     df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)

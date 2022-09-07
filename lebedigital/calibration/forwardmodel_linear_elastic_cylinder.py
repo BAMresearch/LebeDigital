@@ -49,21 +49,26 @@ class LinearElasticityCylinder(ForwardModelBase):
         parameters['log_level'] = 'WARNING'
         parameters['bc_setting'] = 'fixed'
         parameters['dim'] = 3
+
+        # as we know this problem is linear elastic, there is no point in solving it multiple times
+        # a test load is applied and then interpolated to the load list
+        test_load = -0.05
+
         # setup simulation
         experiment = fenics_concrete.ConcreteCylinderExperiment(parameters)
         problem = fenics_concrete.LinearElasticity(experiment, parameters)
         # setup sensor
         sensor = fenics_concrete.sensors.ReactionForceSensorBottom()
         problem.add_sensor(sensor)
+        problem.experiment.apply_displ_load(test_load)
+        problem.solve()  # solving this
 
-        # loop over all measured displacements
-        for displacement in inp["displacement_list"]:
-            # apply displacement
-            problem.experiment.apply_displ_load(displacement)
-            # solve problem
-            problem.solve()  # solving this
+        measured_test_force = problem.sensors[sensor.name].data[-1]
 
-        # return a list with the measured reaction forces
-        force_list = problem.sensors.ReactionForceSensorBottom.data
+        # compute slope of linear problem
+        slope = measured_test_force/test_load
+
+        # return a list with the interpolated reaction forces
+        force_list = inp["displacement_list"] *slope
 
         return {'force_list': force_list}

@@ -40,7 +40,9 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     path = path_to_KG + '/' + experiment_name + '.ttl'
     exp_output = query_KG(path=path)
     plt.plot(exp_output['stress'], exp_output['displacement'] / exp_output['height'])  # checking loading data
-    plt.show()
+
+    # This generated Latex errors!!! Maybe we require some extra package
+    #plt.show()
     # ========================================
     #       Set Numerical values
     # ========================================
@@ -163,6 +165,18 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     plt.figure()
     sns.kdeplot(posterior_pred_samples)
     plt.xlabel('stress in x-direction')
-    plt.show()
-    plt.savefig(calibrated_data_path + 'posterior_predictive.pdf',dpi =100)
+    # more problems with latex when running doit
+    #plt.show()
+    #plt.savefig(calibrated_data_path + 'posterior_predictive.pdf',dpi =100)
     # plt.savefig('Figures/posterior_predictive.pdf', dpi=100)
+
+
+
+# testing things
+from pathlib import Path
+#parent directory of the minimum working example
+ParentDir = '../../usecases/MinimumWorkingExample'
+exp_name = 'Wolf 8.2 Probe 1'
+knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
+calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')
+perform_calibration(str(knowledge_graphs_directory),calibrated_data_directory,exp_name)
