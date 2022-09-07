@@ -6,7 +6,7 @@ problem = 'red'
 kpi = 'orange'
 
 
-dot = graphviz.Digraph('LebeDigital', comment='LebeDigital', format='pdf')
+dot = graphviz.Digraph('LebeDigital_optimization_graph_ignored', comment='LebeDigital', format='pdf')
 
 
 dot.node('cemI', 'cem I content \n[kg/m³]', color=input, shape='rectangle')
