@@ -5,7 +5,6 @@ from rdflib.namespace import SH, RDF
 
 SCHEMA = Namespace('http://schema.org/')
 
-
 def test_graph(rdf_graph: Graph, shapes_graph: Graph) -> Graph:
     """
     Tests an RDF graph against a SHACL shapes graph.
@@ -70,9 +69,6 @@ def violates_shape(validation_report: Graph, shape: URIRef) -> bool:
 
     # no violated class is targeted by the specified shape, thus the shape is not violated
     return False
-
-
-
 
 def read_graph_from_file(filepath: str) -> Graph:
     """
