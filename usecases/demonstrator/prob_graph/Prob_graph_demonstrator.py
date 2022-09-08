@@ -158,7 +158,7 @@ dot.node('cem rho', 'cemI, cemII, water densities', color=input)
 dot.edge('cem rho','volume computation')
 
 dot.edge('volume computation','paste rho')
-dot.node('paste rho', 'paste density ???', color=problem)
+dot.node('paste rho', 'paste density')
 dot.edge('paste rho',  'concrete homogenization')
 
 dot.edge('aggregate data', 'concrete homogenization')
