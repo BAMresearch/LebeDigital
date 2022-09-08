@@ -59,8 +59,8 @@ def task_extract_metadata_emodul():
                 'name': yaml_metadata_file,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
-                'targets': [yaml_metadata_file],
-                'clean': [clean_targets]  # what does this do?
+                'targets': [yaml_metadata_file]
+                #'clean': [clean_targets]  # what does this do?
             }
 
 #extract standardized processed data for Young' modulus tests
@@ -88,7 +88,9 @@ def task_extract_processed_data_emodul():
                 'targets': [csv_data_file],
             }
 
+
 #generate knowledgeGraphs
+@create_after(executed='extract_metadata_emodul')
 def task_export_knowledgeGraph_emodul():
     # create folder, if it is not there
     Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
