@@ -66,10 +66,10 @@ dot.edge('ratio_cemI_cemII','volume computation')
 dot.node('plasticizer', 'plasticizer content [kg/m³]', color=input, shape='rectangle')
 
 
-dot.node('aggregate content', 'aggregate/water+cement ratio [-]', color=input, shape='rectangle')
+dot.node('aggregate content', 'aggregate/water+cement volume ratio [-]', color=input, shape='rectangle')
 
 
-dot.node('ratio_cemI_cemII', 'ratio of cem I/II [-]', color=input, shape='rectangle')
+dot.node('ratio_cemI_cemII', 'volume ratio of cem I/II [-]', color=input, shape='rectangle')
 
 
 
@@ -78,7 +78,7 @@ dot.node('w', 'water content\n w [kg/m³]')
 
 dot.edge('w/c','volume computation')
 
-dot.node('w/c', 'water cement ratio\n w/c [-]', color=input, shape='rectangle')
+dot.node('w/c', 'water cement mass ratio\n w/c [-]', color=input, shape='rectangle')
 
 
 
@@ -91,7 +91,7 @@ dot.edge('plasticizer', 'E paste')
 
 dot.node('volume computation', 'computation of volume contents', color=process)
 
-dot.node('aggregate volume content', 'aggregate volume content []')
+dot.node('aggregate volume content', 'aggregate volume fraction []')
 dot.edge('aggregate volume content', 'concrete homogenization')
 dot.edge('volume computation','aggregate volume content')
 
