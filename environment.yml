@@ -23,6 +23,7 @@ dependencies:
   - pyshacl
   - conda-ecosystem-user-package-isolation
   - fenics_concrete
+  - python-graphviz
   - pytest
   - pip
   - pip:

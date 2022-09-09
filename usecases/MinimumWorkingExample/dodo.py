@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
-import sys
 from doit import create_after
-from doit.tools import create_folder
 from doit.task import clean_targets
 
 from lebedigital.raw_data_processing.metadata_extraction \
@@ -18,6 +16,8 @@ from doit import get_var
 from doit.tools import config_changed
 
 # set a variable to define a cheap or full run
+# the default "doit" is set to "doit mode=cheap"
+# any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
 DOIT_CONFIG = {'verbosity': 2}
@@ -59,8 +59,8 @@ def task_extract_metadata_emodul():
                 'name': yaml_metadata_file,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
-                'targets': [yaml_metadata_file]
-                #'clean': [clean_targets]  # what does this do?
+                'targets': [yaml_metadata_file],
+                'clean': [clean_targets]  # what does this do?
             }
 
 #extract standardized processed data for Young' modulus tests
@@ -86,6 +86,7 @@ def task_extract_processed_data_emodul():
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
+                'clean': [clean_targets]
             }
 
 
@@ -121,12 +122,15 @@ def task_export_knowledgeGraph_emodul():
                                                     knowledge_graph_file])],
                 'file_dep': [metadata_file_path, processed_data_file_path],
                 'targets': [knowledge_graph_file],
+                'clean': [clean_targets]
             }
 
 # perform calibration
 def task_perform_calibration():
     # create folder, if it is not there
     Path(calibrated_data_directory).mkdir(parents=True, exist_ok=True)
+
+
 
     # TODO implement "expensive" option on all files!!!
     knowledge_graphs_file = Path(knowledge_graphs_directory, cheap_example_name + '.ttl')
@@ -142,5 +146,6 @@ def task_perform_calibration():
         'actions': [(perform_calibration,[str(knowledge_graphs_directory),calibrated_data_directory,cheap_example_name,config['mode']])],
         'file_dep': [knowledge_graphs_file],
         'uptodate': [config_changed(config['mode'])],  # the results of the calibration depend on the mode, therfore it must be recomputed when the mode changes
-        'targets': [owl_file,displ_list,force_list,another_file]
+        'targets': [owl_file,displ_list,force_list,another_file],
+        'clean': [clean_targets]
     }
