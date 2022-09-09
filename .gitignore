@@ -135,7 +135,10 @@ dmypy.json
 
 # doit stuff
 .doit.*
-usecases/MinimumWorkingExample/emodul/*
+
 # results of minimum working example
+usecases/MinimumWorkingExample/emodul/*
 
-
+# graphviz
+*.gv
+LebeDigital_optimization_graph_ignored.gv.pdf
