@@ -91,9 +91,8 @@ dot.edge('plasticizer', 'E paste')
 
 dot.node('volume computation', 'computation of volume contents', color=process)
 
-dot.node('aggregate volume content', 'aggregate volume fraction []')
-dot.edge('aggregate volume content', 'concrete homogenization')
-dot.edge('volume computation','aggregate volume content')
+dot.edge('aggregate content', 'concrete homogenization')
+
 
 dot.edge('ratio_cemI_cemII', 'E paste')
 
@@ -193,7 +192,6 @@ dot.node('fem temperature','initial and boundary temperature', color=input, shap
 dot.edge('fem temperature','fem model')
 dot.edge('concrete density', 'fem model')
 dot.node('concrete density', 'concrete density')
-dot.edge('concrete density', 'fem model')
 dot.node('concrete nu', 'concrete nu')
 dot.node('concrete thermal', 'concrete thermal conductivity (kappa) \nconcrete heat capacity (C)')
 dot.edge('concrete homogenization', 'concrete density')
