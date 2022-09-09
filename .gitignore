@@ -135,6 +135,9 @@ dmypy.json
 
 # doit stuff
 .doit.*
+usecases/MinimumWorkingExample/emodul/*
+# results of minimum working example
+
 
 # graphviz
 *.gv
