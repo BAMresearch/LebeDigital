@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from doit import create_after
+from doit.task import clean_targets
 
 from lebedigital.raw_data_processing.metadata_extraction \
     .emodul_metadata_extraction import emodul_metadata
@@ -13,6 +14,8 @@ from lebedigital.raw_data_processing.processed_data_generation \
 from doit import get_var
 
 # set a variable to define a cheap or full run
+# the default "doit" is set to "doit mode=cheap"
+# any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
 DOIT_CONFIG = {'verbosity': 2}
@@ -53,8 +56,8 @@ def task_extract_metadata_emodul():
                 'name': yaml_metadata_file,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
-                'targets': [yaml_metadata_file]
-                #'clean': [clean_targets]  # what does this do?
+                'targets': [yaml_metadata_file],
+                'clean': [clean_targets]
             }
 
 #extract standardized processed data for Young' modulus tests
@@ -80,6 +83,7 @@ def task_extract_processed_data_emodul():
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
+                'clean': [clean_targets]
             }
 
 
@@ -115,4 +119,5 @@ def task_export_knowledgeGraph_emodul():
                                                     knowledge_graph_file])],
                 'file_dep': [metadata_file_path, processed_data_file_path],
                 'targets': [knowledge_graph_file],
+                'clean': [clean_targets]
             }
