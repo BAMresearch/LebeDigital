@@ -19,11 +19,11 @@ from probeye.inference.emcee.solver import EmceeSolver
 
 # local imports (others)
 from lebedigital.Prediction.three_point_bending_example import three_point_bending_example
-from lebedigital.calibration.utils import query_KG, PosteriorPredictive
+from lebedigital.calibration.utils import query_KG, PosteriorPredictive, load_experimental_data
 from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import LinearElasticityCylinder
 
 
-def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment_name='Wolf 8.2 Probe 1', mode = 'full'):
+def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment_name='Wolf 8.2 Probe 1', mode = 'full', KnowledgeGraph = True):
     # =========================================
     #       Loading the experiment
     # =========================================
@@ -37,9 +37,15 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     # exp_output = load_experimental_data(experiment_name, skip_init, skip_last, path=path_csv)
     # -- if KG is present, comment the above
     #path_to_KG = '../usecases/MinimumWorkingExample/emodul/knowledge_graphs/'
-    path = path_to_KG + '/' + experiment_name + '.ttl'
-    exp_output = query_KG(path=path)
-    plt.plot(exp_output['stress'], exp_output['displacement'] / exp_output['height'])  # checking loading data
+    if KnowledgeGraph:
+        path = path_to_KG + '/' + experiment_name + '.ttl'
+        exp_output = query_KG(path=path)
+        plt.plot(exp_output['stress'], exp_output['displacement'] / exp_output['height'])  # checking loading data
+    else:
+        path_csv = './Wolf 8.2 Probe 1.csv'
+        skip_last = 145
+        skip_init = 330
+        exp_output = load_experimental_data(experiment_name, skip_init, skip_last, path=path_csv)
 
     # This generated Latex errors!!! Maybe we require some extra package
     #plt.show()
@@ -181,7 +187,7 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     #plt.show()
     #plt.savefig(calibrated_data_path + 'posterior_predictive.pdf',dpi =100)
     # plt.savefig('Figures/posterior_predictive.pdf', dpi=100)
-
+    return E_pos
 
 
 # testing things
@@ -192,3 +198,4 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
 #knowledge_graphs_directory = Path(ParentDir, 'emodul', 'knowledge_graphs')
 #calibrated_data_directory = Path(ParentDir, 'emodul', 'calibrated_data')
 #perform_calibration(str(knowledge_graphs_directory),calibrated_data_directory,exp_name)
+
