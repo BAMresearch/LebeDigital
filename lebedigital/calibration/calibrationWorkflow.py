@@ -1,5 +1,6 @@
 # third party imports
 import os
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -42,7 +43,7 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
         exp_output = query_KG(path=path)
         plt.plot(exp_output['stress'], exp_output['displacement'] / exp_output['height'])  # checking loading data
     else:
-        path_csv = './Wolf 8.2 Probe 1.csv'
+        path_csv = os.path.dirname(Path(__file__)) + '/Wolf 8.2 Probe 1.csv'
         skip_last = 145
         skip_init = 330
         exp_output = load_experimental_data(experiment_name, skip_init, skip_last, path=path_csv)
