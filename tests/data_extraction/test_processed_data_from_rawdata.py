@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from lebedigital.raw_data_processing.processed_data_generation.emodul_generate_processed_data import \
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import \
     processed_data_from_rawdata
 
 
