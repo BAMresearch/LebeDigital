@@ -3,12 +3,12 @@ from pathlib import Path
 from doit import create_after
 from doit.task import clean_targets
 
-from lebedigital.raw_data_processing.metadata_extraction \
+from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_metadata_extraction import emodul_metadata
 
 from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 
-from lebedigital.raw_data_processing.processed_data_generation \
+from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
 from doit import get_var
