@@ -189,7 +189,6 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     #plt.show()
     #plt.savefig(calibrated_data_path + 'posterior_predictive.pdf',dpi =100)
     # plt.savefig('Figures/posterior_predictive.pdf', dpi=100)
-    return E_pos
 
 
 # testing things
