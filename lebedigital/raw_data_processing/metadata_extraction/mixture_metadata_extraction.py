@@ -1,142 +1,190 @@
-# Script for metadata-extraction: function takes in as argument a given path to
-# raw data and an output-path and returns a yaml-file with the metadata
-#
+# Script for metadata-extraction: 
+# give path to raw data and output-path, get yaml-file with the metadata
+# If the raw data (excelfile) has multiple sheets, all of them are processed.
+# based on extraction-code of Erik
+
+
+#                 !!! Current Issues / To-Do !!!
+# The script only works on files that have exactly the same structure/labels as 
+# "2014_08_05 Rezeptur_MI.xlsx". Information about the kind of Zusatzstoff is 
+# missing, also multiple Zusatzstoffe can't be processed. 
+# Also I am not sure about all translations, I am waiting for an update of the 
+# taxonomy-file ("Luftgehalt", "Zuschlag",....).
+
+
 # Workflow:
 # 1. Installing and importing the necessary libraries
-# 2. Defining a function to translate the labels from german to english
+# 2. Define a function to convert german formatting to english
 # 3. Defining a function to extract metadata:
-# 3.a Look for sheets containing the word "Rezeptur" and load them
-# 3.b Reduce the dataframe to only necessary entries
-# 3.c Merge dataframe to a series
-# 3.d Export series as yaml-file
-#----------------------------------------------------------------------------------------------------------
+# 3.a Look for all sheets containing the word "Rezeptur" and load them
+# 3.b For each sheet: find indices of the labels
+# 3.c For each sheet: create and fill a dic & export dic as yaml-file
 
-# In[1]: Setup
+#------------------------------------------------------------------------------
 
 from cmath import nan
 import pandas as pd
 import os
 import yaml
 
-def translate(
-        df, 
-        dic
-        ):
-
-    """
-        Translates german labels to english according to the translation.xls
-
-        Parameter
-        ---------
-        df
-            The dataframe with the german labels that should be translated.
-        dic
-            The excelfile that contains the translations, columns are "german" and "english"
-    """
-    
-    translation = pd.read_excel(dic)
-    translation.columns = ["german", "english"]
-
-    for deutsch, english in translation.itertuples(index=False,name=None):
-        df = df.replace(deutsch,english,regex=True)
-    return df
+# function to convert german formatting to english
+def replace_comma(string):
+    if "---" in string:
+        string = nan
+        return string
+    else:
+        string = string.replace(',', '.')
+        return float(string)
 
 
-
-def extraction(
+# extraction script
+def extract_metadata_mixture(
         locationOfRawData,
-        locationOfProcessedData,
-        english = True
+        locationOfProcessedData
         ):    
 
     """
-        Extractes the metadata from the "Rezeptur"-Sheet of a given datafile (xls or xlsx).
+        Extracts the metadata from all "Rezeptur"-sheets of a given datafile 
+        (xls or xlsx). Creates one yaml-file per sheet containing the keyword
+        "Rezeptur".
+
 
         Parameter
         ---------
-        locationOfRawData
-            Path of the excelsheet (xls or xlsx) containing the metadata in one or multiple "Rezeptur"-Sheet(s).
-        locationOfProcessedData
+        locationOfRawData : string
+            Path of the excelsheet (xls or xlsx) containing the metadata in one 
+            or multiple "Rezeptur"-Sheet(s).
+        locationOfProcessedData : string
             Path of the target folder for yaml-file.
-        english
-            Boolean, checking if the metadata labels should be english or german 
-            -> For True, it uses a provided dictionary. 
-        
+
+        Output
+        -------
+        yamlFile containing the dictionary with the metadata
+                    
     """
     
+
+    # Find sheets in the file containing the mixture (keyword: "Rezeptur")
     excelsheet = os.path.basename(locationOfRawData)
     print("\n Working on: "+ excelsheet)
     excelfile = pd.read_excel(locationOfRawData, sheet_name= None) 
     listofkeys = [i for i in excelfile.keys() if "Rezeptur" in i] 
-    print("Relevant sheets in this file: " + str(listofkeys))
+    print("Sheets containing mixture metadata in this file: " + str(listofkeys))
 
 
     for sheet in listofkeys:
 
+        ##############  S E T U P ##############
+
+        # name of yaml-file will be experiment-name + sheet name
         name = os.path.basename(excelsheet).split(".xl")[0] + " ___ " + sheet
+        
+        # save data from excelsheet into pandas dataframe
         exceltodf = excelfile[sheet]
-        
-        # extract header, translate and set proper index & column headers
-        exceltodf.iat[17,4] = "Dichte"
-        if english == True:
-            exceltodf = translate(exceltodf,"translation.xlsx")
-            specimeninfo = {
-                    "Date" : str(exceltodf.columns[9])[:10], 
-                    "Editor" : exceltodf.iloc[0,10], 
-                    "Requester" : exceltodf.iloc[2,3],
-                    "Project number": exceltodf.iloc[3,3],
-                    "Specimen" : exceltodf.iloc[4,3], 
-                    "Betonsorte u -festigkeitsklasse" : exceltodf.iloc[6,4],
-                    "Wasserzementwert" : exceltodf.iloc[7,2],
-                    "Konsistenz" : exceltodf.iloc[7,7],
-                    "Sieblinie n. DIN 1045" : exceltodf.iloc[8,2],
-                    "Körnungsziffer" : exceltodf.iloc[8,8],
-                    "Vol Leim/Zuschlag" : exceltodf.iloc[10,10]
-                    }
-            word = "Supplementary cementious materials"
-        else:
-            specimeninfo = {
-                    "Datum" : str(exceltodf.columns[9])[:10], 
-                    "Bearbeiter" : exceltodf.iloc[0,10], 
-                    "Antragsteller" : exceltodf.iloc[2,3],
-                    "Antrags-/Projektnummer": exceltodf.iloc[3,3],
-                    "Bezeichnung der Proben" : exceltodf.iloc[4,3], 
-                    "Betonsorte u -festigkeitsklasse" : exceltodf.iloc[6,4],
-                    "Wasserzementwert" : exceltodf.iloc[7,2],
-                    "Konsistenz" : exceltodf.iloc[7,7],
-                    "Sieblinie n. DIN 1045" : exceltodf.iloc[8,2],
-                    "Körnungsziffer" : exceltodf.iloc[8,8],
-                    "Vol Leim/Zuschlag" : exceltodf.iloc[10,10]
-                    }
-            word = "Zusatzstoff"
-        specimeninfo = pd.Series(specimeninfo)
-        specimeninfo = specimeninfo.fillna("---") # fill nans
-        exceltodf.rename(columns=exceltodf.iloc[17], inplace = True) # set column header
-        exceltodf["Stoffart"] = exceltodf["Stoffart"].str.strip()  # remove whitespace
-        exceltodf["Sonstiges/Bemerkungen"] = exceltodf["Sonstiges/Bemerkungen"].str.strip()  # remove whitespace
-        
-        # Some files have multiple entries of Zusatzstoffe, which are not further labeled, so this adds 
-        # the type of Zusatzstoff
-        howmanyzusatzstoffe = [True if i == word else False for i in exceltodf["Stoffart"] ]
-        indexzusatzstoff = [i for i in range(len(howmanyzusatzstoffe)) if howmanyzusatzstoffe[i] == True]
-        for i in indexzusatzstoff:
-            exceltodf.iloc[i,0] += " " + str(exceltodf.iloc[i,1])
      
-        # create new dataframe with only relevant data and chose Index column
-        relevant_data = exceltodf.iloc[20:,[0,2,4,8]]
-        relevant_data = relevant_data.set_index("Stoffart")
-        
-        # replace NaN 
-        relevant_data[relevant_data.columns[-1]] = relevant_data[relevant_data.columns[-1]].fillna("---")
-        relevant_data = relevant_data.drop(nan)
+        # create empty dictionary for metadata
+        metadata = {}
 
-        # merge df into a series
-        df = relevant_data
-        df_out = df.stack()
-        df_out.index = df_out.index.map('{0[0]} -- {0[1]}'.format)
-        df_out = pd.concat([df_out, specimeninfo], ignore_index=False)
+        # the layout of the excel table can vary, the indices of labels are not 
+        # always the same; that's why: find now the indices of the labels
+        labelidx = {}
+        labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
+        print(labelcolumn[0])
+        for i in range(len(labelcolumn)):
+            labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
+            labelidx[labelcolumn[i]] = i  # fill dictionary
+        #print(labelidx)
 
-         # Write the data to a yaml file
-        with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as file:
-            yaml.dump(df_out.to_dict(), file, sort_keys=False, allow_unicode=True, width=72, indent=4)
+        # check for missing and additional labels
 
+
+
+        ############### E X T R A C T I O N #############
+
+        # get date and time (always the same position)
+        metadata['operator_date'] = str(exceltodf.columns[9])[:10]
+
+        # operator name (always the same position)
+        metadata['tester_name'] = exceltodf.iloc[0,10]
+
+        # name of specimen
+        idx = labelidx["Bezeichnung der Proben:"]
+        metadata['specimen_name'] = exceltodf.iloc[idx,3] #4
+
+        # water cement ratio ("Wasserzementwert")
+        idx = labelidx["Wasserzementwert"]
+        metadata["watercementratio"] = exceltodf.iloc[idx,2] #7
+
+        #----------------------------------------------------------------------
+
+        # Extraction of the columns "Stoffmenge" (QuantityInMix), "Dichte bzw. 
+        # Rohdichte" (BulkDensity), "Stoffraum" (Volume), "Sonstiges / Bemerkungen"
+        # (Annotation):
+
+        # Cement data ("Zement") # idx 20 for 2014_08_05 Rezeptur_MI
+        idx = labelidx["Zement"]
+        metadata['cement--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+        metadata['cement--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+        metadata['cement--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+        metadata['cement--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # total water data ("Wasser (gesamt)") # idx 21 for 2014_08_05 Rezeptur_MI
+        idx = labelidx["Wasser (gesamt)"]
+        metadata['water_total--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+        metadata['water_total--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+        metadata['water_total--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+        metadata['water_total--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # effective water data ("Wasser (wirksam)") # idx 22 for 2014_08_05 Rezeptur_MI 
+        idx = labelidx["Wasser (wirksam)"]
+        metadata['water_effective--QuantityInMix'] = replace_comma(str(exceltodf.iat[idx,2]))
+        metadata['water_effective--BulkDensity'] = replace_comma(str(exceltodf.iat[idx,4]))
+        metadata['water_effective--Volume'] = replace_comma(str(exceltodf.iat[idx,6]))
+        metadata['water_effective--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # air content data ("Luftgehalt") # idx 23 for 2014_08_05 Rezeptur_MI
+        idx = labelidx["Luftgehalt"]
+        metadata['air_content--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+        metadata['air_content--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+        metadata['air_content--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+        metadata['air_content--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # Admixture data ("Zusatzstoff") # idx 24 for 2014_08_05 Rezeptur_MI
+        idx = labelidx["Zusatzstoff"]
+        metadata['admixture--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+        metadata['admixture--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+        metadata['admixture--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+        metadata['admixture--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # Zusatzmittel MISSING
+        idx = labelidx["Zusatzmittel"]
+
+        # Gesamt MISSING
+        idx = labelidx["Gesamt"]
+
+        # Aggregate data ("Zuschlag (gesamt)") # idx 27 for 2014_08_05 Rezeptur_MI
+        idx = labelidx["Zuschlag (gesamt)"]
+        metadata['zuschlag--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+        metadata['zuschlag--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+        metadata['zuschlag--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+        metadata['zuschlag--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # ("Frischbeton") MISSING
+        idx = labelidx["Frischbeton"]
+
+        # ("Mehlkornanteil") MISSING
+        idx = labelidx["Mehlkornanteil"]
+
+        # ("Mörtelanteil") MISSING
+        idx = labelidx["Mörtelanteil"]
+
+        #print(metadata)
+
+
+
+        ############### O U T P U T #############
+ 
+        # # Write the data to a yaml file
+        with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as yamlFile:
+           yaml.dump(metadata, yamlFile, sort_keys=False)
+           
