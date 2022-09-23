@@ -142,3 +142,5 @@ usecases/MinimumWorkingExample/emodul/*
 # graphviz
 *.gv
 LebeDigital_optimization_graph_ignored.gv.pdf
+
+
