@@ -41,7 +41,8 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
     if KnowledgeGraph:
         path = path_to_KG + '/' + experiment_name + '.ttl'
         exp_output = query_KG(path=path)
-        plt.plot(exp_output['stress'], exp_output['displacement'] / exp_output['height'])  # checking loading data
+        plt.plot(exp_output['stress'], exp_output['displacement'] / 100)  # checking loading data
+        # TODO divided by the gauge length of 100mm, but I am not sure why whe do stress here if we compute force
     else:
         path_csv = path_to_KG # if KG not present, path takes path of CSV
         #path_csv = os.path.dirname(Path(__file__)) + '/Wolf 8.2 Probe 1.csv'
@@ -97,7 +98,6 @@ def perform_calibration(path_to_KG : str, calibrated_data_path : str, experiment
         fwd_model_name="linear_elasticity_cylinder",
         sensor_values={
             'nu': 0.2,
-            'height': exp_output['height'],
             'radius': exp_output['diameter'] / 2,
             'displacement_list': exp_output['displacement'],
             linear_elasticity.output_sensor.name: y_test,

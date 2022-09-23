@@ -11,7 +11,6 @@ class LinearElasticityCylinder(ForwardModelBase):
         """Definition of the variable parameter, the input and output sensors
         E                 : Young's modulus in N/mm²
         nu                : Poisson's ratio
-        height            : height of the cylinder in mm
         radius            : radius of the experimental cylinder in mm
         displacement_list : list with loading conditions in mm
         force_list        : resulting computed forces
@@ -19,7 +18,6 @@ class LinearElasticityCylinder(ForwardModelBase):
 
         self.parameters = ['E']
         self.input_sensors = [Sensor("nu"),
-                              Sensor("height"),
                               Sensor("radius"),
                               Sensor("displacement_list")]
         self.output_sensors = [Sensor('force_list', std_model="sigma")]
@@ -42,12 +40,12 @@ class LinearElasticityCylinder(ForwardModelBase):
         # input parameters
         parameters['E'] = inp["E"]
         parameters['nu'] = inp["nu"]
-        parameters['height'] = inp["height"]
         parameters['radius'] = inp["radius"]
+        parameters['height'] = 100  # gauge length in experiment in mm
         # problem parameters
         parameters['mesh_density'] = 6
         parameters['log_level'] = 'WARNING'
-        parameters['bc_setting'] = 'fixed'
+        parameters['bc_setting'] = 'free'
         parameters['dim'] = 3
 
         # as we know this problem is linear elastic, there is no point in solving it multiple times
