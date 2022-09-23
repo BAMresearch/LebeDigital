@@ -143,4 +143,7 @@ usecases/MinimumWorkingExample/emodul/*
 *.gv
 LebeDigital_optimization_graph_ignored.gv.pdf
 
-
+# ignore mesh files, I added the specific files here as I di dnot want to exclude all possible xdmf, etc files
+cylinder.h5
+cylinder.msh
+cylinder.xdmf
