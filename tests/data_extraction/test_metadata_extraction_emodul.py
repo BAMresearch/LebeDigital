@@ -1,6 +1,6 @@
 import pytest
 
-from lebedigital.raw_data_processing.metadata_extraction \
+from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_metadata_extraction import extract_metadata_emodulus
 
 def test_metadata_extraction_emodul():
