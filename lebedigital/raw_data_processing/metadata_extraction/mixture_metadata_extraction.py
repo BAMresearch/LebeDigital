@@ -26,11 +26,12 @@ from cmath import nan
 import pandas as pd
 import os
 import yaml
+from loguru import logger 
 
 # function to convert german formatting to english
 def replace_comma(string):
     if "---" in string:
-        string = nan
+        string = nan  # maybe None? But this will cause errors when float(string)
         return string
     else:
         string = string.replace(',', '.')
@@ -66,10 +67,10 @@ def extract_metadata_mixture(
 
     # Find sheets in the file containing the mixture (keyword: "Rezeptur")
     excelsheet = os.path.basename(locationOfRawData)
-    print("\n Working on: "+ excelsheet)
+    logger.debug("Working on: "+ excelsheet)
     excelfile = pd.read_excel(locationOfRawData, sheet_name= None) 
     listofkeys = [i for i in excelfile.keys() if "Rezeptur" in i] 
-    print("Sheets containing mixture metadata in this file: " + str(listofkeys))
+    logger.debug("Sheets containing mixture metadata in this file: " + str(listofkeys))
 
 
     for sheet in listofkeys:
@@ -89,13 +90,34 @@ def extract_metadata_mixture(
         # always the same; that's why: find now the indices of the labels
         labelidx = {}
         labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
-        print(labelcolumn[0])
+        logger.debug("All information of the label column:" + labelcolumn[0])
         for i in range(len(labelcolumn)):
             labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
             labelidx[labelcolumn[i]] = i  # fill dictionary
-        #print(labelidx)
+        logger.debug(labelidx)
 
-        # check for missing and additional labels
+        # check for missing and additional labels; the following labels have to exist
+        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 'Wasser (wirksam)', 'Luftgehalt', 
+                        'Zusatzstoff', 'Zusatzmittel', 'Zuschlag (gesamt)',
+                        'Frischbeton', 'Mehlkornanteil', 'Mörtelanteil']
+        missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
+        logger.debug("Labels missing in the raw data: ",  missing_labels)
+        # these are all labels of "2014_08_05 Rezeptur_MI.xlsx"
+        # ['7.0', 'nan', 'Antragsteller:', 'Antrags-/ Projekt-Nr.:', 'Bezeichnung der Proben:', 
+        # 'Betonsorte u.-festigkeitsklasse:', 'Wasserzementwert', 'Sieblinie n. DIN 1045:', 
+        # 'Sieblinie des Zuschlags:', 'Sieblochweite in mm', 'Durchgang in Vol. -%', 
+        # 'Berechnung der Betonzusammensetzung', 'Stoffart', 'Zement', 'Wasser (gesamt)', 
+        # 'Wasser (wirksam)', 'Luftgehalt', 'Zusatzstoff', 'Zusatzmittel', 'Gesamt', 'Zuschlag (gesamt)', 
+        # '0 / 0,3', '0,1 / 0,5', '0,5 / 1,0', '1,0 / 2,0', '2,0 / 4,0', '4,0 / 8,0', '8,0 / 16,0', 
+        #'Frischbeton', 'Mehlkornanteil', 'Mörtelanteil']
+        
+
+        # Some files have multiple entries of Zusatzstoffe, which are not further labeled, so this adds 
+        # the type of Zusatzstoff
+        howmanyzusatzstoffe = [True if i == word else False for i in exceltodf["Stoffart"] ]
+        indexzusatzstoff = [i for i in range(len(howmanyzusatzstoffe)) if howmanyzusatzstoffe[i] == True]
+        for i in indexzusatzstoff:
+            exceltodf.iloc[i,0] += " " + str(exceltodf.iloc[i,1])
 
 
 
@@ -110,10 +132,6 @@ def extract_metadata_mixture(
         # name of specimen
         idx = labelidx["Bezeichnung der Proben:"]
         metadata['specimen_name'] = exceltodf.iloc[idx,3] #4
-
-        # water cement ratio ("Wasserzementwert")
-        idx = labelidx["Wasserzementwert"]
-        metadata["watercementratio"] = exceltodf.iloc[idx,2] #7
 
         #----------------------------------------------------------------------
 
@@ -134,6 +152,9 @@ def extract_metadata_mixture(
         metadata['water_total--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
         metadata['water_total--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
         metadata['water_total--Annotation'] = str(exceltodf.iat[idx,8])
+
+        # water cement ratio ("Wasserzementwert")
+        metadata["watercementratio"] = float(metadata['water_total--QuantityInMix'] / metadata['cement--QuantityInMix'])
 
         # effective water data ("Wasser (wirksam)") # idx 22 for 2014_08_05 Rezeptur_MI 
         idx = labelidx["Wasser (wirksam)"]
@@ -159,9 +180,6 @@ def extract_metadata_mixture(
         # Zusatzmittel MISSING
         idx = labelidx["Zusatzmittel"]
 
-        # Gesamt MISSING
-        idx = labelidx["Gesamt"]
-
         # Aggregate data ("Zuschlag (gesamt)") # idx 27 for 2014_08_05 Rezeptur_MI
         idx = labelidx["Zuschlag (gesamt)"]
         metadata['zuschlag--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
@@ -170,13 +188,13 @@ def extract_metadata_mixture(
         metadata['zuschlag--Annotation'] = str(exceltodf.iat[idx,8])
 
         # ("Frischbeton") MISSING
-        idx = labelidx["Frischbeton"]
+        #idx = labelidx["Frischbeton"]
 
         # ("Mehlkornanteil") MISSING
-        idx = labelidx["Mehlkornanteil"]
+        #idx = labelidx["Mehlkornanteil"]
 
         # ("Mörtelanteil") MISSING
-        idx = labelidx["Mörtelanteil"]
+        #idx = labelidx["Mörtelanteil"]
 
         #print(metadata)
 
@@ -188,3 +206,5 @@ def extract_metadata_mixture(
         with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as yamlFile:
            yaml.dump(metadata, yamlFile, sort_keys=False)
            
+
+extract_metadata_mixture("C:\\Users\\afriemel\\Documents\\Backup\\mixture\\2014_08_05 Rezeptur_MI.xlsx","C:\\Users\\afriemel\\Documents\\Backup\\mixture")
