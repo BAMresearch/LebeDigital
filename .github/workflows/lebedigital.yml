@@ -56,18 +56,26 @@ jobs:
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2
-      - name: setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-
-      - name: setup-conda-environment
+      - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: environment.yml
-          mamba-version: "*"
-          auto-update-conda: true
-          activate-environment: lebedigital
+            miniforge-variant: Mambaforge
+            miniforge-version: latest
+            activate-environment: lebedigital
+            use-mamba: true
+
+      - name: Set cache date
+        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - uses: actions/cache@v2
+        with:
+          path: "linux-64"
+          key: conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
+        id: cache
+
+      - name: Update environment
+        run: mamba env update -n lebedigital -f environment.yml
+        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: run-minimum-working-example
         shell: bash -l {0}
