@@ -14,7 +14,7 @@ on:
     - cron: '3 15 * * *'
 
 env:
-  CACHE_NUMBER: 0  # increase to reset cache manually
+  CACHE_NUMBER: 2  # increase to reset cache manually
 
 jobs:
   tests:
@@ -36,7 +36,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: "linux-64"
+          path: "/usr/share/miniconda3/envs/lebedigital"
           key: conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
         id: cache
 
@@ -69,7 +69,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: "linux-64"
+          path: "/usr/share/miniconda3/envs/lebedigital"
           key: conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
         id: cache
 
