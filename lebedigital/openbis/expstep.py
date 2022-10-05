@@ -63,7 +63,7 @@ class ExpStep():
         self.dataset_codes = dataset_codes
 
     @staticmethod
-    def connect_to_datastore(url='https://test.datastore.bam.de/openbis/'):
+    def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
         """Connects to a Datastore
 
         Args:
@@ -80,7 +80,10 @@ class ExpStep():
             return o
         else:
             os.environ['OPENBIS_USERNAME'] = os.getlogin()
-            os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
+            if 'password' in kwargs:
+                os.environ['OPENBIS_PASSWORD'] = kwargs['password']
+            else:
+                os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
             try:
                 o.login(os.environ['OPENBIS_USERNAME'],
                         os.environ['OPENBIS_PASSWORD'])
@@ -691,9 +694,10 @@ class ExpStep():
         else:
             raise ValueError('$name not defined in props')
         
-            
+
         if test:
-            print('Dataset(s) with the same name already present in the Datastore')
+            name = props['$name']
+            print(f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
             ds = o.get_datasets(where={'$name': props['$name']})
             return ds
             
@@ -702,7 +706,7 @@ class ExpStep():
                 type=self.data_type,
                 collection=self.collection,
                 sample=self.identifier,
-                files=[self.data_path],
+                files=self.data_path,
                 props=props
             )
             ds.save()

@@ -35,7 +35,7 @@ DOIT_CONFIG = {'verbosity': 2}
 #parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
-# EMODULE PATHS 
+# EMODULE PATHS
 # defining paths for emodule
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
@@ -96,7 +96,7 @@ def task_extract_metadata_emodul():
         list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
     else: # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
-    
+
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_path = Path(f)
