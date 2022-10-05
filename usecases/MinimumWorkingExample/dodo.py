@@ -10,6 +10,8 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
+    
+from lebedigital.openbis.expstep import ExpStep
 
 from doit import get_var
 
@@ -121,3 +123,13 @@ def task_export_knowledgeGraph_emodul():
                 'targets': [knowledge_graph_file],
                 'clean': [clean_targets]
             }
+            
+@create_after(executed='export_knowledgeGraph_emodul')
+def task_upload_to_datastore():
+    
+    metadata_path = Path(metadata_emodulus_directory)
+    processed_data_path = Path(processed_data_emodulus_directory)
+    knowledge_graphs_path = Path(knowledge_graphs_directory)
+    
+    
+    print('done')
