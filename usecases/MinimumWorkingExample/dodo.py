@@ -11,7 +11,7 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
-from lebedigital.openbis.expstep import ExpStep
+# from lebedigital.openbis.expstep import ExpStep
 
 from doit import get_var
 
