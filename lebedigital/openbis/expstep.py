@@ -698,8 +698,6 @@ class ExpStep():
 
     def download_datasets(self, o: Openbis, path: str):
 
-        # TODO: Work out what to do when >1 datasets are saved under an experiment
-
         if not len(self.datasets):
             raise ValueError('No Datasets specified')
 
@@ -867,6 +865,7 @@ def main():
             print(f'Deleting property {p_name}')
             p.delete('testing deletion')
 
+    # TESTING DELETING VOCABULARIES
     if not created_voc:
         print(f'Deleting vocabulary {new_voc.code}')
         new_voc.delete('testing deletion')
