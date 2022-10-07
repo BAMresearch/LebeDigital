@@ -771,13 +771,37 @@ def main():
         test_sample_type = o.get_sample_type(sample_code)
         print(f'Fetching existing sample type {test_sample_type}')
 
-    # print(test_sample_type)
+    # CREATING NEW VOCABULARY
+
+    voc_list = list(o.get_vocabularies().df['code'])
+    created_voc = False
+    voc_code = 'TEST_VOC'
+
+    if not voc_code in voc_list:
+        new_voc = o.new_vocabulary(
+            code=voc_code,
+            description='TEST_VOC_DESCRIPTION',
+            terms=[
+                {"code": 'term_code1', "label": "term_label1",
+                    "description": "term_description1"},
+                {"code": 'term_code2', "label": "term_label2",
+                    "description": "term_description2"},
+                {"code": 'term_code3', "label": "term_label3",
+                    "description": "term_description3"}
+            ]
+        )
+        new_voc.save()
+        print(f'Creating new vocabulary {new_voc.code}')
+        created_voc = True
+    else:
+        new_voc = o.get_vocabulary(voc_code)
+        print(f'Fetching exiting vocabulary {new_voc.code}')
 
     # CREATING NEW PROPERTY TYPES FOR TESTING WITH EVERY POSSIBLE DATA TYPE
 
     props_dict = {
         'TEST_BOOLEAN': 'BOOLEAN',
-        # 'TEST_CONTROLLEDVOCABULARY': 'CONTROLLEDVOCABULARY', TODO: CREATE CONTROLLED VOCABULARY GENERATOR WILL MAYBE DO LATER
+        'TEST_CONTROLLEDVOCABULARY': 'CONTROLLEDVOCABULARY',
         'TEST_HYPERLINK': 'HYPERLINK',
         'TEST_INTEGER': 'INTEGER',
         'TEST_MATERIAL': 'MATERIAL',
@@ -801,6 +825,7 @@ def main():
                 label=f'{prop.lower()}_label',
                 description=f'{prop.lower()}_description',
                 dataType=val,
+                vocabulary=new_voc.code if prop == 'TEST_CONTROLLEDVOCABULARY' else None,
             )
             new_pt.save()
             print(f'Creating new property {new_pt.code}')
@@ -841,6 +866,10 @@ def main():
         for p_name, p in pt_dict.items():
             print(f'Deleting property {p_name}')
             p.delete('testing deletion')
+
+    if not created_voc:
+        print(f'Deleting vocabulary {new_voc.code}')
+        new_voc.delete('testing deletion')
 
     print('Done')
 
