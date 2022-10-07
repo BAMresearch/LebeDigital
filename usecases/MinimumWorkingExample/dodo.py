@@ -145,6 +145,11 @@ def task_validate_graph():
 
             out = open(Path(emodul_output_directory, 'validation_result.txt'), 'wx')
             out.write(f'{f.name}:')
-            out.write(repr(SCHEMA.SpecimenDiameterShape) + ('failed' if validation.violates_shape(res, SCHEMA.SpecimenDiameterShape) else 'passed'))
-            out.write(repr(SCHEMA.SpecimenShape) + ('failed' if validation.violates_shape(res, SCHEMA.SpecimenShape) else 'passed'))
-            out.write(repr(SCHEMA.InformationBearingEntityShape) + ('failed' if validation.violates_shape(res, SCHEMA.InformationBearingEntityShape) else 'passed'))
+
+            for shape in [
+                SCHEMA.SpecimenDiameterShape, 
+                SCHEMA.SpecimenShape, 
+                SCHEMA.InformationBearingEntityShape
+                ]:
+                out.write(repr(shape) + ('failed' if validation.violates_shape(res, shape) else 'passed'))
+            
