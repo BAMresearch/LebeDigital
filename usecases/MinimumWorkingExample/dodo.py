@@ -13,6 +13,9 @@ from lebedigital.raw_data_processing.youngs_modulus_data \
 
 from doit import get_var
 
+from lebedigital import validation
+from lebedigital.validation import SCHEMA
+
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
 # any other mode value runs the expensive version i.e. "doit mode=full"
@@ -121,3 +124,21 @@ def task_export_knowledgeGraph_emodul():
                 'targets': [knowledge_graph_file],
                 'clean': [clean_targets]
             }
+
+#validate
+@create_after(executed='expord_knowledgeGraph_emodul')
+def task_validate_graph():
+    
+    graphs = os.scandir(knowledge_graphs_directory)
+
+    s = validation.read_graph_from_file(Path(emodul_output_directory, 'validation_test', 'shape.ttl'))
+    
+    for f in graphs:
+        if f.is_file() and Path(f).suffix == '.ttl':
+            # do some validation
+            g = validation.read_graph_from_file(g)
+            res = validation.test_graph(g, s)
+
+            assert not validation.violates_shape(res, SCHEMA.SpecimenDiameterShape)
+            assert not validation.violates_shape(res, SCHEMA.SpecimenShape)
+            assert validation.violates_shape(res, SCHEMA.InformationBearingEntityShape)
