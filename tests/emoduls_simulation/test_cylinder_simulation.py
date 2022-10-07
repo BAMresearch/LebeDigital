@@ -37,4 +37,4 @@ def test_cylinder_simulation():
     # last measurement
     measured_force = problem.sensors[sensor.name].data[-1]
 
-    assert measured_force == pytest.approx(-543420.1153566408)
+    assert measured_force == pytest.approx(-543420.1153566426)
