@@ -5,7 +5,38 @@ import matplotlib.pyplot as plt
 import fenics_concrete
 
 def concrete_homogenization(parameters):
-    # todo describe function
+    """ returns homogenized concrete parameter
+
+    this function calls the Mori-Tanaka homogenization scheme
+    A dictionary with the required parameter is given
+
+    Parameters
+    ----------
+    parameters : dict
+        List with all required parameters
+        Paste properties
+        - paste_E
+        - paste_nu
+        - paste_fc
+        - paste_kappa
+        - paste_rho
+        - paste_C
+        - paste_Q
+        Aggregate properties
+        - aggregates_E
+        - aggregates_nu
+        - aggregates_vol_frac
+        - aggregates_kappa
+        - aggregates_rho
+        - aggregates_C
+
+    Returns
+    -------
+    results : dict
+        List with homogenized values
+        - E, nu, fc, C, rho, kappa, Q
+    """
+
 
     # initialize concrete paste
     concrete = fenics_concrete.ConcreteHomogenization(E_matrix=parameters['paste_E'],
@@ -13,8 +44,8 @@ def concrete_homogenization(parameters):
                                                       fc_matrix=parameters['paste_fc'],
                                                       kappa_matrix=parameters['paste_kappa'],
                                                       rho_matrix=parameters['paste_rho'],
-                                                      C_matrix=parameters['paste_C'])
-
+                                                      C_matrix=parameters['paste_C'],
+                                                      Q_matrix=parameters['paste_Q'])
 
     # adding uncoated aggregates
     concrete.add_uncoated_particle(E=parameters['aggregates_E'],
@@ -27,39 +58,9 @@ def concrete_homogenization(parameters):
     results = {'E': concrete.E_eff,
                'nu': concrete.nu_eff,
                'fc': concrete.fc_eff,
-               'C': concrete.C_eff,
-               'rho': concrete.rho_eff}
+               'C': concrete.C_vol_eff,
+               'rho': concrete.rho_eff,
+               'kappa': concrete.kappa_eff,
+               'Q': concrete.Q_vol_eff}
 
     return results
-
-
-
-
-# example of how to use this function with potential parameters
-if __name__ == "__main__":
-    print('Moin')
-
-    # initialize dictionary
-    parameters = {}
-
-    # using consistent units  https://www.dynasupport.com/howtos/general/consistent-units
-    # kg - m - s - N  - Pa - J
-
-    # paste data
-    parameters['paste_E'] = 3e11  # Pa
-    parameters['paste_nu'] = 0.2
-    parameters['paste_C'] = 870  # J/kg Specific Heat / Heat Capacity J/kg/K??
-    parameters['paste_kappa'] = 1.8  # W/m/K Thermal conductivity
-    parameters['paste_rho'] = 2400  # kg/m^3
-    parameters['paste_fc'] = 3e4  # Pa
-
-    # aggregate data
-    parameters['aggregates_E'] = 2.5e11  # Pa
-    parameters['aggregates_nu'] = 0.3
-    parameters['aggregates_C'] = 840  # J/kg Specific Heat
-    parameters['aggregates_kappa'] = 0.8  # W/m/K Thermal conductivity
-    parameters['aggregates_rho'] = 2600  # kg/m^3
-    parameters['aggregates_vol_frac'] = 0.6
-
-    results = concrete_homogenization(parameters)
-    print(results)
