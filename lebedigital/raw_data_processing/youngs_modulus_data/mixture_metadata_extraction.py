@@ -4,21 +4,23 @@
 # based on extraction-code of Erik
 
 
-#                 !!! Current Issues / To-Do !!!
-# The script only works on files that have exactly the same structure/labels as 
-# "2014_08_05 Rezeptur_MI.xlsx". Information about the kind of Zusatzstoff is 
-# missing, also multiple Zusatzstoffe can't be processed. 
-# Also I am not sure about all translations, I am waiting for an update of the 
-# taxonomy-file ("Luftgehalt", "Zuschlag",....).
-
-
 # Workflow:
 # 1. Installing and importing the necessary libraries
 # 2. Define a function to convert german formatting to english
-# 3. Defining a function to extract metadata:
-# 3.a Look for all sheets containing the word "Rezeptur" and load them
-# 3.b For each sheet: find indices of the labels
-# 3.c For each sheet: create and fill a dic & export dic as yaml-file
+# 3. Define a function to check for nan value regardless of float or string
+# 4. Defining a function to extract metadata:
+# 3.a Look for all sheets containing the word "Rezeptur" in the file, load them
+#     and go through them one by one
+# 3.b Find indices of the labels, except for labels called "addition" (Zusatzstoff)
+#     (those get renamed to addition1 and addition2 to ensure unique keys), and
+#     create a dictionary with this information
+# 3.c Check for missing labels
+# 3.d Save the name of the addition into the annotation in case it isn't mentioned
+#     there already
+# 3.e Define a function to ignore empty annotations.
+# 3.f Extract the metadata for each label which is existing. 
+# 3.g Depending on wheter an output-path is given or not, return the metadata
+#     dictionary or create a yaml-file.
 
 #------------------------------------------------------------------------------
 
@@ -28,20 +30,29 @@ import os
 import yaml
 from loguru import logger 
 
+
 # function to convert german formatting to english
-def replace_comma(string):
-    if "---" in string:
+def replace_comma(string, format = 'float'):
+    if '---' in string:
         string = nan  # maybe None? But this will cause errors when float(string)
         return string
-    else:
+    elif format == 'float':
         string = string.replace(',', '.')
         return float(string)
+    else:
+        string = string.replace(',', '.')
+        return string
+
+
+# function to check for nan-values independently of the format (str/float)
+def isNaN(num):
+    return num!= num
 
 
 # extraction script
 def extract_metadata_mixture(
         locationOfRawData,
-        locationOfProcessedData
+        locationOfProcessedData = None
         ):    
 
     """
@@ -60,25 +71,28 @@ def extract_metadata_mixture(
 
         Output
         -------
-        yamlFile containing the dictionary with the metadata
+        If no ouput path (locationOfProcessedData) is given (f.e. for unittesting), 
+        the dict containing the metadata will be returned. Otherwise a yaml file 
+        will be created.
                     
     """
     
 
     # Find sheets in the file containing the mixture (keyword: "Rezeptur")
     excelsheet = os.path.basename(locationOfRawData)
-    logger.debug("Working on: "+ excelsheet)
     excelfile = pd.read_excel(locationOfRawData, sheet_name= None) 
-    listofkeys = [i for i in excelfile.keys() if "Rezeptur" in i] 
-    logger.debug("Sheets containing mixture metadata in this file: " + str(listofkeys))
+    listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i] 
+    logger.debug('Working on file: '+ excelsheet)
+    logger.debug('Following sheets contain mixture metadata in this file: ' + str(listofkeys))
 
 
     for sheet in listofkeys:
 
+        logger.debug('Working on sheet: '+ sheet)
         ##############  S E T U P ##############
 
         # name of yaml-file will be experiment-name + sheet name
-        name = os.path.basename(excelsheet).split(".xl")[0] + " ___ " + sheet
+        name = os.path.basename(excelsheet).split('.xl')[0] + ' ___ ' + sheet
         
         # save data from excelsheet into pandas dataframe
         exceltodf = excelfile[sheet]
@@ -87,38 +101,63 @@ def extract_metadata_mixture(
         metadata = {}
 
         # the layout of the excel table can vary, the indices of labels are not 
-        # always the same; that's why: find now the indices of the labels
+        # always the same; that's why: find now the indices of the labels and 
+        # store it in a dictionary
         labelidx = {}
         labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
-        logger.debug("All information of the label column:" + labelcolumn[0])
         for i in range(len(labelcolumn)):
             labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
-            labelidx[labelcolumn[i]] = i  # fill dictionary
-        logger.debug(labelidx)
+            # fill dictionary with labels and corresponding indices, unless the
+            # label is "addition". Then differ between 1st and 2nd addition
+            if labelcolumn[i] != 'Zusatzstoff':
+                labelidx[labelcolumn[i]] = i                
+            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' not in labelidx.keys():
+                labelidx['Zusatzstoff1'] = i   
+            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' in labelidx.keys():
+                labelidx['Zusatzstoff2'] = i 
+                logger.debug("Second addition found in raw data.")  
+            else:
+                logger.warning('More than 2 additions/Zusatzstoffe found!')
 
-        # check for missing and additional labels; the following labels have to exist
-        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 'Wasser (wirksam)', 'Luftgehalt', 
-                        'Zusatzstoff', 'Zusatzmittel', 'Zuschlag (gesamt)',
-                        'Frischbeton', 'Mehlkornanteil', 'Mörtelanteil']
+
+        # Check for missing labels; the following labels should exist (except 
+        # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
+        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
+                        'Wasser (wirksam)', 'Luftgehalt', 'Zusatzstoff1', 'Zusatzstoff2',
+                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Frischbeton', 
+                        'Mehlkornanteil', 'Mörtelanteil']
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
-        logger.debug("Labels missing in the raw data: ",  missing_labels)
-        # these are all labels of "2014_08_05 Rezeptur_MI.xlsx"
-        # ['7.0', 'nan', 'Antragsteller:', 'Antrags-/ Projekt-Nr.:', 'Bezeichnung der Proben:', 
-        # 'Betonsorte u.-festigkeitsklasse:', 'Wasserzementwert', 'Sieblinie n. DIN 1045:', 
-        # 'Sieblinie des Zuschlags:', 'Sieblochweite in mm', 'Durchgang in Vol. -%', 
-        # 'Berechnung der Betonzusammensetzung', 'Stoffart', 'Zement', 'Wasser (gesamt)', 
-        # 'Wasser (wirksam)', 'Luftgehalt', 'Zusatzstoff', 'Zusatzmittel', 'Gesamt', 'Zuschlag (gesamt)', 
-        # '0 / 0,3', '0,1 / 0,5', '0,5 / 1,0', '1,0 / 2,0', '2,0 / 4,0', '4,0 / 8,0', '8,0 / 16,0', 
-        #'Frischbeton', 'Mehlkornanteil', 'Mörtelanteil']
-        
+        if len(missing_labels) != 0:
+            logger.warning('Check raw data, there are labels missing:')
+            logger.warning(missing_labels)
 
-        # Some files have multiple entries of Zusatzstoffe, which are not further labeled, so this adds 
-        # the type of Zusatzstoff
-        howmanyzusatzstoffe = [True if i == word else False for i in exceltodf["Stoffart"] ]
-        indexzusatzstoff = [i for i in range(len(howmanyzusatzstoffe)) if howmanyzusatzstoffe[i] == True]
-        for i in indexzusatzstoff:
-            exceltodf.iloc[i,0] += " " + str(exceltodf.iloc[i,1])
 
+        # Some files don't have the type of addition/Zusatzstoff only labeled 
+        # in a cell that will be neglected during the extraction, so this saves 
+        # the type of Addition inside the annotation - but only in case it isn't 
+        # mentioned there already
+        addition_finder = [True if i == 'Zusatzstoff' else False for i in labelcolumn]
+        idx_addition = [i for i in range(len(addition_finder)) if addition_finder[i] == True]
+        logger.debug('Number of additions in raw data: ' + str(len(idx_addition)))
+        for i in idx_addition:
+            # add the name in the annotation if not written there already
+            if str(exceltodf.iloc[i,1]) in str(exceltodf.iloc[i,8]):
+                pass
+            elif isNaN(exceltodf.iloc[i,8]):
+                exceltodf.iloc[i,8] =  str(exceltodf.iloc[i,1])
+            else:
+                exceltodf.iloc[i,8] =  str(exceltodf.iloc[i,8]) +' - ' + str(exceltodf.iloc[i,1])
+
+
+        # This function will ensure that no empty annotation-information will 
+        # be passed to the yaml-file (check annotation-cell for nan)
+        def no_empty_annotation(name):
+            if isNaN(exceltodf.iat[idx,8]):
+                logger.debug('Empty annotation in ' + str(name))
+                pass
+            else:
+                dic_label = str(name + '--Annotation')
+                metadata[dic_label] = replace_comma(str(exceltodf.iat[idx,8]), format='str')
 
 
         ############### E X T R A C T I O N #############
@@ -130,81 +169,115 @@ def extract_metadata_mixture(
         metadata['tester_name'] = exceltodf.iloc[0,10]
 
         # name of specimen
-        idx = labelidx["Bezeichnung der Proben:"]
+        idx = labelidx['Bezeichnung der Proben:']
         metadata['specimen_name'] = exceltodf.iloc[idx,3] #4
 
         #----------------------------------------------------------------------
 
-        # Extraction of the columns "Stoffmenge" (QuantityInMix), "Dichte bzw. 
-        # Rohdichte" (BulkDensity), "Stoffraum" (Volume), "Sonstiges / Bemerkungen"
+        # Extraction of the columns 'Stoffmenge' (QuantityInMix), 'Dichte bzw. 
+        # Rohdichte' (BulkDensity), 'Stoffraum' (Volume), 'Sonstiges / Bemerkungen'
         # (Annotation):
 
-        # Cement data ("Zement") # idx 20 for 2014_08_05 Rezeptur_MI
-        idx = labelidx["Zement"]
-        metadata['cement--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-        metadata['cement--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-        metadata['cement--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
-        metadata['cement--Annotation'] = str(exceltodf.iat[idx,8])
+        # Cement data ('Zement') 
+        if 'Zement' not in missing_labels:
+            idx = labelidx['Zement']
+            metadata['cement--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['cement--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['cement--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('cement')
+        else:
+            logger.warning('cement not included in yaml-file')
 
-        # total water data ("Wasser (gesamt)") # idx 21 for 2014_08_05 Rezeptur_MI
-        idx = labelidx["Wasser (gesamt)"]
-        metadata['water_total--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-        metadata['water_total--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-        metadata['water_total--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
-        metadata['water_total--Annotation'] = str(exceltodf.iat[idx,8])
-
-        # water cement ratio ("Wasserzementwert")
-        metadata["watercementratio"] = float(metadata['water_total--QuantityInMix'] / metadata['cement--QuantityInMix'])
-
-        # effective water data ("Wasser (wirksam)") # idx 22 for 2014_08_05 Rezeptur_MI 
-        idx = labelidx["Wasser (wirksam)"]
-        metadata['water_effective--QuantityInMix'] = replace_comma(str(exceltodf.iat[idx,2]))
-        metadata['water_effective--BulkDensity'] = replace_comma(str(exceltodf.iat[idx,4]))
-        metadata['water_effective--Volume'] = replace_comma(str(exceltodf.iat[idx,6]))
-        metadata['water_effective--Annotation'] = str(exceltodf.iat[idx,8])
-
-        # air content data ("Luftgehalt") # idx 23 for 2014_08_05 Rezeptur_MI
-        idx = labelidx["Luftgehalt"]
-        metadata['air_content--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-        metadata['air_content--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-        metadata['air_content--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
-        metadata['air_content--Annotation'] = str(exceltodf.iat[idx,8])
-
-        # Admixture data ("Zusatzstoff") # idx 24 for 2014_08_05 Rezeptur_MI
-        idx = labelidx["Zusatzstoff"]
-        metadata['admixture--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-        metadata['admixture--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-        metadata['admixture--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
-        metadata['admixture--Annotation'] = str(exceltodf.iat[idx,8])
-
-        # Zusatzmittel MISSING
-        idx = labelidx["Zusatzmittel"]
-
-        # Aggregate data ("Zuschlag (gesamt)") # idx 27 for 2014_08_05 Rezeptur_MI
-        idx = labelidx["Zuschlag (gesamt)"]
-        metadata['zuschlag--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-        metadata['zuschlag--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-        metadata['zuschlag--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
-        metadata['zuschlag--Annotation'] = str(exceltodf.iat[idx,8])
-
-        # ("Frischbeton") MISSING
-        #idx = labelidx["Frischbeton"]
-
-        # ("Mehlkornanteil") MISSING
-        #idx = labelidx["Mehlkornanteil"]
-
-        # ("Mörtelanteil") MISSING
-        #idx = labelidx["Mörtelanteil"]
-
-        #print(metadata)
+        # total water data ('Wasser (gesamt)') 
+        if 'Wasser (gesamt)' not in missing_labels:
+            idx = labelidx['Wasser (gesamt)']
+            metadata['water_total--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['water_total--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['water_total--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('water_total')
+        else:
+            logger.warning('water_total not included in yaml-file')
 
 
+        # water cement ratio ('Wasserzementwert')
+        if 'Zement' not in missing_labels and 'Wasser (gesamt)' not in missing_labels:
+            metadata['water_cement_ratio'] = float(metadata['water_total--QuantityInMix'] 
+                                                    / metadata['cement--QuantityInMix'])
+        else:
+            logger.warning('water_cement_ratio not included in yaml-file')
 
-        ############### O U T P U T #############
- 
-        # # Write the data to a yaml file
-        with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as yamlFile:
-           yaml.dump(metadata, yamlFile, sort_keys=False)
+
+        # effective water data ('Wasser (wirksam)')  
+        if 'Wasser (wirksam)' not in missing_labels:
+            idx = labelidx['Wasser (wirksam)']
+            metadata['water_effective--QuantityInMix'] = replace_comma(str(exceltodf.iat[idx,2]))
+            metadata['water_effective--BulkDensity'] = replace_comma(str(exceltodf.iat[idx,4]))
+            metadata['water_effective--Volume'] = replace_comma(str(exceltodf.iat[idx,6]))
+            no_empty_annotation('water_effective')
+        else:
+            logger.warning('water_effective not included in yaml-file')
+
+
+        # air content data ('Luftgehalt') 
+        if 'Luftgehalt' not in missing_labels:
+            idx = labelidx['Luftgehalt']
+            metadata['air_content--QuantityInMix'] = float(0)
+            metadata['air_content--BulkDensity'] = float(0)
+            metadata['air_content--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('air_content')
+        else:
+            logger.warning('air_content not included in yaml-file')
+
+
+        # Addition data ('Zusatzstoff') 1 
+        if 'Zusatzstoff1' not in missing_labels:
+            idx = labelidx['Zusatzstoff1']
+            metadata['addition1--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['addition1--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['addition1--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('addition1')
+        else:
+            logger.warning('addition not included in yaml-file')
+
+
+        # Addition data ('Zusatzstoff') 2 
+        if 'Zusatzstoff2' not in missing_labels:
+            idx = labelidx['Zusatzstoff2']
+            metadata['addition2--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['addition2--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['addition2--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('addition2')
+        else:
+            logger.warning('addition2 not included in yaml-file')
+
+
+        # Admixture ('Zusatzmittel') 
+        if 'Zusatzmittel' not in missing_labels:
+            idx = labelidx['Zusatzmittel']
+            metadata['admixture--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['admixture--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['admixture--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('admixture')
+        else:
+            logger.warning('admixture not included in yaml-file')
+
+
+        # Aggregate ('Zuschlag (gesamt)')
+        if 'Zuschlag (gesamt)' not in missing_labels:
+            idx = labelidx['Zuschlag (gesamt)']
+            metadata['aggregate--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['aggregate--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['aggregate--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
+            no_empty_annotation('aggregate')
+        else:
+            logger.warning('aggregate not included in yaml-file')
+
+
+
+        ############################ O U T P U T #############################
+        if locationOfProcessedData == None:
+            return metadata
+        else:
+            with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as yamlFile:
+                yaml.dump(metadata, yamlFile, sort_keys=False, allow_unicode=True)
            
-
-extract_metadata_mixture("C:\\Users\\afriemel\\Documents\\Backup\\mixture\\2014_08_05 Rezeptur_MI.xlsx","C:\\Users\\afriemel\\Documents\\Backup\\mixture")
