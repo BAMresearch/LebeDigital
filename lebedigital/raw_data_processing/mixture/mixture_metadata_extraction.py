@@ -124,8 +124,7 @@ def extract_metadata_mixture(
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
         default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
                         'Wasser (wirksam)', 'Luftgehalt', 'Zusatzstoff1', 'Zusatzstoff2',
-                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Frischbeton', 
-                        'Mehlkornanteil', 'Mörtelanteil']
+                        'Zusatzmittel', 'Zuschlag (gesamt)'] 
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
             logger.warning('Check raw data, there are labels missing:')
@@ -237,7 +236,7 @@ def extract_metadata_mixture(
             metadata['addition1--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('addition1')
         else:
-            logger.warning('addition not included in yaml-file')
+            logger.warning('addition1 not included in yaml-file')
 
 
         # Addition data ('Zusatzstoff') 2 
