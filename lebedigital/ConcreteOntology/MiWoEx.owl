@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/jwinkler/ontologies/2022/9/untitled-ontology-87#"
+     xml:base="http://www.semanticweb.org/jwinkler/ontologies/2022/9/untitled-ontology-87"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:mid="https://purl.matolab.org/mseo/mid/"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:pmdco="https://material-digital.de/pmdco/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/">
+        <owl:imports rdf:resource="https://material-digital.de/pmdco/"/>
+        <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
+        <rdfs:comment xml:lang="kit.edu">Contact:
+David Alós Shepherd
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Str. 3, 76131 Karlsruhe
+david.alosshepherd</rdfs:comment>
+        <rdfs:comment xml:lang="bam.de">Contact:
+Juliette Winkler
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+juliette.winkler</rdfs:comment>
+        <rdfs:comment xml:lang="kit.edu">Contact:
+Ravi Patel
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Str. 3, 76131 Karlsruhe
+ravi.patel</rdfs:comment>
+        <rdfs:comment xml:lang="bam.de">Contact:
+Stephan Pirskawetz
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+stephan.pirskawetz</rdfs:comment>
+        <rdfs:comment>This is the mid-level module of the Concrete Production and Testing Ontology CPTO.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_age -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_age"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_property -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_property"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_state -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_state"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Hardening -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Hardening">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Process"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Intensity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Intensity">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Mixer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Mixer">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Admixture -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Admixture">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Age -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Age">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000038"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Aggregates -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Aggregates">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#AirContent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#AirContent">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#AppliedLoad -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#AppliedLoad">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Cement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Cement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#CompressiveStrength -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#CompressiveStrength">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MechanicalStrength"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Computation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Computation">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Duration -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Duration">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000038"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Energy -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Energy">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FlowClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowClass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Workability"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FreshConcrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FreshConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#HardenedConcrete -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#HardenedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#HeatOfHydration -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#HeatOfHydration">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/MaterialProperty"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Humidity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Humidity">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Location -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Location">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000029"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#MeasuringGauge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#MeasuringGauge">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mixing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mixing">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/ManufactureProcess"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mixture -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mixture">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MaterialComposition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mortar -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mortar">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Paste -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Paste">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Prismatic -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Prismatic">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalShape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#SecantModulusOfElasticty -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#SecantModulusOfElasticty">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ElasticModulus"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Water -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Water">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Workability -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Workability">
+        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/MaterialProperty"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Addition/Additives -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Addition/Additives">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/CEMI -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/CEMI"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/CEMII -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/CEMII"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/JoulePerGramOfCement -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/JoulePerGramOfCement"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/MilliwattPerGramOfMaterial -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/MilliwattPerGramOfMaterial"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Okrilla -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Okrilla"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/PercentByMass -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/PercentByMass"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/PercentByVolume -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/PercentByVolume"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Plasticizer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Plasticizer"/>
+    
+
+
+    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/WaterCementRatio -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/WaterCementRatio"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
