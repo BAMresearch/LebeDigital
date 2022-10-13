@@ -9,7 +9,7 @@ import sys
 from sys import exit
 
 
-class ExpStep():
+class ExpStep:
     def __init__(
             self,
             name: str = '',
@@ -620,6 +620,46 @@ class ExpStep():
         )
 
         return sample_step
+
+    def fill_sample(self, o: Openbis, sample_identifier: str):
+        """Fill the instance with properties of an experimental step in the datastore
+
+        Args:
+            o (Openbis): currently running openbis instance
+            sample_identifier (str): identifier of the sample
+
+        Returns:
+            self: filled instance ExpStep
+        """
+
+        sample_dict = self.get_sample_dict(o, sample_identifier)
+
+        props_list = list(o.get_sample_type(sample_dict['type'])
+                          .get_property_assignments()
+                          .df['propertyType'])
+
+
+        self.name = sample_dict['$NAME']
+        self.type = sample_dict['type'],
+        self.space = sample_dict['identifier'].split('/')[1],
+        self.project = sample_dict['identifier'].split('/')[2],
+        self.identifier = sample_dict['identifier']
+        self.permId = sample_dict['permId']
+        self.code = sample_dict['identifier'].split('/')[3]
+
+        self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
+        self.collection = self.sample_object.experiment.code
+        self.parents = self.sample_object.parents
+        self.metadata = {key: sample_dict[key] for key in props_list}
+
+        self.datasets = self.sample_object.get_datasets()
+        self.dataset_codes = [ds.code for ds in self.datasets]
+
+        self.data_path = []
+        self.data_type = ''
+        self.children = []
+
+        return self
 
     def get_property_types(self, o: Openbis) -> pd.DataFrame:
         """Returns a DataFrame of the properties with their descriptions
