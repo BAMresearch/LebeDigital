@@ -1,5 +1,6 @@
 
-from lebedigital.BeamDesign import *
+from lebedigital.BeamDesign import BeamDesign
+from BeamDesign import *
 
 def test_beam_design():
     """
