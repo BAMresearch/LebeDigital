@@ -1,14 +1,13 @@
 
-from lebedigital.BeamDesign import BeamDesign
-from BeamDesign import *
+from lebedigital.BeamDesign import BeamDesign as bd
 
 def test_beam_design():
     """
     Test function to test beam design module 
     """
-    b,d = section_dimension_rule_of_thumb(span=6500) #mm
-    MaxMoment,MaxShearForce =  max_bending_moment_and_shear_force(span=6500,load=30e3,load_type="point_load")
-    out=  beam_section_design(span =6500,
+    b,d = bd.section_dimension_rule_of_thumb(span=6500) #mm
+    MaxMoment,MaxShearForce =  bd.max_bending_moment_and_shear_force(span=6500,load=30e3,load_type="point_load")
+    out=  bd.beam_section_design(span =6500,
                               b = b,
                               d = d,
                               MaxMoment=MaxMoment,
