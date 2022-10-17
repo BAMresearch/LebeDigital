@@ -29,7 +29,7 @@ def test_column_simulation():
 
     # temperature setings:
     parameters['T_0'] = 40  # initial temperature of concrete
-    parameters['T_boundary'] = 40  # constant boundary temperature
+    parameters['T_bc1'] = 20  # constant boundary temperature
 
     # column geometry
     parameters['width'] = 0.5  # length of pillar in m
@@ -54,5 +54,5 @@ def test_column_simulation():
     data = column_simulation(full_time, time_step, parameters)
 
     assert data['time'].tolist() == pytest.approx([1200, 2400, 3600])
-    assert data['temperature'].tolist() == pytest.approx([40.83553895947023, 43.48740722544187, 49.59551518865857])
-    assert data['yield'].tolist() == pytest.approx([40694.05171310129, -21659.310187726172, -118218.21771406279])
+    assert data['temperature'].tolist() == pytest.approx([41.487825, 43.581025, 48.334999])
+    assert data['yield'].tolist() == pytest.approx([129715.771538, 100205.750197, 46113.785397])
