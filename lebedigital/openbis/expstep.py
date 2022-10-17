@@ -641,14 +641,17 @@ class ExpStep:
 
         self.name = sample_dict['$NAME']
         self.type = sample_dict['type'],
-        self.space = sample_dict['identifier'].split('/')[1],
-        self.project = sample_dict['identifier'].split('/')[2],
+        self.space, = sample_dict['identifier'].split('/')[1],
+        self.project, = sample_dict['identifier'].split('/')[2],
         self.identifier = sample_dict['identifier']
         self.permId = sample_dict['permId']
         self.code = sample_dict['identifier'].split('/')[3]
 
         self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
-        self.collection = self.sample_object.experiment.code
+        # print(f'/{self.space}/{self.project}/{self.sample_object.experiment.code}')
+        # self.collection = self.find_collection(
+        #     o, self.sample_object.experiment.code, 1)
+        self.collection = f'/{self.space}/{self.project}/{self.sample_object.experiment.code}'
         self.parents = self.sample_object.parents
         self.metadata = {key: sample_dict[key] for key in props_list}
 
@@ -699,7 +702,7 @@ class ExpStep:
         else:
             raise ValueError('Sample not in datastore')
 
-    def upload_dataset(self, o: Openbis, props: dict = {}) -> str:
+    def upload_dataset(self, o: Openbis, props: dict = {}):
         """Uploads a dataset to the ExpStep
 
         Args:
@@ -718,23 +721,31 @@ class ExpStep:
         else:
             raise ValueError('$name not defined in props')
 
+        if not 'files' in props:
+            raise KeyError(f'files not specified in props')
+        if not 'data_type' in props:
+            raise KeyError(f'data_type not specified in props')
+
+        files = props.pop('files')
+        data_type = props.pop('data_type')
+
         if test:
             name = props['$name']
             print(
                 f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
             ds = o.get_datasets(where={'$name': props['$name']})
-            return ds
 
         else:
             ds = o.new_dataset(
-                type=self.data_type,
+                type=data_type,
                 collection=self.collection,
                 sample=self.identifier,
-                files=self.data_path,
+                files=files,
                 props=props
             )
             ds.save()
-            return ds
+
+        return ds
 
     def download_datasets(self, o: Openbis, path: str):
 
