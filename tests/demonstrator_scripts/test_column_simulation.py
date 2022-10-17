@@ -47,12 +47,12 @@ def test_column_simulation():
     parameters['T_ref'] = 25  # reference temperature in degree celsius
 
     # simulation time
-    full_time = 1  # simulation time in hours
-    time_step = 20  # timestep in minutes
+    full_time = 60*60*1  # simulation time in hours
+    time_step = 60*20  # timestep in minutes
 
     # run simulation
-    time_data, temp_data, yield_data = column_simulation(full_time, time_step, parameters)
+    data = column_simulation(full_time, time_step, parameters)
 
-    assert time_data == pytest.approx([1200, 2400, 3600])
-    assert temp_data == pytest.approx([40.83553895947023, 43.48740722544187, 49.59551518865857])
-    assert yield_data == pytest.approx([40694.05171310129, -21659.310187726172, -118218.21771406279])
+    assert data['time'].tolist() == pytest.approx([1200, 2400, 3600])
+    assert data['temperature'].tolist() == pytest.approx([40.83553895947023, 43.48740722544187, 49.59551518865857])
+    assert data['yield'].tolist() == pytest.approx([40694.05171310129, -21659.310187726172, -118218.21771406279])

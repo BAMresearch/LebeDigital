@@ -15,20 +15,20 @@ def concrete_homogenization(parameters):
     parameters : dict
         List with all required parameters
         Paste properties
-        - paste_E
-        - paste_nu
-        - paste_fc
-        - paste_kappa
-        - paste_rho
-        - paste_C
-        - paste_Q
+        - paste_E     : Young's modulus
+        - paste_nu    : Poission's ratio
+        - paste_fc    : Compressive strength
+        - paste_kappa : Thermal conductivity
+        - paste_rho   : Density
+        - paste_C     : Specific heat capacity
+        - paste_Q     : Total heat release in energy per weight
         Aggregate properties
-        - aggregates_E
-        - aggregates_nu
-        - aggregates_vol_frac
-        - aggregates_kappa
-        - aggregates_rho
-        - aggregates_C
+        - aggregates_E        : Young's modulus
+        - aggregates_nu       : Poission's ratio
+        - aggregates_vol_frac : Volume fraction
+        - aggregates_kappa    : Thermal conductivity
+        - aggregates_rho      : Density
+        - aggregates_C        : Specific heat capacity
 
     Returns
     -------

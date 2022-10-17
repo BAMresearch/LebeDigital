@@ -1,11 +1,9 @@
 from __future__ import print_function
 import fenics_concrete
+import pandas as pd
 
 # setting up the problem
 def column_simulation(time, dt, parameters, pv_output=False):
-    # conversion to seconds
-    time = time * 60 * 60  # hours to seconds
-    dt = dt * 60  # minutes to seconds
 
     # simulation parameters
     parameters['mesh_density'] = 5
@@ -39,5 +37,12 @@ def column_simulation(time, dt, parameters, pv_output=False):
         t += dt
 
     print('Done!')
+
+    # Building DataFrame
+    df = pd.DataFrame(list(zip(problem.sensors['MaxYieldSensor'].time,
+                               problem.sensors['MaxTemperatureSensor'].data,
+                               problem.sensors['MaxYieldSensor'].data)),
+                      columns=['time', 'temperature', 'yield'])
+
     # return lists with time steps, max temperature, max yield
-    return problem.sensors['MaxYieldSensor'].time, problem.sensors['MaxTemperatureSensor'].data, problem.sensors['MaxYieldSensor'].data
+    return df
