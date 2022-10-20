@@ -76,8 +76,11 @@ class ExpStep:
         os.environ['OPENBIS_HOST'] = url
         o = Openbis(os.environ['OPENBIS_HOST'])
 
+        # If a session is already active (when running a notebook again) return the active object
         if o.is_session_active():
             return o
+
+        # We get the username from the os username and the password has to be given by the user at runtime
         else:
             os.environ['OPENBIS_USERNAME'] = os.getlogin()
             if 'password' in kwargs:
@@ -95,7 +98,7 @@ class ExpStep:
 
     @staticmethod
     def read_metadata_json(json_path: str) -> dict:
-        """Read the metadata from a json file
+        """Read the metadata from a json file. You can download the metadata as json from the datastore website.
 
         Args:
             json_path (str): Path to json file
@@ -118,7 +121,23 @@ class ExpStep:
         sheet_name: str = 'metadata',
         path: str = '',
     ):
+        """ Generate an excel data import template for a given object type.
 
+        Args:
+            o (Openbis): Currently running openbis instance
+            sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
+            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file. Defaults to False.
+            sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
+            path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
+
+        Raises:
+            ValueError: Raises an error when write is set to True and no path is gven
+
+        Returns:
+            pandas.DataFrame: returns a DataFrame with the import template 
+        """
+
+        # Raises an error when no path given and write set to True
         if write and not path:
             raise ValueError("No path given")
 
@@ -130,6 +149,7 @@ class ExpStep:
         meta_dict = {idx: v for idx, v in enumerate(meta_list)}
 
         # Parse the dict into a dataframe
+
         meta_df = pd.DataFrame.from_dict(
             meta_dict, orient="index", columns=['Param'])
 
@@ -137,6 +157,8 @@ class ExpStep:
         props_list = list(o.get_sample_type(sample_type)
                           .get_property_assignments()
                           .df['propertyType'])
+
+        # Build a dataframe with the properties and their descriptions
         df = pd.DataFrame()
         for prop in props_list:
             pt = o.get_property_type(prop)
@@ -171,6 +193,7 @@ class ExpStep:
         else:
             return meta_df
 
+    # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself
     @staticmethod
     def get_space_names(o: Openbis):
         spaces_df = o.get_spaces().df
@@ -240,6 +263,15 @@ class ExpStep:
 
     @staticmethod
     def get_sample_dict(o: Openbis, identifier) -> dict:
+        """ Returns all/some metadata about the sample
+
+        Args:
+            o (Openbis): Currently running openbis instance
+            identifier (_type_): Identifier of the sample
+
+        Returns:
+            dict: Dict containing the information as metadata_label : metadata_value
+        """
         sample = o.get_sample(identifier)
         sample_info_dict = sample.attrs.all()
         sample_prop_dict = {key.upper(): val for key,
@@ -247,8 +279,21 @@ class ExpStep:
         return sample_info_dict | sample_prop_dict
 
     @staticmethod
-    def get_overview(o: Openbis, level: str, **kwargs):
+    def get_overview(o: Openbis, level: str, **kwargs) -> dict:
+        """ Generates an overview for the samples stored in the datastore
+            You need to provide the 
+        Args:
+            o (Openbis): Currently running openbis instance
+            level (str): What entity should be the highest level of the overview (space/project/collection overview)
 
+        Raises:
+            ValueError: Raises an error when no correct value for the level was specified
+
+        Returns:
+            dict: Returns a dictionary with the overview
+        """
+
+        # We check if the openbis aliases were specified in the function arguments
         if "experiment" in kwargs:
             kwargs["collection"] = kwargs["experiment"]
             kwargs.pop("experiment", None)
@@ -257,6 +302,7 @@ class ExpStep:
             kwargs["sample"] = kwargs["object"]
             kwargs.pop("object", None)
 
+        # We go through all entries in for loops, the only difference between levels is where we start the loop
         if level == 'full':
             space_dict = {'DATASTORE': {}}
 
@@ -332,6 +378,7 @@ class ExpStep:
 
     def sync_code(self):
         """ Synchronizes code with name using the correct code format.
+            Deprecated, dont use will be removed lated.
         """
         name = self.name
         allowed_chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
@@ -470,21 +517,25 @@ class ExpStep:
         types_dict = types_df['dataType'].to_dict()
         types_dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
 
+        # Check if all keys are a subset of all possible keys
         if set(self.metadata.keys()).issubset(set(types_dict.keys())):
             for key, val in self.metadata.items():
+                # Check if all values have the correct data type
                 if not isinstance(val, types_dict[key]):
                     raise ValueError(
                         f'Type Mismatch. Entry "{key}" is of Type {type(val)} and should be {types_dict[key]}')
+                # Check if float values are not NaN
                 if isinstance(val, float) and isnan(val):
                     raise ValueError(
                         f'NaN values are not accepted by Openbis. Entry "{key} has a value "{val}".')
         else:
+            # Keys in metadata and not in object definition -> raises an error for every such key
             for key in self.metadata.keys():
                 if key not in types_dict.keys():
                     raise ValueError(
                         f'Unexpected parameter. Key "{key}" is not in {self.type} defined metadata params')
 
-        # CHECKING IF ALL NEEDED VALUES ARE DEFINED
+        # Checking if all values are defined
         needed_attrs = ['name', 'type', 'collection', 'space', 'project']
         for attr, value in self.__dict__.items():
             if attr in needed_attrs:
@@ -492,11 +543,12 @@ class ExpStep:
                     raise ValueError(
                         f'Undeclared Attribute. Attribute "{attr}" has not been delcared')
 
-        # PRINT WARNING IF PARENTS ARE EMPTY
+        # Printing warnings if parents are empty, does not break the function
         if not self.parents:
             logging.warning(
                 'parents attribute undeclared')
 
+        # If you got to this line no gamebreaking bugs were found
         print('Types are correctly set')
 
     def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
@@ -525,6 +577,7 @@ class ExpStep:
             logging.error(str(e))
             exit(1)
 
+        # If a sample with the same name exists in the Datastore you fetch it instead of creating a new one
         if self.exists_in_datastore(o):
             print(f'Sample {self.name} already exists in Datastore')
             samples_df = o.get_samples(
@@ -533,11 +586,16 @@ class ExpStep:
                 project=self.project,
                 props="$name"
             ).df
+
+            # Gettingthe identifier from the dataframe
+            # TODO: Use pybis queries (where) here instead of pulling the entire dataframe
+
             samples_df.rename(columns={'$NAME': 'NAME'}, inplace=True)
             sample_identifier = samples_df.query(
                 "NAME==@self.name")['identifier'].values[0]
             self.identifier = sample_identifier
 
+            # Overwriting the sample by deleting and uploading a new one
             # TODO: Overwriting samples by changing their metadata instead of deleting and uploading new sample
 
             if overwrite:
@@ -557,6 +615,7 @@ class ExpStep:
             else:
                 return sample_identifier
 
+        # No sample with the same name found -> uploading the sample
         else:
             print(f'Creating new sample {self.name}')
             sample = o.new_sample(
@@ -584,26 +643,36 @@ class ExpStep:
             ExpStep: ExpStep object containing metadata of the sample
         """
 
+        # Getting the properties of the sample
         sample_dict = ExpStep.get_sample_dict(o, sample_identifier)
 
+        #  Getting a list of the properties only to flter them from the sample_dict
         props_list = list(o.get_sample_type(sample_dict['type'])
                           .get_property_assignments()
                           .df['propertyType'])
 
+        # Getting the name of the sample
         sample_name = sample_dict['identifier'].split('/')[3]
 
+        # Getting the sample
         sample = o.get_sample(sample_dict['identifier'], props='*')
 
+        # Getting the name of the collection
         sample_collection = sample.experiment.code
 
+        # Getting the name of the parents
         sample_parents = sample.parents
 
+        # Getting the metadata from the sample by comparing it with the list of the properties
         sample_metadata = dict((key, sample_dict[key]) for key in props_list)
 
+        # Getting the datasets uploaded to the sample
         sample_datasets = sample.get_datasets()
 
+        # Getting the dataset codes
         sample_dataset_codes = [ds.code for ds in sample_datasets]
 
+        # Combining all together to build an ExpStep object
         sample_step = ExpStep(
             name=sample_dict['$NAME'],
             type=sample_dict['type'],
@@ -633,12 +702,15 @@ class ExpStep:
             self: filled instance ExpStep
         """
 
+        # Getting the sample properties from the Datastore
         sample_dict = self.get_sample_dict(o, sample_identifier)
 
+        # Getting the list of properties only to filter them from sample_dict
         props_list = list(o.get_sample_type(sample_dict['type'])
                           .get_property_assignments()
                           .df['propertyType'])
 
+        # Assigning the values from the dict to the new object
         self.name = sample_dict['$NAME']
         self.type = sample_dict['type'],
         self.space, = sample_dict['identifier'].split('/')[1],
@@ -647,14 +719,15 @@ class ExpStep:
         self.permId = sample_dict['permId']
         self.code = sample_dict['identifier'].split('/')[3]
 
+        # Getting the object from the datastore to get the name of the collection and parents
         self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
-        # print(f'/{self.space}/{self.project}/{self.sample_object.experiment.code}')
-        # self.collection = self.find_collection(
-        #     o, self.sample_object.experiment.code, 1)
         self.collection = f'/{self.space}/{self.project}/{self.sample_object.experiment.code}'
         self.parents = self.sample_object.parents
+
+        # Setting the metadata by filtering the sample_dict using props_list
         self.metadata = {key: sample_dict[key] for key in props_list}
 
+        # Getting all datasets of the sample and their codes
         self.datasets = self.sample_object.get_datasets()
         self.dataset_codes = [ds.code for ds in self.datasets]
 
@@ -665,7 +738,7 @@ class ExpStep:
         return self
 
     def get_property_types(self, o: Openbis) -> pd.DataFrame:
-        """Returns a DataFrame of the properties with their descriptions
+        """Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
         Args:
             o (Openbis): currently running openbis datastore
@@ -673,16 +746,21 @@ class ExpStep:
         Returns:
             pd.DataFrame: DataFrame of all properties with their attributes
         """
+
+        # Getting a list of all the samples properties
         props_list = list(o.get_sample_type(self.type)
                           .get_property_assignments()
                           .df['propertyType'])
+
         df = pd.DataFrame()
+        # Getting the metadata of every entry in props_list
         for prop in props_list:
             pt = o.get_property_type(prop)
             prop_series = pd.Series(pt.attrs.all())
             prop_df = pd.DataFrame(
                 {prop: prop_series.values}, index=prop_series.index)
 
+            # Combining the props together into a dataframe
             if df.empty:
                 df = prop_df
             else:
@@ -697,22 +775,24 @@ class ExpStep:
             o (Openbis): Currently running openbis datastore
             reason (str): Reason for deletion
         """
+        # Check if the sample exsts and delete it
         if self.exists_in_datastore(o):
             o.get_sample(self.identifier).delete(reason)
         else:
             raise ValueError('Sample not in datastore')
 
-    def upload_dataset(self, o: Openbis, props: dict = {}):
+    def upload_dataset(self, o: Openbis, props: dict):
         """Uploads a dataset to the ExpStep
 
         Args:
             o (Openbis): Currently running openbis datastore
-            props (str, optional): Metadata of the dataset. Defaults to {}.
+            props (str, optional): Metadata of the dataset.
 
         Returns:
             str: Properties of the dataset
         """
 
+        # Checking if the name of the dataset is included in props
         test = ''
         if '$name' in props:
             test = o.get_datasets(where={'$name': props['$name']})
@@ -721,6 +801,7 @@ class ExpStep:
         else:
             raise ValueError('$name not defined in props')
 
+        # Checking if the files and data_type are specified in props
         if not 'files' in props:
             raise KeyError(f'files not specified in props')
         if not 'data_type' in props:
@@ -729,12 +810,14 @@ class ExpStep:
         files = props.pop('files')
         data_type = props.pop('data_type')
 
+        # If a dataset with the same name was found in the datastore that dataset will be returned and none will be uploaded
         if test:
             name = props['$name']
             print(
                 f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
             ds = o.get_datasets(where={'$name': props['$name']})
 
+        # Uploading the dataset
         else:
             ds = o.new_dataset(
                 type=data_type,
@@ -748,9 +831,20 @@ class ExpStep:
         return ds
 
     def download_datasets(self, o: Openbis, path: str):
+        """Downloads all datasets which are asigned to that sample
+            TODO: Add option to specify which dataset type should be downloaded
 
+        Args:
+            o (Openbis): Currently running openbis instance
+            path (str): path where the datasets should be saved
+
+        Raises:
+            ValueError: Raises an error when no datasets are found under the sample
+        """
+
+        # If the sample has no datasets an error will be thrown
         if not len(self.datasets):
-            raise ValueError('No Datasets specified')
+            raise ValueError('No Datasets found under the sample')
 
         file_plural = 'FILES' if len(self.datasets) > 1 else 'FILE-'
 
@@ -817,7 +911,7 @@ class ExpStep:
         return o.get_sample_type(sample_code)
 
 
-def main():
+def new_object_text():
 
     # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
     # Disable
@@ -960,6 +1054,24 @@ def main():
         new_voc.delete('testing deletion')
 
     print('Done')
+
+
+def main():
+    o = ExpStep.connect_to_datastore()
+
+    samples = o.get_samples(
+        where={
+            '$name': '3Dm3_0_1rpm_Vogel_2_7_T17_02'
+        }
+    )
+    identifier = samples[0].identifier
+    sample_dict = ExpStep.get_sample_dict(o, identifier)
+    sample_list = list(o.get_sample_type(
+        sample_dict['type']).get_property_assignments().df['propertyType'])
+
+    testsample = ExpStep.load_sample(o, identifier)
+    print(len(testsample.datasets))
+    # print(testsample.get_property_types(o))
 
 
 if __name__ == '__main__':
