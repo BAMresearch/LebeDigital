@@ -15,8 +15,8 @@ class ExpStep:
             self,
             name: str = '',
             type: str = '',
-            data_path: list = [],
-            data_type: str = '',
+            # data_path: list = [],
+            # data_type: str = '',
             code: str = '',
             metadata: dict = {},
             space: str = "",
@@ -48,8 +48,8 @@ class ExpStep:
 
         self.name = name
         self.type = type
-        self.data_path = data_path
-        self.data_type = data_type
+        # self.data_path = data_path
+        # self.data_type = data_type
         self.metadata = metadata
         self.space = space
         self.project = project
@@ -732,8 +732,8 @@ class ExpStep:
         self.datasets = self.sample_object.get_datasets()
         self.dataset_codes = [ds.code for ds in self.datasets]
 
-        self.data_path = []
-        self.data_type = ''
+        # self.data_path = []
+        # self.data_type = ''
         self.children = []
 
         return self
@@ -849,7 +849,7 @@ class ExpStep:
 
         file_plural = 'FILES' if len(self.datasets) > 1 else 'FILE-'
 
-        self.data_path = []
+        # self.data_path = []
 
         print(
             f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------\n')
@@ -865,7 +865,7 @@ class ExpStep:
                         wait_until_finished=False,
                     )
 
-                    self.data_path.append(f'{path}/{dataset}')
+                    # self.data_path.append(f'{path}/{dataset}')
 
             # If data_type was NOT specfied download all datasets
             else:
@@ -877,7 +877,7 @@ class ExpStep:
                     wait_until_finished=False,
                 )
 
-                self.data_path.append(f'{path}/{dataset}')
+                # self.data_path.append(f'{path}/{dataset}')
 
         print('----------DOWNLOADING FINISHED----------')
 
@@ -1065,7 +1065,7 @@ def new_object_text():
     print('Done')
 
 
-def main():
+def download_datasets_test():
 
     def delete_folder(path):
         folder = path
@@ -1106,4 +1106,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    download_datasets_test()
