@@ -3,6 +3,7 @@ from pybis import Openbis
 import pandas as pd
 import json
 import os
+import shutil
 import logging
 from getpass import getpass
 import sys
@@ -830,13 +831,13 @@ class ExpStep:
 
         return ds
 
-    def download_datasets(self, o: Openbis, path: str):
+    def download_datasets(self, o: Openbis, path: str, data_type: str = ''):
         """Downloads all datasets which are asigned to that sample
-            TODO: Add option to specify which dataset type should be downloaded
 
         Args:
             o (Openbis): Currently running openbis instance
-            path (str): path where the datasets should be saved
+            path (str): Path where the datasets should be saved
+            data_type (str): If specified will only download data sets of that type
 
         Raises:
             ValueError: Raises an error when no datasets are found under the sample
@@ -851,25 +852,33 @@ class ExpStep:
         self.data_path = []
 
         print(
-            f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------')
+            f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------\n')
         for dataset in self.datasets:
-            print(f'Downloading dataset {dataset.code}')
-            print(f'Files: {dataset.file_list}')
-            dataset.download(
-                destination=path,
-                create_default_folders=False,
-                wait_until_finished=False,
-            )
-            if self.data_type:
-                print(
-                    'Warning: Data type was already specified before, may cause issues when uploading data')
-                print(f'Old data type: {self.data_type}')
-                self.data_type = dataset.type.code
-                print(f'New data type: {self.data_type}')
-            else:
-                self.data_type = dataset.type.code
+            # If data_type was specified download only the datastes with that data type
+            if data_type:
+                if dataset.type == data_type:
+                    print(f'Downloading dataset {dataset.code}')
+                    print(f'Files: {dataset.file_list}\n')
+                    dataset.download(
+                        destination=path,
+                        create_default_folders=False,
+                        wait_until_finished=False,
+                    )
 
-            self.data_path.append(f'{path}/{dataset}')
+                    self.data_path.append(f'{path}/{dataset}')
+
+            # If data_type was NOT specfied download all datasets
+            else:
+                print(f'Downloading dataset {dataset.code}')
+                print(f'Files: {dataset.file_list}\n')
+                dataset.download(
+                    destination=path,
+                    create_default_folders=False,
+                    wait_until_finished=False,
+                )
+
+                self.data_path.append(f'{path}/{dataset}')
+
         print('----------DOWNLOADING FINISHED----------')
 
     def create_sample_type(self, o: Openbis, sample_code: str, sample_prefix: str, sample_properties: list[str]):
@@ -1057,6 +1066,19 @@ def new_object_text():
 
 
 def main():
+
+    def delete_folder(path):
+        folder = path
+        for filename in os.listdir(folder):
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
     o = ExpStep.connect_to_datastore()
 
     samples = o.get_samples(
@@ -1070,7 +1092,16 @@ def main():
         sample_dict['type']).get_property_assignments().df['propertyType'])
 
     testsample = ExpStep.load_sample(o, identifier)
-    print(len(testsample.datasets))
+
+    test_folder = '/home/ckujath/code/testing'
+    testsample.download_datasets(o, test_folder)
+    wait = input('Input something when ready to continue')
+    delete_folder(test_folder)
+
+    testsample.download_datasets(o, test_folder, 'ELN_PREVIEW')
+    wait = input('Input something when ready to continue')
+    delete_folder(test_folder)
+
     # print(testsample.get_property_types(o))
 
 
