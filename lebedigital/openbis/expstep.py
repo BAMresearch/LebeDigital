@@ -182,13 +182,12 @@ class ExpStep:
 
         # If write was specified then write to file
         if write:
-            # Check whether sheet already exists, if yes set args as to replace
-            # the current sheet with the new one
-            (mode, args) = ('a', {'if_sheet_exists': 'replace'}) if os.path.exists(
-                path) else ('w', {})
+            # If sheet exists remove it before writing the template
+            if os.path.exists(path):
+                os.remove(path)
 
             # Write the sheet
-            with pd.ExcelWriter(path=path, mode=mode, **args) as writer:
+            with pd.ExcelWriter(path=path, engine='xlsxwriter') as writer:
                 meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
 
         else:
@@ -1105,5 +1104,21 @@ def download_datasets_test():
     # print(testsample.get_property_types(o))
 
 
+def import_template_test():
+
+    o = ExpStep.connect_to_datastore()
+    test_folder = '/home/ckujath/code/testing'
+
+    samples = o.get_samples(
+        where={
+            '$name': '3Dm3_0_1rpm_Vogel_2_7_T17_02'
+        }
+    )
+
+    ExpStep.gen_metadata_import_template(
+        o, 'EXPERIMENTAL_STEP_MIX', True, 'metadata', f'{test_folder}/test_sheet.xlsx')
+
+
 if __name__ == '__main__':
-    download_datasets_test()
+    # download_datasets_test()
+    import_template_test()
