@@ -26,6 +26,7 @@ dependencies:
   - pytest
   - pip
   - pybis
+  - xlsxwriter
   - pip:
     - probeye==2.3.2
     - -e .
