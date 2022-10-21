@@ -13,12 +13,12 @@ def section_dimension_rule_of_thumb(span:float)->tuple:
     Parameters
     ----------
     span : float
-        beam span.
+        beam span in mm.
 
     Returns
     -------
     tuple
-        tuple of breath and depth of the beam.
+        tuple of width and depth of the beam in mm.
 
     """
     #span/depth ratio for simply supported beam is 15 Therefore,
@@ -34,10 +34,10 @@ def max_bending_moment_and_shear_force(span:float,load:float,load_type:str) ->tu
     Parameters
     ----------
     span : float
-        beam span.
+        beam span in mm.
     load : float
-        beam load.
-    type : str
+        beam load in N.
+    load_type : str
         whether point_load or distributed_load to describe type of load.
 
     Returns
@@ -73,6 +73,10 @@ def beam_section_design(
     ----------
     span : float
         Span of the beam in mm.
+    b: float
+        beam width in mm.
+    d: float
+        beam depth in mm. 
     MaxMoment : float
         Maximum bending moment in N-mm.
     MaxShearForce : float
