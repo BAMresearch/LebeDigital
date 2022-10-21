@@ -109,7 +109,7 @@ def beam_section_design(
     xi=0.5*(1+math.sqrt(1-2*muEd))
     As1=1/fywd*MaxMoment/(xi*deff) #[-] 
     A=(math.pi*steelDia**2/4) #mm^2
-    nsteel= math.ceil(As1/A) #rounds up
+    nsteel= max(2, math.ceil(As1/A)) #rounds up
     #Compression strut angle pure bending (Druckstrebenwirkel)
     cot=1.2 #[-] cot(40)=1.2
     #Compression strut----
