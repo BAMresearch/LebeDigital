@@ -1,0 +1,9 @@
+\begin{thebibliography}{1}
+
+\bibitem{schulman_gradient_2016}
+John Schulman, Nicolas Heess, Theophane Weber, and Pieter Abbeel.
+\newblock Gradient {Estimation} {Using} {Stochastic} {Computation} {Graphs},
+  January 2016.
+\newblock arXiv:1506.05254 [cs].
+
+\end{thebibliography}
