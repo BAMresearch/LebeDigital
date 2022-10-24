@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from math import isnan
 from pybis import Openbis
 import pandas as pd
@@ -8,6 +10,7 @@ import logging
 from getpass import getpass
 import sys
 from sys import exit
+import yaml
 
 
 class ExpStep:
@@ -17,7 +20,7 @@ class ExpStep:
             type: str = '',
             # data_path: list = [],
             # data_type: str = '',
-            code: str = '',
+            # code: str = '',
             metadata: dict = {},
             space: str = "",
             project: str = "",
@@ -56,7 +59,7 @@ class ExpStep:
         self.collection = collection
         self.parents = parents
         self.children = children
-        self.code = code
+        # self.code = code
         self.identifier = identifier
         self.permId = permId
         self.sample_object = sample_object
@@ -919,7 +922,7 @@ class ExpStep:
         return o.get_sample_type(sample_code)
 
 
-def new_object_text():
+def new_object_test():
 
     # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
     # Disable
@@ -1119,6 +1122,18 @@ def import_template_test():
         o, 'EXPERIMENTAL_STEP_MIX', True, 'metadata', f'{test_folder}/test_sheet.xlsx')
 
 
+def load_yaml_test(path):
+
+    with open(path, 'rb') as file:
+
+        data = yaml.safe_load(file)
+
+        for param, val in data.items():
+            print(f'{param}: {val}')
+
+
 if __name__ == '__main__':
     # download_datasets_test()
-    import_template_test()
+    # import_template_test()
+    # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    pass
