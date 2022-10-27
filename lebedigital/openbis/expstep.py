@@ -515,17 +515,17 @@ class ExpStep:
                 # Check if all values have the correct data type
                 if not isinstance(val, types_dict[key]):
                     raise ValueError(
-                        f'Type Mismatch. Entry "{key}" is of Type {type(val)} and should be {types_dict[key]}')
+                        f'Type Checker: Type Mismatch. Entry "{key}" is of Type {type(val)} and should be {types_dict[key]}')
                 # Check if float values are not NaN
                 if isinstance(val, float) and isnan(val):
                     raise ValueError(
-                        f'NaN values are not accepted by Openbis. Entry "{key} has a value "{val}".')
+                        f'Type Checker: NaN values are not accepted by Openbis. Entry "{key} has a value "{val}".')
         else:
             # Keys in metadata and not in object definition -> raises an error for every such key
             for key in self.metadata.keys():
                 if key not in types_dict.keys():
                     raise ValueError(
-                        f'Unexpected parameter. Key "{key}" is not in {self.type} defined metadata params')
+                        f'Type Checker: Unexpected parameter. Key "{key}" is not in {self.type} defined metadata params')
 
         # Checking if all values are defined
         needed_attrs = ['name', 'type', 'collection', 'space', 'project']
@@ -533,15 +533,15 @@ class ExpStep:
             if attr in needed_attrs:
                 if not value:
                     raise ValueError(
-                        f'Undeclared Attribute. Attribute "{attr}" has not been delcared')
+                        f'Type Checker: Undeclared Attribute. Attribute "{attr}" has not been delcared')
 
         # Printing warnings if parents are empty, does not break the function
         if not self.parents:
             logging.warning(
-                'parents attribute undeclared')
+                'Type Checker: Parents attribute undeclared')
 
         # If you got to this line no gamebreaking bugs were found
-        print('Types are correctly set')
+        print('Type Checker: Types are correctly set')
 
     def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
         """Uploads the ExpStep object into the datastore
@@ -594,7 +594,6 @@ class ExpStep:
                 print('Overwriting the sample')
                 self.delete_expstep(o, 'overwriting sample')
                 sample = o.new_sample(
-                    # code=self.code,
                     type=self.type,
                     space=self.space,
                     collection=self.collection,
@@ -917,8 +916,6 @@ class ExpStep:
 
         for prop, val in sample_properties.items():
 
-            print(prop, val)
-
             if not prop.upper() in pt_types:
                 new_pt = o.new_property_type(
                     code=prop,
@@ -1217,16 +1214,13 @@ def full_emodul():
 
     emodul_sample.type = emodul_sample_type.code
 
-    types_df = emodul_sample.get_property_types(o)
-    props_list = types_df['dataType'].to_dict()
-
     emodul_sample.upload_expstep(o)
 
     emodul_sample.upload_dataset(
         o,
         props={
             '$name': f'{emodul_sample.name}_processed',
-            'files': metadata_path,
+            'files': data_path,
             'data_type': 'PROCESSED_DATA'
         }
     )
