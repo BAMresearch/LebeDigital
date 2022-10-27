@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from math import isnan
-from multiprocessing.sharedctypes import Value
 from pybis import Openbis
 import pandas as pd
 import json
@@ -1174,16 +1173,10 @@ def load_yaml_test(path):
         name='test_sample',
     )
 
-    test_sample.read_metadata_emodul(
-        '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    test_sample.read_metadata_emodul(path)
     test_sample.sync_name('name')
 
-    ExpStep.create_sample_type_emodul(
-        o,
-        'TESTING_TYPE_EMODUL',
-        'TESTMOD',
-        test_sample.metadata
-    )
+    print(test_sample.__dict__)
 
 
 def full_emodul():
@@ -1231,5 +1224,6 @@ def full_emodul():
 if __name__ == '__main__':
     # download_datasets_test()
     # import_template_test()
-    # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
-    full_emodul()
+    load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    # full_emodul()
+    print('Done')
