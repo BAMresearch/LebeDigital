@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from math import isnan
+from multiprocessing.sharedctypes import Value
 from pybis import Openbis
 import pandas as pd
 import json
@@ -138,7 +139,7 @@ class ExpStep:
             ValueError: Raises an error when write is set to True and no path is gven
 
         Returns:
-            pandas.DataFrame: returns a DataFrame with the import template 
+            pandas.DataFrame: returns a DataFrame with the import template
         """
 
         # Raises an error when no path given and write set to True
@@ -284,7 +285,7 @@ class ExpStep:
     @staticmethod
     def get_overview(o: Openbis, level: str, **kwargs) -> dict:
         """ Generates an overview for the samples stored in the datastore
-            You need to provide the 
+            You need to provide the
         Args:
             o (Openbis): Currently running openbis instance
             level (str): What entity should be the highest level of the overview (space/project/collection overview)
@@ -372,29 +373,17 @@ class ExpStep:
     def get_props_list(o: Openbis, identifier: str) -> list:
         return [prop.upper() for prop in list(o.get_sample(identifier).p().keys())]
 
-    def sync_name(self):
+    def sync_name(self, get_from):
         """ Synchronizes the name of the attribute with the name in metadata.
-            Have to be the same in order to search for the sample accurately
+            Have to be the same in order to search for the sample accurately.
+            get_from specifies if the name should be synced from name or metadata:
+            get_from == 'name':  self.name -> self.metadata['$name']
+            get_from == 'metadata':  self.metadata['$name'] -> self.name
         """
-        new_name = getattr(self, "metadata").get('$name')
-        setattr(self, "name", new_name)
-
-    def sync_code(self):
-        """ Synchronizes code with name using the correct code format.
-            Deprecated, dont use will be removed lated.
-        """
-        name = self.name
-        allowed_chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
-        name = "".join(list(filter(lambda x: x != ',', name)))
-
-        code = ''
-        for char_idx in range(len(name)):
-            if not name[char_idx] in allowed_chars:
-                code += '_'
-            else:
-                code += name[char_idx]
-
-        setattr(self, 'code', code)
+        if get_from == 'name':
+            self.metadata['$name'] = self.name
+        elif get_from == 'metadata':
+            self.name = self.metadata['$name']
 
     def metadata_import_template(
             self,
@@ -570,8 +559,8 @@ class ExpStep:
             str: Name of the sample in the datastore
         """
 
-        self.sync_name()
-        # self.sync_code()
+        # SNYCHRONISING NAME
+        # self.sync_name()
 
         # TYPE CHECKING
         try:
@@ -785,7 +774,8 @@ class ExpStep:
             raise ValueError('Sample not in datastore')
 
     def upload_dataset(self, o: Openbis, props: dict):
-        """Uploads a dataset to the ExpStep
+        """Uploads a dataset to the ExpStep. Requires a dictionary with $name, files and data_type
+
 
         Args:
             o (Openbis): Currently running openbis datastore
@@ -802,7 +792,7 @@ class ExpStep:
         elif '$NAME' in props:
             test = o.get_datasets(where={'$NAME': props['$NAME']})
         else:
-            raise ValueError('$name not defined in props')
+            raise KeyError('$name not defined in props')
 
         # Checking if the files and data_type are specified in props
         if not 'files' in props:
@@ -883,12 +873,8 @@ class ExpStep:
 
         print('----------DOWNLOADING FINISHED----------')
 
-    def create_sample_type(self, o: Openbis, sample_code: str, sample_prefix: str, sample_properties: list[str]):
-        """Creating a new sample type to be used by samples/objects in the datastore
-
-        Args:
-            o (Openbis): A currently running Openbis instance
-        """
+    @staticmethod
+    def create_sample_type_emodul(o: Openbis, sample_code: str, sample_prefix: str, sample_properties: dict):
 
         # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
         # Disable
@@ -901,7 +887,8 @@ class ExpStep:
 
         sample_types = o.get_sample_types().df
         if sample_code in list(sample_types['code']):
-            print(f'Sample type {sample_code} already exists in the Datastore')
+            # print(f'Sample type {sample_code} already exists in the Datastore')
+            new_sample_type = o.get_sample_type(sample_code)
 
         else:
             new_sample_type = o.new_sample_type(
@@ -917,9 +904,69 @@ class ExpStep:
                 validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
             )
             new_sample_type.save()
-            print(f'Sample type {sample_code} created')
+            # print(f'Sample type {sample_code} created')
+
+        pt_dict = {}
+        pt_types = list(o.get_property_types().df['code'])
+
+        conv_dict = {
+            str: 'VARCHAR',
+            int: 'INTEGER',
+            float: 'REAL'
+        }
+
+        for prop, val in sample_properties.items():
+
+            print(prop, val)
+
+            if not prop.upper() in pt_types:
+                new_pt = o.new_property_type(
+                    code=prop,
+                    label=f'{prop.lower()}_label',
+                    description=f'{prop.lower()}_description',
+                    dataType=conv_dict[type(val)],
+                )
+                new_pt.save()
+                # print(f'Creating new property {new_pt.code}')
+            else:
+                new_pt = o.get_property_type(prop)
+                # print(f'Fetching existing property {new_pt.code}')
+
+            pt_dict[new_pt.code] = new_pt
+
+        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
+
+        for i, p in enumerate(pt_dict.keys()):
+
+            blockPrint()
+            new_sample_type.assign_property(
+                prop=p,
+                section=f'Section_{p}',
+                ordinal=(i+1),
+                mandatory=True if p == '$NAME' else False,
+                initialValueForExistingEntities=f'Initial_Val_{p}',
+                showInEditView=True,
+                showRawValueInForms=True,
+            )
+            enablePrint()
+
+            # print(f'Assigned property {p} to {new_sample_type.code}')
 
         return o.get_sample_type(sample_code)
+
+    def read_metadata_emodul(self, yaml_path, *, mode='append'):
+
+        with open(yaml_path, 'rb') as file:
+
+            data = yaml.safe_load(file)
+
+            if mode == 'append':
+                for param, val in data.items():
+                    self.metadata[param.lower()] = val
+            elif mode == 'replace':
+                self.metadata = data
+            else:
+                raise ValueError('No correct mode specified')
 
 
 def new_object_test():
@@ -1124,16 +1171,71 @@ def import_template_test():
 
 def load_yaml_test(path):
 
-    with open(path, 'rb') as file:
+    o = ExpStep.connect_to_datastore()
 
-        data = yaml.safe_load(file)
+    test_sample = ExpStep(
+        name='test_sample',
+    )
 
-        for param, val in data.items():
-            print(f'{param}: {val}')
+    test_sample.read_metadata_emodul(
+        '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    test_sample.sync_name('name')
+
+    ExpStep.create_sample_type_emodul(
+        o,
+        'TESTING_TYPE_EMODUL',
+        'TESTMOD',
+        test_sample.metadata
+    )
+
+
+def full_emodul():
+
+    o = ExpStep.connect_to_datastore()
+
+    metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
+    data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
+
+    emodul_sample = ExpStep(
+        name='Wolf 8.2 Probe 1',
+        space='CKUJATH',
+        project='AUTOSYNC',
+    )
+    emodul_sample.collection = emodul_sample.find_collection(
+        o, 'BEST_COLLECTION', id_type=1)
+
+    emodul_sample.sync_name(get_from='name')
+
+    emodul_sample.read_metadata_emodul(metadata_path)
+
+    emodul_sample_type = ExpStep.create_sample_type_emodul(
+        o,
+        sample_code='EXPERIMENTAL_STEP_EMODUL',
+        sample_prefix='EMODUL',
+        sample_properties=emodul_sample.metadata,
+    )
+
+    emodul_sample.type = emodul_sample_type.code
+
+    types_df = emodul_sample.get_property_types(o)
+    props_list = types_df['dataType'].to_dict()
+
+    emodul_sample.upload_expstep(o)
+
+    emodul_sample.upload_dataset(
+        o,
+        props={
+            '$name': f'{emodul_sample.name}_processed',
+            'files': metadata_path,
+            'data_type': 'PROCESSED_DATA'
+        }
+    )
+
+    print(json.dumps(emodul_sample.__dict__, indent=4))
 
 
 if __name__ == '__main__':
     # download_datasets_test()
     # import_template_test()
     # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
-    pass
+    full_emodul()
