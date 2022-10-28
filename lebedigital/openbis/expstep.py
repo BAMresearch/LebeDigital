@@ -1234,16 +1234,18 @@ def responses_for_tests():
     project = 'TEST_AMBETON'
     collection = '/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION'
 
-    samples_df = o.get_samples(
-        space=space,
-        project=project,
-        collection=collection,
-        props=['$name']
-    ).df
+    # samples_df = o.get_samples(
+    #     space=space,
+    #     project=project,
+    #     collection=collection,
+    #     props=['$name']
+    # ).df
 
-    samples_dict = pd.DataFrame.to_dict(samples_df)
+    # samples_dict = pd.DataFrame.to_dict(samples_df)
 
-    print(samples_dict)
+    names = ExpStep.get_sample_names(o, space, project, collection)
+
+    print(names)
 
 
 if __name__ == '__main__':
