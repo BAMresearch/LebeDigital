@@ -3,7 +3,7 @@ import pytest
 from lebedigital.openbis.expstep import ExpStep
 
 
-def load_emodul_test():
+def test_load_emodul():
     """Testing if the metadata from yaml emodul files are imported corretly
     """
 

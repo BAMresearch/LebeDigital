@@ -86,11 +86,17 @@ class ExpStep:
 
         # We get the username from the os username and the password has to be given by the user at runtime
         else:
-            os.environ['OPENBIS_USERNAME'] = os.getlogin()
+
+            if 'username' in kwargs:
+                os.environ['OPENBIS_USERNAME'] = kwargs['username']
+            else:
+                os.environ['OPENBIS_USERNAME'] = os.getlogin()
+
             if 'password' in kwargs:
                 os.environ['OPENBIS_PASSWORD'] = kwargs['password']
             else:
                 os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
+
             try:
                 o.login(os.environ['OPENBIS_USERNAME'],
                         os.environ['OPENBIS_PASSWORD'])
@@ -1221,9 +1227,29 @@ def full_emodul():
     print(json.dumps(emodul_sample.__dict__, indent=4))
 
 
+def responses_for_tests():
+    o = ExpStep.connect_to_datastore()
+
+    space = 'CKUJATH'
+    project = 'TEST_AMBETON'
+    collection = '/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION'
+
+    samples_df = o.get_samples(
+        space=space,
+        project=project,
+        collection=collection,
+        props=['$name']
+    ).df
+
+    samples_dict = pd.DataFrame.to_dict(samples_df)
+
+    print(samples_dict)
+
+
 if __name__ == '__main__':
     # download_datasets_test()
     # import_template_test()
-    load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
+    responses_for_tests()
     # full_emodul()
-    print('Done')
+    # print('Done')
