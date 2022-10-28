@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{schulman_gradient_2016}
+John Schulman, Nicolas Heess, Theophane Weber, and Pieter Abbeel.
+\newblock Gradient {Estimation} {Using} {Stochastic} {Computation} {Graphs},
+  January 2016.
+\newblock arXiv:1506.05254 [cs].
+
+\bibitem{wang_stochastic_2003}
+I.-J. Wang and J.C. Spall.
+\newblock Stochastic optimization with inequality constraints using
+  simultaneous perturbations and penalty functions.
+\newblock In {\em 42nd {IEEE} {International} {Conference} on {Decision} and
+  {Control} ({IEEE} {Cat}. {No}.{03CH37475})}, pages 3808--3813, Maui, HI, USA,
+  2003. IEEE.
+
+\end{thebibliography}
