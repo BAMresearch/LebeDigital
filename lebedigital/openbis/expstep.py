@@ -11,6 +11,7 @@ from getpass import getpass
 import sys
 from sys import exit
 import yaml
+from termcolor import colored
 
 
 class ExpStep:
@@ -75,8 +76,30 @@ class ExpStep:
         if not dataset_codes:
             self.dataset_codes = []
 
-    def info():
-        pass
+    def info(self):
+        """Prints a description of the sample into the terminal/jupter output
+        """
+        print('\n')
+        title = colored(self.name, 'cyan')
+        title = '=============== SAMPLE "' + title + '" ================'
+        print(title)
+        print('\n')
+        for param, value in vars(self).items():
+
+            colparam = colored(
+                param, 'green') if value else colored(param, 'red')
+
+            if isinstance(value, str):
+                print(f'{colparam: >25}: {value}' + '\n')
+            elif isinstance(value, dict):
+                print(f'{colparam: >25}:')
+                for key, val in value.items():
+                    print(' '*20 + f'{key}: {val}')
+                print('\n')
+            else:
+                print(f'{colparam: >25}: {value}' + '\n')
+
+        print('=' * len(title))
 
     @staticmethod
     def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
@@ -1287,29 +1310,21 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
     sample = ExpStep(
         name='testing_sample_lebedigital',
         type='EXPERIMENTAL_STEP_TEST',
-        metadata={
-            '$name': 'sample_name',
-            'date': '17.10.2022'
-        },
         space='CKUJATH',
         project='TEST_AMBETON',
         collection='/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION',
-        parents=[]
+        parents=[],
     )
-
-
-def import_from_template(path):
-    sample = ExpStep()
-    sample.import_from_template(path)
-    print(json.dumps(sample.__dict__, indent=4))
+    sample.import_from_template('/home/ckujath/code/testing/test_sheet.xlsx')
+    sample.info()
 
 
 if __name__ == '__main__':
     # new_object_test()
     # download_datasets_test()
     # import_template_test()
-    import_from_template('/home/ckujath/code/testing/test_sheet.xlsx')
     # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
     # responses_for_tests()
     # full_emodul()
-    # print('Done')
+    create_object_for_testing()
+    print('Done')

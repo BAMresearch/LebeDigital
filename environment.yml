@@ -30,6 +30,7 @@ dependencies:
   - tectonic=0.8
   - pybis
   - xlsxwriter
+  - termcolor
   - pip:
     - probeye==2.3.2
     - -e .
