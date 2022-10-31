@@ -1,4 +1,5 @@
 import pytest
+from requests import patch
 
 from lebedigital.openbis.expstep import ExpStep
 from pybis import Openbis
@@ -6,14 +7,20 @@ import pandas as pd
 
 # https://docs.pytest.org/en/7.2.x/how-to/monkeypatch.html
 
-# THE ISSUE HERE IS THAT THE RETURN VALUE FROM THE MOCKED CALL WOULD BE
-# A PYBIS THINGS OBJECT AND NOT A DATAFRAME WHICH I NEED TO PARSE STUFF
-# FROM IT
 
+class MockResponseGetSampleNames:
 
-class MockResponse:
+    # MockResponse needs the .df attribute as openbis methods need the .df to get the dataframe instead of a
+    # pybis object
 
-    # mock get_samples() to return it somehow as the api call
+    def __init__(self) -> None:
+        self.df = self.get_samples()
+
+    # mock get_samples() to return it as the api call
+
+    # hacky way to get the correct response, get_samples does not return a dataframe but some pybis object
+    # which only looks like a dataframe, i have no idea how to make it better as of now though
+
     @staticmethod
     def get_samples():
         pybis_response = {'identifier': {0: '/CKUJATH/TEST_AMBETON/EXP_VISKO867278', 1: '/CKUJATH/TEST_AMBETON/EXP_VISKO867295', 2: '/CKUJATH/TEST_AMBETON/EXP_VISKO867292', 3: '/CKUJATH/TEST_AMBETON/EXP_VISKO867291', 4: '/CKUJATH/TEST_AMBETON/EXP_VISKO867294', 5: '/CKUJATH/TEST_AMBETON/EXP_VISKO867293', 6: '/CKUJATH/TEST_AMBETON/EXP_VISKO867288', 7: '/CKUJATH/TEST_AMBETON/EXP_VISKO867287', 8: '/CKUJATH/TEST_AMBETON/EXP_VISKO867290', 9: '/CKUJATH/TEST_AMBETON/EXP_VISKO867289', 10: '/CKUJATH/TEST_AMBETON/EXP_VISKO867284', 11: '/CKUJATH/TEST_AMBETON/EXP_VISKO867283', 12: '/CKUJATH/TEST_AMBETON/EXP_VISKO867286', 13: '/CKUJATH/TEST_AMBETON/EXP_VISKO867285', 14: '/CKUJATH/TEST_AMBETON/EXP_VISKO867280', 15: '/CKUJATH/TEST_AMBETON/EXP_VISKO867279', 16: '/CKUJATH/TEST_AMBETON/EXP_VISKO867282', 17: '/CKUJATH/TEST_AMBETON/EXP_VISKO867281'}, 'permId': {0: '20221018105358763-867795', 1: '20221018105502129-867829', 2: '20221018105451295-867823', 3: '20221018105447690-867821', 4: '20221018105456578-867827', 5: '20221018105454270-867825', 6: '20221018105437682-867815', 7: '20221018105434201-867813', 8: '20221018105444081-867819', 9: '20221018105440934-867817', 10: '20221018105420025-867807', 11: '20221018105417357-867805', 12: '20221018105430194-867811', 13: '20221018105424950-867809', 14: '20221018105406726-867799', 15: '20221018105403230-867797', 16: '20221018105413920-867803', 17: '20221018105410053-867801'}, 'type': {0: 'EXPERIMENTAL_STEP_VISKO', 1: 'EXPERIMENTAL_STEP_VISKO', 2: 'EXPERIMENTAL_STEP_VISKO', 3: 'EXPERIMENTAL_STEP_VISKO', 4: 'EXPERIMENTAL_STEP_VISKO', 5: 'EXPERIMENTAL_STEP_VISKO', 6: 'EXPERIMENTAL_STEP_VISKO', 7: 'EXPERIMENTAL_STEP_VISKO', 8: 'EXPERIMENTAL_STEP_VISKO', 9: 'EXPERIMENTAL_STEP_VISKO', 10: 'EXPERIMENTAL_STEP_VISKO', 11: 'EXPERIMENTAL_STEP_VISKO', 12: 'EXPERIMENTAL_STEP_VISKO', 13: 'EXPERIMENTAL_STEP_VISKO', 14: 'EXPERIMENTAL_STEP_VISKO', 15: 'EXPERIMENTAL_STEP_VISKO', 16: 'EXPERIMENTAL_STEP_VISKO', 17: 'EXPERIMENTAL_STEP_VISKO'}, 'registrator': {0: 'araderma', 1: 'araderma', 2: 'araderma', 3: 'araderma', 4: 'araderma', 5: 'araderma', 6: 'araderma', 7: 'araderma',
@@ -22,15 +29,16 @@ class MockResponse:
         return mock_df
 
 
-def test_get_sample_names(monkeypatch):
+@pytest.fixture
+def mock_get_sample_df(monkeypatch):
 
-    # Any arguments may be passed and mock_get() will always return our
-    # mocked object, which only has the .json() method.
     def mock_get(*args, **kwargs):
-        return MockResponse()
+        return MockResponseGetSampleNames()
 
-    # apply the monkeypatch for requests.get to mock_get
     monkeypatch.setattr(Openbis, "get_samples", mock_get)
+
+
+def test_get_sample_names(mock_get_sample_df):
 
     o = Openbis("https://fakeurl")
     space = 'CKUJATH'
@@ -38,6 +46,7 @@ def test_get_sample_names(monkeypatch):
     collection = '/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION'
 
     # app.get_json, which contains requests.get, uses the monkeypatch
+
     result = ExpStep.get_sample_names(o, space, project, collection)
 
     expected_result = ['EXP_VISKO867278 (3Dm3_0_1rpm_Vogel_2_7_T17_01)', 'EXP_VISKO867295 (3Dm3_0_1rpm_Vogel_2_7_T42_03)', 'EXP_VISKO867292 (3Dm3_0_1rpm_Vogel_2_7_T37_03)', 'EXP_VISKO867291 (3Dm3_0_1rpm_Vogel_2_7_T37_02)', 'EXP_VISKO867294 (3Dm3_0_1rpm_Vogel_2_7_T42_02)', 'EXP_VISKO867293 (3Dm3_0_1rpm_Vogel_2_7_T42_01)', 'EXP_VISKO867288 (3Dm3_0_1rpm_Vogel_2_7_T32_02)', 'EXP_VISKO867287 (3Dm3_0_1rpm_Vogel_2_7_T32_01)', 'EXP_VISKO867290 (3Dm3_0_1rpm_Vogel_2_7_T37_01)',
