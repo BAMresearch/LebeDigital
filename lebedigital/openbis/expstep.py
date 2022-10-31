@@ -21,17 +21,17 @@ class ExpStep:
             # data_path: list = [],
             # data_type: str = '',
             # code: str = '',
-            metadata: dict = {},
+            metadata: dict = None,
             space: str = "",
             project: str = "",
             collection: str = "",
-            parents: list = [],
-            children: list = [],
+            parents: list = None,
+            # children: list = [],
             identifier: str = '',
             permId: str = '',
             sample_object=None,
-            datasets: list = [],
-            dataset_codes: list = [],
+            datasets: list = None,
+            dataset_codes: list = None,
     ) -> None:
         """Creates an ExpStep Object
 
@@ -58,13 +58,25 @@ class ExpStep:
         self.project = project
         self.collection = collection
         self.parents = parents
-        self.children = children
+        # self.children = children
         # self.code = code
         self.identifier = identifier
         self.permId = permId
         self.sample_object = sample_object
         self.datasets = datasets
         self.dataset_codes = dataset_codes
+
+        if not metadata:
+            self.metadata = {}
+        if not parents:
+            self.parents = []
+        if not datasets:
+            self.datasets = []
+        if not dataset_codes:
+            self.dataset_codes = []
+
+    def info():
+        pass
 
     @staticmethod
     def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
@@ -201,6 +213,27 @@ class ExpStep:
 
         else:
             return meta_df
+
+    def import_from_template(self, path_to_file: str):
+        """Imports the data from the template into the samples metadata. To used with the generated import template
+
+        Args:
+            path_to_file (str): Path to the filled out import template
+        """
+
+        df = pd.read_excel(path_to_file)
+        df.columns = df.columns.str.lower()
+
+        # if some params were left out then the row gets dropped
+        df = df.dropna()
+
+        # not useful for uploading to the datastore only for the user to know what to input
+        df.pop('label')
+        df.pop('description')
+
+        # turn the df columns into a dict
+        meta = dict(zip(df.param, df.value))
+        self.metadata = meta
 
     # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself
     @staticmethod
@@ -603,7 +636,7 @@ class ExpStep:
                     space=self.space,
                     collection=self.collection,
                     parents=self.parents,
-                    children=self.children,
+                    # children=self.children,
                     props=self.metadata,
                 )
                 sample.save()
@@ -620,7 +653,7 @@ class ExpStep:
                 space=self.space,
                 collection=self.collection,
                 parents=self.parents,
-                children=self.children,
+                # children=self.children,
                 props=self.metadata,
             )
             sample.save()
@@ -729,7 +762,7 @@ class ExpStep:
 
         # self.data_path = []
         # self.data_type = ''
-        self.children = []
+        # self.children = []
 
         return self
 
@@ -1161,14 +1194,8 @@ def import_template_test():
     o = ExpStep.connect_to_datastore()
     test_folder = '/home/ckujath/code/testing'
 
-    samples = o.get_samples(
-        where={
-            '$name': '3Dm3_0_1rpm_Vogel_2_7_T17_02'
-        }
-    )
-
     ExpStep.gen_metadata_import_template(
-        o, 'EXPERIMENTAL_STEP_MIX', True, 'metadata', f'{test_folder}/test_sheet.xlsx')
+        o, 'EXPERIMENTAL_STEP_TEST', True, 'metadata', f'{test_folder}/test_sheet.xlsx')
 
 
 def load_yaml_test(path):
@@ -1248,10 +1275,41 @@ def responses_for_tests():
     print(names)
 
 
+def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection='/CKUJATH/LEBEDIGITAL/LEBEDIGITAL_COLLECTION'):
+    """Creates an object which can be used to test the functionality of the module
+
+    Args:
+        space (str, optional): Space NAME. Defaults to 'CKUJATH'.
+        project (str, optional): Project NAME. Defaults to 'LEBEDIGITAL'.
+        collection (str, optional): Collection IDENTIFIER. Defaults to '/CKUJATH/LEBEDIGITAL/LEBEDIGITAL_COLLECTION'.
+    """
+
+    sample = ExpStep(
+        name='testing_sample_lebedigital',
+        type='EXPERIMENTAL_STEP_TEST',
+        metadata={
+            '$name': 'sample_name',
+            'date': '17.10.2022'
+        },
+        space='CKUJATH',
+        project='TEST_AMBETON',
+        collection='/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION',
+        parents=[]
+    )
+
+
+def import_from_template(path):
+    sample = ExpStep()
+    sample.import_from_template(path)
+    print(json.dumps(sample.__dict__, indent=4))
+
+
 if __name__ == '__main__':
+    # new_object_test()
     # download_datasets_test()
     # import_template_test()
+    import_from_template('/home/ckujath/code/testing/test_sheet.xlsx')
     # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
-    responses_for_tests()
+    # responses_for_tests()
     # full_emodul()
     # print('Done')
