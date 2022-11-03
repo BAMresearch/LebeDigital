@@ -11,7 +11,7 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
-# from lebedigital.openbis.expstep import ExpStep
+from lebedigital.openbis.expstep import ExpStep, upload_to_openbis_doit
 
 from doit import get_var
 
@@ -21,6 +21,16 @@ from doit import get_var
 config = {"mode": get_var('mode', 'cheap')}
 
 DOIT_CONFIG = {'verbosity': 2}
+
+# openbis config needed for the upload to the datastore
+openbis_config = {
+    'space': 'CKUJATH',
+    'project': 'LEBEDIGITAL',
+    'collection': 'LEBEDIGITAL_COLLECTION',
+    'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
+    'sample_prefix': 'EMODUL',
+    # 'verbose': True,
+}
 
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
@@ -37,6 +47,8 @@ processed_data_emodulus_directory = Path(
     emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(
     emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+openbis_samples_directory = Path(
+    emodul_output_directory, 'openbis_samples')  # folder overview of uploaded samples
 
 # when "cheap option" is run, only this souce of raw data is processed
 cheap_example_name = 'Wolf 8.2 Probe 1'
@@ -143,12 +155,29 @@ def task_export_knowledgeGraph_emodul():
                 'clean': [clean_targets]
             }
 
-# @create_after(executed='export_knowledgeGraph_emodul')
-# def task_upload_to_datastore():
 
-#     metadata_path = Path(metadata_emodulus_directory)
-#     processed_data_path = Path(processed_data_emodulus_directory)
-#     knowledge_graphs_path = Path(knowledge_graphs_directory)
+@create_after(executed='extract_metadata_emodul')
+def task_upload_to_openbis():
+    # create folder, if it is not there
+    Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
 
+    metadata_directory_path = Path(metadata_emodulus_directory)
+    processed_directory_path = Path(processed_data_emodulus_directory)
 
-#     print('done')
+    # TODO: FIND OUT IF ZIP WILL KEEP THE ORDER OF THE DIRECTORY IN ODER WITH >1 FILE
+    for meta_f, processed_f in zip(os.scandir(metadata_directory_path), os.scandir(processed_directory_path)):
+
+        metadata_file_path = Path(meta_f)
+        processed_file_path = Path(processed_f)
+
+        sample_file_name = os.path.basename(metadata_file_path)
+
+        sample_file_path = Path(openbis_samples_directory, sample_file_name)
+
+        yield {
+            'name': metadata_file_path,
+            'actions': [(upload_to_openbis_doit, [metadata_file_path, processed_file_path, openbis_samples_directory, openbis_config])],
+            'file_dep': [metadata_file_path, processed_file_path],
+            'targets': [sample_file_path],
+            'clean': [clean_targets]
+        }
