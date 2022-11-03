@@ -980,8 +980,8 @@ class ExpStep:
             if not prop.upper() in pt_types:
                 new_pt = o.new_property_type(
                     code=prop,
-                    label=f'{prop.lower()}_label',
-                    description=f'{prop.lower()}_description',
+                    label=prop.lower(),
+                    description=prop.lower(),
                     dataType=conv_dict[type(val)],
                 )
                 new_pt.save()
@@ -999,10 +999,10 @@ class ExpStep:
             blockPrint()
             new_sample_type.assign_property(
                 prop=p,
-                section=f'Section_{p}',
+                section='Metadata',
                 ordinal=(i+1),
                 mandatory=True if p == '$NAME' else False,
-                initialValueForExistingEntities=f'Initial_Val_{p}',
+                # initialValueForExistingEntities=f'Initial_Val_{p}',
                 showInEditView=True,
                 showRawValueInForms=True,
             )
@@ -1274,7 +1274,7 @@ def full_emodul():
         }
     )
 
-    print(json.dumps(emodul_sample.__dict__, indent=4))
+    print(emodul_sample.info())
 
 
 def responses_for_tests():
@@ -1333,6 +1333,6 @@ if __name__ == '__main__':
     # import_template_test()
     # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
     # responses_for_tests()
-    # full_emodul()
-    create_object_for_testing()
+    full_emodul()
+    # create_object_for_testing()
     print('Done')
