@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from math import isnan
+from pathlib import Path
 from pybis import Openbis
 import pandas as pd
 import json
@@ -94,12 +95,13 @@ class ExpStep:
             elif isinstance(value, dict):
                 print(f'{colparam: >25}:')
                 for key, val in value.items():
-                    print(' '*20 + f'{key}: {val}')
+                    colkey = colored(key, 'green', 'on_grey')
+                    print(' '*20 + f'{colkey}: {val}')
                 print('\n')
             else:
                 print(f'{colparam: >25}: {value}' + '\n')
 
-        print('=' * len(title))
+        print('=' * int(float(len(title)) * 0.9))
 
     @staticmethod
     def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
@@ -327,12 +329,12 @@ class ExpStep:
         return [name.split('/')[-1] for name in list(samples_df['identifier'].values)]
 
     @staticmethod
-    def get_sample_dict(o: Openbis, identifier) -> dict:
+    def get_sample_dict(o: Openbis, identifier: str) -> dict:
         """ Returns all/some metadata about the sample
 
         Args:
             o (Openbis): Currently running openbis instance
-            identifier (_type_): Identifier of the sample
+            identifier (str): Identifier of the sample
 
         Returns:
             dict: Dict containing the information as metadata_label : metadata_value
@@ -663,9 +665,9 @@ class ExpStep:
                     props=self.metadata,
                 )
                 sample.save()
-                return sample.identifier
+                self.identifier = sample.identifier
             else:
-                return sample_identifier
+                self.identifier = sample_identifier
 
         # No sample with the same name found -> uploading the sample
         else:
@@ -681,7 +683,8 @@ class ExpStep:
             )
             sample.save()
             self.identifier = sample.identifier
-            return sample.identifier
+            self.identifier = sample.identifier
+        return self.identifier
 
     @staticmethod
     def load_sample(o: Openbis, sample_identifier: str):
@@ -733,7 +736,7 @@ class ExpStep:
             collection=sample_collection,
             parents=sample_parents,
             metadata=sample_metadata,
-            code=sample_name,
+            # code=sample_name,
             identifier=sample_dict['identifier'],
             permId=sample_dict['permId'],
             sample_object=sample,
@@ -1026,6 +1029,16 @@ class ExpStep:
             else:
                 raise ValueError('No correct mode specified')
 
+    def save_sample_yaml(self, yaml_path):
+
+        modified_dict = self.__dict__
+
+        modified_dict['sample_object'] = '--REMOVED--'
+        modified_dict['datasets'] = '--REMOVED--'
+
+        with open(yaml_path, 'w') as file:
+            documents = yaml.dump(modified_dict, file)
+
 
 def new_object_test():
 
@@ -1241,6 +1254,7 @@ def full_emodul():
 
     metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
     data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
+    preview_path = '/home/ckujath/code/testing/test_graph.png'
 
     emodul_sample = ExpStep(
         name='Wolf 8.2 Probe 1',
@@ -1270,6 +1284,15 @@ def full_emodul():
         props={
             '$name': f'{emodul_sample.name}_processed',
             'files': data_path,
+            'data_type': 'PROCESSED_DATA'
+        }
+    )
+
+    emodul_sample.upload_dataset(
+        o,
+        props={
+            '$name': f'{emodul_sample.name}_preview',
+            'files': preview_path,
             'data_type': 'PROCESSED_DATA'
         }
     )
@@ -1325,6 +1348,81 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
     sample.upload_expstep(o)
 
     sample.info()
+
+
+def upload_to_openbis_doit(metadata_path: str, data_path: str, output_path: str, config: dict):
+    """Function for uploading data to the openbis datastore from within te doit environment
+
+    Needed parameters in the config dict are:
+
+    'space': Space within openbis for the sample
+    'project': Project under specified space for the sample
+    'collection': Collection under specified project for the sample
+    'sample_code': Code for the new type of the sample
+    'sample_prefix': Prefix for the new type of the sample
+    'verbose': If true the output will be printed to console, optional
+
+    Args:
+        metadata_path (str): Path to the metadata yaml file
+        data_path (str): Path to the processed data file
+        output_path (str): Path where the samples overview should be saved
+        config (dict): A dictionary containing the necessary info for uploading to openbis
+    """
+
+    if 'verbose' in config and config['verbose']:
+        sys.stdout = sys.__stdout__
+    else:
+        sys.stdout = open(os.devnull, 'w')
+
+    o = ExpStep.connect_to_datastore()
+
+    emodul_sample = ExpStep(
+        name=os.path.splitext(os.path.basename(metadata_path))[0],
+        space=config['space'],
+        project=config['project'],
+    )
+    emodul_sample.collection = emodul_sample.find_collection(
+        o,
+        config['collection'],
+        id_type=1,
+    )
+
+    emodul_sample.sync_name(get_from='name')
+
+    emodul_sample.read_metadata_emodul(metadata_path)
+
+    emodul_sample_type = ExpStep.create_sample_type_emodul(
+        o,
+        sample_code=config['sample_code'],
+        sample_prefix=config['sample_prefix'],
+        sample_properties=emodul_sample.metadata,
+    )
+
+    emodul_sample.type = emodul_sample_type.code
+
+    emodul_sample.upload_expstep(o)
+
+    dataset_name = os.path.splitext(os.path.basename(data_path))[
+        0] + '_processed'
+
+    emodul_sample.upload_dataset(
+        o,
+        props={
+            '$name': dataset_name,
+            'files': [data_path],
+            'data_type': 'PROCESSED_DATA'
+        }
+    )
+
+    # print(emodul_sample.identifier)
+    output_sample = ExpStep.load_sample(o, emodul_sample.identifier)
+    # output_sample.info()
+
+    file_name_with_extension = output_sample.name + '.yaml'
+
+    output_sample.save_sample_yaml(Path(output_path, file_name_with_extension))
+
+    sys.stdout = sys.__stdout__
 
 
 if __name__ == '__main__':
