@@ -255,7 +255,7 @@ class ExpStep:
         df.pop('description')
 
         # turn the df columns into a dict
-        meta = dict(zip(df.param, df.value))
+        meta = dict(zip([par.lower() for par in df.param], df.value))
         self.metadata = meta
 
     # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself
@@ -584,7 +584,7 @@ class ExpStep:
         else:
             # Keys in metadata and not in object definition -> raises an error for every such key
             for key in self.metadata.keys():
-                if key not in types_dict.keys():
+                if key.lower() not in types_dict.keys():
                     raise ValueError(
                         f'Type Checker: Unexpected parameter. Key "{key}" is not in {self.type} defined metadata params')
 
@@ -1101,7 +1101,7 @@ def new_object_test():
         'TEST_CONTROLLEDVOCABULARY': 'CONTROLLEDVOCABULARY',
         'TEST_HYPERLINK': 'HYPERLINK',
         'TEST_INTEGER': 'INTEGER',
-        'TEST_MATERIAL': 'MATERIAL',
+        # 'TEST_MATERIAL': 'MATERIAL', WEIRD STUFF IS HAPPENNING WITH IT, WEIRD FORMATS WEIRD BEHAVIOUR ALL AROUND BAD STUFF
         'TEST_MULTILINE_VARCHAR': 'MULTILINE_VARCHAR',
         # 'TEST_OBJECT': 'OBJECT', CANNOT CREATE OBJECT PROPERTY TYPES FROM PYBIS Allowed values for enum dataType are: ['INTEGER', 'VARCHAR', 'MULTILINE_VARCHAR', 'REAL', 'TIMESTAMP', 'BOOLEAN', 'CONTROLLEDVOCABULARY', 'MATERIAL', 'HYPERLINK', 'XML']
         'TEST_REAL': 'REAL',
@@ -1307,15 +1307,23 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
         collection (str, optional): Collection IDENTIFIER. Defaults to '/CKUJATH/LEBEDIGITAL/LEBEDIGITAL_COLLECTION'.
     """
 
+    o = ExpStep.connect_to_datastore()
+
     sample = ExpStep(
         name='testing_sample_lebedigital',
         type='EXPERIMENTAL_STEP_TEST',
-        space='CKUJATH',
-        project='TEST_AMBETON',
-        collection='/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION',
-        parents=[],
+        space=space,
+        project=project,
+        collection=collection,
     )
+
     sample.import_from_template('/home/ckujath/code/testing/test_sheet.xlsx')
+
+    # need to update the type checker to auto convert from str "True" to bool True
+    sample.metadata['test_boolean'] = True
+
+    sample.upload_expstep(o)
+
     sample.info()
 
 
