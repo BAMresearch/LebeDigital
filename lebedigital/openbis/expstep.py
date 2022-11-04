@@ -934,7 +934,7 @@ class ExpStep:
 
                 # self.data_path.append(f'{path}/{dataset}')
 
-        print('----------DOWNLOADING FINISHED----------')
+        print('----------DOWNLOAD FINISHED----------')
 
     @staticmethod
     def create_sample_type_emodul(o: Openbis, sample_code: str, sample_prefix: str, sample_properties: dict):
