@@ -2,7 +2,7 @@
 # https://web.stanford.edu/class/ee364a/lectures/stoch_prog.pdf (good material for stochastic programming)
 #
 import sys
-sys.path.extend(['/home/atul/PhD_Tasks/LeBeDigital/ModelCalibration']) # temp fix to add the project path
+sys.path.extend(['/home/atul/PhD_Tasks/LeBeDigital/ModelCalibration'])
 
 import pandas as pd
 import numpy as np
@@ -25,7 +25,6 @@ datetime = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 # local imports
 from usecases.demonstrator.StructuralSolver.Column_simulation import Column_simulation
-
 
 
 # -- Load the calibrated parameters
@@ -60,12 +59,10 @@ class Prior_(object):
         dist = th.distributions.MultivariateNormal(mean, cov)
         val = dist.log_prob(b)
         #val.backward()
-        val.backward()
-        grad_x = x.grad
         #grad_phi = phi_.grad
         #grad_sigma = phi_sd_diag_.grad
         # returing falttened gradients
-        return val, grad_x #, grad_phi,grad_sigma  # negative as later grad ascent needs to performed to find arg max logp(D|phi)
+        return val #, grad_phi,grad_sigma  # negative as later grad ascent needs to performed to find arg max logp(D|phi)
 
     def sample(self, x, samples=100):
         assert isinstance(x, th.Tensor)
@@ -97,30 +94,11 @@ def forward_model(b):
     data, time, temp = Column_simulation(latents)
     return th.as_tensor(np.array([time[0], temp])) # time is the point where yeild changes sign and temp is the max temp of the list
 
-# random tests
 pr = Prior_(phi=phi_test)
 #chk_1 = forward_model(pr._b_mean(th.tensor([0.]),th.from_numpy(phi_mean))) # tensor([5484.9441,   80.1733])
 #chk_2 = forward_model(pr._b_mean(th.tensor([1.]),th.from_numpy(phi_mean))) # tensor([8905.9446,   56.8212])
 #chk_3 = forward_model(pr._b_mean(th.tensor([0.5]),th.from_numpy(phi_mean))) # tensor([6909.0877,   68.6847])
 #chk_4 = forward_model(pr._b_mean(th.tensor([0.6]),th.from_numpy(phi_mean)))
-
-chk_5 = forward_model(pr._b_mean(th.tensor([0.55]),th.from_numpy(phi_mean))) # tensor([6909.0877,   68.6847])
-dv_dx = chk_5[0]*pr.logeval(pr._b_mean(th.tensor([0.55]),th.from_numpy(phi_mean)),th.tensor([0.55], requires_grad=True))[1]
-print(dv_dx)
-
-# X = th.tensor([0.62], requires_grad=True)
-# b_samples = pr.sample(X,samples=50)
-# y_b = []
-# for i in range(b_samples.shape[0]):
-#     forward_b = forward_model(b_samples[i, :])
-#     y_b.append(forward_b)
-# y_b = th.stack(y_b).detach().numpy()
-#
-# plt.figure()
-# sb.kdeplot(y_b[:,0])
-# plt.figure()
-# sb.kdeplot(y_b[:,1])
-# plt.show()
 # -- DEfining the optimisation problem
 
 def V_x():
@@ -136,7 +114,7 @@ def MC_approx():
      and constraints"""
     return NotImplementedError
 
-def objective(X):
+def objective(X,C):
     """Constructs the final objective to be passed to an optimiser with the V(x) and C(x)
     https://pytorch.org/docs/stable/distributions.html Talks about building a stochastic graph
     https://arxiv.org/pdf/1506.05254.pdf
@@ -145,7 +123,7 @@ def objective(X):
     assert X.requires_grad == True
     # Values which needs to be adjusted
     alpha = th.tensor(68) # The temp value which should not be exceeded. for x=0.5
-    coeff = th.tensor(1000)
+    coeff = th.tensor(100)
     # phi_mean = np.hstack((np.ones((4, 1)), np.array([2.916, 2.4229, 5.554, 5.0]).reshape(-1,1)))
     # phi_sd = -1 * np.ones(4)
     # phi_test = [phi_mean, phi_sd]
@@ -179,7 +157,7 @@ def objective(X):
     #     C_x.append(forward_b[1])
     # V_x_hat = th.mean(th.stack(V_x))
     # C_x_hat = th.mean(th.stack(C_x))
-    obj =  O_x_hat + coeff*th.max(C_x_hat-alpha,th.tensor(0))
+    obj =  O_x_hat + C*th.max(C_x_hat-alpha,th.tensor(0))
     #obj =coeff*val + alpha +b_sample
     assert obj.requires_grad == True
     return obj, O_x_hat, C_x_hat, Y_b_N
@@ -190,41 +168,65 @@ def objective(X):
 # print(X.grad)
 
 
-def run(x_init:float,eps =0.001, verbose = True) -> None:
+def run(x_init:float,eps =0.01, eps_opt = 0.001, verbose = True) -> None:
+    """
+    https://mat.uab.cat/~alseda/MasterOpt/const_opt.pdf
+    Args:
+        x_init:
+        eps:
+        eps_opt:
+        verbose:
+
+    Returns:
+
+    """
     X = th.tensor(x_init, requires_grad=True)
-    #C = th.tensor(50,requires_grad=False)
+    C = th.tensor(500,requires_grad=False)
     optimizer = th.optim.Adam([X], lr=0.01)
     losses = []
     objective_value = []
     constraints = []
     x_inmdt = [] # Intermediate for tracking
     grad = []
+    c = [] # penalty parameter
     #Y_b_step = []
-    num_steps = 200
-    for i in range(num_steps):
-        optimizer.zero_grad()
-        # Y_b is the samples of the solver output for the last opt step.
-        #loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
-        loss, O_x, C_x, Y_b = objective(X)
-        loss.backward()
-        # print(XX.grad)
-        optimizer.step()
-        losses.append(loss)
-        x_inmdt.append(X.clone())
-        grad.append(X.grad.clone())
-        objective_value.append(O_x)
-        constraints.append(C_x)
-        #Y_b_step.append(Y_b)
+    num_steps = 100
+    k = 0
+    for j in range(10):
+        X_tmp = X.clone().detach() # temp variable to be later ued in SUMT
+        for i in range(num_steps):
+            optimizer.zero_grad()
+            # Y_b is the samples of the solver output for the last opt step.
+            loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
+            #loss, O_x, C_x, Y_b = objective(X)
+            loss.backward()
+            # print(XX.grad)
+            optimizer.step()
+            losses.append(loss)
+            x_inmdt.append(X.clone())
+            grad.append(X.grad.clone())
+            objective_value.append(O_x)
+            constraints.append(C_x)
+            c.append(C)
+            #Y_b_step.append(Y_b)
 
-        if verbose:
-            #if num_steps % 5 == 0:
-            print(f"Iteration :{i+1}, loss value: {loss}, Objective : {O_x}, Constraints : {C_x}, x value: {X}, grad w.r.t x: {X.grad} ")
-        if i>0:
-            if th.abs(X - x_inmdt[-2]) < eps:
-                print("----------------- Converged !! ----------------------")
-                break
+            if verbose:
+                #if num_steps % 5 == 0:
+                print(f"Iteration :{i+1}, loss value: {loss}, Objective : {O_x}, Constraints : {C_x}, x value: {X}, grad w.r.t x: {X.grad}, C : {C}")
+            if i>0:
+                if th.abs(X - x_inmdt[-2]) < eps_opt: # for covergance check of optimizer
+                    print("----------------- The optimiser is Converged !! ----------------------")
+                    break
+        if th.abs(X_tmp - X)<eps:
+            print(f"The SUMT is done. The final penalty paramter is {C}")
+            break
+        else:
+            print(f"The SUMT is not done yet. The penalty paramter is {C} for the {k}th step")
+            C = 2*C
+            k+=1
+
             # else:
-            #     C = 1.1*C
+            #     C = 2*C
 
 
     data = {'loss':th.stack(losses).detach().numpy(),
@@ -232,17 +234,23 @@ def run(x_init:float,eps =0.001, verbose = True) -> None:
             'X_grad':th.cat(grad).detach().numpy(),
             'E_objective':th.stack(objective_value).detach().numpy(),
             'E_constraints': th.stack(constraints).detach().numpy(),
+            'C': th.stack(c).detach().numpy()
             }
     df = pd.DataFrame(data=data)
     return df, Y_b
 
 # sandboxing
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    df, Y_b= run([0.85]) # starting from a feasible region
+    df, Y_b= run([0.1])
 
     df.to_csv('./OptimisationResults_'+datetime+'.csv')
     np.save('./Y_b_opt_x'+datetime+'.npy',th.stack(Y_b).detach().numpy())
+
+
+
+
+
 # plt.plot(grad)
 # plt.plot(x)
 # plt.plot(loss)
