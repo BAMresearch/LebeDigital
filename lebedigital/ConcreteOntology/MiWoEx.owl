@@ -1,408 +1,533 @@
-<?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/jwinkler/ontologies/2022/9/untitled-ontology-87#"
-     xml:base="http://www.semanticweb.org/jwinkler/ontologies/2022/9/untitled-ontology-87"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:mid="https://purl.matolab.org/mseo/mid/"
-     xmlns:obo="http://purl.obolibrary.org/obo/"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:pmdco="https://material-digital.de/pmdco/"
-     xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
-     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/">
-        <owl:imports rdf:resource="https://material-digital.de/pmdco/"/>
-        <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
-        <rdfs:comment xml:lang="kit.edu">Contact:
-David Alós Shepherd
-Karlsruher Institut für Technologie (KIT)
-Gotthard-Franz-Str. 3, 76131 Karlsruhe
-david.alosshepherd</rdfs:comment>
-        <rdfs:comment xml:lang="bam.de">Contact:
-Juliette Winkler
-Bundesanstalt für Materialforschung und -prüfung (BAM)
-Unter den Eichen 87, 12205 Berlin
-juliette.winkler</rdfs:comment>
-        <rdfs:comment xml:lang="kit.edu">Contact:
-Ravi Patel
-Karlsruher Institut für Technologie (KIT)
-Gotthard-Franz-Str. 3, 76131 Karlsruhe
-ravi.patel</rdfs:comment>
-        <rdfs:comment xml:lang="bam.de">Contact:
-Stephan Pirskawetz
-Bundesanstalt für Materialforschung und -prüfung (BAM)
-Unter den Eichen 87, 12205 Berlin
-stephan.pirskawetz</rdfs:comment>
-        <rdfs:comment>This is the mid-level module of the Concrete Production and Testing Ontology CPTO.</rdfs:comment>
-    </owl:Ontology>
-    
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+obo:RO_0000086 a owl:ObjectProperty .
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+obo:RO_0010001 a owl:ObjectProperty .
 
-    
+con:CementPaste a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:PasteHeatOfHydration_,
+        con:SampleMass_,
+        con:WaterCementRatio_ ;
+    cco:designated_by con:PasteID ;
+    cco:has_input con:PasteRawMaterials_ .
 
+con:ConcreteMixture_ a con:Mixture,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:WaterCementRatio_ ;
+    con:has_property con:CompressiveStrength_,
+        con:FlowClass_,
+        con:PasteHeatOfHydration_,
+        con:SecantModulusOfElasticty_ ;
+    cco:described_by con:Mixture_ ;
+    cco:designated_by con:MixtureID_ ;
+    cco:has_input con:ConcreteRawMaterials_ ;
+    cco:has_output con:Concrete_,
+        con:ExperimentInfo_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_age -->
+con:StorageConditions_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_input con:Hardening_ ;
+    cco:has_output cco:DayMeasurementUnit,
+        cco:DegreeCelsiusMeasurementUnit .
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_age"/>
-    
+con:has_age a owl:ObjectProperty .
 
+con:has_property a owl:ObjectProperty .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_property -->
+con:has_state a owl:ObjectProperty .
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_property"/>
-    
+cco:described_by a owl:ObjectProperty .
 
+cco:designated_by a owl:ObjectProperty .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#has_state -->
+cco:has_datetime_value a owl:DatatypeProperty .
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#has_state"/>
-    
+cco:has_decimal_value a owl:DatatypeProperty .
 
+cco:has_input a owl:ObjectProperty .
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+cco:has_output a owl:ObjectProperty .
 
-    
+cco:has_process_part a owl:ObjectProperty .
 
+cco:has_text_value a owl:DatatypeProperty .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Hardening -->
+cco:is_input_of a owl:ObjectProperty .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Hardening">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Process"/>
-    </owl:Class>
-    
+xsd:dateTimeStamp a rdfs:Datatype .
 
+xsd:decimal a rdfs:Datatype .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Intensity -->
+xsd:string a rdfs:Datatype .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Intensity">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-    </owl:Class>
-    
+pmd: a owl:Ontology .
 
+pmd:composedBy a owl:ObjectProperty .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Mixer -->
+pmd:hasPmdUnit a owl:ObjectProperty .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Mixer">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
-    </owl:Class>
-    
+mid:in_accordance_with a owl:ObjectProperty .
 
+obo:BFO_0000038 a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Admixture -->
+con:Admixture a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Admixture">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+con:Age a owl:Class .
 
+con:AggregateDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q104816263 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Age -->
+con:Aggregates a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Age">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000038"/>
-    </owl:Class>
-    
+con:AirContent a owl:Class .
 
+con:AirDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q104816263 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Aggregates -->
+con:CompressionSetPoint_ a con:AppliedLoad,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q56402798 .
+
+con:Compression_ a con:AppliedLoad,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:CompressiveStrength a owl:Class .
+
+con:Computation a owl:NamedIndividual,
+        mid:RawDataSet .
+
+con:ConcreteRawMaterials_ a con:RawMaterials,
+        owl:NamedIndividual ;
+    pmd:composedBy con:AirContent_,
+        con:CEMII_,
+        con:CEMI_,
+        con:MixingWater_,
+        con:Okrilla_,
+        con:Plasticizer_ .
+
+con:Concrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    con:has_state con:FreshConcrete_,
+        con:HardenedConcrete_ ;
+    cco:has_process_part con:Mixing_ .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Aggregates">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+con:Cubic_ a cco:CubeShape,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenWidth_ .
 
+con:Cylindircal_ a cco:Cylindrical,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:SpecimenDiameter_,
+        con:SpecimenHeight_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#AirContent -->
+con:DINEN12390-13:2021_ a cco:Document,
+        owl:NamedIndividual .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#AirContent">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+con:DINEN12390-3:2019_ a cco:Document,
+        owl:NamedIndividual .
 
+con:DINEN196-8:2010_ a cco:Document,
+        owl:NamedIndividual .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#AppliedLoad -->
+con:Duration a owl:Class .
+
+con:E-ModulTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenShape_ ;
+    con:has_age con:SpecimenAge_ ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:is_input_of con:SecantModulusOfElasticty_ .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#AppliedLoad">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-    </owl:Class>
-    
+con:Energy a owl:Class .
+
+con:ExperimentDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "value"^^xsd:dateTimeStamp .
+
+con:ExperimentInfo a owl:Class .
 
+con:FlowClass a owl:Class .
+
+con:FlowSpread a owl:Class .
+
+con:FlowSpread_ a con:FlowSpread,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_output con:FlowClass_ ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:FreshConcrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:FlowSpread_ ;
+    cco:has_process_part con:Hardening_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Cement -->
+con:HeatOfHydration a owl:Class .
+
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
+
+con:Location a owl:Class .
+
+con:MeasurementDuration_ a con:Duration,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit,
+        pmd:Q11574 .
+
+con:MeasurementEnergy_ a con:Energy,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q106611903 .
+
+con:MeasurementPower_ a cco:Power,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit con:MilliwattPerGramOfMaterial .
+
+con:MeasurementTime_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+con:MeasurementVoltage_ a owl:NamedIndividual,
+        mid:Voltage ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2448803 .
+
+con:MeasuringGauge a owl:Class .
+
+con:MilliwattPerGramOfMaterial a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:MixingDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "value"^^xsd:dateTimeStamp .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Cement">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+con:Mixing_ a cco:Artifact,
+        owl:NamedIndividual .
 
+con:Mixture a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#CompressiveStrength -->
+con:MixtureID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#CompressiveStrength">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MechanicalStrength"/>
-    </owl:Class>
-    
+con:Mixture_ a owl:NamedIndividual,
+        mid:RawDataSet .
 
+con:Okrilla_ a con:Aggregates,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:AggregateDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Computation -->
+con:PasteID a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Computation">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/IntentionalAct"/>
-    </owl:Class>
-    
+con:PasteRawMaterials_ a con:RawMaterials,
+        owl:NamedIndividual ;
+    pmd:composedBy con:AirContent_,
+        con:CEMII_,
+        con:CEMI_,
+        con:MixingWater_,
+        con:Plasticizer_ .
 
+con:PercentByVolume a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete -->
+con:PlasticizerDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q104816263 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
-    </owl:Class>
-    
+con:Prismatic a owl:Class .
 
+con:Prismatic_ a con:Prismatic,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenWidth_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Duration -->
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Duration">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000038"/>
-    </owl:Class>
-    
+con:SampleMass_ a cco:Mass,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q41803 .
 
+con:SecantModulusOfElasticty a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Energy -->
+con:SpecimenDiameter_ a cco:Diameter,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Energy">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
-    </owl:Class>
-    
+con:StrengthTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenShape_ ;
+    con:has_age con:SpecimenAge_ ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:is_input_of con:CompressiveStrength_ .
 
+con:TestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    cco:has_output con:E-ModulTestSpecimen_,
+        con:StrengthTestSpecimen_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FlowClass -->
+con:Time_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q11574 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowClass">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread"/>
-    </owl:Class>
-    
+con:Transducer_ a con:MeasuringGauge,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
 
+con:Water a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread -->
+con:WaterDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q104816263 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FlowSpread">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Workability"/>
-    </owl:Class>
-    
+cco:CubeShape a owl:Class .
 
+cco:Cylindrical a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#FreshConcrete -->
+cco:DegreeCelsiusMeasurementUnit a cco:Temperature,
+        owl:NamedIndividual .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#FreshConcrete">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete"/>
-    </owl:Class>
-    
+cco:Diameter a owl:Class .
 
+cco:Height a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#HardenedConcrete -->
+cco:KilogramMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#HardenedConcrete">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#Concrete"/>
-    </owl:Class>
-    
+cco:Length a owl:Class .
 
+cco:Mass a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#HeatOfHydration -->
+cco:Power a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#HeatOfHydration">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/MaterialProperty"/>
-    </owl:Class>
-    
+cco:ShapeQuality a owl:Class .
 
+cco:Temperature a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Humidity -->
+cco:Width a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Humidity">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-    </owl:Class>
-    
+pmd:Q106611903 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
+pmd:Q2448803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Location -->
+pmd:Q41803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Location">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000029"/>
-    </owl:Class>
-    
+pmd:Q56402798 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
+mid:Regulation a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#MeasuringGauge -->
+mid:Voltage a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#MeasuringGauge">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
-    </owl:Class>
-    
+mid:WeightRatio a owl:Class .
 
+con:AirContent_ a con:AirContent,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:AirDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit con:PercentByVolume .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mixing -->
+con:AppliedLoad a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mixing">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/ManufactureProcess"/>
-    </owl:Class>
-    
+con:CEMII_ a con:Cement,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CementDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
 
+con:CEMI_ a con:Cement,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CementDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mixture -->
+con:Cement a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mixture">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MaterialComposition"/>
-    </owl:Class>
-    
+con:CementDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q104816263 .
 
+con:FlowClass_ a con:FlowClass,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Mortar -->
+con:HardenedConcrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CompressiveStrength_,
+        con:SecantModulusOfElasticty_ ;
+    cco:has_output con:TestSpecimen_ .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Mortar">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
-    </owl:Class>
-    
+con:Hardening_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_output con:HardenedConcrete_ .
 
+con:MixingWater_ a con:Water,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:WaterDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Paste -->
+con:PasteHeatOfHydration_ a con:HeatOfHydration,
+        owl:NamedIndividual ;
+    cco:described_by con:RawDataFile_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    pmd:hasPmdUnit cco:KilogramMeasurementUnit ;
+    mid:in_accordance_with con:Standard_ .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Paste">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
-    </owl:Class>
-    
+con:Plasticizer_ a con:Admixture,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:PlasticizerDensity_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
 
+con:RawMaterials a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Prismatic -->
+con:Specimen.dat a owl:NamedIndividual,
+        mid:RawDataSet .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Prismatic">
-        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ThreeDimensionalShape"/>
-    </owl:Class>
-    
+con:SpecimenAge_ a con:Age,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:DayMeasurementUnit .
 
+con:SpecimenID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials -->
+con:SpecimenLength_ a cco:Length,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/Material"/>
-    </owl:Class>
-    
+con:SpecimenShape_ a cco:ShapeQuality,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:Cubic_,
+        con:Cylindircal_,
+        con:Prismatic_ .
 
+con:SpecimenWidth_ a cco:Width,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#SecantModulusOfElasticty -->
+con:WaterCementRatio_ a owl:NamedIndividual,
+        mid:WeightRatio ;
+    cco:has_decimal_value "value"^^xsd:decimal .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#SecantModulusOfElasticty">
-        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ElasticModulus"/>
-    </owl:Class>
-    
+cco:Day a owl:Class .
 
+cco:DayMeasurementUnit a obo:BFO_0000038,
+        owl:NamedIndividual .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Water -->
+cco:HourMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Water">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+pmd:Q106886776 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
+pmd:Q11574 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Workability -->
+mid:ExperimentTime a owl:Class .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Workability">
-        <rdfs:subClassOf rdf:resource="https://material-digital.de/pmdco/MaterialProperty"/>
-    </owl:Class>
-    
+con:CompressiveStrength_ a con:CompressiveStrength,
+        owl:NamedIndividual ;
+    cco:described_by con:Specimen.dat ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    pmd:hasPmdUnit pmd:Q106886776 ;
+    mid:in_accordance_with con:Standard_ .
 
+con:SecantModulusOfElasticty_ a con:SecantModulusOfElasticty,
+        owl:NamedIndividual ;
+    cco:described_by con:Specimen.dat ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    cco:has_process_part con:Computation ;
+    pmd:hasPmdUnit pmd:Q106886776 ;
+    mid:in_accordance_with con:Standard_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/#Addition/Additives -->
+con:SpecimenHeight_ a cco:Height,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
 
-    <owl:Class rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/#Addition/Additives">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/LeBeDigital/CPTO/#RawMaterials"/>
-    </owl:Class>
-    
+con:Standard_ a owl:NamedIndividual,
+        mid:Regulation ;
+    obo:RO_0010001 con:DINEN12390-13:2021_,
+        con:DINEN12390-3:2019_,
+        con:DINEN196-8:2010_ .
 
+cco:Document a owl:Class .
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Individuals
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+cco:NonNameIdentifier a owl:Class .
 
-    
+mid:Specimen a owl:Class .
 
+con:ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:CompressionSetPoint_,
+        con:Compression_,
+        con:ExperimentDate_,
+        con:Lab_,
+        con:MeasurementDuration_,
+        con:MeasurementEnergy_,
+        con:MeasurementPower_,
+        con:MeasurementTime_,
+        con:MeasurementVoltage_,
+        con:MixingDate_,
+        con:Time_,
+        con:Transducer_ .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/CEMI -->
+mid:RawDataSet a owl:Class .
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/CEMI"/>
-    
+cco:Density a owl:Class .
 
+pmd:Q104816263 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/CEMII -->
+pmd:Q844211 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/CEMII"/>
-    
+pmd:Q174789 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
+cco:Artifact a owl:Class .
 
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/JoulePerGramOfCement -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/JoulePerGramOfCement"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/MilliwattPerGramOfMaterial -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/MilliwattPerGramOfMaterial"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Okrilla -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Okrilla"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/PercentByMass -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/PercentByMass"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/PercentByVolume -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/PercentByVolume"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/Plasticizer -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/Plasticizer"/>
-    
-
-
-    <!-- http://www.semanticweb.org/LeBeDigital/CPTO/WaterCementRatio -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/LeBeDigital/CPTO/WaterCementRatio"/>
-</rdf:RDF>
-
-
-
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+pmd:PmdSiUnit a owl:Class .
 
