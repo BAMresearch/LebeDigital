@@ -20,15 +20,11 @@ class ExpStep:
             self,
             name: str = '',
             type: str = '',
-            # data_path: list = [],
-            # data_type: str = '',
-            # code: str = '',
             metadata: dict = None,
             space: str = "",
             project: str = "",
             collection: str = "",
             parents: list = None,
-            # children: list = [],
             identifier: str = '',
             permId: str = '',
             sample_object=None,
@@ -38,30 +34,27 @@ class ExpStep:
         """Creates an ExpStep Object
 
         Args:
-            name (str): name of the experiment
-            type (str): type of the experiment, has to be a defined sample type in the Datastore
-            data_path (str, optional): local path to the data file. Defaults to ''.
-            data_type (str, optional): type of the data, has to be a defined data type in the Datastore. Defaults to ''.
-            code (str, optional): the code the experiment will have in the Datastore. Defaults to ''.
-            metadata (dict, optional): metadata of your data, is defined by the sample type. Defaults to {}.
+            name (str, optional): name of the experiment. Defaults to ''.
+            type (str, optional): type of the experiment, has to be a defined sample type in the Datastore. Defaults to ''.
+            metadata (dict, optional): metadata of your data, is defined by the sample type. Defaults to None.
             space (str, optional): space in which the experiment should be saved. Defaults to "".
             project (str, optional): project in which the experiment should be saved. Defaults to "".
-            collection (str, optional): collection in which the expeiment should be saved. Defaults to "".
-            parents (list, optional): parents of the experiment. Defaults to [].
-            children (list, optional): children of the experiment. Defaults to [].
+            collection (str, optional): collection in which the expeiment should be saved.. Defaults to "".
+            parents (list, optional): parents of the experiment.. Defaults to None.
+            identifier (str, optional): Verbose identifier of the sample, indicates the space and project. Defaults to ''.
+            permId (str, optional): PermID identifier of the sample. Defaults to ''.
+            sample_object (Pybis, optional): The pybis sample object of the sample. Defaults to None.
+            datasets (list, optional): List of dataset objects saved under the experimental step. Defaults to None.
+            dataset_codes (list, optional): The PermIDs of the datasets. Defaults to None.
         """
 
         self.name = name
         self.type = type
-        # self.data_path = data_path
-        # self.data_type = data_type
         self.metadata = metadata
         self.space = space
         self.project = project
         self.collection = collection
         self.parents = parents
-        # self.children = children
-        # self.code = code
         self.identifier = identifier
         self.permId = permId
         self.sample_object = sample_object
@@ -260,7 +253,7 @@ class ExpStep:
         meta = dict(zip([par.lower() for par in df.param], df.value))
         self.metadata = meta
 
-    # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself
+    # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
     @staticmethod
     def get_space_names(o: Openbis):
         spaces_df = o.get_spaces().df
@@ -279,6 +272,7 @@ class ExpStep:
         ).df
         return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
 
+    # Alias
     get_collection_names = get_experiment_names
 
     @staticmethod
@@ -290,6 +284,7 @@ class ExpStep:
 
         return o.get_samples(space=space, project=project, collection=collection)
 
+    # Alias
     get_objects = get_samples
 
     @staticmethod
@@ -330,7 +325,7 @@ class ExpStep:
 
     @staticmethod
     def get_sample_dict(o: Openbis, identifier: str) -> dict:
-        """ Returns all/some metadata about the sample
+        """ Returns metadata of the sample including self defined parameters and default identification info like registrator or timestamp of creation
 
         Args:
             o (Openbis): Currently running openbis instance
@@ -370,6 +365,7 @@ class ExpStep:
             kwargs.pop("object", None)
 
         # We go through all entries in for loops, the only difference between levels is where we start the loop
+        # Watch out, takes ages to run because someone tested creating 500_000 pybis objects, ran 5 minutes for me
         if level == 'full':
             space_dict = {'DATASTORE': {}}
 
@@ -622,9 +618,6 @@ class ExpStep:
             str: Name of the sample in the datastore
         """
 
-        # SNYCHRONISING NAME
-        # self.sync_name()
-
         # TYPE CHECKING
         try:
             self.check_type(o)
@@ -736,7 +729,6 @@ class ExpStep:
             collection=sample_collection,
             parents=sample_parents,
             metadata=sample_metadata,
-            # code=sample_name,
             identifier=sample_dict['identifier'],
             permId=sample_dict['permId'],
             sample_object=sample,
@@ -785,10 +777,6 @@ class ExpStep:
         # Getting all datasets of the sample and their codes
         self.datasets = self.sample_object.get_datasets()
         self.dataset_codes = [ds.code for ds in self.datasets]
-
-        # self.data_path = []
-        # self.data_type = ''
-        # self.children = []
 
         return self
 
@@ -904,8 +892,6 @@ class ExpStep:
 
         file_plural = 'FILES' if len(self.datasets) > 1 else 'FILE-'
 
-        # self.data_path = []
-
         print(
             f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------\n')
         for dataset in self.datasets:
@@ -920,8 +906,6 @@ class ExpStep:
                         wait_until_finished=False,
                     )
 
-                    # self.data_path.append(f'{path}/{dataset}')
-
             # If data_type was NOT specfied download all datasets
             else:
                 print(f'Downloading dataset {dataset.code}')
@@ -932,12 +916,21 @@ class ExpStep:
                     wait_until_finished=False,
                 )
 
-                # self.data_path.append(f'{path}/{dataset}')
-
         print('----------DOWNLOAD FINISHED----------')
 
     @staticmethod
     def create_sample_type_emodul(o: Openbis, sample_code: str, sample_prefix: str, sample_properties: dict):
+        """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
+
+        Args:
+            o (Openbis): currently running openbis instance
+            sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
+            sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
+            sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
+
+        Returns:
+            Pybis: returns the pybis sample type object
+        """
 
         # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
         # Disable
@@ -1015,7 +1008,16 @@ class ExpStep:
 
         return o.get_sample_type(sample_code)
 
-    def read_metadata_emodul(self, yaml_path, *, mode='append'):
+    def read_metadata_emodul(self, yaml_path: str, *, mode='append'):
+        """Reads the metadata as it is saved in the emodul_metadata directory
+
+        Args:
+            yaml_path (str): path to the yaml file
+            mode (str, optional): Specifies if the data in the file should replace existing entries in self.metadata or only append to existing. Defaults to 'append'.
+
+        Raises:
+            ValueError: _description_
+        """
 
         with open(yaml_path, 'rb') as file:
 
@@ -1033,11 +1035,14 @@ class ExpStep:
 
         modified_dict = self.__dict__
 
-        modified_dict['sample_object'] = '--REMOVED--'
-        modified_dict['datasets'] = '--REMOVED--'
+        # The python objects are ignored in the printout, too long and too useless
+        modified_dict['sample_object'] = '--A PYTHON OBJECT WAS HERE--'
+        modified_dict['datasets'] = '--A PYTHON OBJECT WAS HERE--'
 
         with open(yaml_path, 'w') as file:
             documents = yaml.dump(modified_dict, file)
+
+# Here the tests are starting, can be run from the main function
 
 
 def new_object_test():
@@ -1253,7 +1258,7 @@ def full_emodul():
     o = ExpStep.connect_to_datastore()
 
     metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
-    data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
+    processed_data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
     preview_path = '/home/ckujath/code/testing/test_graph.png'
 
     emodul_sample = ExpStep(
@@ -1283,7 +1288,7 @@ def full_emodul():
         o,
         props={
             '$name': f'{emodul_sample.name}_processed',
-            'files': data_path,
+            'files': processed_data_path,
             'data_type': 'PROCESSED_DATA'
         }
     )
@@ -1349,8 +1354,10 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
 
     sample.info()
 
+# Here the short tests end
 
-def upload_to_openbis_doit(metadata_path: str, data_path: str, output_path: str, config: dict):
+
+def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_data_path: str, output_path: str, config: dict):
     """Function for uploading data to the openbis datastore from within te doit environment
 
     Needed parameters in the config dict are:
@@ -1361,26 +1368,37 @@ def upload_to_openbis_doit(metadata_path: str, data_path: str, output_path: str,
     'sample_code': Code for the new type of the sample
     'sample_prefix': Prefix for the new type of the sample
     'verbose': If true the output will be printed to console, optional
+    'runson': Specifies if the function is running on github actions or locally
 
     Args:
         metadata_path (str): Path to the metadata yaml file
-        data_path (str): Path to the processed data file
+        processed_data_path (str): Path to the processed data file
+        raw_data_path (str): Path to the raw data file
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
     """
 
+    # This does not want to work with the doit environment, some stuff gets printed while some does not
     if 'verbose' in config and config['verbose']:
         sys.stdout = sys.__stdout__
     else:
         sys.stdout = open(os.devnull, 'w')
 
-    o = ExpStep.connect_to_datastore()
+    if config['runson'] == 'actions':
+        output_dict = {'ran_on': 'github_actions'}
+        file_name_with_extension = 'logfile.yaml'
+        with open(Path(output_path, file_name_with_extension), 'w') as file:
+            documents = yaml.dump(output_dict, file)
+        return
 
     emodul_sample = ExpStep(
         name=os.path.splitext(os.path.basename(metadata_path))[0],
         space=config['space'],
         project=config['project'],
     )
+
+    o = ExpStep.connect_to_datastore()
+
     emodul_sample.collection = emodul_sample.find_collection(
         o,
         config['collection'],
@@ -1402,19 +1420,29 @@ def upload_to_openbis_doit(metadata_path: str, data_path: str, output_path: str,
 
     emodul_sample.upload_expstep(o)
 
-    dataset_name = os.path.splitext(os.path.basename(data_path))[
-        0] + '_processed'
+    processed_dataset_name = emodul_sample.name + '_processed'
 
     emodul_sample.upload_dataset(
         o,
         props={
-            '$name': dataset_name,
-            'files': [data_path],
+            '$name': processed_dataset_name,
+            'files': [processed_data_path],
             'data_type': 'PROCESSED_DATA'
         }
     )
 
-    # print(emodul_sample.identifier)
+    raw_dataset_name = emodul_sample.name + '_raw'
+
+    emodul_sample.upload_dataset(
+        o,
+        props={
+            '$name': raw_dataset_name,
+            'files': [raw_data_path],
+            'data_type': 'RAW_DATA'
+        }
+    )
+
+    # We load the object from the datastore before printing as a sort of manual check if the function worked as it was supposed to.
     output_sample = ExpStep.load_sample(o, emodul_sample.identifier)
     # output_sample.info()
 
@@ -1431,6 +1459,6 @@ if __name__ == '__main__':
     # import_template_test()
     # load_yaml_test('/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml')
     # responses_for_tests()
-    full_emodul()
+    # full_emodul()
     # create_object_for_testing()
     print('Done')

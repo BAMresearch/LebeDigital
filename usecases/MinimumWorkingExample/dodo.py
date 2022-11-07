@@ -11,7 +11,7 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
-from lebedigital.openbis.expstep import ExpStep, upload_to_openbis_doit
+from lebedigital.openbis.expstep import upload_to_openbis_doit
 
 from doit import get_var
 
@@ -30,6 +30,7 @@ openbis_config = {
     'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
     'sample_prefix': 'EMODUL',
     # 'verbose': True,
+    'runson': get_var('runson', 'actions'),
 }
 
 # parent directory of the minimum working example
@@ -156,7 +157,7 @@ def task_export_knowledgeGraph_emodul():
             }
 
 
-@create_after(executed='extract_metadata_emodul')
+@create_after(target_regex='.*emodul$')
 def task_upload_to_openbis():
     # create folder, if it is not there
     Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
@@ -165,19 +166,23 @@ def task_upload_to_openbis():
     processed_directory_path = Path(processed_data_emodulus_directory)
 
     # TODO: FIND OUT IF ZIP WILL KEEP THE ORDER OF THE DIRECTORY IN ODER WITH >1 FILE
-    for meta_f, processed_f in zip(os.scandir(metadata_directory_path), os.scandir(processed_directory_path)):
+    for meta_f, processed_f in zip(os.scandir(metadata_emodulus_directory), os.scandir(processed_data_emodulus_directory)):
 
+        # getting path for files
         metadata_file_path = Path(meta_f)
         processed_file_path = Path(processed_f)
 
-        sample_file_name = os.path.basename(metadata_file_path)
+        # the raw data file is the specimen file in the corresponding folder in raw_data_emodulus_directory
+        raw_data_file = Path(
+            raw_data_emodulus_directory, os.path.splitext(os.path.basename(meta_f))[0], 'specimen.dat')
 
+        sample_file_name = os.path.basename(metadata_file_path)
         sample_file_path = Path(openbis_samples_directory, sample_file_name)
 
         yield {
             'name': metadata_file_path,
-            'actions': [(upload_to_openbis_doit, [metadata_file_path, processed_file_path, openbis_samples_directory, openbis_config])],
+            'actions': [(upload_to_openbis_doit, [metadata_file_path, processed_file_path, raw_data_file, openbis_samples_directory, openbis_config])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
-            'clean': [clean_targets]
+            'clean': [clean_targets],
         }
