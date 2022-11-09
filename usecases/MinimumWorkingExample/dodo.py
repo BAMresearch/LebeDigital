@@ -11,6 +11,9 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
+from lebedigital.raw_data_processing.mixture \
+    .mixture_metadata_extraction import extract_metadata_mixture
+
 from doit import get_var
 
 # set a variable to define a cheap or full run
@@ -23,18 +26,27 @@ DOIT_CONFIG = {'verbosity': 2}
 #parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
-# defining paths
+# defining paths for emodule
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
+# defining paths for mixture
+raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
+mixture_output_directory = Path(ParentDir, 'mixture')  # folder with folders
+metadata_mixture_directory = Path(mixture_output_directory, 'metadata_yaml_files')  # folder with mixture metadata yaml files
+#processed_data_mixture_directory = Path(mixture_output_directory, 'processed_data')  # folder with csv data files
+mixture_knowledge_graphs_directory = Path(mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+
 # when "cheap option" is run, only this souce of raw data is processed
 cheap_example_name = 'Wolf 8.2 Probe 1'
+cheap_mixexample_name = '2014_12_10 Wolf.xls' # corresponding mixture file
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
+Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 
 #extract standardized meta data for Young' modulus tests
 def task_extract_metadata_emodul():
@@ -46,7 +58,7 @@ def task_extract_metadata_emodul():
         list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
     else: # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
-
+    
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_path = Path(f)
@@ -83,6 +95,47 @@ def task_extract_processed_data_emodul():
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
+                'clean': [clean_targets]
+            }
+
+#TESTING
+list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mixexample_name) ]
+print(list_raw_data_mixture_directories)
+f=Path(raw_data_mixture_directory, cheap_mixexample_name)
+print(f)
+yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".x")[0] + '.yaml')
+print(yaml_metadata_file)
+print([i for i in os.scandir(raw_data_mixture_directory)])
+print([i.is_file() for i in os.scandir(raw_data_mixture_directory)])
+
+if config['mode'] == 'cheap':
+        list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mixexample_name) ]
+else: # go through all files
+        list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
+print(list_raw_data_mixture_directories)
+
+#extract standardized metadata for the mixture
+def task_extract_metadata_mixture():
+    # create folder, if it is not there
+    Path(metadata_mixture_directory).mkdir(parents=True, exist_ok=True)
+
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap':
+        list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mixexample_name) ]
+    else: # go through all files
+        list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
+
+    for f in list_raw_data_mixture_directories:
+        if f.is_file():
+
+            raw_data_path = f
+            #raw_data_file = Path(f, 'specimen.dat')
+            yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
+            yield {
+                'name': yaml_metadata_file,
+                'actions': [(extract_metadata_mixture, [raw_data_path, yaml_metadata_file])],
+                #'file_dep': [raw_data_file], 
+                'targets': [yaml_metadata_file],
                 'clean': [clean_targets]
             }
 
