@@ -98,21 +98,6 @@ def task_extract_processed_data_emodul():
                 'clean': [clean_targets]
             }
 
-#TESTING
-list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mixexample_name) ]
-print(list_raw_data_mixture_directories)
-f=Path(raw_data_mixture_directory, cheap_mixexample_name)
-print(f)
-yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".x")[0] + '.yaml')
-print(yaml_metadata_file)
-print([i for i in os.scandir(raw_data_mixture_directory)])
-print([i.is_file() for i in os.scandir(raw_data_mixture_directory)])
-
-if config['mode'] == 'cheap':
-        list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mixexample_name) ]
-else: # go through all files
-        list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
-print(list_raw_data_mixture_directories)
 
 #extract standardized metadata for the mixture
 def task_extract_metadata_mixture():
@@ -129,7 +114,6 @@ def task_extract_metadata_mixture():
         if f.is_file():
 
             raw_data_path = f
-            #raw_data_file = Path(f, 'specimen.dat')
             yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
             yield {
                 'name': yaml_metadata_file,
