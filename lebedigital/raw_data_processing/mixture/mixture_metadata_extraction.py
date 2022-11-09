@@ -55,8 +55,9 @@ def replace_comma(string, format = 'float'):
 def isNaN(num):
     return num!= num
 
-# catch errors so that the script won't break but just pass without output
-@logger.catch
+# decorater in case you want to catch errors so that the script won't break 
+# but just pass without output:
+# @logger.catch
 # extraction script
 def extract_metadata_mixture(
         locationOfRawData,
@@ -127,6 +128,7 @@ def extract_metadata_mixture(
                 labelidx['Zusatzstoff2'] = i 
                 logger.debug('Second addition found in raw data.')  
             else:
+                logger.error('More than two additions found in raw data.')
                 raise Exception('More than two additions found in raw data.')
 
 
@@ -140,6 +142,7 @@ def extract_metadata_mixture(
             if missing_labels == ['Zusatzstoff2']:
                 logger.warning('No addition2 in raw data.')
             else:
+                logger.error('Check raw data, there are labels missing.')
                 raise KeyError('Check raw data, there are labels missing', missing_labels)
 
 
