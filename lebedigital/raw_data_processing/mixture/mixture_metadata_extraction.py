@@ -88,21 +88,22 @@ def extract_metadata_mixture(
     """
     
 
-    # Find sheets in the file containing the mixture (keyword: "Rezeptur")
+    # Find sheets in the file containing the mixture (keyword: "Rezeptur"), allow
+    # only one sheet per file
     excelsheet = os.path.basename(locationOfRawData)
     excelfile = pd.read_excel(locationOfRawData, sheet_name= None) 
     listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i] 
     logger.debug('Working on file: '+ excelsheet)
-    logger.debug('Following sheets contain mixture metadata in this file: ' + str(listofkeys))
+    logger.debug('Following sheet(s) contain mixture metadata in this file: ' + str(listofkeys))
 
+    if len(listofkeys) != 1:
+        logger.error('None or multiple sheets with mixture found in the raw data.')
+        raise Exception('None or multiple sheets with mixture found in the raw data.')
+    else:
+        sheet = listofkeys[0]
 
-    for sheet in listofkeys:
-
-        logger.debug('Working on sheet: '+ sheet)
-        ##############  S E T U P ##############
-
-        # name of yaml-file will be experiment-name + sheet name
-        name = os.path.basename(excelsheet).split('.xl')[0] + ' ___ ' + sheet
+        # name of yaml-file will be experiment-name 
+        name = os.path.basename(excelsheet).split('.xl')[0]
         
         # save data from excelsheet into pandas dataframe
         exceltodf = excelfile[sheet]
@@ -142,7 +143,7 @@ def extract_metadata_mixture(
             if missing_labels == ['Zusatzstoff2']:
                 logger.warning('No addition2 in raw data.')
             else:
-                logger.error('Check raw data, there are labels missing.')
+                logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
                 raise KeyError('Check raw data, there are labels missing', missing_labels)
 
 
