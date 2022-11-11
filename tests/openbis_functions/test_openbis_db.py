@@ -45,8 +45,6 @@ def test_get_sample_names(mock_get_sample_df):
     project = 'TEST_AMBETON'
     collection = '/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION'
 
-    # app.get_json, which contains requests.get, uses the monkeypatch
-
     result = ExpStep.get_sample_names(o, space, project, collection)
 
     expected_result = ['EXP_VISKO867278 (3Dm3_0_1rpm_Vogel_2_7_T17_01)', 'EXP_VISKO867295 (3Dm3_0_1rpm_Vogel_2_7_T42_03)', 'EXP_VISKO867292 (3Dm3_0_1rpm_Vogel_2_7_T37_03)', 'EXP_VISKO867291 (3Dm3_0_1rpm_Vogel_2_7_T37_02)', 'EXP_VISKO867294 (3Dm3_0_1rpm_Vogel_2_7_T42_02)', 'EXP_VISKO867293 (3Dm3_0_1rpm_Vogel_2_7_T42_01)', 'EXP_VISKO867288 (3Dm3_0_1rpm_Vogel_2_7_T32_02)', 'EXP_VISKO867287 (3Dm3_0_1rpm_Vogel_2_7_T32_01)', 'EXP_VISKO867290 (3Dm3_0_1rpm_Vogel_2_7_T37_01)',
