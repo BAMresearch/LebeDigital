@@ -30,6 +30,8 @@ openbis_config = {
     'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
     'sample_prefix': 'EMODUL',
     # 'verbose': True,
+    # if actions is specified the task will be completed but the openbis connection will be skipped
+    # we need to skip the openbis functions on github actions as they need a password to run
     'runson': get_var('runson', 'actions'),
 }
 
@@ -37,19 +39,12 @@ openbis_config = {
 ParentDir = os.path.dirname(Path(__file__))
 
 # defining paths
-# folder with metadata yaml files
-emodul_output_directory = Path(ParentDir, 'emodul')
-# folder with folders of raw data files
-raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')
-# folder with metadata yaml files
-metadata_emodulus_directory = Path(
-    emodul_output_directory, 'metadata_yaml_files')
-processed_data_emodulus_directory = Path(
-    emodul_output_directory, 'processed_data')  # folder with csv data files
-knowledge_graphs_directory = Path(
-    emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
-openbis_samples_directory = Path(
-    emodul_output_directory, 'openbis_samples')  # folder overview of uploaded samples
+emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
+raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
+metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
+processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
+knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+openbis_samples_directory = Path(emodul_output_directory, 'openbis_samples')  # folder with openbis log outputs
 
 # when "cheap option" is run, only this souce of raw data is processed
 cheap_example_name = 'Wolf 8.2 Probe 1'

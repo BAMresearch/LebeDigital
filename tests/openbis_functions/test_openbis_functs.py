@@ -5,7 +5,7 @@ from lebedigital.openbis.expstep import ExpStep
 
 @pytest.mark.skip(reason='The directory for the yaml file does not exist in tests workflow. Test is dependent on MinimumWorkingExample')
 def test_load_emodul():
-    """Testing if the metadata from yaml emodul files are imported corretly
+    """Testing if the metadata from yaml emodul files are imported correctly
     """
 
     yaml_path = '../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/Wolf 8.2 Probe 1.yaml'

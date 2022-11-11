@@ -39,8 +39,8 @@ class ExpStep:
             metadata (dict, optional): metadata of your data, is defined by the sample type. Defaults to None.
             space (str, optional): space in which the experiment should be saved. Defaults to "".
             project (str, optional): project in which the experiment should be saved. Defaults to "".
-            collection (str, optional): collection in which the expeiment should be saved.. Defaults to "".
-            parents (list, optional): parents of the experiment.. Defaults to None.
+            collection (str, optional): collection in which the expeiment should be saved. Defaults to "".
+            parents (list, optional): parents of the experiment. Defaults to None.
             identifier (str, optional): Verbose identifier of the sample, indicates the space and project. Defaults to ''.
             permId (str, optional): PermID identifier of the sample. Defaults to ''.
             sample_object (Pybis, optional): The pybis sample object of the sample. Defaults to None.
@@ -256,39 +256,63 @@ class ExpStep:
     # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
     @staticmethod
     def get_space_names(o: Openbis):
+        """Returns a list of all space names
+
+        Args:
+            o (Openbis): currently running openBIS instance
+
+        Returns:
+            list(str): list of spaces 
+        """
         spaces_df = o.get_spaces().df
         return list(spaces_df['code'].values)
 
     @staticmethod
     def get_project_names(o: Openbis, space: str):
+        """Returns a list of all project names
+
+        Args:
+            o (Openbis): currently running openBIS instance
+            space (str): name of the space from where to fetch the projects
+
+        Returns:
+            list(str): list of projects
+        """
         projects_df = o.get_projects(space=space).df
         return [name.split('/')[-1] for name in list(projects_df['identifier'].values)]
 
     @staticmethod
-    def get_experiment_names(o: Openbis, space: str, project: str):
+    def get_collection_names(o: Openbis, space: str, project: str):
+        """Returns a list of all collection names
+
+        Args:
+            o (Openbis): currently running openBIS instance
+            space (str): name of the space from where to fetch the project
+            project (str): name of the project from where to fetch the collection
+
+        Returns:
+            list(str): list of collections
+        """
         experiments_df = o.get_experiments(
             space=space,
             project=project,
         ).df
         return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
 
-    # Alias
-    get_collection_names = get_experiment_names
-
-    @staticmethod
-    def get_samples(o: Openbis, space: str, project: str, collection: str, **kwargs):
-
-        if "experiment" in kwargs:
-            kwargs["collection"] = kwargs["experiment"]
-            kwargs.pop("experiment", None)
-
-        return o.get_samples(space=space, project=project, collection=collection)
-
-    # Alias
-    get_objects = get_samples
 
     @staticmethod
     def get_sample_names(o: Openbis, space: str, project: str, collection: str, **kwargs):
+        """Returns the names of the sample with their corresponding codes
+
+        Args:
+            o (Openbis): currently running openBIS instance
+            space (str): name of the space from where to fetch the project
+            project (str): name of the project from where to fetch the collection
+            collection (str): name of the collection from where to fetch the samples
+
+        Returns:
+            list(str): list of samples with codes
+        """
 
         if "experiment" in kwargs:
             kwargs["collection"] = kwargs["experiment"]
@@ -306,10 +330,20 @@ class ExpStep:
         sample_names = list(samples_df['$NAME'].values)
         return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
 
-    get_object_names = get_sample_names
 
     @staticmethod
     def get_sample_codes(o: Openbis, space: str, project: str, collection: str, **kwargs):
+        """Returns the codes of sammples
+
+        Args:
+            o (Openbis): currently running openBIS instance
+            space (str): name of the space from where to fetch the project
+            project (str): name of the project from where to fetch the collection
+            collection (str): name of the collection from where to fetch the samples
+
+        Returns:
+            list(str): list of codes
+        """
 
         if "experiment" in kwargs:
             kwargs["collection"] = kwargs["experiment"]
@@ -600,7 +634,7 @@ class ExpStep:
                 'Type Checker: Parents attribute undeclared')
 
         # If you got to this line no gamebreaking bugs were found
-        print('Type Checker: Types are correctly set')
+        logging.info('Type Checker: Types are correctly set')
 
     def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
         """Uploads the ExpStep object into the datastore
