@@ -575,6 +575,7 @@ class ExpStep:
         return collections_df[collections_df['identifier'].str.contains(
             collection_name)].iloc[0][id_val]
 
+    # parse openbis into functions or a prepared dataframe, would need to update every upload script
     def check_type(self, o: Openbis):
         """Dry checking if the types of metadata entries are correct
            and if the upload step will run as expected
@@ -728,7 +729,7 @@ class ExpStep:
 
         Args:
             o (Openbis): currently running openbis instance
-            sample_identifier (dict): identifier of the sample
+            sample_identifier (str): identifier of the sample
 
         Returns:
             ExpStep: ExpStep object containing metadata of the sample
@@ -872,8 +873,9 @@ class ExpStep:
         
     # TODO: Move to lebeopenbis
     def upload_dataset(self, o: Openbis, props: dict):
-        """Uploads a dataset to the ExpStep. Requires a dictionary with $name, files and data_type
-
+        """Uploads a dataset to the ExpStep.
+        
+        Requires a dictionary with $name, files and data_type
 
         Args:
             o (Openbis): Currently running openbis datastore
@@ -1318,10 +1320,10 @@ def full_emodul():
     emodul_sample = ExpStep(
         name='Wolf 8.2 Probe 1',
         space='CKUJATH',
-        project='AUTOSYNC',
+        project='LEBEDIGITAL',
     )
     emodul_sample.collection = emodul_sample.find_collection(
-        o, 'BEST_COLLECTION', id_type=1)
+        o, 'LEBEDIGITAL_COLLECTION', id_type=1)
 
     emodul_sample.sync_name(get_from='name')
 
