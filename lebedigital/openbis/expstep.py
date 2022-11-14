@@ -13,7 +13,7 @@ import sys
 from sys import exit
 import yaml
 from termcolor import colored
-
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import extract_metadata_emodulus
 
 class ExpStep:
     def __init__(
@@ -254,6 +254,7 @@ class ExpStep:
         self.metadata = meta
 
     # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_space_names(o: Openbis):
         """Returns a list of all space names
@@ -267,6 +268,7 @@ class ExpStep:
         spaces_df = o.get_spaces().df
         return list(spaces_df['code'].values)
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_project_names(o: Openbis, space: str):
         """Returns a list of all project names
@@ -281,6 +283,7 @@ class ExpStep:
         projects_df = o.get_projects(space=space).df
         return [name.split('/')[-1] for name in list(projects_df['identifier'].values)]
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_collection_names(o: Openbis, space: str, project: str):
         """Returns a list of all collection names
@@ -299,7 +302,7 @@ class ExpStep:
         ).df
         return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
 
-
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_sample_names(o: Openbis, space: str, project: str, collection: str, **kwargs):
         """Returns the names of the sample with their corresponding codes
@@ -330,7 +333,7 @@ class ExpStep:
         sample_names = list(samples_df['$NAME'].values)
         return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
 
-
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_sample_codes(o: Openbis, space: str, project: str, collection: str, **kwargs):
         """Returns the codes of sammples
@@ -357,6 +360,7 @@ class ExpStep:
         ).df
         return [name.split('/')[-1] for name in list(samples_df['identifier'].values)]
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_sample_dict(o: Openbis, identifier: str) -> dict:
         """ Returns metadata of the sample including self defined parameters and default identification info like registrator or timestamp of creation
@@ -374,6 +378,7 @@ class ExpStep:
                             val in sample.p.all().items()}
         return sample_info_dict | sample_prop_dict
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def get_overview(o: Openbis, level: str, **kwargs) -> dict:
         """ Generates an overview for the samples stored in the datastore
@@ -478,6 +483,7 @@ class ExpStep:
         elif get_from == 'metadata':
             self.name = self.metadata['$name']
 
+    # TODO: delete method
     def metadata_import_template(
             self,
             o: Openbis,
@@ -544,6 +550,7 @@ class ExpStep:
         samples_df.columns = samples_df.columns.str.upper()
         return self.name in samples_df['$NAME'].values
 
+    # TODO: Move method to lebeopenbis
     def find_collection(
         self,
         o: Openbis,
@@ -636,6 +643,7 @@ class ExpStep:
         # If you got to this line no gamebreaking bugs were found
         logging.info('Type Checker: Types are correctly set')
 
+    # TODO: Move to lebeopenbis
     def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
         """Uploads the ExpStep object into the datastore
 
@@ -713,6 +721,7 @@ class ExpStep:
             self.identifier = sample.identifier
         return self.identifier
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def load_sample(o: Openbis, sample_identifier: str):
         """Loads an expstep from an experimental step in the datastore with its properties
@@ -772,6 +781,7 @@ class ExpStep:
 
         return sample_step
 
+    # TODO: Delete this method (reduncancy with lebeopenbis)
     def fill_sample(self, o: Openbis, sample_identifier: str):
         """Fill the instance with properties of an experimental step in the datastore
 
@@ -814,6 +824,7 @@ class ExpStep:
 
         return self
 
+    # TODO: Move to lebeopenbis
     def get_property_types(self, o: Openbis) -> pd.DataFrame:
         """Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
@@ -845,6 +856,7 @@ class ExpStep:
 
         return df.transpose()
 
+    # TODO: Move to lebeopenbis
     def delete_expstep(self, o: Openbis, reason: str):
         """Deletes a sample from the datastore
 
@@ -857,7 +869,8 @@ class ExpStep:
             o.get_sample(self.identifier).delete(reason)
         else:
             raise ValueError('Sample not in datastore')
-
+        
+    # TODO: Move to lebeopenbis
     def upload_dataset(self, o: Openbis, props: dict):
         """Uploads a dataset to the ExpStep. Requires a dictionary with $name, files and data_type
 
@@ -908,6 +921,7 @@ class ExpStep:
 
         return ds
 
+    # TODO: Move to lebeopenbis
     def download_datasets(self, o: Openbis, path: str, data_type: str = ''):
         """Downloads all datasets which are asigned to that sample
 
@@ -952,6 +966,7 @@ class ExpStep:
 
         print('----------DOWNLOAD FINISHED----------')
 
+    # TODO: Move to lebeopenbis
     @staticmethod
     def create_sample_type_emodul(o: Openbis, sample_code: str, sample_prefix: str, sample_properties: dict):
         """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
@@ -1066,6 +1081,11 @@ class ExpStep:
                 raise ValueError('No correct mode specified')
 
     def save_sample_yaml(self, yaml_path):
+        """Saves a log file of a sample in openBIS. Used in doit upload
+
+        Args:
+            yaml_path (str): Path where the yaml file should be saved
+        """
 
         modified_dict = self.__dict__
 
@@ -1390,6 +1410,29 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
 
 # Here the short tests end
 
+def testing_sample_log():
+    # setting up the test example
+    input = '/home/ckujath/code/LebeDigital/tests/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.csv'
+    mix_file = 'mix.dat'
+    specimen_file = 'specimen.dat'
+
+    target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
+                   'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
+                   'operator_timestamp': '13:25:39',
+                   'operator_date': '01.09.2014',
+                   'tester_name': 'Kh',
+                   'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
+                   'remark': 'Kraftgeregelt 3,9 kN/s',
+                   'weight': 5342.0,
+                   'weight_unit': 'g',
+                   'diameter': 98.6,
+                   'length': 300.3,
+                   'length_unit': 'mm',
+                   'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+
+    # run extraction and getting a dictionary with metadata
+    test_data = extract_metadata_emodulus(input, specimen_file, mix_file)
+    yaml.dump(test_data, '/home/ckujath/code/testing/test_sheet.xlsx')
 
 def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_data_path: str, output_path: str, config: dict):
     """Function for uploading data to the openbis datastore from within te doit environment
@@ -1402,7 +1445,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     'sample_code': Code for the new type of the sample
     'sample_prefix': Prefix for the new type of the sample
     'verbose': If true the output will be printed to console, optional
-    'runson': Specifies if the function is running on github actions or locally
+    'runson': Specifies if the function is running on github actions or locally. To be parsed from command line by running 'doit runson=notactions'.
 
     Args:
         metadata_path (str): Path to the metadata yaml file
@@ -1495,4 +1538,5 @@ if __name__ == '__main__':
     # responses_for_tests()
     # full_emodul()
     # create_object_for_testing()
+    testing_sample_log()
     print('Done')
