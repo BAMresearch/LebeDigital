@@ -28,3 +28,5 @@ dependencies:
   - pip:
     - probeye==2.3.2
     - -e .
+  - xlrd 
+  - openpyxl 
