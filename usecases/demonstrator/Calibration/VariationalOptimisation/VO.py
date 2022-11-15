@@ -1,3 +1,4 @@
+# atul.agrawal@tum.de (Data Driven Materials Modeling Group)
 # Trying to implement 1. Bird, T., Kunze, J. & Barber, D. Stochastic Variational Optimization.
 # Preprint at http://arxiv.org/abs/1809.04855 (2018).(The Fig 2 specifically )
 # 2. Other implementations for inspiration:
