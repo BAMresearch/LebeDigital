@@ -2,29 +2,29 @@ name: lebedigital
 channels:
   - conda-forge                     # third party stuff
   - etamsen
+  - pytorch
   - defaults
 dependencies:
-  - python=3.9.7
+  - python=3.9
   - matplotlib
   - mamba
   - scipy
-  - doit
-  - docker-compose
   - cython
   - numpy
   - pandas
   - pyyaml
-  - owlready2
-  - rdflib
-  - sparqlwrapper
-  - requests
   - gitpython
-  - pyshacl
-  - conda-ecosystem-user-package-isolation
   - fenics_concrete
   - python-graphviz
   - pytest
   - pip
+  - jupyter
+  - jupyterlab
+  - pytorch
+  - torchvision
+  - torchtext
   - pip:
-    - probeye==2.3.2
+    - torchviz
     - -e .
+    
+    
