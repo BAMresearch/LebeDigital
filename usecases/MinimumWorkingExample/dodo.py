@@ -41,7 +41,6 @@ cheap_example_name = 'Wolf 8.2 Probe 1'
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 
 
-
 # MIXTURE PATHS
 # defining paths for mixture
 raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
