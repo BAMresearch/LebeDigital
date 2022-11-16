@@ -13,12 +13,13 @@ sys.path.append(os.path.join(baseDir1, 'Data'))
 
 #import emodul_query
 
-def query_KG(path: str, skip_last = 145, skip_init = 330 ) -> dict:
+def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330 ) -> dict:
     """
     Queries KG, the updated one done by Illias (I think from KG team). Lot of funky words as I dont know what they are.
     Returns:
     Args:
-        path ():
+        path (): The location where all the KG files from the experiments are kept
+        exp_name :
         skip_last (): Last datavalues to skip as we only need the third loading cycle.
         skip_init (): Initial datavalues to skip as we only need the third loading cycle.
 
@@ -58,7 +59,8 @@ def query_KG(path: str, skip_last = 145, skip_init = 330 ) -> dict:
 
     # Path to KG, for testing
     #path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
-    path_to_KG = path
+
+    path_to_KG = os.path.join(path, exp_name)
     # initialize the graph
     knowledge_graph = rdflib.Graph()
     knowledge_graph.parse(path_to_KG, format='ttl')
@@ -73,13 +75,14 @@ def query_KG(path: str, skip_last = 145, skip_init = 330 ) -> dict:
     df = pd.read_csv(file_path, skipfooter=skip_last, engine='python')
     df = df.drop(labels=range(0, skip_init), axis=0)
     df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
-    df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
+    #df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
 
     output = {
+        'exp_name': exp_name,
         'height': float(results['length']),
         'diameter': float(results['diameter']),
         'displacement': np.array(df['displacement']),
-        'stress': np.array(df['stress'])}
+        'force': np.array(df['Force [kN]'])}
     return output
 
 def load_experimental_data(exp_name, skip_init, skip_last, KG=False, path=None):
