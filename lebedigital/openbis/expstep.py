@@ -3,12 +3,11 @@
 from math import isnan
 from pathlib import Path
 from pybis import Openbis
+from lebedigital.openbis.lebeopenbis import LeBeOpenbis
 import pandas as pd
-import json
 import os
 import shutil
 import logging
-from getpass import getpass
 import sys
 from sys import exit
 import yaml
@@ -96,142 +95,6 @@ class ExpStep:
 
         print('=' * int(float(len(title)) * 0.9))
 
-    # @staticmethod
-    # def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
-    #     """Connects to a Datastore
-
-    #     Args:
-    #         url (str, optional): Datastore URL.
-    #                 Defaults to 'https://test.datastore.bam.de/openbis/'.
-
-    #     Returns:
-    #         Openbis: Connected and running Datastore instance
-    #     """
-    #     os.environ['OPENBIS_HOST'] = url
-    #     o = Openbis(os.environ['OPENBIS_HOST'])
-
-    #     # If a session is already active (when running a notebook again) return the active object
-    #     if o.is_session_active():
-    #         return o
-
-    #     # We get the username from the os username and the password has to be given by the user at runtime
-    #     else:
-
-    #         if 'username' in kwargs:
-    #             os.environ['OPENBIS_USERNAME'] = kwargs['username']
-    #         else:
-    #             os.environ['OPENBIS_USERNAME'] = os.getlogin()
-
-    #         if 'password' in kwargs:
-    #             os.environ['OPENBIS_PASSWORD'] = kwargs['password']
-    #         else:
-    #             os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
-
-    #         try:
-    #             o.login(os.environ['OPENBIS_USERNAME'],
-    #                     os.environ['OPENBIS_PASSWORD'])
-    #         except ValueError:
-    #             print("Wrong Credentials")
-    #             exit(1)
-
-    #         return o
-
-    @staticmethod
-    def read_metadata_json(json_path: str) -> dict:
-        """Read the metadata from a json file. You can download the metadata as json from the datastore website.
-
-        Args:
-            json_path (str): Path to json file
-
-        Returns:
-            dict: Json file as dict. Can be directly imported into the
-                  datastore.
-        """
-        with open(json_path, 'r') as f:
-            metadata = json.load(f).get('properties')
-        # making keys lowercase, k - key, v - value
-        metadata = {k.lower(): v for k, v in metadata.items()}
-        return metadata
-
-    # @staticmethod
-    # def gen_metadata_import_template(
-    #     o: Openbis,
-    #     sample_type: str,
-    #     write: bool = False,
-    #     sheet_name: str = 'metadata',
-    #     path: str = '',
-    # ):
-    #     """ Generate an excel data import template for a given object type.
-
-    #     Args:
-    #         o (Openbis): Currently running openbis instance
-    #         sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
-    #         write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file. Defaults to False.
-    #         sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
-    #         path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
-
-    #     Raises:
-    #         ValueError: Raises an error when write is set to True and no path is gven
-
-    #     Returns:
-    #         pandas.DataFrame: returns a DataFrame with the import template
-    #     """
-
-    #     # Raises an error when no path given and write set to True
-    #     if write and not path:
-    #         raise ValueError("No path given")
-
-    #     # Get the properties of the sample type from the datastore
-    #     # and turn it into a dict
-
-    #     meta_list = list(o.get_sample_type(
-    #         sample_type).get_property_assignments().df['propertyType'])
-    #     meta_dict = {idx: v for idx, v in enumerate(meta_list)}
-
-    #     # Parse the dict into a dataframe
-
-    #     meta_df = pd.DataFrame.from_dict(
-    #         meta_dict, orient="index", columns=['Param'])
-
-    #     # Get property descriptions
-    #     props_list = list(o.get_sample_type(sample_type)
-    #                       .get_property_assignments()
-    #                       .df['propertyType'])
-
-    #     # Build a dataframe with the properties and their descriptions
-    #     df = pd.DataFrame()
-    #     for prop in props_list:
-    #         pt = o.get_property_type(prop)
-    #         prop_series = pd.Series(pt.attrs.all())
-    #         prop_df = pd.DataFrame(
-    #             {prop: prop_series.values}, index=prop_series.index)
-
-    #         if df.empty:
-    #             df = prop_df
-    #         else:
-    #             df = df.join(prop_df)
-
-    #     prop_df = df
-
-    #     meta_df['Label'] = prop_df.loc['label'].values
-    #     meta_df['Description'] = prop_df.loc['description'].values
-
-    #     # Add an empty column where you can input the values
-    #     meta_df = meta_df.assign(Value='')
-
-    #     # If write was specified then write to file
-    #     if write:
-    #         # If sheet exists remove it before writing the template
-    #         if os.path.exists(path):
-    #             os.remove(path)
-
-    #         # Write the sheet
-    #         with pd.ExcelWriter(path=path, engine='xlsxwriter') as writer:
-    #             meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
-
-    #     else:
-    #         return meta_df
-
     def import_from_template(self, path_to_file: str):
         """Imports the data from the template into the samples metadata. To used with the generated import template
 
@@ -253,330 +116,8 @@ class ExpStep:
         meta = dict(zip([par.lower() for par in df.param], df.value))
         self.metadata = meta
 
-    # # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_space_names(o: Openbis):
-    #     """Returns a list of all space names
-
-    #     Args:
-    #         o (Openbis): currently running openBIS instance
-
-    #     Returns:
-    #         list(str): list of spaces 
-    #     """
-    #     spaces_df = o.get_spaces().df
-    #     return list(spaces_df['code'].values)
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_project_names(o: Openbis, space: str):
-    #     """Returns a list of all project names
-
-    #     Args:
-    #         o (Openbis): currently running openBIS instance
-    #         space (str): name of the space from where to fetch the projects
-
-    #     Returns:
-    #         list(str): list of projects
-    #     """
-    #     projects_df = o.get_projects(space=space).df
-    #     return [name.split('/')[-1] for name in list(projects_df['identifier'].values)]
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_collection_names(o: Openbis, space: str, project: str):
-    #     """Returns a list of all collection names
-
-    #     Args:
-    #         o (Openbis): currently running openBIS instance
-    #         space (str): name of the space from where to fetch the project
-    #         project (str): name of the project from where to fetch the collection
-
-    #     Returns:
-    #         list(str): list of collections
-    #     """
-    #     experiments_df = o.get_experiments(
-    #         space=space,
-    #         project=project,
-    #     ).df
-    #     return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_sample_names(o: Openbis, space: str, project: str, collection: str, **kwargs):
-    #     """Returns the names of the sample with their corresponding codes
-
-    #     Args:
-    #         o (Openbis): currently running openBIS instance
-    #         space (str): name of the space from where to fetch the project
-    #         project (str): name of the project from where to fetch the collection
-    #         collection (str): name of the collection from where to fetch the samples
-
-    #     Returns:
-    #         list(str): list of samples with codes
-    #     """
-
-    #     if "experiment" in kwargs:
-    #         kwargs["collection"] = kwargs["experiment"]
-    #         kwargs.pop("experiment", None)
-
-    #     samples_df = o.get_samples(
-    #         space=space,
-    #         project=project,
-    #         collection=collection,
-    #         props=['$name']
-    #     ).df
-    #     samples_df.columns = samples_df.columns.str.upper()
-    #     sample_codes = [name.split('/')[-1]
-    #                     for name in list(samples_df['IDENTIFIER'].values)]
-    #     sample_names = list(samples_df['$NAME'].values)
-    #     return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_sample_codes(o: Openbis, space: str, project: str, collection: str, **kwargs):
-    #     """Returns the codes of sammples
-
-    #     Args:
-    #         o (Openbis): currently running openBIS instance
-    #         space (str): name of the space from where to fetch the project
-    #         project (str): name of the project from where to fetch the collection
-    #         collection (str): name of the collection from where to fetch the samples
-
-    #     Returns:
-    #         list(str): list of codes
-    #     """
-
-    #     if "experiment" in kwargs:
-    #         kwargs["collection"] = kwargs["experiment"]
-    #         kwargs.pop("experiment", None)
-
-    #     samples_df = o.get_samples(
-    #         space=space,
-    #         project=project,
-    #         collection=collection,
-    #         props=['$name']
-    #     ).df
-    #     return [name.split('/')[-1] for name in list(samples_df['identifier'].values)]
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_sample_dict(o: Openbis, identifier: str) -> dict:
-    #     """ Returns metadata of the sample including self defined parameters and default identification info like registrator or timestamp of creation
-
-    #     Args:
-    #         o (Openbis): Currently running openbis instance
-    #         identifier (str): Identifier of the sample
-
-    #     Returns:
-    #         dict: Dict containing the information as metadata_label : metadata_value
-    #     """
-    #     sample = o.get_sample(identifier)
-    #     sample_info_dict = sample.attrs.all()
-    #     sample_prop_dict = {key.upper(): val for key,
-    #                         val in sample.p.all().items()}
-    #     return sample_info_dict | sample_prop_dict
-
-    # # TODO: Move to lebeopenbis
-    # @staticmethod
-    # def get_overview(o: Openbis, level: str, **kwargs) -> dict:
-    #     """ Generates an overview for the samples stored in the datastore
-    #         You need to provide the
-    #     Args:
-    #         o (Openbis): Currently running openbis instance
-    #         level (str): What entity should be the highest level of the overview (space/project/collection overview)
-
-    #     Raises:
-    #         ValueError: Raises an error when no correct value for the level was specified
-
-    #     Returns:
-    #         dict: Returns a dictionary with the overview
-    #     """
-
-    #     # We check if the openbis aliases were specified in the function arguments
-    #     if "experiment" in kwargs:
-    #         kwargs["collection"] = kwargs["experiment"]
-    #         kwargs.pop("experiment", None)
-
-    #     if "object" in kwargs:
-    #         kwargs["sample"] = kwargs["object"]
-    #         kwargs.pop("object", None)
-
-    #     # We go through all entries in for loops, the only difference between levels is where we start the loop
-    #     # Watch out, takes ages to run because someone tested creating 500_000 pybis objects, ran 5 minutes for me
-    #     if level == 'full':
-    #         space_dict = {'DATASTORE': {}}
-
-    #         for space in ExpStep.get_space_names(o):
-    #             project_dict = {}
-    #             for project in ExpStep.get_project_names(o, space):
-    #                 collection_dict = {}
-    #                 for collection in ExpStep.get_collection_names(o, space, project):
-    #                     sample_list = []
-    #                     for sample in ExpStep.get_sample_names(o, space, project, collection):
-    #                         sample_list.append(sample)
-    #                     collection_dict[collection] = sample_list
-    #                 project_dict[project] = collection_dict
-    #             space_dict['DATASTORE'][space] = project_dict
-
-    #         return space_dict
-
-    #     elif level == 'space':
-    #         space = kwargs.pop('space')
-
-    #         # project_dict = {space: {}}
-    #         project_dict = {space: {}}
-    #         for project in ExpStep.get_project_names(o, space):
-    #             collection_dict = {}
-    #             for collection in ExpStep.get_collection_names(o, space, project):
-    #                 sample_list = []
-    #                 for sample in ExpStep.get_sample_names(o, space, project, collection):
-    #                     sample_list.append(sample)
-    #                 collection_dict[collection] = sample_list
-
-    #             project_dict[space][project] = collection_dict
-
-    #         return project_dict
-
-    #     elif level == 'project':
-    #         space = kwargs.pop('space')
-    #         project = kwargs.pop('project')
-
-    #         collection_dict = {project: {}}
-    #         for collection in ExpStep.get_collection_names(o, space, project):
-    #             sample_list = []
-    #             for sample in ExpStep.get_sample_names(o, space, project, collection):
-    #                 sample_list.append(sample)
-    #             collection_dict[project][collection] = sample_list
-
-    #         return collection_dict
-
-    #     elif level == 'collection':
-    #         space = kwargs.pop('space')
-    #         project = kwargs.pop('project')
-    #         collection = kwargs.pop('collection')
-
-    #         sample_list = []
-    #         for sample in ExpStep.get_sample_names(o, space, project, collection):
-    #             sample_list.append(sample)
-    #         sample_dict = {collection: sample_list}
-
-    #         return sample_dict
-
-    #     else:
-    #         raise ValueError('No correct level specified')
-
-    # @staticmethod
-    # def get_props_list(o: Openbis, identifier: str) -> list:
-    #     return [prop.upper() for prop in list(o.get_sample(identifier).p().keys())]
-
-    # def sync_name(self, get_from):
-    #     """ Synchronizes the name of the attribute with the name in metadata.
-    #         Have to be the same in order to search for the sample accurately.
-    #         get_from specifies if the name should be synced from name or metadata:
-    #         get_from == 'name':  self.name -> self.metadata['$name']
-    #         get_from == 'metadata':  self.metadata['$name'] -> self.name
-    #     """
-    #     if get_from == 'name':
-    #         self.metadata['$name'] = self.name
-    #     elif get_from == 'metadata':
-    #         self.name = self.metadata['$name']
-
-    # # TODO: delete method
-    # def metadata_import_template(
-    #         self,
-    #         o: Openbis,
-    #         path: str = '',
-    #         sheet_name: str = 'metadata',
-    #         write: bool = False):
-    #     """ Generates an excel sheet to be filled out by hand and then
-    #         imported into an experimental step
-
-    #     Args:
-    #         o (Openbis): Currently running openbis instance
-    #         path (str): Path where the sheet should be saved.
-    #                     Must include the file name and extenstion
-    #         sheet_name (str, optional): Name of the sheet.
-    #                                     Defaults to 'metadata'.
-    #     """
-    #     if write and not path:
-    #         raise ValueError("No path given")
-
-    #     # Get the properties of the sample type from the datastore
-    #     # and turn it into a dict
-
-    #     meta_list = list(o.get_sample_type(
-    #         self.type).get_property_assignments().df['propertyType'])
-    #     meta_dict = {idx: v for idx, v in enumerate(meta_list)}
-
-    #     # Parse the dict into a dataframe
-    #     meta_df = pd.DataFrame.from_dict(
-    #         meta_dict, orient="index", columns=['Param'])
-
-    #     # Get property descriptions
-    #     prop_df = self.get_property_types(o)
-    #     meta_df['Description'] = prop_df.loc['label'].values
-
-    #     # Add an empty column where you can input the values
-    #     meta_df = meta_df.assign(Value='')
-
-    #     # If write was specified then write to file
-    #     if write:
-    #         # Check whether sheet already exists, if yes set args as to replace
-    #         # the current sheet with the new one
-    #         (mode, args) = ('a', {'if_sheet_exists': 'replace'}) if os.path.exists(
-    #             path) else ('w', {})
-
-    #         # Write the sheet
-    #         with pd.ExcelWriter(path=path, mode=mode, **args) as writer:
-    #             meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
-
-    #     else:
-    #         return meta_df
-
-    def exists_in_datastore(self, o: Openbis) -> bool:
-        """Checks whether a sample is already in the datastore
-
-        Args:
-            openbis (Openbis): currently running openbis instance
-
-        Returns:
-            bool: Outcome of the check
-        """
-        samples = o.get_samples(
-            space=self.space, project=self.project, props="$name")
-        samples_df = samples.df
-        samples_df.columns = samples_df.columns.str.upper()
-        return self.name in samples_df['$NAME'].values
-
-    # TODO: Move method to lebeopenbis
-    def find_collection(
-        self,
-        o: Openbis,
-        collection_name: str,
-        id_type: int = 0,
-    ) -> str:
-        """Finds a collection in the Datastore
-
-        Args:
-            o (Openbis): Currently running Openbis instance
-            collection_name (str): Name of the Collection
-            id_type (int, optional): Specifies return type to identifier or permId. Defaults to 0 = permId.
-
-        Returns:
-            str: identifier or permId of the Collection
-        """
-
-        id_val = 'identifier' if id_type else 'permId'
-
-        collections_df = o.get_space(self.space).get_project(
-            self.project).get_experiments().df
-        return collections_df[collections_df['identifier'].str.contains(
-            collection_name)].iloc[0][id_val]
-
     # parse openbis into functions or a prepared dataframe, would need to update every upload script
-    def check_type(self, o: Openbis):
+    def check_type(self, o: LeBeOpenbis):
         """Dry checking if the types of metadata entries are correct
            and if the upload step will run as expected
 
@@ -606,7 +147,7 @@ class ExpStep:
             'SAMPLE': str
         }
 
-        types_df = self.get_property_types(o)
+        types_df = o.get_sample_properties(self.type)
         types_dict = types_df['dataType'].to_dict()
         types_dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
 
@@ -643,8 +184,108 @@ class ExpStep:
 
         # If you got to this line no gamebreaking bugs were found
         logging.info('Type Checker: Types are correctly set')
+        
+    @staticmethod
+    def load_sample(o: Openbis, sample_identifier: str):
+        """Loads an expstep from an experimental step in the datastore with its properties
 
-    # TODO: Move to lebeopenbis
+        Args:
+            o (Openbis): currently running openbis instance
+            sample_identifier (str): identifier of the sample
+
+        Returns:
+            ExpStep: ExpStep object containing metadata of the sample
+        """
+
+        # Getting the properties of the sample
+        sample_dict = ExpStep.get_sample_dict(o, sample_identifier)
+
+        #  Getting a list of the properties only to flter them from the sample_dict
+        props_list = list(o.get_sample_type(sample_dict['type'])
+                          .get_property_assignments()
+                          .df['propertyType'])
+
+        # Getting the name of the sample
+        sample_name = sample_dict['identifier'].split('/')[3]
+
+        # Getting the sample
+        sample = o.get_sample(sample_dict['identifier'], props='*')
+
+        # Getting the name of the collection
+        sample_collection = sample.experiment.code
+
+        # Getting the name of the parents
+        sample_parents = sample.parents
+
+        # Getting the metadata from the sample by comparing it with the list of the properties
+        sample_metadata = dict((key, sample_dict[key]) for key in props_list)
+
+        # Getting the datasets uploaded to the sample
+        sample_datasets = sample.get_datasets()
+
+        # Getting the dataset codes
+        sample_dataset_codes = [ds.code for ds in sample_datasets]
+
+        # Combining all together to build an ExpStep object
+        sample_step = ExpStep(
+            name=sample_dict['$NAME'],
+            type=sample_dict['type'],
+            space=sample_dict['identifier'].split('/')[1],
+            project=sample_dict['identifier'].split('/')[2],
+            collection=sample_collection,
+            parents=sample_parents,
+            metadata=sample_metadata,
+            identifier=sample_dict['identifier'],
+            permId=sample_dict['permId'],
+            sample_object=sample,
+            datasets=sample_datasets,
+            dataset_codes=sample_dataset_codes
+        )
+
+        return sample_step
+
+    def fill_sample(self, o: Openbis, sample_identifier: str):
+        """Fill the instance with properties of an experimental step in the datastore
+
+        Args:
+            o (Openbis): currently running openbis instance
+            sample_identifier (str): identifier of the sample
+
+        Returns:
+            self: filled instance ExpStep
+        """
+
+        # Getting the sample properties from the Datastore
+        sample_dict = self.get_sample_dict(o, sample_identifier)
+
+        # Getting the list of properties only to filter them from sample_dict
+        props_list = list(o.get_sample_type(sample_dict['type'])
+                          .get_property_assignments()
+                          .df['propertyType'])
+
+        # Assigning the values from the dict to the new object
+        self.name = sample_dict['$NAME']
+        self.type = sample_dict['type'],
+        self.space, = sample_dict['identifier'].split('/')[1],
+        self.project, = sample_dict['identifier'].split('/')[2],
+        self.identifier = sample_dict['identifier']
+        self.permId = sample_dict['permId']
+        self.code = sample_dict['identifier'].split('/')[3]
+
+        # Getting the object from the datastore to get the name of the collection and parents
+        self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
+        self.collection = f'/{self.space}/{self.project}/{self.sample_object.experiment.code}'
+        self.parents = self.sample_object.parents
+
+        # Setting the metadata by filtering the sample_dict using props_list
+        self.metadata = {key: sample_dict[key] for key in props_list}
+
+        # Getting all datasets of the sample and their codes
+        self.datasets = self.sample_object.get_datasets()
+        self.dataset_codes = [ds.code for ds in self.datasets]
+
+        return self
+
     def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
         """Uploads the ExpStep object into the datastore
 
@@ -722,142 +363,6 @@ class ExpStep:
             self.identifier = sample.identifier
         return self.identifier
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def load_sample(o: Openbis, sample_identifier: str):
-        """Loads an expstep from an experimental step in the datastore with its properties
-
-        Args:
-            o (Openbis): currently running openbis instance
-            sample_identifier (str): identifier of the sample
-
-        Returns:
-            ExpStep: ExpStep object containing metadata of the sample
-        """
-
-        # Getting the properties of the sample
-        sample_dict = ExpStep.get_sample_dict(o, sample_identifier)
-
-        #  Getting a list of the properties only to flter them from the sample_dict
-        props_list = list(o.get_sample_type(sample_dict['type'])
-                          .get_property_assignments()
-                          .df['propertyType'])
-
-        # Getting the name of the sample
-        sample_name = sample_dict['identifier'].split('/')[3]
-
-        # Getting the sample
-        sample = o.get_sample(sample_dict['identifier'], props='*')
-
-        # Getting the name of the collection
-        sample_collection = sample.experiment.code
-
-        # Getting the name of the parents
-        sample_parents = sample.parents
-
-        # Getting the metadata from the sample by comparing it with the list of the properties
-        sample_metadata = dict((key, sample_dict[key]) for key in props_list)
-
-        # Getting the datasets uploaded to the sample
-        sample_datasets = sample.get_datasets()
-
-        # Getting the dataset codes
-        sample_dataset_codes = [ds.code for ds in sample_datasets]
-
-        # Combining all together to build an ExpStep object
-        sample_step = ExpStep(
-            name=sample_dict['$NAME'],
-            type=sample_dict['type'],
-            space=sample_dict['identifier'].split('/')[1],
-            project=sample_dict['identifier'].split('/')[2],
-            collection=sample_collection,
-            parents=sample_parents,
-            metadata=sample_metadata,
-            identifier=sample_dict['identifier'],
-            permId=sample_dict['permId'],
-            sample_object=sample,
-            datasets=sample_datasets,
-            dataset_codes=sample_dataset_codes
-        )
-
-        return sample_step
-
-    # TODO: Delete this method (reduncancy with lebeopenbis)
-    def fill_sample(self, o: Openbis, sample_identifier: str):
-        """Fill the instance with properties of an experimental step in the datastore
-
-        Args:
-            o (Openbis): currently running openbis instance
-            sample_identifier (str): identifier of the sample
-
-        Returns:
-            self: filled instance ExpStep
-        """
-
-        # Getting the sample properties from the Datastore
-        sample_dict = self.get_sample_dict(o, sample_identifier)
-
-        # Getting the list of properties only to filter them from sample_dict
-        props_list = list(o.get_sample_type(sample_dict['type'])
-                          .get_property_assignments()
-                          .df['propertyType'])
-
-        # Assigning the values from the dict to the new object
-        self.name = sample_dict['$NAME']
-        self.type = sample_dict['type'],
-        self.space, = sample_dict['identifier'].split('/')[1],
-        self.project, = sample_dict['identifier'].split('/')[2],
-        self.identifier = sample_dict['identifier']
-        self.permId = sample_dict['permId']
-        self.code = sample_dict['identifier'].split('/')[3]
-
-        # Getting the object from the datastore to get the name of the collection and parents
-        self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
-        self.collection = f'/{self.space}/{self.project}/{self.sample_object.experiment.code}'
-        self.parents = self.sample_object.parents
-
-        # Setting the metadata by filtering the sample_dict using props_list
-        self.metadata = {key: sample_dict[key] for key in props_list}
-
-        # Getting all datasets of the sample and their codes
-        self.datasets = self.sample_object.get_datasets()
-        self.dataset_codes = [ds.code for ds in self.datasets]
-
-        return self
-
-    # TODO: Move to lebeopenbis
-    def get_property_types(self, o: Openbis) -> pd.DataFrame:
-        """Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
-
-        Args:
-            o (Openbis): currently running openbis datastore
-
-        Returns:
-            pd.DataFrame: DataFrame of all properties with their attributes
-        """
-
-        # Getting a list of all the samples properties
-        props_list = list(o.get_sample_type(self.type)
-                          .get_property_assignments()
-                          .df['propertyType'])
-
-        df = pd.DataFrame()
-        # Getting the metadata of every entry in props_list
-        for prop in props_list:
-            pt = o.get_property_type(prop)
-            prop_series = pd.Series(pt.attrs.all())
-            prop_df = pd.DataFrame(
-                {prop: prop_series.values}, index=prop_series.index)
-
-            # Combining the props together into a dataframe
-            if df.empty:
-                df = prop_df
-            else:
-                df = df.join(prop_df)
-
-        return df.transpose()
-
-    # TODO: Move to lebeopenbis
     def delete_expstep(self, o: Openbis, reason: str):
         """Deletes a sample from the datastore
 
@@ -871,7 +376,6 @@ class ExpStep:
         else:
             raise ValueError('Sample not in datastore')
         
-    # TODO: Move to lebeopenbis
     def upload_dataset(self, o: Openbis, props: dict):
         """Uploads a dataset to the ExpStep.
         
@@ -923,7 +427,6 @@ class ExpStep:
 
         return ds
 
-    # TODO: Move to lebeopenbis
     def download_datasets(self, o: Openbis, path: str, data_type: str = ''):
         """Downloads all datasets which are asigned to that sample
 
@@ -967,97 +470,6 @@ class ExpStep:
                 )
 
         print('----------DOWNLOAD FINISHED----------')
-
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def create_sample_type_emodul(o: Openbis, sample_code: str, sample_prefix: str, sample_properties: dict):
-        """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
-
-        Args:
-            o (Openbis): currently running openbis instance
-            sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
-            sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
-            sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
-
-        Returns:
-            Pybis: returns the pybis sample type object
-        """
-
-        # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
-        # Disable
-        def blockPrint():
-            sys.stdout = open(os.devnull, 'w')
-
-        # Restore
-        def enablePrint():
-            sys.stdout = sys.__stdout__
-
-        sample_types = o.get_sample_types().df
-        if sample_code in list(sample_types['code']):
-            # print(f'Sample type {sample_code} already exists in the Datastore')
-            new_sample_type = o.get_sample_type(sample_code)
-
-        else:
-            new_sample_type = o.new_sample_type(
-                code=sample_code,
-                generatedCodePrefix=sample_prefix,
-                # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, PYBIS DOES NOT ACCEPT DESCTIPTION ARGUMENT
-                autoGeneratedCode=True,
-                subcodeUnique=False,
-                listable=True,
-                showContainer=False,
-                showParents=True,
-                showParentMetadata=True,
-                validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
-            )
-            new_sample_type.save()
-            # print(f'Sample type {sample_code} created')
-
-        pt_dict = {}
-        pt_types = list(o.get_property_types().df['code'])
-
-        conv_dict = {
-            str: 'VARCHAR',
-            int: 'INTEGER',
-            float: 'REAL'
-        }
-
-        for prop, val in sample_properties.items():
-
-            if not prop.upper() in pt_types:
-                new_pt = o.new_property_type(
-                    code=prop,
-                    label=prop.lower(),
-                    description=prop.lower(),
-                    dataType=conv_dict[type(val)],
-                )
-                new_pt.save()
-                # print(f'Creating new property {new_pt.code}')
-            else:
-                new_pt = o.get_property_type(prop)
-                # print(f'Fetching existing property {new_pt.code}')
-
-            pt_dict[new_pt.code] = new_pt
-
-        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
-
-        for i, p in enumerate(pt_dict.keys()):
-
-            blockPrint()
-            new_sample_type.assign_property(
-                prop=p,
-                section='Metadata',
-                ordinal=(i+1),
-                mandatory=True if p == '$NAME' else False,
-                # initialValueForExistingEntities=f'Initial_Val_{p}',
-                showInEditView=True,
-                showRawValueInForms=True,
-            )
-            enablePrint()
-
-            # print(f'Assigned property {p} to {new_sample_type.code}')
-
-        return o.get_sample_type(sample_code)
 
     def read_metadata_emodul(self, yaml_path: str, *, mode='append'):
         """Reads the metadata as it is saved in the emodul_metadata directory
@@ -1441,6 +853,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
 
     Needed parameters in the config dict are:
 
+    'datastore_url': Url to the openBIS datastore
     'space': Space within openbis for the sample
     'project': Project under specified space for the sample
     'collection': Collection under specified project for the sample
@@ -1476,7 +889,8 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
         project=config['project'],
     )
 
-    o = ExpStep.connect_to_datastore()
+    o = LeBeOpenbis(config['datastore_url'])
+    o.connect_to_datastore()
 
     emodul_sample.collection = emodul_sample.find_collection(
         o,
