@@ -18,13 +18,16 @@ from doit import get_var
 
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
+# "cheap" option is to reduce computation time once the workflow gets more expensive (calibration)
+#  - currently this means: all mixes, one tests data + KG
+# "single" option is to test the dodo file on a single example (similar to cheap but only a single mix)
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
-# when "cheap option" is run, only this souce of raw data is processed
-cheap_example_name = 'Wolf 8.2 Probe 1'
-# TODO: (if we want to keep using a cheap example) automatic identification of corresponding mix
-cheap_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "cheap" example
+# when "cheap option" or "single" is run, only this souce of raw data is processed
+single_example_name = 'Wolf 8.2 Probe 1'
+# TODO: (if we want to keep using a single example) automatic identification of corresponding mix
+single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
 
 
 DOIT_CONFIG = {'verbosity': 2}
@@ -64,8 +67,8 @@ def task_extract_metadata_mixture():
     Path(metadata_mixture_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap':
-        list_raw_data_mixture_files = [Path(raw_data_mixture_directory, cheap_mix_name)]
+    if config['mode'] == 'single':
+        list_raw_data_mixture_files = [Path(raw_data_mixture_directory, single_mix_name)]
 
     else: # make a list of all files
         list_raw_data_mixture_files = os.scandir(raw_data_mixture_directory)
@@ -89,8 +92,8 @@ def task_extract_metadata_emodul():
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap':
-        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
     else: # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
     
@@ -113,8 +116,8 @@ def task_extract_processed_data_emodul():
     Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap':
-        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
     else: # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
 
@@ -141,8 +144,8 @@ def task_export_knowledgeGraph_emodul():
     Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap':
-        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, cheap_example_name + '.yaml') ]
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
     else: # go through all files
         # list of all meta data files....
         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
