@@ -8,7 +8,7 @@ from pprint import pprint
 from sys import exit
 
 class LeBeOpenbis(Openbis):
-    def __init__(self, url='https://test.datastore.bam.de/openbis/', verify_certificates=True, token=None, use_cache=True, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
+    def __init__(self, url, verify_certificates=True, token=None, use_cache=True, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
         super().__init__(url, verify_certificates, token, use_cache, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
 
     def connect_to_datastore(self, username: str = None, password: str = None):
@@ -583,7 +583,7 @@ class LeBeOpenbis(Openbis):
 
 def full_emodul():
 
-    o = LeBeOpenbis()
+    o = LeBeOpenbis('https://test.datastore.bam.de/openbis/')
     o.connect_to_datastore()
 
     metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
@@ -636,7 +636,7 @@ def full_emodul():
 
 def main():
     # I am just checking if the stuff i move still works, will delete when im done with porting
-    o = LeBeOpenbis()
+    o = LeBeOpenbis('https://test.datastore.bam.de/openbis/')
     o.connect_to_datastore()
 
     identifier = '/CKUJATH/LEBEDIGITAL/EMODUL867319'

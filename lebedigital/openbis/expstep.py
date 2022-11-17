@@ -96,45 +96,45 @@ class ExpStep:
 
         print('=' * int(float(len(title)) * 0.9))
 
-    @staticmethod
-    def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
-        """Connects to a Datastore
+    # @staticmethod
+    # def connect_to_datastore(url='https://test.datastore.bam.de/openbis/', *args, **kwargs):
+    #     """Connects to a Datastore
 
-        Args:
-            url (str, optional): Datastore URL.
-                    Defaults to 'https://test.datastore.bam.de/openbis/'.
+    #     Args:
+    #         url (str, optional): Datastore URL.
+    #                 Defaults to 'https://test.datastore.bam.de/openbis/'.
 
-        Returns:
-            Openbis: Connected and running Datastore instance
-        """
-        os.environ['OPENBIS_HOST'] = url
-        o = Openbis(os.environ['OPENBIS_HOST'])
+    #     Returns:
+    #         Openbis: Connected and running Datastore instance
+    #     """
+    #     os.environ['OPENBIS_HOST'] = url
+    #     o = Openbis(os.environ['OPENBIS_HOST'])
 
-        # If a session is already active (when running a notebook again) return the active object
-        if o.is_session_active():
-            return o
+    #     # If a session is already active (when running a notebook again) return the active object
+    #     if o.is_session_active():
+    #         return o
 
-        # We get the username from the os username and the password has to be given by the user at runtime
-        else:
+    #     # We get the username from the os username and the password has to be given by the user at runtime
+    #     else:
 
-            if 'username' in kwargs:
-                os.environ['OPENBIS_USERNAME'] = kwargs['username']
-            else:
-                os.environ['OPENBIS_USERNAME'] = os.getlogin()
+    #         if 'username' in kwargs:
+    #             os.environ['OPENBIS_USERNAME'] = kwargs['username']
+    #         else:
+    #             os.environ['OPENBIS_USERNAME'] = os.getlogin()
 
-            if 'password' in kwargs:
-                os.environ['OPENBIS_PASSWORD'] = kwargs['password']
-            else:
-                os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
+    #         if 'password' in kwargs:
+    #             os.environ['OPENBIS_PASSWORD'] = kwargs['password']
+    #         else:
+    #             os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
 
-            try:
-                o.login(os.environ['OPENBIS_USERNAME'],
-                        os.environ['OPENBIS_PASSWORD'])
-            except ValueError:
-                print("Wrong Credentials")
-                exit(1)
+    #         try:
+    #             o.login(os.environ['OPENBIS_USERNAME'],
+    #                     os.environ['OPENBIS_PASSWORD'])
+    #         except ValueError:
+    #             print("Wrong Credentials")
+    #             exit(1)
 
-            return o
+    #         return o
 
     @staticmethod
     def read_metadata_json(json_path: str) -> dict:
@@ -153,84 +153,84 @@ class ExpStep:
         metadata = {k.lower(): v for k, v in metadata.items()}
         return metadata
 
-    @staticmethod
-    def gen_metadata_import_template(
-        o: Openbis,
-        sample_type: str,
-        write: bool = False,
-        sheet_name: str = 'metadata',
-        path: str = '',
-    ):
-        """ Generate an excel data import template for a given object type.
+    # @staticmethod
+    # def gen_metadata_import_template(
+    #     o: Openbis,
+    #     sample_type: str,
+    #     write: bool = False,
+    #     sheet_name: str = 'metadata',
+    #     path: str = '',
+    # ):
+    #     """ Generate an excel data import template for a given object type.
 
-        Args:
-            o (Openbis): Currently running openbis instance
-            sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
-            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file. Defaults to False.
-            sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
-            path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
+    #     Args:
+    #         o (Openbis): Currently running openbis instance
+    #         sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
+    #         write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file. Defaults to False.
+    #         sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
+    #         path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
 
-        Raises:
-            ValueError: Raises an error when write is set to True and no path is gven
+    #     Raises:
+    #         ValueError: Raises an error when write is set to True and no path is gven
 
-        Returns:
-            pandas.DataFrame: returns a DataFrame with the import template
-        """
+    #     Returns:
+    #         pandas.DataFrame: returns a DataFrame with the import template
+    #     """
 
-        # Raises an error when no path given and write set to True
-        if write and not path:
-            raise ValueError("No path given")
+    #     # Raises an error when no path given and write set to True
+    #     if write and not path:
+    #         raise ValueError("No path given")
 
-        # Get the properties of the sample type from the datastore
-        # and turn it into a dict
+    #     # Get the properties of the sample type from the datastore
+    #     # and turn it into a dict
 
-        meta_list = list(o.get_sample_type(
-            sample_type).get_property_assignments().df['propertyType'])
-        meta_dict = {idx: v for idx, v in enumerate(meta_list)}
+    #     meta_list = list(o.get_sample_type(
+    #         sample_type).get_property_assignments().df['propertyType'])
+    #     meta_dict = {idx: v for idx, v in enumerate(meta_list)}
 
-        # Parse the dict into a dataframe
+    #     # Parse the dict into a dataframe
 
-        meta_df = pd.DataFrame.from_dict(
-            meta_dict, orient="index", columns=['Param'])
+    #     meta_df = pd.DataFrame.from_dict(
+    #         meta_dict, orient="index", columns=['Param'])
 
-        # Get property descriptions
-        props_list = list(o.get_sample_type(sample_type)
-                          .get_property_assignments()
-                          .df['propertyType'])
+    #     # Get property descriptions
+    #     props_list = list(o.get_sample_type(sample_type)
+    #                       .get_property_assignments()
+    #                       .df['propertyType'])
 
-        # Build a dataframe with the properties and their descriptions
-        df = pd.DataFrame()
-        for prop in props_list:
-            pt = o.get_property_type(prop)
-            prop_series = pd.Series(pt.attrs.all())
-            prop_df = pd.DataFrame(
-                {prop: prop_series.values}, index=prop_series.index)
+    #     # Build a dataframe with the properties and their descriptions
+    #     df = pd.DataFrame()
+    #     for prop in props_list:
+    #         pt = o.get_property_type(prop)
+    #         prop_series = pd.Series(pt.attrs.all())
+    #         prop_df = pd.DataFrame(
+    #             {prop: prop_series.values}, index=prop_series.index)
 
-            if df.empty:
-                df = prop_df
-            else:
-                df = df.join(prop_df)
+    #         if df.empty:
+    #             df = prop_df
+    #         else:
+    #             df = df.join(prop_df)
 
-        prop_df = df
+    #     prop_df = df
 
-        meta_df['Label'] = prop_df.loc['label'].values
-        meta_df['Description'] = prop_df.loc['description'].values
+    #     meta_df['Label'] = prop_df.loc['label'].values
+    #     meta_df['Description'] = prop_df.loc['description'].values
 
-        # Add an empty column where you can input the values
-        meta_df = meta_df.assign(Value='')
+    #     # Add an empty column where you can input the values
+    #     meta_df = meta_df.assign(Value='')
 
-        # If write was specified then write to file
-        if write:
-            # If sheet exists remove it before writing the template
-            if os.path.exists(path):
-                os.remove(path)
+    #     # If write was specified then write to file
+    #     if write:
+    #         # If sheet exists remove it before writing the template
+    #         if os.path.exists(path):
+    #             os.remove(path)
 
-            # Write the sheet
-            with pd.ExcelWriter(path=path, engine='xlsxwriter') as writer:
-                meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
+    #         # Write the sheet
+    #         with pd.ExcelWriter(path=path, engine='xlsxwriter') as writer:
+    #             meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
 
-        else:
-            return meta_df
+    #     else:
+    #         return meta_df
 
     def import_from_template(self, path_to_file: str):
         """Imports the data from the template into the samples metadata. To used with the generated import template
@@ -253,287 +253,287 @@ class ExpStep:
         meta = dict(zip([par.lower() for par in df.param], df.value))
         self.metadata = meta
 
-    # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_space_names(o: Openbis):
-        """Returns a list of all space names
+    # # The simple static methods will get integrated into their methods later because they are useless to define over pybis itself, self explainatory fucntions otherwise
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_space_names(o: Openbis):
+    #     """Returns a list of all space names
 
-        Args:
-            o (Openbis): currently running openBIS instance
+    #     Args:
+    #         o (Openbis): currently running openBIS instance
 
-        Returns:
-            list(str): list of spaces 
-        """
-        spaces_df = o.get_spaces().df
-        return list(spaces_df['code'].values)
+    #     Returns:
+    #         list(str): list of spaces 
+    #     """
+    #     spaces_df = o.get_spaces().df
+    #     return list(spaces_df['code'].values)
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_project_names(o: Openbis, space: str):
-        """Returns a list of all project names
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_project_names(o: Openbis, space: str):
+    #     """Returns a list of all project names
 
-        Args:
-            o (Openbis): currently running openBIS instance
-            space (str): name of the space from where to fetch the projects
+    #     Args:
+    #         o (Openbis): currently running openBIS instance
+    #         space (str): name of the space from where to fetch the projects
 
-        Returns:
-            list(str): list of projects
-        """
-        projects_df = o.get_projects(space=space).df
-        return [name.split('/')[-1] for name in list(projects_df['identifier'].values)]
+    #     Returns:
+    #         list(str): list of projects
+    #     """
+    #     projects_df = o.get_projects(space=space).df
+    #     return [name.split('/')[-1] for name in list(projects_df['identifier'].values)]
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_collection_names(o: Openbis, space: str, project: str):
-        """Returns a list of all collection names
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_collection_names(o: Openbis, space: str, project: str):
+    #     """Returns a list of all collection names
 
-        Args:
-            o (Openbis): currently running openBIS instance
-            space (str): name of the space from where to fetch the project
-            project (str): name of the project from where to fetch the collection
+    #     Args:
+    #         o (Openbis): currently running openBIS instance
+    #         space (str): name of the space from where to fetch the project
+    #         project (str): name of the project from where to fetch the collection
 
-        Returns:
-            list(str): list of collections
-        """
-        experiments_df = o.get_experiments(
-            space=space,
-            project=project,
-        ).df
-        return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
+    #     Returns:
+    #         list(str): list of collections
+    #     """
+    #     experiments_df = o.get_experiments(
+    #         space=space,
+    #         project=project,
+    #     ).df
+    #     return [name.split('/')[-1] for name in list(experiments_df['identifier'].values)]
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_sample_names(o: Openbis, space: str, project: str, collection: str, **kwargs):
-        """Returns the names of the sample with their corresponding codes
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_sample_names(o: Openbis, space: str, project: str, collection: str, **kwargs):
+    #     """Returns the names of the sample with their corresponding codes
 
-        Args:
-            o (Openbis): currently running openBIS instance
-            space (str): name of the space from where to fetch the project
-            project (str): name of the project from where to fetch the collection
-            collection (str): name of the collection from where to fetch the samples
+    #     Args:
+    #         o (Openbis): currently running openBIS instance
+    #         space (str): name of the space from where to fetch the project
+    #         project (str): name of the project from where to fetch the collection
+    #         collection (str): name of the collection from where to fetch the samples
 
-        Returns:
-            list(str): list of samples with codes
-        """
+    #     Returns:
+    #         list(str): list of samples with codes
+    #     """
 
-        if "experiment" in kwargs:
-            kwargs["collection"] = kwargs["experiment"]
-            kwargs.pop("experiment", None)
+    #     if "experiment" in kwargs:
+    #         kwargs["collection"] = kwargs["experiment"]
+    #         kwargs.pop("experiment", None)
 
-        samples_df = o.get_samples(
-            space=space,
-            project=project,
-            collection=collection,
-            props=['$name']
-        ).df
-        samples_df.columns = samples_df.columns.str.upper()
-        sample_codes = [name.split('/')[-1]
-                        for name in list(samples_df['IDENTIFIER'].values)]
-        sample_names = list(samples_df['$NAME'].values)
-        return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
+    #     samples_df = o.get_samples(
+    #         space=space,
+    #         project=project,
+    #         collection=collection,
+    #         props=['$name']
+    #     ).df
+    #     samples_df.columns = samples_df.columns.str.upper()
+    #     sample_codes = [name.split('/')[-1]
+    #                     for name in list(samples_df['IDENTIFIER'].values)]
+    #     sample_names = list(samples_df['$NAME'].values)
+    #     return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_sample_codes(o: Openbis, space: str, project: str, collection: str, **kwargs):
-        """Returns the codes of sammples
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_sample_codes(o: Openbis, space: str, project: str, collection: str, **kwargs):
+    #     """Returns the codes of sammples
 
-        Args:
-            o (Openbis): currently running openBIS instance
-            space (str): name of the space from where to fetch the project
-            project (str): name of the project from where to fetch the collection
-            collection (str): name of the collection from where to fetch the samples
+    #     Args:
+    #         o (Openbis): currently running openBIS instance
+    #         space (str): name of the space from where to fetch the project
+    #         project (str): name of the project from where to fetch the collection
+    #         collection (str): name of the collection from where to fetch the samples
 
-        Returns:
-            list(str): list of codes
-        """
+    #     Returns:
+    #         list(str): list of codes
+    #     """
 
-        if "experiment" in kwargs:
-            kwargs["collection"] = kwargs["experiment"]
-            kwargs.pop("experiment", None)
+    #     if "experiment" in kwargs:
+    #         kwargs["collection"] = kwargs["experiment"]
+    #         kwargs.pop("experiment", None)
 
-        samples_df = o.get_samples(
-            space=space,
-            project=project,
-            collection=collection,
-            props=['$name']
-        ).df
-        return [name.split('/')[-1] for name in list(samples_df['identifier'].values)]
+    #     samples_df = o.get_samples(
+    #         space=space,
+    #         project=project,
+    #         collection=collection,
+    #         props=['$name']
+    #     ).df
+    #     return [name.split('/')[-1] for name in list(samples_df['identifier'].values)]
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_sample_dict(o: Openbis, identifier: str) -> dict:
-        """ Returns metadata of the sample including self defined parameters and default identification info like registrator or timestamp of creation
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_sample_dict(o: Openbis, identifier: str) -> dict:
+    #     """ Returns metadata of the sample including self defined parameters and default identification info like registrator or timestamp of creation
 
-        Args:
-            o (Openbis): Currently running openbis instance
-            identifier (str): Identifier of the sample
+    #     Args:
+    #         o (Openbis): Currently running openbis instance
+    #         identifier (str): Identifier of the sample
 
-        Returns:
-            dict: Dict containing the information as metadata_label : metadata_value
-        """
-        sample = o.get_sample(identifier)
-        sample_info_dict = sample.attrs.all()
-        sample_prop_dict = {key.upper(): val for key,
-                            val in sample.p.all().items()}
-        return sample_info_dict | sample_prop_dict
+    #     Returns:
+    #         dict: Dict containing the information as metadata_label : metadata_value
+    #     """
+    #     sample = o.get_sample(identifier)
+    #     sample_info_dict = sample.attrs.all()
+    #     sample_prop_dict = {key.upper(): val for key,
+    #                         val in sample.p.all().items()}
+    #     return sample_info_dict | sample_prop_dict
 
-    # TODO: Move to lebeopenbis
-    @staticmethod
-    def get_overview(o: Openbis, level: str, **kwargs) -> dict:
-        """ Generates an overview for the samples stored in the datastore
-            You need to provide the
-        Args:
-            o (Openbis): Currently running openbis instance
-            level (str): What entity should be the highest level of the overview (space/project/collection overview)
+    # # TODO: Move to lebeopenbis
+    # @staticmethod
+    # def get_overview(o: Openbis, level: str, **kwargs) -> dict:
+    #     """ Generates an overview for the samples stored in the datastore
+    #         You need to provide the
+    #     Args:
+    #         o (Openbis): Currently running openbis instance
+    #         level (str): What entity should be the highest level of the overview (space/project/collection overview)
 
-        Raises:
-            ValueError: Raises an error when no correct value for the level was specified
+    #     Raises:
+    #         ValueError: Raises an error when no correct value for the level was specified
 
-        Returns:
-            dict: Returns a dictionary with the overview
-        """
+    #     Returns:
+    #         dict: Returns a dictionary with the overview
+    #     """
 
-        # We check if the openbis aliases were specified in the function arguments
-        if "experiment" in kwargs:
-            kwargs["collection"] = kwargs["experiment"]
-            kwargs.pop("experiment", None)
+    #     # We check if the openbis aliases were specified in the function arguments
+    #     if "experiment" in kwargs:
+    #         kwargs["collection"] = kwargs["experiment"]
+    #         kwargs.pop("experiment", None)
 
-        if "object" in kwargs:
-            kwargs["sample"] = kwargs["object"]
-            kwargs.pop("object", None)
+    #     if "object" in kwargs:
+    #         kwargs["sample"] = kwargs["object"]
+    #         kwargs.pop("object", None)
 
-        # We go through all entries in for loops, the only difference between levels is where we start the loop
-        # Watch out, takes ages to run because someone tested creating 500_000 pybis objects, ran 5 minutes for me
-        if level == 'full':
-            space_dict = {'DATASTORE': {}}
+    #     # We go through all entries in for loops, the only difference between levels is where we start the loop
+    #     # Watch out, takes ages to run because someone tested creating 500_000 pybis objects, ran 5 minutes for me
+    #     if level == 'full':
+    #         space_dict = {'DATASTORE': {}}
 
-            for space in ExpStep.get_space_names(o):
-                project_dict = {}
-                for project in ExpStep.get_project_names(o, space):
-                    collection_dict = {}
-                    for collection in ExpStep.get_collection_names(o, space, project):
-                        sample_list = []
-                        for sample in ExpStep.get_sample_names(o, space, project, collection):
-                            sample_list.append(sample)
-                        collection_dict[collection] = sample_list
-                    project_dict[project] = collection_dict
-                space_dict['DATASTORE'][space] = project_dict
+    #         for space in ExpStep.get_space_names(o):
+    #             project_dict = {}
+    #             for project in ExpStep.get_project_names(o, space):
+    #                 collection_dict = {}
+    #                 for collection in ExpStep.get_collection_names(o, space, project):
+    #                     sample_list = []
+    #                     for sample in ExpStep.get_sample_names(o, space, project, collection):
+    #                         sample_list.append(sample)
+    #                     collection_dict[collection] = sample_list
+    #                 project_dict[project] = collection_dict
+    #             space_dict['DATASTORE'][space] = project_dict
 
-            return space_dict
+    #         return space_dict
 
-        elif level == 'space':
-            space = kwargs.pop('space')
+    #     elif level == 'space':
+    #         space = kwargs.pop('space')
 
-            # project_dict = {space: {}}
-            project_dict = {space: {}}
-            for project in ExpStep.get_project_names(o, space):
-                collection_dict = {}
-                for collection in ExpStep.get_collection_names(o, space, project):
-                    sample_list = []
-                    for sample in ExpStep.get_sample_names(o, space, project, collection):
-                        sample_list.append(sample)
-                    collection_dict[collection] = sample_list
+    #         # project_dict = {space: {}}
+    #         project_dict = {space: {}}
+    #         for project in ExpStep.get_project_names(o, space):
+    #             collection_dict = {}
+    #             for collection in ExpStep.get_collection_names(o, space, project):
+    #                 sample_list = []
+    #                 for sample in ExpStep.get_sample_names(o, space, project, collection):
+    #                     sample_list.append(sample)
+    #                 collection_dict[collection] = sample_list
 
-                project_dict[space][project] = collection_dict
+    #             project_dict[space][project] = collection_dict
 
-            return project_dict
+    #         return project_dict
 
-        elif level == 'project':
-            space = kwargs.pop('space')
-            project = kwargs.pop('project')
+    #     elif level == 'project':
+    #         space = kwargs.pop('space')
+    #         project = kwargs.pop('project')
 
-            collection_dict = {project: {}}
-            for collection in ExpStep.get_collection_names(o, space, project):
-                sample_list = []
-                for sample in ExpStep.get_sample_names(o, space, project, collection):
-                    sample_list.append(sample)
-                collection_dict[project][collection] = sample_list
+    #         collection_dict = {project: {}}
+    #         for collection in ExpStep.get_collection_names(o, space, project):
+    #             sample_list = []
+    #             for sample in ExpStep.get_sample_names(o, space, project, collection):
+    #                 sample_list.append(sample)
+    #             collection_dict[project][collection] = sample_list
 
-            return collection_dict
+    #         return collection_dict
 
-        elif level == 'collection':
-            space = kwargs.pop('space')
-            project = kwargs.pop('project')
-            collection = kwargs.pop('collection')
+    #     elif level == 'collection':
+    #         space = kwargs.pop('space')
+    #         project = kwargs.pop('project')
+    #         collection = kwargs.pop('collection')
 
-            sample_list = []
-            for sample in ExpStep.get_sample_names(o, space, project, collection):
-                sample_list.append(sample)
-            sample_dict = {collection: sample_list}
+    #         sample_list = []
+    #         for sample in ExpStep.get_sample_names(o, space, project, collection):
+    #             sample_list.append(sample)
+    #         sample_dict = {collection: sample_list}
 
-            return sample_dict
+    #         return sample_dict
 
-        else:
-            raise ValueError('No correct level specified')
+    #     else:
+    #         raise ValueError('No correct level specified')
 
-    @staticmethod
-    def get_props_list(o: Openbis, identifier: str) -> list:
-        return [prop.upper() for prop in list(o.get_sample(identifier).p().keys())]
+    # @staticmethod
+    # def get_props_list(o: Openbis, identifier: str) -> list:
+    #     return [prop.upper() for prop in list(o.get_sample(identifier).p().keys())]
 
-    def sync_name(self, get_from):
-        """ Synchronizes the name of the attribute with the name in metadata.
-            Have to be the same in order to search for the sample accurately.
-            get_from specifies if the name should be synced from name or metadata:
-            get_from == 'name':  self.name -> self.metadata['$name']
-            get_from == 'metadata':  self.metadata['$name'] -> self.name
-        """
-        if get_from == 'name':
-            self.metadata['$name'] = self.name
-        elif get_from == 'metadata':
-            self.name = self.metadata['$name']
+    # def sync_name(self, get_from):
+    #     """ Synchronizes the name of the attribute with the name in metadata.
+    #         Have to be the same in order to search for the sample accurately.
+    #         get_from specifies if the name should be synced from name or metadata:
+    #         get_from == 'name':  self.name -> self.metadata['$name']
+    #         get_from == 'metadata':  self.metadata['$name'] -> self.name
+    #     """
+    #     if get_from == 'name':
+    #         self.metadata['$name'] = self.name
+    #     elif get_from == 'metadata':
+    #         self.name = self.metadata['$name']
 
-    # TODO: delete method
-    def metadata_import_template(
-            self,
-            o: Openbis,
-            path: str = '',
-            sheet_name: str = 'metadata',
-            write: bool = False):
-        """ Generates an excel sheet to be filled out by hand and then
-            imported into an experimental step
+    # # TODO: delete method
+    # def metadata_import_template(
+    #         self,
+    #         o: Openbis,
+    #         path: str = '',
+    #         sheet_name: str = 'metadata',
+    #         write: bool = False):
+    #     """ Generates an excel sheet to be filled out by hand and then
+    #         imported into an experimental step
 
-        Args:
-            o (Openbis): Currently running openbis instance
-            path (str): Path where the sheet should be saved.
-                        Must include the file name and extenstion
-            sheet_name (str, optional): Name of the sheet.
-                                        Defaults to 'metadata'.
-        """
-        if write and not path:
-            raise ValueError("No path given")
+    #     Args:
+    #         o (Openbis): Currently running openbis instance
+    #         path (str): Path where the sheet should be saved.
+    #                     Must include the file name and extenstion
+    #         sheet_name (str, optional): Name of the sheet.
+    #                                     Defaults to 'metadata'.
+    #     """
+    #     if write and not path:
+    #         raise ValueError("No path given")
 
-        # Get the properties of the sample type from the datastore
-        # and turn it into a dict
+    #     # Get the properties of the sample type from the datastore
+    #     # and turn it into a dict
 
-        meta_list = list(o.get_sample_type(
-            self.type).get_property_assignments().df['propertyType'])
-        meta_dict = {idx: v for idx, v in enumerate(meta_list)}
+    #     meta_list = list(o.get_sample_type(
+    #         self.type).get_property_assignments().df['propertyType'])
+    #     meta_dict = {idx: v for idx, v in enumerate(meta_list)}
 
-        # Parse the dict into a dataframe
-        meta_df = pd.DataFrame.from_dict(
-            meta_dict, orient="index", columns=['Param'])
+    #     # Parse the dict into a dataframe
+    #     meta_df = pd.DataFrame.from_dict(
+    #         meta_dict, orient="index", columns=['Param'])
 
-        # Get property descriptions
-        prop_df = self.get_property_types(o)
-        meta_df['Description'] = prop_df.loc['label'].values
+    #     # Get property descriptions
+    #     prop_df = self.get_property_types(o)
+    #     meta_df['Description'] = prop_df.loc['label'].values
 
-        # Add an empty column where you can input the values
-        meta_df = meta_df.assign(Value='')
+    #     # Add an empty column where you can input the values
+    #     meta_df = meta_df.assign(Value='')
 
-        # If write was specified then write to file
-        if write:
-            # Check whether sheet already exists, if yes set args as to replace
-            # the current sheet with the new one
-            (mode, args) = ('a', {'if_sheet_exists': 'replace'}) if os.path.exists(
-                path) else ('w', {})
+    #     # If write was specified then write to file
+    #     if write:
+    #         # Check whether sheet already exists, if yes set args as to replace
+    #         # the current sheet with the new one
+    #         (mode, args) = ('a', {'if_sheet_exists': 'replace'}) if os.path.exists(
+    #             path) else ('w', {})
 
-            # Write the sheet
-            with pd.ExcelWriter(path=path, mode=mode, **args) as writer:
-                meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
+    #         # Write the sheet
+    #         with pd.ExcelWriter(path=path, mode=mode, **args) as writer:
+    #             meta_df.to_excel(excel_writer=writer, sheet_name=sheet_name)
 
-        else:
-            return meta_df
+    #     else:
+    #         return meta_df
 
     def exists_in_datastore(self, o: Openbis) -> bool:
         """Checks whether a sample is already in the datastore
@@ -1322,7 +1322,7 @@ def full_emodul():
         space='CKUJATH',
         project='LEBEDIGITAL',
     )
-    emodul_sample.collection = emodul_sample.find_collection(
+    emodul_sample.collection = o.find_collection(
         o, 'LEBEDIGITAL_COLLECTION', id_type=1)
 
     emodul_sample.sync_name(get_from='name')
