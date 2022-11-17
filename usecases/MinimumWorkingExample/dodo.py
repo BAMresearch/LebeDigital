@@ -21,6 +21,12 @@ from doit import get_var
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
+# when "cheap option" is run, only this souce of raw data is processed
+cheap_example_name = 'Wolf 8.2 Probe 1'
+# TODO: (if we want to keep using a cheap example) automatic identification of corresponding mix
+cheap_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "cheap" example
+
+
 DOIT_CONFIG = {'verbosity': 2}
 
 #parent directory of the minimum working example
@@ -34,13 +40,8 @@ metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
-# when "cheap option" is run, only this souce of raw data is processed
-cheap_example_name = 'Wolf 8.2 Probe 1'
-
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
-
-
 
 # MIXTURE PATHS
 # defining paths for mixture
@@ -52,6 +53,34 @@ mixture_knowledge_graphs_directory = Path(mixture_output_directory, 'knowledge_g
 # create folder, if it is not there
 Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 
+
+# extract metadata for the mixture
+def task_extract_metadata_mixture():
+    # create folder, if it is not there
+    Path(metadata_mixture_directory).mkdir(parents=True, exist_ok=True)
+
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap':
+        list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mix_name) ]
+        print(list_raw_data_mixture_directories)
+        excludedFile = None
+    else: # go through all files
+        list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
+        excludedFile = Path(raw_data_mixture_directory, '2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx')
+
+
+    for f in list_raw_data_mixture_directories:
+        if f.is_file():
+            raw_data_path = Path(f)
+            yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
+
+            if raw_data_path != excludedFile:
+                yield {
+                    'name': yaml_metadata_file,
+                    'actions': [(extract_metadata_mixture, [raw_data_path, metadata_mixture_directory])],
+                    'targets': [yaml_metadata_file],
+                    'clean': [clean_targets]
+                }
 
 
 # TASKS
@@ -104,27 +133,6 @@ def task_extract_processed_data_emodul():
                 'targets': [csv_data_file],
                 'clean': [clean_targets]
             }
-
-# extract metadata for the mixture
-def task_extract_metadata_mixture():
-    # create folder, if it is not there
-    Path(metadata_mixture_directory).mkdir(parents=True, exist_ok=True)
-
-    list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
-    excludedFile = Path(raw_data_mixture_directory, '2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx')
-
-    for f in list_raw_data_mixture_directories:
-        if f.is_file():
-            raw_data_path = Path(f)
-            yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
-
-            if raw_data_path != excludedFile:
-                yield {
-                    'name': yaml_metadata_file,
-                    'actions': [(extract_metadata_mixture, [raw_data_path, metadata_mixture_directory])],
-                    'targets': [yaml_metadata_file],
-                    'clean': [clean_targets]
-                }
 
 
 #generate knowledgeGraphs
