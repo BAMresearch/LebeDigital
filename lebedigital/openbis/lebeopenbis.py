@@ -1,11 +1,10 @@
 from pybis import Openbis
-from lebedigital.openbis.expstep import ExpStep
 import pandas as pd
 import os
 from getpass import getpass
 import logging
 from pprint import pprint
-from sys import exit
+import sys
 
 class LeBeOpenbis(Openbis):
     def __init__(self, url, verify_certificates=True, token=None, use_cache=True, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
@@ -44,7 +43,7 @@ class LeBeOpenbis(Openbis):
                 self.login(os.environ['OPENBIS_USERNAME'], os.environ['OPENBIS_PASSWORD'])
             except ValueError:
                 print("Wrong Credentials")
-                exit(1)
+                sys.exit(1)
         else:
             logging.debug('Connection already established with ' + self.url)
 
@@ -332,6 +331,21 @@ class LeBeOpenbis(Openbis):
             raise ValueError(f'Couldnt find unique sample, the amount of samples with that name is {len(sample_df.index)}')
         
         return sample_df['identifier'].values[0]
+    
+    def get_collection_identifier(self, collection_name: str) -> str:
+        """Returns the full identifier of the collection
+
+        Args:
+            collection_name (str): Name of the collection
+
+        Returns:
+            str: Identifier of the collection
+        """
+        collections_df = o.get_space(self.space).get_project(
+            self.project).get_experiments().df
+        return collections_df[collections_df['identifier'].str.contains(
+            collection_name)].iloc[0]['identifier']
+        
 
     def exists_in_datastore(self, name: str) -> bool:
         """Checks wheter a sample with the given identifier exists in the openBIS datastore.
@@ -355,230 +369,319 @@ class LeBeOpenbis(Openbis):
         else:
             return True
 
-    def upload_expstep(self, expstep: ExpStep, overwrite: bool = False) -> str:
-        """
-        Uploads the ExpStep object into the openBIS datastore
+    # def upload_expstep(self, sample: ExpStep, overwrite: bool = False) -> str:
+    #     """
+    #     Uploads the ExpStep object into the openBIS datastore
 
-        Args:
-            expstep (ExpStep): An ExpStep object which should be uploaded to the datastore
-            overwrite (bool, optional): Specifies whether an exiting object should be overwritten. Defaults to False.
+    #     Args:
+    #         sample (ExpStep): An ExpStep object which should be uploaded to the datastore
+    #         overwrite (bool, optional): Specifies whether an exiting object should be overwritten. Defaults to False.
 
-        Returns:
-            str: Identifier of the uploaded sample
-        """
-        try:
-            expstep.check_type(self)
-        except Exception as e:
-            logging.error(str(e))
-            exit(1)
+    #     Returns:
+    #         str: Identifier of the uploaded sample
+    #     """
+    #     try:
+    #         sample.check_type(self)
+    #     except Exception as e:
+    #         logging.error(str(e))
+    #         exit(1)
 
-        # If a sample with the same name exists in the Datastore you fetch it instead of creating a new one
-        if self.exists_in_datastore(expstep.name):
-            logging.debug(f'Sample {expstep.name} already exists in Datastore')
-            samples_df = self.get_samples(
-                where={'$name': expstep.name},
-                props="$name",
-            ).df
+    #     # If a sample with the same name exists in the Datastore you fetch it instead of creating a new one
+    #     if self.exists_in_datastore(sample.name):
+    #         logging.debug(f'Sample {sample.name} already exists in Datastore')
+    #         samples_df = self.get_samples(
+    #             where={'$name': sample.name},
+    #             props="$name",
+    #         ).df
 
-            # Gettingthe identifier from the dataframe
-            sample_identifier = samples_df['identifier'].values[0]
+    #         # Gettingthe identifier from the dataframe
+    #         sample_identifier = samples_df['identifier'].values[0]
 
-            # Overwriting the sample by deleting and uploading a new one
-            # TODO: Overwriting samples by changing their metadata instead of deleting and uploading new sample
+    #         # Overwriting the sample by deleting and uploading a new one
+    #         # TODO: Overwriting samples by changing their metadata instead of deleting and uploading new sample
 
-            if overwrite:
-                logging.debug('Overwriting the sample')
-                self.delete_expstep('overwriting sample')
-                sample = self.new_sample(
-                    type=expstep.type,
-                    space=expstep.space,
-                    collection=expstep.collection,
-                    parents=expstep.parents,
-                    props=expstep.metadata,
-                )
-                sample.save()
-                sample_identifier = sample.identifier
+    #         if overwrite:
+    #             logging.debug('Overwriting the sample')
+    #             self.delete_expstep('overwriting sample')
+    #             sample = self.new_sample(
+    #                 type=sample.type,
+    #                 space=sample.space,
+    #                 collection=sample.collection,
+    #                 parents=sample.parents,
+    #                 props=sample.metadata,
+    #             )
+    #             sample.save()
+    #             sample_identifier = sample.identifier
 
-        # No sample with the same name found -> uploading the sample
-        else:
-            logging.debug(f'Creating new sample {expstep.name}')
-            sample = self.new_sample(
-                type=expstep.type,
-                space=expstep.space,
-                collection=expstep.collection,
-                parents=expstep.parents,
-                props=expstep.metadata,
-            )
-            sample.save()
-            sample_identifier = sample.identifier
+    #     # No sample with the same name found -> uploading the sample
+    #     else:
+    #         logging.debug(f'Creating new sample {sample.name}')
+    #         sample = self.new_sample(
+    #             type=sample.type,
+    #             space=sample.space,
+    #             collection=sample.collection,
+    #             parents=sample.parents,
+    #             props=sample.metadata,
+    #         )
+    #         sample.save()
+    #         sample_identifier = sample.identifier
 
-        return sample_identifier
+    #     return sample_identifier
 
-    def delete_expstep(self, identifier: str, reason: str):
-        """Deletes a sample from the datastore
+    # def delete_expstep(self, identifier: str, reason: str):
+    #     """Deletes a sample from the datastore
 
-        Args:
-            reason (str): Reason for deletion
-        """
-        # Check if the sample exsts and delete it
-        try:
-            self.get_sample(identifier).delete(reason)
-        except Exception as e:
-            logging.error(e)
-            exit(1)
+    #     Args:
+    #         reason (str): Reason for deletion
+    #     """
+    #     # Check if the sample exsts and delete it
+    #     try:
+    #         self.get_sample(identifier).delete(reason)
+    #     except Exception as e:
+    #         logging.error(e)
+    #         exit(1)
 
-    def get_expstep(self, identifier: str) -> ExpStep:
-        """Loads an expstep from an experimental step in the datastore with its properties
+    # def get_expstep(self, identifier: str) -> ExpStep:
+    #     """Loads an expstep from an experimental step in the datastore with its properties
+
+    #     Args:
+    #         o (Openbis): currently running openbis instance
+    #         sample_identifier (str): identifier of the sample
+
+    #     Returns:
+    #         ExpStep: ExpStep object containing metadata of the sample
+    #     """
+
+    #     # Getting the properties of the sample
+    #     sample_dict = self.get_sample_dict(identifier)
+
+    #     #  Getting a list of the properties only to flter them from the sample_dict
+    #     props_list = list(self.get_sample_type(sample_dict['type'])
+    #                       .get_property_assignments()
+    #                       .df['propertyType'])
+
+    #     # Getting the sample
+    #     sample = self.get_sample(identifier, props='*')
+
+    #     # Getting the name of the collection
+    #     sample_collection = sample.experiment.code
+
+    #     # Getting the name of the parents
+    #     sample_parents = sample.parents
+
+    #     # Getting the metadata from the sample by comparing it with the list of the properties
+    #     sample_metadata = dict((key, sample_dict[key]) for key in props_list)
+
+    #     # Getting the datasets uploaded to the sample
+    #     sample_datasets = sample.get_datasets()
+
+    #     # Getting the dataset codes
+    #     sample_dataset_codes = [ds.code for ds in sample_datasets]
+
+    #     # Combining all together to build an ExpStep object
+    #     loaded_expstep = ExpStep(
+    #         name=sample_dict['$NAME'],
+    #         type=sample_dict['type'],
+    #         space=sample_dict['identifier'].split('/')[1],
+    #         project=sample_dict['identifier'].split('/')[2],
+    #         collection=sample_collection,
+    #         parents=sample_parents,
+    #         metadata=sample_metadata,
+    #         identifier=sample_dict['identifier'],
+    #         permId=sample_dict['permId'],
+    #         sample_object=sample,
+    #         datasets=sample_datasets,
+    #         dataset_codes=sample_dataset_codes
+    #     )
+    #     return loaded_expstep
+
+    # def upload_dataset(self, identifier: str, props: dict):
+    #     """Uploads a dataset to the ExpStep.
+
+    #     Requires a dictionary with $name, files and data_type
+
+    #     Args:
+    #         identifier (str): Identifier of the sample under which to store the dataset
+    #         props (str, optional): Metadata of the dataset.
+
+    #     Returns:
+    #         str: Properties of the dataset
+    #     """
+
+    #     # Checking if the name of the dataset is included in props
+    #     dataset_exists_test = ''
+    #     if '$name' in props:
+    #         dataset_exists_test = self.get_datasets(where={'$name': props['$name']})
+    #     elif '$NAME' in props:
+    #         dataset_exists_test = self.get_datasets(where={'$NAME': props['$NAME']})
+    #     else:
+    #         raise KeyError('$name not defined in props')
+
+    #     # Checking if the files and data_type are specified in props
+    #     if 'files' not in props:
+    #         raise KeyError('files not specified in props')
+    #     if 'data_type' not in props:
+    #         raise KeyError('data_type not specified in props')
+
+    #     files = props.pop('files')
+    #     data_type = props.pop('data_type')
+
+    #     # If a dataset with the same name was found in the datastore that dataset will be returned and none will be uploaded
+    #     if dataset_exists_test:
+    #         name = props['$name']
+    #         print(
+    #             f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
+    #         ds = self.get_datasets(where={'$name': props['$name']})
+
+    #     # Uploading the dataset
+    #     else:
+    #         ds = self.new_dataset(
+    #             type=data_type,
+    #             collection=self.get_sample_dict(identifier)['collection'],
+    #             sample=identifier,
+    #             files=files,
+    #             props=props
+    #         )
+    #         ds.save()
+
+    #     return ds
+
+    # def download_datasets(self, identifier: str, path: str, data_type: str = ''):
+    #     """Downloads all datasets which are asigned to that sample
+
+    #     Args:
+    #         identifier (str): Identifier of the sample
+    #         path (str): Path where the datasets should be saved
+    #         data_type (str): If specified will only download data sets of that type
+
+    #     Raises:
+    #         ValueError: Raises an error when no datasets are found under the sample
+    #     """
+
+    #     # If the sample has no datasets an error will be thrown
+        
+    #     sample_object = self.get_sample(identifier)
+    #     datasets = sample_object.get_datasets()
+        
+    #     if not len(datasets):
+    #         raise ValueError('No Datasets found under the sample')
+
+    #     file_plural = 'FILES' if len(datasets) > 1 else 'FILE-'
+
+    #     print(
+    #         f'----------DOWNLOADING {len(datasets)} {file_plural}----------\n')
+    #     for dataset in datasets:
+    #         # If data_type was specified download only the datastes with that data type
+    #         if data_type:
+    #             if dataset.type == data_type:
+    #                 print(f'Downloading dataset {dataset.code}')
+    #                 print(f'Files: {dataset.file_list}\n')
+    #                 dataset.download(
+    #                     destination=path,
+    #                     create_default_folders=False,
+    #                     wait_until_finished=False,
+    #                 )
+
+    #         # If data_type was NOT specfied download all datasets
+    #         else:
+    #             print(f'Downloading dataset {dataset.code}')
+    #             print(f'Files: {dataset.file_list}\n')
+    #             dataset.download(
+    #                 destination=path,
+    #                 create_default_folders=False,
+    #                 wait_until_finished=False,
+    #             )
+
+    #     print('----------DOWNLOAD FINISHED----------')
+        
+    def create_sample_type_emodul(self, sample_code: str, sample_prefix: str, sample_properties: dict):
+        """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
 
         Args:
             o (Openbis): currently running openbis instance
-            sample_identifier (str): identifier of the sample
+            sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
+            sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
+            sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
 
         Returns:
-            ExpStep: ExpStep object containing metadata of the sample
+            Pybis: returns the pybis sample type object
         """
 
-        # Getting the properties of the sample
-        sample_dict = self.get_sample_dict(identifier)
+        # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
+        # Disable
+        def blockPrint():
+            sys.stdout = open(os.devnull, 'w')
 
-        #  Getting a list of the properties only to flter them from the sample_dict
-        props_list = list(self.get_sample_type(sample_dict['type'])
-                          .get_property_assignments()
-                          .df['propertyType'])
+        # Restore
+        def enablePrint():
+            sys.stdout = sys.__stdout__
 
-        # Getting the sample
-        sample = self.get_sample(identifier, props='*')
+        sample_types = self.get_sample_types().df
+        if sample_code in list(sample_types['code']):
+            # print(f'Sample type {sample_code} already exists in the Datastore')
+            new_sample_type = self.get_sample_type(sample_code)
 
-        # Getting the name of the collection
-        sample_collection = sample.experiment.code
-
-        # Getting the name of the parents
-        sample_parents = sample.parents
-
-        # Getting the metadata from the sample by comparing it with the list of the properties
-        sample_metadata = dict((key, sample_dict[key]) for key in props_list)
-
-        # Getting the datasets uploaded to the sample
-        sample_datasets = sample.get_datasets()
-
-        # Getting the dataset codes
-        sample_dataset_codes = [ds.code for ds in sample_datasets]
-
-        # Combining all together to build an ExpStep object
-        loaded_expstep = ExpStep(
-            name=sample_dict['$NAME'],
-            type=sample_dict['type'],
-            space=sample_dict['identifier'].split('/')[1],
-            project=sample_dict['identifier'].split('/')[2],
-            collection=sample_collection,
-            parents=sample_parents,
-            metadata=sample_metadata,
-            identifier=sample_dict['identifier'],
-            permId=sample_dict['permId'],
-            sample_object=sample,
-            datasets=sample_datasets,
-            dataset_codes=sample_dataset_codes
-        )
-        return loaded_expstep
-
-    def upload_dataset(self, identifier: str, props: dict):
-        """Uploads a dataset to the ExpStep.
-
-        Requires a dictionary with $name, files and data_type
-
-        Args:
-            identifier (str): Identifier of the sample under which to store the dataset
-            props (str, optional): Metadata of the dataset.
-
-        Returns:
-            str: Properties of the dataset
-        """
-
-        # Checking if the name of the dataset is included in props
-        dataset_exists_test = ''
-        if '$name' in props:
-            dataset_exists_test = self.get_datasets(where={'$name': props['$name']})
-        elif '$NAME' in props:
-            dataset_exists_test = self.get_datasets(where={'$NAME': props['$NAME']})
         else:
-            raise KeyError('$name not defined in props')
-
-        # Checking if the files and data_type are specified in props
-        if 'files' not in props:
-            raise KeyError('files not specified in props')
-        if 'data_type' not in props:
-            raise KeyError('data_type not specified in props')
-
-        files = props.pop('files')
-        data_type = props.pop('data_type')
-
-        # If a dataset with the same name was found in the datastore that dataset will be returned and none will be uploaded
-        if dataset_exists_test:
-            name = props['$name']
-            print(
-                f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
-            ds = self.get_datasets(where={'$name': props['$name']})
-
-        # Uploading the dataset
-        else:
-            ds = self.new_dataset(
-                type=data_type,
-                collection=self.get_sample_dict(identifier)['collection'],
-                sample=identifier,
-                files=files,
-                props=props
+            new_sample_type = self.new_sample_type(
+                code=sample_code,
+                generatedCodePrefix=sample_prefix,
+                # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, PYBIS DOES NOT ACCEPT DESCTIPTION ARGUMENT
+                autoGeneratedCode=True,
+                subcodeUnique=False,
+                listable=True,
+                showContainer=False,
+                showParents=True,
+                showParentMetadata=True,
+                validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
             )
-            ds.save()
+            new_sample_type.save()
+            # print(f'Sample type {sample_code} created')
 
-        return ds
+        pt_dict = {}
+        pt_types = list(self.get_property_types().df['code'])
 
-    def download_datasets(self, identifier: str, path: str, data_type: str = ''):
-        """Downloads all datasets which are asigned to that sample
+        conv_dict = {
+            str: 'VARCHAR',
+            int: 'INTEGER',
+            float: 'REAL'
+        }
 
-        Args:
-            identifier (str): Identifier of the sample
-            path (str): Path where the datasets should be saved
-            data_type (str): If specified will only download data sets of that type
+        for prop, val in sample_properties.items():
 
-        Raises:
-            ValueError: Raises an error when no datasets are found under the sample
-        """
-
-        # If the sample has no datasets an error will be thrown
-        
-        sample_object = self.get_sample(identifier)
-        datasets = sample_object.get_datasets()
-        
-        if not len(datasets):
-            raise ValueError('No Datasets found under the sample')
-
-        file_plural = 'FILES' if len(datasets) > 1 else 'FILE-'
-
-        print(
-            f'----------DOWNLOADING {len(datasets)} {file_plural}----------\n')
-        for dataset in datasets:
-            # If data_type was specified download only the datastes with that data type
-            if data_type:
-                if dataset.type == data_type:
-                    print(f'Downloading dataset {dataset.code}')
-                    print(f'Files: {dataset.file_list}\n')
-                    dataset.download(
-                        destination=path,
-                        create_default_folders=False,
-                        wait_until_finished=False,
-                    )
-
-            # If data_type was NOT specfied download all datasets
-            else:
-                print(f'Downloading dataset {dataset.code}')
-                print(f'Files: {dataset.file_list}\n')
-                dataset.download(
-                    destination=path,
-                    create_default_folders=False,
-                    wait_until_finished=False,
+            if not prop.upper() in pt_types:
+                new_pt = self.new_property_type(
+                    code=prop,
+                    label=prop.lower(),
+                    description=prop.lower(),
+                    dataType=conv_dict[type(val)],
                 )
+                new_pt.save()
+                # print(f'Creating new property {new_pt.code}')
+            else:
+                new_pt = self.get_property_type(prop)
+                # print(f'Fetching existing property {new_pt.code}')
 
-        print('----------DOWNLOAD FINISHED----------')
+            pt_dict[new_pt.code] = new_pt
+
+        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
+
+        for i, p in enumerate(pt_dict.keys()):
+
+            blockPrint()
+            new_sample_type.assign_property(
+                prop=p,
+                section='Metadata',
+                ordinal=(i+1),
+                mandatory=True if p == '$NAME' else False,
+                # initialValueForExistingEntities=f'Initial_Val_{p}',
+                showInEditView=True,
+                showRawValueInForms=True,
+            )
+            enablePrint()
+
+            # print(f'Assigned property {p} to {new_sample_type.code}')
+
+        return o.get_sample_type(sample_code)
 
 
 def full_emodul():
