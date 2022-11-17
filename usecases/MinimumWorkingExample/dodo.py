@@ -35,6 +35,7 @@ DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
 openbis_config = {
+    'datastore_url': 'https://test.datastore.bam.de/openbis/',
     'space': 'CKUJATH',
     'project': 'LEBEDIGITAL',
     'collection': 'LEBEDIGITAL_COLLECTION',
