@@ -50,10 +50,14 @@ mixture_output_directory = Path(ParentDir, 'mixture')  # folder with folders
 metadata_mixture_directory = Path(mixture_output_directory, 'metadata_yaml_files')  # folder with mixture metadata yaml files
 mixture_knowledge_graphs_directory = Path(mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
+# List with mixes with problems, to be excluded for now
+excluded_mix_list = ['2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx']
+
 # create folder, if it is not there
 Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 
 
+# TASKS
 # extract metadata for the mixture
 def task_extract_metadata_mixture():
     # create folder, if it is not there
@@ -61,20 +65,17 @@ def task_extract_metadata_mixture():
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap':
-        list_raw_data_mixture_directories = [ Path(raw_data_mixture_directory, cheap_mix_name) ]
-        print(list_raw_data_mixture_directories)
-        excludedFile = None
-    else: # go through all files
-        list_raw_data_mixture_directories = os.scandir(raw_data_mixture_directory)
-        excludedFile = Path(raw_data_mixture_directory, '2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx')
+        list_raw_data_mixture_files = [Path(raw_data_mixture_directory, cheap_mix_name)]
 
+    else: # make a list of all files
+        list_raw_data_mixture_files = os.scandir(raw_data_mixture_directory)
 
-    for f in list_raw_data_mixture_directories:
+    for f in list_raw_data_mixture_files:
         if f.is_file():
             raw_data_path = Path(f)
             yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
 
-            if raw_data_path != excludedFile:
+            if f.name not in excluded_mix_list:
                 yield {
                     'name': yaml_metadata_file,
                     'actions': [(extract_metadata_mixture, [raw_data_path, metadata_mixture_directory])],
@@ -82,8 +83,6 @@ def task_extract_metadata_mixture():
                     'clean': [clean_targets]
                 }
 
-
-# TASKS
 #extract standardized meta data for Young' modulus tests
 def task_extract_metadata_emodul():
     # create folder, if it is not there
