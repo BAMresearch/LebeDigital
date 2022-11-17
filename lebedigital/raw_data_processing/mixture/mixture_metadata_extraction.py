@@ -19,7 +19,7 @@
 #     there already
 # 3.e Define a function to ignore empty annotations.
 # 3.f Extract the metadata for each label which is existing. 
-# 3.g Depending on wheter an output-path is given or not, return the metadata
+# 3.g Depending on whether an output-path is given or not, return the metadata
 #     dictionary or create a yaml-file.
 
 #------------------------------------------------------------------------------
@@ -35,8 +35,8 @@ from pathlib import Path
 # Set up logger
 baseDir = Path(__file__).parents[0]
 logPath = os.path.join(baseDir, "logs","file_{time}.log")
-logger.add(logPath, level="DEBUG")
-
+#logger.add(logPath, level="DEBUG")  # this also displays the log in the console
+logger.configure(handlers=[{"sink": logPath, "level": "DEBUG"}])
 
 # function to convert german formatting to english
 def replace_comma(string, format = 'float'):
