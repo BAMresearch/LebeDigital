@@ -80,7 +80,7 @@ def task_extract_metadata_mixture():
 
             if f.name not in excluded_mix_list:
                 yield {
-                    'name': yaml_metadata_file,
+                    'name': f.name,
                     'actions': [(extract_metadata_mixture, [raw_data_path, metadata_mixture_directory])],
                     'targets': [yaml_metadata_file],
                     'clean': [clean_targets]
@@ -103,7 +103,7 @@ def task_extract_metadata_emodul():
             raw_data_file = Path(f, 'specimen.dat')
             yaml_metadata_file = Path(metadata_emodulus_directory, f.name + '.yaml')
             yield {
-                'name': yaml_metadata_file,
+                'name': f.name,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
                 'targets': [yaml_metadata_file],
@@ -129,7 +129,7 @@ def task_extract_processed_data_emodul():
             csv_data_file = Path(processed_data_emodulus_directory, f.name + '.csv')
 
             yield {
-                'name': csv_data_file,
+                'name': f.name,
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
@@ -164,7 +164,7 @@ def task_export_knowledgeGraph_emodul():
             knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
 
             yield{
-                'name': knowledge_graph_file,
+                'name': name_of_cvs,
                 'actions': [(generate_knowledge_graph, [metadata_file_path,
                                                     knowledge_graph_file])],
                 'file_dep': [metadata_file_path, processed_data_file_path],

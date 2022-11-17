@@ -266,7 +266,6 @@ def extract_metadata_mixture(
             metadata['addition2--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['addition2--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('addition2')
-            print( metadata['addition2--QuantityInMix'] )
         else:
             logger.warning('addition2 not included in yaml-file')
 
