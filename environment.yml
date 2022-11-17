@@ -25,6 +25,7 @@ dependencies:
   - python-graphviz
   - pytest
   - pip
+  - xlrd
   - pip:
     - probeye==2.3.2
     - -e .
