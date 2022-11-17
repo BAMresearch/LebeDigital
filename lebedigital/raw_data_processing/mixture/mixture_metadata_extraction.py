@@ -26,6 +26,9 @@
 
 from cmath import nan
 import pandas as pd
+# removing 'SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame'
+pd.options.mode.chained_assignment = None  # default='warn'
+
 import os
 import yaml
 from loguru import logger 
@@ -118,6 +121,7 @@ def extract_metadata_mixture(
         labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
         for i in range(len(labelcolumn)):
             labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
+
             # fill dictionary with labels and corresponding indices, unless the
             # label is "addition". Then differ between 1st and 2nd addition
             if labelcolumn[i] != 'Zusatzstoff':
