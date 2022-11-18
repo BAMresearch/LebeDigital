@@ -27,55 +27,53 @@ def section_dimension_rule_of_thumb(span:float)->tuple:
     b = 0.5*d
     return b,d 
 
-def max_bending_moment_and_shear_force(span:float,load:float,load_type:str) ->tuple:
+def max_bending_moment_and_shear_force(span:float,point_load:float,distributed_load:float) ->tuple:
     """
     function to compute max bending moment and shear force for simply supported beam with point load or distributed load
 
     Parameters
     ----------
     span : float
-        beam span in mm.
-    load : float
-        beam load in N.
-    load_type : str
-        whether point_load or distributed_load to describe type of load.
+        beam length in mm.
+    point_load : float
+        point load in N.
+    distributed_load : str
+        distributed load in N.
 
     Returns
     -------
     tuple
         tuple of  maximum moment and maximum shear force.
     """
-    w,l  = load,span
-    if load_type=="distributed_load":
-        max_moment=  w*l**2/8 
-        max_shear_force = w*l/2
-        return max_moment, max_shear_force
-    if load_type=="point_load":
-        max_moment=  w*l/4
-        max_shear_force = w/2
-        return max_moment, max_shear_force
+    wp, wd, l  = point_load,distributed_load,span
+    max_moment_dist_load=  wd*l**2/8 
+    max_shear_force_dist_load = wd*l/2
+    max_moment_point_load=  wp*l/4
+    max_shear_force_point_load = wp/2
+    return (max_moment_point_load + max_moment_dist_load, 
+            max_shear_force_dist_load + max_shear_force_point_load)
 
 def beam_section_design(
-                       span:float,
-                       b:float,
-                       d:float,
+                       span:int,
+                       b:int,
+                       d:int,
                        MaxMoment:float,
                        MaxShearForce:float,
                        fck:float,
                        fyk:float,
-                       steelDia:float,
-                       cover:float,
+                       steelDia:int,
+                       cover:int,
                         ) -> dict:
     """
     Function to design singly reinforced beam with minimum shear reinforcement required.
 
     Parameters
     ----------
-    span : float
-        Span of the beam in mm.
-    b: float
+    span : int
+        length of the beam in mm.
+    b: int
         beam width in mm.
-    d: float
+    d: int
         beam depth in mm. 
     MaxMoment : float
         Maximum bending moment in N-mm.
@@ -85,9 +83,9 @@ def beam_section_design(
         charateristic compressive strength of concrete in N/mm2.
     fyk : float
         Yield strength of steel in N/mm2.
-    steelDia : float
+    steelDia : int
         Diameter of steel in mm.
-    cover : float
+    cover : int
         Depth of cover required as per exposure class in mm.
 
     Returns
@@ -166,5 +164,58 @@ def beam_section_design(
     out["top_steel_numbers"] = 2
     out["shear_reinforcement_dia[mm]"] = 12
     out["shear_reinforcement_spacing[mm]"] = S
+    out["area_bottom_steel[mm^2]"] = As1
+
     return out
-       
+
+
+def check_design(span:int,
+                 b:int,
+                 d:int,
+                 point_load:float,
+                 distributed_load:float,
+                 fck:float,
+                 fyk:float,
+                 steelDia:int,
+                 n_bottom:int,
+                 cover:int,
+                 ) -> float: 
+    """
+    Function to check specified design for area of steel
+
+    Parameters
+    ----------
+    span : int
+        length of the beam in mm.
+    b: int
+        beam width in mm.
+    d: int
+        beam depth in mm. 
+    MaxMoment : float
+        Maximum bending moment in N-mm.
+    MaxShearForce : float
+        Maximum shear force in N.
+    fck : float
+        charateristic compressive strength of concrete in N/mm2.
+    fyk : float
+        Yield strength of steel in N/mm2.
+    steelDia : int
+        Diameter of steel in mm.
+    n_bottom:int,
+        Number of steel bars in the bottom of the section. On top for singly reinforced section we assume 2 steel bars of 12 mm which holds the cage
+    cover : int
+        Depth of cover required as per exposure class in mm.
+
+    Returns
+    -------
+    float
+        difference of  specified area and required area given the diameter of steel and number of steel bars in the bottom of the section.
+        It is negative if  design is not satisfied and positive if design is satisfied. Optimal will be close to zero.
+    """
+    MaxMoment,MaxShearForce=max_bending_moment_and_shear_force(span,point_load,distributed_load)
+    design = beam_section_design(span,b,d,MaxMoment,MaxShearForce,fck,fyk,steelDia,cover)
+    specified_area = (math.pi*steelDia**2/4) * n_bottom
+    required_area = design["area_bottom_steel[mm^2]"]
+    return specified_area-required_area
+
+                              
