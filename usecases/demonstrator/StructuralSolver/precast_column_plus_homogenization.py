@@ -77,8 +77,8 @@ def Column_simulation_plus_homogenization(latents : list):
 
 if __name__ == '__main__':
     #testing
-    scaling = np.array([1e-04,1e-03,1,1e02,1])
-    latents = np.array([2, 6.32, 3.5, 4.2,0.4])*scaling
+    scaling = np.array([1e-04,1e-03,1,1e04,1])
+    latents = np.array([2, 6.32, 3.5, 2.5,1])*scaling
     #latents = np.array([2.916E-4,0.0024229,5.554,250,0.4])
 
     data,time_critical, temp_max = Column_simulation_plus_homogenization(latents)
