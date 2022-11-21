@@ -71,3 +71,10 @@ def test_get_sample_properties(login, password):
     
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
     
+@pytest.mark.login
+def test_create_sample_type(login, password):
+    
+    o = connect_for_tests(login, password)
+    # will do soon
+    o.logout()
+    
