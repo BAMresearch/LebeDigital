@@ -10,11 +10,9 @@ def column_simulation_plus_homogenization(hom_params, simulation_params, simulat
 
         homogenization_results = concrete_homogenization(hom_params)
 
-
-
         # concrete values
         simulation_params['density'] = homogenization_results['rho']   # in kg/m^3 density of concrete
-        simulation_params['themal_cond'] = homogenization_results['kappa'] # effective thermal conductivity, approx in Wm^-3K^-1, concrete!
+        simulation_params['themal_cond'] = homogenization_results['kappa'] # effective thermal conductivity in Wm^-1K^-1, concrete!
         simulation_params['vol_heat_cap'] = homogenization_results['C']  # volumetric heat cap J/m3
 
         # simulation_params for mechanics problem

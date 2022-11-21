@@ -24,7 +24,7 @@ def test_column_simulation():
     # required parameters for alpha to tensile and compressive stiffness mapping
     parameters['fc_inf'] = 30e6  # in Pa
     parameters['a_fc'] = 1.5
-    parameters['ft_inf'] = 4e6  # in Pa
+    parameters['ft_inf'] = parameters['fc_inf']/10 # in Pa
     parameters['a_ft'] = 1.2
 
     # temperature setings:
@@ -56,7 +56,7 @@ def test_column_simulation():
 
     # run simulation
     data = column_simulation(full_time, time_step, parameters)
-    print(data)
+
     assert data['time'].tolist() == pytest.approx([1200, 2400, 3600])
     assert data['temperature'].tolist() == pytest.approx([41.487825, 43.581025, 48.334999])
     assert data['yield'].tolist() == pytest.approx([129715.771538, 100205.750197, 46113.785397])

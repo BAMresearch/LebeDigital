@@ -12,6 +12,13 @@ def column_simulation(time, dt, parameters, pv_output=False):
     parameters['dim'] = 3
     parameters['bc_setting'] = 'full'  # default boundary setting
 
+    sortednames = sorted(parameters.keys(), key=lambda x: x.lower())
+    print('-----------------')
+    for i in sortednames:
+        values = parameters[i]
+        print(i, values)
+
+
     experiment = fenics_concrete.ConcreteColumnExperiment(parameters)
     problem = fenics_concrete.ConcreteThermoMechanical(experiment, parameters)
 

@@ -4,7 +4,7 @@ from lebedigital.simulation.precast_column import column_simulation
 import numpy as np
 from scipy.interpolate import interp1d
 
-def Column_simulation(latents :list):
+def optimization_wrapper_column_simulation(latents :list):
     """
 
     Args:
@@ -18,7 +18,7 @@ def Column_simulation(latents :list):
 
     # model parameters
     # concrete values
-    parameters['density'] = 2350  # in kg/m^3 density of concrete
+    parameters['density'] = 2500  # in kg/m^3 density of concrete
     parameters['themal_cond'] = 2.0  # effective thermal conductivity, approx in Wm^-3K^-1, concrete!
     parameters['vol_heat_cap'] = 2.4e6  # volumetric heat cap J/m3
 
@@ -34,7 +34,7 @@ def Column_simulation(latents :list):
     # required parameters for alpha to tensile and compressive stiffness mapping
     parameters['fc_inf'] = 30e6  # in Pa
     parameters['a_fc'] = 1.5
-    parameters['ft_inf'] = 4e6  # in Pa
+    parameters['ft_inf'] = 3e6  # in Pa
     parameters['a_ft'] = 1.2
 
     # temperature settings:
@@ -81,8 +81,13 @@ def Column_simulation(latents :list):
 
     return data, time_critical, temp_max
 
-# testing
-#scaling = np.array([1e-04,1e-03,1,1e05])
-#latents = np.array([2, 6.32, 3.5, 4.2])*scaling
 
-#data,time_critical, temp_max = Column_simulation(latents)
+if __name__ == "__main__":
+    # testing
+    scaling = np.array([1e-04,1e-03,1,1e05])
+    latents = np.array([2, 6.32, 3.5, 4.2])*scaling
+
+    data,time_critical, temp_max = optimization_wrapper_column_simulation(latents)
+    print(data,time_critical, temp_max)
+    print('t_crit',time_critical, temp_max)
+    print('T_max', temp_max)

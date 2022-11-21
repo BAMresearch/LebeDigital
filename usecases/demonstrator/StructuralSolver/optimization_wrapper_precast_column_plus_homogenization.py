@@ -4,7 +4,7 @@ from lebedigital.simulation.precast_column_plus_homogenization import column_sim
 import numpy as np
 from scipy.interpolate import interp1d
 
-def Column_simulation_plus_homogenization(latents : list):
+def optimization_wrapper_column_simulation_plus_homogenization(latents : list):
     """
 
     Args:
@@ -18,15 +18,15 @@ def Column_simulation_plus_homogenization(latents : list):
     # kg - m - s - N  - Pa - J
     # values are kind of made up but within the expected magnitude
     # paste data
-    hom_params['paste_E'] = 30e9  # Pa
+    hom_params['paste_E'] = 25e9  # Pa
     hom_params['paste_nu'] = 0.2
-    hom_params['paste_C'] = 870  # J/kg Specific Heat Capacity
-    hom_params['paste_kappa'] = 1.8  # W/m/K Thermal conductivity
-    hom_params['paste_rho'] = 2400  # kg/m^3
+    hom_params['paste_C'] = 2.4e6/2500.0  # J/kg Specific Heat Capacity
+    hom_params['paste_kappa'] = 2.0  # W/m/K Thermal conductivity
+    hom_params['paste_rho'] = 2500  # kg/m^3
     hom_params['paste_fc'] = 30e6  # Pa
     #hom_params['paste_Q'] = 250  # J/kg  TODO DOUBLE CHECK VALUE!!! bzw, final Q!!!
     hom_params['paste_Q'] = latents[3]
-    # aggregate data
+    # aggregate data - for agg_vol_frac = 0, should be irrelevant
     hom_params['aggregates_E'] = 25e9  # Pa
     hom_params['aggregates_nu'] = 0.3
     hom_params['aggregates_C'] = 840  # J/kg Specific Heat Capacity
@@ -77,8 +77,17 @@ def Column_simulation_plus_homogenization(latents : list):
 
 if __name__ == '__main__':
     #testing
-    scaling = np.array([1e-04,1e-03,1,1e04,1])
-    latents = np.array([2, 6.32, 3.5, 2.5,1])*scaling
+    #scaling = np.array([1e-04,1e-03,1,1e04,1])
+    #latents = np.array([2, 6.32, 3.5, 2.5,1])*scaling
     #latents = np.array([2.916E-4,0.0024229,5.554,250,0.4])
 
-    data,time_critical, temp_max = Column_simulation_plus_homogenization(latents)
+    B1 = 2E-4  # in 1/s
+    B2 = 6.32e-03  # -
+    eta = 3.5
+    paste_Q = 4.2e5*0.2
+    ratio_concrete = 1
+    latents = np.array([B1, B2, eta, paste_Q,ratio_concrete])
+
+
+    data,time_critical, temp_max = optimization_wrapper_column_simulation_plus_homogenization(latents)
+    print(data)
