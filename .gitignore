@@ -147,6 +147,9 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 # ignore mesh files
 **/mesh/*
 
+# sphinx website build
+.build
+
 # ignore latex temp files
 *.out
 *.aux
