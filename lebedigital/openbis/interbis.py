@@ -301,7 +301,9 @@ class Interbis(Openbis):
             else:
                 df = df.join(prop_df)
 
-        return df.transpose()
+        df = df.transpose().reset_index(drop=True)
+        df = df.fillna(value="")
+        return df
 
     def get_sample_dict(self, identifier: str) -> dict:
         """Fetches a dictionary filled with information about the sample
@@ -457,7 +459,7 @@ class Interbis(Openbis):
 
             # print(f'Assigned property {p} to {new_sample_type.code}')
 
-        return o.get_sample_type(sample_code)
+        return self.get_sample_type(sample_code)
 
 
 def full_emodul():
@@ -518,26 +520,44 @@ def main():
     o = Interbis('https://test.datastore.bam.de/openbis/')
     o.connect_to_datastore()
 
-    identifier = '/CKUJATH/LEBEDIGITAL/EMODUL867319'
-    sample_type = 'EXPERIMENTAL_STEP_EMODUL'
+    sample_type = 'EXPERIMENTAL_STEP_TEST'
 
-    df = o.get_metadata_import_template(sample_type)
-    print(df)
-    # overview = o.get_overview(level='project', space='CKUJATH', project='TEST_AMBETON')
-    # pprint(overview)
-    sample_props = o.get_sample_properties(sample_type)
-    pprint(sample_props)
-    pprint(o.get_sample_dict(identifier))
+    df = o.get_sample_properties(sample_type)
 
-    expstep = o.get_expstep(identifier)
-    expstep.info()
+    df.to_csv('/home/ckujath/code/testing/gen_sample_properties.csv')
     
-    visko_identifier = o.get_sample_identifier('3Dm3_0_1rpm_Vogel_2_7_T17_01')
-    visko_step = o.get_expstep(visko_identifier)
-    visko_step.info()
     
-    o.download_datasets(identifier=visko_identifier, path='/home/ckujath/code/testing')
+    df2 = pd.read_csv('/home/ckujath/code/testing/gen_sample_properties.csv',
+                        index_col=0,
+                        keep_default_na=False,
+                        )
+    
+
+    
+    test = dict(zip(df2.columns, df.dtypes))
+    # print(test)
+    
+    # df2.astype(dict(zip(df2.columns, df.dtypes)))
+    
+    # df = df.drop(['semanticAnnotations', 'metaData'], axis=1)
+    # df2 = df2.drop(['semanticAnnotations', 'metaData'], axis=1)
+    
+    
+    print('\n----------DF1-----------\n')
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        print(df)
+    # print(df.info())
+    # print(df.describe())
+
+    print('\n----------DF2-----------\n')
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        print(df2)
+    # print(df2.info())
+    # print(df2.describe())
+    
+    
+    pd.testing.assert_frame_equal(df, df2, check_dtype=False)
 
 if __name__ == '__main__':
-    # main()
-    full_emodul()
+    main()
+    # full_emodul()
