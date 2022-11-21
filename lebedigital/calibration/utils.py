@@ -13,7 +13,7 @@ sys.path.append(os.path.join(baseDir1, 'Data'))
 
 #import emodul_query
 
-def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330 ) -> dict:
+def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330, KG = False) -> dict:
     """
     Queries KG, the updated one done by Illias (I think from KG team). Lot of funky words as I dont know what they are.
     Returns:
@@ -22,7 +22,7 @@ def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330 ) -> dict:
         exp_name :
         skip_last (): Last datavalues to skip as we only need the third loading cycle.
         skip_init (): Initial datavalues to skip as we only need the third loading cycle.
-
+        KG : TO indicate the KG needs to be querried or not.
     Returns:
 
     """
@@ -31,47 +31,52 @@ def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330 ) -> dict:
     Returns:
 
     """
+    if KG:
+        def query_objects(queries, graph):
+            # function to get objects from specific subject, predicate pairs, knowing there is only one result
+            results = {}
+            for query in queries:
+                q = f"""
+                                SELECT ?object
+                                WHERE {{
+                                        {queries[query]['subject']}  {queries[query]['predicate']} ?object
+                                }}
+                        """
 
-    def query_objects(queries, graph):
-        # function to get objects from specific subject, predicate pairs, knowing there is only one result
-        results = {}
-        for query in queries:
-            q = f"""
-                            SELECT ?object
-                            WHERE {{
-                                    {queries[query]['subject']}  {queries[query]['predicate']} ?object
-                            }}
-                    """
+                result = graph.query(q)
+                for r in result:
+                    results[query] = r["object"]
 
-            result = graph.query(q)
-            for r in result:
-                results[query] = r["object"]
+            return results
 
-        return results
+        # define queries
+        queries = {
+            'diameter': {'subject': 'ns1:informationbearingentity1', 'predicate': 'ns1:has_decimal_value'},
+            'length': {'subject': 'ns1:informationbearingentity2', 'predicate': 'ns1:has_decimal_value'},
+            'path': {'subject': 'ns1:informationbearingentity9', 'predicate': 'ns9:has_text_value'},
+            'file_name': {'subject': 'ns1:informationbearingentity8', 'predicate': 'ns9:has_text_value'}
+        }
 
-    # define queries
-    queries = {
-        'diameter': {'subject': 'ns1:informationbearingentity1', 'predicate': 'ns1:has_decimal_value'},
-        'length': {'subject': 'ns1:informationbearingentity2', 'predicate': 'ns1:has_decimal_value'},
-        'path': {'subject': 'ns1:informationbearingentity9', 'predicate': 'ns9:has_text_value'},
-        'file_name': {'subject': 'ns1:informationbearingentity8', 'predicate': 'ns9:has_text_value'}
-    }
+        # Path to KG, for testing
+        #path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
 
-    # Path to KG, for testing
-    #path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
+        path_to_KG = os.path.join(path, exp_name)
+        # initialize the graph
+        knowledge_graph = rdflib.Graph()
+        knowledge_graph.parse(path_to_KG, format='ttl')
 
-    path_to_KG = os.path.join(path, exp_name)
-    # initialize the graph
-    knowledge_graph = rdflib.Graph()
-    knowledge_graph.parse(path_to_KG, format='ttl')
+        # queries
+        results = query_objects(queries, knowledge_graph)
 
-    # queries
-    results = query_objects(queries, knowledge_graph)
-
-    # read csv into dataframe
-    file_path = results['path'] + '/' + results['file_name']
+        # read csv into dataframe
+        file_path = results['path'] + '/' + results['file_name']
     #skip_last = 145 # hard coded to get the third loading cycle. need somthing better
     #skip_init = 330
+    if KG == False: # this is just for testing purposes
+        file_path = os.path.join(path,exp_name)
+        results = {}
+        results['length'] = 98.6
+        results['diameter'] = 300.2
     df = pd.read_csv(file_path, skipfooter=skip_last, engine='python')
     df = df.drop(labels=range(0, skip_init), axis=0)
     df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3

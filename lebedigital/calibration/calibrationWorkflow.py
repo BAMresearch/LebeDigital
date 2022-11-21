@@ -33,10 +33,12 @@ from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import (
 def _test_E_mod_calibration_metadata(calibration_metadata: dict):
     """
     Checks the calibration metadata dictionary for completeness
-    Args:
-        calibration_metadata ():
+    Parameters
+    ----------
+    calibration_metadata :
 
-    Returns:
+    Returns
+    -------
 
     """
     if {"E_loc", "E_scale"} <= calibration_metadata.keys():
@@ -48,12 +50,15 @@ def _test_E_mod_calibration_metadata(calibration_metadata: dict):
 def _test_E_mod_experimental_data(experimental_data: dict):
     """
     Performs a sanity check for the experimental data dict.
-    Args:
-        experimental_data ():
+    Parameters
+    ----------
+    experimental_data :
 
-    Returns:
+    Returns
+    -------
 
     """
+
     if {"exp_name", "force", "displacement", "height", "diameter"} <= experimental_data.keys():
         return True
     else:
@@ -64,20 +69,36 @@ def esimate_Youngs_modulus(
         experimental_data: dict, calibration_metadata: dict, calibrated_data_path: str, mode="full"
 ):
     """
+    Function to solve an inverse problem using Bayesian inference to infer Young's Modulus (E), with experimental
+    load-displacement being the observed data and FE based concrete compression solver.
+    The inferred E modulus is used in a posterior predictive setting, to propagate the uncertainity and compute the
+    stress in 3 point bending test.
 
-    Args:
-        calibrated_data_path (): Path where the calibrated results needs to be stored
-        experimental_data (): Must contain the keys "exp_name" (str),"force"(kN), "displacement","height"(mm) and "diameter"(mm). Force
-        and displacement needs to be arrays (The data stored in KG should ensure that it is from the third loading cycle).
-         These needs to be computed externally and provided here by the knowledge graph module.
-        calibration_metadata (): Parameters needed to perform the calibration is passed here. Note that this will work
-        for this specific setup for E modulus calibration.
-        mode (): "full" or "cheap". cheap is used just for tests
+    Parameters
+    ----------
+    experimental_data : dict
+        Must contain the following keys:
+        - exp_name (str) : The name of the experiment
+        - force : The force value (kN) array
+        - displacement : The displacement array (mm)
+        - height: The height of the sample (mm)
+        - diameter : The diameter of the sample (mm)
+    calibration_metadata : dict
+        Parameters needed to perform the calibration is passed here. Note that this will work
+        for this specific setup for E modulus calibration. Following keys must be present.
+        - E_loc : The mean value of the E mod for the prior (initial guess)
+        - E_scale : The s.d value of the E mod for the prior (initial guess)
+    calibrated_data_path : str
+        Path where the calibrated results needs to be stored. The calibration results along with the inverse problem
+        setting is stored in this path as knowledge graph
+    mode : "full" or "cheap". For testing purposes.
 
-    Returns:
-        E_pos : Posterior samples of the E mod.
-        posterior_pred_samples : Posterior predictive samples
-        The script also saves a Knowledge graph at the path specified by the "calibration_data_path"
+    Returns
+    -------
+    E_pos : np.array
+        The samples of the inferred Young's Modulus.
+    posterior_pred_samples: np.array
+        The posterior predictive values of the stress in the three point bending beam obtained using the inferred E-modulus.
 
     """
 
@@ -176,7 +197,7 @@ def esimate_Youngs_modulus(
     # dir_path = os.path.dirname(__file__)
     dir_path = calibrated_data_path
     # basename_owl = os.path.basename(__file__).split(".")[0] + ".owl"
-    basename_owl = os.path.basename(__file__).split(".")[0] + exp_output['exp_name']
+    basename_owl = os.path.basename(__file__).split(".")[0] + exp_output['exp_name'] + ".owl"
     knowledge_graph_file = os.path.join(dir_path, basename_owl)
     export_knowledge_graph(problem, knowledge_graph_file, data_dir=dir_path)
 
