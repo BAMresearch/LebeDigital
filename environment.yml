@@ -31,6 +31,7 @@ dependencies:
   - pybis
   - xlsxwriter
   - termcolor
+  - sphinx
   - pip:
     - probeye==2.3.2
     - -e .
