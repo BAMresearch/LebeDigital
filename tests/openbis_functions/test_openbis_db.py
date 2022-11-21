@@ -37,7 +37,7 @@ def mock_get_sample_df(monkeypatch):
 
     monkeypatch.setattr(Openbis, "get_samples", mock_get)
 
-
+@pytest.mark.skip(reason='Useless')
 def test_get_sample_names(mock_get_sample_df):
 
     o = Openbis("https://fakeurl")

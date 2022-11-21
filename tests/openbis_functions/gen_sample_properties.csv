@@ -1,0 +1,10 @@
+,code,label,description,managedInternally,dataType,vocabulary,materialType,schema,transformation,semanticAnnotations,registrator,registrationDate,metaData
+0,TEST_BOOLEAN,test_boolean_label,test_boolean_description,False,BOOLEAN,,,,,[],ckujath,2022-10-31 10:26:27,{}
+1,TEST_CONTROLLEDVOCABULARY,test_controlledvocabulary_label,test_controlledvocabulary_description,False,CONTROLLEDVOCABULARY,TEST_VOC,,,,[],ckujath,2022-10-31 10:26:27,{}
+2,TEST_HYPERLINK,test_hyperlink_label,test_hyperlink_description,False,HYPERLINK,,,,,[],ckujath,2022-10-31 10:26:27,{}
+3,TEST_INTEGER,test_integer_label,test_integer_description,False,INTEGER,,,,,[],ckujath,2022-10-31 10:26:27,{}
+4,TEST_MULTILINE_VARCHAR,test_multiline_varchar_label,test_multiline_varchar_description,False,MULTILINE_VARCHAR,,,,,[],ckujath,2022-10-31 10:26:28,{}
+5,TEST_REAL,test_real_label,test_real_description,False,REAL,,,,,[],ckujath,2022-10-31 10:26:28,{}
+6,TEST_TIMESTAMP,test_timestamp_label,test_timestamp_description,False,TIMESTAMP,,,,,[],ckujath,2022-10-31 10:26:28,{}
+7,TEST_VARCHAR,test_varchar_label,test_varchar_description,False,VARCHAR,,,,,[],ckujath,2022-10-31 10:26:28,{}
+8,TEST_XML,test_xml_label,test_xml_description,False,XML,,,,,[],ckujath,2022-10-31 10:26:28,{}
