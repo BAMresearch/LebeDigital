@@ -30,6 +30,7 @@ dependencies:
   - termcolor
   - xlrd
   - openpyxl
+  - sphinx
   - pip:
     - probeye==2.3.2
     - -e .

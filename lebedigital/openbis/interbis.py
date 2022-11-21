@@ -372,14 +372,15 @@ class Interbis(Openbis):
             return True
 
         
-    def create_sample_type_emodul(self, sample_code: str, sample_prefix: str, sample_properties: dict):
+    def create_sample_type(self, sample_code: str, sample_prefix: str, sample_properties: dict):
         """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
 
         Args:
             o (Openbis): currently running openbis instance
             sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
             sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
-            sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
+            sample_properties (dict): The object properties which should be assigned to the sample.
+                If the property code is not found in the datastore a new property will be created.
 
         Returns:
             Pybis: returns the pybis sample type object
@@ -418,20 +419,20 @@ class Interbis(Openbis):
         pt_dict = {}
         pt_types = list(self.get_property_types().df['code'])
 
-        conv_dict = {
-            str: 'VARCHAR',
-            int: 'INTEGER',
-            float: 'REAL'
-        }
-
         for prop, val in sample_properties.items():
 
             if not prop.upper() in pt_types:
+                # new_pt = self.new_property_type(
+                #     code=prop,
+                #     dataType=val,
+                #     label=prop.lower(),
+                #     description=prop.lower(),
+                # )
                 new_pt = self.new_property_type(
                     code=prop,
-                    label=prop.lower(),
-                    description=prop.lower(),
-                    dataType=conv_dict[type(val)],
+                    dataType=val[0],
+                    label=val[1],
+                    description=val[2],
                 )
                 new_pt.save()
                 # print(f'Creating new property {new_pt.code}')
@@ -458,7 +459,7 @@ class Interbis(Openbis):
             enablePrint()
 
             # print(f'Assigned property {p} to {new_sample_type.code}')
-
+        logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
 
 
@@ -520,9 +521,30 @@ def main():
     o = Interbis('https://test.datastore.bam.de/openbis/')
     o.connect_to_datastore()
 
-    sample_type = 'EXPERIMENTAL_STEP_TEST'
+    sample_type_name = 'EXPERIMENTAL_STEP_WILL_DELETE_LATER',
 
-    d = o.get_sample_dict()
+    sample_type_dict = {
+        'typeStr': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
+        'typeInt': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
+        'typeFloat': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
+        'typeBoolean': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
+    }
+    
+    before_flag = False
+    sample_types_before = o.get_sample_types().df
+    print(sample_types_before)
+    if sample_type_name in sample_types_before.code.values:
+        before_flag = True
+    
+    sample_type_code = o.create_sample_type(
+        sample_code='EXPERIMENTAL_STEP_WILL_DELETE_LATER',
+        sample_prefix='ABCDEFG',
+        sample_properties=sample_type_dict,
+    )
+    
+    # sample_type_code.delete(reason='aa')
+
+    
 
 if __name__ == '__main__':
     main()

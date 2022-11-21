@@ -14,7 +14,7 @@ from lebedigital.raw_data_processing.youngs_modulus_data \
 from lebedigital.raw_data_processing.mixture \
     .mixture_metadata_extraction import extract_metadata_mixture
 
-from lebedigital.openbis.upload_scripts.doit_upload import upload_to_openbis_doit
+from upload_scripts.doit_upload import upload_to_openbis_doit
 
 from doit import get_var
 
@@ -58,6 +58,7 @@ raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with 
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+openbis_samples_directory = Path(emodul_output_directory, 'openbis_samples')
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
