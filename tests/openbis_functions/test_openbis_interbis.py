@@ -49,6 +49,7 @@ def test_get_metadata_import_template(login, password):
     
     pd.testing.assert_frame_equal(df, df_expected)
     
+    
 @pytest.mark.login
 def test_get_sample_properties(login, password):
     
@@ -58,7 +59,7 @@ def test_get_sample_properties(login, password):
     
     df = o.get_sample_properties(sample_type)
     
-    df_expected = pd.read_csv('/home/ckujath/code/testing/gen_sample_properties.csv',
+    df_expected = pd.read_csv('./gen_sample_properties.csv',
                                 index_col=0,
                                 keep_default_na=False,
                                 )
@@ -66,6 +67,7 @@ def test_get_sample_properties(login, password):
     df = df.drop(['semanticAnnotations', 'metaData'], axis=1)
     df_expected = df_expected.drop(['semanticAnnotations', 'metaData'], axis=1)
     
+    o.logout()
+    
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
     
-    o.logout()

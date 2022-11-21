@@ -46,7 +46,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
         project=config['project'],
     )
 
-    o = LeBeOpenbis(config['datastore_url'])
+    o = Interbis(config['datastore_url'])
     o.connect_to_datastore()
 
     emodul_sample.collection = emodul_sample.find_collection(
