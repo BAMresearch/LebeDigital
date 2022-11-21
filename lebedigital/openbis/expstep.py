@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-
 from math import isnan
 from pathlib import Path
-from pybis import Openbis
-from lebedigital.openbis.lebeopenbis import LeBeOpenbis
+from lebedigital.openbis.interbis import Interbis
 import pandas as pd
 import os
 import shutil
@@ -117,12 +114,12 @@ class ExpStep:
         self.metadata = meta
 
     # parse openbis into functions or a prepared dataframe, would need to update every upload script
-    def check_type(self, o: LeBeOpenbis):
+    def check_type(self, o: Interbis):
         """Dry checking if the types of metadata entries are correct
            and if the upload step will run as expected
 
         Args:
-            o (Openbis): currently running openbis instance
+            o (Interbis): currently running openbis interface
 
         Raises:
             ValueError: Type Mismatch between given and expected dtypes
@@ -186,11 +183,11 @@ class ExpStep:
         logging.info('Type Checker: Types are correctly set')
         
     @staticmethod
-    def load_sample(o: Openbis, sample_identifier: str):
+    def load_sample(o: Interbis, sample_identifier: str):
         """Loads an expstep from an experimental step in the datastore with its properties
 
         Args:
-            o (Openbis): currently running openbis instance
+            o (Interbis): currently running openBIS interface
             sample_identifier (str): identifier of the sample
 
         Returns:
@@ -244,11 +241,11 @@ class ExpStep:
 
         return sample_step
 
-    def fill_sample(self, o: Openbis, sample_identifier: str):
+    def fill_sample(self, o: Interbis, sample_identifier: str):
         """Fill the instance with properties of an experimental step in the datastore
 
         Args:
-            o (Openbis): currently running openbis instance
+            o (Interbis): currently running openbis instance
             sample_identifier (str): identifier of the sample
 
         Returns:
@@ -286,11 +283,11 @@ class ExpStep:
 
         return self
 
-    def upload_expstep(self, o: Openbis, overwrite: bool = False) -> str:
+    def upload_expstep(self, o: Interbis, overwrite: bool = False) -> str:
         """Uploads the ExpStep object into the datastore
 
         Args:
-            o (Openbis): Currently running openbis instance
+            o (Interbis): Currently running openBIS interface
             name (str): Name of the sample
             overwrite (bool): Specifies if an existing Sample should be overwritten. Defaults to False.
 
@@ -363,11 +360,11 @@ class ExpStep:
             self.identifier = sample.identifier
         return self.identifier
 
-    def delete_expstep(self, o: Openbis, reason: str):
+    def delete_expstep(self, o: Interbis, reason: str):
         """Deletes a sample from the datastore
 
         Args:
-            o (Openbis): Currently running openbis datastore
+            o (Interbis): Currently running openbis interface
             reason (str): Reason for deletion
         """
         # Check if the sample exsts and delete it
@@ -376,13 +373,13 @@ class ExpStep:
         else:
             raise ValueError('Sample not in datastore')
         
-    def upload_dataset(self, o: Openbis, props: dict):
+    def upload_dataset(self, o: Interbis, props: dict):
         """Uploads a dataset to the ExpStep.
         
         Requires a dictionary with $name, files and data_type
 
         Args:
-            o (Openbis): Currently running openbis datastore
+            o (Interbis): Currently running openbis interface
             props (str, optional): Metadata of the dataset.
 
         Returns:
@@ -427,11 +424,11 @@ class ExpStep:
 
         return ds
 
-    def download_datasets(self, o: Openbis, path: str, data_type: str = ''):
+    def download_datasets(self, o: Interbis, path: str, data_type: str = ''):
         """Downloads all datasets which are asigned to that sample
 
         Args:
-            o (Openbis): Currently running openbis instance
+            o (Interbis): Currently running openBIS interface
             path (str): Path where the datasets should be saved
             data_type (str): If specified will only download data sets of that type
 
@@ -889,7 +886,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
         project=config['project'],
     )
 
-    o = LeBeOpenbis(config['datastore_url'])
+    o = Interbis(config['datastore_url'])
     o.connect_to_datastore()
 
     emodul_sample.collection = emodul_sample.find_collection(
