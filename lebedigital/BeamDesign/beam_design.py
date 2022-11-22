@@ -164,8 +164,8 @@ def check_design(span:float,
                  height:float,
                  point_load:float,
                  distributed_load:float,
-                 fck:float,
-                 fyk:float,
+                 compr_str_concrete:float,
+                 yield_str_steel:float,
                  steel_dia:float,
                  n_bottom:int,
                  cover:float,
@@ -181,9 +181,9 @@ def check_design(span:float,
         beam width in mm.
     height: int
         beam depth in mm.
-    fck : float
+    compr_str_concrete : float
         charateristic compressive strength of concrete in N/mm2.
-    fyk : float
+    yield_str_steel : float
         Yield strength of steel in N/mm2.
     steel_dia : float
         Diameter of steel in mm.
@@ -201,7 +201,7 @@ def check_design(span:float,
         Optimal will be close to zero.
     """
     max_moment, max_shear_force = max_bending_moment_and_shear_force(span, point_load, distributed_load)
-    design = beam_section_design(width, height, max_moment, max_shear_force, fck, fyk, steel_dia, cover)
+    design = beam_section_design(width, height, max_moment, max_shear_force, compr_str_concrete, yield_str_steel, steel_dia, cover)
     specified_area = (math.pi * steel_dia ** 2 / 4) * n_bottom
     required_area = design["required_area_bottom_steel[mm^2]"]
 
