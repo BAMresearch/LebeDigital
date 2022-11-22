@@ -1,7 +1,3 @@
-from __future__ import print_function
-from fenics import *
-import numpy as np
-import matplotlib.pyplot as plt
 import fenics_concrete
 
 def concrete_homogenization(parameters):
