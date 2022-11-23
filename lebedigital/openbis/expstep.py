@@ -1,15 +1,19 @@
-from math import isnan
-from pathlib import Path
-from lebedigital.openbis.interbis import Interbis
-import pandas as pd
+import logging
 import os
 import shutil
-import logging
 import sys
+from math import isnan
+from pathlib import Path
 from sys import exit
+
+import pandas as pd
 import yaml
 from termcolor import colored
-from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import extract_metadata_emodulus
+
+from lebedigital.openbis.interbis import Interbis
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
+    extract_metadata_emodulus
+
 
 class ExpStep:
     def __init__(

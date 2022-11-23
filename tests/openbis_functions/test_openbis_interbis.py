@@ -1,5 +1,5 @@
-import pytest
 import pandas as pd
+import pytest
 
 from lebedigital.openbis.interbis import Interbis
 
@@ -14,7 +14,7 @@ pytest -v -m
 """
 
 def connect_for_tests(login:str, password:str) -> Interbis:
-    """ Diffrent login for tests, allows to parse login/password as both
+    """ Different login for tests, allows to parse login/password as both
     command line arguments and while the tests are running
 
     Args:
@@ -43,7 +43,7 @@ def test_get_metadata_import_template(login, password):
     
     df = o.get_metadata_import_template(sample_type)
     
-    df_expected = pd.read_csv('./gen_import_template.csv',index_col=0, keep_default_na=False)
+    df_expected = pd.read_csv('./gen_import_template.csv', index_col=0, keep_default_na=False)
 
     o.logout()
     
