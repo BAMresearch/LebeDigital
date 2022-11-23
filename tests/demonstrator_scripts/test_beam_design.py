@@ -15,8 +15,8 @@ def test_beam_design():
                                    height=height,
                                    point_load = 36e3,
                                    distributed_load= 0,
-                                   fck=20,
-                                   fyk=500,
+                                   compr_str_concrete=20,
+                                   yield_str_steel=500,
                                    steel_dia=12,
                                    n_bottom=3,
                                    cover=25)
