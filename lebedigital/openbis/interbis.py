@@ -1,10 +1,12 @@
-from pybis import Openbis
-import pandas as pd
-import os
-from getpass import getpass
 import logging
-from pprint import pprint
+import os
 import sys
+from getpass import getpass
+from pprint import pprint
+
+import pandas as pd
+from pybis import Openbis
+
 
 class Interbis(Openbis):
     def __init__(self, url, verify_certificates=True, token=None, use_cache=True, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
@@ -21,7 +23,7 @@ class Interbis(Openbis):
         """
 
         # If a session is already active (when running a notebook or script again) return the active object
-        # Instead of connecting again
+        # instead of connecting again
 
         if not self.is_session_active():
             logging.debug('Establishing a connection with ' + self.url)
@@ -55,23 +57,24 @@ class Interbis(Openbis):
         path: str = '',
     ) -> pd.DataFrame:
         """
-        Generate a pandas Dataframe containing an import template for a given object type.
-        Can be saved as an excel sheet to for manual data entry and then imported to an ExpStep object
+        Generates a pandas Dataframe containing an import template for a given object type exiting in data store.
+        Can be saved as an excel sheet, too, for manual data entry and then imported to an ExpStep object
+            by ExpStep.import_from_template
 
         Args:
             sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
-            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file. Defaults to False.
+            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file (True). Defaults to False.
             sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
             path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
 
         Raises:
-            ValueError: Raises an error when write is set to True and no path is gven
+            ValueError: Raises an error when write is set to True and no path is given
 
         Returns:
             pandas.DataFrame: returns a DataFrame with the import template
         """
 
-        # Raises an error when no path given and write set to True
+        # Raises an error when no path given and write is set to True
         if write and not path:
             raise ValueError("No path given")
 
@@ -83,7 +86,6 @@ class Interbis(Openbis):
         meta_dict = {idx: v for idx, v in enumerate(meta_list)}
 
         # Parse the dict into a dataframe
-
         meta_df = pd.DataFrame.from_dict(
             meta_dict, orient="index", columns=['Param'])
 
@@ -113,7 +115,7 @@ class Interbis(Openbis):
         # Add an empty column where you can input the values
         meta_df = meta_df.assign(Value='')
 
-        # If write was specified then write to file
+        # If write==True then write to file
         if write:
             # If sheet exists remove it before writing the template
             if os.path.exists(path):
@@ -148,7 +150,7 @@ class Interbis(Openbis):
         #     kwargs["sample"] = kwargs["object"]
         #     kwargs.pop("object", None)
 
-        # Here we define internal functions to shorten the overall functions as these
+        # Here we define some small internal functions to shorten the overall functions as these
         # are reused inside pretty often
 
         def get_space_names():
@@ -170,7 +172,7 @@ class Interbis(Openbis):
             sample_names = list(sample_names_df['$NAME'].values)
             return [f'{code} ({name})' for code, name in zip(sample_codes, sample_names)]
 
-        # We go through all entries in for loops, the only difference between levels is where we start the loop
+        # We go through all entries in loops, the only difference between levels is where we start the loop
         # Watch out, takes ages to run because someone tested creating 500_000 pybis objects, ran 5 minutes for me
         if level == 'full':
             space_dict = {'DATASTORE': {}}
@@ -282,7 +284,7 @@ class Interbis(Openbis):
         Returns:
             pd.DataFrame: DataFrame of all properties with their attributes
         """
-        # Getting a list of all the samples properties
+        # Getting a list of all the sample's properties
         props_list = list(self.get_sample_type(sample_type)
                           .get_property_assignments()
                           .df['propertyType'])
@@ -328,9 +330,17 @@ class Interbis(Openbis):
         return full_dict
     
     def get_sample_identifier(self, name: str) -> str:
+        """Returns the full identifier of the sample
+
+        Args:
+            name (str): '$name' attribute of the sample
+
+        Returns:
+            str: Identifier of sample
+        """
         sample_df = self.get_samples(where={'$name': name}).df
         if len(sample_df.index) > 1 or len(sample_df.index) == 0:
-            raise ValueError(f'Couldnt find unique sample, the amount of samples with that name is {len(sample_df.index)}')
+            raise ValueError(f'Could not find unique sample, the amount of samples with that name is {len(sample_df.index)}')
         
         return sample_df['identifier'].values[0]
     
@@ -350,7 +360,7 @@ class Interbis(Openbis):
         
 
     def exists_in_datastore(self, name: str) -> bool:
-        """Checks wheter a sample with the given identifier exists in the openBIS datastore.
+        """Checks if a sample with the given identifier exists in the openBIS datastore.
 
         Args:
             name (str): '$name' attribute of the sample
@@ -373,7 +383,8 @@ class Interbis(Openbis):
 
         
     def create_sample_type(self, sample_code: str, sample_prefix: str, sample_properties: dict):
-        """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
+        """Used for automatically creating a sample type within the doit tasks.
+        May be useful for automating upload, less customisation options than creating them "by hand" though
 
         Args:
             o (Openbis): currently running openbis instance
