@@ -1,6 +1,5 @@
 import os
-from lebedigital.raw_data_processing.mixture \
-    .mixture_metadata_extraction import extract_metadata_mixture
+from lebedigital.raw_data_processing.mixture.mixture_metadata_extraction import extract_metadata_mixture
 
 
 def test_mixture_metadata_extraction():
@@ -9,7 +8,7 @@ def test_mixture_metadata_extraction():
     # setting up the test example input
     input_path = '../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
 
-    # make sure if the path exists
+    # make sure that the path exists
     assert(os.path.exists(input_path))
 
     target_data = {'operator_date': '2014-06-30',
