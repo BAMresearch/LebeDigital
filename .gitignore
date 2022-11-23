@@ -125,7 +125,7 @@ conda-env/
 # mkdocs documentation
 /site
 
-# mypy
+# my
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -147,7 +147,7 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 # ignore mesh files
 **/mesh/*
 
-# ignore tex temp files
+# ignore latex temp files
 *.out
 *.aux
 *.blg
