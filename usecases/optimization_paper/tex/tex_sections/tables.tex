@@ -1,0 +1,108 @@
+
+
+Tables can be inserted via the normal table and tabular environment. To put
+footnotes inside tables you should use \verb+\footnotetext[]{...}+ tag.
+The footnote appears just below the table itself (refer Tables~\ref{tab1} and \ref{tab2}). 
+For the corresponding footnotemark use \verb+\footnotemark[...]+
+
+\begin{table}[h]
+\begin{center}
+\begin{minipage}{174pt}
+\caption{Caption text}\label{tab1}%
+\begin{tabular}{@{}llll@{}}
+\toprule
+Column 1 & Column 2  & Column 3 & Column 4\\
+\midrule
+row 1    & data 1   & data 2  & data 3  \\
+row 2    & data 4   & data 5\footnotemark[1]  & data 6  \\
+row 3    & data 7   & data 8  & data 9\footnotemark[2]  \\
+\botrule
+\end{tabular}
+\footnotetext{Source: This is an example of table footnote. This is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote. This is an example of table footnote.}
+\footnotetext[2]{Example for a second table footnote. This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+
+\noindent
+The input format for the above table is as follows:
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{verbatim}
+\begin{table}[<placement-specifier>]
+\begin{center}
+\begin{minipage}{<preferred-table-width>}
+\caption{<table-caption>}\label{<table-label>}%
+\begin{tabular}{@{}llll@{}}
+\toprule
+Column 1 & Column 2 & Column 3 & Column 4\\
+\midrule
+row 1 & data 1 & data 2	 & data 3 \\
+row 2 & data 4 & data 5\footnotemark[1] & data 6 \\
+row 3 & data 7 & data 8	 & data 9\footnotemark[2]\\
+\botrule
+\end{tabular}
+\footnotetext{Source: This is an example of table footnote. 
+This is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote.
+This is an example of table footnote.}
+\footnotetext[2]{Example for a second table footnote. 
+This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+\end{verbatim}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+\begin{table}[h]
+\begin{center}
+\begin{minipage}{\textwidth}
+\caption{Example of a lengthy table which is set to full textwidth}\label{tab2}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc@{\extracolsep{\fill}}}
+\toprule%
+& \multicolumn{3}{@{}c@{}}{Element 1\footnotemark[1]} & \multicolumn{3}{@{}c@{}}{Element 2\footnotemark[2]} \\\cmidrule{2-4}\cmidrule{5-7}%
+Project & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ \\
+\midrule
+Element 3  & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$\\
+Element 4  & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$\\
+\botrule
+\end{tabular*}
+\footnotetext{Note: This is an example of table footnote. This is an example of table footnote this is an example of table footnote this is an example of~table footnote this is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote.}
+\footnotetext[2]{Example for a second table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+
+In case of double column layout, tables which do not fit in single column width should be set to full text width. For this, you need to use \verb+\begin{table*}+ \verb+...+ \verb+\end{table*}+ instead of \verb+\begin{table}+ \verb+...+ \verb+\end{table}+ environment. Lengthy tables which do not fit in textwidth should be set as rotated table. For this, you need to use \verb+\begin{sidewaystable}+ \verb+...+ \verb+\end{sidewaystable}+ instead of \verb+\begin{table*}+ \verb+...+ \verb+\end{table*}+ environment. This environment puts tables rotated to single column width. For tables rotated to double column width, use \verb+\begin{sidewaystable*}+ \verb+...+ \verb+\end{sidewaystable*}+.
+
+\begin{sidewaystable}
+\sidewaystablefn%
+\begin{center}
+\begin{minipage}{\textheight}
+\caption{Tables which are too long to fit, should be written using the ``sidewaystable'' environment as shown here}\label{tab3}
+\begin{tabular*}{\textheight}{@{\extracolsep{\fill}}lcccccc@{\extracolsep{\fill}}}
+\toprule%
+& \multicolumn{3}{@{}c@{}}{Element 1\footnotemark[1]}& \multicolumn{3}{@{}c@{}}{Element\footnotemark[2]} \\\cmidrule{2-4}\cmidrule{5-7}%
+Projectile & Energy	& $\sigma_{calc}$ & $\sigma_{expt}$ & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ \\
+\midrule
+Element 3 & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$ \\
+Element 4 & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$ \\
+Element 5 & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$ \\
+Element 6 & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$ \\
+\botrule
+\end{tabular*}
+\footnotetext{Note: This is an example of table footnote this is an example of table footnote this is an example of table footnote this is an example of~table footnote this is an example of table footnote.}
+\footnotetext[1]{This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{sidewaystable}
