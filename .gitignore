@@ -146,3 +146,11 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 
 # ignore mesh files
 **/mesh/*
+
+# ignore tex temp files
+*.out
+*.aux
+*.blg
+*.synctex.gz
+*.bbl
+
