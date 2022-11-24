@@ -1,6 +1,8 @@
 import graphviz
 
-def build_workflow_graph(file_name = 'optimization_paper_graph', view=False):
+def paper_workflow_graph(file_name = 'test_output', view=False):
+    file_name = str(file_name) # convert pathlib object to useful string
+
     process = 'blue'
     input = 'green'
     problem = 'red'
@@ -109,4 +111,4 @@ def build_workflow_graph(file_name = 'optimization_paper_graph', view=False):
     dot.render(view=view)
 
 if __name__ == "__main__":
-    build_workflow_graph(file_name='optimization_paper_graph', view=True)
+    paper_workflow_graph(file_name='test_output', view=True)
