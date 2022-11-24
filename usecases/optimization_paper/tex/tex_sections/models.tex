@@ -8,39 +8,39 @@ I will start with the temperature field.
 Temperature is generally described as
 
 \begin{align}
-	\rho C\frac{\partial T}{\partial t} = \nabla \cdot (\lambda \nabla T) + \frac{\partial Q}{\partial t} \label{eq:heat1}
+	\density \heatCapSpecific \dTdt = \nabla \cdot (\thermCondEff \nabla \temp) + \dQdt \label{eq:heat1}
 \end{align}
-$\lambda$ is the effective thermal conductivity in Wm$^{-1}$K$^{-1}$.
+$\thermCondEff$ is the effective thermal conductivity in Wm$^{-1}$K$^{-1}$.
 $C$ is the specific heat capacity.
-$\rho$ is the density.
-$\rho C$ is the volumetric heat capacity in Jm$^{-3}$K$^{-1}$.
+$\density$ is the density.
+$\density \heatCapSpecific$ is the volumetric heat capacity in Jm$^{-3}$K$^{-1}$.
 $Q$ is the volumetric heat, due to hydration, it is also called the latent heat of hydration, or the heat source in Jm$^{-3}$.
 For now we assume the density, the thermal conductivity and the volumetric heat capacity as constant, however there are models that make them dependent on the temperature, moisture and/or the hydration.
 
 
-\subsubsection{Degree of hydration $\alpha$}
-The degree of hydration $\alpha$ is defined as the ratio between the cumulative heat $Q$ at time $t$ and the total theoretical volumetric heat by complete hydration $Q_{\infty}$,
+\subsubsection{Degree of hydration $\DOH$}
+The degree of hydration $\DOH$ is defined as the ratio between the cumulative heat $Q$ at time $t$ and the total theoretical volumetric heat by complete hydration $\heatInf$,
 \begin{align}
-	\alpha(t) = \frac{Q(t)}{Q_{\infty}},
+	\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf},
 \end{align}
 by assuming a linear relation between the degree of hydration and the heat development.
-Therefore the time derivative of the heat source $\dot{Q}$ can be rewritten in terms of $\alpha$, 
+Therefore the time derivative of the heat source $\dot{Q}$ can be rewritten in terms of $\DOH$, 
 \begin{align}
-	\frac{\partial Q}{\partial t} = \frac{\partial \alpha}{\partial t} Q_{\infty}. \label{eq:qdotalphadot}
+	\dQdt = \dDOHdt \heatInf. \label{eq:qdotalphadot}
 \end{align}
-There are formulas to approximate total potential heat based on composition, approximated values range between 300 and 600 J/g of binder for different cement types, e.g. Ordinary Portland cement $Q_{\infty} =$ 375–525 or Pozzolanic cement $Q_{\infty} =$ 315–420.  
+There are formulas to approximate total potential heat based on composition, approximated values range between 300 and 600 J/g of binder for different cement types, e.g. Ordinary Portland cement $\heatInf =$ 375–525 or Pozzolanic cement $\heatInf =$ 315–420.  
 
 \subsubsection{Affinity}
 The heat release can be modeled based on the chemical affinity $A$ of the binder.
-The hydration kinetics can be defined as a function of affinity at a reference temperature $\tilde{A}$ and a temperature dependent scale factor ${a}$
+The hydration kinetics can be defined as a function of affinity at a reference temperature $\affinityTemp$ and a temperature dependent scale factor ${\affinityScale}$
 \begin{align}
-	\dot{\alpha} = \tilde{A}(\alpha){a}(T)\label{eq:affinitydot}
+	\dot{\DOH} = \affinityTemp(\DOH){\affinityScale}(\temp)\label{eq:affinitydot}
 \end{align}
 
 
 The reference affinity, based on the degree of hydration is approximated by
 \begin{align}
-	\tilde{A}(\alpha) = B_1 \left(\frac{B_2}{\alpha_{\text{max}}} + \alpha\right) (\alpha_{\text{max}} - \alpha)\exp\left(-\eta \frac{\alpha}{\alpha_{\text{max}}}\right)
+	\affinityTemp(\DOH) = B_1 \left(\frac{B_2}{\DOHmax} + \DOH\right) (\DOHmax - \DOH)\exp\left(-\eta \frac{\DOH}{\DOHmax}\right)
 \end{align}
 where $B_1$ and $B_2$ are coefficients depending on the binder.
 The scale function is given as
@@ -49,60 +49,60 @@ The scale function is given as
 \end{align}
 An example function to approximate the maximum degree of hydration based on w/c ratio, by Mills (1966)
 \begin{align}
-	\alpha_{\text{max}} = \dfrac{1.031w/c}{0.194 + w/c},
+	\DOHmax = \dfrac{1.031w/c}{0.194 + w/c},
 \end{align}
 this refers to Portland cement. 
 \subsubsection{Time derivative}
 For a start I use a simple backward difference, backward Euler, implicit Euler method and approximate
 \begin{align}
 	\dot{T} =& \dfrac{T^{n+1}-T^{n}}{\Delta t} \quad\text{and}\label{eq:timediscr}\\
-	\dot{\alpha} =& \dfrac{\Delta\alpha}{\Delta t}  \quad\text{with}\quad
-	\Delta\alpha = \alpha^{n+1}-\alpha^{n}
+	\dot{\DOH} =& \dfrac{\Delta \DOH}{\Delta t}  \quad\text{with}\quad
+	\Delta \DOH  =  \DOH^{n+1}- \DOH^{n}
 	\label{eq:timediscr2}
 \end{align}
 \subsubsection{Formulation}
 Using \eqref{eq:qdotalphadot} in \eqref{eq:heat1}
 the heat equation is given as
 \begin{align}
-	\rho C\frac{\partial T}{\partial t} = \nabla \cdot (\lambda \nabla T) + Q_{\infty}\frac{\partial \alpha}{\partial t} 
+	\density \heatCapSpecific \frac{\partial T}{\partial t} = \nabla \cdot (\thermCondEff \nabla T) + \heatInf\frac{\partial  \DOH}{\partial t} 
 \end{align}
 Now we apply the time discretizations \eqref{eq:timediscr} and \eqref{eq:timediscr2} and drop the index $n+1$ for readability \eqref{eq:timediscr}
 \begin{align}
-	\rho C T  - {\Delta t} \nabla \cdot (\lambda \nabla T) - Q_{\infty}\Delta\alpha
-	= \rho C T^{n}   \label{eq:heat2}
+	\density \heatCapSpecific \temp  - {\Delta t} \nabla \cdot (\thermCondEff \nabla T) - \heatInf\Delta \DOH
+	= \density \heatCapSpecific T^{n}   \label{eq:heat2}
 \end{align}
-Now, we use \eqref{eq:timediscr2} and \eqref{eq:affinitydot} to get a formulation for $\Delta\alpha$
+Now, we use \eqref{eq:timediscr2} and \eqref{eq:affinitydot} to get a formulation for $\Delta \DOH$
 \begin{align}
-	\Delta\alpha = \Delta t \tilde{A}(\alpha)a(T) \label{eq:deltaalpha}
+	\Delta \DOH = \Delta t \affinityTemp( \DOH)a(T) \label{eq:deltaalpha}
 \end{align}
-\subsubsection{Computing $\Delta\alpha$ at the Gauss-point}
-As $\Delta\alpha$ is not a global field, rather locally defined information.
-\subsubsection{Solving for $\Delta\alpha$}
-To solve for $\Delta\alpha$ we define the affinity in terms of $\alpha_n$ and $\Delta\alpha$
+\subsubsection{Computing $\Delta \DOH$ at the Gauss-point}
+As $\Delta \DOH$ is not a global field, rather locally defined information.
+\subsubsection{Solving for $\Delta \DOH$}
+To solve for $\Delta \DOH$ we define the affinity in terms of $ \DOH_n$ and $\Delta \DOH$
 \begin{align}
-	\tilde{A} = B_1\exp\left(-\eta \frac{\Delta\alpha+\alpha_n}{\alpha_{\text{max}}}\right) \left(\tfrac{B_2}{\alpha_{\text{max}}} + \Delta\alpha+\alpha_n\right) (\alpha_{\text{max}} - \Delta\alpha - \alpha_n).
+	\affinityTemp = B_1\exp\left(-\eta \frac{\Delta \DOH+\alpha_n}{\DOHmax}\right) \left(\tfrac{B_2}{\DOHmax} + \Delta\alpha+\alpha_n\right) (\DOHmax - \Delta\alpha - \alpha_n).
 \end{align}
 Now we can solve the nonlinear function 
 \begin{align}
-	f(\Delta\alpha) = \Delta\alpha - \Delta t \tilde{A}(\Delta\alpha)a(T) = 0
+	f(\Delta\alpha) = \Delta\alpha - \Delta t \affinityTemp(\Delta\alpha)a(T) = 0
 \end{align}
 using an iterative Newton-Raphson solver. For an effective algorithm we require the tangent of $f$ with respect to $\Delta\alpha$
 \begin{align}
-	\dfrac{\partial f}{\partial \Delta\alpha} = 1 - \Delta t a(T) \dfrac{\partial\tilde{A}}{\partial \Delta\alpha} \quad\text{with}\\
-	\dfrac{\partial\tilde{A}}{\partial \Delta\alpha} = B_1\exp\left(-\eta \frac{\Delta\alpha+\alpha_n}{\alpha_{\text{max}}}\right)\left[
-	\alpha_{\text{max}} - \tfrac{B_2}{\alpha_{\text{max}}} - 2\Delta\alpha - 2 \alpha_n\right.\quad\quad&\nonumber\\
-	+ (\tfrac{B_2}{\alpha_{\text{max}}} + \Delta\alpha+\alpha_n)(\Delta\alpha\left.+ \alpha_n - \alpha_{\text{max}})(\tfrac{\eta}{\alpha_{\text{max}}})\right]&
+	\dfrac{\partial f}{\partial \Delta\alpha} = 1 - \Delta t a(\temp) \dfrac{\partial\affinityTemp}{\partial \Delta\alpha} \quad\text{with}\\
+	\dfrac{\partial\affinityTemp}{\partial \Delta\alpha} = B_1\exp\left(-\eta \frac{\Delta\alpha+\alpha_n}{\DOHmax}\right)\left[
+	\DOHmax - \tfrac{B_2}{\DOHmax} - 2\Delta\alpha - 2 \alpha_n\right.\quad\quad&\nonumber\\
+	+ (\tfrac{B_2}{\DOHmax} + \Delta\alpha+\alpha_n)(\Delta\alpha\left.+ \alpha_n - \DOHmax)(\tfrac{\eta}{\DOHmax})\right]&
 \end{align}
 The choice of a good starting value for the iteration seems to be critical.
 For some reason values close to zero can make to algorithm not converge, or to find negative values, which is non physical.
 When a starting values of eg. 0.2 is chosen, it seem to be stable.
 There is room for improvement here.
 \subsubsection{Macroscopic tangent}
-To incorporate the heat term in the this in the global temperature field, we need to compute to tangent of the term $Q_{\infty}\Delta\alpha$.
+To incorporate the heat term in the this in the global temperature field, we need to compute to tangent of the term $\heatInf\Delta\alpha$.
 Therefore the sensitivity of $\Delta\alpha$ with respect to the temperature $T$ needs to be computed $\dfrac{\partial \Delta\alpha}{\partial T}$
 \begin{align}
-	\dfrac{\partial \Delta\alpha}{\partial T} = \Delta t \tilde{A}(\alpha)\dfrac{\partial a(T)}{\partial T},\text{ with}\\
-	\dfrac{\partial a(T)}{\partial T} = a(T) \frac{E_{\text{a}}}{RT^2}
+	\dfrac{\partial \Delta\alpha}{\partial \temp} = \Delta \zeit \affinityTemp(\alpha)\dfrac{\partial \affinityScale(\temp)}{\partial \temp},\text{ with}\\
+	\dfrac{\partial \affinityScale(T)}{\partial T} = \affinityScale(T) \frac{E_{\text{a}}}{RT^2}
 \end{align}
 
 \subsection{Coupling Material Properties to Degree of Hydration}
