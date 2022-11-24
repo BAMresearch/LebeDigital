@@ -1,4 +1,3 @@
 file_names : {
-  'workflowGraph': 'optimization_paper_graph.gv.pdf',
-  'test': 'Moin'
+  'workflowGraph': 'paper_workflow_graph.gv.pdf'
 }

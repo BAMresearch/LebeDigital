@@ -23,7 +23,8 @@
 
 %%%% Standard Packages
 %%<additional latex packages if required can be included here>
-\input{macros/tex_macros.tex}
+\input{macros/tex_macros.tex}  % tex commands not variable
+\input{macros/py_macros.tex}   % tex commands created by script
 
 \newcommand{\figures}{../figures/} % scale factor for affinity
 %%%%
@@ -105,11 +106,8 @@
 \section{Models}\label{sec:models}
 \input{tex_sections/models.tex}
 
-\section{Tables}\label{sec5}
-\input{tex_sections/tables.tex}
-
-\section{Figures}\label{sec6}
-\input{tex_sections/figures.tex}
+\section{Example code from template}\label{sec5}
+\input{tex_sections/template_examples.tex}
 
 \section{Algorithms, Program codes and Listings}\label{sec7}
 \input{tex_sections/algorithms.tex}

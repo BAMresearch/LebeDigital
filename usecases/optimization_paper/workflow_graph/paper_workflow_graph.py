@@ -1,6 +1,8 @@
 import graphviz
 
 def paper_workflow_graph(file_name = 'test_output', view=False):
+    print('test')
+
     file_name = str(file_name) # convert pathlib object to useful string
 
     process = 'blue'
@@ -17,7 +19,7 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('gwp', 'GWP per m³ [kg CO2,eq/m³]')
     dot.edge('gwp','co2 computation volume')
     dot.node('co2 computation volume', 'GWP per part', color=process)
-    dot.edge('geometry','co2 computation volume')
+    dot.edge('geometry','CO2 computation volume')
     dot.edge('co2 computation volume','gwp total')
     dot.edge('cemI','co2 computation')
     dot.node('gwp total', 'GWP per part [kg CO2,eq]', color=kpi, shape='rectangle')
