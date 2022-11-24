@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import os
 import yaml
+import logging
 
 def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_data_path: str, output_path: str, config: dict):
     """Function for uploading data to the openbis datastore from within te doit environment
@@ -30,6 +31,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     # This does not want to work with the doit environment, some stuff gets printed while some does not
     if 'verbose' in config and config['verbose']:
         sys.stdout = sys.__stdout__
+        logging.basicConfig(level=logging.DEBUG)
     else:
         sys.stdout = open(os.devnull, 'w')
 
@@ -49,15 +51,14 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     o = Interbis(config['datastore_url'])
     o.connect_to_datastore()
 
-    emodul_sample.collection = emodul_sample.find_collection(
-        o,
+    emodul_sample.collection = o.get_collection_identifier(
         config['collection'],
-        id_type=1,
     )
 
-    emodul_sample.sync_name(get_from='name')
+    emodul_sample.metadata = read_metadata_emodul(metadata_path)
 
-    emodul_sample.read_metadata_emodul(metadata_path)
+    emodul_sample.metadata['$name'] = emodul_sample.metadata['experimentname']
+    logging.debug(emodul_sample.metadata)
 
     emodul_sample_type = create_sample_type_emodul(
         o,
@@ -67,8 +68,10 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     )
 
     emodul_sample.type = emodul_sample_type.code
+    logging.debug(f'sample type created: {emodul_sample.type}')
 
     emodul_sample.upload_expstep(o)
+    logging.debug('Sample Uploaded')
 
     processed_dataset_name = emodul_sample.name + '_processed'
 
@@ -80,6 +83,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
             'data_type': 'PROCESSED_DATA'
         }
     )
+    logging.debug('Processed Dataset Uploaded')
 
     raw_dataset_name = emodul_sample.name + '_raw'
 
@@ -91,6 +95,7 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
             'data_type': 'RAW_DATA'
         }
     )
+    logging.debug('Raw Dataset Uploaded')
 
     # We load the object from the datastore before printing as a sort of manual check if the function worked as it was supposed to.
     output_sample = ExpStep.load_sample(o, emodul_sample.identifier)
@@ -101,92 +106,110 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     output_sample.save_sample_yaml(Path(output_path, file_name_with_extension))
 
     sys.stdout = sys.__stdout__
-    
+
+
 def create_sample_type_emodul(o: Interbis, sample_code: str, sample_prefix: str, sample_properties: dict):
-        """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload, less customisation options than creating them "by hand" though
+    """Used for automatically creating a sample type within the doit tasks. May be useful for automating upload,
+    less customisation options than creating them "by hand" though
 
-        Args:
-            o (Openbis): currently running openbis instance
-            sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
-            sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
-            sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
+    Args:
+        o (Openbis): currently running openbis instance
+        sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
+        sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
+        sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
 
-        Returns:
-            Pybis: returns the pybis sample type object
-        """
+    Returns:
+        Pybis: returns the pybis sample type object
+    """
 
-        # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
-        # Disable
-        def blockPrint():
-            sys.stdout = open(os.devnull, 'w')
+    # SUPPRESSING PRINTS FOR ASSIGNING PROPERTIES
+    # Disable
+    def block_print():
+        sys.stdout = open(os.devnull, 'w')
 
-        # Restore
-        def enablePrint():
-            sys.stdout = sys.__stdout__
+    # Restore
+    def enable_print():
+        sys.stdout = sys.__stdout__
 
-        sample_types = o.get_sample_types().df
-        if sample_code in list(sample_types['code']):
-            # print(f'Sample type {sample_code} already exists in the Datastore')
-            new_sample_type = o.get_sample_type(sample_code)
+    sample_types = o.get_sample_types().df
+    if sample_code in list(sample_types['code']):
+        # print(f'Sample type {sample_code} already exists in the Datastore')
+        new_sample_type = o.get_sample_type(sample_code)
 
+    else:
+        new_sample_type = o.new_sample_type(
+            code=sample_code,
+            generatedCodePrefix=sample_prefix,
+            # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, DOES NOT ACCEPT DESCRIPTION ARGUMENT
+            autoGeneratedCode=True,
+            subcodeUnique=False,
+            listable=True,
+            showContainer=False,
+            showParents=True,
+            showParentMetadata=True,
+            validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
+        )
+        new_sample_type.save()
+        # print(f'Sample type {sample_code} created')
+
+    pt_dict = {}
+    pt_types = list(o.get_property_types().df['code'])
+
+    conv_dict = {
+        str: 'VARCHAR',
+        int: 'INTEGER',
+        float: 'REAL'
+    }
+
+    for prop, val in sample_properties.items():
+
+        if not prop.upper() in pt_types:
+            new_pt = o.new_property_type(
+                code=prop,
+                label=prop.lower(),
+                description=prop.lower(),
+                dataType=conv_dict[type(val)],
+            )
+            new_pt.save()
+            # print(f'Creating new property {new_pt.code}')
         else:
-            new_sample_type = o.new_sample_type(
-                code=sample_code,
-                generatedCodePrefix=sample_prefix,
-                # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, PYBIS DOES NOT ACCEPT DESCTIPTION ARGUMENT
-                autoGeneratedCode=True,
-                subcodeUnique=False,
-                listable=True,
-                showContainer=False,
-                showParents=True,
-                showParentMetadata=True,
-                validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
-            )
-            new_sample_type.save()
-            # print(f'Sample type {sample_code} created')
+            new_pt = o.get_property_type(prop)
+            # print(f'Fetching existing property {new_pt.code}')
 
-        pt_dict = {}
-        pt_types = list(o.get_property_types().df['code'])
+        pt_dict[new_pt.code] = new_pt
 
-        conv_dict = {
-            str: 'VARCHAR',
-            int: 'INTEGER',
-            float: 'REAL'
-        }
+    # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
-        for prop, val in sample_properties.items():
+    for i, p in enumerate(pt_dict.keys()):
 
-            if not prop.upper() in pt_types:
-                new_pt = o.new_property_type(
-                    code=prop,
-                    label=prop.lower(),
-                    description=prop.lower(),
-                    dataType=conv_dict[type(val)],
-                )
-                new_pt.save()
-                # print(f'Creating new property {new_pt.code}')
-            else:
-                new_pt = o.get_property_type(prop)
-                # print(f'Fetching existing property {new_pt.code}')
+        block_print()
+        new_sample_type.assign_property(
+            prop=p,
+            section='Metadata',
+            ordinal=(i+1),
+            mandatory=True if p == '$NAME' else False,
+            # initialValueForExistingEntities=f'Initial_Val_{p}',
+            showInEditView=True,
+            showRawValueInForms=True,
+        )
+        enable_print()
 
-            pt_dict[new_pt.code] = new_pt
+        # print(f'Assigned property {p} to {new_sample_type.code}')
 
-        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
+    return o.get_sample_type(sample_code)
 
-        for i, p in enumerate(pt_dict.keys()):
 
-            blockPrint()
-            new_sample_type.assign_property(
-                prop=p,
-                section='Metadata',
-                ordinal=(i+1),
-                mandatory=True if p == '$NAME' else False,
-                # initialValueForExistingEntities=f'Initial_Val_{p}',
-                showInEditView=True,
-                showRawValueInForms=True,
-            )
-            enablePrint()
+def read_metadata_emodul(yaml_path: str):
+    """Reads the metadata as it is saved in the emodul_metadata directory
 
-            # print(f'Assigned property {p} to {new_sample_type.code}')
+    Args:
+        yaml_path (str): path to the yaml file
+    """
 
-        return o.get_sample_type(sample_code)
+    with open(yaml_path, 'rb') as file:
+
+        data = yaml.safe_load(file)
+
+        data = {k.lower(): v for k, v in data.items()}
+
+        return data

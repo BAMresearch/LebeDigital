@@ -147,12 +147,15 @@ class ExpStep:
             'XML': str,
             'SAMPLE': str
         }
-
+        logging.debug('TYPE CHECKING OF THE SAMPLE')
+        logging.debug('Setting up comparison dict')
         types_df = o.get_sample_properties(self.type)
-        types_dict = types_df['dataType'].to_dict()
+        types_dict = dict(zip(types_df.code, types_df.dataType))
+        logging.debug(types_dict)
         types_dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
 
         # Check if all keys are a subset of all possible keys
+        logging.debug('Checking if keys are subset of defined parameters')
         if set(self.metadata.keys()).issubset(set(types_dict.keys())):
             for key, val in self.metadata.items():
                 # Check if all values have the correct data type
@@ -199,7 +202,7 @@ class ExpStep:
         """
 
         # Getting the properties of the sample
-        sample_dict = ExpStep.get_sample_dict(o, sample_identifier)
+        sample_dict = o.get_sample_dict(sample_identifier)
 
         #  Getting a list of the properties only to flter them from the sample_dict
         props_list = list(o.get_sample_type(sample_dict['type'])
@@ -311,7 +314,7 @@ class ExpStep:
             exit(1)
 
         # If a sample with the same name exists in the Datastore you fetch it instead of creating a new one
-        if self.exists_in_datastore(o):
+        if o.exists_in_datastore(self.name):
             print(f'Sample {self.name} already exists in Datastore')
             samples_df = o.get_samples(
                 type=self.type,
@@ -320,7 +323,7 @@ class ExpStep:
                 props="$name"
             ).df
 
-            # Gettingthe identifier from the dataframe
+            # Getting the identifier from the dataframe
             # TODO: Use pybis queries (where) here instead of pulling the entire dataframe
 
             samples_df.rename(columns={'$NAME': 'NAME'}, inplace=True)
@@ -471,29 +474,6 @@ class ExpStep:
                 )
 
         print('----------DOWNLOAD FINISHED----------')
-
-    def read_metadata_emodul(self, yaml_path: str, *, mode='append'):
-        """Reads the metadata as it is saved in the emodul_metadata directory
-
-        Args:
-            yaml_path (str): path to the yaml file
-            mode (str, optional): Specifies if the data in the file should replace existing entries in self.metadata or only append to existing. Defaults to 'append'.
-
-        Raises:
-            ValueError: _description_
-        """
-
-        with open(yaml_path, 'rb') as file:
-
-            data = yaml.safe_load(file)
-
-            if mode == 'append':
-                for param, val in data.items():
-                    self.metadata[param.lower()] = val
-            elif mode == 'replace':
-                self.metadata = data
-            else:
-                raise ValueError('No correct mode specified')
 
     def save_sample_yaml(self, yaml_path):
         """Saves a log file of a sample in openBIS. Used in doit upload
@@ -735,12 +715,12 @@ def full_emodul():
         space='CKUJATH',
         project='LEBEDIGITAL',
     )
+    emodul_sample.read_metadata_emodul(metadata_path)
+
     emodul_sample.collection = o.find_collection(
         o, 'LEBEDIGITAL_COLLECTION', id_type=1)
 
     emodul_sample.sync_name(get_from='name')
-
-    emodul_sample.read_metadata_emodul(metadata_path)
 
     emodul_sample_type = ExpStep.create_sample_type_emodul(
         o,
