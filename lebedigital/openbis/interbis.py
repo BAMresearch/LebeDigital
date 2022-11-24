@@ -344,19 +344,23 @@ class Interbis(Openbis):
         
         return sample_df['identifier'].values[0]
     
-    def get_collection_identifier(self, collection_name: str) -> str:
+    def get_collection_identifier(self, collection_code: str) -> str:
         """Returns the full identifier of the collection
 
         Args:
-            collection_name (str): Name of the collection
+            collection_code (str): Name of the collection
 
         Returns:
             str: Identifier of the collection
         """
-        collections_df = self.get_space(self.space).get_project(
-            self.project).get_experiments().df
-        return collections_df[collections_df['identifier'].str.contains(
-            collection_name)].iloc[0]['identifier']
+        collections_df = self.get_collections(props='$name').df
+        collection_code = collection_code.upper()
+        
+        if len(collections_df.index):
+            return collections_df[collections_df['identifier'].str.contains(
+                collection_code)].iloc[0]['identifier']
+        else:
+            raise ValueError(f'No collection with name {collection_code} found')
         
 
     def exists_in_datastore(self, name: str) -> bool:
@@ -472,90 +476,39 @@ class Interbis(Openbis):
             # print(f'Assigned property {p} to {new_sample_type.code}')
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
-
-
-def full_emodul():
-
-    o = Interbis('https://test.datastore.bam.de/openbis/')
-    o.connect_to_datastore()
-
-    metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
-    processed_data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
-    preview_path = '/home/ckujath/code/testing/test_graph.png'
-
-    emodul_sample = ExpStep(
-        name='Wolf 8.2 Probe 1',
-        space='CKUJATH',
-        project='LEBEDIGITAL',
-    )
-    emodul_sample.collection = emodul_sample.find_collection(
-        o, 'LEBEDIGITAL_COLLECTION', id_type=1)
-
-    emodul_sample.sync_name(get_from='name')
-
-    emodul_sample.read_metadata_emodul(metadata_path)
-
-    emodul_sample_type = ExpStep.create_sample_type_emodul(
-        o,
-        sample_code='EXPERIMENTAL_STEP_EMODUL',
-        sample_prefix='EMODUL',
-        sample_properties=emodul_sample.metadata,
-    )
-
-    emodul_sample.type = emodul_sample_type.code
-
-    emodul_sample.identifier = o.upload_expstep(emodul_sample)
-
-    o.upload_dataset(
-        emodul_sample.identifier,
-        props={
-            '$name': f'{emodul_sample.name}_processed',
-            'files': processed_data_path,
-            'data_type': 'PROCESSED_DATA'
-        }
-    )
-
-    o.upload_dataset(
-        emodul_sample.identifier,
-        props={
-            '$name': f'{emodul_sample.name}_preview',
-            'files': preview_path,
-            'data_type': 'PROCESSED_DATA'
-        }
-    )
-    emodul_sample.datasets = o.get_datasets(emodul_sample.identifier)
-
-    print(emodul_sample.info())
+    
 
 def main():
     # I am just checking if the stuff i move still works, will delete when im done with porting
     o = Interbis('https://test.datastore.bam.de/openbis/')
     o.connect_to_datastore()
 
-    sample_type_name = 'EXPERIMENTAL_STEP_WILL_DELETE_LATER',
+    # sample_type_name = 'EXPERIMENTAL_STEP_WILL_DELETE_LATER',
 
-    sample_type_dict = {
-        'typeStr': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
-        'typeInt': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
-        'typeFloat': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
-        'typeBoolean': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
-    }
+    # sample_type_dict = {
+    #     'typeStr': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
+    #     'typeInt': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
+    #     'typeFloat': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
+    #     'typeBoolean': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
+    # }
     
-    before_flag = False
-    sample_types_before = o.get_sample_types().df
-    print(sample_types_before)
-    if sample_type_name in sample_types_before.code.values:
-        before_flag = True
+    # before_flag = False
+    # sample_types_before = o.get_sample_types().df
+    # print(sample_types_before)
+    # if sample_type_name in sample_types_before.code.values:
+    #     before_flag = True
     
-    sample_type_code = o.create_sample_type(
-        sample_code='EXPERIMENTAL_STEP_WILL_DELETE_LATER',
-        sample_prefix='ABCDEFG',
-        sample_properties=sample_type_dict,
-    )
+    # sample_type_code = o.create_sample_type(
+    #     sample_code='EXPERIMENTAL_STEP_WILL_DELETE_LATER',
+    #     sample_prefix='ABCDEFG',
+    #     sample_properties=sample_type_dict,
+    # )
     
     # sample_type_code.delete(reason='aa')
 
-    
+    collection = o.get_collection_identifier('Lebedigital_Collection')
+    print(collection)
+
 
 if __name__ == '__main__':
     main()

@@ -43,7 +43,7 @@ openbis_config = {
     'collection': 'LEBEDIGITAL_COLLECTION',
     'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
     'sample_prefix': 'EMODUL',
-    # 'verbose': True,
+    'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on github actions as they need a password to run
     'runson': get_var('runson', 'actions'),
