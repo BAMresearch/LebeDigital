@@ -1,4 +1,4 @@
-
+\subsection{Tables}
 Tables can be inserted via the normal table and tabular environment. 
 \begin{table}[h]
 \begin{center}
@@ -65,3 +65,98 @@ Element 6 & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$ \\
 \end{minipage}
 \end{center}
 \end{sidewaystable}
+\subsection{Algorithms}
+
+
+Packages \verb+algorithm+, \verb+algorithmicx+ and \verb+algpseudocode+ are used for setting algorithms in \LaTeX\ using the format:
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{verbatim}
+	\begin{algorithm}
+		\caption{<alg-caption>}\label{<alg-label>}
+		\begin{algorithmic}[1]
+			. . .
+		\end{algorithmic}
+	\end{algorithm}
+\end{verbatim}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+You may refer above listed package documentations for more details before setting \verb+algorithm+ environment. For program codes, the ``program'' package is required and the command to be used is \verb+\begin{program}+ \verb+...+ \verb+\end{program}+. A fast exponentiation procedure:
+
+\begin{program}
+	\BEGIN \\ %
+	\FOR i:=1 \TO 10 \STEP 1 \DO
+	|expt|(2,i); \\ |newline|() \OD %
+	\rcomment{Comments will be set flush to the right margin}
+	\WHERE
+	\PROC |expt|(x,n) \BODY
+	z:=1;
+	\DO \IF n=0 \THEN \EXIT \FI;
+	\DO \IF |odd|(n) \THEN \EXIT \FI;
+	\COMMENT{This is a comment statement};
+	n:=n/2; x:=x*x \OD;
+	\{ n>0 \};
+	n:=n-1; z:=z*x \OD;
+	|print|(z) \ENDPROC
+	\END
+\end{program}
+
+
+\begin{algorithm}
+	\caption{Calculate $y = x^n$}\label{algo1}
+	\begin{algorithmic}[1]
+		\Require $n \geq 0 \vee x \neq 0$
+		\Ensure $y = x^n$ 
+		\State $y \Leftarrow 1$
+		\If{$n < 0$}\label{algln2}
+		\State $X \Leftarrow 1 / x$
+		\State $N \Leftarrow -n$
+		\Else
+		\State $X \Leftarrow x$
+		\State $N \Leftarrow n$
+		\EndIf
+		\While{$N \neq 0$}
+		\If{$N$ is even}
+		\State $X \Leftarrow X \times X$
+		\State $N \Leftarrow N / 2$
+		\Else[$N$ is odd]
+		\State $y \Leftarrow y \times X$
+		\State $N \Leftarrow N - 1$
+		\EndIf
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+Similarly, for \verb+listings+, use the \verb+listings+ package. \verb+\begin{lstlisting}+ \verb+...+ \verb+\end{lstlisting}+ is used to set environments similar to \verb+verbatim+ environment. Refer to the \verb+lstlisting+ package documentation for more details.
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{minipage}{\hsize}%
+	\lstset{frame=single,framexleftmargin=-1pt,framexrightmargin=-17pt,framesep=12pt,linewidth=0.98\textwidth,language=pascal}% Set your language (you can change the language for each code-block optionally)
+	%%% Start your code-block
+	\begin{lstlisting}
+		for i:=maxint to 0 do
+		begin
+		{ do nothing }
+		end;
+		Write('Case insensitive ');
+		Write('Pascal keywords.');
+	\end{lstlisting}
+\end{minipage}
+
