@@ -6,7 +6,13 @@ import os
 import yaml
 import logging
 
-def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_data_path: str, output_path: str, config: dict):
+
+def upload_to_openbis_doit(
+        metadata_path: str,
+        processed_data_path: str,
+        raw_data_path: str,
+        output_path: str,
+        config: dict):
     """Function for uploading data to the openbis datastore from within te doit environment
 
     Needed parameters in the config dict are:
@@ -18,7 +24,8 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     'sample_code': Code for the new type of the sample
     'sample_prefix': Prefix for the new type of the sample
     'verbose': If true the output will be printed to console, optional
-    'runson': Specifies if the function is running on github actions or locally. To be parsed from command line by running 'doit runson=notactions'.
+    'runson': Specifies if the function is running on github actions or locally.
+        To be parsed from command line by running 'doit runson=notactions'.
 
     Args:
         metadata_path (str): Path to the metadata yaml file
@@ -97,7 +104,9 @@ def upload_to_openbis_doit(metadata_path: str, processed_data_path: str, raw_dat
     )
     logging.debug('Raw Dataset Uploaded')
 
-    # We load the object from the datastore before printing as a sort of manual check if the function worked as it was supposed to.
+    # We load the object from the datastore before printing as a sort of manual check
+    # if the function worked as it was supposed to.
+
     output_sample = ExpStep.load_sample(o, emodul_sample.identifier)
     # output_sample.info()
 
@@ -115,8 +124,10 @@ def create_sample_type_emodul(o: Interbis, sample_code: str, sample_prefix: str,
     Args:
         o (Openbis): currently running openbis instance
         sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
-        sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
-        sample_properties (dict): The object properties which should be assigned to the sample. If the property codes are not found in the datastore a new property will be created
+        sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in
+            CODE12345
+        sample_properties (dict): The object properties which should be assigned to the sample.
+            If the property codes are not found in the datastore a new property will be created
 
     Returns:
         Pybis: returns the pybis sample type object
