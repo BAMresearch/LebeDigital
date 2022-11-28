@@ -5,12 +5,15 @@ import sys
 import os
 import yaml
 import logging
+from math import isnan
 
 
 def upload_to_openbis_doit(
         metadata_path: str,
         processed_data_path: str,
         raw_data_path: str,
+        mixture_metadata_file_path: str,
+        mixture_data_path: str,
         output_path: str,
         config: dict):
     """Function for uploading data to the openbis datastore from within te doit environment
@@ -20,9 +23,12 @@ def upload_to_openbis_doit(
     'datastore_url': Url to the openBIS datastore
     'space': Space within openbis for the sample
     'project': Project under specified space for the sample
-    'collection': Collection under specified project for the sample
+    'emodul_collection': Collection under specified project for the emodul sample
+    'mixture_collection': Collection under specified project for the mixture sample
     'sample_code': Code for the new type of the sample
     'sample_prefix': Prefix for the new type of the sample
+    'mixture_code': Code for the new type of the mixture
+    'mixture_prefix': Prefix for the new type of the mixture
     'verbose': If true the output will be printed to console, optional
     'runson': Specifies if the function is running on github actions or locally.
         To be parsed from command line by running 'doit runson=notactions'.
@@ -31,6 +37,8 @@ def upload_to_openbis_doit(
         metadata_path (str): Path to the metadata yaml file
         processed_data_path (str): Path to the processed data file
         raw_data_path (str): Path to the raw data file
+        mixture_metadata_file_path (str): Path to the mixture metadata file
+        mixture_data_path (str): Path to the mixture data file
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
     """
@@ -49,17 +57,69 @@ def upload_to_openbis_doit(
             documents = yaml.dump(output_dict, file)
         return
 
+    o = Interbis(config['datastore_url'])
+    o.connect_to_datastore()
+
+    """
+    MIXTURE EXPERIMENTAL STEP FROM HERE ON
+    """
+
+    mixture_sample = ExpStep(
+        name=os.path.splitext(os.path.basename(mixture_metadata_file_path))[0],
+        space=config['space'],
+        project=config['project'],
+    )
+
+    mixture_sample.collection = o.get_collection_identifier(
+        config['mixture_collection'],
+    )
+
+    print(mixture_metadata_file_path)
+    mixture_sample.metadata = read_metadata_emodul(mixture_metadata_file_path)
+
+    mixture_sample.metadata['$name'] = os.path.splitext(os.path.basename(mixture_metadata_file_path))[0]
+    logging.debug(mixture_sample.metadata)
+
+    mixture_sample_type = create_sample_type_emodul(
+        o,
+        sample_code=config['mixture_code'],
+        sample_prefix=config['mixture_prefix'],
+        sample_properties=mixture_sample.metadata,
+    )
+
+    mixture_sample.type = mixture_sample_type.code
+    logging.debug(f'mixture type created: {mixture_sample.type}')
+
+    for key, val in mixture_sample.metadata.items():
+        if type(val) == float and isnan(val):
+            mixture_sample.metadata[key] = 0.0
+
+    mixture_sample.upload_expstep(o)
+    logging.debug(f'mixture uploaded')
+
+    mixture_dataset_name = mixture_sample.name + '_raw'
+
+    mixture_sample.upload_dataset(
+        o,
+        props={
+            '$name': mixture_dataset_name,
+            'files': [mixture_data_path],
+            'data_type': 'RAW_DATA'
+        }
+    )
+    logging.debug('Mixture Dataset Uploaded')
+
+    """
+    EMODUL EXPERIMENTAL STEP FROM HERE ON
+    """
     emodul_sample = ExpStep(
         name=os.path.splitext(os.path.basename(metadata_path))[0],
         space=config['space'],
         project=config['project'],
     )
 
-    o = Interbis(config['datastore_url'])
-    o.connect_to_datastore()
-
     emodul_sample.collection = o.get_collection_identifier(
-        config['collection'],
+        config['emodul_collection'],
     )
 
     emodul_sample.metadata = read_metadata_emodul(metadata_path)
@@ -79,6 +139,9 @@ def upload_to_openbis_doit(
 
     emodul_sample.upload_expstep(o)
     logging.debug('Sample Uploaded')
+
+    # SETTING THE MIXTURE EXPSTEP AS A PARENT OF EMODUL EXPSTEP
+    emodul_sample.parents = [o.get_sample_identifier(mixture_sample.name)]
 
     processed_dataset_name = emodul_sample.name + '_processed'
 
@@ -192,12 +255,11 @@ def create_sample_type_emodul(o: Interbis, sample_code: str, sample_prefix: str,
     # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
     for i, p in enumerate(pt_dict.keys()):
-
         block_print()
         new_sample_type.assign_property(
             prop=p,
             section='Metadata',
-            ordinal=(i+1),
+            ordinal=(i + 1),
             mandatory=True if p == '$NAME' else False,
             # initialValueForExistingEntities=f'Initial_Val_{p}',
             showInEditView=True,
@@ -217,8 +279,7 @@ def read_metadata_emodul(yaml_path: str):
         yaml_path (str): path to the yaml file
     """
 
-    with open(yaml_path, 'rb') as file:
-
+    with open(yaml_path, 'r') as file:
         data = yaml.safe_load(file)
 
         data = {k.lower(): v for k, v in data.items()}

@@ -142,15 +142,6 @@ class Interbis(Openbis):
             dict: Returns a dictionary with the overview
         """
 
-        # We check if the openbis aliases were specified in the function arguments
-        # if "experiment" in kwargs:
-        #     kwargs["collection"] = kwargs["experiment"]
-        #     kwargs.pop("experiment", None)
-
-        # if "object" in kwargs:
-        #     kwargs["sample"] = kwargs["object"]
-        #     kwargs.pop("object", None)
-
         # Here we define some small internal functions to shorten the overall functions as these
         # are reused inside pretty often
 
