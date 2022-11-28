@@ -273,7 +273,6 @@ class ExpStep:
         self.project, = sample_dict['identifier'].split('/')[2],
         self.identifier = sample_dict['identifier']
         self.permId = sample_dict['permId']
-        self.code = sample_dict['identifier'].split('/')[3]
 
         # Getting the object from the datastore to get the name of the collection and parents
         self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
