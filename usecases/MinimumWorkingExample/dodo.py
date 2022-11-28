@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+import yaml
 from doit import create_after
 from doit.task import clean_targets
 
@@ -31,7 +33,6 @@ single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
 single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
 
-
 DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
@@ -39,9 +40,12 @@ openbis_config = {
     'datastore_url': 'https://test.datastore.bam.de/openbis/',
     'space': 'CKUJATH',
     'project': 'LEBEDIGITAL',
-    'collection': 'LEBEDIGITAL_COLLECTION',
+    'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
+    'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
     'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
     'sample_prefix': 'EMODUL',
+    'mixture_code': 'EXPERIMENTAL_STEP_EMODUL_MIX',
+    'mixture_prefix': 'EMODUL_MIX',
     'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on github actions as they need a password to run
@@ -67,7 +71,8 @@ Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 # defining paths for mixture
 raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
 mixture_output_directory = Path(ParentDir, 'mixture')  # folder with folders
-metadata_mixture_directory = Path(mixture_output_directory, 'metadata_yaml_files')  # folder with mixture metadata yaml files
+metadata_mixture_directory = Path(mixture_output_directory,
+                                  'metadata_yaml_files')  # folder with mixture metadata yaml files
 mixture_knowledge_graphs_directory = Path(mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
 # List with mixes with problems, to be excluded for now
@@ -87,7 +92,7 @@ def task_extract_metadata_mixture():
     if config['mode'] == 'single':
         list_raw_data_mixture_files = [Path(raw_data_mixture_directory, single_mix_name)]
 
-    else: # make a list of all files
+    else:  # make a list of all files
         list_raw_data_mixture_files = os.scandir(raw_data_mixture_directory)
 
     for f in list_raw_data_mixture_files:
@@ -103,17 +108,18 @@ def task_extract_metadata_mixture():
                     'clean': [clean_targets]
                 }
 
-#extract standardized meta data for Young' modulus tests
+
+# extract standardized meta data for Young' modulus tests
 def task_extract_metadata_emodul():
     # create folder, if it is not there
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
-    else: # go through all files
+        list_raw_data_emodulus_directories = [Path(raw_data_emodulus_directory, single_example_name)]
+    else:  # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
-    
+
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_path = Path(f)
@@ -128,6 +134,7 @@ def task_extract_metadata_emodul():
                 'clean': [clean_targets]
             }
 
+
 # extract standardized processed data for Young' modulus tests
 
 
@@ -137,8 +144,8 @@ def task_extract_processed_data_emodul():
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
-    else: # go through all files
+        list_raw_data_emodulus_directories = [Path(raw_data_emodulus_directory, single_example_name)]
+    else:  # go through all files
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
 
     for f in list_raw_data_emodulus_directories:
@@ -166,8 +173,8 @@ def task_export_knowledgeGraph_emodul():
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
-    else: # go through all files
+        list_metadata_yaml_files = [Path(metadata_emodulus_directory, single_example_name + '.yaml')]
+    else:  # go through all files
         # list of all meta data files....
         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
 
@@ -186,7 +193,7 @@ def task_export_knowledgeGraph_emodul():
             knowledge_graph_file = Path(
                 knowledge_graphs_directory, name_of_ttl)
 
-            yield{
+            yield {
                 'name': name_of_cvs,
                 'actions': [(generate_knowledge_graph, [metadata_file_path,
                                                         knowledge_graph_file])],
@@ -201,15 +208,25 @@ def task_upload_to_openbis():
     # create folder, if it is not there
     Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
 
-    metadata_directory_path = Path(metadata_emodulus_directory)
-    processed_directory_path = Path(processed_data_emodulus_directory)
-
     # TODO: FIND OUT IF ZIP WILL KEEP THE ORDER OF THE DIRECTORY IN ODER WITH >1 FILE
-    for meta_f, processed_f in zip(os.scandir(metadata_emodulus_directory), os.scandir(processed_data_emodulus_directory)):
-
+    for meta_f, processed_f in zip(os.scandir(metadata_emodulus_directory),
+                                   os.scandir(processed_data_emodulus_directory)):
         # getting path for files
         metadata_file_path = Path(meta_f)
         processed_file_path = Path(processed_f)
+
+        with open(metadata_file_path, 'r') as file:
+            data = yaml.safe_load(file)
+            mix_file = data['mix_file']
+
+        # print(mix_file)
+        mixture_metadata_file_path = Path(mixture_output_directory, 'metadata_yaml_files',
+                                          str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
+        # print(mixture_metadata_file_path)
+
+        # raw_data_mixture_directory
+
+        mixture_data_path = Path(raw_data_mixture_directory, str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
 
         # the raw data file is the specimen file in the corresponding folder in raw_data_emodulus_directory
         raw_data_file = Path(
@@ -220,9 +237,10 @@ def task_upload_to_openbis():
 
         yield {
             'name': metadata_file_path,
-            'actions': [(upload_to_openbis_doit, [metadata_file_path, processed_file_path, raw_data_file, openbis_samples_directory, openbis_config])],
+            'actions': [(upload_to_openbis_doit,
+                         [metadata_file_path, processed_file_path, raw_data_file,
+                          mixture_metadata_file_path, mixture_data_path, openbis_samples_directory, openbis_config])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],
         }
-
