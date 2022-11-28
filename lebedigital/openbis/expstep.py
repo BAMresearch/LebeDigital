@@ -3,7 +3,6 @@ import os
 import shutil
 import sys
 from math import isnan
-from pathlib import Path
 from sys import exit
 
 import pandas as pd
@@ -89,7 +88,7 @@ class ExpStep:
                 print(f'{colparam: >25}:')
                 for key, val in value.items():
                     colkey = colored(key, 'green', 'on_grey')
-                    print(' '*20 + f'{colkey}: {val}')
+                    print(' ' * 20 + f'{colkey}: {val}')
                 print('\n')
             else:
                 print(f'{colparam: >25}: {value}' + '\n')
@@ -152,7 +151,7 @@ class ExpStep:
         types_df = o.get_sample_properties(self.type)
         types_dict = dict(zip(types_df.code, types_df.dataType))
         logging.debug(types_dict)
-        types_dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
+        types_dict: dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
 
         # Check if all keys are a subset of all possible keys
         logging.debug('Checking if keys are subset of defined parameters')
@@ -188,7 +187,7 @@ class ExpStep:
 
         # If you got to this line no gamebreaking bugs were found
         logging.info('Type Checker: Types are correctly set')
-        
+
     @staticmethod
     def load_sample(o: Interbis, sample_identifier: str):
         """Loads an expstep from an experimental step in the datastore with its properties
@@ -295,7 +294,6 @@ class ExpStep:
 
         Args:
             o (Interbis): Currently running openBIS interface
-            name (str): Name of the sample
             overwrite (bool): Specifies if an existing Sample should be overwritten. Defaults to False.
 
         Raises:
@@ -374,12 +372,12 @@ class ExpStep:
             o (Interbis): Currently running openbis interface
             reason (str): Reason for deletion
         """
-        # Check if the sample exsts and delete it
+        # Check if the sample exists and delete it
         if o.exists_in_datastore(self.name):
             o.get_sample(self.identifier).delete(reason)
         else:
             raise ValueError('Sample not in datastore')
-        
+
     def upload_dataset(self, o: Interbis, props: dict):
         """Uploads a dataset to the ExpStep.
         
@@ -411,11 +409,13 @@ class ExpStep:
         files = props.pop('files')
         data_type = props.pop('data_type')
 
-        # If a dataset with the same name was found in the datastore that dataset will be returned and none will be uploaded
+        # If a dataset with the same name was found in the datastore that dataset will be returned and none will be
+        # uploaded
         if test:
             name = props['$name']
             print(
-                f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must first delete the other dataset with name {name}')
+                f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must '
+                f'first delete the other dataset with name {name}')
             ds = o.get_datasets(where={'$name': props['$name']})
 
         # Uploading the dataset
@@ -432,7 +432,7 @@ class ExpStep:
         return ds
 
     def download_datasets(self, o: Interbis, path: str, data_type: str = ''):
-        """Downloads all datasets which are asigned to that sample
+        """Downloads all datasets which are assigned to that sample
 
         Args:
             o (Interbis): Currently running openBIS interface
@@ -452,7 +452,7 @@ class ExpStep:
         print(
             f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------\n')
         for dataset in self.datasets:
-            # If data_type was specified download only the datastes with that data type
+            # If data_type was specified download only the datasets with that data type
             if data_type:
                 if dataset.type == data_type:
                     print(f'Downloading dataset {dataset.code}')
@@ -463,7 +463,7 @@ class ExpStep:
                         wait_until_finished=False,
                     )
 
-            # If data_type was NOT specfied download all datasets
+            # If data_type was NOT specified download all datasets
             else:
                 print(f'Downloading dataset {dataset.code}')
                 print(f'Files: {dataset.file_list}\n')
@@ -491,18 +491,20 @@ class ExpStep:
         with open(yaml_path, 'w') as file:
             documents = yaml.dump(modified_dict, file)
 
+
 # Here the tests are starting, can be run from the main function
 
 
 def new_object_test():
-
-    # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
+    # SUPPRESSING PRINTS FOR ASSIGNING PROPERTIES
     # Disable
     def blockPrint():
+        # Blocking printing to terminal
         sys.stdout = open(os.devnull, 'w')
 
     # Restore
     def enablePrint():
+        # Enabling printing to terminal
         sys.stdout = sys.__stdout__
 
     o = ExpStep.connect_to_datastore()
@@ -547,11 +549,11 @@ def new_object_test():
             description='TEST_VOC_DESCRIPTION',
             terms=[
                 {"code": 'term_code1', "label": "term_label1",
-                    "description": "term_description1"},
+                 "description": "term_description1"},
                 {"code": 'term_code2', "label": "term_label2",
-                    "description": "term_description2"},
+                 "description": "term_description2"},
                 {"code": 'term_code3', "label": "term_label3",
-                    "description": "term_description3"}
+                 "description": "term_description3"}
             ]
         )
         new_voc.save()
@@ -603,12 +605,11 @@ def new_object_test():
     # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
     for i, p in enumerate(pt_dict.keys()):
-
         blockPrint()
         test_sample_type.assign_property(
             prop=p,
             section=f'Section_{p}',
-            ordinal=(i+1),
+            ordinal=(i + 1),
             mandatory=True,
             initialValueForExistingEntities=f'Initial_Val_{p}',
             showInEditView=True,
@@ -640,7 +641,6 @@ def new_object_test():
 
 
 def download_datasets_test():
-
     def delete_folder(path):
         folder = path
         for filename in os.listdir(folder):
@@ -679,17 +679,7 @@ def download_datasets_test():
     # print(testsample.get_property_types(o))
 
 
-def import_template_test():
-
-    o = ExpStep.connect_to_datastore()
-    test_folder = '/home/ckujath/code/testing'
-
-    ExpStep.gen_metadata_import_template(
-        o, 'EXPERIMENTAL_STEP_TEST', True, 'metadata', f'{test_folder}/test_sheet.xlsx')
-
-
 def load_yaml_test(path):
-
     o = ExpStep.connect_to_datastore()
 
     test_sample = ExpStep(
@@ -702,80 +692,8 @@ def load_yaml_test(path):
     print(test_sample.__dict__)
 
 
-def full_emodul():
-
-    o = ExpStep.connect_to_datastore()
-
-    metadata_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.yaml'
-    processed_data_path = '/home/ckujath/code/testing/Wolf 8.2 Probe 1.csv'
-    preview_path = '/home/ckujath/code/testing/test_graph.png'
-
-    emodul_sample = ExpStep(
-        name='Wolf 8.2 Probe 1',
-        space='CKUJATH',
-        project='LEBEDIGITAL',
-    )
-    emodul_sample.read_metadata_emodul(metadata_path)
-
-    emodul_sample.collection = o.find_collection(
-        o, 'LEBEDIGITAL_COLLECTION', id_type=1)
-
-    emodul_sample.sync_name(get_from='name')
-
-    emodul_sample_type = ExpStep.create_sample_type_emodul(
-        o,
-        sample_code='EXPERIMENTAL_STEP_EMODUL',
-        sample_prefix='EMODUL',
-        sample_properties=emodul_sample.metadata,
-    )
-
-    emodul_sample.type = emodul_sample_type.code
-
-    emodul_sample.upload_expstep(o)
-
-    emodul_sample.upload_dataset(
-        o,
-        props={
-            '$name': f'{emodul_sample.name}_processed',
-            'files': processed_data_path,
-            'data_type': 'PROCESSED_DATA'
-        }
-    )
-
-    emodul_sample.upload_dataset(
-        o,
-        props={
-            '$name': f'{emodul_sample.name}_preview',
-            'files': preview_path,
-            'data_type': 'PROCESSED_DATA'
-        }
-    )
-
-    print(emodul_sample.info())
-
-
-def responses_for_tests():
-    o = ExpStep.connect_to_datastore()
-
-    space = 'CKUJATH'
-    project = 'TEST_AMBETON'
-    collection = '/CKUJATH/TEST_AMBETON/VISKO_DATA_COLLECTION'
-
-    # samples_df = o.get_samples(
-    #     space=space,
-    #     project=project,
-    #     collection=collection,
-    #     props=['$name']
-    # ).df
-
-    # samples_dict = pd.DataFrame.to_dict(samples_df)
-
-    names = ExpStep.get_sample_names(o, space, project, collection)
-
-    print(names)
-
-
-def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection='/CKUJATH/LEBEDIGITAL/LEBEDIGITAL_COLLECTION'):
+def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL',
+                              collection='/CKUJATH/LEBEDIGITAL/LEBEDIGITAL_COLLECTION'):
     """Creates an object which can be used to test the functionality of the module
 
     Args:
@@ -802,6 +720,7 @@ def create_object_for_testing(space='CKUJATH', project='LEBEDIGITAL', collection
     sample.upload_expstep(o)
 
     sample.info()
+
 
 # Here the short tests end
 

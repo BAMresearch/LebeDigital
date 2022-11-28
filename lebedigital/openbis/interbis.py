@@ -2,15 +2,16 @@ import logging
 import os
 import sys
 from getpass import getpass
-from pprint import pprint
 
 import pandas as pd
 from pybis import Openbis
 
 
 class Interbis(Openbis):
-    def __init__(self, url, verify_certificates=True, token=None, use_cache=True, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
-        super().__init__(url, verify_certificates, token, use_cache, allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
+    def __init__(self, url, verify_certificates=True, token=None, use_cache=True,
+                 allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
+        super().__init__(url, verify_certificates, token, use_cache,
+                         allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
 
     def connect_to_datastore(self, username: str = None, password: str = None):
         """
