@@ -51,11 +51,11 @@ class Interbis(Openbis):
             logging.debug('Connection already established with ' + self.url)
 
     def get_metadata_import_template(
-        self,
-        sample_type: str,
-        write: bool = False,
-        sheet_name: str = 'metadata',
-        path: str = '',
+            self,
+            sample_type: str,
+            write: bool = False,
+            sheet_name: str = 'metadata',
+            path: str = '',
     ) -> pd.DataFrame:
         """
         Generates a pandas Dataframe containing an import template for a given object type exiting in data store.
@@ -323,13 +323,13 @@ class Interbis(Openbis):
         sample = self.get_sample(identifier)
         sample_info_dict = sample.attrs.all()
         sample_prop_dict = {key.upper(): val for key,
-                            val in sample.p.all().items()}
+                                                 val in sample.p.all().items()}
         full_dict = (sample_info_dict | sample_prop_dict)
 
         # copying the information from key experiment to collection for ease of use
         full_dict['collection'] = full_dict.get('experiment')
         return full_dict
-    
+
     def get_sample_identifier(self, name: str) -> str:
         """Returns the full identifier of the sample
 
@@ -341,10 +341,11 @@ class Interbis(Openbis):
         """
         sample_df = self.get_samples(where={'$name': name}).df
         if len(sample_df.index) > 1 or len(sample_df.index) == 0:
-            raise ValueError(f'Could not find unique sample, the amount of samples with that name is {len(sample_df.index)}')
-        
+            raise ValueError(
+                f'Could not find unique sample, the amount of samples with that name is {len(sample_df.index)}')
+
         return sample_df['identifier'].values[0]
-    
+
     def get_collection_identifier(self, collection_code: str) -> str:
         """Returns the full identifier of the collection
 
@@ -356,13 +357,12 @@ class Interbis(Openbis):
         """
         collections_df = self.get_collections(props='$name').df
         collection_code = collection_code.upper()
-        
+
         if len(collections_df.index):
             return collections_df[collections_df['identifier'].str.contains(
                 collection_code)].iloc[0]['identifier']
         else:
             raise ValueError(f'No collection with name {collection_code} found')
-        
 
     def exists_in_datastore(self, name: str) -> bool:
         """Checks if a sample with the given identifier exists in the openBIS datastore.
@@ -374,7 +374,7 @@ class Interbis(Openbis):
             bool: True when exists otherwise False
         """
         samples = self.get_samples(where={'$name': name}, props='$name').df
-        
+
         # Warning if there are more than one entry in the Dataframe. Suggests something went wrong when uploading.
         df_length = len(samples.index)
 
@@ -386,15 +386,14 @@ class Interbis(Openbis):
         else:
             return True
 
-        
     def create_sample_type(self, sample_code: str, sample_prefix: str, sample_properties: dict):
         """Used for automatically creating a sample type within the doit tasks.
         May be useful for automating upload, less customisation options than creating them "by hand" though
 
         Args:
-            o (Openbis): currently running openbis instance
             sample_code (str): The code of the sample is the name of the sample, for example EXPERIMENTAL_STEP_EMODUL
-            sample_prefix (str): The prefix of the new sample, will appear before the code of the created sample as in CODE12345
+            sample_prefix (str): The prefix of the new sample,
+                will appear before the code of the created sample as in CODE12345
             sample_properties (dict): The object properties which should be assigned to the sample.
                 If the property code is not found in the datastore a new property will be created.
 
@@ -402,13 +401,13 @@ class Interbis(Openbis):
             Pybis: returns the pybis sample type object
         """
 
-        # SUPRESSING PRINTS FOR ASSIGNING PROPERTIES
+        # SUPPRESSING PRINTS FOR ASSIGNING PROPERTIES
         # Disable
-        def blockPrint():
+        def block_print():
             sys.stdout = open(os.devnull, 'w')
 
         # Restore
-        def enablePrint():
+        def enable_print():
             sys.stdout = sys.__stdout__
 
         sample_types = self.get_sample_types().df
@@ -420,7 +419,8 @@ class Interbis(Openbis):
             new_sample_type = self.new_sample_type(
                 code=sample_code,
                 generatedCodePrefix=sample_prefix,
-                # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, PYBIS DOES NOT ACCEPT DESCTIPTION ARGUMENT
+                # description='Testing Experimental Step', DOES NOT WORK WITH PYBIS, PYBIS DOES NOT ACCEPT
+                # DESCRIPTION ARGUMENT
                 autoGeneratedCode=True,
                 subcodeUnique=False,
                 listable=True,
@@ -430,7 +430,6 @@ class Interbis(Openbis):
                 validationPlugin='EXPERIMENTAL_STEP.date_range_validation'
             )
             new_sample_type.save()
-            # print(f'Sample type {sample_code} created')
 
         pt_dict = {}
         pt_types = list(self.get_property_types().df['code'])
@@ -438,12 +437,6 @@ class Interbis(Openbis):
         for prop, val in sample_properties.items():
 
             if not prop.upper() in pt_types:
-                # new_pt = self.new_property_type(
-                #     code=prop,
-                #     dataType=val,
-                #     label=prop.lower(),
-                #     description=prop.lower(),
-                # )
                 new_pt = self.new_property_type(
                     code=prop,
                     dataType=val[0],
@@ -451,33 +444,29 @@ class Interbis(Openbis):
                     description=val[2],
                 )
                 new_pt.save()
-                # print(f'Creating new property {new_pt.code}')
             else:
                 new_pt = self.get_property_type(prop)
-                # print(f'Fetching existing property {new_pt.code}')
 
             pt_dict[new_pt.code] = new_pt
 
         # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
         for i, p in enumerate(pt_dict.keys()):
-
-            blockPrint()
+            block_print()
             new_sample_type.assign_property(
                 prop=p,
                 section='Metadata',
-                ordinal=(i+1),
+                ordinal=(i + 1),
                 mandatory=True if p == '$NAME' else False,
                 # initialValueForExistingEntities=f'Initial_Val_{p}',
                 showInEditView=True,
                 showRawValueInForms=True,
             )
-            enablePrint()
+            enable_print()
 
-            # print(f'Assigned property {p} to {new_sample_type.code}')
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
-    
+
 
 def main():
     # I am just checking if the stuff i move still works, will delete when im done with porting
@@ -492,19 +481,19 @@ def main():
     #     'typeFloat': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
     #     'typeBoolean': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
     # }
-    
+
     # before_flag = False
     # sample_types_before = o.get_sample_types().df
     # print(sample_types_before)
     # if sample_type_name in sample_types_before.code.values:
     #     before_flag = True
-    
+
     # sample_type_code = o.create_sample_type(
     #     sample_code='EXPERIMENTAL_STEP_WILL_DELETE_LATER',
     #     sample_prefix='ABCDEFG',
     #     sample_properties=sample_type_dict,
     # )
-    
+
     # sample_type_code.delete(reason='aa')
 
     collection = o.get_collection_identifier('Lebedigital_Collection')
