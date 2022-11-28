@@ -9,8 +9,8 @@ DOIT_CONFIG = {
 }
 
 # here is the possibility to implement different doit runs
-# currently the default is set to 'mode=CI'
-config = {"mode": get_var('mode', 'CI')}
+# currently the default is set to 'mode=default'
+config = {"mode": get_var('mode', 'default')}
 
 # the mode or other variables can be used via a dictionary
 # config['mode']
@@ -18,6 +18,16 @@ config = {"mode": get_var('mode', 'CI')}
 # general
 ROOT = pathlib.Path(__file__).parent
 figures_dir = 'figures'
+
+# initialize a list of file dependencies for the paper
+PAPER_PLOTS = []
+
+# function to return target path and append paper dependency list
+def paper_plot_target(name):
+    target = ROOT / figures_dir / name
+    PAPER_PLOTS.append(target)
+    return target
+
 
 # paper
 paper_dir = 'tex'
@@ -27,6 +37,8 @@ paper_file = ROOT / paper_dir / paper_name
 
 # macros
 py_macros_file = ROOT / paper_dir / 'macros' / 'py_macros.tex'
+tex_macros_file = ROOT / paper_dir / 'macros' / 'tex_macros.tex'
+TEX_MACROS = [py_macros_file, tex_macros_file]
 
 
 # read macros yaml to define figure file names
@@ -43,10 +55,12 @@ workflow_output_file = ROOT / figures_dir / workflow_graph_name
 
 def task_build_graph():
     """build workflow graph"""
+
+    target = paper_plot_target(workflow_graph_name)
     return {
         "file_dep": [workflow_graph_script],
-        "actions": [(paper_workflow_graph,[workflow_output_file.with_suffix(''),False])],
-        "targets": [workflow_output_file],
+        "actions": [(paper_workflow_graph,[target.with_suffix(''),False])],
+        "targets": [target],
         "clean": True,
     }
 
@@ -64,7 +78,7 @@ def task_build_tex_macros():
 def task_paper():
     """compile pdf from latex source"""
     return {
-        "file_dep": [paper_file, workflow_output_file, py_macros_file],
+        "file_dep": [paper_file] + TEX_MACROS + PAPER_PLOTS,
         "actions": [f"tectonic {paper_file}"],
         "targets": [paper_file.with_suffix('.pdf')],
         "clean": True,

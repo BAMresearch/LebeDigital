@@ -1,7 +1,6 @@
 import graphviz
 
 def paper_workflow_graph(file_name = 'test_output', view=False):
-    print('test')
 
     file_name = str(file_name) # convert pathlib object to useful string
 
