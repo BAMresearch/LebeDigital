@@ -55,11 +55,11 @@ workflow_output_file = ROOT / figures_dir / workflow_graph_name
 
 def task_build_graph():
     """build workflow graph"""
-
     target = paper_plot_target(workflow_graph_name)
+
     return {
         "file_dep": [workflow_graph_script],
-        "actions": [(paper_workflow_graph,[target.with_suffix(''),False])],
+        "actions": [(paper_workflow_graph,[target.with_suffix('').with_suffix(''),False])],
         "targets": [target],
         "clean": True,
     }
