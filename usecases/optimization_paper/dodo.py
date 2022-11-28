@@ -2,12 +2,18 @@ import pathlib
 from workflow_graph.paper_workflow_graph import paper_workflow_graph
 from tex.macros.py_macros import py_macros
 import yaml
+from doit import get_var
 
 DOIT_CONFIG = {
     "verbosity": 2,
 }
 
+# here is the possibility to implement different doit runs
+# currently the default is set to 'mode=CI'
+config = {"mode": get_var('mode', 'CI')}
 
+# the mode or other variables can be used via a dictionary
+# config['mode']
 
 # general
 ROOT = pathlib.Path(__file__).parent

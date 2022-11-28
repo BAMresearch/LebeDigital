@@ -11,26 +11,25 @@ Figures generated for the paper are located in **figures**.
 
 ### pydoit
 There is a **dodo.py** file which includes all steps required to generate the paper.
-Expensive computations should not be always. We will need to find a good solution.
-I would propose to use a similar setup as in the MinimumWorkingExample and us a call like 
+It has the option for different modes to be implemented.
+As example the default is currently
 ```
-doit mode=full
+doit mode=CI
 ```
-to trigger the full calculation. But I am open to suggestions. Maybe it is not needed.
-
+If there are expensive computations the should be skipped, or settings changed for integration testing puroses, this can be done using this option.
 ### Github action
-The pydoit workflow is included in the actions so we have a direct feedback is everything is working as planned.
+The pydoit workflow is included in the actions so we have a direct feedback if everything is working as planned.
 
 ### tex-macros
 In **tex/macros/tex_macros.tex** are macros defined which are static.
-This whould be for example the definition of varibales in equations, for example
+This whould be for example the definition of variables in equations, for example
 ```
 \newcommand{\DOH}{\alpha} % degree of hydration
 ```
 
 ### py-macros
 There is the possiblity to generate tex-macros by a python script.
-The allows variable input to be included in the paper.
+This allows variable input to be included in the paper.
 This could be the computation time, a calculated KPI or the name of a figure included in the paper.
 Currently these macros are defined in **tex/macros/py_macros.yaml**.
 It is a simpel dictionary where the key is the tex-command and the value, the tex-code.
