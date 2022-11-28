@@ -27,6 +27,7 @@ dependencies:
   - pip
   - xlrd
   - openpyxl
+  - tectonic=0.8
   - pip:
     - probeye==2.3.2
     - -e .

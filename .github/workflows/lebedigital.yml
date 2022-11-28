@@ -55,3 +55,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/usecases/MinimumWorkingExample/
           doit      
+
+      - name: run-optimization-paper
+        shell: bash -l {0}
+        run: |
+          cd $GITHUB_WORKSPACE/usecases/optimization_paper/
+          doit
