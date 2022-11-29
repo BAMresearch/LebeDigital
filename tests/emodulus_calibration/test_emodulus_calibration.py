@@ -19,7 +19,7 @@ def test_emodulus_calibration():
         calibrated_data_path=os.path.dirname(Path(__file__)), mode='cheap'
     )
     # checking if the KG file for the calibration is created
-    assert os.path.exists(os.path.join(os.path.dirname(Path(__file__), 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl'))) == True
+    assert os.path.exists(os.path.join(os.path.dirname(Path(__file__)), 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl')) == True
 
     # checking for the calibrated E modulus and the posterior predictive
     assert np.mean(post_pred) == pytest.approx(95, rel=50)
@@ -28,7 +28,7 @@ def test_emodulus_calibration():
 
     print("Calibration test completed")
 
-
+assert os.path.exists(os.path.join(os.path.dirname(Path(__file__)), 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl')) == True
 # if __name__ == "__main__":
 #     output = query_KG(
 #         path=os.path.dirname(Path(__file__)), exp_name="Wolf 8.2 Probe 1.csv"
