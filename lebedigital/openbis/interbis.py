@@ -30,8 +30,8 @@ class Interbis(Openbis):
             logging.debug('Establishing a connection with ' + self.url)
 
             # We can parse the username and password as user input
-            # If left empty the username will be grabbed from the os username
-            # and password will have to be entered by the user
+            # If it is left empty the username will be grabbed from the os username
+            # and the password will have to be entered by the user
             if username:
                 os.environ['OPENBIS_USERNAME'] = username
             else:
@@ -75,7 +75,7 @@ class Interbis(Openbis):
             pandas.DataFrame: returns a DataFrame with the import template
         """
 
-        # Raises an error when no path given and write is set to True
+        # Raises an error when no path is given and write is set to True
         if write and not path:
             raise ValueError("No path given")
 
