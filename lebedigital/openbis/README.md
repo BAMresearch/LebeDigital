@@ -9,22 +9,23 @@
 ``` python
 new_experiment = ExpStep(
     name: str = exp_name, # name of the experiment
-    type: str = exp_type, # type of the experiment, has to be a defined sample type in the Datastore
+    type: str = exp_type, # type of the experiment, has to be a defined sample type in the datastore
     metadata: dict = exp_metadata, # metadata of your data, is defined by the sample type
     space: str = exp_space, # space in which the experiment should be saved
     project: str = exp_project, # project in which the experiment should be saved
-    collection: str = exp_collection, # collection in which the expeiment should be saved
+    collection: str = exp_collection, # collection in which the experiment should be saved
     parents: str = exp_parents, # parents of the experiment
-    identifier: str = '', # identifier of te sample (SPACE/PROJECT/SAMPLE_CODE)
+    identifier: str = '', # identifier of the sample (SPACE/PROJECT/SAMPLE_CODE)
     permId: str = '', # permID of the sample
     sample_object=None, # Pybis object of the sample
-    datasets: list = None, # Dataset objects saved in the Sample
-    dataset_codes: list = None, # Codes of the Dataset objects saved in the sample
+    datasets: list = None, # dataset objects saved in the sample
+    dataset_codes: list = None, # codes of the dataset objects saved in the sample
 )
 ```
 
-### In order to use ExpStep, first create an expstep instance of the class, then set the attributes of your sample like name, type and metadata
-```python. You also have to specfy the location in the datastore
+### In order to use ExpStep, first create an ExpStep instance of the class, then set the attributes of your sample like name, type and metadata
+* You also have to specify the location in the datastore
+```python. 
 from lebedigital.openbis.expstep import ExpStep
 
 my_experiment = ExpStep()
@@ -41,7 +42,7 @@ my_experiment.collection = 'SPACE/PROJECT/COLLECTION'
 ...
 ```
 
-> Then you can log into your datastore and upload the sample
+* Then you can log into your datastore and upload the sample using the openbis interface class Interbis
 
 ```python
 from lebedigital.openbis.interbis import Interbis
@@ -51,8 +52,7 @@ o.connect_to_datastore()
 
 my_experiment.upload_expstep(o)
 ```
-
-> To upload a sample of a given type that type has to already exist in the datastore. You can define custom types byusing the ELN Web View or do it from the notebook/script by using the o.create_sample_type() function.
+* To upload a sample of a given type that type has to already exist in the datastore. You can define custom types by using the ELN Web View or do it from the notebook/script by using the o.create_sample_type() function.
 
 ```python
 o.create_sample_type(
@@ -64,7 +64,7 @@ o.create_sample_type(
     }
 )
 ```
-> You can upload datasets by using the upload_dataset() function.
+* You can upload datasets by using the upload_dataset() function.
 
 ```python
 my_sample.upload_dataset(

@@ -23,11 +23,11 @@ class ExpStep:
             parents: list = None,
             identifier: str = '',
             permId: str = '',
-            sample_object=None,
+            sample_object = None,
             datasets: list = None,
             dataset_codes: list = None,
     ) -> None:
-        """Creates an ExpStep Object
+        """Creates an ExpStep Object as general python interface to the Experimental Step OpenBis object
 
         Args:
             name (str, optional): name of the experiment. Defaults to ''.
@@ -35,13 +35,13 @@ class ExpStep:
             metadata (dict, optional): metadata of your data, is defined by the sample type. Defaults to None.
             space (str, optional): space in which the experiment should be saved. Defaults to "".
             project (str, optional): project in which the experiment should be saved. Defaults to "".
-            collection (str, optional): collection in which the expeiment should be saved. Defaults to "".
+            collection (str, optional): collection in which the experiment should be saved. Defaults to "".
             parents (list, optional): parents of the experiment. Defaults to None.
-            identifier (str, optional): Verbose identifier of the sample, indicates the space and project. Defaults to ''.
+            identifier (str, optional): verbose identifier of the sample, indicates the space and project. Defaults to ''.
             permId (str, optional): PermID identifier of the sample. Defaults to ''.
-            sample_object (Pybis, optional): The pybis sample object of the sample. Defaults to None.
-            datasets (list, optional): List of dataset objects saved under the experimental step. Defaults to None.
-            dataset_codes (list, optional): The PermIDs of the datasets. Defaults to None.
+            sample_object (Pybis, optional): the pybis sample object of the sample. Defaults to None.
+            datasets (list, optional): list of dataset objects saved under the experimental step. Defaults to None.
+            dataset_codes (list, optional): the PermIDs of the datasets. Defaults to None.
         """
 
         self.name = name
@@ -67,7 +67,7 @@ class ExpStep:
             self.dataset_codes = []
 
     def info(self):
-        """Prints a description of the sample into the terminal/jupter output
+        """Prints a description of the sample into the terminal/jupyter output
         """
         print('\n')
         title = colored(self.name, 'cyan')
@@ -93,7 +93,8 @@ class ExpStep:
         print('=' * int(float(len(title)) * 0.9))
 
     def import_from_template(self, path_to_file: str):
-        """Imports the data from the template into the samples metadata. To used with the generated import template
+        """Imports the data from the template into the sample's metadata. To used with the generated import template
+                function from InterBis
 
         Args:
             path_to_file (str): Path to the filled out import template
@@ -186,12 +187,12 @@ class ExpStep:
             logging.warning(
                 'Type Checker: Parents attribute undeclared')
 
-        # If you got to this line no gamebreaking bugs were found
+        # If you got to this line no game breaking bugs were found
         logging.info('Type Checker: Types are correctly set')
 
     @staticmethod
     def load_sample(o: Interbis, sample_identifier: str):
-        """Loads an expstep from an experimental step in the datastore with its properties
+        """Loads an ExpStep from an experimental step in the datastore with its properties
 
         Args:
             o (Interbis): currently running openBIS interface
@@ -204,7 +205,7 @@ class ExpStep:
         # Getting the properties of the sample
         sample_dict = o.get_sample_dict(sample_identifier)
 
-        #  Getting a list of the properties only to flter them from the sample_dict
+        #  Getting a list of the properties only to filter them from the sample_dict
         props_list = list(o.get_sample_type(sample_dict['type'])
                           .get_property_assignments()
                           .df['propertyType'])
@@ -294,10 +295,10 @@ class ExpStep:
 
         Args:
             o (Interbis): Currently running openBIS interface
-            overwrite (bool): Specifies if an existing Sample should be overwritten. Defaults to False.
+            overwrite (bool): Specifies if an existing sample should be overwritten. Defaults to False.
 
         Raises:
-            ValueError: ValueError if the Metadata is empty,
+            ValueError: ValueError if the metadata is empty,
                         $name is mandatory.
 
         Returns:
@@ -311,7 +312,7 @@ class ExpStep:
             logging.error(str(e))
             exit(1)
 
-        # If a sample with the same name exists in the Datastore you fetch it instead of creating a new one
+        # If a sample with the same name exists in the datastore you fetch it instead of creating a new one
         if o.exists_in_datastore(self.name):
             print(f'Sample {self.name} already exists in Datastore')
             samples_df = o.get_samples(
