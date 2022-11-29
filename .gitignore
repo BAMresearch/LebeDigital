@@ -125,7 +125,7 @@ conda-env/
 # mkdocs documentation
 /site
 
-# mypy
+# my
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -138,12 +138,19 @@ dmypy.json
 
 # results of minimum working example
 usecases/MinimumWorkingExample/emodul/*
+usecases/MinimumWorkingExample/mixture/*
 
 # graphviz
 *.gv
 LebeDigital_optimization_graph_ignored.gv.pdf
 
-# ignore mesh files, I added the specific files here as I di dnot want to exclude all possible xdmf, etc files
-cylinder.h5
-cylinder.msh
-cylinder.xdmf
+# ignore mesh files
+**/mesh/*
+
+# ignore latex temp files
+*.out
+*.aux
+*.blg
+*.synctex.gz
+*.bbl
+

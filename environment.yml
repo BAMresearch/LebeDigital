@@ -26,6 +26,9 @@ dependencies:
   - python-graphviz
   - pytest
   - pip
+  - xlrd
+  - openpyxl
+  - tectonic=0.8
   - pip:
     - probeye==2.3.0
     - -e .
