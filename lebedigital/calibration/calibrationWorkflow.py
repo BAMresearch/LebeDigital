@@ -155,7 +155,7 @@ def esimate_Youngs_modulus(
     problem.add_forward_model(linear_elasticity)
 
     # ============================================
-    #     Add test data to the Inverse Problem
+    #     Add experimental data to the Inverse Problem
     # ============================================
     experiment_name = exp_output["exp_name"]
     y_test = exp_output["force"]  # in kN
