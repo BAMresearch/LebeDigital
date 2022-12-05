@@ -63,7 +63,7 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('gwp', 'GWP per m³ [kg CO2,eq/m³]')
     dot.edge('gwp','co2 computation volume')
     dot.node('co2 computation volume', 'GWP per part', color=process)
-    dot.edge('geometry','CO2 computation volume')
+    dot.edge('geometry','co2 computation volume')
     dot.edge('co2 computation volume','gwp total')
     dot.edge('cemI','co2 computation')
     dot.node('gwp total', 'GWP per part [kg CO2,eq]', color=kpi, shape='rectangle')
@@ -71,16 +71,12 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('volume computation', 'cemI')
     dot.edge('ratio_cemI_cemII','volume computation')
     dot.node('aggregate content', 'aggregate/(water+cement volume ratio) [-]', color=input, shape='rectangle')
-    dot.node('ratio_cemI_cemII', 'slag to concrete ratio', color=input, shape='rectangle')
+    dot.node('ratio_cemI_cemII', 'slag to cement ratio', color=input, shape='rectangle')
     dot.edge('w/c','volume computation')
     dot.node('w/c', 'water cement mass ratio [-]\n plasticizer content [kg/m³]', color=input)
     dot.node('volume computation', 'computation of volume contents', color=process)
     dot.edge('aggregate content', 'concrete homogenization')
-    dot.edge('ratio_cemI_cemII',  'interpolation_E')
-
-    dot.edge( 'phi_E_paste','interpolation_E')
-    dot.edge( 'interpolation_E','param paste E 28d')
-
+    dot.edge('ratio_cemI_cemII',  'interpolation_paste')
     dot.node('concrete strength 28d', 'concrete compressive strength \n28 days [N/mm2]')
     dot.edge('ft(fc)', 'concrete tensile strength 28d')
     dot.node('concrete tensile strength 28d', 'concrete tensile strength \n28 days [N/mm2]')
@@ -117,12 +113,11 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('aggregate rho', 'volume computation')
     dot.node('paste data', 'paste data: nu, C, kappa', color=input)
     dot.edge('paste data', 'concrete homogenization')
-    dot.node('param paste strength 28d', 'paste strength after 28 days [N/mm2]')
-    dot.node('param paste E 28d', 'paste Youngs modulus after 28 days [N/mm2]')
-    dot.edge('param paste E 28d', 'concrete homogenization')
+
+    dot.node('param paste strength 28d', 'paste strength and Youngs modulus\nafter 28 days [N/mm2]')
 
 
-    dot.edge('interpolation_strength', 'param paste strength 28d')
+    dot.edge('interpolation_paste', 'param paste strength 28d')
 
 
     dot.edge('concrete homogenization', 'concrete strength 28d')
@@ -148,43 +143,34 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
 
     dot.node('strength data','concrete strength data', color=input)
-    dot.edge('strength data','strength identifcation')
+    dot.edge('strength data','paste identifcation')
     #dot.node('strength identifcation','strength parameter\nidentification', color=process)
 
-    tex_node(dot,'strength identifcation',r'parameter identification: $\phi_{f_\mathrm{c}}$', color=process)
 
-
-    dot.edge('strength identifcation', 'phi_strength')
-
-    tex_node(dot,'phi_strength',r'$\phi_{f_\mathrm{c}}$')
+    tex_node(dot,'paste identifcation',r'parameter identification: $\phi_{\mathrm{paste}}$', color=process)
 
 
 
-    dot.edge('ratio_cemI_cemII','interpolation_strength')
-    dot.edge('phi_strength','interpolation_strength')
-    dot.node('interpolation_strength','function to "interpolate" paste strength \nf(phi_strength,slag ratio)', color=process)
+    dot.edge('paste identifcation', 'phi_paste')
 
-    dot.node('interpolation_E','function to "interpolate" paste E \nf(phi_strength,slag ratio)', color=process)
+    tex_node(dot,'phi_paste',r'$\phi_{\mathrm{paste}}$')
+
+    dot.edge('phi_paste', 'interpolation_paste')
 
 
 
 
+    dot.node('interpolation_paste','function to "interpolate" paste strength and E \nf(phi_paste,slag ratio)', color=process)
 
 
     dot.node('Youngs modulus function','Youngs modulus function', color=process)
-
-    r'\phi_{\mathrm{E_{paste}}}'
-    tex_node(dot,'E identifcation',r'parameter identification: $\phi_{\mathrm{E_{paste}}}$', color=process)
-    dot.edge('E identifcation', 'phi_E_paste')
-    tex_node(dot,'phi_E_paste', r'$\phi_{\mathrm{E_{paste}}}$')
-
 
     dot.edge('strength data','Youngs modulus function')
     dot.edge('Youngs modulus function', 'E')
 
 
     dot.node('E','approx concrete E data')
-    dot.edge('E','E identifcation')
+    dot.edge('E','paste identifcation')
 
 
     dot.edge('phi','interpolation')

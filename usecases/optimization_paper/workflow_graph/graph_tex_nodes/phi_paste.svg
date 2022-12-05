@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="56.88pt" height="41.88pt" viewBox="0 0 56.88 41.88" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="55.92pt" height="40.92pt" viewBox="0 0 55.92 40.92" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2022-12-05T13:28:23.948373</dc:date>
+    <dc:date>2022-12-05T15:48:26.552048</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,16 +21,16 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M -0 41.88 
-L 56.88 41.88 
-L 56.88 0 
+   <path d="M -0 40.92 
+L 55.92 40.92 
+L 55.92 0 
 L -0 0 
-L -0 41.88 
+L -0 40.92 
 z
 " style="fill: none"/>
   </g>
   <g id="text_1">
-   <!-- $\phi_{\mathrm{E_{paste}}}$ -->
+   <!-- $\phi_{\mathrm{paste}}$ -->
    <g transform="translate(14.4 22.8) scale(0.12 -0.12)">
     <defs>
      <path id="Cmmi10-c1" d="M 1241 -1247 
@@ -83,47 +83,6 @@ Q 3238 2056 3134 2254
 Q 3031 2453 2843 2567 
 Q 2656 2681 2413 2681 
 L 1759 78 
-z
-" transform="scale(0.015625)"/>
-     <path id="Cmr10-45" d="M 197 0 
-L 197 225 
-Q 856 225 856 428 
-L 856 3944 
-Q 856 4147 197 4147 
-L 197 4372 
-L 3816 4372 
-L 3994 2906 
-L 3809 2906 
-Q 3741 3459 3617 3709 
-Q 3494 3959 3222 4053 
-Q 2950 4147 2406 4147 
-L 1778 4147 
-Q 1663 4147 1598 4137 
-Q 1534 4128 1493 4083 
-Q 1453 4038 1453 3944 
-L 1453 2381 
-L 1925 2381 
-Q 2250 2381 2411 2436 
-Q 2572 2491 2633 2645 
-Q 2694 2800 2694 3128 
-L 2881 3128 
-L 2881 1409 
-L 2694 1409 
-Q 2694 1734 2633 1890 
-Q 2572 2047 2411 2101 
-Q 2250 2156 1925 2156 
-L 1453 2156 
-L 1453 428 
-Q 1453 291 1531 258 
-Q 1609 225 1778 225 
-L 2456 225 
-Q 2900 225 3173 295 
-Q 3447 366 3598 530 
-Q 3750 694 3833 955 
-Q 3916 1216 3988 1678 
-L 4172 1678 
-L 3903 0 
-L 197 0 
 z
 " transform="scale(0.015625)"/>
      <path id="Cmr10-70" d="M 166 -1241 
@@ -328,12 +287,11 @@ z
 " transform="scale(0.015625)"/>
     </defs>
     <use xlink:href="#Cmmi10-c1" transform="translate(0 0.609375)"/>
-    <use xlink:href="#Cmr10-45" transform="translate(59.521484 -16.396875) scale(0.7)"/>
-    <use xlink:href="#Cmr10-70" transform="translate(110.331039 -28.576875) scale(0.49)"/>
-    <use xlink:href="#Cmr10-61" transform="translate(137.534652 -28.576875) scale(0.49)"/>
-    <use xlink:href="#Cmr10-73" transform="translate(162.034652 -28.576875) scale(0.49)"/>
-    <use xlink:href="#Cmr10-74" transform="translate(181.342758 -28.576875) scale(0.49)"/>
-    <use xlink:href="#Cmr10-65" transform="translate(200.363754 -28.576875) scale(0.49)"/>
+    <use xlink:href="#Cmr10-70" transform="translate(59.521484 -16.396875) scale(0.7)"/>
+    <use xlink:href="#Cmr10-61" transform="translate(98.383789 -16.396875) scale(0.7)"/>
+    <use xlink:href="#Cmr10-73" transform="translate(133.383789 -16.396875) scale(0.7)"/>
+    <use xlink:href="#Cmr10-74" transform="translate(160.966797 -16.396875) scale(0.7)"/>
+    <use xlink:href="#Cmr10-65" transform="translate(188.139648 -16.396875) scale(0.7)"/>
    </g>
   </g>
  </g>
