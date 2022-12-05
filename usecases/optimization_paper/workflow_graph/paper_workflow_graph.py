@@ -1,5 +1,49 @@
 import graphviz
 
+import matplotlib.pyplot as plt
+import os
+#from pathlib import Path
+import pathlib
+
+# looks better but different to other text
+plt.rc('mathtext', fontset='cm')  # matplotlib: force computer modern font set
+
+LOCATION = pathlib.Path(__file__).parent.resolve()
+IMAGE_FOLDER = LOCATION/'graph_tex_nodes'
+pathlib.Path(IMAGE_FOLDER).mkdir(exist_ok=True)
+
+FONTSIZE = 12
+
+
+def tex2svg(file_name, formula, fontsize=14, dpi=300):
+    """Render TeX formula to SVG and saves to file
+       this uses the matplotlib tex functions:
+       https://matplotlib.org/stable/tutorials/text/mathtext.html
+
+    Args:
+        file_name (str): file name
+        formula (str): TeX formula.
+        fontsize (int, optional): Font size.
+        dpi (int, optional): DPI.
+    Returns:
+        full_file_name (str): path to image
+    """
+
+    full_file_name = IMAGE_FOLDER / (file_name + '.svg')
+
+    fig = plt.figure(figsize=(0.01, 0.01))
+    fig.text(0, 0, formula, fontsize=fontsize)
+    fig.savefig(full_file_name,dpi=dpi, transparent=True, format='svg',
+                bbox_inches='tight', pad_inches=0.2)
+
+    return full_file_name
+
+
+def tex_node(dot_object,node_name,node_text, color=None, shape=None, fontsize=FONTSIZE):
+    file_name = tex2svg(node_name,node_text,fontsize)
+    dot_object.node(node_name, '',image=str(file_name), color=color,shape=shape)
+
+
 def paper_workflow_graph(file_name = 'test_output', view=False):
 
     file_name = str(file_name) # convert pathlib object to useful string
@@ -10,6 +54,7 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     kpi = 'orange'
 
     dot = graphviz.Digraph(file_name, comment='Optimization Paper', format='pdf')
+    dot.attr("node", fontsize=str(FONTSIZE))
 
     dot.node('epd products', 'environmental product decleration (epd) for cement, slag, aggregates in CO2/kg', color=input)
     dot.edge('epd products','co2 computation')
@@ -32,7 +77,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('volume computation', 'computation of volume contents', color=process)
     dot.edge('aggregate content', 'concrete homogenization')
     dot.edge('ratio_cemI_cemII',  'interpolation_E')
-
 
     dot.edge( 'phi_E_paste','interpolation_E')
     dot.edge( 'interpolation_E','param paste E 28d')
@@ -95,17 +139,24 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.node('calorimetry data','calorimetry data', color=input)
     dot.edge('calorimetry data','hydration identifcation')
-    dot.node('hydration identifcation','hydration parameter\nidentification', color=process)
+    tex_node(dot,'hydration identifcation',r'parameter identification: $\phi_{\mathrm{hydr}}$', color=process)
     dot.edge('hydration identifcation', 'phi')
-    dot.node('phi', 'phi_hydration')
+
+
+    tex_node(dot,'phi', r'$\phi_{\mathrm{hydr}}$')
 
 
 
     dot.node('strength data','concrete strength data', color=input)
     dot.edge('strength data','strength identifcation')
-    dot.node('strength identifcation','strength parameter\nidentification', color=process)
+    #dot.node('strength identifcation','strength parameter\nidentification', color=process)
+
+    tex_node(dot,'strength identifcation',r'parameter identification: $\phi_{f_\mathrm{c}}$', color=process)
+
+
     dot.edge('strength identifcation', 'phi_strength')
-    dot.node('phi_strength', 'phi_strength')
+
+    tex_node(dot,'phi_strength',r'$\phi_{f_\mathrm{c}}$')
 
 
 
@@ -122,11 +173,10 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.node('Youngs modulus function','Youngs modulus function', color=process)
 
-
-
-    dot.node('E identifcation','E_paste parameter\nidentification', color=process)
+    r'\phi_{\mathrm{E_{paste}}}'
+    tex_node(dot,'E identifcation',r'parameter identification: $\phi_{\mathrm{E_{paste}}}$', color=process)
     dot.edge('E identifcation', 'phi_E_paste')
-    dot.node('phi_E_paste', 'phi_E_paste')
+    tex_node(dot,'phi_E_paste', r'$\phi_{\mathrm{E_{paste}}}$')
 
 
     dot.edge('strength data','Youngs modulus function')
@@ -176,7 +226,8 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('legend_output', 'Output', color=kpi, shape='rectangle')
 
 
-    dot.render(view=view)
+    dot.render(view=view, cleanup=True)
+
 
 if __name__ == "__main__":
     paper_workflow_graph(file_name='test_output', view=True)
