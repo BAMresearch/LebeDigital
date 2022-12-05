@@ -28,7 +28,7 @@ from doit import get_var
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
-# when "cheap option" or "single" is run, only this source of raw data is processed
+# when "cheap option" or "single" is run, only this souce of raw data is processed
 single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
 single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
@@ -48,14 +48,14 @@ openbis_config = {
     'mixture_prefix': 'EMODUL_MIX',
     'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
-    # we need to skip the openbis functions on GitHub actions as they need a password to run
+    # we need to skip the openbis functions on github actions as they need a password to run
     'runson': get_var('runson', 'actions'),
 }
 
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
-# EMODULE PATHS
+# EMODULE PATHS 
 # defining paths for emodule
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
@@ -124,7 +124,8 @@ def task_extract_metadata_emodul():
         if f.is_dir():
             raw_data_path = Path(f)
             raw_data_file = Path(f, 'specimen.dat')
-            yaml_metadata_file = Path(metadata_emodulus_directory, f.name + '.yaml')
+            yaml_metadata_file = Path(
+                metadata_emodulus_directory, f.name + '.yaml')
             yield {
                 'name': f.name,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
@@ -135,6 +136,8 @@ def task_extract_metadata_emodul():
 
 
 # extract standardized processed data for Young' modulus tests
+
+
 def task_extract_processed_data_emodul():
     # create folder, if it is not there
     Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
@@ -150,7 +153,8 @@ def task_extract_processed_data_emodul():
             raw_data_file = Path(f, 'specimen.dat')
             # the name of the csv file is the file name of the raw data
             # is processed_data_directory + directory_raw_data.csv
-            csv_data_file = Path(processed_data_emodulus_directory, f.name + '.csv')
+            csv_data_file = Path(
+                processed_data_emodulus_directory, f.name + '.csv')
 
             yield {
                 'name': f.name,
@@ -183,9 +187,11 @@ def task_export_knowledgeGraph_emodul():
             name_of_ttl = f.name.replace('.yaml', '.ttl')
             name_of_cvs = f.name.replace('.yaml', '.csv')
             # path the processed data csv
-            processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
+            processed_data_file_path = Path(
+                processed_data_emodulus_directory, name_of_cvs)
             # path to output file KG
-            knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
+            knowledge_graph_file = Path(
+                knowledge_graphs_directory, name_of_ttl)
 
             yield {
                 'name': name_of_cvs,
@@ -215,13 +221,12 @@ def task_upload_to_openbis():
 
         # print(mix_file)
         mixture_metadata_file_path = Path(mixture_output_directory, 'metadata_yaml_files',
-                                          str(os.path.splitext(os.path.basename(mix_file))[0]) + '.yaml')
+                                          str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
         # print(mixture_metadata_file_path)
 
         # raw_data_mixture_directory
 
-        mixture_data_path = Path(raw_data_mixture_directory,
-                                 str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
+        mixture_data_path = Path(raw_data_mixture_directory, str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
 
         # the raw data file is the specimen file in the corresponding folder in raw_data_emodulus_directory
         raw_data_file = Path(

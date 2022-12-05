@@ -25,12 +25,16 @@ dependencies:
   - python-graphviz
   - pytest
   - pip
+  - pybis
+  - xlsxwriter
+  - termcolor
   - xlrd
   - openpyxl
   - tectonic=0.8
   - pybis
   - xlsxwriter
   - termcolor
+  - sphinx
   - sphinx
   - pip:
     - probeye==2.3.2
