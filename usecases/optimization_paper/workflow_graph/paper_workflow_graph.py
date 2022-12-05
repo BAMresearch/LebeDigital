@@ -31,8 +31,12 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('w/c', 'water cement mass ratio [-]\n plasticizer content [kg/m³]', color=input)
     dot.node('volume computation', 'computation of volume contents', color=process)
     dot.edge('aggregate content', 'concrete homogenization')
-    dot.edge('ratio_cemI_cemII', 'E paste')
-    dot.edge('w/c', 'E paste')
+    dot.edge('ratio_cemI_cemII',  'interpolation_E')
+
+
+    dot.edge( 'phi_E_paste','interpolation_E')
+    dot.edge( 'interpolation_E','param paste E 28d')
+
     dot.node('concrete strength 28d', 'concrete compressive strength \n28 days [N/mm2]')
     dot.edge('ft(fc)', 'concrete tensile strength 28d')
     dot.node('concrete tensile strength 28d', 'concrete tensile strength \n28 days [N/mm2]')
@@ -69,8 +73,14 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('aggregate rho', 'volume computation')
     dot.node('paste data', 'paste data: nu, C, kappa', color=input)
     dot.edge('paste data', 'concrete homogenization')
-    dot.edge('paste data', 'inverse_homogenization')
-    dot.node('param paste strength 28d', 'paste strength after 28 days [N/mm2]\npaste Youngs modulus after 28 days [N/mm2]')
+    dot.node('param paste strength 28d', 'paste strength after 28 days [N/mm2]')
+    dot.node('param paste E 28d', 'paste Youngs modulus after 28 days [N/mm2]')
+    dot.edge('param paste E 28d', 'concrete homogenization')
+
+
+    dot.edge('interpolation_strength', 'param paste strength 28d')
+
+
     dot.edge('concrete homogenization', 'concrete strength 28d')
     dot.edge('aggregate content','volume computation')
     dot.node('geometry', 'cross section: width, height\n'
@@ -97,35 +107,34 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('strength identifcation', 'phi_strength')
     dot.node('phi_strength', 'phi_strength')
 
+
+
     dot.edge('ratio_cemI_cemII','interpolation_strength')
     dot.edge('phi_strength','interpolation_strength')
-    dot.node('interpolation_strength','function to "interpolate" concrete strength \nf(phi_strength,slag ratio)', color=process)
+    dot.node('interpolation_strength','function to "interpolate" paste strength \nf(phi_strength,slag ratio)', color=process)
+
+    dot.node('interpolation_E','function to "interpolate" paste E \nf(phi_strength,slag ratio)', color=process)
 
 
-    dot.edge('interpolation_strength', 'fc')
-    dot.node('fc','concrete strength')
-    dot.edge('fc', 'inverse_homogenization')
-    dot.node('inverse_homogenization','inverse homogenization', color=process)
-    dot.edge('inverse_homogenization', 'param paste strength 28d')
 
 
-    dot.edge('fc', 'Youngs modulus function')
+
+
     dot.node('Youngs modulus function','Youngs modulus function', color=process)
+
+
+
+    dot.node('E identifcation','E_paste parameter\nidentification', color=process)
+    dot.edge('E identifcation', 'phi_E_paste')
+    dot.node('phi_E_paste', 'phi_E_paste')
+
+
+    dot.edge('strength data','Youngs modulus function')
     dot.edge('Youngs modulus function', 'E')
-    dot.node('E','approx concrete Youngs modulus')
-    dot.edge('E', 'inverse_homogenization')
-
-    dot.edge('paste rho', 'inverse_homogenization')
-    dot.edge('aggregate data', 'inverse_homogenization')
-    dot.edge('aggregate rho', 'inverse_homogenization')
-
-    dot.edge('strength data','aggregate ratio val')
-
-    dot.node('aggregate ratio val','aggregate ratio')
-    dot.edge('aggregate ratio val', 'inverse_homogenization')
 
 
-
+    dot.node('E','approx concrete E data')
+    dot.edge('E','E identifcation')
 
 
     dot.edge('phi','interpolation')

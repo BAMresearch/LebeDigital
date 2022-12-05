@@ -3,18 +3,17 @@
 * aggregate to water+cement ratio : value between 0 and 1 describing amount of aggregates
 ## Random Variable = [c,d .. ] with description
 I guess everything based on the data from the parameter identification, mainly:
-* compressive strength concrete (fixed aggregates)
+* paste compressive strength
+* paste Youngs modulus
 * hydration parameters
 
-but from these follow:
-* Youngs modulus concrete (fixed aggregates)
-* paste strength
-* paste Youngs modulus
+but from these follow
 * concrete compressive strength
 * concrete Youngs modulus
 * concrete tensile strength
 * some more homogenization output values
 * fem outputs
+* beam design output
 ## Objectives : and how it relates to the design variable and random variable (for example time(a,c))
 * minimize GWP
 less concrete should improve GWP, therefore
