@@ -13,7 +13,6 @@ from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
 from lebedigital.raw_data_processing.youngs_modulus_data \
     .emodul_generate_processed_data import processed_data_from_rawdata
 
-from lebedigital.openbis.expstep import upload_to_openbis_doit
 from lebedigital.raw_data_processing.mixture \
     .mixture_metadata_extraction import extract_metadata_mixture
 
@@ -29,7 +28,7 @@ from doit import get_var
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
-# when "cheap option" or "single" is run, only this souce of raw data is processed
+# when "cheap option" or "single" is run, only this source of raw data is processed
 single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
 single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
@@ -49,12 +48,11 @@ openbis_config = {
     'mixture_prefix': 'EMODUL_MIX',
     'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
-    # we need to skip the openbis functions on github actions as they need a password to run
+    # we need to skip the openbis functions on GitHub actions as they need a password to run
     'runson': get_var('runson', 'actions'),
 }
 
 # parent directory of the minimum working example
-#parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
 # EMODULE PATHS
@@ -94,7 +92,7 @@ def task_extract_metadata_mixture():
     if config['mode'] == 'single':
         list_raw_data_mixture_files = [Path(raw_data_mixture_directory, single_mix_name)]
 
-    else: # make a list of all files
+    else:  # make a list of all files
         list_raw_data_mixture_files = os.scandir(raw_data_mixture_directory)
 
     for f in list_raw_data_mixture_files:
@@ -150,7 +148,7 @@ def task_extract_processed_data_emodul():
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_file = Path(f, 'specimen.dat')
-            #the name of the csv file is the file name of the raw data
+            # the name of the csv file is the file name of the raw data
             # is processed_data_directory + directory_raw_data.csv
             csv_data_file = Path(processed_data_emodulus_directory, f.name + '.csv')
 
@@ -163,7 +161,7 @@ def task_extract_processed_data_emodul():
             }
 
 
-#generate knowledgeGraphs
+# generate knowledgeGraphs
 @create_after(executed='extract_metadata_emodul')
 def task_export_knowledgeGraph_emodul():
     # create folder, if it is not there
@@ -192,7 +190,7 @@ def task_export_knowledgeGraph_emodul():
             yield {
                 'name': name_of_cvs,
                 'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    knowledge_graph_file])],
+                                                        knowledge_graph_file])],
                 'file_dep': [metadata_file_path, processed_data_file_path],
                 'targets': [knowledge_graph_file],
                 'clean': [clean_targets]
@@ -217,12 +215,13 @@ def task_upload_to_openbis():
 
         # print(mix_file)
         mixture_metadata_file_path = Path(mixture_output_directory, 'metadata_yaml_files',
-                                          str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
+                                          str(os.path.splitext(os.path.basename(mix_file))[0]) + '.yaml')
         # print(mixture_metadata_file_path)
 
         # raw_data_mixture_directory
 
-        mixture_data_path = Path(raw_data_mixture_directory, str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
+        mixture_data_path = Path(raw_data_mixture_directory,
+                                 str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
 
         # the raw data file is the specimen file in the corresponding folder in raw_data_emodulus_directory
         raw_data_file = Path(
