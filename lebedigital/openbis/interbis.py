@@ -59,14 +59,16 @@ class Interbis(Openbis):
     ) -> pd.DataFrame:
         """
         Generates a pandas Dataframe containing an import template for a given object type exiting in data store.
-        Can be saved as an excel sheet, too, for manual data entry and then imported to an ExpStep object
+        Can be saved as an Excel sheet, too, for manual data entry and then imported to an ExpStep object
             by ExpStep.import_from_template
 
         Args:
             sample_type (str): The type of the sample (ex. EXPERIMENTAL_STEP_SOMETHING)
-            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it should be written to an excel file (True). Defaults to False.
-            sheet_name (str, optional): The name of the sheet in an excel file. Defaults to 'metadata'.
-            path (str, optional): Path where the excel sheet should be saved. Only use with write set to True. Defaults to ''.
+            write (bool, optional): Specifies if the function should return the template as a pandas DataFrame or if it
+                should be written to an Excel file (True). Defaults to False.
+            sheet_name (str, optional): The name of the sheet in an Excel file. Defaults to 'metadata'.
+            path (str, optional): Path where the Excel sheet should be saved. Only use with write set to True.
+                Defaults to ''.
 
         Raises:
             ValueError: Raises an error when write is set to True and no path is given
@@ -267,7 +269,7 @@ class Interbis(Openbis):
         else:
             raise ValueError('No correct level specified')
 
-    def get_sample_properties(self, sample_type: str) -> pd.DataFrame:
+    def get_sample_type_properties(self, sample_type: str) -> pd.DataFrame:
         """Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
         Args:
@@ -313,8 +315,7 @@ class Interbis(Openbis):
         """
         sample = self.get_sample(identifier)
         sample_info_dict = sample.attrs.all()
-        sample_prop_dict = {key.upper(): val for key,
-                                                 val in sample.p.all().items()}
+        sample_prop_dict = {key.upper(): val for key, val in sample.p.all().items()}
         full_dict = (sample_info_dict | sample_prop_dict)
 
         # copying the information from key experiment to collection for ease of use
@@ -403,7 +404,6 @@ class Interbis(Openbis):
 
         sample_types = self.get_sample_types().df
         if sample_code in list(sample_types['code']):
-            # print(f'Sample type {sample_code} already exists in the Datastore')
             new_sample_type = self.get_sample_type(sample_code)
 
         else:
@@ -457,40 +457,3 @@ class Interbis(Openbis):
 
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
-
-
-def main():
-    # I am just checking if the stuff i move still works, will delete when im done with porting
-    o = Interbis('https://test.datastore.bam.de/openbis/')
-    o.connect_to_datastore()
-
-    # sample_type_name = 'EXPERIMENTAL_STEP_WILL_DELETE_LATER',
-
-    # sample_type_dict = {
-    #     'typeStr': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
-    #     'typeInt': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
-    #     'typeFloat': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
-    #     'typeBoolean': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
-    # }
-
-    # before_flag = False
-    # sample_types_before = o.get_sample_types().df
-    # print(sample_types_before)
-    # if sample_type_name in sample_types_before.code.values:
-    #     before_flag = True
-
-    # sample_type_code = o.create_sample_type(
-    #     sample_code='EXPERIMENTAL_STEP_WILL_DELETE_LATER',
-    #     sample_prefix='ABCDEFG',
-    #     sample_properties=sample_type_dict,
-    # )
-
-    # sample_type_code.delete(reason='aa')
-
-    collection = o.get_collection_identifier('Lebedigital_Collection')
-    print(collection)
-
-
-if __name__ == '__main__':
-    main()
-    # full_emodul()

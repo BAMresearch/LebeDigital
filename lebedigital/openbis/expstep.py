@@ -1,6 +1,4 @@
 import logging
-import os
-import shutil
 from math import isnan
 from sys import exit
 
@@ -22,8 +20,8 @@ class ExpStep:
             collection: str = "",
             parents: list = None,
             identifier: str = '',
-            permId: str = '',
-            sample_object = None,
+            perm_id: str = '',
+            sample_object=None,
             datasets: list = None,
             dataset_codes: list = None,
     ) -> None:
@@ -31,14 +29,16 @@ class ExpStep:
 
         Args:
             name (str, optional): name of the experiment. Defaults to ''.
-            type (str, optional): type of the experiment, has to be a defined sample type in the Datastore. Defaults to ''.
+            type (str, optional): type of the experiment, has to be a defined sample type in the Datastore.
+                Defaults to ''.
             metadata (dict, optional): metadata of your data, is defined by the sample type. Defaults to None.
             space (str, optional): space in which the experiment should be saved. Defaults to "".
             project (str, optional): project in which the experiment should be saved. Defaults to "".
             collection (str, optional): collection in which the experiment should be saved. Defaults to "".
             parents (list, optional): parents of the experiment. Defaults to None.
-            identifier (str, optional): verbose identifier of the sample, indicates the space and project. Defaults to ''.
-            permId (str, optional): PermID identifier of the sample. Defaults to ''.
+            identifier (str, optional): verbose identifier of the sample, indicates the space and project.
+                Defaults to ''.
+            perm_id (str, optional): PermID identifier of the sample. Defaults to ''.
             sample_object (Pybis, optional): the pybis sample object of the sample. Defaults to None.
             datasets (list, optional): list of dataset objects saved under the experimental step. Defaults to None.
             dataset_codes (list, optional): the PermIDs of the datasets. Defaults to None.
@@ -52,7 +52,7 @@ class ExpStep:
         self.collection = collection
         self.parents = parents
         self.identifier = identifier
-        self.permId = permId
+        self.permId = perm_id
         self.sample_object = sample_object
         self.datasets = datasets
         self.dataset_codes = dataset_codes
@@ -76,28 +76,28 @@ class ExpStep:
         print('\n')
         for param, value in vars(self).items():
 
-            colparam = colored(
+            column_param = colored(
                 param, 'green') if value else colored(param, 'red')
 
             if isinstance(value, str):
-                print(f'{colparam: >25}: {value}' + '\n')
+                print(f'{column_param: >25}: {value}' + '\n')
             elif isinstance(value, dict):
-                print(f'{colparam: >25}:')
+                print(f'{column_param: >25}:')
                 for key, val in value.items():
-                    colkey = colored(key, 'green', 'on_grey')
-                    print(' ' * 20 + f'{colkey}: {val}')
+                    column_key = colored(key, 'green', 'on_grey')
+                    print(' ' * 20 + f'{column_key}: {val}')
                 print('\n')
             else:
-                print(f'{colparam: >25}: {value}' + '\n')
+                print(f'{column_param: >25}: {value}' + '\n')
 
         print('=' * int(float(len(title)) * 0.9))
 
     def import_from_template(self, path_to_file: str):
         """Imports the data from the template into the sample's metadata. To used with the generated import template
-                function from InterBis
+                function from InterBis which creates an Excel sheet for you to fill out.
 
         Args:
-            path_to_file (str): Path to the filled out import template
+            path_to_file (str): Path to the filled out import template Excel sheet
         """
 
         df = pd.read_excel(path_to_file)
@@ -146,7 +146,7 @@ class ExpStep:
         }
         logging.debug('TYPE CHECKING OF THE SAMPLE')
         logging.debug('Setting up comparison dict')
-        types_df = o.get_sample_properties(self.type)
+        types_df = o.get_sample_type_properties(self.type)
         types_dict = dict(zip(types_df.code, types_df.dataType))
         logging.debug(types_dict)
         types_dict: dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
@@ -180,7 +180,7 @@ class ExpStep:
                 if not value:
                     raise ValueError(
                         f'Type Checker: Undeclared Attribute.'
-                        f'Attribute "{attr}" has not been delcared')
+                        f'Attribute "{attr}" has not been declared')
 
         # Printing warnings if parents are empty, does not break the function
         if not self.parents:
@@ -210,9 +210,6 @@ class ExpStep:
                           .get_property_assignments()
                           .df['propertyType'])
 
-        # Getting the name of the sample
-        sample_name = sample_dict['identifier'].split('/')[3]
-
         # Getting the sample
         sample = o.get_sample(sample_dict['identifier'], props='*')
 
@@ -241,7 +238,7 @@ class ExpStep:
             parents=sample_parents,
             metadata=sample_metadata,
             identifier=sample_dict['identifier'],
-            permId=sample_dict['permId'],
+            perm_id=sample_dict['perm_id'],
             sample_object=sample,
             datasets=sample_datasets,
             dataset_codes=sample_dataset_codes
@@ -274,7 +271,7 @@ class ExpStep:
         self.space, = sample_dict['identifier'].split('/')[1],
         self.project, = sample_dict['identifier'].split('/')[2],
         self.identifier = sample_dict['identifier']
-        self.permId = sample_dict['permId']
+        self.permId = sample_dict['perm_id']
 
         # Getting the object from the datastore to get the name of the collection and parents
         self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
@@ -323,8 +320,6 @@ class ExpStep:
             ).df
 
             # Getting the identifier from the dataframe
-            # TODO: Use pybis queries (where) here instead of pulling the entire dataframe
-
             samples_df.rename(columns={'$NAME': 'NAME'}, inplace=True)
             sample_identifier = samples_df.query(
                 "NAME==@self.name")['identifier'].values[0]
@@ -341,7 +336,6 @@ class ExpStep:
                     space=self.space,
                     collection=self.collection,
                     parents=self.parents,
-                    # children=self.children,
                     props=self.metadata,
                 )
                 sample.save()
@@ -353,12 +347,10 @@ class ExpStep:
         else:
             print(f'Creating new sample {self.name}')
             sample = o.new_sample(
-                # code=self.code,
                 type=self.type,
                 space=self.space,
                 collection=self.collection,
                 parents=self.parents,
-                # children=self.children,
                 props=self.metadata,
             )
             sample.save()
@@ -393,18 +385,17 @@ class ExpStep:
         """
 
         # Checking if the name of the dataset is included in props
-        test = ''
         if '$name' in props:
-            test = o.get_datasets(where={'$name': props['$name']})
+            exists_test = o.get_datasets(where={'$name': props['$name']})
         elif '$NAME' in props:
-            test = o.get_datasets(where={'$NAME': props['$NAME']})
+            exists_test = o.get_datasets(where={'$NAME': props['$NAME']})
         else:
             raise KeyError('$name not defined in props')
 
         # Checking if the files and data_type are specified in props
-        if not 'files' in props:
+        if 'files' not in props:
             raise KeyError(f'files not specified in props')
-        if not 'data_type' in props:
+        if 'data_type' not in props:
             raise KeyError(f'data_type not specified in props')
 
         files = props.pop('files')
@@ -412,7 +403,7 @@ class ExpStep:
 
         # If a dataset with the same name was found in the datastore that dataset will be returned and none will be
         # uploaded
-        if test:
+        if exists_test:
             name = props['$name']
             print(
                 f'Dataset(s) with the same name already present in the Datastore.\nTo upload the dataset you must '
@@ -443,6 +434,8 @@ class ExpStep:
         Raises:
             ValueError: Raises an error when no datasets are found under the sample
         """
+        if not o.is_session_active():
+            raise ValueError('Interbis object is not connected')
 
         # If the sample has no datasets an error will be thrown
         if not len(self.datasets):
@@ -490,42 +483,4 @@ class ExpStep:
         modified_dict['datasets'] = '--A PYTHON OBJECT WAS HERE--'
 
         with open(yaml_path, 'w') as file:
-            documents = yaml.dump(modified_dict, file)
-
-
-def download_datasets_test():
-    def delete_folder(path):
-        folder = path
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-    o = ExpStep.connect_to_datastore()
-
-    samples = o.get_samples(
-        where={
-            '$name': '3Dm3_0_1rpm_Vogel_2_7_T17_02'
-        }
-    )
-    identifier = samples[0].identifier
-    sample_dict = ExpStep.get_sample_dict(o, identifier)
-    sample_list = list(o.get_sample_type(
-        sample_dict['type']).get_property_assignments().df['propertyType'])
-
-    testsample = ExpStep.load_sample(o, identifier)
-
-    test_folder = '/home/ckujath/code/testing'
-    testsample.download_datasets(o, test_folder)
-    wait = input('Input something when ready to continue')
-    delete_folder(test_folder)
-
-    testsample.download_datasets(o, test_folder, 'ELN_PREVIEW')
-    wait = input('Input something when ready to continue')
-    delete_folder(test_folder)
-
+            _ = yaml.dump(modified_dict, file)
