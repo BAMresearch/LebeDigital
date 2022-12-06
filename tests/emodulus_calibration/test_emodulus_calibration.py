@@ -23,7 +23,7 @@ def test_emodulus_calibration():
 
     # checking for the calibrated E modulus
     print(f"The posterior E mean is {np.mean(E_samples)} KN/mm2")
-    assert np.mean(E_samples) == pytest.approx(30, rel=0.3) # this needs to specified by subject matter experts
+    assert np.mean(E_samples) == pytest.approx(30, rel=0.4) # this needs to specified by subject matter experts
 
     print("Calibration test completed")
 

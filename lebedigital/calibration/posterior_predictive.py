@@ -55,7 +55,7 @@ def perform_prediction_three_point_bending(knowledge_graph_file:str,forward_solv
     )
 
     if mode == "cheap":
-        mean, sd = pos_pred.get_stats(samples=1)  # mean : ~365 N/mm2, sd = 30
+        mean, sd = pos_pred.get_stats(samples=3)  # mean : ~365 N/mm2, sd = 30
     else:
         mean, sd = pos_pred.get_stats(samples=10)  # mean : ~365 N/mm2, sd = 30
     # ---- visualize posterior predictive
