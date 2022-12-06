@@ -217,8 +217,8 @@ def esimate_Youngs_modulus(
     else:
         inference_data = emcee_solver.run_mcmc(
             n_walkers=5,
-            n_steps=100,
-            n_initial_steps=20,
+            n_steps=50,
+            n_initial_steps=10,
         )
 
     # export the results from the 'inference_data' object to the graph
@@ -235,26 +235,6 @@ def esimate_Youngs_modulus(
 
     # get the samples from the knowledge graph
     sample_dict = import_parameter_samples(knowledge_graph_file)
+    E_pos = sample_dict["E"]  # kN/mm2 ~ E_mean ~ 95E03N/mm2
 
-    # ========================================================================
-    #       Posterior Predictive
-    # ========================================================================
-    nu = 0.2
-    E_pos = sample_dict["E"] * 1000  # N/mm2 ~ E_mean ~ 95E03N/mm2
-    # three_point = three_point_bending_example()
-    pos_pred = PosteriorPredictive(
-        three_point_bending_example, known_input_solver=nu, parameter=E_pos
-    )
-
-    if mode == "cheap":
-        mean, sd = pos_pred.get_stats(samples=1)  # mean : ~365 N/mm2, sd = 30
-    else:
-        mean, sd = pos_pred.get_stats(samples=10)  # mean : ~365 N/mm2, sd = 30
-    # ---- visualize posterior predictive
-    posterior_pred_samples = pos_pred._samples
-    # np.save('./post_pred.npy', posterior_pred_samples)
-    plt.figure()
-    sns.kdeplot(posterior_pred_samples)
-    plt.xlabel("stress in x-direction")
-
-    return E_pos, posterior_pred_samples
+    return E_pos

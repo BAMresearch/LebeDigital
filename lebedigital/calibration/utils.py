@@ -75,7 +75,7 @@ def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330, KG = Fals
     if KG == False: # this is just for testing purposes
         file_path = os.path.join(path,exp_name)
         results = {}
-        results['length'] = 300,2
+        results['length'] = 300.2
         results['diameter'] = 98.6
     df = pd.read_csv(file_path, skipfooter=skip_last, engine='python')
     df = df.drop(labels=range(0, skip_init), axis=0)
