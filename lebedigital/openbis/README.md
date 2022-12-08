@@ -2,28 +2,31 @@
 
 ## Motivation
 
-### Interbis/Expstep is an extension of the Pybis library meant for improving data synchronisation with an openBIS datastore.
+Interbis/Expstep is an extension of the [Pybis](https://pypi.org/project/PyBIS/) library meant for improving data synchronisation with an openBIS datastore.
 
 ## Glossary
 
-- **Interbis** - A Subclass of the Openbis class in the pybis library. It is used for connecting to the openBIS Database and for all Database queries like getting an overview of the Database
-- **ExpStep** - A Class for working with openBIS Experimental Steps. Used for defining Objects which describe real Experiments that you want to describe with metadata and upload to the openBIS Database
+### Disclaimer:
+The terms Sample and Objects are aliases for each other, you can use them synonymously within the pybis environment. We use Sample and Collection primarily in Interbis / ExpStep
+
+- **Interbis** - A Subclass of the Openbis class in the pybis library. It is used for connecting to the openBIS Database and for all Database queries.
+- **ExpStep** - A Class for working with openBIS Experimental Steps. Used for defining Experimental Step Samples / Objects which describe real Experiments with metadata and upload to the openBIS Database.
 - **Space** - The Highest "directory" abstraction in the Datastore. Contains all other openBIS "directories". One Space is defined per User or per Group.
-  - _Example_: Some Paper about compressing concrete
 - **Project** - Second highest "directory" abstraction in the Datastore. Contained in a Space, you can define infinitely many of them.
-  - _Example_: Concrete_Compression
+  - _Example_: Unilateral Concrete Compression
 - **Collection / Experiment** - Third highest "directory" abstraction in the Datastore. Contained in a Project, you can define infinitely many of them.
-  - _Example_: Concrete_Compression_Tests
+  - _Example_: Concrete_Compression_Testseries01
+- **Sample / Object Type** - A blueprint defining the general structure of a specific experimental set-up (metadata, relations ... ), you need to define in order to upload Samples / Objects of real world experiments.
+  - _Example_: EXPERIMENTAL_STEP_UCT
 - **Sample / Object** - An abstract representation of your experiment with your defined metadata **also called Experimental Steps** in the openBIS Database. Contained in a Collection, you can define infinitely many of them.
-  - _Example_: Concrete_Compression_Experiment_17_10_2022
-- **Dataset** - An openBIS abstraction containing your data files like Excel sheets or csvs.
-  - _Example_: Concrete_Compression_Experiment_17_10_2022_RAW_DATA
-- **Sample / Object Type** - A blueprint you need to define in order to upload Samples/Objects of real world experiments.
-  - _Example_: EXPERIMENTAL_STEP_CONCRETE
-- **Property** - One piece of metadata you use do describe your Samples/Objects. 
-  - _Example_: Name of your sample
-- **Parents** of a Sample - You can define another Sample to be a parent of a different sample.
+  - _Example_: UCT_Compression_Experiment_17_10_2022
+- **Dataset** - An openBIS abstraction containing your data files like Excel sheets or csvs with some metadata information.
+  - _Example_: UCT_Compression_Experiment_17_10_2022_RAW_DATA
+- **Property** - One piece of metadata you use do describe your Samples / Objects. 
+  - _Example_: Name of your sample / object
+- **Parents** of a Sample / Object - You can define another Sample / Object to be a parent of a different sample / object.
   - _Example_: A concrete mixture could be a **parent** of a concrete compression experiment
+  -  _Note_: Also defined are **Children** with the same relation in the other direction.
 
 > You can look at the definition from pybis [here](https://pypi.org/project/PyBIS/)
 
@@ -33,108 +36,125 @@
 
 Is an extension of the existing Openbis class defined in pybis and as such extends all pybis functionality.
 Interbis provides additional functionality for getting an overview of the datastore and find out what the structure of the Database looks like.
-Interbis also makes it easier to search for existing samples and retrieve their Identifiers from their metadata like Name.
+Interbis also makes it easier to search for existing samples / objects and retrieve their Identifiers from their metadata like Name.
 
 ### ExpStep
 
-Is a Class which provides functionality to define Samples as they are accepted by pybis and in turn the openBIS datastore.
-Example uses of the Class include uploading and retrieving samples and datasets from the Database.
+Is a Class which provides functionality to define Samples / Object as they are accepted by pybis and in turn the openBIS datastore.
+Example uses of the Class include uploading and retrieving samples / objects and datasets from the Database.
+We use the term Sample in our codebase.
 I recommend deriving the class in your personal workflow and tweaking it to make it easier to write data processing and uploading scripts. 
 
 
-## Example Workflow of Interbis/ExpStep - Concrete Measuring Project
+## Example Workflow of Interbis/ExpStep
 
-### Start with connecting yourself to the Database
+### 1. Connecting to the Database
 
 ```python
 from lebedigital.openbis.interbis import Interbis
 
-o = Interbis('https://yourdatabase.com')
-o.connect_to_datastore()
+o = Interbis('https://yourdatabase.com') # Define an Interbis object with the url to your openBIS Database
+o.connect_to_datastore() # The username will be read from your account (windows/linux) and you will have to input the password
 ```
 
-### Then you can define a blueprint from which you will create the Experimental Steps you have done in your research - create a new **Sample Type**
+### 2. Create a blueprint for the Samples / Objects - create a new **Sample / Object Type**
 
 ```python
-# In order to define a new Sample Type use the following method
+# In order to define a new Sample / Object Type use the following method
 
 o.create_sample_type(
-    sample_code='EXPERIMENTAL_STEP_CONCRETE_TEST',
-    sample_prefix='CONCRETE_TEST',
+    sample_code='EXPERIMENTAL_STEP_UCT', # Te identifier of the new sample / object type
+    sample_prefix='UCL', # The prefix of the sample / object. Will appear before every sample / object code
     sample_properties={
-        'property1': ['VARCHAR', 'my_label1', 'my_description1'],
-        'property2': ['INTEGER', 'my_label2', 'my_description2'],
+        '$name': ['VARCHAR', 'Name', 'Name'] # Default system property
+        'date': ['DATE', 'Date' 'Date of the experiment']
+        'property1': ['VARCHAR', 'my_label1', 'my_description1'], # Define properties here with data in the order
+        'property2': ['INTEGER', 'my_label2', 'my_description2'], # [Data Type, Label, Description]
         'property3': ['FLOAT', 'my_label2', 'my_description2']
     }
 )
 ```
 > You can find all the possible property types like 'VARCHAR' or 'FLOAT' [here](https://pypi.org/project/PyBIS/) under 'create property types'
 
-> You can also define the Sample Type in the Web-View of the Datastore
-### Now you can create the Experimental Step describing your research experiment. Start by declaring an object of the ExpStep class, which you want to upload to the Datastore
+> You can also define the Sample / Object Type in the Web-View of the Datastore. You need to be an admin to create new Sample / Object Types with both options.
 
-#### An ExpStep Class instance looks like:
+### 3. Create and upload samples / objects from type "EXPERIMENTAL_STEP_UCT"
+
+For each measured experiment a sample / object of the corresponding type (EXPERIMENTAL_STEP_UCT) has to be created. Therefore, create for each one instances of the ExpStep class which then can be uploaded into the Datastore.
+
+#### The ExpStep Class definition:
 
 ``` python
 new_experiment = ExpStep(
     name: str = 'exp_name', # name of the experiment
-    type: str = 'exp_type', # type of the experiment, has to be a defined sample type in the datastore
-    metadata: dict = exp_metadata, # metadata of your data, is defined by the sample type
+    type: str = 'exp_type', # type of the experiment, has to be a defined sample / object type in the datastore
+    metadata: dict = exp_metadata, # metadata of your data, is defined by the sample / object type
     space: str = 'exp_space', # space in which the experiment should be saved
     project: str = 'exp_project', # project in which the experiment should be saved
     collection: str = 'exp_space/exp_project/exp_collection', # collection in which the experiment should be saved
     parents: list[str] = [exp_parents], # parents of the experiment
-    identifier: str = '', # identifier of the sample (SPACE/PROJECT/SAMPLE_CODE)
-    permId: str = '', # permID of the sample
-    sample_object=None, # Pybis object of the sample
-    datasets: list = None, # dataset objects saved in the sample
-    dataset_codes: list = None, # codes of the dataset objects saved in the sample
+    identifier: str = '', # identifier of the sample / object (SPACE/PROJECT/SAMPLE_CODE)
+    permId: str = '', # permID of the sample / object
+    sample_object=None, # Pybis object of the sample / object
+    datasets: list = None, # dataset objects saved in the sample / object
+    dataset_codes: list = None, # codes of the dataset objects saved in the sample / object
 )
 ```
 
-> Note: You do not have to define all of those attributes, only the name, type, metadata and the location of the Sample in the Database (space, project, collection) are necessary
+> Note: You do not have to define all of those attributes, only the name, type, metadata and the location of the Sample / Object in the Database (space, project, collection) are necessary
 
-### An example workflow which would upload your experimental step describing your concrete experiment could be 
 
-#### 1. Define the ExpStep as you see fit
-```python. 
+#### a) Define the ExpStep
+```python
 from lebedigital.openbis.expstep import ExpStep
 
 concrete_experiment = ExpStep()
 
-concrete_experiment.name = 'Concrete_Experiment_1'
-concrete_experiment.type = 'EXPERIMENTAL_STEP_CONCRETE_TEST'
-concrete_experiment.metadata = {'name': 'Concrete_Experiment_1', 'date': '17:10:2022'}
+# The names, types, metadata, etc. are the same as defined before in examples or creating the Sample / Object Type
+
+concrete_experiment.name = 'UCT_Compression_Experiment_17_10_2022'
+concrete_experiment.type = 'EXPERIMENTAL_STEP_UCT'
+concrete_experiment.metadata = {'$name': 'Concrete_Experiment_1', 'date': '17:10:2022'}
 
 # define the location in the datastore
 
-concrete_experiment.space = 'SPACE'
-concrete_experiment.project = 'PROJECT'
-concrete_experiment.collection = 'SPACE/PROJECT/COLLECTION'
+concrete_experiment.space = '<Your Username>' # your preassigned personal space
+concrete_experiment.project = 'Unilateral Conrete Compression'
+concrete_experiment.collection = '<Your Username>/Unilateral Conrete Compression/Concrete_Compression_Testseries01'
 ```
 
-#### 2. Upload the ExpStep to the Database
+#### b) Upload the ExpStep to the Database
 ```python
 concrete_experiment.upload_expstep(o) # o = connected Interbis instance
 ```
 #### Good to know:
-* To upload a sample of a given type that type has to already exist in the datastore.
-* The name of the sample has to be the same as the `$name` parameter in the metadata dictionary in order to be able to find the sample efficiently again.
-* You can also load an existing sample into an ExpStep object using the `load_sample()` method of ExpStep.
-* Every time you want to upload some Sample to the Database a Type Checker will run in order to make sure your ExpStep has been defined properly.
+* To upload a sample / object of a given type that type has to already exist in the datastore (See 2. Create a new Sample / Object Type).
+* The name of the sample / object has to be the same as the `$name` parameter in the metadata dictionary in order to be able to find the sample / object efficiently again.
+* You can also load an existing sample / object into an ExpStep object using the `load_sample()` method of ExpStep.
+* Every time you want to upload some Sample / Object to the Database a Type Checker will run in order to make sure your ExpStep has been defined properly. The Type checker only checks whether the Metadata have the correct type and does not check for having a dataset.
 * You can look up which metadata the Experimental Step Type will accept by either getting the Excel import template running the Interbis `get_metadata_import_template()` method or get the properties of an Experimental Step Type by running the Interbis `get_sample_type_properties` method.
 
-### You can now upload your datasets containing your raw or processed data files.
+> Return of `o.get_metadata_import_template(EXPERIMENTAL_STEP_UCT)` as an Excel Sheet or Pandas Dataframe (o = connected Interbis instance)
+
+|     | Param     | Label     | Description            | Value |
+|-----|-----------|-----------|------------------------|-------|
+| 0   | $name     | Name      | Name                   |       |
+| 1   | date      | Date      | Date of the experiment |       |
+| 2   | property1 | my_label1 | my_description1        |       |
+| 3   | property2 | my_label2 | my_description2        |       |
+| 4   | property3 | my_label3 | my_description3        |       |
+
+### 4. Upload corresponding Datasets.
 
 ```python
 concrete_experiment.upload_dataset(
     o, # A connected Interbis object
     props={
-        '$name': 'dataset_name',
+        '$name': 'UCT_Compression_Experiment_17_10_2022_RAW_DATA',
         'files': ['path_to_file'],
         'data_type': 'PROCESSED_DATA' # or RAW_DATA. PREVIEW, ... you can see them in the dataset types
     }
 )
 ```
 
-### If you have done everything correctly you should be able to see your Experimental Step and your Datasets in the Web-View of the Database in the location you defined in the ExpStep object. 
+### If you have done everything correctly you should be able to see your Experimental Step of type 'EXPERIMENTAL_STEP_UCT' and your Datasets in the Web-View of the Database in the location you defined. 

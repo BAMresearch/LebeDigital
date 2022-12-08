@@ -20,7 +20,7 @@ class ExpStep:
             collection: str = "",
             parents: list = None,
             identifier: str = '',
-            perm_id: str = '',
+            permId: str = '',
             sample_object=None,
             datasets: list = None,
             dataset_codes: list = None,
@@ -38,7 +38,7 @@ class ExpStep:
             parents (list, optional): parents of the experiment. Defaults to None.
             identifier (str, optional): verbose identifier of the sample, indicates the space and project.
                 Defaults to ''.
-            perm_id (str, optional): PermID identifier of the sample. Defaults to ''.
+            permId (str, optional): PermID identifier of the sample. Defaults to ''.
             sample_object (Pybis, optional): the pybis sample object of the sample. Defaults to None.
             datasets (list, optional): list of dataset objects saved under the experimental step. Defaults to None.
             dataset_codes (list, optional): the PermIDs of the datasets. Defaults to None.
@@ -52,7 +52,7 @@ class ExpStep:
         self.collection = collection
         self.parents = parents
         self.identifier = identifier
-        self.permId = perm_id
+        self.permId = permId
         self.sample_object = sample_object
         self.datasets = datasets
         self.dataset_codes = dataset_codes
@@ -190,63 +190,7 @@ class ExpStep:
         # If you got to this line no game breaking bugs were found
         logging.info('Type Checker: Types are correctly set')
 
-    @staticmethod
-    def load_sample(o: Interbis, sample_identifier: str):
-        """Loads an ExpStep from an experimental step in the datastore with its properties
-
-        Args:
-            o (Interbis): currently running openBIS interface
-            sample_identifier (str): identifier of the sample
-
-        Returns:
-            ExpStep: ExpStep object containing metadata of the sample
-        """
-
-        # Getting the properties of the sample
-        sample_dict = o.get_sample_dict(sample_identifier)
-
-        #  Getting a list of the properties only to filter them from the sample_dict
-        props_list = list(o.get_sample_type(sample_dict['type'])
-                          .get_property_assignments()
-                          .df['propertyType'])
-
-        # Getting the sample
-        sample = o.get_sample(sample_dict['identifier'], props='*')
-
-        # Getting the name of the collection
-        sample_collection = sample.experiment.code
-
-        # Getting the name of the parents
-        sample_parents = sample.parents
-
-        # Getting the metadata from the sample by comparing it with the list of the properties
-        sample_metadata = dict((key, sample_dict[key]) for key in props_list)
-
-        # Getting the datasets uploaded to the sample
-        sample_datasets = sample.get_datasets()
-
-        # Getting the dataset codes
-        sample_dataset_codes = [ds.code for ds in sample_datasets]
-
-        # Combining all together to build an ExpStep object
-        sample_step = ExpStep(
-            name=sample_dict['$NAME'],
-            type=sample_dict['type'],
-            space=sample_dict['identifier'].split('/')[1],
-            project=sample_dict['identifier'].split('/')[2],
-            collection=sample_collection,
-            parents=sample_parents,
-            metadata=sample_metadata,
-            identifier=sample_dict['identifier'],
-            perm_id=sample_dict['perm_id'],
-            sample_object=sample,
-            datasets=sample_datasets,
-            dataset_codes=sample_dataset_codes
-        )
-
-        return sample_step
-
-    def fill_sample(self, o: Interbis, sample_identifier: str):
+    def load_sample(self, o: Interbis, sample_identifier: str):
         """Fill the instance with properties of an experimental step in the datastore
 
         Args:
@@ -267,11 +211,11 @@ class ExpStep:
 
         # Assigning the values from the dict to the new object
         self.name = sample_dict['$NAME']
-        self.type = sample_dict['type'],
-        self.space, = sample_dict['identifier'].split('/')[1],
-        self.project, = sample_dict['identifier'].split('/')[2],
+        self.type = sample_dict['type']
+        self.space = sample_dict['identifier'].split('/')[1]
+        self.project = sample_dict['identifier'].split('/')[2]
         self.identifier = sample_dict['identifier']
-        self.permId = sample_dict['perm_id']
+        self.permId = sample_dict['permId']
 
         # Getting the object from the datastore to get the name of the collection and parents
         self.sample_object = o.get_sample(sample_dict['identifier'], props='*')
