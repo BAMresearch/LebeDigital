@@ -13,7 +13,7 @@ The terms Sample and Objects are aliases for each other, you can use them synony
 - **ExpStep** - A Class for working with openBIS Experimental Steps. Used for defining Experimental Step Samples / Objects which describe real Experiments with metadata and upload to the openBIS Database.
 - **Space** - The Highest "directory" abstraction in the Datastore. Contains all other openBIS "directories". One Space is defined per User or per Group.
 - **Project** - Second highest "directory" abstraction in the Datastore. Contained in a Space, you can define infinitely many of them.
-  - _Example_: Unilateral Concrete Compression
+  - _Example_: UCT_Compression
 - **Collection / Experiment** - Third highest "directory" abstraction in the Datastore. Contained in a Project, you can define infinitely many of them.
   - _Example_: Concrete_Compression_Testseries01
 - **Sample / Object Type** - A blueprint defining the general structure of a specific experimental set-up (metadata, relations ... ), you need to define in order to upload Samples / Objects of real world experiments.
