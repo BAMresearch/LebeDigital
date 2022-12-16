@@ -1,6 +1,6 @@
 ## Info
-For each Ontology there is a drawio-file and a ttl file
-The Mapping Example is moved to usecases/MinimumWorkingExample/Example_Mapping
+- For each Ontology there is a drawio-file and a ttl file
+- The Mapping Example is moved to usecases/MinimumWorkingExample/Example_Mapping
 
 ## Ontologies:
 
