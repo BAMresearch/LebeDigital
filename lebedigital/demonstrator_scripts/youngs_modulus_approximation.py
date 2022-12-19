@@ -1,7 +1,5 @@
 import numpy as np
-import pint
-
-ureg = pint.UnitRegistry()   # initialize unit registry
+from lebedigital.unit_registry import ureg
 
 @ureg.wraps('MPa', ('MPa', 'kg/m^3'))
 def youngs_modulus_approximation(fc,density) :

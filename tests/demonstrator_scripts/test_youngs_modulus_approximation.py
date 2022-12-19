@@ -1,7 +1,7 @@
 import numpy as np
 from pint.testsuite.helpers import assert_quantity_almost_equal as assert_approx
 from lebedigital.demonstrator_scripts.youngs_modulus_approximation import youngs_modulus_approximation
-from lebedigital.demonstrator_scripts.youngs_modulus_approximation import ureg
+from lebedigital.unit_registry import ureg
 
 def test_youngs_modulus_approximation() :
     """
