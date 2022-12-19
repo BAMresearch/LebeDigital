@@ -1,4 +1,4 @@
-from lebedigital.BeamDesign import beam_design
+from lebedigital.demonstrator_scripts import beam_design
 import pytest
 
 
