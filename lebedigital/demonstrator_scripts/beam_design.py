@@ -1,6 +1,7 @@
 import math
+from lebedigital.unit_registry import ureg
 
-
+@ureg.wraps(('mm','mm'), 'mm')
 def section_dimension_rule_of_thumb(span: float) -> tuple:
     """
     This is as per eurocode guideline choice of section dimension based on span
@@ -24,6 +25,7 @@ def section_dimension_rule_of_thumb(span: float) -> tuple:
     return width, height
 
 
+@ureg.check('[length]','[force]','[mass]/[time]**2')
 def max_bending_moment_and_shear_force(span: float, point_load: float, distributed_load: float) -> tuple:
     """
     function to compute max bending moment and shear force for simply supported beam with point load or distributed load
@@ -35,7 +37,7 @@ def max_bending_moment_and_shear_force(span: float, point_load: float, distribut
     point_load : float
         point load in N
     distributed_load : str
-        distributed load in N
+        distributed load in N/mm
 
     Returns
     -------
@@ -52,6 +54,7 @@ def max_bending_moment_and_shear_force(span: float, point_load: float, distribut
             max_shear_force_dist_load + max_shear_force_point_load)
 
 
+@ureg.wraps(None, ('mm', 'mm', 'N*mm', 'N', 'N/mm^2','N/mm^2','mm','mm'))
 def beam_section_design(
                        width: float,
                        height: float,
@@ -150,15 +153,16 @@ def beam_section_design(
             S= min(0.25 * height, 200, slmax)
     #output final design
     out = {}
-    out["top_steel_dia[mm]"] = steel_dia
+    out["top_steel_dia[mm]"] = steel_dia * ureg('mm')
     out["top_steel_numbers"] = 2
-    out["shear_reinforcement_dia[mm]"] = 12
-    out["shear_reinforcement_spacing[mm]"] = S
-    out["required_area_bottom_steel[mm^2]"] = As1
+    out["shear_reinforcement_dia[mm]"] = 12 * ureg('mm')
+    out["shear_reinforcement_spacing[mm]"] = S * ureg('mm')
+    out["required_area_bottom_steel[mm^2]"] = As1 * ureg('mm^2')
 
     return out
 
 
+@ureg.check('[length]','[length]','[length]','[force]','[line_load]','[stress]','[stress]','[length]',None,'[length]')
 def check_design(span:float,
                  width:float,
                  height:float,
@@ -181,6 +185,10 @@ def check_design(span:float,
         beam width in mm.
     height: int
         beam depth in mm.
+    point_load:float,
+
+    distributed_load:float,
+
     compr_str_concrete : float
         charateristic compressive strength of concrete in N/mm2.
     yield_str_steel : float
@@ -200,11 +208,20 @@ def check_design(span:float,
         in the bottom of the section. It is negative if  design is not satisfied and positive if design is satisfied.
         Optimal will be close to zero.
     """
-    max_moment, max_shear_force = max_bending_moment_and_shear_force(span, point_load, distributed_load)
-    design = beam_section_design(width, height, max_moment, max_shear_force, compr_str_concrete, yield_str_steel, steel_dia, cover)
-    specified_area = (math.pi * steel_dia ** 2 / 4) * n_bottom
+    max_moment, max_shear_force = max_bending_moment_and_shear_force(span,
+                                                                     point_load,
+                                                                     distributed_load)
+
+    design = beam_section_design(width,
+                                 height,
+                                 max_moment,
+                                 max_shear_force,
+                                 compr_str_concrete,
+                                 yield_str_steel,
+                                 steel_dia ,
+                                 cover)
+
+    specified_area = (math.pi * (steel_dia) ** 2 / 4) * n_bottom
     required_area = design["required_area_bottom_steel[mm^2]"]
 
     return (specified_area-required_area)/required_area
-
-                              
