@@ -98,7 +98,7 @@ def beam_section_design(
 
     Returns
     -------
-    dict : with fixed pint units when appropriate
+    dict : with fixed pint units when appropriate (length in 'mm')
         Design of the reinforced beam section.
     """
     #effective section depth

@@ -10,7 +10,7 @@ def test_beam_design():
     https://www.structuralguide.com/worked-example-singly-reinforced-beam-design-using-ec2/
     """
 
-    width, height = beam_design.section_dimension_rule_of_thumb(span=6.75*ureg('m'))  # mm
+    width, height = beam_design.section_dimension_rule_of_thumb(span=6.75*ureg('m'))
     out = beam_design.check_design(span=6750*ureg('mm'),
                                    width=width,
                                    height=height,
