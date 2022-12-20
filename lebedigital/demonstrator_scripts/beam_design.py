@@ -5,16 +5,19 @@ from lebedigital.unit_registry import ureg
 def section_dimension_rule_of_thumb(span: float) -> tuple:
     """
     This is as per eurocode guideline choice of section dimension based on span
-    Only used as a useful input for the test
+    Only used as a useful input for the test.
+
+    The input and output is wrapped by the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
 
     Parameters
     ----------
-    span : float
+    span : float / pint length unit, will be converted to 'mm'
         beam span in mm
 
     Returns
     -------
-    tuple
+    tuple : float / pint length unit in 'mm'
         tuple of width and height of the beam in mm.
     """
     #span/depth ratio for simply supported beam is 15 Therefore,
@@ -25,23 +28,26 @@ def section_dimension_rule_of_thumb(span: float) -> tuple:
     return width, height
 
 
-@ureg.check('[length]','[force]','[mass]/[time]**2')
+@ureg.check('[length]','[force]','[force]/[length]')
 def max_bending_moment_and_shear_force(span: float, point_load: float, distributed_load: float) -> tuple:
     """
     function to compute max bending moment and shear force for simply supported beam with point load or distributed load
 
+    The input is checked to be using the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
+
     Parameters
     ----------
-    span : float
+    span : float / pint length unit
         beam length in mm
-    point_load : float
+    point_load : float / pint force unit
         point load in N
-    distributed_load : str
+    distributed_load : str / pint force/length unit
         distributed load in N/mm
 
     Returns
     -------
-    tuple
+    tuple :  pint force and moment units, specific units depending on input
         tuple of  maximum moment and maximum shear force
     """
 
@@ -68,28 +74,31 @@ def beam_section_design(
     """
     Function to design singly reinforced beam with minimum shear reinforcement required.
 
+    The input and output is wrapped by the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
+
     Parameters
     ----------
-    width: float
+    width: float / pint length unit, will be converted to 'mm'
         beam width in mm.
-    height: float
+    height: float / pint length unit, will be converted to 'mm'
         beam depth in mm. 
-    max_moment : float
+    max_moment : float / pint moment unit, will be converted to 'N*mm'
         Maximum bending moment in N-mm.
-    max_shear_force : float
+    max_shear_force : float / pint force unit, will be converted to 'mm'
         Maximum shear force in N.
-    fck : float
+    fck : float / pint stress unit, will be converted to 'N/mm^2'
         charateristic compressive strength of concrete in N/mm2.
-    fyk : float
+    fyk : float / pint stress unit, will be converted to 'N/mm^2'
         Yield strength of steel in N/mm2.
     steel_dia : int
         Diameter of steel in mm.
-    cover : int
+    cover : float / pint length unit, will be converted to 'mm'
         Depth of cover required as per exposure class in mm.
 
     Returns
     -------
-    dict
+    dict : with fixed pint units when appropriate
         Design of the reinforced beam section.
     """
     #effective section depth
@@ -153,16 +162,16 @@ def beam_section_design(
             S= min(0.25 * height, 200, slmax)
     #output final design
     out = {}
-    out["top_steel_dia[mm]"] = steel_dia * ureg('mm')
+    out["top_steel_dia"] = steel_dia * ureg('mm')
     out["top_steel_numbers"] = 2
-    out["shear_reinforcement_dia[mm]"] = 12 * ureg('mm')
-    out["shear_reinforcement_spacing[mm]"] = S * ureg('mm')
-    out["required_area_bottom_steel[mm^2]"] = As1 * ureg('mm^2')
+    out["shear_reinforcement_dia"] = 12 * ureg('mm')
+    out["shear_reinforcement_spacing"] = S * ureg('mm')
+    out["required_area_bottom_steel"] = As1 * ureg('mm^2')
 
     return out
 
 
-@ureg.check('[length]','[length]','[length]','[force]','[line_load]','[stress]','[stress]','[length]',None,'[length]')
+@ureg.check('[length]','[length]','[length]','[force]','[force]/[length]','[stress]','[stress]','[length]',None,'[length]')
 def check_design(span:float,
                  width:float,
                  height:float,
@@ -177,28 +186,31 @@ def check_design(span:float,
     """
     Function to check specified design for area of steel
 
+    The input is checked to be using the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
+
     Parameters
     ----------
-    span : int
+    span : float / pint length unit
         length of the beam in mm.
-    width: int
+    width: float / pint length unit
         beam width in mm.
-    height: int
+    height: float / pint length unit
         beam depth in mm.
-    point_load:float,
-
-    distributed_load:float,
-
-    compr_str_concrete : float
+    point_load: float / pint force unit
+        point load in center of beam
+    distributed_load: float / pint force/length unit
+        constant load along the beam
+    compr_str_concrete : float / pint stress unit
         charateristic compressive strength of concrete in N/mm2.
-    yield_str_steel : float
+    yield_str_steel : float / pint stress unit
         Yield strength of steel in N/mm2.
-    steel_dia : float
+    steel_dia : float / pint length unit
         Diameter of steel in mm.
     n_bottom:int,
         Number of steel bars in the bottom of the section.
         On top for singly reinforced section we assume 2 steel bars of 12 mm which holds the cage
-    cover : float
+    cover : float / pint length unit
         Depth of cover required as per exposure class in mm.
 
     Returns
@@ -222,6 +234,6 @@ def check_design(span:float,
                                  cover)
 
     specified_area = (math.pi * (steel_dia) ** 2 / 4) * n_bottom
-    required_area = design["required_area_bottom_steel[mm^2]"]
+    required_area = design["required_area_bottom_steel"]
 
     return (specified_area-required_area)/required_area
