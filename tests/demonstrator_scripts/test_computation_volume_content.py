@@ -6,7 +6,7 @@ from lebedigital.unit_registry import ureg
 def test_computation_volume_content() :
     """
     This is the test for the computation_volume_content function.
-    It test all output with  and performs a number of sanity checks
+    It tests all outputs and performs a number of sanity checks
     """
 
     # TEST No 1, check intended use in general

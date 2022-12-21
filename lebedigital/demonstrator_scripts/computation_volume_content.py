@@ -9,6 +9,9 @@ def computation_volume_content(input_dic):
     The input and output is wrapped by the python pint package: https://pint.readthedocs.io/
     This requires units to be attached to the input values.
 
+    Volume fractions refers to the fraction of the mix volume a phase is occupying.
+    Volume content is the mass of the phase within a 1m^3.
+
     Parameters
     ----------
     input_dic : dic / pint units required converted to matching units
@@ -40,7 +43,7 @@ def computation_volume_content(input_dic):
     # initialize output dictionary
     output = {}
 
-    # optional paramter
+    # optional parameter
     if 'plasticizer_volume_content' not in input_dic.keys():
         input_dic['plasticizer_volume_content'] = 0 * ureg('kg/m^3')
         input_dic['density_plasticizer'] = 42 * ureg('kg/m^3')  # dummy value
