@@ -1,19 +1,57 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% definitions of variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% general math symbols
+% general symbols
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareMathOperator{\tr}{tr}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bL}{\boldsymbol{L}}
+\newcommand{\bvarepsilon}{\boldsymbol{\varepsilon}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % homogenization vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\emod}{E}  % youngs modulus
-\newcommand{\emodEff}{\emod_{\text{eff}}}  % mocroscopic youngs modulus
+\newcommand{\eMod}{E}  % youngs modulus
+\newcommand{\eModEff}{\eMod_{\text{eff}}}  % mocroscopic youngs modulus
 \newcommand{\poission}{\nu}  % poissionsratio
+\newcommand{\poissionZero}{\poission^{(0)}}  % poissionsratio
 \newcommand{\poissionEff}{\poission_{\text{eff}}}  % poissionsratio effective
 \newcommand{\fc}{f_{\text{c}}}  % compressive strength
 \newcommand{\fcEff}{{\fc}_{,\text{eff}}}  % compressive strength
-\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\body}{\Omega}  % body
+\newcommand{\phaseIndex}{r}  % index letter for different phases
+\newcommand{\bodyPhase}{\body^{(\phaseIndex)}}
+\newcommand{\volFrac}{c}
+\newcommand{\volFracPhase}{\volFrac^{(\phaseIndex)}}
+\newcommand{\volFracZero}{\volFrac^{(0)}}
+\newcommand{\radius}{R}
+\newcommand{\radiusPhase}{\radius^{(\phaseIndex)}}
+\newcommand{\bulkMod}{K}
+\newcommand{\bulkModPhase}{\bulkMod^{(\phaseIndex)}}
+\newcommand{\bulkModZero}{\bulkMod^{(0)}}
+\newcommand{\bulkModEff}{\bulkMod_{\text{eff}}}
+\newcommand{\shearMod}{G}
+\newcommand{\shearModPhase}{\shearMod^{(\phaseIndex)}}
+\newcommand{\shearModZero}{\shearMod^{(0)}}
+\newcommand{\shearModEff}{\shearMod_{\text{eff}}}
+\newcommand{\matStiff}{\bL}
+\newcommand{\matStiffPhase}{\matStiff^{(\phaseIndex)}}
+\newcommand{\matStiffEff}{\matStiff_{\text{eff}}}
+\newcommand{\orthProjV}{\bI_{\text{V}}}
+\newcommand{\orthProjD}{\bI_{\text{D}}}
+\newcommand{\strain}{\bvarepsilon}
+\newcommand{\strainPhase}{\strain^{(\phaseIndex)}}
+\newcommand{\strainZero}{\strain^{(0)}}
+\newcommand{\concentration}{\bA}
+\newcommand{\concentrationPhase}{\concentration^{(\phaseIndex)}}
+\newcommand{\concentrationZero}{\concentration^{(0)}}
+\newcommand{\dilConcentration}{\concentration_{\text{dil}}}
+\newcommand{\dilConcentrationPhase}{\dilConcentration^{(\phaseIndex)}}
+\newcommand{\dilConcentrationVPhase}{A^{(\phaseIndex)}_{\text{dil,V}}}
+\newcommand{\dilConcentrationDPhase}{A^{(\phaseIndex)}_{\text{dil,D}}}
+\newcommand{\auxAlphaZero}{\alpha^{(0)}}
+\newcommand{\auxBetaZero}{\beta^{(0)}}
+
 \newcommand{\bi}{\boldsymbol{i}}
 \newcommand{\bQ}{\boldsymbol{Q}}
 \newcommand{\bW}{\boldsymbol{W}}
@@ -21,9 +59,6 @@
 \newcommand{\bP}{\boldsymbol{P}}
 \newcommand{\bN}{\boldsymbol{N}}
 \newcommand{\bM}{\boldsymbol{M}}
-\newcommand{\bL}{\boldsymbol{L}}
-\newcommand{\bA}{\boldsymbol{A}}
-\newcommand{\bvarepsilon}{\boldsymbol{\varepsilon}}
 \newcommand{\bsigma}{\boldsymbol{\sigma}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % fem model vars

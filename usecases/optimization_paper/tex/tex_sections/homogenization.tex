@@ -3,168 +3,76 @@ This manuscript gives an overview of the implementation used within my concrete 
 The goal is to compute effective concrete parameters based on information of the micro constituents.
 In particular the cement paste and aggregates are considered.
 It is possible to consider air pores as well as the influence of the interfacial transition zone (IFZ) as a coat surrounding aggregates with reduced stiffness. 
-First the estimation of the effective Young's modulus $\emodEff$ and Poisson's ratio $\poissionEff$ is given.
+First the estimation of the effective Young's modulus $\eModEff$ and Poisson's ratio $\poissionEff$ is given.
 It is based on the classical analytical Mori-Tanaka homogenization formulation \cite{mor_1973_asi} for spherical inclusions in a matrix.
 This is extended to the case of a coated inclusions, following \cite{her_1993_nlib}.
 In general the implementation of the stiffness homogenization is following the formulations presented in \cite{nee_2012_ammf}, however the appendix includes some errors, where the original paper \cite{her_1993_nlib} should be consulted.
 Subsequently the estimation of the effective compressive strength $\fcEff$ is given, following the ideas of \cite{nev_2018_mcam}.
 
 \subsection{Stiffness homogenization as presented in \cite{nee_2012_ammf}}
-The general idea of this analytical homogenization procedure is to describe the overall stiffness of a body $\Omega$, based on the properties of the individual phases, i.e. the matrix and the inclusions.
-Each of the $n$ phases is denoted by the index $r$, where $r = 0$ is defined as the matrix phase.
+The general idea of this analytical homogenization procedure is to describe the overall stiffness of a body $\body$, based on the properties of the individual phases, i.e. the matrix and the inclusions.
+Each of the $n$ phases is denoted by the index $\phaseIndex$, where $\phaseIndex = 0$ is defined as the matrix phase.
 The volume fraction of each phase is defined as
 \begin{align}
-	c^{(r)} = \frac{\left\|\Omega^{(r)} \right\|}{\left\|\Omega\right\|} \quad  \text{for}~ r = 0, ..., n.
+	\volFracPhase = \frac{\left\| \bodyPhase \right\|}{\left\| \body \right\|} \quad  \text{for}~ \phaseIndex = 0, ..., n.
 \end{align}
-The inclusions are assumed to be spheres, defined by their radius $R^{(r)}$.
+The inclusions are assumed to be spheres, defined by their radius $\radiusPhase$.
 The shells are defined by their outer radius, their thickness follows as the difference to the inner inclusions.
-The elastic properties of each homogeneous and isotropic phase is given by the material stiffness matrix $\bL^{(r)}$, here written in terms of the bulk and shear moduli $K$ and $G$,
+The elastic properties of each homogeneous and isotropic phase is given by the material stiffness matrix $\bL^{(r)}$, here written in terms of the bulk and shear moduli $\bulkMod$ and $\shearMod$,
 \begin{align}
-	\bL^{(r)}= 3 K^{(r)} \bI_{\text{V}} + 2 G^{(r)} \bI_{\text{D}}  \quad \text{for}~ r = 0, ..., n, \label{eq:Lr}
+	\matStiffPhase= 3 \bulkModPhase \orthProjV + 2 \shearModPhase \orthProjD  \quad \text{for}~ \phaseIndex = 0, ..., n, \label{eq:Lr}
 \end{align}
-where $\bI_{\text{V}}$ and $\bI_{\text{D}}$ are the orthogonal projections of the volumetric and deviatoric components.\\
-The methods assumes that the micro-heterogeneous body $\Omega$ is subjected to a macroscale strain $\bvarepsilon$.
-It is assumed that for each phase concentration factor $\bA^{(r)}$ can be defined such that
+where $\orthProjV$ and $\orthProjD$ are the orthogonal projections of the volumetric and deviatoric components.\\
+The methods assumes that the micro-heterogeneous body $\body$ is subjected to a macroscale strain $\strain$.
+It is assumed that for each phase concentration factor $\concentrationPhase$ can be defined such that
 \begin{align}
-	\bvarepsilon^{(r)} = \bA^{(r)}\bvarepsilon \quad  \text{for}~ r = 0, ..., n, \label{eq:strainaverage}
+	\strainPhase = \concentrationPhase\strain \quad  \text{for}~ \phaseIndex = 0, ..., n, \label{eq:strainaverage}
 \end{align}
-which computes the average strain $\bvarepsilon^{(r)}$ based on the overall strains.
-This can then be used to compute the effective stiffness matrix $\bL_{\text{eff}}$ as a volumetric sum over the constituents weighted by the concentration factor 
+which computes the average strain $\strainPhase$ based on the overall strains.
+This can then be used to compute the effective stiffness matrix $\matStiffEff$ as a volumetric sum over the constituents weighted by the concentration factor 
 \begin{align}
-	\bL_{\text{eff}} = \sum_{r=0}^{n} c^{(r)}\bL^{(r)}\bA^{(r)} \quad  \text{for}~ r = 0, ..., n.\label{eq:Leff}
-\end{align}
-
-The concentration factors $\bA^{(r)}$,
-\begin{align}
-	\bA^{(0)} &= \left( c^{(0)}\bI + \sum^{n}_{r=1} c^{(r)} \bA_{\text{dil}}^{(r)}\right)^{-1}\label{eq:A0}\\
-	\bA^{(r)} &= \bA^{(r)}_{\text{dil}}\bA^{(0)}\quad  \text{for}~ r = 1, ..., n,
-\end{align}
-are based on the dilute concentration factors $\bA^{(r)}_{\text{dil}}$, which need to be obtained first.
-The dilute concentration factors are based on the assumption that each inclusion is subjected to the average strain in the matrix $\bvarepsilon^{(0)}$.
-\begin{align}
-	\bvarepsilon^{(r)} = \bA_{\text{dil}}^{(r)}\bvarepsilon^{(0)} \quad  \text{for}~ r = 1, ..., n. 
+	\matStiffEff = \sum_{\phaseIndex=0}^{n} \volFracPhase \matStiffPhase\concentrationPhase \quad  \text{for}~ \phaseIndex = 0, ..., n.\label{eq:Leff}
 \end{align}
 
+The concentration factors $\concentrationPhase$,
+\begin{align}
+	\concentrationZero &= \left( \volFracZero\bI + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationPhase\right)^{-1}\label{eq:A0}\\
+	\concentrationPhase &= \dilConcentrationPhase\concentrationZero\quad  \text{for}~ \phaseIndex = 1, ..., n,
+\end{align}
+are based on the dilute concentration factors $\dilConcentrationPhase$, which need to be obtained first.
+The dilute concentration factors are based on the assumption that each inclusion is subjected to the average strain in the matrix $\strainZero$.
+\begin{align}
+	\strainPhase = \dilConcentrationPhase\strainZero \quad  \text{for}~ \phaseIndex = 1, ..., n. 
+\end{align}
 
-The dilute concentration factors neglect the interaction among phases and are only defined for the inclusion phases $r = 1,...,n$.
+
+The dilute concentration factors neglect the interaction among phases and are only defined for the inclusion phases $\phaseIndex = 1,...,n$.
 The applied formulation uses an additive volumetric-deviatoric split. where
 \begin{align}
-	\bA^{(r)}_{\text{dil}} = A^{(r)}_{\text{dil,V}}\bI_{\text{V}} +  A^{(r)}_{\text{dil,D}} \bI_{\text{D}} \quad  \text{for}~ r = 1, ..., n,
+	\dilConcentrationPhase = \dilConcentrationVPhase\bI_{\text{V}} +  \dilConcentrationDPhase \bI_{\text{D}} \quad  \text{for}~ \phaseIndex = 1, ..., n,
 \end{align}
 This chosen method extends the basic Mori-Tanaka method the coated inclusions, following \cite{her_1993_nlib}, therefore two different formulations for the dilute concentration factors are given for the uncoated and coated inclusion. 
 
 \subsubsection{Dilute concentration factors for uncoated inclusions}
-The formulations of the dilute concentration factors for an uncloated inclusion $r$ are
+The formulations of the dilute concentration factors for an uncoated inclusion $\phaseIndex$ are
 \begin{align}
-	A^{(r)}_{\text{dil,V}} = \dfrac{K^{(0)}}{K^{(0)} + \alpha^{(0)}(K^{(r)} - K^{(0)})}, \\
-	A^{(r)}_{\text{dil,D}} = \dfrac{G^{(0)}}{G^{(0)} + \beta^{(0)}(G^{(r)} - G^{(0)})}, 
+	\dilConcentrationVPhase = \dfrac{\bulkModZero}{\bulkModZero + \auxAlphaZero(\bulkModPhase - \bulkModZero)}, \\
+	\dilConcentrationDPhase = \dfrac{\shearModZero}{\shearModZero + \auxBetaZero(\shearModPhase - \shearModZero)}, 
 \end{align}
 with the auxiliary factors following from the Eshelby solution as
 \begin{align}
-	\alpha^{(0)} = \frac{1 + \nu^{(0)}}{3(1+ \nu^{(0)})} \quad\text{and}\quad 
-	\beta^{(0)} = \frac{2(4 - 5\nu^{(0)})}{15(1 - \nu^{(0)})}
+	\auxAlphaZero = \frac{1 + \poissionZero}{3(1+ \poissionZero)} \quad\text{and}\quad 
+	\auxBetaZero = \frac{2(4 - 5\poissionZero)}{15(1 - \poissionZero)}
 \end{align}
-where  $\nu^{(0)}$ refers to the Poission's ratio of the matrix phase.
-\subsubsection{Dilute concentration factors for coated inclusions}
-The formulation for the coated phases is more complex. 
-The derivation for multi-layered inclusions presented in \cite{her_1993_nlib}, where this example is given for a single coat.
-The application for our example is a single coating describing the interaction of an aggregate surrounded by an ITZ embedded in the cement matrix.
-This requires three materials and with that three indices.
-These are defined in the vector $\bi =\begin{bmatrix} i_1,i_2,i_3\end{bmatrix}^{\text{T}}$, where $i_1$ refers to the index of the inclusion, $i_2$ to the coat and $i_3$ to the matrix, therefore $i_3 = 0$.
-
-The effect of the coating is considered with the auxiliary factors $Q^k$, $A^k$ and $B^k$, which are given in the following subsection.
-We need to distinguish between the index related to the phase ${(k)}$ and the index related to the auxiliary values $k$ with $k = 1,2$, for this single-layered inclusion.
-In addition the index $(k)$ is given with the local numbering $i = [i_1,i_2,i_3]^{\text{T}}$,
-\begin{align}
-	A^{(i_1)}_{\text{dil,V}} = \dfrac{1}{Q^{2}_{11} } \quad &\text{and} \quad
-	A^{(i_1)}_{\text{dil,D}} = A_1 - \frac{21}{5}\dfrac{R^{(i_1)2}}{1-2\nu^{(i_1)}}B_1, \\
-	A^{(i_2)}_{\text{dil,V}} = \dfrac{Q^{1}_{11} }{Q^{2}_{11}}\quad &\text{and} \quad
-	A^{(i_2)}_{\text{dil,D}} = A_2 - \frac{21}{5}\dfrac{R^{(i_2)5}-R^{(i_1)5}}{(1-2\nu^{(i_2)})(R^{(i_2)3}-R^{(i_1)3})}B_2.
-\end{align}
-The amount of sub- and superscripts as indices in theses and the following formulations is at times confusing and can possibly be improved.
-When in doubt, it is an index not a exponential.
-Exponential only appear in combination with superscripts in parentheses, they are therefore clearly distinguishable.
-In addition the index $k$, here noted as a superscript, only takes values of $1$ and $2$.
-\paragraph{Auxiliary factors}
-The formulation for the auxiliary factors $A^k$, $B^k$ and $\bQ^k$ is not difficult, just long.
-For easy implementation they have been broken down into further auxiliary variables.
-The formulation of $\bQ^k$ is based on $\bN^k$, both are $2 \times 2$ matrices.
-Scalars $A^k$ and $B^k$ are based on the vector $\bW^k$ and the $4 \times 4$ matrices $\bP^k$ and $\bM^k$.
-$\bM^k$ is further defined by variables $a^k, b^k, c^k, d^k, e^k,f^k$ and $\alpha^k$.
-The formulations are taken from \cite{nee_2012_ammf}, however there are mistakes in $a^k$ through $\alpha^k$ as well as $\bN^k$ and $\bM^k$.
-The correct formulations are found within the source \cite{her_1993_nlib}.
-The auxiliary factor are defined as follows
-\begin{align}
-	\bN^k = \frac{1}{3K^{(i_{k+1})}+4G^{(i_{k+1})}}
-	\begin{bmatrix}
-		3K^{(i_{k})}+4G^{(i_{k+1})} & \frac{4}{{R^{(i_{k})}}^3} (G^{(i_{k+1})}-G^{(i_{k})})\\
-		3{R^{(i_{k})}}^3 (K^{(i_{k+1})}-K^{(i_{k})}) & 3K^{(i_{k+1})}+4G^{(i_{k})}
-	\end{bmatrix}
-\end{align}
-\begin{align}
-	\bQ^1 = \bN^1\quad \text{and} \quad \bQ^2 = \bN^2\bQ^1
-\end{align}
-\begin{align}
-	a^k &= \frac{G^{(i_k)}}{G^{(i_{k+1})}}(7+5\nu^{(i_k)})(7 - 10 \nu^{(i_{k+1})}) - (7-10\nu^{(i_k)})(7 + 5 \nu^{(i_{k+1})})\\
-	b^k &= \frac{G^{(i_k)}}{G^{(i_{k+1})}}(7+5\nu^{(i_k)}) + 4(7-10\nu^{(i_k)})\\
-	c^k &= 2\frac{G^{(i_k)}}{G^{(i_{k+1})}}(4-5\nu^{(i_{k+1})}) + (7 - 5 \nu^{(i_{k+1})})\\
-	d^k &= 4\frac{G^{(i_k)}}{G^{(i_{k+1})}}(7-10\nu^{(i_{k+1})}) + (7 + 5 \nu^{(i_{k+1})})\\
-	e^k &= \frac{G^{(i_k)}}{G^{(i_{k+1})}}(7-5\nu^{(i_k)}) + 2(4-5\nu^{(i_k)})\\
-	f^k &= -\frac{G^{(i_k)}}{G^{(i_{k+1})}}(7-5\nu^{(i_k)})(4 - 5 \nu^{(i_{k+1})}) + (4-5\nu^{(i_k)})(7 -5 \nu^{(i_{k+1})})\\
-	\alpha^k &= \frac{G^{(i_k)}}{G^{(i_{k+1})}} - 1
-\end{align}
-
-\begin{align}
-	\bM^k = \frac{1}{5(1-\nu^{(i_{k+1})})}\widetilde{\bM}
-\end{align}
-
-
-\begin{align}
-	\widetilde{M}^k_{11} &= \frac{c^k}{3} \\
-	\widetilde{M}^k_{12} &= \frac{R^{(i_k)2}(3b^k-7c^k)}{5(1-2\nu^{(i_k)})} \\
-	\widetilde{M}^k_{13} &= \frac{-12\alpha^k}{R^{(i_k)5}} \\
-	\widetilde{M}^k_{14} &= \frac{4(f^k-27\alpha^k)}{15R^{(i_k)3}(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{21} &= 0 \\
-	\widetilde{M}^k_{22} &= \frac{b^k(1-2\nu^{(i_{k+1})})}{7(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{23} &= \frac{-20\alpha^k(1-2\nu^{(i_{k+1})})}{7R^{(i_{k})7}} \\
-	\widetilde{M}^k_{24} &= \frac{-12\alpha^k(1-2\nu^{(i_{k+1})})}{7R^{(i_{k})5}(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{31} &= \frac{R^{(i_{k})5}\alpha^k}{2} \\
-	\widetilde{M}^k_{32} &= \frac{-R^{(i_{k})7}(2a^k+147\alpha^k)}{70(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{33} &= \frac{d^k}{7} \\
-	\widetilde{M}^k_{34} &= \frac{R^{(i_{k})2}(105(1-\nu^{(i_{k+1})})+12\alpha^k(7-10\nu^{(i_{k+1})})-7e^k)}{35(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{41} &= \frac{-5\alpha^kR^{(i_{k})3}(1-2\nu^{(i_{k+1})})}{6} \\
-	\widetilde{M}^k_{42} &= \frac{7\alpha^kR^{(i_{k})5}(1-2\nu^{(i_{k+1})})}{2(1-2\nu^{(i_{k})})} \\
-	\widetilde{M}^k_{43} &=  0\\
-	\widetilde{M}^k_{44} &= \frac{e^k(1-2\nu^{(i_{k+1})})}{3(1-2\nu^{(i_{k})})} 
-\end{align}
-\begin{align}
-	\bP^{1} = \bM^1 \quad \text{and}\quad \bP^2 = \bM^2 \bP^1
-\end{align}
-The variable $\bW^k$ is special, as only $\bW^2$ is required
-\begin{align}
-	\bW^2 = \frac{1}{P^{2}_{22}P^{2}_{11}-P^{2}_{12}P^{2}_{21}} \bP^{1} 
-	\begin{bmatrix}
-		P^{2}_{22}&
-		-P^{2}_{21}&
-		0&
-		0
-	\end{bmatrix}^{\text{T}}
-\end{align}
-and finally 
-\begin{align}
-	\bA^1 = \dfrac{P^{2}_{22}}{P^{2}_{11}P^{2}_{22} - P^{2}_{12}P^{2}_{21}}\quad&\text{and}\quad
-	\bA^2 = W^2_1\\
-	\bB^1 = \dfrac{-P^{2}_{21}}{P^{2}_{11}P^{2}_{22} - P^{2}_{12}P^{2}_{21}}\quad&\text{and}\quad
-	\bB^2 = W^2_2
-\end{align}
+where  $\poissionZero$ refers to the Poission's ratio of the matrix phase.
 \subsubsection{Effective stiffness}
-Now that the formulation for the dilute concentration factor for coated and uncoated inclusions are defined the effective bulk and shear modului can be computed based on a sum over the phases
+Now that the formulation for the dilute concentration factor for inclusions are defined the effective bulk and shear modului can be computed based on a sum over the phases
 \begin{align}
-	K_{\text{eff}} = \dfrac{c^{(0)}K^{(0)} + \sum^{n}_{r=1} c^{(r)} K^{(r)} A_{\text{dil,V}}^{(r)}}{c^{(0)} + \sum^{n}_{r=1} c^{(r)} A_{\text{dil,V}}^{(r)}},\label{eq:keff} \\
-	G_{\text{eff}} = \dfrac{c^{(0)}G^{(0)} + \sum^{n}_{r=1} c^{(r)} G^{(r)} A_{\text{dil,D}}^{(r)}}{c^{(0)} + \sum^{n}_{r=1} c^{(r)} A_{\text{dil,D}}^{(r)}}.\label{eq:geff}
+\bulkModEff = \dfrac{\volFracZero\bulkModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \bulkModPhase \dilConcentrationVPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationVPhase},\label{eq:keff} \\
+\shearModEff = \dfrac{\volFracZero\shearModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \shearModPhase \dilConcentrationDPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationDPhase}.\label{eq:geff}
 \end{align}
-
 \subsection{Strength homogenization as presented in \cite{nev_2018_mcam}}
+%%% TODO, continue here!!!!
 Based on the ideas of the previous section, a formulation is used to homogenize the effective strength of the composite.
 The strength estimation is based on two main assumptions.
 First assumptions, the Mori-Tanaka method is used to estimate the average stress within the matrix material, which is the indicator of overall failure.
@@ -198,7 +106,7 @@ Here only the implemented formulation is given, no further background.
 The expressions are taken from \cite{str_2011_mbeo}, Section 2.2.
 The thermal conductivity $\chi_{\text{eff}}$ is given as
 \begin{align}
-	\chi_{\text{eff}} = \dfrac{c^{(0)}\chi^{(0)} + \sum^{n}_{r=1} c^{(r)} \chi^{(r)} A_{\chi}^{(r)}}{c^{(0)} + \sum^{n}_{r=1} c^{(r)} A_{\chi}^{(r)}}\quad\text{and}\quad
+	\chi_{\text{eff}} = \dfrac{\volFracZero\chi^{(0)} + \sum^{n}_{r=1} \volFracPhase \chi^{(r)} A_{\chi}^{(r)}}{\volFracZero + \sum^{n}_{r=1} \volFracPhase A_{\chi}^{(r)}}\quad\text{and}\quad
 	A_{\chi}^{(r)} = \frac{3\chi^{(0)}}{2\chi^{(0)}+\chi^{(r)}}.
 \end{align}
 
