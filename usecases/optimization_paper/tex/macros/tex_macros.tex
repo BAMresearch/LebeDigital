@@ -9,6 +9,7 @@
 \newcommand{\bL}{\boldsymbol{L}}
 \newcommand{\bvarepsilon}{\boldsymbol{\varepsilon}}
 \newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\TP}{^\text{T}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % homogenization vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -18,6 +19,9 @@
 \newcommand{\poissionZero}{\poission^{(0)}}  % poissionsratio
 \newcommand{\poissionEff}{\poission_{\text{eff}}}  % poissionsratio effective
 \newcommand{\fc}{f_{\text{c}}}  % compressive strength
+\newcommand{\fcInf}{{\fc}_\infty}  % compressive strength
+\newcommand{\ft}{f_{\text{t}}}  % tensile strength
+\newcommand{\ftInf}{{\ft}_\infty}  % compressive strength
 \newcommand{\fcEff}{{\fc}_{,\text{eff}}}  % compressive strength
 \newcommand{\body}{\Omega}  % body
 \newcommand{\phaseIndex}{r}  % index letter for different phases
@@ -36,6 +40,7 @@
 \newcommand{\shearModZero}{\shearMod^{(0)}}
 \newcommand{\shearModEff}{\shearMod_{\text{eff}}}
 \newcommand{\matStiff}{\bL}
+\newcommand{\matStiffZero}{\matStiff^{(0)}}
 \newcommand{\matStiffPhase}{\matStiff^{(\phaseIndex)}}
 \newcommand{\matStiffEff}{\matStiff_{\text{eff}}}
 \newcommand{\orthProjV}{\bI_{\text{V}}}
@@ -66,21 +71,47 @@
 \newcommand{\thermCondPhase}{\thermCond^{(\phaseIndex)}}
 \newcommand{\thermCondHom}{\thermCond_{\text{eff}}}
 \newcommand{\concentrationThermCondPhase}{A_{\chi}^{(r)}}
+\newcommand{\Ivol}{\bI_{\text{V}}}
+\newcommand{\Idev}{\bI_{\text{D}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % fem model vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\currentn}{n+1}
+\newcommand{\lastn}{n}
 \newcommand{\DOH}{\alpha} % degree of hydration
+\newcommand{\DOHLast}{\DOH^{\lastn}} % degree of hydration of last timestep
+\newcommand{\DOHCurrent}{\DOH^{\currentn}} % degree of hydration of last timestep
 \newcommand{\DOHmax}{\alpha_{\text{max}}} % degree of hydration
+\newcommand{\DOHt}{\alpha_{\text{t}}} % degree of hydration
+\newcommand{\DOHZero}{\alpha_{0}} % degree of hydration
 \newcommand{\heat}{Q} % cummulative heat release
 \newcommand{\heatInf}{Q_{\infty}} % total cummulative heat release
 \newcommand{\zeit}{t} % time
 \newcommand{\temp}{T} % time
+\newcommand{\tempCurrent}{\temp^{\currentn}} % time n+1
+\newcommand{\tempLast}{\temp^{\lastn}} % time n
+\newcommand{\tempRef}{\temp_{\text{ref}}}
 \newcommand{\dTdt}{\frac{\partial \temp}{\partial \zeit}}  % time derivative of temperature
 \newcommand{\dQdt}{\frac{\partial \heat}{\partial \zeit}}  % time derivative of heat
 \newcommand{\heatCapSpecific}{C} % specific heat capacity
 \newcommand{\density}{\rho} % density
 \newcommand{\thermCondEff}{\lambda} % effective thermal conductivity %%% \thermCond
 \newcommand{\dDOHdt}{\frac{\partial \DOH}{\partial \zeit}}  % time derivative of DoH
-\newcommand{\affinityTemp}{\tilde{A}} % temperature scaled affinity
+\newcommand{\affinity}{A} % temperature \affinityTempscaled affinity
+\newcommand{\affinityTemp}{\tilde{\affinity}} % temperature \affinityTempscaled affinity
 \newcommand{\affinityScale}{a} % scale factor for affinity
-
+\newcommand{\hydParBone}{B_1}
+\newcommand{\hydParBtwo}{B_2}
+\newcommand{\hydParEta}{\eta}
+\newcommand{\function}{f}
+\newcommand{\strengthX}{X}
+\newcommand{\strengthXInf}{\strengthX_\infty}
+\newcommand{\strengthExp}{a}
+\newcommand{\strengthXExp}{\strengthExp_\strengthX}
+\newcommand{\strengthCExp}{\strengthExp_{\fc}}
+\newcommand{\strengthTExp}{\strengthExp_{\ft}}
+\newcommand{\stiffExp}{\strengthExp_{\eMod}}
+\newcommand{\eModInf}{\eMod_\infty}  % youngs modulus
+\newcommand{\activE}{E_{\text{a}}}
+\newcommand{\gasConst}{R}
+\newcommand{\wc}{r_{\text{wc}}}
