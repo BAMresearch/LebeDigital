@@ -72,13 +72,12 @@ Now that the formulation for the dilute concentration factor for inclusions are 
 \shearModEff = \dfrac{\volFracZero\shearModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \shearModPhase \dilConcentrationDPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationDPhase}.\label{eq:geff}
 \end{align}
 \subsection{Strength homogenization as presented in \cite{nev_2018_mcam}}
-%%% TODO, continue here!!!!
 Based on the ideas of the previous section, a formulation is used to homogenize the effective strength of the composite.
 The strength estimation is based on two main assumptions.
 First assumptions, the Mori-Tanaka method is used to estimate the average stress within the matrix material, which is the indicator of overall failure.
 Based on the concept of \eqref{eq:strainaverage}, with the formulations \eqref{eq:Lr},\eqref{eq:Leff} and \eqref{eq:A0}, the average matrix stress is defined as 
 \begin{align}
-	\bsigma^{(0)} = \bL^{(0)}\bA^{(0)} {\bL_{\text{eff}}}^{-1}\bsigma. \label{eq:matrixstress}
+	\stressZero = \bL^{(0)}\bA^{(0)} {\bL_{\text{eff}}}^{-1}\stress. \label{eq:matrixstress}
 \end{align}
 Second assumption, the von Mises failure criterion is used to estimate the uniaxial compressive strength
 \begin{align}
@@ -86,16 +85,16 @@ Second assumption, the von Mises failure criterion is used to estimate the uniax
 \end{align}
 The second deviatoric stress invariant is defined as
 \begin{align}
-	J_2 = \frac{1}{2} \bsigma_{\text{D}}:\bsigma_{\text{D}},\quad\text{with}\quad
-	\bsigma_{\text{D}} = \bsigma - \frac{1}{3}\tr(\bsigma)\bI.
+	\Jtwo = \frac{1}{2} \stressD:\stressD,\quad\text{with}\quad
+	\stressD = \stress - \frac{1}{3}\tr(\stress)\bI.
 \end{align}
-The goal is to find a uniaxial macroscopic stress $\bsigma = \begin{bmatrix} -f_{\text{c,eff}} & 0 & 0 &0&0&0 \end{bmatrix}^\text{T}$ which exactly fulfills the von Mises failure criterion \eqref{eq:vonMises} for the average stress within the matrix $\bsigma^{(0)}$.
+The goal is to find a uniaxial macroscopic stress $\stress = \begin{bmatrix} -\fcEff & 0 & 0 &0&0&0 \end{bmatrix}^\text{T}$ which exactly fulfills the von Mises failure criterion \eqref{eq:vonMises} for the average stress within the matrix $\stressZero$.
 The procedure here is taken from the code provided in the link in \cite{nee_2012_ammf}.
 
-First we compute the second deviatoric stress invariant $J_2^{\text{test}}$ for a uniaxial test stress $\bsigma^{\text{test}} = \begin{bmatrix} f^{\text{test}} & 0 & 0 &0&0&0 \end{bmatrix}^\text{T}$. Then the matrix stress $\bsigma^{(0)}$ is computed based on the test stress following \eqref{eq:matrixstress}. This is used to compute the second deviatoric stress invariant $J_2^{(0)}$ for the average matrix stress.
+First we compute the second deviatoric stress invariant $\JtwoTest$ for a uniaxial test stress $\stressTest = \begin{bmatrix} \forceTest & 0 & 0 &0&0&0 \end{bmatrix}^\text{T}$. Then the matrix stress $\stressZero$ is computed based on the test stress following \eqref{eq:matrixstress}. This is used to compute the second deviatoric stress invariant $\JtwoZero$ for the average matrix stress.
 Now the effective compressive strength is estimated as
 \begin{align}
-	f_{\text{c,eff}} = \frac{J_2^{\text{test}}}{J_2^{(0)}}  f^{\text{test}}.
+	\fcEff = \frac{\JtwoTest}{\JtwoZero} \forceTest.
 \end{align}
 
 
@@ -104,9 +103,8 @@ Homogenization the thermal conductivity is also based on the Mori-Tanaka method.
 The formulations are similar as for the stiffness homogenization, i.e. \eqref{eq:keff} and \eqref{eq:geff}.
 Here only the implemented formulation is given, no further background.
 The expressions are taken from \cite{str_2011_mbeo}, Section 2.2.
-The thermal conductivity $\chi_{\text{eff}}$ is given as
+The thermal conductivity $\thermCondHom$ is given as
 \begin{align}
-	\chi_{\text{eff}} = \dfrac{\volFracZero\chi^{(0)} + \sum^{n}_{r=1} \volFracPhase \chi^{(r)} A_{\chi}^{(r)}}{\volFracZero + \sum^{n}_{r=1} \volFracPhase A_{\chi}^{(r)}}\quad\text{and}\quad
-	A_{\chi}^{(r)} = \frac{3\chi^{(0)}}{2\chi^{(0)}+\chi^{(r)}}.
+	\thermCondHom = \dfrac{\volFracZero\thermCond + \sum^{n}_{\phaseIndex=1} \volFracPhase \thermCondPhase \concentrationThermCondPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \concentrationThermCondPhase}\quad\text{and}\quad
+	\concentrationThermCondPhase = \frac{3\thermCondZero}{2\thermCondZero+\thermCondPhase}.
 \end{align}
-

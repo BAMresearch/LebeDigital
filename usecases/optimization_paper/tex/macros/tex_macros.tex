@@ -8,6 +8,7 @@
 \newcommand{\bI}{\boldsymbol{I}}
 \newcommand{\bL}{\boldsymbol{L}}
 \newcommand{\bvarepsilon}{\boldsymbol{\varepsilon}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % homogenization vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,6 +43,10 @@
 \newcommand{\strain}{\bvarepsilon}
 \newcommand{\strainPhase}{\strain^{(\phaseIndex)}}
 \newcommand{\strainZero}{\strain^{(0)}}
+\newcommand{\stress}{\bsigma}
+\newcommand{\stressZero}{\stress^{(0)}}
+\newcommand{\stressD}{\stress_{\text{D}}}
+\newcommand{\stressTest}{\stress^{\text{test}}}
 \newcommand{\concentration}{\bA}
 \newcommand{\concentrationPhase}{\concentration^{(\phaseIndex)}}
 \newcommand{\concentrationZero}{\concentration^{(0)}}
@@ -51,15 +56,16 @@
 \newcommand{\dilConcentrationDPhase}{A^{(\phaseIndex)}_{\text{dil,D}}}
 \newcommand{\auxAlphaZero}{\alpha^{(0)}}
 \newcommand{\auxBetaZero}{\beta^{(0)}}
-
-\newcommand{\bi}{\boldsymbol{i}}
-\newcommand{\bQ}{\boldsymbol{Q}}
-\newcommand{\bW}{\boldsymbol{W}}
-\newcommand{\bB}{\boldsymbol{B}}
-\newcommand{\bP}{\boldsymbol{P}}
-\newcommand{\bN}{\boldsymbol{N}}
-\newcommand{\bM}{\boldsymbol{M}}
-\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\Jtwo}{J_2}
+\newcommand{\JtwoTest}{\Jtwo^{\text{test}}}
+\newcommand{\JtwoZero}{\Jtwo^{(0)}}
+\newcommand{\force}{f} 
+\newcommand{\forceTest}{\force^{\text{test}}} 
+\newcommand{\thermCond}{\chi}
+\newcommand{\thermCondZero}{\thermCond^{(0)}}
+\newcommand{\thermCondPhase}{\thermCond^{(\phaseIndex)}}
+\newcommand{\thermCondHom}{\thermCond_{\text{eff}}}
+\newcommand{\concentrationThermCondPhase}{A_{\chi}^{(r)}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % fem model vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -73,7 +79,7 @@
 \newcommand{\dQdt}{\frac{\partial \heat}{\partial \zeit}}  % time derivative of heat
 \newcommand{\heatCapSpecific}{C} % specific heat capacity
 \newcommand{\density}{\rho} % density
-\newcommand{\thermCondEff}{\lambda} % effective thermal conductivity
+\newcommand{\thermCondEff}{\lambda} % effective thermal conductivity %%% \thermCond
 \newcommand{\dDOHdt}{\frac{\partial \DOH}{\partial \zeit}}  % time derivative of DoH
 \newcommand{\affinityTemp}{\tilde{A}} % temperature scaled affinity
 \newcommand{\affinityScale}{a} % scale factor for affinity
