@@ -52,6 +52,13 @@ An example function to approximate the maximum degree of hydration based on the 
 	\DOHmax = \dfrac{1.031\wc}{0.194 + \wc},
 \end{align}
 this refers to Portland cement. Looking at this function this does not seem to be a good expproximation. Need to find better!!!
+This is a simple but probably better option.
+\cite{pic_2011_uqso} also includes lot of other wc dependencies...\\
+\begin{align}
+\DOHmax &= \frac{\wc}{0.42}\quad{\text{for}}\quad\wc < 0.42\\
+\DOHmax &= 1\quad{\text{for}}\quad\wc \ge 0.42
+\end{align}
+
 \subsubsection{Time derivative}
 For a start I use a simple backward difference, backward Euler, implicit Euler method and approximate
 \begin{align}
