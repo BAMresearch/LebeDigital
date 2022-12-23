@@ -154,3 +154,8 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 *.synctex.gz
 *.bbl
 
+# ignore pdf and resulting figures in optimization paper
+usecases/optimization_paper/tex/optimization_paper.pdf
+usecases/optimization_paper/figures/*
+
+
