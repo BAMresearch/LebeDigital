@@ -381,25 +381,39 @@ class ExpStep:
         if not o.is_session_active():
             raise ValueError('Interbis object is not connected')
 
-        # If the sample has no datasets an error will be thrown
-        if not len(self.datasets):
-            raise ValueError('No Datasets found under the sample')
+        if not data_type:
+            length = len(self.datasets)
+        else:
+            # We get all data_types from the dataset object list and filter them using the given data_type
+            # the resulting list will have the correct length
+            ds_list = [s.type.code for s in self.datasets]
+            ds_list_filtered = list(filter(
+                lambda x: x == data_type, ds_list
+            ))
+            length = len(ds_list_filtered)
 
-        file_plural = 'FILES' if len(self.datasets) > 1 else 'FILE-'
+        # If the sample has no datasets (of given data_type) an error will be thrown
+        if not length:
+            err_msg = "No Datasets found under the sample" if not data_type else f"No Datasets of type {data_type} " \
+                                                                                 f"found under the sample"
+            raise ValueError(err_msg)
+
+        file_plural = 'FILES' if length > 1 else 'FILE-'
 
         print(
-            f'----------DOWNLOADING {len(self.datasets)} {file_plural}----------\n')
+            f'----------DOWNLOADING {length} {file_plural}----------\n')
         for dataset in self.datasets:
             # If data_type was specified download only the datasets with that data type
             if data_type:
                 if dataset.type == data_type:
                     print(f'Downloading dataset {dataset.code}')
-                    print(f'Files: {dataset.file_list}\n')
+                    print(f'Files: {dataset.file_list}')
                     dataset.download(
                         destination=path,
                         create_default_folders=False,
                         wait_until_finished=False,
                     )
+                    print("\n")
 
             # If data_type was NOT specified download all datasets
             else:
@@ -410,10 +424,11 @@ class ExpStep:
                     create_default_folders=False,
                     wait_until_finished=False,
                 )
+                print("\n")
 
         print('----------DOWNLOAD FINISHED----------')
 
-    def save_sample_yaml(self, yaml_path):
+    def save_expstep_yaml(self, yaml_path: str):
         """Saves a log file of a sample in openBIS. Used in doit upload
 
         Args:
@@ -428,3 +443,23 @@ class ExpStep:
 
         with open(yaml_path, 'w') as file:
             _ = yaml.dump(modified_dict, file)
+
+    def save_sample_yaml(self, o: Interbis, yaml_path: str):
+        df = o.get_sample_type_properties(self.type)
+
+        # deleting unnecessary columns
+        df = df.drop(df.iloc[:, 5:], axis=1)
+        df = df.drop(df.columns[3], axis=1)
+
+        # reordering the columns to fit the predefined order
+        df = df.iloc[:, [0, 3, 1, 2]]
+
+        # setting the index to the future dict key
+        df = df.set_index('code')
+
+        # making the output dict, filtering the keys from the output dict
+        out = df.to_dict("index")
+        out = {key: [*val.values()] for key, val in out.items()}
+
+        with open(yaml_path, 'w') as file:
+            _ = yaml.dump(out, file)

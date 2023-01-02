@@ -96,13 +96,14 @@ new_exp_step = ExpStep(
     identifier: str = '', # identifier of the sample / object (SPACE/PROJECT/SAMPLE_CODE)
     permId: str = '', # permID of the sample / object
     sample_object=None, # Pybis object of the sample / object
-    datasets: list = None, # dataset objects saved in the sample / object
-    dataset_codes: list = None, # codes of the dataset objects saved in the sample / object
+    datasets: list = None, # a list of dataset objects saved under the sample / object
+    dataset_codes: list = None, # a list of codes of the corresponding dataset objects saved under the sample / object
 )
 ```
 
 > Note: You do not have to define all of those attributes, only the name, type, metadata and the location of the Sample / Object in the Database (space, project, collection) are necessary
 
+> Note: `sample_object` and `datasets` will be set while uploading (or loading) the sample / object or when uploading a dataset to the sample 
 
 #### a) Define the ExpStep
 ```python

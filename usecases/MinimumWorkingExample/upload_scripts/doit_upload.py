@@ -183,7 +183,7 @@ def upload_to_openbis_doit(
 
     file_name_with_extension = output_sample.name + '.yaml'
 
-    output_sample.save_sample_yaml(str(Path(output_path, file_name_with_extension)))
+    output_sample.save_expstep_yaml(str(Path(output_path, file_name_with_extension)))
 
     sys.stdout = sys.__stdout__
 
