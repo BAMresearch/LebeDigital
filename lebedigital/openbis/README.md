@@ -85,7 +85,7 @@ For each measured experiment a sample / object of the corresponding type (EXPERI
 #### The ExpStep Class definition:
 
 ``` python
-new_experiment = ExpStep(
+new_exp_step = ExpStep(
     name: str = 'exp_name', # name of the experiment
     type: str = 'exp_type', # type of the experiment, has to be a defined sample / object type in the datastore
     metadata: dict = exp_metadata, # metadata of your data, is defined by the sample / object type
