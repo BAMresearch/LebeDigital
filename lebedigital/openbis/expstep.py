@@ -1,6 +1,7 @@
 import logging
 from math import isnan
 from sys import exit
+from typing import Iterable
 
 import pandas as pd
 import yaml
@@ -65,6 +66,21 @@ class ExpStep:
             self.datasets = []
         if not dataset_codes:
             self.dataset_codes = []
+
+    def __dir__(self) -> Iterable[str]:
+        return [
+            "info()",
+            "import_from_template()",
+            "check_type()",
+            "load_sample()",
+            "upload_expstep()",
+            "delete_expstep()",
+            "upload_dataset()",
+            "download_datasets()",
+            "delete_dataset()",
+            "save_expstep_yaml()",
+            "save_sample_yaml()",
+        ]
 
     def info(self):
         """Prints a description of the sample into the terminal/jupyter output
@@ -428,6 +444,32 @@ class ExpStep:
 
         print('----------DOWNLOAD FINISHED----------')
 
+    def delete_dataset(self, o: Interbis, dataset_code: str, reason: str):
+        """
+
+        Deletes a Dataset with the given Dataset permID
+
+        Args:
+            o (Interbis): Currently running Interbis instance
+            dataset_code (str): PermID of the Dataset
+            reason (str): Reason for deletion
+        """
+
+        dataset = o.get_dataset(dataset_code)
+        dataset_props = dataset.props.all_nonempty()
+        if '$name' in dataset_props:
+            ds_name = dataset_props["$name"]
+            label = f"{ds_name} ({dataset_code})"
+        else:
+            label = f"<Unknown Name> ({dataset_code})"
+
+        # checking if provided dataset code is contained in the sample
+        if dataset_code not in self.dataset_codes:
+            raise ValueError(f"Dataset {label} not contained within the sample")
+
+        print(f"Deleting Dataset {label}")
+        dataset.delete(reason)
+
     def save_expstep_yaml(self, yaml_path: str):
         """Saves a log file of a sample in openBIS. Used in doit upload
 
@@ -445,6 +487,14 @@ class ExpStep:
             _ = yaml.dump(modified_dict, file)
 
     def save_sample_yaml(self, o: Interbis, yaml_path: str):
+        """
+
+        Saves a yaml file which can be used to recreate the sample type.
+
+        Args:
+            o (Interbis): currently running Interbis instance
+            yaml_path (str): path where the file will be saved, needs to include the filename and extension
+        """
         df = o.get_sample_type_properties(self.type)
 
         # deleting unnecessary columns

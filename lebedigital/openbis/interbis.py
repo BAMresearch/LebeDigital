@@ -13,6 +13,20 @@ class Interbis(Openbis):
         super().__init__(url, verify_certificates, token, use_cache,
                          allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
 
+    def __dir__(self):
+        return [
+            "connect_to_datastore()",
+            "get_metadata_import_template()",
+            "get_overview()",
+            "get_sample_type_properties()",
+            "get_sample_dict()",
+            "get_sample_identifier()",
+            "get_dataset_identifier()",
+            "get_collection_identifier()",
+            "exists_in_datastore()",
+            "create_sample_type()",
+        ] + super().__dir__()
+
     def connect_to_datastore(self, username: str = None, password: str = None):
         """
         Establishes a connection to an openBIS Datastore. If username/password are parsed then
@@ -337,6 +351,16 @@ class Interbis(Openbis):
                 f'Could not find unique sample, the amount of samples with that name is {len(sample_df.index)}')
 
         return sample_df['identifier'].values[0]
+
+    def get_dataset_identifier(self, name: str) -> list[str]:
+        df = self.get_datasets(**{"$NAME": name}).df
+        if len(df) == 0:
+            logging.warning("No dataset found")
+            return []
+        elif len(df) > 1:
+            logging.warning(f"More than one dataset with the name {name} found")
+
+        return df['permId'].to_list()
 
     def get_collection_identifier(self, collection_code: str) -> str:
         """Returns the full identifier of the collection
