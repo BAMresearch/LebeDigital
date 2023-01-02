@@ -28,6 +28,7 @@ dependencies:
   - xlrd
   - openpyxl
   - tectonic=0.8
+  - pint
   - pybis
   - xlsxwriter
   - termcolor
