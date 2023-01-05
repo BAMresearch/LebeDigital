@@ -93,17 +93,8 @@ new_exp_step = ExpStep(
     project: str = 'exp_project', # project in which the experiment should be saved
     collection: str = 'exp_space/exp_project/exp_collection', # collection in which the experiment should be saved
     parents: list[str] = [exp_parents], # parents of the experiment
-    identifier: str = '', # identifier of the sample / object (SPACE/PROJECT/SAMPLE_CODE)
-    permId: str = '', # permID of the sample / object
-    sample_object=None, # Pybis object of the sample / object
-    datasets: list = None, # a list of dataset objects saved under the sample / object
-    dataset_codes: list = None, # a list of codes of the corresponding dataset objects saved under the sample / object
 )
 ```
-
-> Note: You do not have to define all of those attributes, only the name, type, metadata and the location of the Sample / Object in the Database (space, project, collection) are necessary
-
-> Note: `sample_object` and `datasets` will be set while uploading (or loading) the sample / object or when uploading a dataset to the sample 
 
 #### a) Define the ExpStep
 ```python
@@ -153,7 +144,7 @@ concrete_experiment.upload_dataset(
     props={
         '$name': 'UCT_Compression_Experiment_17_10_2022_RAW_DATA',
         'files': ['path_to_file'],
-        'data_type': 'PROCESSED_DATA' # or RAW_DATA. PREVIEW, ... you can see them in the dataset types
+        'dataset_type': 'PROCESSED_DATA' # or RAW_DATA. PREVIEW, ... you can see them in the dataset types
     }
 )
 ```

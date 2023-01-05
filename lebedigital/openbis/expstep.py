@@ -20,11 +20,6 @@ class ExpStep:
             project: str = "",
             collection: str = "",
             parents: list = None,
-            identifier: str = '',
-            permId: str = '',
-            sample_object=None,
-            datasets: list = None,
-            dataset_codes: list = None,
     ) -> None:
         """Creates an ExpStep Object as general python interface to the Experimental Step OpenBis object
 
@@ -37,12 +32,6 @@ class ExpStep:
             project (str, optional): project in which the experiment should be saved. Defaults to "".
             collection (str, optional): collection in which the experiment should be saved. Defaults to "".
             parents (list, optional): parents of the experiment. Defaults to None.
-            identifier (str, optional): verbose identifier of the sample, indicates the space and project.
-                Defaults to ''.
-            permId (str, optional): PermID identifier of the sample. Defaults to ''.
-            sample_object (Pybis, optional): the pybis sample object of the sample. Defaults to None.
-            datasets (list, optional): list of dataset objects saved under the experimental step. Defaults to None.
-            dataset_codes (list, optional): the PermIDs of the datasets. Defaults to None.
         """
 
         self.name = name
@@ -52,20 +41,16 @@ class ExpStep:
         self.project = project
         self.collection = collection
         self.parents = parents
-        self.identifier = identifier
-        self.permId = permId
-        self.sample_object = sample_object
-        self.datasets = datasets
-        self.dataset_codes = dataset_codes
+        self.identifier = ''
+        self.permId = ''
+        self.sample_object = None
+        self.datasets = {}
+        self.dataset_codes = []
 
         if not metadata:
             self.metadata = {}
         if not parents:
             self.parents = []
-        if not datasets:
-            self.datasets = []
-        if not dataset_codes:
-            self.dataset_codes = []
 
     def __dir__(self) -> Iterable[str]:
         return [
@@ -358,11 +343,11 @@ class ExpStep:
         # Checking if the files and data_type are specified in props
         if 'files' not in props:
             raise KeyError(f'files not specified in props')
-        if 'data_type' not in props:
-            raise KeyError(f'data_type not specified in props')
+        if 'dataset_type' not in props:
+            raise KeyError(f'dataset_type not specified in props')
 
         files = props.pop('files')
-        data_type = props.pop('data_type')
+        dataset_type = props.pop('dataset_type')
 
         # If a dataset with the same name was found in the datastore that dataset will be returned and none will be
         # uploaded
@@ -376,7 +361,7 @@ class ExpStep:
         # Uploading the dataset
         else:
             ds = o.new_dataset(
-                type=data_type,
+                type=dataset_type,
                 collection=self.collection,
                 sample=self.identifier,
                 files=files,
