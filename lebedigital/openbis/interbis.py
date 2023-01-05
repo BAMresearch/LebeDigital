@@ -72,7 +72,7 @@ class Interbis(Openbis):
             path: str = '',
     ) -> pd.DataFrame:
         """
-        Generates a pandas Dataframe containing an import template for a given object type exiting in data store.
+        Generates a pandas Dataframe containing an import template for a given object type existing in data store.
         Can be saved as an Excel sheet, too, for manual data entry and then imported to an ExpStep object
             by ExpStep.import_from_template
 
@@ -146,8 +146,10 @@ class Interbis(Openbis):
             return meta_df
 
     def get_overview(self, level: str, **kwargs) -> dict:
-        """ Generates an overview for the samples stored in the datastore
-            You need to provide the openBIS 'level' where you want the overview to start.
+        """
+        Generates an overview for the samples stored in the datastore
+        You need to provide the openBIS 'level' where you want the overview to start.
+
         Args:
             level (str): What entity should be the highest level of the overview (space/project/collection overview)
 
@@ -284,7 +286,8 @@ class Interbis(Openbis):
             raise ValueError('No correct level specified')
 
     def get_sample_type_properties(self, sample_type: str) -> pd.DataFrame:
-        """Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
+        """
+        Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
         Args:
             sample_type (str): The sample type for which properties should be fetched
@@ -316,7 +319,8 @@ class Interbis(Openbis):
         return df
 
     def get_sample_dict(self, identifier: str) -> dict:
-        """Fetches a dictionary filled with information about the sample
+        """
+        Fetches a dictionary filled with information about the sample
 
         Very useful method actually if you already have the identifier. You can get all information about
         the sample from it like all metadata, collection, type, etc.
@@ -338,7 +342,6 @@ class Interbis(Openbis):
 
     def get_sample_identifier(self, name: str) -> str:
         """
-
         Returns the full identifier of the sample
 
         Args:
@@ -354,9 +357,8 @@ class Interbis(Openbis):
 
         return sample_df['identifier'].values[0]
 
-    def get_dataset_identifier(self, name: str) -> list[str]:
+    def get_dataset_permid(self, name: str) -> list[str]:
         """
-
         Returns the permId of the dataset
 
         Args:
@@ -375,7 +377,8 @@ class Interbis(Openbis):
         return df['permId'].to_list()
 
     def get_collection_identifier(self, collection_code: str) -> str:
-        """Returns the full identifier of the collection
+        """
+        Returns the full identifier of the collection
 
         Args:
             collection_code (str): Name of the collection
@@ -383,7 +386,7 @@ class Interbis(Openbis):
         Returns:
             str: Identifier of the collection
         """
-        collections_df = self.get_collections(props='$name').df
+        collections_df = self.get_collections().df
         collection_code = collection_code.upper()
 
         if len(collections_df.index):
@@ -393,7 +396,8 @@ class Interbis(Openbis):
             raise ValueError(f'No collection with name {collection_code} found')
 
     def exists_in_datastore(self, name: str) -> bool:
-        """Checks if a sample with the given identifier exists in the openBIS datastore.
+        """
+        Checks if a sample with the given identifier exists in the openBIS datastore.
 
         Args:
             name (str): '$name' attribute of the sample
@@ -415,7 +419,8 @@ class Interbis(Openbis):
             return True
 
     def create_sample_type(self, sample_code: str, sample_prefix: str, sample_properties: dict):
-        """Used for automatically creating a sample type within the doit tasks.
+        """
+        Used for automatically creating a sample type within the doit tasks.
         May be useful for automating upload, less customisation options than creating them "by hand" though
 
         Args:
