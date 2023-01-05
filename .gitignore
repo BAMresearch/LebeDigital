@@ -157,6 +157,6 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 # ignore pdf and resulting figures in optimization paper
 usecases/optimization_paper/tex/optimization_paper.pdf
 usecases/optimization_paper/figures/*
-usecases/optimization_paper/*
+usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
 
 
