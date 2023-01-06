@@ -129,10 +129,14 @@ The publication assumes for their "C1" mix values of  $\fcInf = 62.1$ MPa , $\st
 \subsubsection{Young's Modulus}
 The publication proposes a new model for the evolution of the Young's modulus.
 Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assumes an initial linear increase of the Young's modulus up to a degree of hydration $\DOHt$.
-
 \begin{align}
-	\eMod(\DOH < \DOHt) = E_\infty  \frac{\DOH(\zeit)}{\DOHt}\left( \frac{\DOHt-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  \\
-	\eMod(\DOH \ge \DOHt) = \eModInf  \left( \frac{\DOH(t)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
+	\eMod(\DOH) = 
+	\begin{cases}
+		E_\infty  \frac{\DOH(\zeit)}{\DOHt}\left( \frac{\DOHt-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}   
+		& \text{for $\DOH < \DOHt$}\\
+		\eModInf  \left( \frac{\DOH(t)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
+		& \text{for $\DOH \ge \DOHt$}
+	\end{cases}
 \end{align}
 Values of $\DOHt$ are assumed to be between 0.1 and 0.2.
 For the mix "C1" $\DOHt = 0.09$, $\DOHZero = 0.06$, $\eModInf = 54.2$ MPa, $\stiffExp = 0.4$.
