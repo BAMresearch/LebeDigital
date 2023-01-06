@@ -1,14 +1,34 @@
 \subsection{Approximate concrete tensile strength based on compressive strenght}
-To reduce the number of required experiments, the tensile strength of concrete is approximated using the formulations given in DIN EN 1992-1-1.
-They are based on the compressive strength 
+To reduce the number of required experiments, the tensile strength of concrete is computed using the approximations given in \citeauthor{DIN1992-1-1}.
+They are based on the compressive strength, 
 \begin{align}
 \ft = 
 \begin{cases}
 0.3 \fc^{\frac{2}{3}}  & \text{for $\fc \le 50$ N/mm$^2$}\\
-\ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  \label{eq:tensilstrength}
+\ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  \label{eq:tensilstrength}.
 \end{cases}
 \end{align}
 \subsection{$\DOHmax$ based on $\wc$}
 ...
 \subsection{Beam design}
-...
+
+\subsubsection{Maximum bending moment and shear force}
+Assuming a simply supported beam with a given length $\beamLength$ in mm, a distributed load $\beamDistrLoad$ in N/mm and a point load $\beamPointLoad$ in N/mm
+the maximum bending moment $\beamMaxMoment$ in N/mm$^2$ and the maximum shear force $\beamMaxShearForce$ in N/mm$^2$ are computed as
+\begin{align}
+	\beamMaxMoment= \beamDistrLoad \frac{\beamLength^2}{8} + \beamPointLoad \frac{\beamLength}{4}\\
+	\beamMaxShearForce = \beamDistrLoad \frac{\beamLength}{4} + \frac{\beamPointLoad}{2}
+\end{align}
+\subsubsection{Computing the minimal required steel reinforcement}
+Given a beam with the height $\beamHeight$ in mm, a concrete cover of $\beamCover$ in mm, a steel reinforcement diameter of $\beamSteelDiameter$ in mm for both the longitudinal as well as transversal reinforcement, the effective height in mm is
+\begin{align}
+	\beamHeightEff = \beamHeight - \beamCover - \frac{3}{2} \beamSteelDiameter
+\end{align}
+According to the standard safety factors are applied, $\beamTimeSF = 0.85$, $\beamConcreteSF = 1.5$ and $\beamSteelSF = 1$, leading to the design compressive strengths for concrete and steel
+\begin{align}
+	\beamfcd = \beamTimeSF \frac{\fc }{\beamConcreteSF}\\
+	\beamfsd = \frac{\beamfs}{\beamSteelSF}
+\end{align}
+
+To be continued...
+

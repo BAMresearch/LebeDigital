@@ -102,6 +102,7 @@ def beam_section_design(
         Design of the reinforced beam section.
     """
     #effective section depth
+    # TODO: first steel diameter is reinforcement in width direction. does it need to be the same? do we need to account for it at all?
     deff = height - cover - steel_dia - steel_dia / 2
     #fcd=Design compressive strength
     a_cc=0.85
