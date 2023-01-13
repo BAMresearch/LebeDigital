@@ -2,10 +2,8 @@ import logging
 import os
 import sys
 from getpass import getpass
-from math import isnan
 
 import pandas as pd
-import pybis.sample
 from pybis import Openbis
 from pybis.sample import Sample
 
@@ -148,8 +146,7 @@ class Interbis(Openbis):
         else:
             return meta_df
 
-    @staticmethod
-    def import_props_from_template(path_to_file: str, sample_object: Sample):
+    def import_props_from_template(self, path_to_file: str, sample_object: Sample):
 
         df = pd.read_excel(path_to_file)
         df.columns = df.columns.str.lower()
@@ -164,74 +161,19 @@ class Interbis(Openbis):
         # turn the df columns into a dict
         metadata = dict(zip([par.lower() for par in df.param], df.value))
 
+        for key in metadata.keys():
+            property_type = self.get_property_type(key)
+            property_data_type = property_type.dataType
+            if property_data_type == "BOOLEAN":
+                if metadata[key] in ["True", "False"]:
+                    metadata[key] = eval(metadata[key])
+                else:
+                    raise KeyError(f"Invalid key \"{key}\" for dataType BOOLEAN. "
+                                   f"Expected \"True\" or \"False\", found {metadata[key]}")
+            elif property_data_type == "INTEGER":
+                metadata[key] = int(metadata[key])
+
         sample_object.set_props(metadata)
-
-    def check_type(self, sample_object: Sample):
-        # TYPE CHECKING
-        conv_dict = {
-            'BOOLEAN': bool,
-            'CONTROLLEDVOCABULARY': str,
-            'DATE': str,
-            'HYPERLINK': str,
-            'INTEGER': int,
-            'MATERIAL': str,
-            'MULTILINE_VARCHAR': str,
-            'OBJECT': str,
-            'REAL': float,
-            'TIMESTAMP': str,
-            'VARCHAR': str,
-            'XML': str,
-            'SAMPLE': str
-        }
-        logging.debug('TYPE CHECKING OF THE SAMPLE')
-        logging.debug('Setting up comparison dict')
-
-        types_df = self.get_sample_type_properties(sample_object.type.code)
-        types_dict = dict(zip(types_df.code, types_df.dataType))
-
-        logging.debug(types_dict)
-
-        types_dict: dict = {k.lower(): conv_dict[v] for k, v in types_dict.items()}
-
-        logging.debug('Checking if keys are subset of defined parameters')
-        sample_keys_dict = sample_object.props.all()
-        sample_keys_dict = {k: v for k, v in sample_keys_dict.items() if v}
-
-        if set(sample_keys_dict.keys()).issubset(set(types_dict.keys())):
-            for key, val in sample_keys_dict.items():
-                # Check if all values have the correct data type
-                if not isinstance(val, types_dict[key]):
-                    raise ValueError(
-                        f'Type Checker: Type Mismatch.'
-                        f'Entry "{key}" is of Type {type(val)} and should be {types_dict[key]}')
-                    # Check if float values are not NaN
-                if isinstance(val, float) and isnan(val):
-                    raise ValueError(
-                        f'Type Checker: NaN values are not accepted by Openbis.'
-                        f'Entry "{key} has a value "{val}".')
-        else:
-            # Keys in metadata and not in object definition -> raises an error for every such key
-            for key in sample_keys_dict.keys():
-                if key.lower() not in types_dict.keys():
-                    raise ValueError(
-                        f'Type Checker: Unexpected parameter.'
-                        f'Key "{key}" is not in {sample_object.type.code} defined metadata params')
-
-        # Checking if all values are defined
-        # needed_attrs = ['name', 'type', 'collection', 'space', 'project']
-        # for attr, value in self.__dict__.items():
-        #     if attr in needed_attrs:
-        #         if not value:
-        #             raise ValueError(
-        #                 f'Type Checker: Undeclared Attribute.'
-        #                 f'Attribute "{attr}" has not been declared')
-
-        # No longer applicable as the structure is different
-
-        # Printing warnings if parents are empty, does not break the function
-        if not sample_object.parents:
-            logging.warning(
-                'Type Checker: Parents attribute undeclared')
 
     def get_overview(self, level: str, **kwargs) -> dict:
         """
@@ -577,7 +519,7 @@ class Interbis(Openbis):
                 prop=p,
                 section='Metadata',
                 ordinal=(i + 1),
-                mandatory=True if p == '$NAME' else False,
+                mandatory=False,
                 # initialValueForExistingEntities=f'Initial_Val_{p}',
                 showInEditView=True,
                 showRawValueInForms=True,
@@ -586,3 +528,4 @@ class Interbis(Openbis):
 
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
+
