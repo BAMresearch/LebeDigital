@@ -202,27 +202,7 @@ def task_validate_graph():
             knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
 
             yield{
-                'name': knowledge_graph_file,
+                'name': f"Test {knowledge_graph_file}",
                 'actions': [(load_graph_and_test_shapes, [knowledge_graph_file])],
                 'file_dep': [shapes_path, knowledge_graph_file],
             }
-    """ for f in graphs:
-        if f.is_file() and Path(f).suffix == '.ttl':
-            # do some validation
-            g = validation.read_graph_from_file(g)
-            res = validation.test_graph(g, s)
-
-            assert not validation.violates_shape(res, SCHEMA.SpecimenDiameterShape)
-            assert not validation.violates_shape(res, SCHEMA.SpecimenShape)
-            assert validation.violates_shape(res, SCHEMA.InformationBearingEntityShape)
-
-            out = open(Path(emodul_output_directory, 'validation_result.txt'), 'wx')
-            out.write(f'{f.name}:\n')
-
-            for shape in [
-                SCHEMA.SpecimenDiameterShape, 
-                SCHEMA.SpecimenShape, 
-                SCHEMA.InformationBearingEntityShape
-                ]:
-                out.write(f'{shape} {"failed" if validation.violates_shape(res, shape) else "passed"}\n')
-             """
