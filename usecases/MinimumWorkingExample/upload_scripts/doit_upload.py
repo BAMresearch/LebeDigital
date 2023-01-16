@@ -4,6 +4,7 @@ import sys
 from collections import defaultdict
 from math import isnan
 from pathlib import Path
+import pandas as pd
 
 import yaml
 
@@ -114,7 +115,8 @@ def upload_to_openbis_doit(
         collection=_MIXTURE_COLLECTION,
         props='$name').df
 
-    exist_mixture_sample_list = exist_mixture_sample_df['$NAME'].to_list()
+    exist_mixture_sample_df.columns = exist_mixture_sample_df.columns.str.lower()
+    exist_mixture_sample_list = exist_mixture_sample_df['$name'].to_list()
 
     # Getting the name from props
     mixture_sample_name = mixture_sample.props.all()['$name']
@@ -134,10 +136,11 @@ def upload_to_openbis_doit(
 
     # Same as before, checking whether the dataset was uploaded already
     mix_exist_dataset_df = o.get_datasets(sample=mixture_sample.identifier, props=['$name']).df
+    mix_exist_dataset_df.columns = mix_exist_dataset_df.columns.str.lower()
 
     # Most sketchy stuff in pybis, I have no idea when the $NAME has to be capitalized and when it does not.
     # I suspect it depends on the object for which the get is called (sample/dataset/collection/... object)
-    mix_exist_dataset_list = mix_exist_dataset_df['$NAME'].to_list()
+    mix_exist_dataset_list = mix_exist_dataset_df['$name'].to_list()
 
     if mixture_dataset_name not in mix_exist_dataset_list:
         raw_mix_dataset_props = {'$name': mixture_dataset_name}
@@ -191,9 +194,30 @@ def upload_to_openbis_doit(
     emodul_sample.set_props({'$name': emodul_sample.props.all()['experimentname']})
     logging.debug(emodul_sample.metadata)
 
-    # Uploading the sample to the datastore
-    emodul_sample.save()
-    logging.debug(f'Sample {emodul_sample.code} Uploaded')
+    # Checking if a sample with that name was already uploaded to that space in the datastore
+    # Reason: Not uploading duplicate samples. Will check for duplicates based on '$name' property
+    exist_emodul_sample_df = o.get_samples(
+        space=_SPACE,
+        project=_PROJECT,
+        collection=_EMODUL_COLLECTION,
+        props='$name').df
+
+    exist_emodul_sample_df.columns = exist_emodul_sample_df.columns.str.lower()
+    exist_emodul_sample_list = exist_emodul_sample_df['$name'].to_list()
+
+    # Getting the name from props
+    emodul_sample_name = emodul_sample.props.all()['$name']
+
+    # If sample name found in all samples under that directory -> skip upload and fetch the sample instead
+    # Else -> Upload the created sample to the Datastore
+    if emodul_sample_name not in exist_emodul_sample_list:
+        emodul_sample.save()
+        logging.debug(f'Emodul Sample {emodul_sample.code} uploaded')
+    else:
+        # We checked that it exists, so we throw away the old sample and replace it with a fetched
+        # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
+        emodul_sample = o.get_sample(exist_emodul_sample_df.iloc[0, 0])
+        logging.debug(f'Emodul Sample {emodul_sample.code} found in datastore')
 
     # Naming the datasets
     raw_dataset_name = emodul_sample.props.all()['$name'] + '_raw'
@@ -201,13 +225,13 @@ def upload_to_openbis_doit(
 
     # Checking whether the datasets already exist under the emodul sample
     emo_exist_dataset_df = o.get_datasets(sample=emodul_sample.identifier, props='$name').df
+    emo_exist_dataset_df.columns = emo_exist_dataset_df.columns.str.lower()
 
     # Most sketchy stuff in pybis, I have no idea when the $NAME has to be capitalized and when it does not.
     # I suspect it depends on the object for which the get is called (sample/dataset/collection/... object)
     emo_exist_dataset_list = emo_exist_dataset_df['$name'].to_list()
 
     # Creating a transaction to upload the datasets at the same time
-    emo_dataset_transaction = o.new_transaction()
 
     # Raw Dataset Upload
     if raw_dataset_name not in emo_exist_dataset_list:
@@ -221,7 +245,7 @@ def upload_to_openbis_doit(
             props=raw_emo_dataset_props
         )
         # Adding to transaction
-        emo_dataset_transaction.add(emo_raw_dataset)
+        emo_raw_dataset.save()
         logging.debug('Raw Emodul Dataset uploaded')
     else:
         # The _ can be changed to a variable if the dataset is needed
@@ -240,15 +264,12 @@ def upload_to_openbis_doit(
             props=processed_emo_dataset_props
         )
         # Adding to transaction
-        emo_dataset_transaction.add(emo_processed_dataset)
+        emo_processed_dataset.save()
         logging.debug('Processed Emodul Dataset uploaded')
     else:
         # The _ can be changed to a variable if the dataset is needed
         # _ = o.get_dataset(permIds=emo_exist_dataset_df.iloc[0, 0])
         logging.debug('Processed Emodul Dataset fetched from datastore')
-
-    # Committing the transaction to the datastore
-    emo_dataset_transaction.commit()
 
     # We load the object from the datastore before printing as a sort of manual check
     # if the function worked as it was supposed to.

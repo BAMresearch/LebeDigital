@@ -46,7 +46,7 @@ openbis_config = {
     'sample_prefix': 'EMODUL',
     'mixture_code': 'EXPERIMENTAL_STEP_EMODUL_MIX',
     'mixture_prefix': 'EMODUL_MIX',
-    'verbose': True,
+    'verbose': False,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on github actions as they need a password to run
     'runson': get_var('runson', 'actions'),
