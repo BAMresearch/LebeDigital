@@ -126,7 +126,7 @@ def task_export_knowledgeGraph_emodul():
             }
 
 #validate
-@create_after(executed='expord_knowledgeGraph_emodul')
+@create_after(executed='export_knowledgeGraph_emodul')
 def task_validate_graph():
     
     graphs = os.scandir(knowledge_graphs_directory)
@@ -144,12 +144,12 @@ def task_validate_graph():
             assert validation.violates_shape(res, SCHEMA.InformationBearingEntityShape)
 
             out = open(Path(emodul_output_directory, 'validation_result.txt'), 'wx')
-            out.write(f'{f.name}:')
+            out.write(f'{f.name}:\n')
 
             for shape in [
                 SCHEMA.SpecimenDiameterShape, 
                 SCHEMA.SpecimenShape, 
                 SCHEMA.InformationBearingEntityShape
                 ]:
-                out.write(repr(shape) + ('failed' if validation.violates_shape(res, shape) else 'passed'))
+                out.write(f'{shape} {"failed" if validation.violates_shape(res, shape) else "passed"}\n')
             
