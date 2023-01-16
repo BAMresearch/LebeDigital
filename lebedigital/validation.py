@@ -88,3 +88,23 @@ def read_graph_from_file(filepath: str) -> Graph:
         graph = Graph()
         graph.parse(file=f, format=guess_format(filepath))
     return graph
+
+def violates_shapes_list(res: Graph, shapes_list: list[URIRef]) -> bool:
+    """
+    Reads a data and a shapes graph from files and tests a list of shapes from the shapes graph against the data graph.
+
+    Parameters
+    ----------
+    graph_path
+        The data graph.
+    shapes_graph_path
+        The shapes graph.
+    shapes_list
+        The list of shapes from the shapes graph that should be tested on the data graph.
+
+    Returns
+    -------
+        True, if the graph violates any of the shapes from the shapes list.
+    """
+    
+    return any(violates_shape(res, shape) for shape in shapes_list)

@@ -178,12 +178,35 @@ def task_export_knowledgeGraph_emodul():
 #validate
 @create_after(executed='export_knowledgeGraph_emodul')
 def task_validate_graph():
-    
-    graphs = os.scandir(knowledge_graphs_directory)
 
-    s = validation.read_graph_from_file(Path(emodul_output_directory, 'validation_test', 'shape.ttl'))
+    shapes_path = Path(emodul_output_directory, 'validation_test', 'shape.ttl')
+    shapes_graph = validation.read_graph_from_file(shapes_path)
+    shapes_list = [SCHEMA.SpecimenDiameterShape, SCHEMA.SpecimenShape]
+
+    def load_graph_and_test_shapes(graph_path):
+            g = validation.read_graph_from_file(graph_path)
+            res = validation.test_graph(g, shapes_graph)
+            return any(validation.violates_shape(res, shape) for shape in shapes_list)
+
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
+    else: # go through all files
+        # list of all meta data files....
+        list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
     
-    for f in graphs:
+    for f in list_metadata_yaml_files:
+        if f.is_file():
+            name_of_ttl = f.name.replace('.yaml', '.ttl')
+            
+            # path to the KG that should be tested
+            knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
+
+            yield{
+                'name': knowledge_graph_file,
+                'actions': [(load_graph_and_test_shapes, [knowledge_graph_file])],
+                'file_dep': [shapes_path, knowledge_graph_file],
+            }
+    """ for f in graphs:
         if f.is_file() and Path(f).suffix == '.ttl':
             # do some validation
             g = validation.read_graph_from_file(g)
@@ -202,4 +225,4 @@ def task_validate_graph():
                 SCHEMA.InformationBearingEntityShape
                 ]:
                 out.write(f'{shape} {"failed" if validation.violates_shape(res, shape) else "passed"}\n')
-            
+             """

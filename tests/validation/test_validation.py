@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from lebedigital.validation import SCHEMA, read_graph_from_file, test_graph as graph_test, violates_shape
+from lebedigital.validation import SCHEMA, read_graph_from_file, test_graph as graph_test, violates_shape, graph_from_path_violates_shapes
 
 def test_graph_against_shape():
     """
@@ -19,3 +19,4 @@ def test_graph_against_shape():
     assert not violates_shape(res, SCHEMA.SpecimenDiameterShape)
     assert not violates_shape(res, SCHEMA.SpecimenShape)
     assert violates_shape(res, SCHEMA.InformationBearingEntityShape)
+
