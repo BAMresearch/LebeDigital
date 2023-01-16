@@ -61,3 +61,16 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/
           doit
+          
+      - name: Archive optimization paper pdf
+        uses: actions/upload-artifact@v3
+        with:
+            name: optimization_paper
+            path: usecases/optimization_paper/tex/optimization_paper.pdf
+            
+      - name: Archive optimization figures
+        uses: actions/upload-artifact@v3
+        with:
+            name: optimization_figures
+            path: usecases/optimization_paper/figures/
+          
