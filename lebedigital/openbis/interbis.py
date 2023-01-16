@@ -478,6 +478,7 @@ class Interbis(Openbis):
             new_sample_type = self.get_sample_type(sample_code)
 
         else:
+            # Create the SampleType object
             new_sample_type = self.new_sample_type(
                 code=sample_code,
                 generatedCodePrefix=sample_prefix,
@@ -493,12 +494,16 @@ class Interbis(Openbis):
             )
             new_sample_type.save()
 
+        # Create a dictionary with the samples
         pt_dict = {}
+
+        # Get all possible property types from the datastore
         pt_types = list(self.get_property_types().df['code'])
 
         for prop, val in sample_properties.items():
 
             if not prop.upper() in pt_types:
+                logging.debug(f"Creating new property type {prop.upper()}")
                 new_pt = self.new_property_type(
                     code=prop,
                     dataType=val[0],
@@ -507,6 +512,7 @@ class Interbis(Openbis):
                 )
                 new_pt.save()
             else:
+                logging.debug(f"Fetching existing property type {prop.upper()}")
                 new_pt = self.get_property_type(prop)
 
             pt_dict[new_pt.code] = new_pt
@@ -528,4 +534,3 @@ class Interbis(Openbis):
 
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
-
