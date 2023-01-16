@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+% Note (ET): We will do this at the end!
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+% TODO: discuss this! might mean we have to generate all figures externaly
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% some aditional \documentclass options:
+% \documentclass[referee,...]{sn-jnl}% referee option is meant for double line spacing
+%\documentclass[lineno,...]{sn-jnl}% to print line numbers in the margin use lineno option
+
+\documentclass[pdflatex,sn-basic]{template/sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+%%\documentclass[sn-mathphys]{sn-jnl}% Math and Physical Sciences Reference Style
+%%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[sn-vancouver]{sn-jnl}% Vancouver Reference Style
+%%\documentclass[sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[sn-standardnature]{sn-jnl}% Standard Nature Portfolio Reference Style
+%%\documentclass[default]{sn-jnl}% Default
+%%\documentclass[default,iicol]{sn-jnl}% Default with double column layout
+
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+\input{macros/tex_macros.tex}  % tex commands not variable
+\input{macros/py_macros.tex}   % tex commands created by script
+
+\newcommand{\figures}{../figures/} % scale factor for affinity
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+\jyear{2022}%
+
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\begin{document}
+
+\title[From concrete mixture to structural design - a holistic optimization procedure]{From concrete mixture to structural design - a holistic optimization procedure}
+
+%%=============================================================%%
+%% Prefix	-> \pfx{Dr}
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% NatureName	-> \tanm{Poet Laureate} -> Title after name
+%% Degrees	-> \dgr{MSc, PhD}
+%% \author*[1,2]{\pfx{Dr} \fnm{Joergen W.} \spfx{van der} \sur{Ploeg} \sfx{IV} \tanm{Poet Laureate} 
+%%                 \dgr{MSc, PhD}}\email{iauthor@gmail.com}
+%%=============================================================%%
+% TODO: discuss order of authors, do we need to include more?
+
+
+\author*[1]{\fnm{Atul} \sur{Agrawal}}\email{atul.agrawal@tum.de}
+\equalcont{These authors contributed equally to this work.}
+
+\author[2]{\fnm{Erik} \sur{Tamsen}}\email{erik.tamsen@bam.de}
+\equalcont{These authors contributed equally to this work.}
+
+\author[1]{\fnm{Faidon-Stelios} \sur{Koutsourelakis}}\email{p.s.koutsourelakis@tum.de}
+
+\author[2]{\fnm{Jörg F.} \sur{Unger}}\email{joerg.unger@bam.de}
+
+\affil*[1]{\orgdiv{Data-driven Materials Modeling}, \orgname{Technische Universität München}, \orgaddress{\street{Boltzmannstraße 15}, \city{Garching}, \postcode{85748}, \country{Germany}}}
+
+\affil[2]{\orgdiv{Modeling and Simulation}, \orgname{Bundesanstalt für Materialforschung und -prüfung}, \orgaddress{\street{Unter den Eichen 87}, \city{Berlin}, \postcode{12205}, \country{Germany}}}
+
+
+\input{tex_sections/abstract.tex}
+
+\section{Introduction}\label{sec:introduction}
+\input{tex_sections/introduction.tex}
+
+\section{Experimental data}\label{sec:data}
+\input{tex_sections/data.tex}
+
+\section{Models}\label{sec:models}
+\input{tex_sections/homogenization.tex}
+\input{tex_sections/concrete_model.tex}
+\input{tex_sections/other_models.tex}
+
+\section{Calibration Method}\label{sec:calibration}
+\input{tex_sections/calibration.tex}
+
+\section{Optimization Method}\label{sec:optimization}
+\input{tex_sections/optimization.tex}
+
+\section{Results}\label{sec:results}
+\input{tex_sections/results.tex}
+
+\section{Conclusion and Outlook}\label{sec:results}
+\input{tex_sections/conclusion.tex}
+
+% supplementary information, acknowledgements, declarations, etc
+\input{tex_sections/backmatter.tex}
+
+\begin{appendices}
+\section{Mori-Tanaka Homogenization}\label{appendix:hom}
+\input{tex_sections/appendix_mori_tanaka_hom.tex}
+
+\end{appendices}
+
+%%===========================================================================================%%
+%% If you are submitting to one of the Nature Portfolio journals, using the eJP submission   %%
+%% system, please include the references within the manuscript file itself. You may do this  %%
+%% by copying the reference list from your .bbl file, paste it into the main manuscript .tex %%
+%% file, and delete the associated \verb+\bibliography+ commands.                            %%
+%%===========================================================================================%%
+
+\bibliography{optimization_paper_bibliography}% common bib file
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+%% Default %%
+%%\input sn-sample-bib.tex%
+
+\end{document}

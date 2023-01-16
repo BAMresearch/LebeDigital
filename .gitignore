@@ -125,7 +125,7 @@ conda-env/
 # mkdocs documentation
 /site
 
-# mypy
+# my
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -138,7 +138,25 @@ dmypy.json
 
 # results of minimum working example
 usecases/MinimumWorkingExample/emodul/*
+usecases/MinimumWorkingExample/mixture/*
 
 # graphviz
 *.gv
 LebeDigital_optimization_graph_ignored.gv.pdf
+
+# ignore mesh files
+**/mesh/*
+
+# ignore latex temp files
+*.out
+*.aux
+*.blg
+*.synctex.gz
+*.bbl
+
+# ignore pdf and resulting figures in optimization paper
+usecases/optimization_paper/tex/optimization_paper.pdf
+usecases/optimization_paper/figures/*
+usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
+
+
