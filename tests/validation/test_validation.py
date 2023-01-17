@@ -8,8 +8,8 @@ def test_graph_against_shape():
     Testing a data graph against a shapes graph and checking that the appropriate shapes fail.
     """
 
-    shapes_location = "validation/shape.ttl"
-    data_location = "validation/graph.ttl"
+    shapes_location = "./validation/shape.ttl"
+    data_location = "./validation/graph.ttl"
 
     g = read_graph_from_file(data_location)
     s = read_graph_from_file(shapes_location)
