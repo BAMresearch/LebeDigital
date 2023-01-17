@@ -16,7 +16,7 @@ from lebedigital.raw_data_processing.mixture \
 
 from doit import get_var
 
-from lebedigital import validation
+from lebedigital.shacl import validation as shacl
 
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
@@ -176,16 +176,16 @@ def task_export_knowledgeGraph_emodul():
 
 #validate
 @create_after(executed='export_knowledgeGraph_emodul')
-def task_validate_graph():
+def task_shcal_validate_graph():
 
     shapes_path = Path(emodul_output_directory, 'validation_test', 'shape.ttl')
-    shapes_graph = validation.read_graph_from_file(shapes_path)
-    shapes_list = [validation.SCHEMA.SpecimenDiameterShape, validation.SCHEMA.SpecimenShape]
+    shapes_graph = shacl.read_graph_from_file(shapes_path)
+    shapes_list = [shacl.SCHEMA.SpecimenDiameterShape, shacl.SCHEMA.SpecimenShape]
 
     def load_graph_and_test_shapes(graph_path):
-            g = validation.read_graph_from_file(graph_path)
-            res = validation.test_graph(g, shapes_graph)
-            return any(validation.violates_shape(res, shape) for shape in shapes_list)
+            g = shacl.read_graph_from_file(graph_path)
+            res = shacl.test_graph(g, shapes_graph)
+            return any(shacl.violates_shape(res, shape) for shape in shapes_list)
 
     if config['mode'] == 'cheap' or config['mode'] == 'single':
         list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]

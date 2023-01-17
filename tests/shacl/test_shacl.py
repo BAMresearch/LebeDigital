@@ -1,9 +1,9 @@
 import pytest
 import os
 
-from lebedigital.validation import SCHEMA, read_graph_from_file, test_graph as graph_test, violates_shape
+from lebedigital.shacl.validation import SCHEMA, read_graph_from_file, test_graph as graph_test, violates_shape
 
-def test_graph_against_shape():
+def test_graph_against_shacl_shape():
     """
     Testing a data graph against a shapes graph and checking that the appropriate shapes fail.
     """
