@@ -137,37 +137,37 @@ def task_extract_processed_data_emodul():
             }
 
 
-#generate knowledgeGraphs
-@create_after(executed='extract_metadata_emodul')
-def task_export_knowledgeGraph_emodul():
-    # create folder, if it is not there
-    Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
+# #generate knowledgeGraphs
+# @create_after(executed='extract_metadata_emodul')
+# def task_export_knowledgeGraph_emodul():
+#     # create folder, if it is not there
+#     Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
 
-    # setting for fast test, defining the list
-    if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
-    else: # go through all files
-        # list of all meta data files....
-        list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
+#     # setting for fast test, defining the list
+#     if config['mode'] == 'cheap' or config['mode'] == 'single':
+#         list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
+#     else: # go through all files
+#         # list of all meta data files....
+#         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
 
-    # check directory, if
+#     # check directory, if
 
-    for f in list_metadata_yaml_files:
-        if f.is_file():
-            # path to metadata yaml
-            metadata_file_path = Path(f)
-            name_of_ttl = f.name.replace('.yaml', '.ttl')
-            name_of_cvs = f.name.replace('.yaml', '.csv')
-            # path the processed data csv
-            processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
-            # path to output file KG
-            knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
+#     for f in list_metadata_yaml_files:
+#         if f.is_file():
+#             # path to metadata yaml
+#             metadata_file_path = Path(f)
+#             name_of_ttl = f.name.replace('.yaml', '.ttl')
+#             name_of_cvs = f.name.replace('.yaml', '.csv')
+#             # path the processed data csv
+#             processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
+#             # path to output file KG
+#             knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
 
-            yield{
-                'name': name_of_cvs,
-                'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    knowledge_graph_file])],
-                'file_dep': [metadata_file_path, processed_data_file_path],
-                'targets': [knowledge_graph_file],
-                'clean': [clean_targets]
-            }
+#             yield{
+#                 'name': name_of_cvs,
+#                 'actions': [(generate_knowledge_graph, [metadata_file_path,
+#                                                     knowledge_graph_file])],
+#                 'file_dep': [metadata_file_path, processed_data_file_path],
+#                 'targets': [knowledge_graph_file],
+#                 'clean': [clean_targets]
+#             }
