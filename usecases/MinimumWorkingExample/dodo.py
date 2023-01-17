@@ -37,6 +37,7 @@ DOIT_CONFIG = {'verbosity': 2}
 #parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
+
 # EMODULE PATHS 
 # defining paths for emodule
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
@@ -61,6 +62,10 @@ excluded_mix_list = ['2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx']
 # create folder, if it is not there
 Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 
+# shacl directory where shapes are stored, to be tested against the created KGs
+root_directory = Path(ParentDir).parent.parent
+lebedigital_directory = Path(root_directory, 'lebedigital')
+shacl_directory = Path(lebedigital_directory, 'shacl')
 
 # TASKS
 # extract metadata for the mixture
@@ -178,7 +183,7 @@ def task_export_knowledgeGraph_emodul():
 @create_after(executed='export_knowledgeGraph_emodul')
 def task_shcal_validate_graph():
 
-    shapes_path = Path(emodul_output_directory, 'validation_test', 'shape.ttl')
+    shapes_path = Path(shacl_directory, 'CPTO_shacl_shape.ttl')
     shapes_graph = shacl.read_graph_from_file(shapes_path)
     shapes_list = [shacl.SCHEMA.SpecimenDiameterShape, shacl.SCHEMA.SpecimenShape]
 
