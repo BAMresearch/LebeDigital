@@ -25,10 +25,13 @@ schema:Em_ExperimentInfoShape
     # the ExperimentInfoShape needs to have an ExperimentDate output which has a TimeStamp as value
     sh:property [
         sh:path cco:has_output ;
-        sh:node con:Em_ExperimentDate_ ;
-        sh:qualifiedValueShape [
-            sh:path cco:has_datetime_value ;
-            sh:dataytpe xsd:dateTimeStamp ;
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_ExperimentDate_ ;
+            sh:property [
+                sh:path cco:has_datetime_value ;
+                sh:dataytpe xsd:dateTimeStamp ;
+            ] ;
         ] ;
     ] ;
 
