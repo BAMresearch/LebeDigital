@@ -1,0 +1,86 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ns1: <http://www.w3.org/2002/07/owl#> .
+@prefix ns2: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix ns3: <http://purl.obolibrary.org/obo/> .
+@prefix ns4: <http://www.geneontology.org/formats/oboInOwl#> .
+@prefix ns5: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> .
+@prefix ns6: <http://purl.org/dc/elements/1.1/> .
+@prefix ns7: <https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#> .
+@prefix ns8: <https://www.materials.fraunhofer.de/ontologies/graph_designer#> .
+@prefix ns9: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mseo: <https://purl.matolab.org/mseo/mid/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix con: <http://w3id.org/concrete> .
+@prefix tt: <http://w3id.org/concrete/youngs> .
+
+# for a documentation of shacl see https://www.w3.org/TR/shacl/
+
+# this shape tests properties about the diameter
+schema:SpecimenDiameterShape
+    a sh:NodeShape ;
+    sh:targetClass cco:Diameter ;
+    # there is exactly one InformationBearingEntity attached to the Diameter
+    sh:property [
+        sh:path obo:RO_0010001 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cco:InformationBearingEntity ;
+    ] ;
+    # the InformationBearingEntity has a decimal value
+    sh:property [
+        sh:path (obo:RO_0010001 cco:has_decimal_value) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:dataytpe xsd:decimal ;
+    ] ;
+   # the InformationBearingEntity has a measurement unit specified
+    sh:property [
+        sh:path (obo:RO_0010001 cco:uses_measurement_unit) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cco:MeasurementUnitOfLength ;
+    ] .
+
+# this shape tests properties about the Specimen
+schema:SpecimenShape
+    a sh:NodeShape ;
+    sh:targetClass  mseo:Specimen ;
+    # the Specimen is input of one (and only one) YoungsModulusTest
+    sh:property [
+        sh:path cco:is_input_of ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node tt:YoungsModulusTest ;
+    ] ;
+    # the Specimen has a quality (shape) attached to it
+    sh:property [
+        sh:path (obo:BFO_0000051 obo:RO_0000086) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    # the Specimen is designated by one Identifyier
+    sh:property [
+        sh:path cco:designated_by ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class cco:NonNameIdentifier ;
+    ] .
+
+# THIS IS A SHAPE THAT MUST FAIL!
+schema:InformationBearingEntityShape
+    a sh:NodeShape ;
+    sh:targetClass cco:InformationBearingEntity ;
+    # each InformationBearingEntity must use at least two measurement units (nonsensical)
+    sh:property [
+        sh:path cco:uses_measurement_unit ;
+        sh:minCount 2 ;
+    ] .
+
+
+    
