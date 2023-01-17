@@ -185,7 +185,7 @@ def task_shcal_validate_graph():
 
     shapes_path = Path(shacl_directory, 'CPTO_shacl_shape.ttl')
     shapes_graph = shacl.read_graph_from_file(shapes_path)
-    shapes_list = [shacl.SCHEMA.SpecimenDiameterShape, shacl.SCHEMA.SpecimenShape]
+    shapes_list = [shacl.SCHEMA.EmExperimentInfoShape, shacl.SCHEMA.EModulTestSpecimenShape]
 
     def load_graph_and_test_shapes(graph_path):
             g = shacl.read_graph_from_file(graph_path)

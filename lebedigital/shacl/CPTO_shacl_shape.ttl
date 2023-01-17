@@ -18,7 +18,7 @@
 # for a documentation of shacl see https://www.w3.org/TR/shacl/
 
 # this shape tests properties of the ExperimentInfo
-schema:Em_ExperimentInfoShape
+schema:EmExperimentInfoShape
     a sh:NodeShape ;
     sh:targetNode con:Em_ExperimentInfo_ ;
     
@@ -31,31 +31,55 @@ schema:Em_ExperimentInfoShape
             sh:property [
                 sh:path cco:has_datetime_value ;
                 sh:dataytpe xsd:dateTimeStamp ;
+                sh:minCount 1;
+                sh:maxCount 1;
             ] ;
         ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
     ] ;
 
     # the ExperimentInfoShape needs to have a MeasurementDuration output which has a decimal value
     sh:property [
         sh:path cco:has_output ;
-        sh:node con:Em_MeasurementDuration_ ;
-        sh:qualifiedValueShape [
-            sh:path cco:has_decimal_value ;
-            sh:dataytpe xsd:decimal ;
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_MeasurementDuration_ ;
+            sh:property [
+                sh:path cco:has_decimal_value ;
+                sh:dataytpe xsd:decimal ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ] ;
         ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
     ] .
 
 schema:EModulTestSpecimenShape
     a sh:NodeShape;
     sh:targetNode con:E-ModulTestSpecimen_ ;
 
-    # the specimen diameter needs to have the correct pmd unit
+    # the specimen diameter needs to have the correct pmd unit and exactly decimal value
     sh:property [
         sh:path obo:RO_0000086 ;
-        sh:node con:Em_SpecimenDiameter ;
-        sh:qualifiedValueShape [
-            sh:path pmd:hasPmdUnit ;
-            sh:node pmd:Q174789 ;
-        ]
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_SpecimenDiameter ;
+            sh:property [
+                sh:path pmd:hasPmdUnit ;
+                sh:node pmd:Q174789 ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ] ;
+            sh:property [
+                sh:path cco:has_decimal_value ;
+                sh:dataytpe xsd:decimal ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ]
+        ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
     ] .
     

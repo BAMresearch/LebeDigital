@@ -54,20 +54,17 @@ def violates_shape(validation_report: Graph, shape: URIRef) -> bool:
     -------
         True, if the specified shape appears as violated in the validation report, False otherwise.
     """
-    # get the class that is targeted by the specified shape
-    target_class = validation_report.value(shape, SH.targetClass, None, any=False)
-    if target_class is None:
-        raise ValueError(f'The shapes graph does not contain a {shape} shape.')
+    if (shape, RDF.type, None) not in validation_report:
+        raise ValueError(f'The shacl shape graph does not contain a {shape} shape.')
 
-    
-    # get all classes that have been violated
-    # check if any of the violated classes is the class that is targeted by the specified shape
-    # return any((True for o in validation_report.objects(None, SH.focusNode) if target_class in validation_report.objects(o, RDF.type)))
-    for o in validation_report.objects(None, SH.focusNode):
-        if target_class in validation_report.objects(o, RDF.type):
-            return True
+    # get the properties that are used by the specified shape
+    properties = validation_report.triples((shape, SH.property, None))
 
-    # no violated class is targeted by the specified shape, thus the shape is not violated
+    # check if any property of the shape appears in the validation report (then it was violated)
+    for s, p, o in properties:
+        if (None, SH.sourceShape, o) in validation_report:
+            return True;
+
     return False
 
 def read_graph_from_file(filepath: str) -> Graph:
