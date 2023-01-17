@@ -17,7 +17,6 @@ from lebedigital.raw_data_processing.mixture \
 from doit import get_var
 
 from lebedigital import validation
-from lebedigital.validation import SCHEMA
 
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
@@ -181,7 +180,7 @@ def task_validate_graph():
 
     shapes_path = Path(emodul_output_directory, 'validation_test', 'shape.ttl')
     shapes_graph = validation.read_graph_from_file(shapes_path)
-    shapes_list = [SCHEMA.SpecimenDiameterShape, SCHEMA.SpecimenShape]
+    shapes_list = [validation.SCHEMA.SpecimenDiameterShape, validation.SCHEMA.SpecimenShape]
 
     def load_graph_and_test_shapes(graph_path):
             g = validation.read_graph_from_file(graph_path)
