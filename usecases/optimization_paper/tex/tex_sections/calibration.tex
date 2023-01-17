@@ -1,2 +1,103 @@
 Here is an empty file as example to start the calibration section.
 Feel free to create as many sections as necessary :D.
+
+\atul{30 Nov, 2022: !!Below is just initial documentation. .Please dont analyze the content yet. More will be added here.!!}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Calibration -----------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Model Calibration}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optimization -----------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Optimization under uncertainty}
+
+
+
+
+
+
+\subsubsection{Non-differentiable objective/constraints with design variables as argument}
+%
+In lot of real world scenarios, complex computer simulators are used to build a relationship between parameters of the underlying theory to the experimental observations. Many a times the physics bases simulator/forward solver denoted by $\bm{y}(\cdot)$ is non-diffrentiable. For inference/optimization tasks involving these simulators, many active research areas are trying to tackle this. \cite{cranmer2020frontier, louppe_adversarial_2019, beaumont2002approximate,marjoram2003markov}. Elaborating further, if the simulator is related to the objective of some optimization problem and design variables $\bm{x}$ of the problem are direct input to the objective, then gradient based approaches are not directly applicable. The following optimization is desired:
+\begin{align}
+    \bm{x}^* = \min_{\bm{x}}\mathcal{O}(\bm{y}_o(\bm{x}))
+\end{align}
+%
+For simplifying the explanation, constraints are omitted for now. In contrast to \refeq{eq:opt_a}, the design variables $\bm{x}$ are direct/explicit input to the solver. In such a setting, we advocate the use of Variational Optimization. \cite{bird_stochastic_2018,staines_variational_2012,staines2013optimization}. 
+
+\subsubsection{\emph{Variational optimization}}
+%
+ Variational optimization are general optimization techniques that can be used to form a differentiable bound on the optima of a non-differentiable function. Given the objective $\mathcal{O}(\bm{y}(\bm{x}))$ with a simulator $\bm{y}(\cdot)$ to minimize (for simplicity lets call it $f(\bm{x})$ for now), these techniques are based on the following observation:
+
+\begin{align}
+    \min _{\boldsymbol{x}} f(\boldsymbol{x}) \leq \mathbb{E}_{\boldsymbol{x} \sim q(\boldsymbol{x} \mid \theta)}[f(\boldsymbol{x})]=U(\boldsymbol{\theta})
+\end{align}
+ where $q(\boldsymbol{x} \mid \theta)$ is a proposal distribution with parameters $\bm{\theta}$ over input values/design variables $\bm{x}$. In plain words, the minimum of a collection of values is always less than their average. Instead of minimizing $f$ with respect to $\bm{x}$, we can minimize the upper bound $U$ with respect to $\bm{\theta}$.
+ 
+ Under mild restrictions outlined by \cite{staines_variational_2012}, the bound $U(\boldsymbol{ \theta})$ is differential w.r.t $\bm{\theta}$, and using the log-likelihood trick its gradient can be rewritten as:
+
+\begin{align}\label{eq:grad_estimator}
+\nabla_{\boldsymbol{\theta}} U(\boldsymbol{\theta}) &=\nabla_{\boldsymbol{\theta}} \mathbb{E}_{\boldsymbol{x} \sim q(\boldsymbol{x} \mid \boldsymbol{\theta})}[f(\boldsymbol{x})] \nonumber \\
+&=\nabla_{\boldsymbol{\theta}} \int q(\boldsymbol{x} \mid \boldsymbol{\theta}) f(\boldsymbol{x}) d \boldsymbol{x} 
+\nonumber\\
+&=\int \nabla_{\boldsymbol{\theta}} q(\boldsymbol{x} \mid \boldsymbol{\theta}) f(\boldsymbol{x}) d \boldsymbol{x} 
+\nonumber \\
+&=\int q(\boldsymbol{x} \mid \boldsymbol{\theta}) \nabla_\theta \log q(\boldsymbol{x} \mid \boldsymbol{\theta}) f(\boldsymbol{x}) d \boldsymbol{x} 
+\nonumber \\
+&=\mathbb{E}_{\boldsymbol{x} \sim q(\boldsymbol{x} \mid \boldsymbol{\theta})}\left[\nabla_{\boldsymbol{\theta}} \log q(\boldsymbol{x} \mid \boldsymbol{\theta}) f(\boldsymbol{x})\right]
+\end{align}
+
+The \refeq{eq:grad_estimator} is the score function estimator\cite{glynn1990likelihood}, which also appears in the context of reinforcement learning. In the reinforcement learning context, it is classically known as the REINFORCE estimates. \cite{williams1992simple}. 
+
+Effectively, this just means that if the score function $\nabla_{\boldsymbol{\theta}} \log q(\boldsymbol{x} \mid \boldsymbol{\theta})$ of the proposal is known and if one can evaluate $f(\bm{x})$ for any $\bm{x}$, then one can construct approximations of \refeq{eq:grad_estimator} which can in turn be used to minimize $U(\boldsymbol{\theta})$ with stochastic gradient descent. 
+
+For samples $x^1, \dotsc, x^S$ from $q(\boldsymbol{x} \mid \boldsymbol{\theta})$  the following Monte Carlo based unbiased estimator to the upper bound gradient can be used:
+
+\begin{align}
+    \frac{\partial U}{\partial \theta} \approx \frac{1}{S} \sum_{i=1}^{S} f\left(x_i\right) \frac{\partial}{\partial \theta} \log q\left(x_i \mid \theta\right)
+\end{align}
+
+% -- Variance reduction with Baseline -------
+% build up multiple design variables and all (ARM paper)
+% Max welling paper and others
+It is well known that the gradient estimator suffers from high variance which can depend on number of sample, nature of the simulator/solver etc. A common solution for this problem is to use a baseline \cite{williams1992simple} which makes use of the fact that:
+
+\begin{align}
+    \mathbb{E}_{\boldsymbol{x} \sim q(\boldsymbol{x} \mid \boldsymbol{\theta})}\left[\nabla_{\boldsymbol{\theta}} \log q(\boldsymbol{x} \mid \boldsymbol{\theta}) f(\boldsymbol{x})\right] = \mathbb{E}_{\boldsymbol{x} \sim q(\boldsymbol{x} \mid \boldsymbol{\theta})}\left[\nabla_{\boldsymbol{\theta}} \log q(\boldsymbol{x} \mid \boldsymbol{\theta}) (f(\boldsymbol{x}) - B)\right]
+\end{align}
+
+for any constant $B$. The choice of the $B$ does not bias the gradient estimator, but can control the variance if chosen properly. 
+
+For estimators using multiple samples as in the case presented above, we propose the use of baseline $B_i$ for the $i-th$ term based on the other samples $j\neq i: ~~ B_i = \frac{1}{S-1} \sum_{j\neq i}f(x_j)$ as discussed in \cite{kool_buy_2022}. Doing this, we obtain the following for the estimator:
+
+\begin{align}
+        \frac{\partial U}{\partial \theta} &\approx \frac{1}{S} \sum_{i=1}^{S}  \frac{\partial}{\partial \theta} \log q\left(x_i \mid \theta\right) \left(f(x_i)-\frac{1}{S-1} \sum_{j\neq i}f(x_j)\right)\\
+        &= \frac{1}{S-1} \sum_{i=1}^{S}  \frac{\partial}{\partial \theta} \log q\left(x_i \mid \theta\right) \left(f(x_i)-\frac{1}{S} \sum_{j=1}^{S}f(x_j)\right) \label{eq:baseline_trick}
+\end{align}
+
+The form in \refeq{eq:baseline_trick} is convenient as it allows to construct a fixed baseline which is to be computed once per gradient step. Its crucial to stress on the fact that this amounts to no further computational budget as the simulators/solver would be solved for $S$ number of times and the baseline uses the same dataset. For proof of the unbiasedness of the estimator in \refeq{eq:baseline_trick}, the reader is directed to the Appendix section in \cite{kool_buy_2022}.
+
+% Our idea
+% Couple variatioonal optimization, baslines, penalty based optimization, automatic computational graphs.
+% -- Adding constraints how it will look like
+% add why no aug lamgrangian paper
+
+
+% -- In practive implementation with computaional graph 
+% add computational graph paper () and explain the graph
