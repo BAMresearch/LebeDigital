@@ -8,8 +8,8 @@ def test_graph_against_shacl_shape():
     Testing a data graph against a shapes graph and checking that the appropriate shapes fail.
     """
     shacl_directory = os.path.dirname(Path(__file__))
-    shapes_location = Path(shacl_directory, 'shape.ttl')
-    data_location = Path(shacl_directory, 'graph.ttl')
+    shapes_location = Path(shacl_directory, 'youngs_modulus_shape.ttl')
+    data_location = Path(shacl_directory, 'youngs_modulus_graph.ttl')
 
     g = read_graph_from_file(data_location)
     s = read_graph_from_file(shapes_location)
