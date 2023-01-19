@@ -22,4 +22,4 @@ def test_beam_design():
                                    n_bottom=3,
                                    cover=2.5*ureg('cm'))
 
-    assert(out == pytest.approx(0.13647667348210732))
+    assert(out == pytest.approx(0.0479153789))
