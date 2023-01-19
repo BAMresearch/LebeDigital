@@ -179,14 +179,15 @@ def task_extract_processed_data_emodul():
 #                 'clean': [clean_targets]
 #             }
 
-# #validate
+# #validate KGs against shacl shapes
 # @create_after(executed='export_knowledgeGraph_emodul')
-# def task_shcal_validate_graph():
-
-#     shapes_path = Path(shacl_directory, 'CPTO_shacl_shape.ttl')
+# def task_shacl_validate_graph():
+#     # load shape
+#     shapes_path = Path(shacl_directory, 'youngs_modulus_shacl_shape.ttl')
 #     shapes_graph = shacl.read_graph_from_file(shapes_path)
 #     shapes_list = [shacl.SCHEMA.EmExperimentInfoShape, shacl.SCHEMA.EModulTestSpecimenShape]
-
+#
+#     # define local helper function for doit action
 #     def load_graph_and_test_shapes(graph_path):
 #             g = shacl.read_graph_from_file(graph_path)
 #             res = shacl.test_graph(g, shapes_graph)
