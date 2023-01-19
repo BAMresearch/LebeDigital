@@ -11,6 +11,8 @@ They are based on the compressive strength,
 \subsection{$\DOHmax$ based on $\wc$}
 ...
 \subsection{Beam design}
+Following design code for a singly reinforced beam, meaning a reinforced concrete beam with only reinforcement at the bottom.
+The cross section is rectangular
 
 \subsubsection{Maximum bending moment and shear force}
 Assuming a simply supported beam with a given length $\beamLength$ in mm, a distributed load $\beamDistrLoad$ in N/mm and a point load $\beamPointLoad$ in N/mm
@@ -24,11 +26,42 @@ Given a beam with the height $\beamHeight$ in mm, a concrete cover of $\beamCove
 \begin{align}
 	\beamHeightEff = \beamHeight - \beamCover - \frac{3}{2} \beamSteelDiameter
 \end{align}
-According to the standard safety factors are applied, $\beamTimeSF = 0.85$, $\beamConcreteSF = 1.5$ and $\beamSteelSF = 1$, leading to the design compressive strengths for concrete and steel
+According to the standard safety factors are applied, $\beamTimeSF = 0.85$, $\beamConcreteSF = 1.5$ and $\beamSteelSF = 1$, leading to the design compressive strength for concrete $\beamfcd$ and  the design tensile yield strength $\beamfsd$ for steel
 \begin{align}
 	\beamfcd = \beamTimeSF \frac{\fc }{\beamConcreteSF}\\
-	\beamfsd = \frac{\beamfs}{\beamSteelSF}
+	\beamfsd = \frac{\beamfs}{\beamSteelSF},
+\end{align}
+where $\beamfs$ is the steel's tensile yield strength.
+% following ravis implementation
+% bending moment with stress block - K
+Some auxiliary value..., no idea (yet) why dividing with 1000...
+\begin{align}
+	\beamK = \frac{1}{1000} \frac{\beamMaxMoment }{\beamWidth \beamHeightEff^2 \beamfcd}
+\end{align}
+For singly reinforced beam $K < 0.167$.
+%some value... 
+Compute lever arm
+\begin{align}
+\beamLeverMoment = \beamHeightEff(0.5+\sqrt{0.25-0.5 \beamK})
+\end{align}
+Maximum value $\beamLeverMoment = 0.95\beamHeightEff$.
+Required steel
+\begin{align}
+\beamSteelReq = \frac{\beamMaxMoment}{\beamfsd \beamLeverMoment}
+\end{align}
+Now compare to provided steel area
+
+\begin{align}
+	\beamSteelProv = \beamNSteel \pi \frac{\beamSteelDiameter^2}{4} 
 \end{align}
 
-To be continued...
+Finally 
 
+\begin{align}
+	A_{check} = \frac{\beamSteelProv - \beamSteelReq}{\beamSteelProv}
+\end{align}
+
+
+
+To be continued...
+Make pretty and move to appendix
