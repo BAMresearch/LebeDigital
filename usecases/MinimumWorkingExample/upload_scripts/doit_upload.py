@@ -4,11 +4,13 @@ import sys
 from collections import defaultdict
 from math import isnan
 from pathlib import Path
+from typing import Union
 import pandas as pd
 
 import yaml
 
 from lebedigital.openbis.interbis import Interbis
+from pybis.sample import Sample
 
 
 def upload_to_openbis_doit(
@@ -86,16 +88,11 @@ def upload_to_openbis_doit(
         # Reading the metadata from output metadata yaml file
         mixture_metadata = _read_metadata_emodul(mixture_metadata_file_path)
 
-        # Converting NaN values to 0.0 as openBIS does not accept NaNs
-        for key, val in mixture_metadata.items():
-            if type(val) == float and isnan(val):
-                mixture_metadata[key] = 0.0
-
         # Transforming the metadata yaml file into format accepted by o.create_sample_type()
-        mixture_metadata_types_dict = _reformat_sample_dict(mixture_metadata)
+        mixture_metadata_type_dict = _reformat_sample_dict(mixture_metadata)
 
         mixture_sample_type = _create_mixture_sample_type(o, config=config,
-                                                          sample_type_dict=mixture_metadata_types_dict)
+                                                          sample_type_dict=mixture_metadata_type_dict)
 
         mixture_sample = _mixture_upload(
             o,
@@ -116,111 +113,12 @@ def upload_to_openbis_doit(
 
     # Reading the metadata from output metadata yaml file
     emodul_metadata = _read_metadata_emodul(metadata_path)
-    for key, val in emodul_metadata.items():
-        if type(val) == float and isnan(val):
-            emodul_metadata[key] = 0.0
 
     # Converting NaN values to 0.0 as openBIS does not accept NaNs
     emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
 
     # Creating the emodul sample type with the formatted dict
-    emodul_sample_type = o.create_sample_type(
-        sample_code=config['sample_code'],
-        sample_prefix=config['sample_prefix'],
-        sample_properties=emodul_metadata_type_dict,
-    )
-    logging.debug(f'Emodul Sample Type {emodul_sample_type.code} created')
-
-    # Initializing the new emodul sample
-    emodul_sample = o.new_sample(
-        type=emodul_sample_type.code,
-        space=_SPACE,
-        project=_PROJECT,
-        collection=_EMODUL_COLLECTION,
-        parents=mixture_sample.identifier
-    )
-
-    # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
-    emodul_sample.set_props(emodul_metadata)
-    emodul_sample.set_props({'$name': emodul_sample.props.all()['experimentname']})
-    logging.debug(emodul_sample.metadata)
-
-    # Checking if a sample with that name was already uploaded to that space in the datastore
-    # Reason: Not uploading duplicate samples. Will check for duplicates based on '$name' property
-    exist_emodul_sample_df = o.get_samples(
-        space=_SPACE,
-        project=_PROJECT,
-        collection=_EMODUL_COLLECTION,
-        props='$name').df
-
-    exist_emodul_sample_df.columns = exist_emodul_sample_df.columns.str.lower()
-    exist_emodul_sample_list = exist_emodul_sample_df['$name'].to_list()
-
-    # Getting the name from props
-    emodul_sample_name = emodul_sample.props.all()['$name']
-
-    # If sample name found in all samples under that directory -> skip upload and fetch the sample instead
-    # Else -> Upload the created sample to the Datastore
-    if emodul_sample_name not in exist_emodul_sample_list:
-        emodul_sample.save()
-        logging.debug(f'Emodul Sample {emodul_sample.code} uploaded')
-    else:
-        # We checked that it exists, so we throw away the old sample and replace it with a fetched
-        # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
-        emodul_sample = o.get_sample(exist_emodul_sample_df.iloc[0, 0])
-        logging.debug(f'Emodul Sample {emodul_sample.code} found in datastore')
-
-    # Naming the datasets
-    raw_dataset_name = emodul_sample.props.all()['$name'] + '_raw'
-    processed_dataset_name = emodul_sample.props.all()['$name'] + '_processed'
-
-    # Checking whether the datasets already exist under the emodul sample
-    emo_exist_dataset_df = o.get_datasets(sample=emodul_sample.identifier, props='$name').df
-    emo_exist_dataset_df.columns = emo_exist_dataset_df.columns.str.lower()
-
-    # Most sketchy stuff in pybis, I have no idea when the $NAME has to be capitalized and when it does not.
-    # I suspect it depends on the object for which the get is called (sample/dataset/collection/... object)
-    emo_exist_dataset_list = emo_exist_dataset_df['$name'].to_list()
-
-    # Creating a transaction to upload the datasets at the same time
-
-    # Raw Dataset Upload
-    if raw_dataset_name not in emo_exist_dataset_list:
-        raw_emo_dataset_props = {'$name': raw_dataset_name}
-
-        emo_raw_dataset = o.new_dataset(
-            type='RAW_DATA',
-            collection=_EMODUL_COLLECTION,
-            sample=emodul_sample.identifier,
-            files=[raw_data_path],
-            props=raw_emo_dataset_props
-        )
-        # Adding to transaction
-        emo_raw_dataset.save()
-        logging.debug('Raw Emodul Dataset uploaded')
-    else:
-        # The _ can be changed to a variable if the dataset is needed
-        # _ = o.get_dataset(permIds=emo_exist_dataset_df.iloc[0, 0])
-        logging.debug('Raw Emodul Dataset fetched from datastore')
-
-    # Processed Dataset Upload
-    if processed_dataset_name not in emo_exist_dataset_list:
-        processed_emo_dataset_props = {'$name': processed_dataset_name}
-
-        emo_processed_dataset = o.new_dataset(
-            type='PROCESSED_DATA',
-            collection=_EMODUL_COLLECTION,
-            sample=emodul_sample.identifier,
-            files=[processed_data_path],
-            props=processed_emo_dataset_props
-        )
-        # Adding to transaction
-        emo_processed_dataset.save()
-        logging.debug('Processed Emodul Dataset uploaded')
-    else:
-        # The _ can be changed to a variable if the dataset is needed
-        # _ = o.get_dataset(permIds=emo_exist_dataset_df.iloc[0, 0])
-        logging.debug('Processed Emodul Dataset fetched from datastore')
+    emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
 
     # We load the object from the datastore before printing as a sort of manual check
     # if the function worked as it was supposed to.
@@ -246,6 +144,12 @@ def _read_metadata_emodul(yaml_path: str):
     with open(yaml_path, 'r') as file:
         data = yaml.safe_load(file)
         data = {k.lower(): v for k, v in data.items()}
+
+        # Converting NaN values to 0.0 as openBIS does not accept NaNs
+        for key, val in data.items():
+            if type(val) == float and isnan(val):
+                data[key] = 0.0
+
         return data
 
 
@@ -276,6 +180,17 @@ def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dic
     return mixture_sample_type
 
 
+def _create_emodul_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
+    # Creating the emodul sample type with the formatted dict
+    emodul_sample_type = o.create_sample_type(
+        sample_code=config['sample_code'],
+        sample_prefix=config['sample_prefix'],
+        sample_properties=sample_type_dict,
+    )
+    logging.debug(f'emodul type created: {emodul_sample_type.code}')
+    return emodul_sample_type
+
+
 def _mixture_upload(
         o: Interbis,
         mixture_metadata_dict: dict,
@@ -284,7 +199,8 @@ def _mixture_upload(
         mixture_data_filepath: str,
         space: str,
         project: str,
-        collection: str):
+        collection: str) -> Sample:
+
     # Initializing the new mixture sample
     mixture_sample = o.new_sample(
         type=mixture_sample_type,
@@ -353,6 +269,120 @@ def _mixture_upload(
         logging.debug('Mixture Dataset fetched from datastore')
 
     return mixture_sample
+
+
+def _emodul_upload(
+        o: Interbis,
+        emodul_metadata_dict: dict,
+        # emodul_sample_name: str,
+        emodul_sample_type: str,
+        emodul_raw_data_filepath: str,
+        emodul_processed_data_filepath: str,
+        mixture_sample: Union[str, Sample],
+        space: str,
+        project: str,
+        collection: str) -> Sample:
+
+    # Setting te parent ONLY IF the mixture sample was created, we check the type as when the mixture sample is created
+    # then the return value won't be a string
+    if type(mixture_sample, str):
+        emodul_sample_parents = []
+    else:
+        emodul_sample_parents = mixture_sample.identifier
+
+    # Initializing the new emodul sample
+    emodul_sample = o.new_sample(
+        type=emodul_sample_type,
+        space=space,
+        project=project,
+        collection=collection,
+        parents=emodul_sample_parents
+    )
+
+    # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
+    emodul_sample.set_props(emodul_metadata_dict)
+
+    emodul_sample.set_props({'$name': emodul_sample.props.all()['experimentname']})
+    logging.debug(emodul_sample.metadata)
+
+    # Checking if a sample with that name was already uploaded to that space in the datastore
+    # Reason: Not uploading duplicate samples. Will check for duplicates based on '$name' property
+    exist_emodul_sample_df = o.get_samples(
+        space=space,
+        project=project,
+        collection=collection,
+        props='$name').df
+
+    exist_emodul_sample_df.columns = exist_emodul_sample_df.columns.str.lower()
+    exist_emodul_sample_list = exist_emodul_sample_df['$name'].to_list()
+
+    # Getting the name from props
+    emodul_sample_name = emodul_sample.props.all()['$name']
+
+    # If sample name found in all samples under that directory -> skip upload and fetch the sample instead
+    # Else -> Upload the created sample to the Datastore
+    if emodul_sample_name not in exist_emodul_sample_list:
+        emodul_sample.save()
+        logging.debug(f'Emodul Sample {emodul_sample.code} uploaded')
+    else:
+        # We checked that it exists, so we throw away the old sample and replace it with a fetched
+        # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
+        emodul_sample = o.get_sample(exist_emodul_sample_df.iloc[0, 0])
+        logging.debug(f'Emodul Sample {emodul_sample.code} found in datastore')
+
+    # Naming the datasets
+    raw_dataset_name = emodul_sample.props.all()['$name'] + '_raw'
+    processed_dataset_name = emodul_sample.props.all()['$name'] + '_processed'
+
+    # Checking whether the datasets already exist under the emodul sample
+    emo_exist_dataset_df = o.get_datasets(sample=emodul_sample.identifier, props='$name').df
+    emo_exist_dataset_df.columns = emo_exist_dataset_df.columns.str.lower()
+
+    # Most sketchy stuff in pybis, I have no idea when the $NAME has to be capitalized and when it does not.
+    # I suspect it depends on the object for which the get is called (sample/dataset/collection/... object)
+    emo_exist_dataset_list = emo_exist_dataset_df['$name'].to_list()
+
+    # Creating a transaction to upload the datasets at the same time
+
+    # Raw Dataset Upload
+    if raw_dataset_name not in emo_exist_dataset_list:
+        raw_emo_dataset_props = {'$name': raw_dataset_name}
+
+        emo_raw_dataset = o.new_dataset(
+            type='RAW_DATA',
+            collection=collection,
+            sample=emodul_sample.identifier,
+            files=[emodul_raw_data_filepath],
+            props=raw_emo_dataset_props
+        )
+        # Adding to transaction
+        emo_raw_dataset.save()
+        logging.debug('Raw Emodul Dataset uploaded')
+    else:
+        # The _ can be changed to a variable if the dataset is needed
+        # _ = o.get_dataset(permIds=emo_exist_dataset_df.iloc[0, 0])
+        logging.debug('Raw Emodul Dataset fetched from datastore')
+
+    # Processed Dataset Upload
+    if processed_dataset_name not in emo_exist_dataset_list:
+        processed_emo_dataset_props = {'$name': processed_dataset_name}
+
+        emo_processed_dataset = o.new_dataset(
+            type='PROCESSED_DATA',
+            collection=collection,
+            sample=emodul_sample.identifier,
+            files=[emodul_processed_data_filepath],
+            props=processed_emo_dataset_props
+        )
+        # Adding to transaction
+        emo_processed_dataset.save()
+        logging.debug('Processed Emodul Dataset uploaded')
+    else:
+        # The _ can be changed to a variable if the dataset is needed
+        # _ = o.get_dataset(permIds=emo_exist_dataset_df.iloc[0, 0])
+        logging.debug('Processed Emodul Dataset fetched from datastore')
+
+    return emodul_sample
 
 
 def _actions_run(

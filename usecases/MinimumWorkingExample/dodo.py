@@ -227,7 +227,6 @@ def task_upload_to_openbis():
             data = yaml.safe_load(file)
             mix_file = data['mix_file']
 
-        print(mix_file)
         # If mix file is found, find it, else set the paths to empty strings values indicating missing data
         if mix_file:
             mixture_metadata_file_path = Path(mixture_output_directory,
