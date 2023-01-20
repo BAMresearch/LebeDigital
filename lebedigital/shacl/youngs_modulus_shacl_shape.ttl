@@ -1,0 +1,85 @@
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix pt: <http://www.daml.org/2003/01/periodictable/PeriodicTable#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix ns1: <http://wikiba.se/ontology#> .
+@prefix ns2: <http://wikiba.se/ontology/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+# for a documentation of shacl see https://www.w3.org/TR/shacl/
+
+# this shape tests properties of the ExperimentInfo
+schema:EmExperimentInfoShape
+    a sh:NodeShape ;
+    sh:targetNode con:Em_ExperimentInfo_ ;
+    
+    # the ExperimentInfoShape needs to have an ExperimentDate output which has a TimeStamp as value
+    sh:property [
+        sh:path cco:has_output ;
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_ExperimentDate_ ;
+            sh:property [
+                sh:path cco:has_datetime_value ;
+                sh:dataytpe xsd:dateTimeStamp ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ] ;
+        ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
+    ] ;
+
+    # the ExperimentInfoShape needs to have a MeasurementDuration output which has a decimal value
+    sh:property [
+        sh:path cco:has_output ;
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_MeasurementDuration_ ;
+            sh:property [
+                sh:path cco:has_decimal_value ;
+                sh:dataytpe xsd:decimal ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ] ;
+        ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
+    ] .
+
+schema:EModulTestSpecimenShape
+    a sh:NodeShape;
+    sh:targetNode con:E-ModulTestSpecimen_ ;
+
+    # the specimen diameter needs to have the correct pmd unit and exactly decimal value
+    sh:property [
+        sh:path obo:RO_0000086 ;
+        sh:node [
+            a sh:NodeShape ;
+            sh:targetNode con:Em_SpecimenDiameter ;
+            sh:property [
+                sh:path pmd:hasPmdUnit ;
+                sh:node pmd:Q174789 ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ] ;
+            sh:property [
+                sh:path cco:has_decimal_value ;
+                sh:dataytpe xsd:decimal ;
+                sh:minCount 1;
+                sh:maxCount 1;
+            ]
+        ] ;
+        sh:minCount 1;
+        sh:maxCount 1;
+    ] .
+    
