@@ -17,6 +17,7 @@ from lebedigital.raw_data_processing.mixture \
     .mixture_metadata_extraction import extract_metadata_mixture
 
 from upload_scripts.doit_upload import upload_to_openbis_doit
+from upload_scripts.mixture_yaml_unionizer import create_union_yaml
 
 from doit import get_var
 
@@ -38,7 +39,7 @@ DOIT_CONFIG = {'verbosity': 2}
 # openbis config needed for the upload to the datastore
 openbis_config = {
     'datastore_url': get_var("url", 'https://test.datastore.bam.de/openbis/'),
-    'space': 'CKUJATH',
+    'space': get_var("space", 'CKUJATH'),
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
     'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
@@ -62,7 +63,7 @@ raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with 
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
-openbis_samples_directory = Path(emodul_output_directory, 'openbis_samples')
+openbis_samples_directory = Path(emodul_output_directory, 'openbis_samples')  # folder with openBIS log files
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
@@ -80,6 +81,10 @@ excluded_mix_list = ['2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx']
 
 # create folder, if it is not there
 Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
+
+# create folder, if it is not there
+union_output_path = Path(mixture_output_directory, "mixture_union_files")
+union_output_path.mkdir(parents=True, exist_ok=True)
 
 
 # TASKS
@@ -204,6 +209,16 @@ def task_export_knowledgeGraph_emodul():
 
 
 @create_after(target_regex='.*emodul$')
+def task_create_mixfile_union_yaml():
+    yield {
+        'name': "create_mixture_union_yaml",
+        'actions': [(create_union_yaml, [metadata_mixture_directory, union_output_path])],
+        'targets': [union_output_path],
+        'clean': [clean_targets],
+    }
+
+
+@create_after(target_regex='.*yaml$')
 def task_upload_to_openbis():
     # create folder, if it is not there
     Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
@@ -219,7 +234,7 @@ def task_upload_to_openbis():
         metadata_file_path = Path(meta_f)
 
         # getting the processed file path
-        processed_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0])+'.csv'
+        processed_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0]) + '.csv'
         processed_file_path = Path(processed_data_emodulus_directory, processed_file_name)
 
         # here we get the corresponding mix_file
@@ -231,7 +246,7 @@ def task_upload_to_openbis():
         if mix_file:
             mixture_metadata_file_path = Path(mixture_output_directory,
                                               'metadata_yaml_files',
-                                              str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
+                                              str(os.path.splitext(os.path.basename(mix_file))[0]) + '.yaml')
 
             # raw_data_mixture_directory
             mixture_data_path = Path(raw_data_mixture_directory,
@@ -245,7 +260,7 @@ def task_upload_to_openbis():
             raw_data_emodulus_directory,
             os.path.splitext(os.path.basename(meta_f))[0], 'specimen.dat')
 
-        sample_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0]+'_oB_upload_log.yaml')
+        sample_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0] + '_oB_upload_log.yaml')
         sample_file_path = Path(openbis_samples_directory, sample_file_name)
 
         yield {

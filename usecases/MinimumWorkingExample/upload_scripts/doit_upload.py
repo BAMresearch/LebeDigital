@@ -79,8 +79,18 @@ def upload_to_openbis_doit(
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
 
+    # TODO: Directory setup
+
     """
-    MIXTURE EXPERIMENTAL STEP FROM HERE ON
+    CREATING MIXTURE SAMPLE TYPE FROM HERE ON
+    """
+
+    """
+    CREATING EMODUL SAMPLE TYPE FROM HERE ON
+    """
+
+    """
+    MIXTURE EXPERIMENTAL STEP UPLOAD FROM HERE ON
     """
 
     # We skip the mixture upload when the mixture yaml is not found
@@ -108,7 +118,7 @@ def upload_to_openbis_doit(
         mixture_sample = "Not Found"
 
     """
-    EMODUL EXPERIMENTAL STEP FROM HERE ON
+    EMODUL EXPERIMENTAL STEP UPLOAD FROM HERE ON
     """
 
     # Reading the metadata from output metadata yaml file
@@ -168,7 +178,7 @@ def _reformat_sample_dict(loaded_dict: dict):
     output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
 
     for key, val in loaded_dict.items():
-        output_dict[key.lower()] = [conv_dict[type(val)], f"{key}_label", f"{key}_description"]
+        output_dict[key.lower()] = [conv_dict[type(val)], key, key]
 
     return dict(output_dict)
 
