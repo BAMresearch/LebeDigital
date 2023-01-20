@@ -37,7 +37,7 @@ DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
 openbis_config = {
-    'datastore_url': 'https://test.datastore.bam.de/openbis/',
+    'datastore_url': get_var("url", 'https://test.datastore.bam.de/openbis/'),
     'space': 'CKUJATH',
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
@@ -208,31 +208,45 @@ def task_upload_to_openbis():
     # create folder, if it is not there
     Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
 
-    # TODO: FIND OUT IF ZIP WILL KEEP THE ORDER OF THE DIRECTORY IN ODER WITH >1 FILE
-    for meta_f, processed_f in zip(os.scandir(metadata_emodulus_directory),
-                                   os.scandir(processed_data_emodulus_directory)):
-        # getting path for files
-        metadata_file_path = Path(meta_f)
-        processed_file_path = Path(processed_f)
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_metadata_emodul_yaml_files = [Path(metadata_emodulus_directory, single_example_name)]
+    else:  # go through all files
+        list_metadata_emodul_yaml_files = os.scandir(metadata_emodulus_directory)
 
+    for meta_f in list_metadata_emodul_yaml_files:
+        # getting path for metadata yaml file
+        metadata_file_path = Path(meta_f)
+
+        # getting the processed file path
+        processed_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0])+'.csv'
+        processed_file_path = Path(processed_data_emodulus_directory, processed_file_name)
+
+        # here we get the corresponding mix_file
         with open(metadata_file_path, 'r') as file:
             data = yaml.safe_load(file)
             mix_file = data['mix_file']
 
-        # print(mix_file)
-        mixture_metadata_file_path = Path(mixture_output_directory, 'metadata_yaml_files',
-                                          str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
-        # print(mixture_metadata_file_path)
+        print(mix_file)
+        # If mix file is found, find it, else set the paths to empty strings values indicating missing data
+        if mix_file:
+            mixture_metadata_file_path = Path(mixture_output_directory,
+                                              'metadata_yaml_files',
+                                              str(os.path.splitext(os.path.basename(mix_file))[0])+'.yaml')
 
-        # raw_data_mixture_directory
-
-        mixture_data_path = Path(raw_data_mixture_directory, str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
+            # raw_data_mixture_directory
+            mixture_data_path = Path(raw_data_mixture_directory,
+                                     str(os.path.splitext(os.path.basename(mix_file))[0]) + '.xls')
+        else:
+            mixture_metadata_file_path = ""
+            mixture_data_path = ""
 
         # the raw data file is the specimen file in the corresponding folder in raw_data_emodulus_directory
         raw_data_file = Path(
-            raw_data_emodulus_directory, os.path.splitext(os.path.basename(meta_f))[0], 'specimen.dat')
+            raw_data_emodulus_directory,
+            os.path.splitext(os.path.basename(meta_f))[0], 'specimen.dat')
 
-        sample_file_name = os.path.basename(metadata_file_path)
+        sample_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0]+'_oB_upload_log.yaml')
         sample_file_path = Path(openbis_samples_directory, sample_file_name)
 
         yield {
