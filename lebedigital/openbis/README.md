@@ -77,10 +77,10 @@ For each measured experiment a sample / object of the corresponding type (EXPERI
 
 ```python
 concrete_experiment = o.new_sample(
-    type='EXPERIMENTAL_STEP_UCT', # Has to be the same as a defined Sample Type. Here the one from chapter 2
-    space='<Your Username>', # your preassigned personal space
-    concrete_experiment.project = 'Unilateral Conrete Compression',
-    concrete_experiment.collection = '<Your Username>/Unilateral Conrete Compression/Concrete_Compression_Testseries01',
+    type = 'EXPERIMENTAL_STEP_UCT', # Has to be the same as a defined Sample Type. Here the one from chapter 2
+    space = '<Your Username>', # your preassigned personal space
+    project = 'Unilateral Conrete Compression',
+    collection = '<Your Username>/Unilateral Conrete Compression/Concrete_Compression_Testseries01',
 )
 
 experiment_metadata = {'$name': 'Concrete_Experiment_1', 'date': '17:10:2022'}
@@ -110,11 +110,11 @@ sample.save()
 
 ```python
 concrete_dataset = o.new_dataset(
-    type='RAW_DATA', # Or PROCESSED_DATA or some other Dataset Type. Check your own datastore with o.get_dataset_types() for available datasets
-    collection=concrete_experiment.collection,
-    sample=concrete_experiment.identifier,
-    files=['path_to_file1', 'path_to_file2'],
-    props={'$name': 'UCT_Compression_Experiment_17_10_2022_RAW_DATA',}
+    type = 'RAW_DATA', # Or PROCESSED_DATA or some other Dataset Type. Check your own datastore with o.get_dataset_types() for available datasets
+    collection = concrete_experiment.collection,
+    sample = concrete_experiment.identifier,
+    files = ['path_to_file1', 'path_to_file2'],
+    props = {'$name': 'UCT_Compression_Experiment_17_10_2022_RAW_DATA',}
 )
 ```
 

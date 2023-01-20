@@ -22,6 +22,7 @@ pytest -m 'not login' OR pytest -m 'login'
 @pytest.fixture(scope='session')
 def config():
     config = {
+        # url address to the database
         'db_url': 'https://test.datastore.bam.de/openbis/',
     }
     return config
