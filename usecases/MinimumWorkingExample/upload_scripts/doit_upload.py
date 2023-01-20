@@ -120,16 +120,20 @@ def upload_to_openbis_doit(
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
 
-    # We load the object from the datastore before printing as a sort of manual check
-    # if the function worked as it was supposed to.
-    emo_output_sample = o.get_sample(emodul_sample.identifier)
+    emodul_sample = _emodul_upload(
+        o,
+        emodul_metadata_dict=emodul_metadata,
+        emodul_sample_type=emodul_sample_type.identifier,
+        emodul_raw_data_filepath=raw_data_path,
+        emodul_processed_data_filepath=processed_data_path,
+        mixture_sample=mixture_sample,
+        space=_SPACE,
+        project=_PROJECT,
+        collection=_EMODUL_COLLECTION
+    )
 
-    file_name_with_extension = emo_output_sample.code + '.yaml'
-    logfile_path = str(Path(output_path, file_name_with_extension))
-
-    # Saving the log of the sample to a file in the output for dodo to have something to check
-    with open(logfile_path, 'w') as file:
-        print(emo_output_sample, file=file)
+    # Manual check, loading the same sample from the datastore
+    _after_upload_check(o, emodul_sample.identifier, mixture_sample, output_path)
 
     sys.stdout = sys.__stdout__
 
@@ -191,6 +195,27 @@ def _create_emodul_sample_type(o: Interbis, config: dict, sample_type_dict: dict
     return emodul_sample_type
 
 
+def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
+                        output_path: str):
+    # We load the object from the datastore before printing as a sort of manual check
+    # if the function worked as it was supposed to.
+    emo_output_sample = o.get_sample(emodul_sample_identifier)
+
+    if type(mixture_sample, str):
+        mix_output_sample = "Mixture File not specified in emodul yaml file"
+    else:
+        # Discarding old one and fetching new sample to check if upload went correctly
+        mix_output_sample = o.get_sample(mixture_sample.identifier)
+
+    file_name_with_extension = emo_output_sample.props.all()["$name"] + '_oB_upload_log.yaml'
+    logfile_path = str(Path(output_path, file_name_with_extension))
+
+    # Saving the log of the sample to a file in the output for dodo to have something to check
+    with open(logfile_path, 'w') as file:
+        print(emo_output_sample, file=file)
+        print(mix_output_sample, file=file)
+
+
 def _mixture_upload(
         o: Interbis,
         mixture_metadata_dict: dict,
@@ -200,7 +225,6 @@ def _mixture_upload(
         space: str,
         project: str,
         collection: str) -> Sample:
-
     # Initializing the new mixture sample
     mixture_sample = o.new_sample(
         type=mixture_sample_type,
@@ -274,7 +298,6 @@ def _mixture_upload(
 def _emodul_upload(
         o: Interbis,
         emodul_metadata_dict: dict,
-        # emodul_sample_name: str,
         emodul_sample_type: str,
         emodul_raw_data_filepath: str,
         emodul_processed_data_filepath: str,
@@ -282,7 +305,6 @@ def _emodul_upload(
         space: str,
         project: str,
         collection: str) -> Sample:
-
     # Setting te parent ONLY IF the mixture sample was created, we check the type as when the mixture sample is created
     # then the return value won't be a string
     if type(mixture_sample, str):
