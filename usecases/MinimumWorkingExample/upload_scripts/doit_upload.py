@@ -19,6 +19,7 @@ def upload_to_openbis_doit(
         raw_data_path: str,
         mixture_metadata_file_path: str,
         mixture_data_path: str,
+        mixture_union_data_path: str,
         output_path: str,
         config: dict):
     """Function for uploading data to the openbis datastore from within the doit environment
@@ -44,6 +45,7 @@ def upload_to_openbis_doit(
         raw_data_path (str): Path to the raw data file
         mixture_metadata_file_path (str): Path to the mixture metadata file
         mixture_data_path (str): Path to the mixture data file
+        mixture_union_data_path (str): Path to union mixture file
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
     """
@@ -79,18 +81,35 @@ def upload_to_openbis_doit(
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
 
-    # TODO: Directory setup
-
     """
-    CREATING MIXTURE SAMPLE TYPE FROM HERE ON
+    DIRECTORY SETUP
     """
 
-    """
-    CREATING EMODUL SAMPLE TYPE FROM HERE ON
-    """
+    # TODO: Will do it when I have access to the Datastore again
 
     """
-    MIXTURE EXPERIMENTAL STEP UPLOAD FROM HERE ON
+    CREATING MIXTURE SAMPLE TYPE
+    """
+
+    mixture_union_dict = _read_mixture_union_yaml(mixture_union_data_path)
+    mixture_sample_type = _create_mixture_sample_type(o, config=config,
+                                                      sample_type_dict=mixture_union_dict)
+
+    """
+    CREATING EMODUL SAMPLE TYPE
+    """
+
+    # Reading the metadata from output metadata yaml file
+    emodul_metadata = _read_metadata_emodul(metadata_path)
+
+    # Converting NaN values to 0.0 as openBIS does not accept NaNs
+    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
+
+    # Creating the emodul sample type with the formatted dict
+    emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
+
+    """
+    MIXTURE EXPERIMENTAL STEP UPLOAD
     """
 
     # We skip the mixture upload when the mixture yaml is not found
@@ -100,9 +119,6 @@ def upload_to_openbis_doit(
 
         # Transforming the metadata yaml file into format accepted by o.create_sample_type()
         mixture_metadata_type_dict = _reformat_sample_dict(mixture_metadata)
-
-        mixture_sample_type = _create_mixture_sample_type(o, config=config,
-                                                          sample_type_dict=mixture_metadata_type_dict)
 
         mixture_sample = _mixture_upload(
             o,
@@ -118,17 +134,8 @@ def upload_to_openbis_doit(
         mixture_sample = "Not Found"
 
     """
-    EMODUL EXPERIMENTAL STEP UPLOAD FROM HERE ON
+    EMODUL EXPERIMENTAL STEP UPLOAD
     """
-
-    # Reading the metadata from output metadata yaml file
-    emodul_metadata = _read_metadata_emodul(metadata_path)
-
-    # Converting NaN values to 0.0 as openBIS does not accept NaNs
-    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
-
-    # Creating the emodul sample type with the formatted dict
-    emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
 
     emodul_sample = _emodul_upload(
         o,
@@ -142,10 +149,20 @@ def upload_to_openbis_doit(
         collection=_EMODUL_COLLECTION
     )
 
+    """
+    AFTER UPLOAD CHECK AND LOGFILE GENERATION
+    """
+
     # Manual check, loading the same sample from the datastore
     _after_upload_check(o, emodul_sample.identifier, mixture_sample, output_path)
 
     sys.stdout = sys.__stdout__
+
+
+def _read_mixture_union_yaml(yaml_path: str):
+    with open(yaml_path, "r") as file:
+        mix_union_dict = yaml.safe_load(file)
+    return mix_union_dict
 
 
 def _read_metadata_emodul(yaml_path: str):
