@@ -55,32 +55,16 @@ def upload_to_openbis_doit(
 
     # Skipping the upload if the platform the code runs on can't log in to the Datastore
     if config['runson'] == 'actions':
-        logging.debug("Running in no database connection mode")
-
-        mix_file_yaml = os.path.basename(mixture_metadata_file_path) if mixture_metadata_file_path else "Not Found"
-        mix_file_data = os.path.basename(mixture_data_path) if mixture_metadata_file_path else "Not Found"
-        emodul_file_yaml = os.path.basename(metadata_path)
-        emodul_raw_data = os.path.basename(raw_data_path)
-        emodul_processed_data = os.path.basename(processed_data_path)
-
-        logging.debug(mix_file_yaml)
-        logging.debug(mix_file_data)
-        logging.debug(emodul_file_yaml)
-        logging.debug(emodul_raw_data)
-        logging.debug(emodul_processed_data)
-
-        output_dict = {
-            'ran_on': 'github_actions',
-            'db_url': config["datastore_url"],
-            'mix_file_yaml': mix_file_yaml,
-            'mix_file_data': mix_file_data,
-            'emodul_file_yaml': emodul_file_yaml,
-            'emodul_raw_data': emodul_raw_data,
-            'emodul_processed_data': emodul_processed_data
-        }
-        file_name_with_extension = str(os.path.splitext(os.path.basename(emodul_file_yaml))[0] + '_oB_upload_log.yaml')
-        with open(Path(output_path, file_name_with_extension), 'w') as file:
-            _ = yaml.dump(output_dict, file)
+        args = locals()
+        _actions_run(
+            metadata_path=args["metadata_path"],
+            processed_data_path=args["processed_data_path"],
+            raw_data_path=args["raw_data_path"],
+            mixture_metadata_file_path=args["mixture_metadata_file_path"],
+            mixture_data_path=args["mixture_data_path"],
+            output_path=args["output_path"],
+            config=args["config"]
+        )
         return
 
     # Connecting to the datastore
@@ -110,7 +94,8 @@ def upload_to_openbis_doit(
         # Transforming the metadata yaml file into format accepted by o.create_sample_type()
         mixture_metadata_types_dict = _reformat_sample_dict(mixture_metadata)
 
-        mixture_sample_type = _create_mixture_sample_type(o, config=config, sample_type_dict=mixture_metadata_types_dict)
+        mixture_sample_type = _create_mixture_sample_type(o, config=config,
+                                                          sample_type_dict=mixture_metadata_types_dict)
 
         mixture_sample = _mixture_upload(
             o,
@@ -300,7 +285,6 @@ def _mixture_upload(
         space: str,
         project: str,
         collection: str):
-
     # Initializing the new mixture sample
     mixture_sample = o.new_sample(
         type=mixture_sample_type,
@@ -369,3 +353,40 @@ def _mixture_upload(
         logging.debug('Mixture Dataset fetched from datastore')
 
     return mixture_sample
+
+
+def _actions_run(
+        metadata_path: str,
+        processed_data_path: str,
+        raw_data_path: str,
+        mixture_metadata_file_path: str,
+        mixture_data_path: str,
+        output_path: str,
+        config: dict):
+    logging.debug("Running in no database connection mode")
+
+    mix_file_yaml = os.path.basename(mixture_metadata_file_path) if mixture_metadata_file_path else "Not Found"
+    mix_file_data = os.path.basename(mixture_data_path) if mixture_metadata_file_path else "Not Found"
+    emodul_file_yaml = os.path.basename(metadata_path)
+    emodul_raw_data = os.path.basename(raw_data_path)
+    emodul_processed_data = os.path.basename(processed_data_path)
+
+    logging.debug(mix_file_yaml)
+    logging.debug(mix_file_data)
+    logging.debug(emodul_file_yaml)
+    logging.debug(emodul_raw_data)
+    logging.debug(emodul_processed_data)
+
+    output_dict = {
+        'ran_on': 'github_actions',
+        'db_url': config["datastore_url"],
+        'mix_file_yaml': mix_file_yaml,
+        'mix_file_data': mix_file_data,
+        'emodul_file_yaml': emodul_file_yaml,
+        'emodul_raw_data': emodul_raw_data,
+        'emodul_processed_data': emodul_processed_data
+    }
+    file_name_with_extension = str(os.path.splitext(os.path.basename(emodul_file_yaml))[0] + '_oB_upload_log.yaml')
+    with open(Path(output_path, file_name_with_extension), 'w') as file:
+        _ = yaml.dump(output_dict, file)
+    return
