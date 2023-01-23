@@ -17,7 +17,7 @@ from lebedigital.raw_data_processing.mixture \
     .mixture_metadata_extraction import extract_metadata_mixture
 
 from upload_scripts.doit_upload import upload_to_openbis_doit
-from upload_scripts.mixture_yaml_unionizer import create_union_yaml
+from upload_scripts.yaml_unionizer import create_union_yaml
 
 from doit import get_var
 
@@ -38,7 +38,7 @@ DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
 openbis_config = {
-    'datastore_url': get_var("url", 'https://test.datastore.bam.de/openbis/'),
+    'datastore_url': get_var("url", 'https://openbis.matolab.org/openbis/'),
     'space': get_var("space", 'CKUJATH'),
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
@@ -47,7 +47,7 @@ openbis_config = {
     'sample_prefix': 'EMODUL',
     'mixture_code': 'EXPERIMENTAL_STEP_EMODUL_MIX',
     'mixture_prefix': 'EMODUL_MIX',
-    'verbose': False,
+    'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on github actions as they need a password to run
     'runson': get_var('runson', 'actions'),
@@ -55,6 +55,11 @@ openbis_config = {
     # except when this is set to "yes"
     'force_upload': get_var("force", "no")
 }
+
+# default properties for openbis
+defaults_dict = {"operator_date": ["VARCHAR", "operator_date", "operator_date"],
+                 "tester_name": ["VARCHAR", "tester_name", "tester_name"],
+                 "$name": ["VARCHAR", "Name", "Name"]}
 
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
@@ -215,7 +220,10 @@ def task_export_knowledgeGraph_emodul():
 def task_create_mixfile_union_yaml():
     yield {
         'name': "create_mixture_union_yaml",
-        'actions': [(create_union_yaml, [metadata_mixture_directory, union_output_path])],
+        'actions': [(create_union_yaml, [metadata_mixture_directory,
+                                         union_output_path,
+                                         openbis_config["mixture_code"],
+                                         defaults_dict])],
         'targets': [union_output_path],
         'clean': [clean_targets],
     }
@@ -275,7 +283,7 @@ def task_upload_to_openbis():
             'actions': [(upload_to_openbis_doit,
                          [metadata_file_path, processed_file_path, raw_data_file,
                           mixture_metadata_file_path, mixture_data_path, mixture_union_file_path,
-                          openbis_samples_directory, openbis_config])],
+                          openbis_samples_directory, openbis_config, defaults_dict])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],

@@ -21,7 +21,9 @@ def upload_to_openbis_doit(
         mixture_data_path: str,
         mixture_union_data_path: str,
         output_path: str,
-        config: dict):
+        config: dict,
+        default_props: dict):
+
     """Function for uploading data to the openbis datastore from within the doit environment
 
     Needed parameters in the config dict are:
@@ -48,9 +50,8 @@ def upload_to_openbis_doit(
         mixture_union_data_path (str): Path to union mixture file
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
+        default_props (dict): A dictionary containing the predefined default properties of sample types
     """
-
-    # This does not want to work with the doit environment, some stuff gets printed while some does not
     if 'verbose' in config and config['verbose']:
         sys.stdout = sys.__stdout__
         logging.basicConfig(level=logging.DEBUG)
@@ -72,14 +73,17 @@ def upload_to_openbis_doit(
         return
 
     # Connecting to the datastore
+    logging.debug("Starting upload")
     o = Interbis(config['datastore_url'])
     o.connect_to_datastore()
+    logging.debug("Connected to datastore")
 
     # Setting "constants"
     _SPACE = config['space']
     _PROJECT = config['project']
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
+    logging.debug("Set constants")
 
     """
     CREATING MIXTURE SAMPLE TYPE
@@ -88,19 +92,22 @@ def upload_to_openbis_doit(
     mixture_union_dict = _read_mixture_union_yaml(mixture_union_data_path)
     mixture_sample_type = _create_mixture_sample_type(o, config=config,
                                                       sample_type_dict=mixture_union_dict)
+    logging.debug(f"Created Mixture Sample Type {mixture_sample_type.code}")
 
     """
     CREATING EMODUL SAMPLE TYPE
     """
 
     # Reading the metadata from output metadata yaml file
-    emodul_metadata = _read_metadata_emodul(metadata_path)
+    emodul_sample_code = config["sample_code"]
+    emodul_metadata = _read_metadata(metadata_path, emodul_sample_code, default_props)
 
     # Converting NaN values to 0.0 as openBIS does not accept NaNs
     emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
 
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
+    logging.debug(f"Created Emodul Sample Type {emodul_sample_type.code}")
 
     """
     DIRECTORY SETUP
@@ -119,6 +126,7 @@ def upload_to_openbis_doit(
         mixture_sample_type=mixture_sample_type.code,
         emodul_sample_type=emodul_sample_type.code
     )
+    logging.debug("Set up directory structure")
 
     """
     MIXTURE EXPERIMENTAL STEP UPLOAD
@@ -127,7 +135,9 @@ def upload_to_openbis_doit(
     # We skip the mixture upload when the mixture yaml is not found
     if mixture_metadata_file_path:
         # Reading the metadata from output metadata yaml file
-        mixture_metadata = _read_metadata_emodul(mixture_metadata_file_path)
+        mixture_sample_code = config["mixture_code"]
+        mixture_metadata = _read_metadata(mixture_metadata_file_path, mixture_sample_code, default_props)
+        logging.debug("Read Mixture Metadata")
 
         # Transforming the metadata yaml file into format accepted by o.create_sample_type()
         mixture_metadata_type_dict = _reformat_sample_dict(mixture_metadata)
@@ -145,6 +155,8 @@ def upload_to_openbis_doit(
     else:
         mixture_sample = "Not Found"
 
+    logging.debug(f"Mixture Sample uploaded: {mixture_sample}")
+
     """
     EMODUL EXPERIMENTAL STEP UPLOAD
     """
@@ -160,6 +172,7 @@ def upload_to_openbis_doit(
         project=_PROJECT,
         collection=_EMODUL_COLLECTION
     )
+    logging.debug(f"Emodul Sample uploaded: {emodul_sample}")
 
     """
     AFTER UPLOAD CHECK AND LOGFILE GENERATION
@@ -177,16 +190,25 @@ def _read_mixture_union_yaml(yaml_path: str):
     return mix_union_dict
 
 
-def _read_metadata_emodul(yaml_path: str):
+def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
     """Reads the metadata as it is saved in the emodul_metadata directory
 
     Args:
         yaml_path (str): path to the yaml file
     """
 
+    default_keys = default_props.keys()
+
     with open(yaml_path, 'r') as file:
-        data = yaml.safe_load(file)
-        data = {k.lower(): v for k, v in data.items()}
+        loaded = dict(yaml.safe_load(file))
+        data = defaultdict(lambda: "Not In Props")
+        for key, val in loaded.items():
+            if key in default_keys:
+                data[key] = val
+            else:
+                data[f"{sample_type_code}.{key}".lower()] = val
+
+        data = dict(data)
 
         # Converting NaN values to 0.0 as openBIS does not accept NaNs
         for key, val in data.items():
@@ -271,36 +293,35 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     # Setting up project
     try:
         o.get_project(projectId=f"/{space}/{project}")
-    except ValueError as err:
+    # why is the error code KeyError for only this openBIS object? no one knows
+    except KeyError as err:
         # No space with that code found
         if force_upload:
             project_obj = o.new_project(space=space, code=project, description="Project for MWE Emodul samples")
             project_obj.save()
         else:
-            raise ValueError(err)
+            raise KeyError(err)
 
     # Setting up mixture collection
     try:
-        o.get_collection(code=f"/{space}/{project}/{mixture_collection}")
+        o.get_collection(code=mixture_collection)
     except ValueError as err:
         # No space with that code found
         if force_upload:
-            mix_collection_obj = o.new_collection(space=space, project=project, code=mixture_collection,
-                                                  description="Collection for Mixture Samples",
-                                                  type=mixture_sample_type)
+
+            mix_collection_obj = o.new_collection(project=project, code=mix_col_code, type="COLLECTION")
             mix_collection_obj.save()
         else:
             raise ValueError(err)
 
     # Setting up emodul collection
     try:
-        o.get_collection(code=f"/{space}/{project}/{emodul_collection}")
+        o.get_collection(code=emodul_collection)
     except ValueError as err:
         # No space with that code found
         if force_upload:
-            mix_collection_obj = o.new_collection(space=space, project=project, code=emodul_collection,
-                                                  description="Collection for Emodul Samples",
-                                                  type=emodul_sample_type)
+            emo_col_code = emodul_collection.split("/")[-1]
+            mix_collection_obj = o.new_collection(project=project, code=emo_col_code, type="COLLECTION")
             mix_collection_obj.save()
         else:
             raise ValueError(err)
@@ -316,6 +337,7 @@ def _mixture_upload(
         project: str,
         collection: str) -> Sample:
     # Initializing the new mixture sample
+    logging.debug("Starting Mixture Sample Upload")
     mixture_sample = o.new_sample(
         type=mixture_sample_type,
         space=space,
@@ -329,6 +351,7 @@ def _mixture_upload(
     # mixture_sample.set_props({'$name': os.path.splitext(os.path.basename(mixture_metadata_file_path))[0]})
     mixture_sample.set_props({"$name": sample_name})
     logging.debug(mixture_sample.props)
+    logging.debug("Created local new sample")
 
     # Checking if a sample with that name was already uploaded to that space in the datastore
     # Reason: Not uploading duplicate samples. Will check for duplicates based on '$name' property
@@ -340,6 +363,8 @@ def _mixture_upload(
 
     exist_mixture_sample_df.columns = exist_mixture_sample_df.columns.str.lower()
     exist_mixture_sample_list = exist_mixture_sample_df['$name'].to_list()
+
+    logging.debug("Got existence check df")
 
     # Getting the name from props
     mixture_sample_name = mixture_sample.props.all()['$name']
@@ -354,6 +379,9 @@ def _mixture_upload(
         # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
         mixture_sample = o.get_sample(exist_mixture_sample_df.iloc[0, 0])
         logging.debug(f'mixture found in dataset')
+
+    logging.debug(f"Sample uploaded: {mixture_sample.identifier}")
+    logging.debug("Starting Mixture Dataset upload")
 
     mixture_dataset_name = mixture_sample_name + '_raw'
 

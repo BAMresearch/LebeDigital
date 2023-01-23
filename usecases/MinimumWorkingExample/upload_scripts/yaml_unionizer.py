@@ -16,15 +16,15 @@ metadata_mixture_directory = Path(mixture_output_directory,
                                   'metadata_yaml_files')
 
 
-def create_union_yaml(yaml_directory_path: Path, output_path: Path) -> dict:
-    union_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
-                  "tester_name": ["VARCHAR", "tester_name", "tester_name"]}
+def create_union_yaml(yaml_directory_path: Path, output_path: Path, mixture_code: str, defaults_dict: dict) -> dict:
+
+    union_dict = defaults_dict
 
     for file in os.scandir(yaml_directory_path):
         with open(file, "r") as stream:
-            current_dict = yaml.safe_load(stream)
-            current_dict = {f"EXPERIMENTAL_STEP_EMODUL_MIX.{key}": [conv_dict[type(val)], key, key]
-                            if key not in union_dict.keys() else None
+            current_dict = {key: val for key, val in dict(yaml.safe_load(stream)).items()
+                            if key not in union_dict.keys()}
+            current_dict = {f"{mixture_code}.{key}": [conv_dict[type(val)], key, key]
                             for key, val in current_dict.items()}
         union_dict = dict(current_dict, **union_dict)
 
