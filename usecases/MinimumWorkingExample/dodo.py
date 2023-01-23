@@ -225,7 +225,8 @@ def task_upload_to_openbis():
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_metadata_emodul_yaml_files = [Path(metadata_emodulus_directory, single_example_name)]
+        single_example_name_extended = "".join([single_example_name, ".yaml"])
+        list_metadata_emodul_yaml_files = [Path(metadata_emodulus_directory, single_example_name_extended)]
     else:  # go through all files
         list_metadata_emodul_yaml_files = os.scandir(metadata_emodulus_directory)
 

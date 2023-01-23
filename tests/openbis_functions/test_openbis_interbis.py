@@ -23,6 +23,7 @@ pytest -m 'not login' OR pytest -m 'login'
 def config():
     config = {
         # url address to the database
+        # 'db_url": 'https://openbis.matolab.org/openbis/'
         'db_url': 'https://test.datastore.bam.de/openbis/',
     }
     return config
