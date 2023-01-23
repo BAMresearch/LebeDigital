@@ -19,7 +19,7 @@ def test_beam_design():
                                    compr_str_concrete=20*ureg('N/mm^2'),
                                    yield_str_steel=500*ureg('N/mm^2'),
                                    steel_dia=12*ureg('mm'),
-                                   n_bottom=3,
+                                   n_bottom=4,
                                    cover=2.5*ureg('cm'))
 
-    assert(out == pytest.approx(0.0479153789))
+    assert(out == pytest.approx(0.214974352))
