@@ -82,12 +82,6 @@ def upload_to_openbis_doit(
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
 
     """
-    DIRECTORY SETUP
-    """
-
-    # TODO: Will do it when I have access to the Datastore again
-
-    """
     CREATING MIXTURE SAMPLE TYPE
     """
 
@@ -107,6 +101,24 @@ def upload_to_openbis_doit(
 
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
+
+    """
+    DIRECTORY SETUP
+    """
+
+    force_upload = config['force_upload']
+    force_upload = True if force_upload == "yes" else False
+
+    _setup_openbis_directories(
+        o,
+        space=_SPACE,
+        project=_PROJECT,
+        mixture_collection=_MIXTURE_COLLECTION,
+        emodul_collection=_EMODUL_COLLECTION,
+        force_upload=force_upload,
+        mixture_sample_type=mixture_sample_type.code,
+        emodul_sample_type=emodul_sample_type.code
+    )
 
     """
     MIXTURE EXPERIMENTAL STEP UPLOAD
@@ -241,6 +253,57 @@ def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_samp
     with open(logfile_path, 'w') as file:
         print(emo_output_sample, file=file)
         print(mix_output_sample, file=file)
+
+
+def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_collection: str, emodul_collection: str,
+                               force_upload: bool, mixture_sample_type: str, emodul_sample_type: str):
+    # Setting up space
+    try:
+        o.get_space(code=space)
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            space_obj = o.new_space(code=space, description="Space for MWE Emodul samples")
+            space_obj.save()
+        else:
+            raise ValueError(err)
+
+    # Setting up project
+    try:
+        o.get_project(projectId=f"/{space}/{project}")
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            project_obj = o.new_project(space=space, code=project, description="Project for MWE Emodul samples")
+            project_obj.save()
+        else:
+            raise ValueError(err)
+
+    # Setting up mixture collection
+    try:
+        o.get_collection(code=f"/{space}/{project}/{mixture_collection}")
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            mix_collection_obj = o.new_collection(space=space, project=project, code=mixture_collection,
+                                                  description="Collection for Mixture Samples",
+                                                  type=mixture_sample_type)
+            mix_collection_obj.save()
+        else:
+            raise ValueError(err)
+
+    # Setting up emodul collection
+    try:
+        o.get_collection(code=f"/{space}/{project}/{emodul_collection}")
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            mix_collection_obj = o.new_collection(space=space, project=project, code=emodul_collection,
+                                                  description="Collection for Emodul Samples",
+                                                  type=emodul_sample_type)
+            mix_collection_obj.save()
+        else:
+            raise ValueError(err)
 
 
 def _mixture_upload(
