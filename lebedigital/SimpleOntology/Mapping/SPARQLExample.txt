@@ -1,0 +1,32 @@
+#################################
+
+PREFIX ns1: <http://w3id.org/concrete/>
+PREFIX ns2: <http://w3id.org/concrete/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#################################
+
+SELECT ?Probe ?ID
+
+WHERE
+{
+	?Probe ns2:has_text_value ?ID
+	FILTER(STRENDS(?ID, "JDKIG9J"))
+}
+
+
+#################################
+
+SELECT ?Probe ?ID
+
+WHERE
+{
+	?Probe ns2:has_value ?ID
+	FILTER( ?ID = 15.8 )
+}
+
+#################################
