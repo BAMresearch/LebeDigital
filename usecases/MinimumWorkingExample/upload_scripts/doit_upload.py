@@ -24,7 +24,6 @@ def upload_to_openbis_doit(
         output_path: str,
         config: dict,
         default_props: dict):
-
     """Function for uploading data to the openbis datastore from within the doit environment
 
     Needed parameters in the config dict are:
@@ -139,7 +138,7 @@ def upload_to_openbis_doit(
     """
 
     # We skip the mixture upload when the mixture yaml is not found
-    if mixture_metadata_file_path:
+    if mixture_metadata_file_path and Path(mixture_metadata_file_path).is_file():
         # Reading the metadata from output metadata yaml file
         mixture_sample_code = config["mixture_code"]
         mixture_metadata = _read_metadata(mixture_metadata_file_path, mixture_sample_code, default_props)
@@ -168,7 +167,7 @@ def upload_to_openbis_doit(
     emodul_sample = _emodul_upload(
         o,
         emodul_metadata_dict=emodul_metadata,
-        emodul_sample_type=emodul_sample_type.identifier,
+        emodul_sample_type=emodul_sample_type.code,
         emodul_raw_data_filepath=raw_data_path,
         emodul_processed_data_filepath=processed_data_path,
         mixture_sample=mixture_sample,
@@ -208,6 +207,7 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
         loaded = dict(yaml.safe_load(file))
         data = defaultdict(lambda: "Not In Props")
         for key, val in loaded.items():
+            if val is None: continue
             if key in default_keys:
                 data[key] = val
             else:
@@ -234,6 +234,7 @@ def _reformat_sample_dict(loaded_dict: dict):
     output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
 
     for key, val in loaded_dict.items():
+        val = "" if val is None else val
         output_dict[key.lower()] = [conv_dict[type(val)], key, key]
 
     return dict(output_dict)
@@ -313,7 +314,7 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     except ValueError as err:
         # No space with that code found
         if force_upload:
-
+            mix_col_code = mixture_collection.split("/")[-1]
             mix_collection_obj = o.new_collection(project=project, code=mix_col_code, type="COLLECTION")
             mix_collection_obj.save()
         else:
@@ -437,7 +438,7 @@ def _emodul_upload(
     if isinstance(mixture_sample, str):
         emodul_sample_parents = []
     else:
-        emodul_sample_parents = mixture_sample.identifier
+        emodul_sample_parents = [mixture_sample.identifier]
 
     # Initializing the new emodul sample
     emodul_sample = o.new_sample(
@@ -448,11 +449,12 @@ def _emodul_upload(
         parents=emodul_sample_parents
     )
 
-    logger.debug(emodul_metadata_dict)
+    logger.debug(pformat(emodul_metadata_dict))
+    # logger.debug(o.get_sample_type_properties(emodul_sample_type))
     # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
     emodul_sample.set_props(emodul_metadata_dict)
 
-    emodul_sample.set_props({'$name': emodul_sample.props.all()['experimentname']})
+    emodul_sample.set_props({'$name': emodul_sample.props.all()['experimental_step_emodul.experimentname']})
     logger.debug(emodul_sample.metadata)
 
     # Checking if a sample with that name was already uploaded to that space in the datastore
