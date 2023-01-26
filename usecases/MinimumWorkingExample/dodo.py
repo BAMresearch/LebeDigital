@@ -40,7 +40,7 @@ DOIT_CONFIG = {'verbosity': 2}
 openbis_config = {
     'datastore_url': get_var("url", 'https://openbis.matolab.org/openbis/'),
     'user': get_var("user",'dummy'),
-    'pw': get_var("pw",'dummy'),
+    'pw': get_var("pw", None),
     'space': get_var("space", 'EMODUL'),
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
@@ -222,7 +222,7 @@ def task_create_mixfile_union_yaml():
         'name': "create_mixture_union_yaml",
         'actions': [(create_union_yaml, [metadata_mixture_directory,
                                          union_output_path,
-                                         openbis_config["mixture_code"],
+                                         "EXPERIMENTAL_STEP_"+openbis_config["mixture_prefix"],
                                          defaults_dict])],
         'targets': [union_output_path],
         'clean': [clean_targets],

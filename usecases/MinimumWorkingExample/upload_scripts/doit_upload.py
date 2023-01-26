@@ -241,7 +241,7 @@ def _reformat_sample_dict(loaded_dict: dict):
 def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
     # Creating the mixture sample type with the formatted dict
     mixture_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP"+config['mixture_prefix'],
+        sample_code="EXPERIMENTAL_STEP_"+config['mixture_prefix'],
         sample_prefix=config['mixture_prefix'],
         sample_properties=sample_type_dict,
     )
@@ -252,7 +252,7 @@ def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dic
 def _create_emodul_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP"+config['emodul_prefix'],
+        sample_code="EXPERIMENTAL_STEP_"+config['emodul_prefix'],
         sample_prefix=config['emodul_prefix'],
         sample_properties=sample_type_dict,
     )
@@ -289,7 +289,7 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     except ValueError as err:
         # No space with that code found
         if force_upload:
-            space_obj = o.new_space(code=space, description="Space for MWE Emodul samples")
+            space_obj = o.new_space(code=space, description="Space for Emodul samples")
             space_obj.save()
         else:
             raise ValueError(err)
@@ -301,7 +301,7 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     except KeyError as err:
         # No space with that code found
         if force_upload:
-            project_obj = o.new_project(space=space, code=project, description="Project for MWE Emodul samples")
+            project_obj = o.new_project(space=space, code=project, description="Project for Emodul samples")
             project_obj.save()
         else:
             raise KeyError(err)
