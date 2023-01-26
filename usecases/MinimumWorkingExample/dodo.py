@@ -39,13 +39,13 @@ DOIT_CONFIG = {'verbosity': 2}
 # openbis config needed for the upload to the datastore
 openbis_config = {
     'datastore_url': get_var("url", 'https://openbis.matolab.org/openbis/'),
+    'user': get_var("user",'dummy'),
+    'pw': get_var("pw",'dummy'),
     'space': get_var("space", 'EMODUL'),
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
     'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
-    'sample_code': 'EXPERIMENTAL_STEP_EMODUL',
-    'sample_prefix': 'EMODUL',
-    'mixture_code': 'EXPERIMENTAL_STEP_EMODUL_MIX',
+    'emodul_prefix': 'EMODUL',
     'mixture_prefix': 'EMODUL_MIX',
     'verbose': False,
     # if actions is specified the task will be completed but the openbis connection will be skipped

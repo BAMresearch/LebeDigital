@@ -33,9 +33,7 @@ def upload_to_openbis_doit(
     'project': Project under specified space for the sample
     'emodul_collection': Collection under specified project for the emodul sample
     'mixture_collection': Collection under specified project for the mixture sample
-    'sample_code': Code for the new type of the sample
     'sample_prefix': Prefix for the new type of the sample
-    'mixture_code': Code for the new type of the mixture
     'mixture_prefix': Prefix for the new type of the mixture
     'verbose': If true the output will be printed to console, optional
     'runson': Specifies if the function is running on GitHub Actions or locally.
@@ -81,7 +79,7 @@ def upload_to_openbis_doit(
     # Connecting to the datastore
     logger.debug("Starting upload")
     o = Interbis(config['datastore_url'])
-    o.connect_to_datastore()
+    o.connect_to_datastore(username=config['user'], password=config['pw'])
     logger.debug("Connected to datastore")
 
     # Setting "constants"
@@ -105,7 +103,7 @@ def upload_to_openbis_doit(
     """
 
     # Reading the metadata from output metadata yaml file, converting NaN values to 0.0 as openBIS does not accept NaNs
-    emodul_sample_code = config["sample_code"]
+    emodul_sample_code = "EXPERIMENTAL_STEP_"+config["emodul_prefix"]
     emodul_metadata = _read_metadata(metadata_path, emodul_sample_code, default_props)
 
     emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
@@ -140,7 +138,7 @@ def upload_to_openbis_doit(
     # We skip the mixture upload when the mixture yaml is not found
     if mixture_metadata_file_path and Path(mixture_metadata_file_path).is_file():
         # Reading the metadata from output metadata yaml file
-        mixture_sample_code = config["mixture_code"]
+        mixture_sample_code = "EXPERIMENTAL_STEP_"+config["mixture_prefix"]
         mixture_metadata = _read_metadata(mixture_metadata_file_path, mixture_sample_code, default_props)
         logger.debug("Read Mixture Metadata")
 
@@ -243,7 +241,7 @@ def _reformat_sample_dict(loaded_dict: dict):
 def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
     # Creating the mixture sample type with the formatted dict
     mixture_sample_type = o.create_sample_type(
-        sample_code=config['mixture_code'],
+        sample_code="EXPERIMENTAL_STEP"+config['mixture_prefix'],
         sample_prefix=config['mixture_prefix'],
         sample_properties=sample_type_dict,
     )
@@ -254,8 +252,8 @@ def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dic
 def _create_emodul_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = o.create_sample_type(
-        sample_code=config['sample_code'],
-        sample_prefix=config['sample_prefix'],
+        sample_code="EXPERIMENTAL_STEP"+config['emodul_prefix'],
+        sample_prefix=config['emodul_prefix'],
         sample_properties=sample_type_dict,
     )
     logging.debug(f'emodul type created: {emodul_sample_type.code}')
