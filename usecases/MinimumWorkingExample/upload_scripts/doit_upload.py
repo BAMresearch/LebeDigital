@@ -33,7 +33,7 @@ def upload_to_openbis_doit(
     'project': Project under specified space for the sample
     'emodul_collection': Collection under specified project for the emodul sample
     'mixture_collection': Collection under specified project for the mixture sample
-    'sample_prefix': Prefix for the new type of the sample
+    'emodul_prefix': Prefix for the new type of the sample
     'mixture_prefix': Prefix for the new type of the mixture
     'verbose': If true the output will be printed to console, optional
     'runson': Specifies if the function is running on GitHub Actions or locally.
@@ -90,27 +90,14 @@ def upload_to_openbis_doit(
     logger.debug("Set constants")
 
     """
-    CREATING MIXTURE SAMPLE TYPE
+    CREATING SAMPLE TYPE
     """
-
-    mixture_union_dict = _read_mixture_union_yaml(mixture_union_data_path)
-    mixture_sample_type = _create_mixture_sample_type(o, config=config,
-                                                      sample_type_dict=mixture_union_dict)
-    logger.debug(f"Created Mixture Sample Type {mixture_sample_type.code}")
-
-    """
-    CREATING EMODUL SAMPLE TYPE
-    """
-
-    # Reading the metadata from output metadata yaml file, converting NaN values to 0.0 as openBIS does not accept NaNs
-    emodul_sample_code = "EXPERIMENTAL_STEP_"+config["emodul_prefix"]
-    emodul_metadata = _read_metadata(metadata_path, emodul_sample_code, default_props)
-
-    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
-
-    # Creating the emodul sample type with the formatted dict
-    emodul_sample_type = _create_emodul_sample_type(o, config=config, sample_type_dict=emodul_metadata_type_dict)
-    logger.debug(f"Created Emodul Sample Type {emodul_sample_type.code}")
+    _create_required_sample_types(o,
+                                  mixture_union_data_path=mixture_union_data_path,
+                                  metadata_path=metadata_path,
+                                  config=config,
+                                  default_props=default_props)
+    logger.debug("Samples created")
 
     """
     DIRECTORY SETUP
@@ -161,6 +148,8 @@ def upload_to_openbis_doit(
     """
     EMODUL EXPERIMENTAL STEP UPLOAD
     """
+    emodul_sample_code = "EXPERIMENTAL_STEP_" + config["emodul_prefix"]
+    emodul_metadata = _read_metadata(metadata_path, emodul_sample_code, default_props)
 
     emodul_sample = _emodul_upload(
         o,
@@ -186,10 +175,36 @@ def upload_to_openbis_doit(
     sys.stdout = sys.__stdout__
 
 
-def _read_mixture_union_yaml(yaml_path: str):
-    with open(yaml_path, "r") as file:
+def _create_required_sample_types(o,
+                                  mixture_union_data_path: str,
+                                  metadata_path: str,
+                                  config: dict,
+                                  default_props: dict):
+
+    # CREATING MIXTURE SAMPLE TYPE from union yaml
+    with open(mixture_union_data_path, "r") as file:
         mix_union_dict = yaml.safe_load(file)
-    return mix_union_dict
+
+    mixture_sample_type = o.create_sample_type(
+        sample_code="EXPERIMENTAL_STEP_" + config['mixture_prefix'],
+        sample_prefix=config['mixture_prefix'],
+        sample_properties=mix_union_dict,
+    )
+    logging.debug(f'mixture type created: {mixture_sample_type.code}')
+
+    # CREATING EMODUL SAMPLE TYPE from single yaml (all equal)
+    emodul_metadata = _read_metadata(metadata_path, "EXPERIMENTAL_STEP_" + config["emodul_prefix"], default_props)
+    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
+
+    # Creating the emodul sample type with the formatted dict
+    emodul_sample_type = o.create_sample_type(
+        sample_code="EXPERIMENTAL_STEP_" + config['emodul_prefix'],
+        sample_prefix=config['emodul_prefix'],
+        sample_properties=emodul_metadata_type_dict,
+    )
+    logging.debug(f'emodul type created: {emodul_sample_type.code}')
+
+    # TODO: check if created?
 
 
 def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
@@ -233,32 +248,9 @@ def _reformat_sample_dict(loaded_dict: dict):
 
     for key, val in loaded_dict.items():
         val = "" if val is None else val
-        output_dict[key.lower()] = [conv_dict[type(val)], key, key]
+        output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
 
     return dict(output_dict)
-
-
-def _create_mixture_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
-    # Creating the mixture sample type with the formatted dict
-    mixture_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP_"+config['mixture_prefix'],
-        sample_prefix=config['mixture_prefix'],
-        sample_properties=sample_type_dict,
-    )
-    logging.debug(f'mixture type created: {mixture_sample_type.code}')
-    return mixture_sample_type
-
-
-def _create_emodul_sample_type(o: Interbis, config: dict, sample_type_dict: dict):
-    # Creating the emodul sample type with the formatted dict
-    emodul_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP_"+config['emodul_prefix'],
-        sample_prefix=config['emodul_prefix'],
-        sample_properties=sample_type_dict,
-    )
-    logging.debug(f'emodul type created: {emodul_sample_type.code}')
-    return emodul_sample_type
-
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
                         output_path: str):
@@ -571,3 +563,5 @@ def _actions_run(
     with open(Path(output_path, file_name_with_extension), 'w') as file:
         _ = yaml.dump(output_dict, file)
     return
+
+

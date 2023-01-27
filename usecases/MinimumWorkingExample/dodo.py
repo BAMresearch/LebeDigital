@@ -216,6 +216,8 @@ def task_export_knowledgeGraph_emodul():
             }
 
 
+# helping step to create one global yaml file describing all mixtures
+# should be replaced by predefinde metadata schematas
 @create_after(target_regex='.*emodul$')
 def task_create_mixfile_union_yaml():
     yield {
@@ -229,6 +231,7 @@ def task_create_mixfile_union_yaml():
     }
 
 
+# create types and upload data to openbis
 @create_after(target_regex='.*yaml$')
 def task_upload_to_openbis():
     # create folder, if it is not there
