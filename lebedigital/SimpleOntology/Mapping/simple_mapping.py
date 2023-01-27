@@ -85,7 +85,7 @@ def placeholderreplacement(
     # logging information about the progress
     unusedKeys = [i for i in keys if i not in usedKeys]
     logger.debug('Replaced ' + str(counter) + ' placeholders within the ontology.')
-    logger.debug('The folling ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
+    logger.debug('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
         + ' metadata keys have not been mapped: ')
     logger.debug(unusedKeys)
 
