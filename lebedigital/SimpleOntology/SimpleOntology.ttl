@@ -12,15 +12,15 @@ ns1: a owl:Ontology ;
 ns2:Probe_ a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_ ;
-    ns2:has_diametre ns2:Diametre_ ;
-    ns2:has_lenght ns2:Lenght_ ;
+    ns2:has_diameter ns2:Diameter_ ;
+    ns2:has_length ns2:Length_ ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:has_ID a owl:ObjectProperty .
 
-ns2:has_diametre a owl:ObjectProperty .
+ns2:has_diameter a owl:ObjectProperty .
 
-ns2:has_lenght a owl:ObjectProperty .
+ns2:has_length a owl:ObjectProperty .
 
 ns2:has_shape a owl:ObjectProperty .
 
@@ -37,19 +37,19 @@ ns2:Artifact a owl:Class .
 ns2:Cylindrical a ns2:Shape,
         owl:NamedIndividual .
 
-ns2:Diametre a owl:Class .
+ns2:Diameter a owl:Class .
 
-ns2:Diametre_ a ns2:Diametre,
+ns2:Diameter_ a ns2:Diameter,
         owl:NamedIndividual ;
-    ns2:has_value "Diametre_Value"^^xsd:float .
+    ns2:has_value "Diameter_Value"^^xsd:float .
 
 ns2:ID_ a ns2:NonNameIdentifier,
         owl:NamedIndividual ;
     ns2:has_text_value "ID_Value"^^xsd:string .
 
-ns2:Lenght a owl:Class .
+ns2:Length a owl:Class .
 
-ns2:Lenght_ a ns2:Lenght,
+ns2:Length_ a ns2:Length,
         owl:NamedIndividual ;
     ns2:has_value "Length_Value"^^xsd:float .
 
