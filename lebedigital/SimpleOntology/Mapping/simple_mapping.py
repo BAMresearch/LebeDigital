@@ -40,12 +40,14 @@ def placeholderreplacement(
 
     '''
         Loads file, searches file linewise for all metadata keys and replaces 
-        placeholders with 
+        placeholders with values from the metadata.
 
         Parameter:
         -----
-        ontoname (str): complete Path to Ontology (ttl-format)
-        metadataname (str): complete Path to metadata (yaml-format)
+        ontoname : string
+            complete Path to Ontology (ttl-format)
+        metadataname : string 
+            complete Path to metadata (yaml-format)
 
         Output:
         ---
@@ -82,7 +84,13 @@ def placeholderreplacement(
                     counter += 1
                     usedKeys.append(key)
 
-    # logging information about the progress
+                    #
+                    #  INSERT HERE CODE FOR APPENDING THE KEY
+                    #
+
+
+    ############################ L O G G I N G #############################
+
     unusedKeys = [i for i in keys if i not in usedKeys]
     logger.debug('Replaced ' + str(counter) + ' placeholders within the ontology.')
     logger.debug('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
