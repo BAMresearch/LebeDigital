@@ -298,13 +298,13 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     try:
         o.get_project(projectId=f"/{space}/{project}")
     # why is the error code KeyError for only this openBIS object? no one knows
-    except KeyError as err:
+    except ValueError as err:
         # No space with that code found
         if force_upload:
             project_obj = o.new_project(space=space, code=project, description="Project for Emodul samples")
             project_obj.save()
         else:
-            raise KeyError(err)
+            raise ValueError(err)
 
     # Setting up mixture collection
     try:
