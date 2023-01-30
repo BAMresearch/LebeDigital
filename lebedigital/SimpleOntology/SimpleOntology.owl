@@ -29,16 +29,16 @@
     
 
 
-    <!-- http://w3id.org/concrete/has_diametre -->
+    <!-- http://w3id.org/concrete/has_diameter -->
 
-    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_diametre"/>
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_diameter"/>
     
 
 
-    <!-- http://w3id.org/concrete/has_lenght -->
+    <!-- http://w3id.org/concrete/has_length -->
 
-    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_lenght">
-        <owl:inverseOf rdf:resource="http://w3id.org/concrete/is_lenght_of"/>
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_length">
+        <owl:inverseOf rdf:resource="http://w3id.org/concrete/is_length_of"/>
     </owl:ObjectProperty>
     
 
@@ -57,9 +57,9 @@
     
 
 
-    <!-- http://w3id.org/concrete/is_lenght_of -->
+    <!-- http://w3id.org/concrete/is_length_of -->
 
-    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/is_lenght_of"/>
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/is_length_of"/>
     
 
 
@@ -109,9 +109,9 @@
     
 
 
-    <!-- http://w3id.org/concrete/Diametre -->
+    <!-- http://w3id.org/concrete/Diameter -->
 
-    <owl:Class rdf:about="http://w3id.org/concrete/Diametre"/>
+    <owl:Class rdf:about="http://w3id.org/concrete/Diameter"/>
     
 
 
@@ -152,10 +152,10 @@
     
 
 
-    <!-- http://w3id.org/concrete/Diametre_ -->
+    <!-- http://w3id.org/concrete/Diameter_ -->
 
-    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Diametre_">
-        <rdf:type rdf:resource="http://w3id.org/concrete/Diametre"/>
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Diameter_">
+        <rdf:type rdf:resource="http://w3id.org/concrete/Diameter"/>
     </owl:NamedIndividual>
     
 
