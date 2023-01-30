@@ -5,6 +5,8 @@ import string
 import pandas as pd
 import pytest
 
+from enum import Enum
+
 from lebedigital.openbis.interbis import Interbis
 from lebedigital.openbis.expstep import ExpStep
 
@@ -19,14 +21,14 @@ pytest -m 'not login' OR pytest -m 'login'
 """
 
 
-@pytest.fixture(scope='session')
-def config():
-    config = {
-        # url address to the database
-        'db_url': "https://openbis.matolab.org/openbis/"
-        # 'db_url': 'https://test.datastore.bam.de/openbis/',
-    }
-    return config
+class Constants(Enum):
+    space: str = 'DUMMY'
+    project: str = 'TEST_PROJECT'
+    collection: str = 'TEST_COLLECTION'
+    collection_id: str = '/DUMMY/TEST_PROJECT/TEST_COLLECTION'
+    sample_type: str = 'EXPERIMENTAL_STEP'
+    db_url: str = "https://openbis.matolab.org/openbis/"
+    testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
 
 
 @pytest.fixture(scope='session')
@@ -49,22 +51,12 @@ def sample_dict():
     return sample_type_dict
 
 
-@pytest.fixture(scope='session')
-def sample_type():
-    return 'EXPERIMENTAL_STEP'
-
-
-@pytest.fixture(scope='session')
-def testing_sample_name():
-    return 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
-
-
 @pytest.fixture(scope='session', autouse=True)
-def setup(pytestconfig, sample_code, sample_dict, testing_sample_name, config):
+def setup(pytestconfig, sample_dict):
     login_val = pytestconfig.getoption('--login')
     password_val = pytestconfig.getoption('--password')
 
-    o = Interbis(config['db_url'])
+    o = Interbis(Constants.db_url.value)
 
     if login_val != 'no_cl_login' and password_val != 'no_cl_password':
         o.connect_to_datastore(username=login_val, password=password_val)
@@ -73,63 +65,47 @@ def setup(pytestconfig, sample_code, sample_dict, testing_sample_name, config):
 
     # Creating testing object
 
-    sample_name = testing_sample_name
+    sample_name = Constants.testing_sample_name.value
 
-    sample = ExpStep(
-        name=sample_name,
-        type='TESTING_STEP_PYTEST',
-        space='CKUJATH',
-        project='INTERBIS_TEST_PROJECT',
-        collection='/CKUJATH/INTERBIS_TEST_PROJECT/INTERBIS_COLLECTION_1',
+    sample = o.new_sample(
+        type=Constants.sample_type.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value
     )
 
-    sample.metadata = {
-        '$name': sample_name,
-        'typestr_test': 'TYPESTR',
-        'typeint_test': 2137,
-        'typefloat_test': 69.420,
-        'typeboolean_test': True,
-    }
+    sample.set_props({
+        '$name': Constants.testing_sample_name.value,
+        'experimental_step.experimental_goals': 'Testing',
+        'experimental_step.experimental_description': 'Also testing',
+    })
 
-    sample.upload_expstep(o)
+    sample.save()
 
     yield
 
-    sample.delete_expstep(o, reason='cleaning up after test run')
-
-    created_sample_type = o.get_sample_type(sample_code[0])
-    created_sample_type.delete('cleaning up after test run')
-
-    for p_name, p_vals in sample_dict.items():
-        prop = o.get_property_type(p_name)
-        prop.delete('cleaning up after test run')
+    sample.delete('cleaning up after test run')
 
     o.logout()
 
 
 @pytest.mark.login
-def test_get_metadata_import_template(setup, config):
-    o = Interbis(config['db_url'])
+def test_get_metadata_import_template(setup):
+    o = Interbis(Constants.db_url.value)
 
-    sample_type = 'EXPERIMENTAL_STEP_TEST'
+    df = o.get_metadata_import_template(Constants.sample_type.value)
 
-    df = o.get_metadata_import_template(sample_type)
-
-    print(os.getcwd())
     df_expected = pd.read_csv('./gen_import_template.csv', index_col=0, keep_default_na=False)
 
     pd.testing.assert_frame_equal(df, df_expected)
 
 
 @pytest.mark.login
-def test_get_sample_type_properties(setup, config):
-    o = Interbis(config['db_url'])
+def test_get_sample_type_properties(setup):
+    o = Interbis(Constants.db_url.value)
 
-    sample_type = 'EXPERIMENTAL_STEP_TEST'
+    df = o.get_sample_type_properties(Constants.sample_type.value)
 
-    df = o.get_sample_type_properties(sample_type)
-
-    print(os.getcwd())
     df_expected = pd.read_csv('./gen_sample_properties.csv',
                               index_col=0,
                               keep_default_na=False,
@@ -141,9 +117,10 @@ def test_get_sample_type_properties(setup, config):
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
 
-@pytest.mark.login
+# no way of testing on dummy account
+@pytest.mark.skip
 def test_create_sample_type(sample_code, sample_dict, config):
-    o = Interbis(config['db_url'])
+    o = Interbis(Constants.db_url.value)
 
     o.create_sample_type(sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
 
@@ -163,9 +140,9 @@ def test_create_sample_type(sample_code, sample_dict, config):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("sample, output", [(testing_sample_name, True),
+@pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
                                             (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
-def test_exists_in_datastore(setup, config, sample, output):
-    o = Interbis(config['db_url'])
+def test_exists_in_datastore(setup, sample, output):
+    o = Interbis(Constants.db_url.value)
 
     assert o.exists_in_datastore(str(sample)) == output
