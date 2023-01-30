@@ -16,6 +16,8 @@ from lebedigital.raw_data_processing.mixture \
 
 from doit import get_var
 
+from lebedigital.shacl import validation as shacl
+
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
 # "cheap" option is to reduce computation time once the workflow gets more expensive (calibration)
@@ -34,6 +36,7 @@ DOIT_CONFIG = {'verbosity': 2}
 
 #parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
+
 
 # EMODULE PATHS 
 # defining paths for emodule
@@ -59,6 +62,10 @@ excluded_mix_list = ['2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx']
 # create folder, if it is not there
 Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 
+# shacl directory where shapes are stored, to be tested against the created KGs
+root_directory = Path(ParentDir).parent.parent
+lebedigital_directory = Path(root_directory, 'lebedigital')
+shacl_directory = Path(lebedigital_directory, 'shacl')
 
 # TASKS
 # extract metadata for the mixture
@@ -137,37 +144,70 @@ def task_extract_processed_data_emodul():
             }
 
 
-#generate knowledgeGraphs
-@create_after(executed='extract_metadata_emodul')
-def task_export_knowledgeGraph_emodul():
-    # create folder, if it is not there
-    Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
+# #generate knowledgeGraphs
+# @create_after(executed='extract_metadata_emodul')
+# def task_export_knowledgeGraph_emodul():
+#     # create folder, if it is not there
+#     Path(knowledge_graphs_directory).mkdir(parents=True, exist_ok=True)
 
-    # setting for fast test, defining the list
-    if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
-    else: # go through all files
-        # list of all meta data files....
-        list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
+#     # setting for fast test, defining the list
+#     if config['mode'] == 'cheap' or config['mode'] == 'single':
+#         list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
+#     else: # go through all files
+#         # list of all meta data files....
+#         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
 
-    # check directory, if
+#     # check directory, if
 
-    for f in list_metadata_yaml_files:
-        if f.is_file():
-            # path to metadata yaml
-            metadata_file_path = Path(f)
-            name_of_ttl = f.name.replace('.yaml', '.ttl')
-            name_of_cvs = f.name.replace('.yaml', '.csv')
-            # path the processed data csv
-            processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
-            # path to output file KG
-            knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
+#     for f in list_metadata_yaml_files:
+#         if f.is_file():
+#             # path to metadata yaml
+#             metadata_file_path = Path(f)
+#             name_of_ttl = f.name.replace('.yaml', '.ttl')
+#             name_of_cvs = f.name.replace('.yaml', '.csv')
+#             # path the processed data csv
+#             processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
+#             # path to output file KG
+#             knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
 
-            yield{
-                'name': name_of_cvs,
-                'actions': [(generate_knowledge_graph, [metadata_file_path,
-                                                    knowledge_graph_file])],
-                'file_dep': [metadata_file_path, processed_data_file_path],
-                'targets': [knowledge_graph_file],
-                'clean': [clean_targets]
-            }
+#             yield{
+#                 'name': name_of_cvs,
+#                 'actions': [(generate_knowledge_graph, [metadata_file_path,
+#                                                     knowledge_graph_file])],
+#                 'file_dep': [metadata_file_path, processed_data_file_path],
+#                 'targets': [knowledge_graph_file],
+#                 'clean': [clean_targets]
+#             }
+
+# #validate KGs against shacl shapes
+# @create_after(executed='export_knowledgeGraph_emodul')
+# def task_shacl_validate_graph():
+#     # load shape
+#     shapes_path = Path(shacl_directory, 'youngs_modulus_shacl_shape.ttl')
+#     shapes_graph = shacl.read_graph_from_file(shapes_path)
+#     shapes_list = [shacl.SCHEMA.EmExperimentInfoShape, shacl.SCHEMA.EModulTestSpecimenShape]
+#
+#     # define local helper function for doit action
+#     def load_graph_and_test_shapes(graph_path):
+#             g = shacl.read_graph_from_file(graph_path)
+#             res = shacl.test_graph(g, shapes_graph)
+#             return any(shacl.violates_shape(res, shape) for shape in shapes_list)
+
+#     if config['mode'] == 'cheap' or config['mode'] == 'single':
+#         list_metadata_yaml_files = [ Path(metadata_emodulus_directory, single_example_name + '.yaml') ]
+#     else: # go through all files
+#         # list of all meta data files....
+#         list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
+    
+#     for f in list_metadata_yaml_files:
+#         if f.is_file():
+#             name_of_ttl = f.name.replace('.yaml', '.ttl')
+            
+#             # path to the KG that should be tested
+#             knowledge_graph_file = Path(knowledge_graphs_directory, name_of_ttl)
+
+#             yield{
+#                 'name': f"Test {knowledge_graph_file}",
+#                 'actions': [(load_graph_and_test_shapes, [knowledge_graph_file])],
+#                 'file_dep': [shapes_path, knowledge_graph_file],
+#             }
