@@ -1,9 +1,58 @@
-The Introduction section, of referenced text \cite{bib1} expands on the background of the work (some overlap with the Abstract is acceptable). The introduction should not include subheadings.
+General introduction.
+Giving background, motivation and state of the art.
+I would focus on example with reduction of GWP, as this is a good example where the optimum is difficult to find by local optimization.
+Improving GWP usually reduces material properties.
+Reduced properties usually increases GWP, as mor ematerial is required, therefore this is an insteresting problem.
 
-Springer Nature does not impose a strict layout as standard however authors are advised to check the individual requirements for the journal they are planning to submit to as there may be journal-level preferences. When preparing your text please also be aware that some stylistic choices are not supported in full text XML (publication version), including coloured font. These will not be replicated in the typeset article if it is accepted. 
+The main cause of GWP is connected to the cement.
+Some explanation and citation...
+There are three obvious ways to reduce the amount of cement.
+First, replace the cement with a substitute, as for example ground granulated slag.
+This can change mechanical properties, but does not necessarily mean a reduction in strength.
+Second, increase the amount of aggregates.
+This is certainly only possible op to a limit, as the matrix is required to glue the inclusions together.
+In addition, the workability can suffer when the amount and size of the aggregates is exagerated.
+Third, use less volume of concrete.
+This must be optimized on a structural level.
+Reducing cross sections of parts, will usually require imporved material properties, liked to an increase in cement in the mix design.
+Finding the optimum within these three methods is not trivial.
+This publication will focus, as a first step in the first two options (?????????).
+However evaluating constrains at the structural level, making th extension to topology optimization possible without a change in procedure.
 
+
+For the specific application, an extension to coated inclusions has been used, based on \cite{her_1993_nlib}.
+
+
+
+The focus of this paper is not on the model applied, these are not newly developed on their own.
+The added value of this manuscript is on the one hand showing a method that is able to automatically compute relevant KPI on the structural level, based on input values, including parameters relevant for the concrete mix design.
+On the other hand this paper gives details on numerical methods to run a robust (?) optimization method which takes into account uncertainties based on the raw experimental data.
+
+There are many parameters affecting the effective properties of concrete, as aggregate type, water amount, cement type, admixtures, additives or temperature.
+To run a completely data driven optimization scheme would require a vast amount of data as most parameters are interdependent.
+This means, that the number of required data point increases exponetially with the number of paramters.
+Therefore we apply established modeling assumptions to reduce the amount of required experiments, to a realistic level.
+
+
+
+
+
+
+
+In Figure \ref{fig:workflow} an overview of the workflow is given which is used to compute the KPIs and is the heart of the optimization scheme.
 \begin{figure}[h]%
 	\centering
 	\includegraphics[width=1.0\textwidth]{../figures/\workflowGraph}
 	\caption{Testing doit workflow. Figure is created by script. Macro for path is created by other script}\label{fig:workflow}
 \end{figure}
+
+Section \ref{sec:models} gives an overview of the material models and approximations used to ... the concrete properties.
+This section is not ... as curtting edge but rather a ... 
+for each deterministic model applied, there are more advanced and usually more complex .. model can de found in the literature.
+The aim here is to show the applicability of the overall method with a sufficient level of sophistication.
+More in debth derivation of the models are found in the appendix
+
+Section \ref{sec:calibration} gives insight in the the calibration methods used to identify material parameters and their uncertainties.
+
+Section \ref{sec:optimization} then goes into detail about the optimzation scheme applied in this work.
+
