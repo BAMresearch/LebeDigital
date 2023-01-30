@@ -218,7 +218,6 @@ def task_export_knowledgeGraph_emodul():
             }
 
 
-# TODO: Change to task_create_openbis_types
 # define global metadata schemata (fitting for all data) and create sample types in openbis for that (as admin)
 @create_after(target_regex='.*emodul$')
 def task_create_openbis_types():
@@ -284,14 +283,11 @@ def task_upload_to_openbis():
         sample_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0] + '_oB_upload_log.yaml')
         sample_file_path = Path(openbis_samples_directory, sample_file_name)
 
-        # Mixture union yaml file
-        mixture_union_file_path = Path(union_output_path, "mixfile_union.yaml")
-
         yield {
             'name': metadata_file_path,
             'actions': [(upload_to_openbis_doit,
                          [metadata_file_path, processed_file_path, raw_data_file,
-                          mixture_metadata_file_path, mixture_data_path, mixture_union_file_path,
+                          mixture_metadata_file_path, mixture_data_path,
                           openbis_samples_directory, openbis_config, defaults_dict])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],

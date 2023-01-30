@@ -20,7 +20,6 @@ def upload_to_openbis_doit(
         raw_data_path: str,
         mixture_metadata_file_path: str,
         mixture_data_path: str,
-        mixture_union_data_path: str,
         output_path: str,
         config: dict,
         default_props: dict):
@@ -45,7 +44,6 @@ def upload_to_openbis_doit(
         raw_data_path (str): Path to the raw data file
         mixture_metadata_file_path (str): Path to the mixture metadata file
         mixture_data_path (str): Path to the mixture data file
-        mixture_union_data_path (str): Path to union mixture file
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
         default_props (dict): A dictionary containing the predefined default properties of sample types
@@ -173,38 +171,6 @@ def upload_to_openbis_doit(
 
     sys.stdout = sys.__stdout__
     o.logout()
-
-
-def _create_required_sample_types(o,
-                                  mixture_union_data_path: str,
-                                  metadata_path: str,
-                                  config: dict,
-                                  default_props: dict):
-    # CREATING MIXTURE SAMPLE TYPE from union yaml
-    with open(mixture_union_data_path, "r") as file:
-        mix_union_dict = yaml.safe_load(file)
-
-    mixture_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP_" + config['mixture_prefix'],
-        sample_prefix=config['mixture_prefix'],
-        sample_properties=mix_union_dict,
-    )
-    logging.debug(f'mixture type created: {mixture_sample_type.code}')
-
-    # CREATING EMODUL SAMPLE TYPE from single yaml (all equal)
-    emodul_metadata = _read_metadata(metadata_path, "EXPERIMENTAL_STEP_" + config["emodul_prefix"], default_props)
-    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
-
-    # Creating the emodul sample type with the formatted dict
-    emodul_sample_type = o.create_sample_type(
-        sample_code="EXPERIMENTAL_STEP_" + config['emodul_prefix'],
-        sample_prefix=config['emodul_prefix'],
-        sample_properties=emodul_metadata_type_dict,
-    )
-    logging.debug(f'emodul type created: {emodul_sample_type.code}')
-
-    return mixture_sample_type, emodul_sample_type
-
 
 def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
     """Reads the metadata as it is saved in the emodul_metadata directory
