@@ -35,14 +35,15 @@ def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None]
     return union_dict
 
 
-def _create_logfiles(mixture_sample_type: SampleType, emodul_sample_type: SampleType, logging_path: Union[Path, str]):
+def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str],
+                     logging_path: Union[Path, str]):
     with open(Path(logging_path, 'mixture_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': mixture_sample_type}))
-        print(mixture_sample_type.__repr__(), file=file)
+        print(mixture_sample_type, file=file)
 
     with open(Path(logging_path, 'emodul_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
-        print(emodul_sample_type.__repr__(), file=file)
+        print(emodul_sample_type, file=file)
 
 
 def create_required_sample_types(mixture_directory_path: Union[Path, str],
@@ -50,6 +51,11 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  config: dict,
                                  default_props: dict,
                                  logging_path: Union[Path, str]):
+
+    if config['runson'] == 'actions':
+        _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
+                         emodul_sample_type='RAN ON ACTIONS',
+                         logging_path=logging_path)
 
     # connecting to datastore
     o = Interbis(config['datastore_url'])
