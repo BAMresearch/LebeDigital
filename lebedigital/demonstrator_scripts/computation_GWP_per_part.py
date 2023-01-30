@@ -1,11 +1,10 @@
 import numpy as np
 from lebedigital.unit_registry import ureg
 
-@ureg.check('','')
-def computation_GWP_per_part(gwp, width, hieght, length) :
+@ureg.wraps(('kg_CO2_eq'),('kg_CO2_eq/m^3', 'm', 'm', 'm'))
+def computation_GWP_per_part(gwp, width, height, length):
     """
-    This is a dummy function to make the snakemake workflow work until the real function is ready
-    It changes arbitrarily chosen values depending on slag content, not based on physics or anything.
+    This is a dummy function to make the snakemake workflow work until the real function is
 
     Parameters
     ----------
@@ -30,28 +29,14 @@ def computation_GWP_per_part(gwp, width, hieght, length) :
         maximum potential hydration parameter
     """
 
-    # paste_youngs_modulus_min = 15 * ureg('GPa')
-    # paste_youngs_modulus_max = 25 * ureg('GPa')
-    # paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max-paste_youngs_modulus_min)*slag_ratio
-    #
-    # paste_strength_min = 8 * ureg('MPa')
-    # paste_strength_max = 13 * ureg('MPa')
-    # paste_strength = paste_strength_min + (paste_strength_max-paste_strength_min)*slag_ratio
-
-    B1 = 2.916E-4 * ureg('1/s') # in 1/s
-    B2 = 0.0024229 * ureg('') # -
-    eta = 5.554 * ureg('') # something about diffusion
-    E_act = 5653 * 8.3145 * ureg('J/mol') # activation energy in Jmol^-1
-    Q_ = ureg.Quantity
-    T_ref = Q_(25, ureg.degC)
-
-    Q_pot_min = 100000 * ureg('J/kg')
-    Q_pot_max = 300000 * ureg('J/kg')
-    Q_pot = Q_pot_max - (Q_pot_max-Q_pot_min)*slag_ratio
-
-    return B1, B2, eta, E_act, Q_pot, T_ref
+    return width * height * length *gwp
 
 if __name__ == "__main__":
     # test while developing this
+    gwp = 10 * ureg('kg_CO2_eq/m^3')
+    width = 0.2 * ureg('m')
+    height = 0.5 * ureg('m')
+    length = 10000 * ureg('mm')
 
-    print(computation_GWP_per_part(1,10))
+
+    print(computation_GWP_per_part(gwp,width,height,length))
