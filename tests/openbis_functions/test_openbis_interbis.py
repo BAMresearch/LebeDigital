@@ -8,7 +8,6 @@ import pytest
 from enum import Enum
 
 from lebedigital.openbis.interbis import Interbis
-from lebedigital.openbis.expstep import ExpStep
 
 """
 
