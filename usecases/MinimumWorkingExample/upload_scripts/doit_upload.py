@@ -89,10 +89,11 @@ def upload_to_openbis_doit(
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
     logger.debug("Set constants")
 
+    # TODO: Move to task in dodo.py: task_create_openbis_types
     """
-    CREATING SAMPLE TYPE
+    CREATING SAMPLE TYPE 
     """
-    _create_required_sample_types(o,
+    mixture_sample_type, emodul_sample_type = _create_required_sample_types(o,
                                   mixture_union_data_path=mixture_union_data_path,
                                   metadata_path=metadata_path,
                                   config=config,
@@ -204,7 +205,7 @@ def _create_required_sample_types(o,
     )
     logging.debug(f'emodul type created: {emodul_sample_type.code}')
 
-    # TODO: check if created?
+    return mixture_sample_type, emodul_sample_type
 
 
 def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):

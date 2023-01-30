@@ -216,8 +216,8 @@ def task_export_knowledgeGraph_emodul():
             }
 
 
-# helping step to create one global yaml file describing all mixtures
-# should be replaced by predefinde metadata schematas
+# TODO: Change to task_create_openbis_types
+# define global metadata schemata (fitting for all data) and create sample types in openbis for that (as admin)
 @create_after(target_regex='.*emodul$')
 def task_create_mixfile_union_yaml():
     yield {
@@ -231,7 +231,7 @@ def task_create_mixfile_union_yaml():
     }
 
 
-# create types and upload data to openbis
+# upload data to openbis (possible as user)
 @create_after(target_regex='.*yaml$')
 def task_upload_to_openbis():
     # create folder, if it is not there
