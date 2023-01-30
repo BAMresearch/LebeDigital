@@ -50,13 +50,17 @@ def sample_dict():
 
 
 @pytest.fixture(scope='session')
+def sample_type():
+    return 'EXPERIMENTAL_STEP'
+
+
+@pytest.fixture(scope='session')
 def testing_sample_name():
     return 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
 
 
 @pytest.fixture(scope='session', autouse=True)
 def setup(pytestconfig, sample_code, sample_dict, testing_sample_name, config):
-
     login_val = pytestconfig.getoption('--login')
     password_val = pytestconfig.getoption('--password')
 
@@ -105,7 +109,6 @@ def setup(pytestconfig, sample_code, sample_dict, testing_sample_name, config):
 
 @pytest.mark.login
 def test_get_metadata_import_template(setup, config):
-
     o = Interbis(config['db_url'])
 
     sample_type = 'EXPERIMENTAL_STEP_TEST'
@@ -160,7 +163,8 @@ def test_create_sample_type(sample_code, sample_dict, config):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("sample, output", [(testing_sample_name, True), (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+@pytest.mark.parametrize("sample, output", [(testing_sample_name, True),
+                                            (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_exists_in_datastore(setup, config, sample, output):
     o = Interbis(config['db_url'])
 

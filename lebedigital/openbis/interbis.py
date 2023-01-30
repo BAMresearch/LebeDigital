@@ -519,12 +519,12 @@ class Interbis(Openbis):
 
         # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
-        for i, p in enumerate(pt_dict.keys()):
+        for i, p in enumerate(pt_dict.keys(), start=1):
             block_print()
             new_sample_type.assign_property(
                 prop=p,
                 section='Metadata',
-                ordinal=(i + 1),
+                ordinal=i,
                 mandatory=False,
                 # initialValueForExistingEntities=f'Initial_Val_{p}',
                 showInEditView=True,

@@ -17,7 +17,7 @@ from lebedigital.raw_data_processing.mixture \
     .mixture_metadata_extraction import extract_metadata_mixture
 
 from upload_scripts.doit_upload import upload_to_openbis_doit
-from upload_scripts.yaml_unionizer import create_union_yaml
+from upload_scripts.doit_create_types import create_required_sample_types
 
 from doit import get_var
 
@@ -39,7 +39,7 @@ DOIT_CONFIG = {'verbosity': 2}
 # openbis config needed for the upload to the datastore
 openbis_config = {
     'datastore_url': get_var("url", 'https://openbis.matolab.org/openbis/'),
-    'user': get_var("user",'dummy'),
+    'user': get_var("user", 'dummy'),
     'pw': get_var("pw", None),
     'space': get_var("space", 'EMODUL'),
     'project': 'LEBEDIGITAL',
@@ -71,7 +71,9 @@ raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with 
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
-openbis_samples_directory = Path(emodul_output_directory, 'openbis_samples')  # folder with openBIS log files
+openbis_directory = Path(emodul_output_directory, 'openbis_upload')  # folder with openBIS log files
+openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
+openbis_sample_types_directory = Path(openbis_directory, 'openbis_sample_types')
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
@@ -219,14 +221,18 @@ def task_export_knowledgeGraph_emodul():
 # TODO: Change to task_create_openbis_types
 # define global metadata schemata (fitting for all data) and create sample types in openbis for that (as admin)
 @create_after(target_regex='.*emodul$')
-def task_create_mixfile_union_yaml():
+def task_create_openbis_types():
+
+    Path(openbis_sample_types_directory).mkdir(parents=True, exist_ok=True)
+
     yield {
         'name': "create_mixture_union_yaml",
-        'actions': [(create_union_yaml, [metadata_mixture_directory,
-                                         union_output_path,
-                                         "EXPERIMENTAL_STEP_"+openbis_config["mixture_prefix"],
-                                         defaults_dict])],
-        'targets': [union_output_path],
+        'actions': [(create_required_sample_types, [metadata_mixture_directory,
+                                                    metadata_emodulus_directory,
+                                                    openbis_config,
+                                                    defaults_dict,
+                                                    openbis_sample_types_directory])],
+        'targets': [openbis_sample_types_directory],
         'clean': [clean_targets],
     }
 

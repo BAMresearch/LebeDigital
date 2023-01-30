@@ -72,7 +72,8 @@ def upload_to_openbis_doit(
             mixture_metadata_file_path=args["mixture_metadata_file_path"],
             mixture_data_path=args["mixture_data_path"],
             output_path=args["output_path"],
-            config=args["config"]
+            config=args["config"],
+            logger=logger
         )
         return
 
@@ -91,13 +92,10 @@ def upload_to_openbis_doit(
 
     # TODO: Move to task in dodo.py: task_create_openbis_types
     """
-    CREATING SAMPLE TYPE 
+    FETCHING BOTH MIXTURE AND EMODUL SAMPLE TYPES
     """
-    mixture_sample_type, emodul_sample_type = _create_required_sample_types(o,
-                                  mixture_union_data_path=mixture_union_data_path,
-                                  metadata_path=metadata_path,
-                                  config=config,
-                                  default_props=default_props)
+    mixture_sample_type = o.get_sample_type(f"EXPERIMENTAL_STEP_{config['mixture_prefix']}")
+    emodul_sample_type = o.get_sample_type(f"EXPERIMENTAL_STEP_{config['emodul_prefix']}")
     logger.debug("Samples created")
 
     """
@@ -126,7 +124,7 @@ def upload_to_openbis_doit(
     # We skip the mixture upload when the mixture yaml is not found
     if mixture_metadata_file_path and Path(mixture_metadata_file_path).is_file():
         # Reading the metadata from output metadata yaml file
-        mixture_sample_code = "EXPERIMENTAL_STEP_"+config["mixture_prefix"]
+        mixture_sample_code = "EXPERIMENTAL_STEP_" + config["mixture_prefix"]
         mixture_metadata = _read_metadata(mixture_metadata_file_path, mixture_sample_code, default_props)
         logger.debug("Read Mixture Metadata")
 
@@ -174,6 +172,7 @@ def upload_to_openbis_doit(
     _after_upload_check(o, emodul_sample.identifier, mixture_sample, output_path)
 
     sys.stdout = sys.__stdout__
+    o.logout()
 
 
 def _create_required_sample_types(o,
@@ -181,7 +180,6 @@ def _create_required_sample_types(o,
                                   metadata_path: str,
                                   config: dict,
                                   default_props: dict):
-
     # CREATING MIXTURE SAMPLE TYPE from union yaml
     with open(mixture_union_data_path, "r") as file:
         mix_union_dict = yaml.safe_load(file)
@@ -245,13 +243,14 @@ def _reformat_sample_dict(loaded_dict: dict):
     }
 
     output_dict = defaultdict(lambda: ["NA", "NA", "NA"])
-    output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
+    # output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
 
     for key, val in loaded_dict.items():
         val = "" if val is None else val
         output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
 
     return dict(output_dict)
+
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
                         output_path: str):
@@ -564,5 +563,3 @@ def _actions_run(
     with open(Path(output_path, file_name_with_extension), 'w') as file:
         _ = yaml.dump(output_dict, file)
     return
-
-
