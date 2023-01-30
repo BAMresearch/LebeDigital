@@ -2,34 +2,30 @@ import numpy as np
 from lebedigital.unit_registry import ureg
 
 @ureg.wraps(('kg_CO2_eq'),('kg_CO2_eq/m^3', 'm', 'm', 'm'))
-def computation_GWP_per_part(gwp, width, height, length):
+def computation_GWP_per_part(gwp_mix, width, height, length):
     """
-    This is a dummy function to make the snakemake workflow work until the real function is
+    This function computes the global warming potential for a unit of beam
 
     Parameters
     ----------
-    slag_ratio : float / pint unitless
-        amount of slag compared to cement, value from 0 to 1
-    phi_hydration: ??
-        input from Atuls parameter identification
+    gwp_mix : float / pint unit in kg_CO2_eq/m^3
+        GWP per cubic meter of used mix
+    width : float / pint unit length
+        width of the beam
+    height : float / pint unit length
+        height of the beam
+    length : float / pint unit length
+        length of the beam
 
     Returns
     -------
-    B1 : float / pint unit will be in '1/s'
-        hydration parameter
-    B2 : float / pint unitless unit
-        hydration parameter
-    eta : float / pint unitless unit
-        hydration parameter
-    E_act : float / pint unit, will be in 'J/mol'
-        activation energy - hydration parameter
-    T_ref : float / pint unit, will be in 'degree Celsius'
-        reference temperature - hydration parameter
-    Q_pot : float / pint unit, will be in 'J/kg'
-        maximum potential hydration parameter
+    beam_gwp : float / pint unit, will be in 'kg_CO2_eq'
+       GWP of one beam
     """
 
-    return width * height * length *gwp
+    beam_gwp = width * height * length * gwp_mix
+
+    return beam_gwp
 
 if __name__ == "__main__":
     # test while developing this

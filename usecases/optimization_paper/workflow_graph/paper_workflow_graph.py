@@ -196,7 +196,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.node('steel', 'steel: diameter [mm],\n n bars', color=input)
     dot.edge('steel', 'load bearing capacity')
-    dot.edge('steel', 'co2 computation volume')
 
     dot.node('input beam', 'steel yield strenght [N/mm2]\n'
                            'concrete: cover [mm]', color=input)
