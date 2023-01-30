@@ -149,3 +149,6 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 
 # sphinx website build
 .build
+
+# openbis upload log file
+usecases/MinimumWorkingExample/logfile_openbis.txt

@@ -55,8 +55,8 @@ def upload_to_openbis_doit(
         sys.stdout = sys.__stdout__
         logger.setLevel(logging.DEBUG)
         logging.getLogger('urllib3').setLevel(logging.INFO)
-
-
+        fh = logging.FileHandler('logfile_openbis.txt')
+        logger.addHandler(fh)
     else:
         sys.stdout = open(os.devnull, 'w')
 
@@ -172,6 +172,7 @@ def upload_to_openbis_doit(
     sys.stdout = sys.__stdout__
     o.logout()
 
+
 def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
     """Reads the metadata as it is saved in the emodul_metadata directory
 
@@ -255,7 +256,6 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
     # Setting up project
     try:
         o.get_project(projectId=f"/{space}/{project}")
-    # why is the error code KeyError for only this openBIS object? no one knows
     except ValueError as err:
         # No space with that code found
         if force_upload:
@@ -342,7 +342,8 @@ def _mixture_upload(
     else:
         # We checked that it exists, so we throw away the old sample and replace it with a fetched
         # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
-        mixture_sample = o.get_sample(exist_mixture_sample_df.iloc[0, 0])
+        mixture_sample = o.get_sample(
+            exist_mixture_sample_df.loc[exist_mixture_sample_df['$name'] == mixture_sample_name, 'identifier'].values[0])
         logger.debug(f'mixture found in dataset')
 
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
@@ -395,6 +396,8 @@ def _emodul_upload(
         emodul_sample_parents = []
     else:
         emodul_sample_parents = [mixture_sample.identifier]
+
+    logger.debug(emodul_sample_parents)
 
     # Initializing the new emodul sample
     emodul_sample = o.new_sample(
