@@ -183,7 +183,7 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
 
     dot.edge('phi','interpolation')
-    dot.edge('max doh','interpolation')
+    dot.edge('max doh','hydration identifcation')
     dot.node('interpolation','function to "interpolate" paramters \nf(phi,slag ratio)', color=process)
     dot.edge('interpolation','hydration parameters')
     dot.edge('interpolation','heat release binder')
