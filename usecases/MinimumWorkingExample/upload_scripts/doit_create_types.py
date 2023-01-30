@@ -56,6 +56,7 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
                          emodul_sample_type='RAN ON ACTIONS',
                          logging_path=logging_path)
+        return
 
     # connecting to datastore
     o = Interbis(config['datastore_url'])
