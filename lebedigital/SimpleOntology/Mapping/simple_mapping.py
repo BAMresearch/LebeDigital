@@ -8,64 +8,62 @@ import os
 from pathlib import Path
 from loguru import logger 
 
-###################### LOAD METADATA & ONTOLOGY ###############################
-
-# METADATA
-# defining paths
-dataDir = Path(__file__).parents[0]
-dataFile = "probe1.yaml" #for now only working with this one, more later
-dataPath = os.path.join(dataDir, dataFile)
-
-# open yaml-file
-with open(dataPath, 'r') as file:
-        metadata1 = yaml.safe_load(file)
-
-# get the keys of the metadata
-keys = list(metadata1.keys()) # gives ['name', 'ID', 'length', 'diameter', 'shape']
-key_append = [(k + "_") for k in keys] # gives ['name_', 'ID_', 'Length_', 'Diameter_', 'shape_']
 
 
-# ONTOLOGY
-# defining paths 
-ontoDir = Path(__file__).parents[1]
-ontoFile = "SimpleOntology.ttl"
-ontoPath = os.path.join(ontoDir,'SimpleOntology.ttl')
+def load_metadata(dataPath):
 
-# test = "ns2:Diameter_ a ns2:Diameter"
-# for i in key_append:
-#     if (i+ " ") in test:
-#         print(True)
+    '''
+        Load metadata from a given path and return it as dictionary.
 
-############################ REPLACEMENT-FUNCTION #############################
+        dataPath : string
+            Path to the metadata yaml-file.
+    
+    '''
+
+    with open(dataPath, 'r') as file:
+        try:
+            metadata = yaml.safe_load(file)   
+            return metadata
+        except Exception as e:
+            logger.error("Path error: " + str(e))
+
+
 
 def placeholderreplacement(
-    ontoname,
+    ontoPath,
+    metadataPath,
     outputPath = None
     ):
 
     '''
-        Loads file, searches file linewise for all metadata keys and replaces 
-        placeholders with values from the metadata. Also appends the name of the
-        specimen to 
+        Maps the values of one given metadata file (for one specimen or 
+        experiment) to a given ontology, by searching within ontology linewise 
+        for all metadata keys and replacing placeholders with values from the 
+        metadata. Also appends the name of the specimen.
 
         Parameter:
         -----
-        ontoname : string
+        ontoPath : string
             complete Path to Ontology (ttl-format)
-        metadataname : string 
-            complete Path to metadata (yaml-format)
+        metadataPath : string 
+            complete Path to metadata
+        outputPath : string
+            complete Path for output
 
         Output:
         ---
         If no ouput path is given (f.e. for unittesting), the lines will be 
-        returned. If the "ontoname" is given for output, the ontology will
+        returned. If the "ontoPath" is given for output, the ontology will
         be overwritten. To avoid this, give a new name to create a new ttl-file.
     
     '''
     
+    # load metadata and get the keys
+    metadata = load_metadata(metadataPath)
+    keys = list(metadata.keys()) # gives ['name', 'ID', 'length', 'diameter', 'shape']
 
     # read in the ontology as text linewise, creating a list of lines
-    with open(ontoname, 'r') as file:
+    with open(ontoPath, 'r') as file:
         lines = file.readlines() 
 
         # Set up logger
@@ -86,8 +84,8 @@ def placeholderreplacement(
                 # if placeholder is in line, replace it with metadata
                 if placeholder in lines[i]:
                     logger.debug('Found placeholder "' + placeholder + '" for key "' \
-                                 + key + '" with value "' + str(metadata1[key]) + '".')
-                    lines[i] = lines[i].replace(placeholder, str(metadata1[key]))
+                                 + key + '" with value "' + str(metadata[key]) + '".')
+                    lines[i] = lines[i].replace(placeholder, str(metadata[key]))
                     counter += 1
                     usedKeys.append(key)
 
@@ -95,20 +93,20 @@ def placeholderreplacement(
                 key_ = key + "_ "
                 if key_ in lines[i]:
                     
-                    lines[i] = lines[i].replace(key_, key + "_" + str(metadata1[keys[0]]) + " ")
+                    lines[i] = lines[i].replace(key_, key + "_" + str(metadata[keys[0]]) + " ")
 
             # append the specimen name to "Probe_"
             if "Probe_ " in lines[i]:
                 logger.debug('Found "Probe_" in line ' + str(i+1) \
-                    + ' and appended specimen-name "' + str(metadata1[keys[0]]) + '".')
-                lines[i] = lines[i].replace("Probe_ ", "Probe_" + str(metadata1[keys[0]]) + " ")
+                    + ' and appended specimen-name "' + str(metadata[keys[0]]) + '".')
+                lines[i] = lines[i].replace("Probe_ ", "Probe_" + str(metadata[keys[0]]) + " ")
                 counter += 1
                 usedKeys.append(keys[0])
 
             # Special case: shape is replaced by cylindrical and missing underscore
-            elif str(metadata1[keys[4]]) in lines[i]:
+            elif str(metadata[keys[4]]) in lines[i]:
                 lines[i] = lines[i].replace(
-                    str(metadata1[keys[4]]), str(metadata1[keys[4]]) + str(metadata1[keys[0]]))
+                    str(metadata[keys[4]]), str(metadata[keys[4]]) + str(metadata[keys[0]]))
 
 
     ############################ L O G G I N G #############################
@@ -133,10 +131,23 @@ def placeholderreplacement(
                 file.write(line)
 
 
+
+
+
 # CREATE EXAMPLE:
 
+# defining paths : ONTOLOGY
+ontoDir = Path(__file__).parents[1]
+ontoFile = "SimpleOntology.ttl"
+ontoPath = os.path.join(ontoDir,'SimpleOntology.ttl')
+
+# defining paths : METADATA
+dataDir = Path(__file__).parents[0]
+dataFile = "probe1.yaml" #for now only working with this one, more later
+dataPath = os.path.join(dataDir, dataFile)
+
 mappedOntoName = os.path.join(ontoDir,'SimpleOntology_mappedByScript.ttl')
-placeholderreplacement(ontoPath,mappedOntoName)
+placeholderreplacement(ontoPath,dataPath,mappedOntoName)
         
 
 
