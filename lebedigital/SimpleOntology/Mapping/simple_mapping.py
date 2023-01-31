@@ -97,7 +97,6 @@ def placeholderreplacement(
                     
                     lines[i] = lines[i].replace(key_, key + "_" + str(metadata1[keys[0]]) + " ")
 
-
             # append the specimen name to "Probe_"
             if "Probe_ " in lines[i]:
                 logger.debug('Found "Probe_" in line ' + str(i+1) \
