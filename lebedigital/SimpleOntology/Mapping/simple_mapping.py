@@ -22,6 +22,7 @@ with open(dataPath, 'r') as file:
 
 # get the keys of the metadata
 keys = list(metadata1.keys()) # gives ['name', 'ID', 'length', 'diameter', 'shape']
+key_append = [(k + "_") for k in keys] # gives ['name_', 'ID_', 'Length_', 'Diameter_', 'shape_']
 
 
 # ONTOLOGY
@@ -30,6 +31,10 @@ ontoDir = Path(__file__).parents[1]
 ontoFile = "SimpleOntology.ttl"
 ontoPath = os.path.join(ontoDir,'SimpleOntology.ttl')
 
+# test = "ns2:Diameter_ a ns2:Diameter"
+# for i in key_append:
+#     if (i+ " ") in test:
+#         print(True)
 
 ############################ REPLACEMENT-FUNCTION #############################
 
@@ -40,7 +45,8 @@ def placeholderreplacement(
 
     '''
         Loads file, searches file linewise for all metadata keys and replaces 
-        placeholders with values from the metadata.
+        placeholders with values from the metadata. Also appends the name of the
+        specimen to 
 
         Parameter:
         -----
@@ -63,6 +69,7 @@ def placeholderreplacement(
         lines = file.readlines() 
 
         # Set up logger
+        logger.debug('S T A R T')
         logger.debug('File has ' + str(len(lines)) + ' lines.')
         counter = 0
         usedKeys = []
@@ -74,29 +81,47 @@ def placeholderreplacement(
             for key in keys:
 
                 # create placeholder from keyname f.e. "Length_Value"^^xsd:float
-                placeholder = key + '_Value'
+                placeholder = '$$' + key + '_Value$$'
 
                 # if placeholder is in line, replace it with metadata
                 if placeholder in lines[i]:
                     logger.debug('Found placeholder "' + placeholder + '" for key "' \
-                        + key + '" with value "' + str(metadata1[key]) + '".')
-                    lines[i] = lines[i].replace(placeholder,str(metadata1[key]))
+                                 + key + '" with value "' + str(metadata1[key]) + '".')
+                    lines[i] = lines[i].replace(placeholder, str(metadata1[key]))
                     counter += 1
                     usedKeys.append(key)
 
-                    #
-                    #  INSERT HERE CODE FOR APPENDING THE KEY
-                    #
+                # append the specimen name to "key"_ 
+                key_ = key + "_ "
+                if key_ in lines[i]:
+                    
+                    lines[i] = lines[i].replace(key_, key + "_" + str(metadata1[keys[0]]) + " ")
+
+
+            # append the specimen name to "Probe_"
+            if "Probe_ " in lines[i]:
+                logger.debug('Found "Probe_" in line ' + str(i+1) \
+                    + ' and appended specimen-name "' + str(metadata1[keys[0]]) + '".')
+                lines[i] = lines[i].replace("Probe_ ", "Probe_" + str(metadata1[keys[0]]) + " ")
+                counter += 1
+                usedKeys.append(keys[0])
+
+            # Special case: shape is replaced by cylindrical and missing underscore
+            elif str(metadata1[keys[4]]) in lines[i]:
+                lines[i] = lines[i].replace(
+                    str(metadata1[keys[4]]), str(metadata1[keys[4]]) + str(metadata1[keys[0]]))
 
 
     ############################ L O G G I N G #############################
 
     unusedKeys = [i for i in keys if i not in usedKeys]
     logger.debug('Replaced ' + str(counter) + ' placeholders within the ontology.')
-    logger.debug('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
-        + ' metadata keys have not been mapped: ')
-    logger.debug(unusedKeys)
-
+    if len(unusedKeys) > 0:
+        logger.debug('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
+            + ' metadata keys have not been mapped: ')
+        logger.debug(unusedKeys)
+    else:
+        logger.debug('All metadata keys have been mapped.')
 
     ############################ O U T P U T #############################
     if outputPath == None:
