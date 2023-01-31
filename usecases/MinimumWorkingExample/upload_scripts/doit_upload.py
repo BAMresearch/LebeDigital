@@ -88,7 +88,6 @@ def upload_to_openbis_doit(
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
     logger.debug("Set constants")
 
-    # TODO: Move to task in dodo.py: task_create_openbis_types
     """
     FETCHING BOTH MIXTURE AND EMODUL SAMPLE TYPES
     """
@@ -99,7 +98,6 @@ def upload_to_openbis_doit(
     """
     DIRECTORY SETUP
     """
-
     force_upload = config['force_upload']
     force_upload = True if force_upload == "yes" else False
 
@@ -122,7 +120,7 @@ def upload_to_openbis_doit(
     # We skip the mixture upload when the mixture yaml is not found
     if mixture_metadata_file_path and Path(mixture_metadata_file_path).is_file():
         # Reading the metadata from output metadata yaml file
-        mixture_sample_code = "EXPERIMENTAL_STEP_" + config["mixture_prefix"]
+        mixture_sample_code = f"EXPERIMENTAL_STEP_{config['mixture_prefix']}"
         mixture_metadata = _read_metadata(mixture_metadata_file_path, mixture_sample_code, default_props)
         logger.debug("Read Mixture Metadata")
 
@@ -145,7 +143,7 @@ def upload_to_openbis_doit(
     """
     EMODUL EXPERIMENTAL STEP UPLOAD
     """
-    emodul_sample_code = "EXPERIMENTAL_STEP_" + config["emodul_prefix"]
+    emodul_sample_code = f"EXPERIMENTAL_STEP_{config['emodul_prefix']}"
     emodul_metadata = _read_metadata(metadata_path, emodul_sample_code, default_props)
 
     emodul_sample = _emodul_upload(
@@ -200,24 +198,6 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
                 data[key] = 0.0
 
         return data
-
-
-def _reformat_sample_dict(loaded_dict: dict):
-    conv_dict = {
-        str: 'VARCHAR',
-        float: 'REAL',
-        int: 'INTEGER',
-    }
-
-    output_dict = defaultdict(lambda: ["NA", "NA", "NA"])
-    # output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
-
-    for key, val in loaded_dict.items():
-        val = "" if val is None else val
-        output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
-
-    return dict(output_dict)
-
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
                         output_path: str):
@@ -349,6 +329,8 @@ def _mixture_upload(
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
     logger.debug("Starting Mixture Dataset upload")
 
+    # Dataset upload not possible with the available instance (matolab/openbis) - in the moment - so the following code is not tested
+    ######
     # mixture_dataset_name = mixture_sample_name + '_raw'
     #
     # # Same as before, checking whether the dataset was uploaded already
@@ -443,6 +425,8 @@ def _emodul_upload(
         emodul_sample = o.get_sample(exist_emodul_sample_df.iloc[0, 0])
         logger.debug(f'Emodul Sample {emodul_sample.code} found in datastore')
 
+    # Dataset upload not possible with the available instance (matolab/openbis) - in the moment - so the following code is not tested
+    ######
     # # Naming the datasets
     # raw_dataset_name = emodul_sample.props.all()['$name'] + '_raw'
     # processed_dataset_name = emodul_sample.props.all()['$name'] + '_processed'

@@ -128,7 +128,7 @@ def test_get_sample_type_properties(setup):
 
 # no way of testing on dummy account
 @pytest.mark.skip
-def test_create_sample_type(sample_code, sample_dict, config):
+def test_create_sample_type(sample_code, sample_dict):
     o = Interbis(Constants.db_url.value)
 
     o.create_sample_type(sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
