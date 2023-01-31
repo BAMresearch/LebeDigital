@@ -1,11 +1,10 @@
 import os
 import random
 import string
+from enum import Enum
 
 import pandas as pd
 import pytest
-
-from enum import Enum
 
 from lebedigital.openbis.interbis import Interbis
 

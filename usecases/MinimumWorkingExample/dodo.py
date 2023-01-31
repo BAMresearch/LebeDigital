@@ -2,25 +2,18 @@ import os
 from pathlib import Path
 
 import yaml
-from doit import create_after
+from doit import create_after, get_var
 from doit.task import clean_targets
-
-from lebedigital.raw_data_processing.youngs_modulus_data \
-    .emodul_metadata_extraction import emodul_metadata
+from upload_scripts.doit_create_types import create_required_sample_types
+from upload_scripts.doit_upload import upload_to_openbis_doit
 
 from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
-
-from lebedigital.raw_data_processing.youngs_modulus_data \
-    .emodul_generate_processed_data import processed_data_from_rawdata
-
-from lebedigital.raw_data_processing.mixture \
-    .mixture_metadata_extraction import extract_metadata_mixture
-
-from upload_scripts.doit_upload import upload_to_openbis_doit
-from upload_scripts.doit_create_types import create_required_sample_types
-
-from doit import get_var
-
+from lebedigital.raw_data_processing.mixture.mixture_metadata_extraction import \
+    extract_metadata_mixture
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import \
+    processed_data_from_rawdata
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
+    emodul_metadata
 from lebedigital.shacl import validation as shacl
 
 # set a variable to define a cheap or full run
@@ -59,7 +52,7 @@ openbis_config = {
 }
 
 # default properties for openbis
-defaults_dict = {"operator_date": ["VARCHAR", "operator_date", "operator_date"],
+defaults_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
                  "tester_name": ["VARCHAR", "tester_name", "tester_name"],
                  "$name": ["VARCHAR", "Name", "Name"]}
 

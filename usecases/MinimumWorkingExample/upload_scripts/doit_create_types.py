@@ -1,12 +1,13 @@
-import yaml
+import logging
 import os
 from pathlib import Path
-from typing import Union, Any
-import logging
-from lebedigital.openbis.interbis import Interbis
-from pybis.entity_type import SampleType
+from typing import Any, Union
 
+import yaml
+from pybis.entity_type import SampleType
 from upload_scripts.doit_upload import _read_metadata
+
+from lebedigital.openbis.interbis import Interbis
 
 conv_dict = {
     str: 'VARCHAR',

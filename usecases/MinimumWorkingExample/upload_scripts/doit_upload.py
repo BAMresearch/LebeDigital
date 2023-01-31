@@ -1,17 +1,18 @@
 import logging
-from pprint import pformat
 import os
 import sys
 from collections import defaultdict
 from math import isnan
 from pathlib import Path
+from pprint import pformat
 from typing import Union
-import pandas as pd
 
+import pandas as pd
 import yaml
+from dateutil.parser import parse
+from pybis.sample import Sample
 
 from lebedigital.openbis.interbis import Interbis
-from pybis.sample import Sample
 
 
 def upload_to_openbis_doit(
@@ -186,6 +187,9 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
         for key, val in loaded.items():
             if val is None: continue
             if key in default_keys:
+                if key.lower() == 'operator_date':
+                    # convert german date to openBIS date format YYYY-MM-DD
+                    data[key] = parse(val).strftime('%Y-%m-%d')
                 data[key] = val
             else:
                 data[f"{sample_type_code}.{key}".lower()] = val
