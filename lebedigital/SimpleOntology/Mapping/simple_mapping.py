@@ -84,9 +84,22 @@ def placeholderreplacement(
                     counter += 1
                     usedKeys.append(key)
 
-                    #
-                    #  INSERT HERE CODE FOR APPENDING THE KEY
-                    #
+                    key_append = [(k + "_") for k in keys]
+                    for j in key_append:
+                        key_append1 = j + " "
+                        if key_append1 in lines[i]:
+                            key_append2 = key_append1.replace(" ", str(metadata1[keys[0]]))
+                            lines[i] = lines[i].replace(key_append1, key_append2 + " ")
+
+
+                name_append = "Probe" + "_"
+                if name_append in lines[i]:
+                    logger.debug('Found placeholder "' + name_append + '" for key "' \
+                                 + keys[0] + '" with value "' + str(metadata1[keys[0]]) + '".')
+                    lines[i] = lines[i].replace(name_append, name_append + str(metadata1[keys[0]]))
+                elif str(metadata1[keys[4]]) in lines[i]:
+                    lines[i] = lines[i].replace(
+                        str(metadata1[keys[4]]), str(metadata1[keys[4]]) + str(metadata1[keys[0]]))
 
 
     ############################ L O G G I N G #############################
