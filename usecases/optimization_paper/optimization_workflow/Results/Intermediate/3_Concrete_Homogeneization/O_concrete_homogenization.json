@@ -1,0 +1,30 @@
+{
+    "E": {
+        "value": 27014932516.511917,
+        "unit": "pascal"
+    },
+    "nu": {
+        "value": 0.4,
+        "unit": "dimensionless"
+    },
+    "fc": {
+        "value": 27652173.91304348,
+        "unit": "pascal"
+    },
+    "C": {
+        "value": 10441310400.0,
+        "unit": "joule / meter ** 3"
+    },
+    "rho": {
+        "value": 12001560.0,
+        "unit": "kilogram / meter ** 3"
+    },
+    "kappa": {
+        "value": 1.1520000000000001,
+        "unit": "watt / kelvin / meter"
+    },
+    "Q": {
+        "value": 3000000000000.0,
+        "unit": "joule / meter ** 3"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "paste_E": {
+        "value": 25,
+        "unit": "gigapascal"
+    },
+    "fc": {
+        "value": 13,
+        "unit": "megapascal"
+    }
+}

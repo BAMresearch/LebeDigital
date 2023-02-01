@@ -1,0 +1,38 @@
+{
+    "plasticizer_vol_fraction": {
+        "value": 0.010204081632653062,
+        "unit": "dimensionless"
+    },
+    "water_vol_fraction": {
+        "value": 0.10510134046755283,
+        "unit": "dimensionless"
+    },
+    "sub_vol_fraction": {
+        "value": 0.09387783115991764,
+        "unit": "dimensionless"
+    },
+    "cem_vol_fraction": {
+        "value": 0.14081674673987646,
+        "unit": "dimensionless"
+    },
+    "cem_vol_content": {
+        "value": 202.77611530542208,
+        "unit": "kilogram / meter ** 3"
+    },
+    "sub_vol_content": {
+        "value": 78.85737817433082,
+        "unit": "kilogram / meter ** 3"
+    },
+    "water_vol_content": {
+        "value": 102.68400963679912,
+        "unit": "kilogram / meter ** 3"
+    },
+    "aggregates_vol_content": {
+        "value": 0.9750000000000001,
+        "unit": "kilogram / meter ** 3"
+    },
+    "density_paste": {
+        "value": 1126.621437475863,
+        "unit": "kilogram / meter ** 3"
+    }
+}

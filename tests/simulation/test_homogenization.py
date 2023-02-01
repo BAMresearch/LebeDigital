@@ -14,7 +14,7 @@ def test_homogenization():
 
     # paste data
     parameters['paste_E'] = 30e9 * ureg('Pa')
-    parameters['paste_nu'] = 0.2
+    parameters['paste_nu'] = 0.2 * ureg('dimensionless')
     parameters['paste_C'] = 870 * ureg('J/kg')  # Specific Heat Capacity
     parameters['paste_kappa'] = 1.8 * ureg('W/m/K')  # Thermal conductivity
     parameters['paste_rho'] = 2400 * ureg('kg/m^3')
@@ -23,16 +23,16 @@ def test_homogenization():
 
     # aggregate data
     parameters['aggregates_E'] = 25e9 * ureg('Pa')
-    parameters['aggregates_nu'] = 0.3
+    parameters['aggregates_nu'] = 0.3* ureg('dimensionless')
     parameters['aggregates_C'] = 840 * ureg('J/kg')  # Specific Heat Capacity
     parameters['aggregates_kappa'] = 0.8 * ureg('W/m/K')  # Thermal conductivity
     parameters['aggregates_rho'] = 2600 * ureg('kg/m^3')
-    parameters['aggregates_vol_frac'] = 0.6
+    parameters['aggregates_vol_frac'] = 0.6* ureg('dimensionless')
 
     results = concrete_homogenization(parameters)
 
     assert_approx(results['E'], 27014932516.511917 * ureg('Pa'), rtol=0.001)
-    assert results['nu'] == pytest.approx(0.26409495548961426)
+    assert_approx(results['nu'], 0.26409495548961426 * ureg('dimensionless'), rtol=0.001)
     assert_approx(results['fc'], 27652173.91304348 * ureg('Pa'), rtol=0.001)
     assert_approx(results['C'], 2145600.0 * ureg('J/m^3'), rtol=0.001)
     assert_approx(results['rho'], 2520.0* ureg('kg/m^3'), rtol=0.001)

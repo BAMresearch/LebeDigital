@@ -1,0 +1,110 @@
+{
+   "concrete_cover": {
+    "value" : 2.5,
+     "unit" : "cm"
+   },
+   "n_reinforcement": {
+    "value" : 4,
+     "unit" : ""
+   },
+   "reinforcement_diameter": {
+    "value" : 12,
+     "unit" : "mm"
+   },
+   "steel_yield": {
+     "value" : 500,
+     "unit" : "N/mm^2"
+   },
+   "point_load": {
+     "value" : 36000,
+     "unit" : "N"
+   },
+   "distributed_load": {
+     "value" : 0,
+     "unit" : "N/mm"
+   },
+   "width": {
+     "value" : 0.6,
+     "unit" : "m"
+   },
+   "length": {
+     "value" : 8,
+     "unit" : "m"
+   },
+   "height": {
+     "value" : 1,
+     "unit" : "m"
+   },
+   "gwp_cement": {
+     "value" : 10,
+     "unit" : "kg_CO2_eq/kg"
+   },
+   "gwp_slag": {
+     "value" : 3,
+     "unit" : "kg_CO2_eq/kg"
+   },
+   "gwp_aggregates": {
+     "value" : 1,
+     "unit" : "kg_CO2_eq/kg"
+   },
+   "paste_phi": {
+     "value" : 1,
+     "unit" : "dimensionless"
+   },
+   "hydration_phi": {
+     "value" : 1,
+     "unit" : "dimensionless"
+   },
+   "density_water": {
+     "value":977,
+     "unit": "kilogram / meter ** 3"
+   },
+   "density_aggregates":{
+     "value":1.5,
+     "unit":"kg/m^3"
+   },
+   "density_sub":{
+     "value":840,
+     "unit":"kg/m^3"
+   } ,
+   "density_cem":{
+     "value":1.44,
+     "unit":"g/cm^3"
+   } ,
+   "aggregates_volume_fraction":{
+     "value": 0.6,
+     "unit" : "dimensionless"
+   },
+   "sc_volume_fraction":{
+     "value" : 0.5,
+     "unit" : "dimensionless"
+   },
+    "paste_nu" :{
+      "value":0.2,
+      "unit":"dimensionless"
+    },
+    "paste_C" :{
+      "value":870,
+      "unit":"J/kg"
+    },
+    "paste_kappa" :{
+      "value":1.8,
+      "unit":"W/m/K"
+    } ,
+    "aggregates_E" :{
+      "value":25e9,
+      "unit":"Pa"
+    } ,
+    "aggregates_nu" :{
+      "value":0.3,
+      "unit":"dimensionless"
+    },
+    "aggregates_C" :{
+      "value":840,
+      "unit":"J/kg"
+    },
+    "aggregates_kappa" :{
+      "value":0.8,
+      "unit":"W/m/K"
+    } 
+}
