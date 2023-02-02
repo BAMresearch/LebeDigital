@@ -29,6 +29,7 @@ dependencies:
   - openpyxl
   - tectonic=0.8
   - pint
+  - pint-pandas
   - snakemake
   - pip
   - pip:

@@ -2,6 +2,7 @@ import pytest
 import fenics_concrete
 from lebedigital.simulation.precast_column import column_simulation
 from lebedigital.unit_registry import ureg
+import pandas as pd
 
 def test_column_simulation():
     # setup parameters:
@@ -50,9 +51,6 @@ def test_column_simulation():
     parameters['T_ref'] = Q_(25, ureg.degC)  # reference temperature in degree celsius
 
 
-
-
-
     # simulation time
     full_time = 60*60*1 * ureg('s') # simulation time
     time_step = 60*20 * ureg('s') # timestep
@@ -60,6 +58,6 @@ def test_column_simulation():
     # run simulation
     data = column_simulation(full_time, time_step, parameters)
 
-    assert data['time'].tolist() == pytest.approx([1200, 2400, 3600])
-    assert data['temperature'].tolist() == pytest.approx([41.487825, 43.581025, 48.334999])
-    assert data['yield'].tolist() == pytest.approx([129715.771538, 100205.750197, 46113.785397])
+    assert data.time.values.quantity.magnitude == pytest.approx([1200, 2400, 3600])
+    assert data.temperature.values.quantity.magnitude == pytest.approx([41.487825, 43.581025, 48.334999])
+    assert data['yield'].values.quantity.magnitude == pytest.approx([129715.771538, 100205.750197, 46113.785397])

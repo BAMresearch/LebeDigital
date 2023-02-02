@@ -1,5 +1,6 @@
 import fenics_concrete
 import pandas as pd
+import pint_pandas
 from lebedigital.unit_registry import ureg
 
 # setting up the problem
@@ -8,7 +9,7 @@ def column_simulation(time, dt, parameters, pv_output=False):
     # check/convert units...
     # TODO this needs to be moved to fenics concrete but for now this is ok.
     parameters["density"].ito('kg/m^3')
-    parameters["themal_cond"].ito('W/m/K')  # TODO double check units in simulation
+    parameters["themal_cond"].ito('W/m/K')
     parameters['vol_heat_cap'].ito('J/m^3/K')
     parameters["alpha_t"].ito('')
     parameters["alpha_0"].ito('')
@@ -21,8 +22,7 @@ def column_simulation(time, dt, parameters, pv_output=False):
     parameters["T_bc1"].ito('degree_Celsius')
     parameters["width"].ito('m')
     parameters["height"].ito('m')
-    parameters["Q_inf"].ito('J/m^3')  # TODO check why Q_inf and Q_pot are still implemented...
-    #parameters['Q_pot'].ito('J/kg')  # TODO check why Q_inf and Q_pot are still implemented...
+    parameters["Q_inf"].ito('J/m^3')
     parameters["B1"].ito('1/s')
     parameters["B2"].ito('')
     parameters["eta"].ito('')
@@ -43,12 +43,6 @@ def column_simulation(time, dt, parameters, pv_output=False):
     time = time.magnitude
     dt.ito('s')
     dt = dt.magnitude
-
-
-
-
-
-
 
     # simulation parameters
     parameters['mesh_density'] = 5
@@ -83,11 +77,10 @@ def column_simulation(time, dt, parameters, pv_output=False):
 
     print('Done!')
 
-    # Building DataFrame
-    df = pd.DataFrame(list(zip(problem.sensors['MaxYieldSensor'].time,
-                               problem.sensors['MaxTemperatureSensor'].data,
-                               problem.sensors['MaxYieldSensor'].data)),
-                      columns=['time', 'temperature', 'yield'])
+    # Building Pandas-Pint DataFrame
+    pint_df = pd.DataFrame({"time": pd.Series(problem.sensors['MaxYieldSensor'].time, dtype="pint[s]"),
+                       "temperature": pd.Series(problem.sensors['MaxTemperatureSensor'].data, dtype="pint[degree_Celsius]"),
+                       "yield": pd.Series(problem.sensors['MaxYieldSensor'].data, dtype='pint[]')})
 
-    # return lists with time steps, max temperature, max yield
-    return df
+    return pint_df
+

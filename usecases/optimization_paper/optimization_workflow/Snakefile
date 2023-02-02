@@ -1,6 +1,7 @@
-import fenics_concrete
-#sys.path.insert(0,'../../..')
+import fenics_concrete  # somehow required...
 from lebedigital.unit_registry import ureg
+import pint_pandas
+import pandas as pd
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
 
@@ -43,16 +44,29 @@ def write_pint_dict(dict,path):
     dict=from_pint_object_2_dict(dict)
     with open(path,"w") as f:
         f.write(json.dumps(dict, indent=4))
+#
+def write_pint_df(pint_df,path):
+    pint_df.pint.dequantify().to_csv(path, index=None)
+
+def read_pint_df(path):
+    pint_df = pd.read_csv(path, header=[0, 1])
+    return pint_df.pint.quantify(level=-1)
+#
+#
+#
+#
+#     # dict=from_pint_object_2_dict(dict)
+#     # with open(path,"w") as f:
+#     #     f.write(json.dumps(dict, indent=4))
 
 
 # this rule collects all overall targets.
-# an output musst be an imput to be computed
+# an output must be an input to be computed
 rule workflow_targets:
     input:
- #       "snakemake_optimization_graph.pdf",
         "Results/gwp_beam.json",
         "Results/beam_design.json",
-        "Results/fem_model.json"
+        "Results/fem_model.csv"
 
 
 # TODO, add/write respective FEM model for beam...
@@ -68,12 +82,12 @@ rule fem_model:
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
 
     output:
-        results = "Results/fem_model.json"
+        pint_results = "Results/fem_model.csv"
 
     run:
         from lebedigital.simulation.precast_column import column_simulation
-        # TODO add missing parameters (constant for FEM)
 
+        # get parameters
         p = read_pint_dicts(input)
 
         # fixing name discrepancies from other rules or inputs
@@ -88,14 +102,11 @@ rule fem_model:
 
         results = {}
         # run script
-        # TODO fix this!!!
-        # output is apparently a dataframe
-        df_results =  column_simulation(p['full_time'], p['time_step'],p)
+        # output is a pandas-pint dataframe
+        df_pint =  column_simulation(p['full_time'], p['time_step'],p)
 
-        #write_pint_dict(results,output.results)
-
-        with open(output.results,"w") as f:
-            f.write(json.dumps(df_results,indent=4,default=lambda df: json.loads(df.to_json())))
+        # writing the data frame
+        write_pint_df(df_pint, output.pint_results)
 
 
 rule approx_max_doh:
@@ -325,12 +336,3 @@ rule homogenization:
         results = concrete_homogenization(p)
 
         write_pint_dict(results, output.results)
-
-#
-# rule generate_graph:
-#         input:
-#             'Snakefile'
-#         output:
-#             out= ("snakemake_optimization_graph.pdf")
-#         shell:
-#             """snakemake --forceall --dag | dot -Tpdf > snakemake_optimization_graph.pdf"""
