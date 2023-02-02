@@ -61,6 +61,12 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/
           doit
+
+      - name: run-optimization-workflow
+        shell: bash -l {0}
+        run: |
+          cd $GITHUB_WORKSPACE/usecases/optimization_paper/
+          snakemake -c 1
           
       - name: Archive optimization paper pdf
         uses: actions/upload-artifact@v3
