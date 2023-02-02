@@ -46,28 +46,27 @@ TEX_MACROS = [py_macros_file, tex_macros_file]
 with open(py_macros_file.with_suffix('.yaml')) as f:
     data = yaml.load(f, Loader=yaml.SafeLoader)
 
-
 # workflow graph
 workflow_graph_dir = "workflow_graph"
 workflow_graph_name = data['file_names']['workflowGraph']  # name of output pdf file as defined in macros yaml
 workflow_graph_script = ROOT / workflow_graph_dir / 'paper_workflow_graph.py'
 workflow_output_file = ROOT / figures_dir / workflow_graph_name
 
-
-def task_build_snakemake_dag():
-    """build snakemake optimization workflow graph"""
-    output_file_name = data['file_names']['snakemakeGraph']  # name of output pdf file as defined in macros yaml
-    snakemake_dir = 'optimization_workflow'
-    snakefile = ROOT / snakemake_dir / 'Snakefile'
-
-    target = paper_plot_target(output_file_name)
-
-    return {
-        "file_dep": [snakefile],
-        "actions": [CmdAction(f'cd {snakemake_dir} && snakemake --forceall --dag | dot -Tpdf > {target}')],
-        "targets": [target],
-        "clean": True,
-    }
+#
+# def task_build_snakemake_dag():
+#     """build snakemake optimization workflow graph"""
+#     output_file_name = data['file_names']['snakemakeGraph']  # name of output pdf file as defined in macros yaml
+#     snakemake_dir = 'optimization_workflow'
+#     snakefile = ROOT / snakemake_dir / 'Snakefile'
+#
+#     target = paper_plot_target(output_file_name)
+#
+#     return {
+#         "file_dep": [snakefile],
+#         "actions": [CmdAction(f'cd {snakemake_dir} && snakemake --forceall --dag | dot -Tpdf > {target}')],
+#         "targets": [target],
+#         "clean": True,
+#     }
 
 
 def task_build_graph():
