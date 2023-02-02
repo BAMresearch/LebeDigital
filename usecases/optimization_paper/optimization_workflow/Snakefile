@@ -49,7 +49,7 @@ def write_pint_dict(dict,path):
 # an output musst be an imput to be computed
 rule workflow_targets:
     input:
-        "snakemake_optimization_graph.pdf",
+ #       "snakemake_optimization_graph.pdf",
         "Results/gwp_beam.json",
         "Results/beam_design.json",
         "Results/fem_model.json"
@@ -326,11 +326,11 @@ rule homogenization:
 
         write_pint_dict(results, output.results)
 
-
-rule generate_graph:
-        input:
-            'Snakefile'
-        output:
-            out= ("snakemake_optimization_graph.pdf")
-        shell:
-            """snakemake --forceall --dag | dot -Tpdf > snakemake_optimization_graph.pdf"""
+#
+# rule generate_graph:
+#         input:
+#             'Snakefile'
+#         output:
+#             out= ("snakemake_optimization_graph.pdf")
+#         shell:
+#             """snakemake --forceall --dag | dot -Tpdf > snakemake_optimization_graph.pdf"""
