@@ -1,11 +1,6 @@
 import fenics_concrete
 #sys.path.insert(0,'../../..')
 from lebedigital.unit_registry import ureg
-# IMPORTANT!
-# Constant parameters for each subprocess are defined in the "Inputs/Constant_parameters.json" file
-# The "Lebedigital_SUPERDICTIONARY.json" stores every input parameter and result for each sub-process
-# The temporal files are individual files containing the output of each rule, their content is also stored in the SUPERDICTIONARY. THey are used to build the programs DAG
-
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
 
@@ -64,7 +59,9 @@ rule workflow_targets:
 rule fem_model:
     input:
         script = PATH_TO_SCRIPTS + 'simulation/precast_column.py',
-        parameters = "Inputs/constant_parameters.json",
+        geometry = "Inputs/geometry.json",
+        fem_control = "Inputs/fem_control.json",
+        fem_parameters = "Inputs/fem_parameters.json",
         results_homogenization = "Results/homogenization.json",
         results_approx_max_doh = "Results/approx_max_doh.json",
         results_approx_tensile_strength = "Results/approx_tensile_strength.json",
@@ -89,10 +86,6 @@ rule fem_model:
         p['alpha_max'] = p.pop('max_degree_of_hydration')
         p['ft_inf'] = p.pop('concrete_ft')
 
-
-
-
-
         results = {}
         # run script
         # TODO fix this!!!
@@ -105,13 +98,10 @@ rule fem_model:
             f.write(json.dumps(df_results,indent=4,default=lambda df: json.loads(df.to_json())))
 
 
-
-
-
 rule approx_max_doh:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/approximate_max_degree_of_hydration.py',
-        wb_ratio = 'Inputs/Variable/wb_ratio.json'
+        wb_ratio = 'Inputs/wb_ratio.json'
 
     output:
         results = "Results/approx_max_doh.json"
@@ -131,7 +121,7 @@ rule approx_max_doh:
 
 rule approx_tensile_strength:
     input:
-        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/approximate_tensile_strength.py',
         results_homogenization = "Results/homogenization.json",
 
     output:
@@ -150,12 +140,12 @@ rule approx_tensile_strength:
         write_pint_dict(results,output.results)
 
 
-
-
 rule beam_design:
     input:
-        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
-        parameters = "Inputs/constant_parameters.json",
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/beam_design.py',
+        geometry = "Inputs/geometry.json",
+        beam_design = "Inputs/beam_design.json",
+        loads = "Inputs/loads.json",
         results_homogenization = "Results/homogenization.json",
 
     output:
@@ -187,7 +177,7 @@ rule beam_design:
 rule gwp_beam:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
-        parameters = "Inputs/constant_parameters.json",
+        geometry = "Inputs/geometry.json",
         results_gwp_mix = "Results/gwp_mix.json",
 
     output:
@@ -199,7 +189,6 @@ rule gwp_beam:
 
         p = read_pint_dicts(input)
 
-
         results = {}
         # run script
         results["gwp_mix"] = computation_GWP_per_part(p['gwp_mix'], p['width'], p['height'], p['length'])
@@ -210,7 +199,7 @@ rule gwp_beam:
 rule gwp_mix:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_mix.py',
-        parameters = "Inputs/constant_parameters.json",
+        material_properties = "Inputs/material_properties.json",
         results_mix_volume_contents = 'Results/mix_volume_contents.json',
 
     output:
@@ -234,13 +223,13 @@ rule gwp_mix:
         write_pint_dict(results,output.results)
 
 
-
 rule approx_paste_properties:
     # the stiffness and strength of the cement paste is estimated and interpolated
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
-        parameters = "Inputs/constant_parameters.json",
-        slag_ratio = "Inputs/Variable/slag_ratio.json"
+        slag_ratio = "Inputs/slag_ratio.json",
+        sc_fraction = "Inputs/sc_fraction.json",
+        phi_paste = "Inputs/phi_paste.json"
 
     output:
         results = "Results/approx_paste_properties.json"
@@ -262,8 +251,9 @@ rule approx_hydration_parameters:
     # the hydration parameters are approximated based on slag content
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
-        parameters = 'Inputs/constant_parameters.json',
-        slag_ratio = 'Inputs/Variable/slag_ratio.json'
+        slag_ratio = 'Inputs/slag_ratio.json',
+        sc_fraction = "Inputs/sc_fraction.json",
+        phi_hydration = 'Inputs/phi_hydration.json'
 
     output:
         results = 'Results/approx_hydration_parameters.json'
@@ -286,9 +276,11 @@ rule approx_hydration_parameters:
 rule mix_volume_contents:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_volume_content.py',
-        parameters = 'Inputs/constant_parameters.json',
-        slag_ratio = 'Inputs/Variable/slag_ratio.json',
-        wb_ratio = 'Inputs/Variable/wb_ratio.json',
+        material_properties = "Inputs/material_properties.json",
+        slag_ratio = 'Inputs/slag_ratio.json',
+        aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
+        sc_fraction = "Inputs/sc_fraction.json",
+        wb_ratio = 'Inputs/wb_ratio.json',
 
 
     output:
@@ -310,8 +302,9 @@ rule mix_volume_contents:
 rule homogenization:
     input:
         script = PATH_TO_SCRIPTS + 'simulation/concrete_homogenization.py',
-        parameters = 'Inputs/constant_parameters.json',
+        material_properties = "Inputs/material_properties.json",
         results_mix_volume_contents = 'Results/mix_volume_contents.json',
+        aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json',
         results_approx_paste_properties = 'Results/approx_paste_properties.json',
 

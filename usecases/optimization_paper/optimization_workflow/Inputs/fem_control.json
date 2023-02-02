@@ -1,0 +1,10 @@
+{
+    "full_time" :{
+      "value":3600,
+      "unit":"s"
+    },
+    "time_step" : {
+      "value":1200,
+      "unit":"s"
+    }
+}

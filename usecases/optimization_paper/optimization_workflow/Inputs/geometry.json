@@ -1,0 +1,14 @@
+{
+   "width": {
+     "value" : 0.6,
+     "unit" : "m"
+   },
+   "length": {
+     "value" : 8,
+     "unit" : "m"
+   },
+   "height": {
+     "value" : 1,
+     "unit" : "m"
+   }
+}
