@@ -159,4 +159,12 @@ usecases/optimization_paper/tex/optimization_paper.pdf
 usecases/optimization_paper/figures/*
 usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
 
+# ignore workflow outputs
+usecases/optimization_paper/optimization_workflow/Results/*
+**/.snakemake/*
+
+
+
+
+
 

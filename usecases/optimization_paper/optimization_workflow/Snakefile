@@ -15,7 +15,9 @@ def from_dict_2_pint_object(dictionary):
     new_dict_pint={}
     for key in dictionary.keys():
         if dictionary[key]['unit'] == 'degree_Celsius':
-            # TODO: write a usefull code to read temperature!!!
+            # somehow temperature is different...
+            Q_ = ureg.Quantity
+            new_dict_pint[key] = Q_(dictionary[key]['value'],ureg.degC)
             continue
         new_dict_pint[key] = dictionary[key]['value'] * ureg(dictionary[key]['unit'])
     return new_dict_pint
@@ -28,6 +30,7 @@ def read_pint_dicts(input):
         # maybe this has to change at some point...
         if path[-5:] == '.json':
             with open(path) as f:
+                # TODO implement check so that parameters are not overwritten
                 dict.update(json.loads(f.read()))
 
     return from_dict_2_pint_object(dict)
@@ -54,8 +57,7 @@ rule workflow_targets:
         "snakemake_optimization_graph.pdf",
         "Results/gwp_beam.json",
         "Results/beam_design.json",
-        "Results/approx_tensile_strength.json",
-        "Results/approx_max_doh.json"
+        "Results/fem_model.json"
 
 
 # TODO, add/write respective FEM model for beam...
@@ -64,12 +66,12 @@ rule fem_model:
         script = PATH_TO_SCRIPTS + 'simulation/precast_column.py',
         parameters = "Inputs/constant_parameters.json",
         results_homogenization = "Results/homogenization.json",
-        results_approx_max_doh = "Results/approx_max_doh.json"
-        results_approx_tensile_strength = "Results/approx_tensile_strength.json"
+        results_approx_max_doh = "Results/approx_max_doh.json",
+        results_approx_tensile_strength = "Results/approx_tensile_strength.json",
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
 
     output:
-        results = "Results/approx_max_doh.json"
+        results = "Results/fem_model.json"
 
     run:
         from lebedigital.simulation.precast_column import column_simulation
@@ -77,13 +79,30 @@ rule fem_model:
 
         p = read_pint_dicts(input)
 
+        # fixing name discrepancies from other rules or inputs
+        p['E_28'] = p.pop('E')
+        p['fc_inf'] = p.pop('fc')
+        p['vol_heat_cap'] = p.pop('C')
+        p['density'] = p.pop('rho')
+        p['themal_cond'] = p.pop('kappa')
+        p['Q_inf'] = p.pop('Q')
+        p['alpha_max'] = p.pop('max_degree_of_hydration')
+        p['ft_inf'] = p.pop('concrete_ft')
+
+
+
+
+
         results = {}
         # run script
         # TODO fix this!!!
         # output is apparently a dataframe
-        results["something...???"] =  column_simulation(something)
+        df_results =  column_simulation(p['full_time'], p['time_step'],p)
 
-        write_pint_dict(results,output.results)
+        #write_pint_dict(results,output.results)
+
+        with open(output.results,"w") as f:
+            f.write(json.dumps(df_results,indent=4,default=lambda df: json.loads(df.to_json())))
 
 
 
@@ -316,6 +335,8 @@ rule homogenization:
 
 
 rule generate_graph:
+        input:
+            'Snakefile'
         output:
             out= ("snakemake_optimization_graph.pdf")
         shell:

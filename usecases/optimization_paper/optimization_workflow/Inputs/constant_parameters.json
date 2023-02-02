@@ -1,4 +1,44 @@
 {
+    "alpha_t":{
+      "value":0.2,
+      "unit":"dimensionless"
+    },
+    "alpha_0":{
+      "value":0.05,
+      "unit":"dimensionless"
+    },
+    "a_E":{
+      "value":0.6,
+      "unit":"dimensionless"
+    },
+    "fc_inf":{
+      "value":30e6,
+      "unit":"dimensionless"
+    },
+    "a_fc":{
+      "value":0.4,
+      "unit":"dimensionless"
+    },
+    "a_ft":{
+      "value":1.2,
+      "unit":"dimensionless"
+    },
+    "T_0":{
+      "value":40,
+      "unit":"degree_Celsius"
+    } ,
+    "T_bc1":{
+      "value":20,
+      "unit":"degree_Celsius"
+    },
+    "full_time" :{
+      "value":3600,
+      "unit":"s"
+    },
+    "time_step" : {
+      "value":1200,
+      "unit":"s"
+    },
    "concrete_cover": {
     "value" : 2.5,
      "unit" : "cm"
@@ -85,7 +125,7 @@
     },
     "paste_C" :{
       "value":870,
-      "unit":"J/kg"
+      "unit":"J/kg/K"
     },
     "paste_kappa" :{
       "value":1.8,
@@ -101,7 +141,7 @@
     },
     "aggregates_C" :{
       "value":840,
-      "unit":"J/kg"
+      "unit":"J/kg/K"
     },
     "aggregates_kappa" :{
       "value":0.8,

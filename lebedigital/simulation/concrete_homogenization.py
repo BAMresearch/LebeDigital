@@ -43,12 +43,12 @@ def concrete_homogenization(parameters):
     parameters['paste_fc'].ito('Pa')
     parameters['paste_kappa'].ito('W/m/K')
     parameters['paste_rho'].ito('kg/m^3')
-    parameters['paste_C'].ito('J/kg')
+    parameters['paste_C'].ito('J/kg/K')
     parameters['paste_Q'].ito('J/kg')
     parameters['aggregates_E'].ito('Pa')
     parameters['aggregates_kappa'].ito('W/m/K')
     parameters['aggregates_rho'].ito('kg/m^3')
-    parameters['aggregates_C'].ito('J/kg')
+    parameters['aggregates_C'].ito('J/kg/K')
 
     # initialize concrete paste
     concrete = fenics_concrete.ConcreteHomogenization(E_matrix=parameters['paste_E'].magnitude,
@@ -71,7 +71,7 @@ def concrete_homogenization(parameters):
     results = {'E': concrete.E_eff * ureg('Pa'),
                'nu': concrete.nu_eff * ureg('dimensionless'),
                'fc': concrete.fc_eff * ureg('Pa'),
-               'C': concrete.C_vol_eff * ureg('J/m^3'),
+               'C': concrete.C_vol_eff * ureg('J/m^3/K'),
                'rho': concrete.rho_eff * ureg('kg/m^3'),
                'kappa': concrete.kappa_eff * ureg('W/m/K'),
                'Q': concrete.Q_vol_eff * ureg('J/m^3')}
