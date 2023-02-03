@@ -1,6 +1,7 @@
 import fenics_concrete  # somehow required...
 from lebedigital.unit_registry import ureg
 import pint_pandas
+import pint
 import pandas as pd
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
@@ -50,6 +51,7 @@ def write_pint_df(pint_df,path):
 
 def read_pint_df(path):
     pint_df = pd.read_csv(path, header=[0, 1])
+    pint.set_application_registry(ureg)  # required to use the same registry
     return pint_df.pint.quantify(level=-1)
 #
 #
@@ -66,7 +68,28 @@ rule workflow_targets:
     input:
         "Results/gwp_beam.json",
         "Results/beam_design.json",
-        "Results/fem_model.csv"
+        "Results/kpi_from_fem.json"
+
+
+rule kpi_from_fem:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/kpi_from_fem.py',
+        temperature_limit = "Inputs/temperature_limit.json",
+        fem_model = "Results/fem_model.csv",
+
+    output:
+        results = "Results/kpi_from_fem.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.kpi_from_fem import kpi_from_fem
+        p = read_pint_dicts(input)
+        df = read_pint_df(input.fem_model)
+
+
+        # run script
+        results = kpi_from_fem(df,p['temperature_limit'])
+
+        write_pint_dict(results,output.results)
 
 
 # TODO, add/write respective FEM model for beam...

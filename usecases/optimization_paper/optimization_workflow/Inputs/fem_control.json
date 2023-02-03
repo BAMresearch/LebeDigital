@@ -1,10 +1,10 @@
 {
     "full_time" :{
-      "value":3600,
-      "unit":"s"
+      "value":15,
+      "unit":"h"
     },
     "time_step" : {
-      "value":1200,
-      "unit":"s"
+      "value":20,
+      "unit":"min"
     }
 }

@@ -20,11 +20,11 @@
       "unit":"dimensionless"
     },
     "T_0":{
-      "value":40,
+      "value":10,
       "unit":"degree_Celsius"
     } ,
     "T_bc1":{
-      "value":20,
+      "value":15,
       "unit":"degree_Celsius"
     }
 }
