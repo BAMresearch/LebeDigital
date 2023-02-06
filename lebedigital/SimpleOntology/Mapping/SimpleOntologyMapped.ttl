@@ -12,22 +12,22 @@ ns1: a owl:Ontology ;
 ns2:Probe_Probe1 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe1 ;
-    ns2:has_diametre ns2:Diametre_Probe1 ;
-    ns2:has_lenght ns2:Lenght_Probe1 ;
+    ns2:has_diametre ns2:Diameter_Probe1 ;
+    ns2:has_lenght ns2:Length_Probe1 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:Probe_Probe2 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe2 ;
-    ns2:has_diametre ns2:Diametre_Probe2 ;
-    ns2:has_lenght ns2:Lenght_Probe2 ;
+    ns2:has_diametre ns2:Diameter_Probe2 ;
+    ns2:has_lenght ns2:Length_Probe2 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:Probe_Probe3 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe3 ;
-    ns2:has_diametre ns2:Diametre_Probe3 ;
-    ns2:has_lenght ns2:Lenght_Probe3 ;
+    ns2:has_diametre ns2:Diameter_Probe3 ;
+    ns2:has_lenght ns2:Length_Probe3 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:has_ID a owl:ObjectProperty .
@@ -55,15 +55,15 @@ ns2:Cylindrical a ns2:Shape,
 ns2:Cylindrical a ns2:Shape,
         owl:NamedIndividual .
 
-ns2:Diametre_Probe1 a ns2:Diametre,
+ns2:Diameter_Probe1 a ns2:Diameter,
         owl:NamedIndividual ;
     ns2:has_value "6.7"^^xsd:float .
 
-ns2:Diametre_Probe2 a ns2:Diametre,
+ns2:Diameter_Probe2 a ns2:Diameter,
         owl:NamedIndividual ;
     ns2:has_value "6.9"^^xsd:float .
 
-ns2:Diametre_Probe3 a ns2:Diametre,
+ns2:Diameter_Probe3 a ns2:Diameter,
         owl:NamedIndividual ;
     ns2:has_value "8.3"^^xsd:float .
 
@@ -79,23 +79,23 @@ ns2:ID_Probe3 a ns2:NonNameIdentifier,
         owl:NamedIndividual ;
     ns2:has_text_value "JDKIG9J"^^xsd:string .
 
-ns2:Lenght_Probe1 a ns2:Lenght,
+ns2:Length_Probe1 a ns2:Length,
         owl:NamedIndividual ;
     ns2:has_value "15.8"^^xsd:float .
 
-ns2:Lenght_Probe2 a ns2:Lenght,
+ns2:Length_Probe2 a ns2:Length,
         owl:NamedIndividual ;
     ns2:has_value "14.5"^^xsd:float .
 
-ns2:Lenght_Probe3 a ns2:Lenght,
+ns2:Length_Probe3 a ns2:Length,
         owl:NamedIndividual ;
     ns2:has_value "12.6"^^xsd:float .
 
 ns2:Artifact a owl:Class .
 
-ns2:Diametre a owl:Class .
+ns2:Diameter a owl:Class .
 
-ns2:Lenght a owl:Class .
+ns2:Length a owl:Class .
 
 ns2:NonNameIdentifier a owl:Class .
 
