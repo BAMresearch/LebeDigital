@@ -29,6 +29,10 @@ dependencies:
   - openpyxl
   - tectonic=0.8
   - pint
+  - pybis
+  - xlsxwriter
+  - termcolor
+  - sphinx
   - pip:
     - probeye==2.3.2
     - -e .
