@@ -1,5 +1,6 @@
 import logging
 import os
+from collections import defaultdict
 from pathlib import Path
 from typing import Any, Union
 
@@ -15,12 +16,12 @@ conv_dict = {
     int: 'INTEGER',
 }
 
+
 def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  emodul_directory_path: Union[Path, str],
                                  config: dict,
                                  default_props: dict,
                                  logging_path: Union[Path, str]):
-
     if config['runson'] == 'actions':
         _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
                          emodul_sample_type='RAN ON ACTIONS',
@@ -65,6 +66,7 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
 
     o.logout()
 
+
 def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
                        defaults_dict: dict) -> dict:
     union_dict = defaults_dict
@@ -84,6 +86,7 @@ def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None]
 
     return union_dict
 
+
 def _reformat_sample_dict(loaded_dict: dict):
     conv_dict = {
         str: 'VARCHAR',
@@ -100,6 +103,7 @@ def _reformat_sample_dict(loaded_dict: dict):
 
     return dict(output_dict)
 
+
 def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str],
                      logging_path: Union[Path, str]):
     with open(Path(logging_path, 'mixture_sample_type.yaml'), 'w') as file:
@@ -109,5 +113,3 @@ def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_
     with open(Path(logging_path, 'emodul_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
         print(emodul_sample_type, file=file)
-
-

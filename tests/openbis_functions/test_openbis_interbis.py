@@ -14,7 +14,7 @@ All tests which require an openBIS login are marked as login
 
 in order to specify which tests to skip these tests run the command
 
-pytest -m 'not login' OR pytest -m 'login' --login <usernamer> --password <password> in test folder
+pytest -m 'not login' OR pytest -m 'login' --login <username> --password <password> in test folder
 
 """
 
@@ -64,13 +64,13 @@ def setup(pytestconfig):
     # Create project and collection, if not there
     try:
         o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
-    except:
+    except ValueError:
         project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value, description="Test project")
         project_obj.save()
 
     try:
         o.get_collection(code=Constants.collection_id.value)
-    except:
+    except ValueError:
         collection_obj = o.new_collection(project=Constants.project.value, code=Constants.collection.value, type="COLLECTION")
         collection_obj.save()
 
