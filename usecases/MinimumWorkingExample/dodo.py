@@ -99,10 +99,10 @@ def task_extract_metadata_emodul():
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
-    else: # go through all files
-        list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
+    #if config['mode'] == 'cheap' or config['mode'] == 'single':
+    #    list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
+    #else: # go through all files
+    list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
     
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():

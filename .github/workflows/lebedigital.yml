@@ -61,7 +61,15 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/
           doit
-          
+
+      - name: Archive results of minimum working example
+        uses: actions/upload-artifact@v3
+        with:
+            name: minimum_working_example_results
+            path:  |
+              usecases/MinimumWorkingExample/emodul/
+              usecases/MinimumWorkingExample/mixture/
+
       - name: Archive optimization paper pdf
         uses: actions/upload-artifact@v3
         with:
