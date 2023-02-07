@@ -55,5 +55,6 @@ ns2:Length a owl:Class .
 
 ns2:NonNameIdentifier a owl:Class .
 
+
 ns2:Shape a owl:Class .
 
