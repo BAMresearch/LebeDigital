@@ -12,29 +12,29 @@ ns1: a owl:Ontology ;
 ns2:Probe_Probe1 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe1 ;
-    ns2:has_diametre ns2:Diameter_Probe1 ;
-    ns2:has_lenght ns2:Length_Probe1 ;
+    ns2:has_diameter ns2:Diameter_Probe1 ;
+    ns2:has_length ns2:Length_Probe1 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:Probe_Probe2 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe2 ;
-    ns2:has_diametre ns2:Diameter_Probe2 ;
-    ns2:has_lenght ns2:Length_Probe2 ;
+    ns2:has_diameter ns2:Diameter_Probe2 ;
+    ns2:has_length ns2:Length_Probe2 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:Probe_Probe3 a ns2:Artifact,
         owl:NamedIndividual ;
     ns2:has_ID ns2:ID_Probe3 ;
-    ns2:has_diametre ns2:Diameter_Probe3 ;
-    ns2:has_lenght ns2:Length_Probe3 ;
+    ns2:has_diameter ns2:Diameter_Probe3 ;
+    ns2:has_length ns2:Length_Probe3 ;
     ns2:has_shape ns2:Cylindrical .
 
 ns2:has_ID a owl:ObjectProperty .
 
-ns2:has_diametre a owl:ObjectProperty .
+ns2:has_diameter a owl:ObjectProperty .
 
-ns2:has_lenght a owl:ObjectProperty .
+ns2:has_length a owl:ObjectProperty .
 
 ns2:has_shape a owl:ObjectProperty .
 
