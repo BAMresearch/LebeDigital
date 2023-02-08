@@ -122,13 +122,13 @@ def placeholderreplacement(
 
 # defining paths : ONTOLOGY
 ontoDir = Path(__file__).parents[1]
-ontoFile = "SimpleOntology.ttl"
-ontoPath = os.path.join(ontoDir, 'SimpleOntology.ttl')
+ontoFile = "../usecases/SimpleOntology/SimpleOntology.ttl"
+ontoPath = os.path.join(ontoDir, ontoFile)
 
 # defining paths : METADATA
 dataDir = Path(__file__).parents[0]
-dataFile = "probe1.yaml"  # for now only working with this one, more later
+dataFile = "../../usecases/SimpleOntology/Mapping/probe1.yaml"  # for now only working with this one, more later
 dataPath = os.path.join(dataDir, dataFile)
 
-mappedOntoName = os.path.join(ontoDir, 'SimpleOntologyMappedProbe1.ttl')
+mappedOntoName = os.path.join(dataDir, '../../usecases/SimpleOntology/Mapping/SimpleOntologyMappedProbe1.ttl')
 placeholderreplacement(ontoPath, dataPath, mappedOntoName)
