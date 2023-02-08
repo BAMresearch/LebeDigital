@@ -55,8 +55,10 @@ def three_point_bending_example(E, nu):
 
 # example of how to use this function
 # defining the material parameters
-# E = 30000  # N/mm²
-# nu = 0.2
-# stress = three_point_bending_example(E, nu)
-# # resulting stress in x direction in the bottom center of the beam
-# print(stress)
+#E = 30000  # N/mm² 30072.79961482137
+#E = 30072.79961482137  # N/mm² # THis value returns -42. Something is wrong Erik!
+#E = 29845.17615926508 # This value seems to return 103
+#nu = 0.2
+#stress = three_point_bending_example(E, nu)
+# resulting stress in x direction in the bottom center of the beam
+#print(stress)

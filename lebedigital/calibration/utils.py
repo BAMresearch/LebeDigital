@@ -1,5 +1,5 @@
 ## -- TUM PKM --- atul.agrawal@tum.de--- ##
-
+import matplotlib.pyplot as plt
 import rdflib
 import pandas as pd
 import numpy as np
@@ -8,20 +8,20 @@ from pathlib import Path
 import sys
 
 baseDir1 = Path(__file__).resolve().parents[1]
-sys.path.append(os.path.join(os.path.join(baseDir1, 'knowledgeGraph'), 'emodul'))
-sys.path.append(os.path.join(baseDir1, 'Data'))
+sys.path.append(os.path.join(os.path.join(baseDir1, "knowledgeGraph"), "emodul"))
+sys.path.append(os.path.join(baseDir1, "Data"))
 
-#import emodul_query
 
-def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330, KG = False) -> dict:
+# import emodul_query
+
+
+def query_KG(path: str, exp_name: str, KG=False) -> dict:
     """
     Queries KG, the updated one done by Illias (I think from KG team). Lot of funky words as I dont know what they are.
     Returns:
     Args:
         path (): The location where all the KG files from the experiments are kept
         exp_name :
-        skip_last (): Last datavalues to skip as we only need the third loading cycle.
-        skip_init (): Initial datavalues to skip as we only need the third loading cycle.
         KG : TO indicate the KG needs to be querried or not.
     Returns:
 
@@ -32,6 +32,7 @@ def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330, KG = Fals
 
     """
     if KG:
+
         def query_objects(queries, graph):
             # function to get objects from specific subject, predicate pairs, knowing there is only one result
             results = {}
@@ -51,88 +52,68 @@ def query_KG(path: str,exp_name:str, skip_last = 145, skip_init = 330, KG = Fals
 
         # define queries
         queries = {
-            'diameter': {'subject': 'ns1:informationbearingentity1', 'predicate': 'ns1:has_decimal_value'},
-            'length': {'subject': 'ns1:informationbearingentity2', 'predicate': 'ns1:has_decimal_value'},
-            'path': {'subject': 'ns1:informationbearingentity9', 'predicate': 'ns9:has_text_value'},
-            'file_name': {'subject': 'ns1:informationbearingentity8', 'predicate': 'ns9:has_text_value'}
+            "diameter": {
+                "subject": "ns1:informationbearingentity1",
+                "predicate": "ns1:has_decimal_value",
+            },
+            "length": {
+                "subject": "ns1:informationbearingentity2",
+                "predicate": "ns1:has_decimal_value",
+            },
+            "path": {
+                "subject": "ns1:informationbearingentity9",
+                "predicate": "ns9:has_text_value",
+            },
+            "file_name": {
+                "subject": "ns1:informationbearingentity8",
+                "predicate": "ns9:has_text_value",
+            },
         }
 
         # Path to KG, for testing
-        #path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
+        # path_to_KG = '../../usecases/MinimumWorkingExample/emodul/knowledge_graphs/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.ttl'
 
         path_to_KG = os.path.join(path, exp_name)
         # initialize the graph
         knowledge_graph = rdflib.Graph()
-        knowledge_graph.parse(path_to_KG, format='ttl')
+        knowledge_graph.parse(path_to_KG, format="ttl")
 
         # queries
         results = query_objects(queries, knowledge_graph)
 
         # read csv into dataframe
-        file_path = results['path'] + '/' + results['file_name']
-    #skip_last = 145 # hard coded to get the third loading cycle. need somthing better
-    #skip_init = 330
-    if KG == False: # this is just for testing purposes
-        file_path = os.path.join(path,exp_name)
+        file_path = results["path"] + "/" + results["file_name"]
+    # skip_last = 145 # hard coded to get the third loading cycle. need somthing better
+    # skip_init = 330
+    if KG == False:  # this is just for testing purposes
+        file_path = os.path.join(path, exp_name)
         results = {}
-        results['length'] = 300.2
-        results['diameter'] = 98.6
-    df = pd.read_csv(file_path, skipfooter=skip_last, engine='python')
-    df = df.drop(labels=range(0, skip_init), axis=0)
-    df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
-    #df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
+        results["length"] = 300.2
+        results["diameter"] = 98.6
+    df = extract_third_load_cycle(data_path=file_path)
+    df["displacement"] = (
+        df["Transducer 1[mm]"] + df["Transducer 2[mm]"] + df["Transducer 3[mm]"]
+    ) / 3
+    # df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
 
     output = {
-        'exp_name': exp_name,
-        'height': float(results['length']),
-        'diameter': float(results['diameter']),
-        'displacement': np.array(df['displacement']),
-        'force': np.array(df['Force [kN]'])}
+        "exp_name": exp_name,
+        "height": float(results["length"]),
+        "diameter": float(results["diameter"]),
+        "displacement": np.array(df["displacement"]),
+        "force": np.array(df["Force [kN]"]),
+    }
     return output
 
-def load_experimental_data(exp_name, skip_init, skip_last, KG=False, path=None):
-    """
-    Function to interact with the knowledge graph database and get experimental data
-    # TODO : Clarify the units used. Now Force :kN, dispalcement : mm
-    Args:
-        skip_init (int): Initial datavalues to skip as we only need the third loading cycle.
-        skip_last (int): Last datavalues to skip as we only need the third loading cycle.
-        exp_name (string): The experiment name
-
-    Returns:
-        output (dict):
-            The experiment values with keys as 'height' (int), 'diameter' (int), 'displacement' (np.array), 'stress' (np.array)
-    """
-    if KG is True:
-        df = pd.read_csv(emodul_query.input_emodul_data_for_calibration(exp_name)['processedDataPath'],
-                         skipfooter=skip_last)
-    if KG is not True:  # manually passing the processed data path
-        df = pd.read_csv(path, skipfooter=skip_last)
-    df = df.drop(labels=range(0, skip_init), axis=0)
-
-    if KG is True:
-        dia = emodul_query.input_emodul_data_for_calibration(exp_name)['specimenDiameter']
-        height = emodul_query.input_emodul_data_for_calibration(exp_name)['specimenLength']
-    if KG is not True:
-        dia = 98.6
-        height = 300.2
-
-    df['displacement'] = (df['Transducer 1[mm]'] + df['Transducer 2[mm]'] + df['Transducer 3[mm]']) / 3
-    df['stress'] = df['Force [kN]'] / (np.pi * (dia / 2) ** 2)
-
-    output = {
-        'height': height,
-        'diameter': dia,
-        'displacement': np.array(df['displacement']),
-        'stress': np.array(df['stress'])}
-    return output
 
 class PosteriorPredictive:
     """
     Will be depricated when it is integrated in probeye
     """
 
-    def __init__(self, forward_solver, known_input_solver, parameter = None, query_kg = None):
+    def __init__(
+        self, forward_solver, known_input_solver, parameter=None, query_kg=None
+    ):
 
         """
         TODO: Add option to add point estimates of parameters if forward solver is expensive
@@ -156,8 +137,8 @@ class PosteriorPredictive:
             needed for the forward model
         """
 
-        #assert (parameter == np.array), "Parameter needs to be np.ndarray"
-        #assert parameter.shape[1] == 1, "Currently support only 1 parameter"
+        # assert (parameter == np.array), "Parameter needs to be np.ndarray"
+        # assert parameter.shape[1] == 1, "Currently support only 1 parameter"
 
         self._forward_solver = forward_solver
         if parameter is not None:
@@ -199,5 +180,58 @@ class PosteriorPredictive:
         return mean, sd
 
     def plot_posterior_predictive(self):
-        raise NotImplementedError(
-            "...")
+        raise NotImplementedError("...")
+
+
+def extract_third_load_cycle(
+    data_path: str, threshold=1, vizualize=False
+) -> pd.DataFrame:
+    """
+    Script to extract third loading cycle of the load-displacement curve for a given experiment data as a .csv file
+
+    Parameters
+    ----------
+    data_path : The path to the experimental data stored as a .csv file.
+    threshold : (not recommended to be modified)
+    vizualize : To viz. the original data and the extracted data
+    Returns
+    -------
+    data_third_loading : Dataframe containing the third loading cycle
+    """
+    # Load data from .csv file
+    data = pd.read_csv(data_path, skipfooter=5)
+
+    # Extract indices where there is a change in slope
+    slope_2 = np.diff(
+        data["Force [kN]"], n=2
+    )  # double diff to identify the sharp points
+    change_indices = np.where(np.abs(slope_2) > threshold)[0] + 2  # Finding the indices
+
+    ## drop the indices which are close together.
+    change_indices_filtered = []
+    tolerance = 8  # In hopes this will cover all the edge cases
+    for i, value in enumerate(change_indices):
+        if i == 0 or abs(value - change_indices[i - 1]) > tolerance:
+            change_indices_filtered.append(value)
+
+    # Select indices for the third loading cycle and update the data
+    idx = [
+        change_indices_filtered[-4],
+        change_indices_filtered[-3],
+    ]  # skipping the last two change in slopes
+    data_third_loading = data.loc[idx[0] : idx[1]]
+
+    # Plot and see the data
+    if vizualize:
+        # plot original data
+        plt.plot(data["Force [kN]"], "r", label="Original Data")
+        plt.plot(data_third_loading["Force [kN]"], "g", label="Third load cycle")
+        plt.legend()
+        plt.show()
+    return data_third_loading
+
+
+# testing
+#path_data = "/home/atul_0711/Documents/PhD_Tasks/LeBeDigital/Codes/ModelCalibration/ModelCalibration/usecases/MinimumWorkingExample/emodul/processed_data/Wolf 8.2 Probe 1.csv"
+
+#tmp = extract_third_load_cycle(path_data, threshold=0.5, vizualize=True)
