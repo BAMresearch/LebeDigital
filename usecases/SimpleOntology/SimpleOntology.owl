@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/mkrueger/ontologies/2023/0/untitled-ontology-26#"
+     xml:base="http://www.semanticweb.org/mkrueger/ontologies/2023/0/untitled-ontology-26"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/mkrueger/ontologies/2023/0/untitled-ontology-26"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete/has_ID -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_ID">
+        <owl:inverseOf rdf:resource="http://w3id.org/concrete/is_ID_of"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/concrete/has_diameter -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_diameter"/>
+    
+
+
+    <!-- http://w3id.org/concrete/has_length -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_length">
+        <owl:inverseOf rdf:resource="http://w3id.org/concrete/is_length_of"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/concrete/has_shape -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/has_shape">
+        <owl:inverseOf rdf:resource="http://w3id.org/concrete/is_shape_of"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://w3id.org/concrete/is_ID_of -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/is_ID_of"/>
+    
+
+
+    <!-- http://w3id.org/concrete/is_length_of -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/is_length_of"/>
+    
+
+
+    <!-- http://w3id.org/concrete/is_shape_of -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete/is_shape_of"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete/has_text_value -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/concrete/has_text_value"/>
+    
+
+
+    <!-- http://w3id.org/concrete/has_value -->
+
+    <owl:DatatypeProperty rdf:about="http://w3id.org/concrete/has_value"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete/Artifact -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete/Artifact"/>
+    
+
+
+    <!-- http://w3id.org/concrete/Diameter -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete/Diameter"/>
+    
+
+
+    <!-- http://w3id.org/concrete/Length -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete/Length"/>
+    
+
+
+    <!-- http://w3id.org/concrete/NonNameIdentifier -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete/NonNameIdentifier"/>
+    
+
+
+    <!-- http://w3id.org/concrete/Shape -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete/Shape"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete/Cylindrical -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Cylindrical">
+        <rdf:type rdf:resource="http://w3id.org/concrete/Shape"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete/Diameter_ -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Diameter_">
+        <rdf:type rdf:resource="http://w3id.org/concrete/Diameter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete/ID_ -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/ID_">
+        <rdf:type rdf:resource="http://w3id.org/concrete/NonNameIdentifier"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete/Length_ -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Length_">
+        <rdf:type rdf:resource="http://w3id.org/concrete/Length"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete/Probe_ -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete/Probe_">
+        <rdf:type rdf:resource="http://w3id.org/concrete/Artifact"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
