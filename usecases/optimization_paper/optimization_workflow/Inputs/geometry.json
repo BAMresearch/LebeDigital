@@ -4,11 +4,11 @@
      "unit" : "m"
    },
    "length": {
-     "value" : 8,
+     "value" : 10,
      "unit" : "m"
    },
    "height": {
-     "value" : 1,
-     "unit" : "m"
+     "value" : 500,
+     "unit" : "mm"
    }
 }

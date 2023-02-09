@@ -97,6 +97,7 @@ rule fem_model:
     input:
         script = PATH_TO_SCRIPTS + 'simulation/precast_column.py',
         geometry = "Inputs/geometry.json",
+        steel_yield = 'Inputs/steel_yield.json',
         fem_control = "Inputs/fem_control.json",
         fem_parameters = "Inputs/fem_parameters.json",
         results_homogenization = "Results/homogenization.json",
@@ -105,10 +106,11 @@ rule fem_model:
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
 
     output:
-        pint_results = "Results/fem_model.csv"
+        pint_results = "Results/fem_model.csv",
+        paraview = 'Results/demonstrator_beam.xdmf'
 
     run:
-        from lebedigital.simulation.precast_column import column_simulation
+        from lebedigital.simulation.demonstrator_beam import demonstrator_beam
 
         # get parameters
         p = read_pint_dicts(input)
@@ -121,12 +123,13 @@ rule fem_model:
         p['themal_cond'] = p.pop('kappa')
         p['Q_inf'] = p.pop('Q')
         p['alpha_max'] = p.pop('max_degree_of_hydration')
-        p['ft_inf'] = p.pop('concrete_ft')
+        p['ft_inf'] = p.pop('steel_yield')  # setting the tensile yield to steel as a test, only used in yield fct
 
         results = {}
         # run script
         # output is a pandas-pint dataframe
-        df_pint =  column_simulation(p['full_time'], p['time_step'],p)
+        df_pint =  demonstrator_beam(p['full_time'], p['time_step'],p,
+                                     pv_output=True, pv_name='Results/demonstrator_beam')
 
         # writing the data frame
         write_pint_df(df_pint, output.pint_results)
@@ -178,6 +181,7 @@ rule beam_design:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/beam_design.py',
         geometry = "Inputs/geometry.json",
+        steel_yield = 'Inputs/steel_yield.json',
         beam_design = "Inputs/beam_design.json",
         loads = "Inputs/loads.json",
         results_homogenization = "Results/homogenization.json",

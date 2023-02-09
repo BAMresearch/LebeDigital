@@ -4,7 +4,7 @@ import pint_pandas
 from lebedigital.unit_registry import ureg
 
 # setting up the problem
-def column_simulation(time, dt, parameters, pv_output=False):
+def column_simulation(time, dt, parameters, pv_output=False, pv_name='column_simulation'):
 
     # check/convert units...
     # TODO this needs to be moved to fenics concrete but for now this is ok.
@@ -52,7 +52,7 @@ def column_simulation(time, dt, parameters, pv_output=False):
     parameters['bc_setting'] = 'full'  # default boundary setting
 
     experiment = fenics_concrete.ConcreteColumnExperiment(parameters)
-    problem = fenics_concrete.ConcreteThermoMechanical(experiment, parameters)
+    problem = fenics_concrete.ConcreteThermoMechanical(experiment, parameters,pv_name=pv_name)
 
     problem.add_sensor(fenics_concrete.sensors.MaxYieldSensor())
     problem.add_sensor(fenics_concrete.sensors.MaxTemperatureSensor())

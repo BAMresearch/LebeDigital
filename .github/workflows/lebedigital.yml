@@ -72,11 +72,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
             name: optimization_paper
-            path: usecases/optimization_paper/tex/optimization_paper.pdf
+            path: |
+              usecases/optimization_paper/tex/optimization_paper.pdf
+              usecases/optimization_paper/figures/
+              usecases/optimization_paper/optimization_workflow/Results
             
-      - name: Archive optimization figures
-        uses: actions/upload-artifact@v3
-        with:
-            name: optimization_figures
-            path: usecases/optimization_paper/figures/
           

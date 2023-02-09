@@ -10,9 +10,5 @@
    "reinforcement_diameter": {
     "value" : 12,
      "unit" : "mm"
-   },
-   "steel_yield": {
-     "value" : 500,
-     "unit" : "N/mm^2"
    }
 }
