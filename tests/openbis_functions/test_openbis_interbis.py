@@ -1,6 +1,7 @@
 import os
 import random
 import string
+from datetime import datetime, timedelta
 from enum import Enum
 
 import pandas as pd
@@ -84,6 +85,8 @@ def setup(pytestconfig):
 
     sample.set_props({
         '$name': Constants.testing_sample_name.value,
+        'start_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'end_date': (datetime.now() + timedelta(hours=2)).strftime("%Y-%m-%d %H:%M:%S"),
         'experimental_step.experimental_goals': 'Testing',
         'experimental_step.experimental_description': 'Also testing',
     })

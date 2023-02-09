@@ -36,7 +36,7 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     mix_union_dict = _create_union_yaml(
         yaml_directory_path=Path(mixture_directory_path),
         output_path=None,
-        mixture_code=config['mixture_prefix'],
+        mixture_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
         defaults_dict=default_props)
 
     mixture_sample_type = o.create_sample_type(
@@ -50,7 +50,7 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
 
     # CREATING EMODUL SAMPLE TYPE from single yaml (all equal)
     emodul_metadata = _read_metadata(metadata_path, f"EXPERIMENTAL_STEP_{config['emodul_prefix']}", default_props)
-    emodul_metadata_type_dict = _reformat_sample_dict(emodul_metadata)
+    emodul_metadata_type_dict = _reformat_sample_dict(loaded_dict=emodul_metadata, defaults_dict=default_props)
 
     # Creating the emodul sample type with the formatted dict
     emodul_sample_type = o.create_sample_type(
@@ -87,19 +87,24 @@ def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None]
     return union_dict
 
 
-def _reformat_sample_dict(loaded_dict: dict):
+def _reformat_sample_dict(loaded_dict: dict, defaults_dict: dict):
     conv_dict = {
         str: 'VARCHAR',
         float: 'REAL',
         int: 'INTEGER',
     }
 
-    output_dict = defaultdict(lambda: ["NA", "NA", "NA"])
-    # output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
+    #output_dict = defaultdict(lambda: ["NA", "NA", "NA"])
+    #output_dict['$name'] = ['VARCHAR', 'Name', 'Name']
+    output_dict = defaults_dict # default properties
 
     for key, val in loaded_dict.items():
         val = "" if val is None else val
-        output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
+        if key not in output_dict.keys():
+            output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
+
+    # print('CHECK',output_dict)
+    # input()
 
     return dict(output_dict)
 

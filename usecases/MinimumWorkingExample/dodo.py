@@ -52,7 +52,7 @@ openbis_config = {
 }
 
 # default properties for openbis
-defaults_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
+defaults_dict = {"operator_date": ["TIMESTAMP", "operator_date", "operator_date"],
                  "tester_name": ["VARCHAR", "tester_name", "tester_name"],
                  "$name": ["VARCHAR", "Name", "Name"]}
 
