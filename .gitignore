@@ -159,10 +159,12 @@ usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
 usecases/optimization_paper/optimization_workflow/Results/*
 **/.snakemake/*
 
-
-
-
-
+# tex temp
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
 
 
 # openbis upload log file

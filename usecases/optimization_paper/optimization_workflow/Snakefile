@@ -53,22 +53,16 @@ def read_pint_df(path):
     pint_df = pd.read_csv(path, header=[0, 1])
     pint.set_application_registry(ureg)  # required to use the same registry
     return pint_df.pint.quantify(level=-1)
-#
-#
-#
-#
-#     # dict=from_pint_object_2_dict(dict)
-#     # with open(path,"w") as f:
-#     #     f.write(json.dumps(dict, indent=4))
-
 
 # this rule collects all overall targets.
 # an output must be an input to be computed
+# the alternative is to define them in the console cmmand, which is suboptimal
 rule workflow_targets:
     input:
         "Results/gwp_beam.json",
         "Results/beam_design.json",
-        "Results/kpi_from_fem.json"
+        "Results/kpi_from_fem.json",
+        'Results/demonstrator_beam.xdmf'
 
 
 rule kpi_from_fem:
@@ -102,7 +96,6 @@ rule fem_model:
         fem_parameters = "Inputs/fem_parameters.json",
         results_homogenization = "Results/homogenization.json",
         results_approx_max_doh = "Results/approx_max_doh.json",
-        results_approx_tensile_strength = "Results/approx_tensile_strength.json",
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
 
     output:
