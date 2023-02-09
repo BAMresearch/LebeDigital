@@ -1,6 +1,4 @@
-import pytest
-
-from lebedigital.SimpleOntology.simple_mapping import placeholderreplacement
+from lebedigital.mapping.simple_mapping import placeholderreplacement
 def test_simple_mapping ():
     print("S T A R T - T E S T I N G")
 
