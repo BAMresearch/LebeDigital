@@ -48,7 +48,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation
+          pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation -m "not login"
 
       - name: run-minimum-working-example
         shell: bash -l {0}
@@ -68,6 +68,14 @@ jobs:
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/
           doit
 
+      - name: Archive results of minimum working example
+        uses: actions/upload-artifact@v3
+        with:
+            name: minimum_working_example_results
+            path:  |
+              usecases/MinimumWorkingExample/emodul/
+              usecases/MinimumWorkingExample/mixture/
+
       - name: Archive optimization paper pdf
         uses: actions/upload-artifact@v3
         with:
@@ -76,5 +84,4 @@ jobs:
               usecases/optimization_paper/tex/optimization_paper.pdf
               usecases/optimization_paper/figures/
               usecases/optimization_paper/optimization_workflow/Results
-            
-          
+              

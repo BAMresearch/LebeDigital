@@ -31,7 +31,10 @@ dependencies:
   - pint
   - pint-pandas
   - snakemake
-  - pip
+  - pybis
+  - xlsxwriter
+  - termcolor
+  - sphinx
   - pip:
     - probeye==2.3.2
     - -e .
