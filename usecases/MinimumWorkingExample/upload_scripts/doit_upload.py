@@ -11,7 +11,7 @@ import pandas as pd
 import yaml
 from dateutil.parser import parse
 from pybis.sample import Sample
-
+from datetime import datetime
 from lebedigital.openbis.interbis import Interbis
 
 
@@ -185,12 +185,19 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
         loaded = dict(yaml.safe_load(file))
         data = defaultdict(lambda: "Not In Props")
         for key, val in loaded.items():
+            print(key,val)
             if val is None: continue
             if key in default_keys:
                 if key.lower() == 'operator_date':
+                    # might end without year like 30.6.
+                    print('operator_date: ',val, type(val))
+                    if str(val).endswith('.'):
+                        val=str(val)+str(datetime.today().year)
                     # convert german date to openBIS date format YYYY-MM-DD
                     data[key] = parse(val).strftime('%Y-%m-%d')
-                data[key] = val
+                    print(val,data[key])
+                else:
+                    data[key] = val
             else:
                 data[f"{sample_type_code}.{key}".lower()] = val
 

@@ -9,7 +9,7 @@ from pybis.sample import Sample
 
 
 class Interbis(Openbis):
-    def __init__(self, url, verify_certificates=True, token=None, use_cache=True,
+    def __init__(self, url, verify_certificates=False, token=None, use_cache=True,
                  allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
         super().__init__(url, verify_certificates, token, use_cache,
                          allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)

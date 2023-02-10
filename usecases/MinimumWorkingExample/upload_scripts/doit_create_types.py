@@ -103,9 +103,10 @@ def _reformat_sample_dict(loaded_dict: dict, defaults_dict: dict):
         if key not in output_dict.keys():
             output_dict[key.lower()] = [conv_dict[type(val)], key.split('.')[-1], key.split('.')[-1]]
 
-    # print('CHECK',output_dict)
+    print('CHECK',output_dict)
     # input()
-
+    #adding a type for mix_file
+    output_dict['experimental_step_emodul.mix_file']=['VARCHAR','mix_file','mix_file']
     return dict(output_dict)
 
 
