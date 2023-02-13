@@ -509,6 +509,8 @@ class Interbis(Openbis):
                     dataType=val[0],
                     label=val[1],
                     description=val[2],
+                    # The vocabulary needs to exist at this point
+                    vocabulary=val[3] if val[0] == 'CONTROLLEDVOCABULARY' else None
                 )
                 new_pt.save()
             else:

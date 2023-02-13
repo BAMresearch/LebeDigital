@@ -185,17 +185,15 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
         loaded = dict(yaml.safe_load(file))
         data = defaultdict(lambda: "Not In Props")
         for key, val in loaded.items():
-            print(key,val)
+            print(key, val)
             if val is None: continue
             if key in default_keys:
                 if key.lower() == 'operator_date':
                     # might end without year like 30.6.
-                    print('operator_date: ',val, type(val))
                     if str(val).endswith('.'):
-                        val=str(val)+str(datetime.today().year)
+                        val = str(val) + str(datetime.today().year)
                     # convert german date to openBIS date format YYYY-MM-DD
                     data[key] = parse(val).strftime('%Y-%m-%d')
-                    print(val,data[key])
                 else:
                     data[key] = val
             else:
@@ -209,6 +207,7 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
                 data[key] = 0.0
 
         return data
+
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
                         output_path: str):
@@ -334,7 +333,8 @@ def _mixture_upload(
         # We checked that it exists, so we throw away the old sample and replace it with a fetched
         # sample from the datastore. The Identifier of the sample will be in column one row one of the dataframe
         mixture_sample = o.get_sample(
-            exist_mixture_sample_df.loc[exist_mixture_sample_df['$name'] == mixture_sample_name, 'identifier'].values[0])
+            exist_mixture_sample_df.loc[exist_mixture_sample_df['$name'] == mixture_sample_name, 'identifier'].values[
+                0])
         logger.debug(f'mixture found in dataset')
 
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
