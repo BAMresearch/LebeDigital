@@ -146,18 +146,18 @@ def placeholderreplacement(
 
 
 
-# T E M P O R A R Y !!!
-# For my personal testing, will be removed later.
+# # T E M P O R A R Y !!!
+# # For my personal testing, will be removed later.
 
-# defining paths : ONTOLOGY
-ontoDir = Path(__file__).parents[1]
-ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
-ontoPath = os.path.join(ontoDir, ontoFile)
+# # defining paths : ONTOLOGY
+# ontoDir = Path(__file__).parents[1]
+# ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
+# ontoPath = os.path.join(ontoDir, ontoFile)
 
-# defining paths : METADATA
-dataDir = Path(__file__).parents[1]
-dataFile = "../lebedigital/mapping/testMetaData.yaml"  
-dataPath = os.path.join(dataDir, dataFile)
+# # defining paths : METADATA
+# dataDir = Path(__file__).parents[1]
+# dataFile = "../lebedigital/mapping/testMetaData.yaml"  
+# dataPath = os.path.join(dataDir, dataFile)
 
-mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-placeholderreplacement(ontoPath, dataPath)#, mappedOntoName)
+# mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
+# placeholderreplacement(ontoPath, dataPath)#, mappedOntoName)
