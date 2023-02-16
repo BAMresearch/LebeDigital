@@ -180,8 +180,7 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        #args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
-        args.output = '../../../usecases/MinimumWorkingExample/Data/testMetaData.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
 
     # run extraction and write metadata file
     emodul_metadata(args.input, args.output)
