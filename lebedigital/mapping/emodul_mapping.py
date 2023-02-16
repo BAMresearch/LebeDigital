@@ -6,6 +6,7 @@ import yaml
 import os
 from pathlib import Path
 from loguru import logger
+import uuid
 
 
 def load_metadata(dataPath):
@@ -28,7 +29,7 @@ def placeholderreplacement(
         ontoPath,
         metadataPath,
         outputPath=None
-):
+        ):
     '''
         Maps the values of one given metadata file (for one specimen or
         experiment) to a given ontology, by searching within ontology linewise
@@ -57,7 +58,7 @@ def placeholderreplacement(
     keys = list(metadata.keys())  
 
     # generate ID for the e-module metadata
-    specimenID = "123456ABCD"  # TEMPORARY! replace this example ID with generator
+    specimenID = str(uuid.uuid4())
 
     # read in the ontology as text linewise, creating a list of lines
     with open(ontoPath, 'r') as file:
@@ -67,10 +68,17 @@ def placeholderreplacement(
         logger.debug('S T A R T')
         logger.debug('File has ' + str(len(lines)) + ' lines.')
         counter = 0
-        usedKeys = []
+        usedKeys = [] # to count keys that didn't find a placeholder
+        ontoPHcounter = [] # to count all placeholders
+        remainingPH = [] # to count the placeholders that recieved no data
 
         # iterating through the list of lines
         for i in range(len(lines)):
+
+            # create a list of placeholders
+            if '_Value$$' in lines[i]:
+                ph = lines[i].split("$$")[1]
+                ontoPHcounter.append(ph)
 
             # iterate through list of metadata-keys
             for key in keys:
@@ -99,17 +107,31 @@ def placeholderreplacement(
                 #counter += 1   
                 #usedKeys.append(keys[0])
 
+            # create a list of leftover placeholders to see which ones didn't recieve a value
+            if '_Value$$' in lines[i]:
+                ph = lines[i].split("$$")[1]
+                remainingPH.append(ph)
 
     ############################ L O G G I N G #############################
 
+    # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
-    logger.debug('Replaced ' + str(counter) + ' placeholders within the ontology.')
     if len(unusedKeys) > 0:
-        logger.debug('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
+        logger.warning('Replaced only ' + str(counter) + ' placeholders within the ontology.')
+        logger.warning('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
                      + ' metadata keys have not been mapped: ')
-        logger.debug(unusedKeys)
+        logger.warning(unusedKeys)
     else:
-        logger.debug('All metadata keys have been mapped.')
+        logger.debug('All ' + str(counter) + ' metadata keys have been mapped.')
+
+    # for placeholders
+    if len(remainingPH) > 0:
+        logger.warning('File has ' + str(len(ontoPHcounter)) + ' placeholders.')
+        logger.warning('The following ' + str(len(remainingPH)) + ' of ' + str(len(ontoPHcounter)) \
+                    + ' placeholders did not recieve a metadata value: ')
+        logger.warning(remainingPH)
+    else:
+        logger.debug('All ' + str(len(ontoPHcounter)) + ' placeholders within the ontology revieced metadata.')
 
     ############################ O U T P U T #############################
     if outputPath == None:
@@ -120,8 +142,6 @@ def placeholderreplacement(
         with open(outputPath, 'w') as file:
             for line in lines:
                 file.write(line)
-
-
 
 
 
