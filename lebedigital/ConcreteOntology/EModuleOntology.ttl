@@ -9,7 +9,7 @@
 
 obo:RO_0000086 a owl:ObjectProperty .
 
-con:E-ModulTestSpecimen_ a owl:NamedIndividual,
+con:E-ModuleTestSpecimen_ a owl:NamedIndividual,
         mid:Specimen ;
     obo:RO_0000086 con:SpecimenDiameter_,
         con:SpecimenHeight_,
