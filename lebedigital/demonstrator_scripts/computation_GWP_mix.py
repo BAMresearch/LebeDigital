@@ -3,7 +3,7 @@ from lebedigital.unit_registry import ureg
 
 def computation_GWP_mix(constituents):
     """
-    This function computes the global warming potential for a square meter of cement mix
+    This function computes the global warming potential for a cubic meter of concrete
 
     Parameters
     ----------
@@ -20,9 +20,6 @@ def computation_GWP_mix(constituents):
 
     # initialize mix gwp, with unit
     gwp_mix = 0 * ureg('kg_CO2_eq/m^3')
-
-    # possibility to check if specific values are included
-    assert 'cement' in constituents.keys()
 
     for constituent in constituents.keys():
         # check and convert units

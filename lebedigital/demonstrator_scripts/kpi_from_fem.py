@@ -11,6 +11,10 @@ def kpi_from_fem(df,limit_temp):
 
     the maximum reached temperature and the time is extracted and the difference to the limit temperature given
     the time when the yield value equals zero is approximated
+        - a yield surface is defined as the elastic limit, based on von Mises and Rankine criteria
+        - for each timestep the maximum value is given (positive number indicate a exceeding of the elastic range)
+        - once a timestep returns a negative value as maximum, the beam is considered to not fail
+        - from this the time can be linearly interpolated then the max value is approximately zero
 
     Parameters
     ----------
@@ -43,6 +47,9 @@ def kpi_from_fem(df,limit_temp):
     results['check_reached_temperature'] = limit_temp - results['max_reached_temperature']
 
     # Part 2 : interpolate time when yield == 0
+    # this is based on the assumption that the sign of the max yield value only changes once.
+    # if there are cases where that is not ture, this approach need to be improved.
+    # TODO: catch multiple possible zero values, minimum: throw an error if this happens
 
     # make sure the columns have expected units
     df['time'] = df['time'].pint.to("seconds")

@@ -4,7 +4,7 @@ from lebedigital.unit_registry import ureg
 @ureg.wraps(('kg_CO2_eq'),('kg_CO2_eq/m^3', 'm', 'm', 'm'))
 def computation_GWP_per_part(gwp_mix, width, height, length):
     """
-    This function computes the global warming potential for a unit of beam
+    This function computes the global warming potential for a single beam
 
     Parameters
     ----------
