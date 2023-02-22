@@ -19,12 +19,6 @@ from probeye.ontology.knowledge_graph_export import export_results_to_knowledge_
 from probeye.inference.emcee.solver import EmceeSolver
 
 # local imports (others)
-from lebedigital.Prediction.three_point_bending_example import (
-    three_point_bending_example,
-)
-from lebedigital.calibration.utils import (
-    PosteriorPredictive,
-)
 from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import (
     LinearElasticityCylinder,
 )

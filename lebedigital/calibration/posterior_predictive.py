@@ -13,6 +13,7 @@ from probeye.ontology.knowledge_graph_import import import_parameter_samples
 # local imports (others)
 from lebedigital.simulation.three_point_bending_beam import three_point_bending_example
 from lebedigital.calibration.utils import PosteriorPredictive
+from lebedigital.unit_registry import ureg
 
 def perform_prediction_three_point_bending(knowledge_graph_file:str,forward_solver=three_point_bending_example,mode = 'cheap'):
     """
@@ -40,9 +41,9 @@ def perform_prediction_three_point_bending(knowledge_graph_file:str,forward_solv
     # ========================================================================
     #       Posterior Predictive
     # ========================================================================
-    nu = 0.2 # * ureg('')
+    nu = 0.2 * ureg('')
     # conversion from kN/mm^2 to N/mm2
-    E_pos = sample_dict["E"] * 1000 # * ureg('N/mm^2')  # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
+    E_pos = sample_dict["E"] * 1000 * ureg('N/mm^2')  # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
     # is harcoded here.
     # three_point = three_point_bending_example()
     pos_pred = PosteriorPredictive(

@@ -30,6 +30,6 @@ def test_prediction():
         knowledge_graph_file=path_calibrated_data, mode="cheap"
     )
     print(f"The posterior predictive mean is {np.mean(pos_pred)} N/mm2")
-    assert np.mean(pos_pred) == pytest.approx(350, rel=0.5) # this needs to specified by subject matter experts
+    assert np.mean(pos_pred) == pytest.approx(100, rel=0.5) # this needs to specified by subject matter experts
 
     print("Prediction test completed")

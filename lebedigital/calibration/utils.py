@@ -229,9 +229,3 @@ def extract_third_load_cycle(
         plt.legend()
         plt.show()
     return data_third_loading
-
-
-# testing
-#path_data = "/home/atul_0711/Documents/PhD_Tasks/LeBeDigital/Codes/ModelCalibration/ModelCalibration/usecases/MinimumWorkingExample/emodul/processed_data/Wolf 8.2 Probe 1.csv"
-
-#tmp = extract_third_load_cycle(path_data, threshold=0.5, vizualize=True)
