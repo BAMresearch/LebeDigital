@@ -1,0 +1,201 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:RO_0000086 a owl:ObjectProperty .
+
+con:CementPaste_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:PasteHeatOfHydration_,
+        con:SampleMass_,
+        con:WaterCementRatio_ ;
+    cco:designated_by con:PasteID_ ;
+    cco:has_input con:PasteRawMaterials_ .
+
+cco:described_by a owl:ObjectProperty .
+
+cco:designated_by a owl:ObjectProperty .
+
+cco:has_datetime_value a owl:DatatypeProperty .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_input a owl:ObjectProperty .
+
+cco:has_output a owl:ObjectProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+pmd: a owl:Ontology .
+
+pmd:composedBy a owl:ObjectProperty .
+
+pmd:hasPmdUnit a owl:ObjectProperty .
+
+mid:in_accordance_with a owl:ObjectProperty .
+
+con:Admixture a owl:Class .
+
+con:AirContent a owl:Class .
+
+con:AirContent_ a con:AirContent,
+        owl:NamedIndividual .
+
+con:CEMII_ a con:Cement,
+        owl:NamedIndividual .
+
+con:CEMI_ a con:Cement,
+        owl:NamedIndividual .
+
+con:DINEN196-8:2010 a cco:Document,
+        owl:NamedIndividual .
+
+con:Duration a owl:Class .
+
+con:Energy a owl:Class .
+
+con:ExperimentDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "value"^^xsd:dateTime .
+
+con:ExperimentInfo a owl:Class .
+
+con:ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:ExperimentDate_,
+        con:Lab_,
+        con:MeasurementDuration_,
+        con:MeasurementEnergy_,
+        con:MeasurementPower_,
+        con:MeasurementTime_,
+        con:MeasurementVoltage_ .
+
+con:HeatOfHydration a owl:Class .
+
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
+
+con:Location a owl:Class .
+
+con:MeasurementDuration_ a con:Duration,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+con:MeasurementEnergy_ a con:Energy,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q106611903 .
+
+con:MeasurementPower_ a cco:Power,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit con:MilliwattPerGramOfMaterial .
+
+con:MeasurementTime_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+con:MeasurementVoltage_ a owl:NamedIndividual,
+        mid:Voltage ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2448803 .
+
+con:MilliwattPerGramOfMaterial a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:MixingWater_ a con:Water,
+        owl:NamedIndividual .
+
+con:PasteHeatOfHydration_ a con:HeatOfHydration,
+        owl:NamedIndividual ;
+    cco:described_by con:RawDataFile_ ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    pmd:hasPmdUnit cco:KilogramMeasurementUnit ;
+    mid:in_accordance_with con:DINEN196-8:2010 .
+
+con:PasteID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "value"^^xsd:string .
+
+con:PasteRawMaterials_ a con:RawMaterials,
+        owl:NamedIndividual ;
+    pmd:composedBy con:AirContent_,
+        con:CEMII_,
+        con:CEMI_,
+        con:MixingWater_,
+        con:Plasticizer_ .
+
+con:Plasticizer_ a con:Admixture,
+        owl:NamedIndividual .
+
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_text_value "value"^^xsd:string .
+
+con:RawMaterials a owl:Class .
+
+con:SampleMass_ a cco:Mass,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "value"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q41803 .
+
+con:Water a owl:Class .
+
+con:WaterCementRatio_ a owl:NamedIndividual,
+        mid:WeightRatio ;
+    cco:has_decimal_value "value"^^xsd:decimal .
+
+cco:Artifact a owl:Class .
+
+cco:Day a owl:Class .
+
+cco:Document a owl:Class .
+
+cco:KilogramMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+cco:Mass a owl:Class .
+
+cco:NonNameIdentifier a owl:Class .
+
+cco:Power a owl:Class .
+
+pmd:Q106611903 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q2448803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q41803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+mid:ExperimentTime a owl:Class .
+
+mid:RawDataSet a owl:Class .
+
+mid:Voltage a owl:Class .
+
+mid:WeightRatio a owl:Class .
+
+con:Cement a owl:Class .
+
+cco:HourMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:PmdSiUnit a owl:Class .
+

@@ -1,0 +1,14 @@
+{
+   "concrete_cover": {
+    "value" : 2.5,
+     "unit" : "cm"
+   },
+   "n_reinforcement": {
+    "value" : 4,
+     "unit" : ""
+   },
+   "reinforcement_diameter": {
+    "value" : 12,
+     "unit" : "mm"
+   }
+}
