@@ -204,8 +204,8 @@ def esimate_Youngs_modulus(
 
     if mode == "cheap":
         inference_data = emcee_solver.run_mcmc(
-            n_walkers=3,
-            n_steps=4,
+            n_walkers=4,
+            n_steps=5,
             n_initial_steps=2,
         )
     else:
