@@ -48,7 +48,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning --ignore=ModelCalibration/tests/simulation
+          pytest -s -W error::UserWarning 
 
       - name: run-minimum-working-example
         shell: bash -l {0}
