@@ -1,3 +1,5 @@
+![Test](https://github.com/BAMresearch/LebeDigital/actions/workflows/lebedigital.yml/badge.svg)
+
 ## Overview
 This repository contains an automatic workflow to extract relevant 
 metadata from concrete tests (e.g. Young's modulus, compression tests).  

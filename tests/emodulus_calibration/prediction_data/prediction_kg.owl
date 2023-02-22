@@ -736,9 +736,9 @@
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#nu"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#radius"/>
-  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#nu"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#displacement_list"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#force_list"/>
+  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#nu"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#height"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#radius"/>
 </single_experiment_data_set>
@@ -801,7 +801,15 @@
 
 <constant rdf:about="http:///Wolf 8.2 Probe 1.csv#force_list">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/force_list_Wolf 8.2 Probe 1.csv.dat</has_file>
+  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/prediction_data/prediction_force_list.dat</has_file>
+  <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_dimension>
+  <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</has_number_of_rows>
+  <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
+</constant>
+
+<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#displacement_list">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/prediction_data/prediction_displacement_list.dat</has_file>
   <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_dimension>
   <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</has_number_of_rows>
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
@@ -810,14 +818,6 @@
 <constant rdf:about="http:///Wolf 8.2 Probe 1.csv#nu">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2</has_scalar_value>
-</constant>
-
-<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#displacement_list">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/displacement_list_Wolf 8.2 Probe 1.csv.dat</has_file>
-  <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_dimension>
-  <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</has_number_of_rows>
-  <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
 </constant>
 
 <constant rdf:about="http:///Wolf 8.2 Probe 1.csv#height">
@@ -848,7 +848,7 @@
 
 <constant rdf:about="#joint_samples">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/joint_samples_compression_test_calibration.dat</has_file>
+  <has_file rdf:datatype="http://www.w3.org/2001/XMLSchema#string">/home/etamsen/Documents/Code/LebeDigital/tests/emodulus_calibration/prediction_data/prediction_samples.dat</has_file>
   <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</has_dimension>
   <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</has_number_of_rows>
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</has_number_of_columns>
