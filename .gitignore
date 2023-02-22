@@ -169,3 +169,5 @@ usecases/optimization_paper/optimization_workflow/Results/*
 
 # openbis upload log file
 usecases/MinimumWorkingExample/logfile_openbis.txt
+
+tests/emodulus_calibration/*.dat

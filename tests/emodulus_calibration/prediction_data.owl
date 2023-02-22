@@ -732,22 +732,22 @@
 <single_experiment_data_set rdf:about="#Wolf 8.2 Probe 1.csv">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <is_deterministically_modeled_by rdf:resource="#linear_elasticity_cylinder"/>
+  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#nu"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#radius"/>
-  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
-  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#height"/>
-  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#radius"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#nu"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#displacement_list"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#force_list"/>
+  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#height"/>
+  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1.csv#radius"/>
 </single_experiment_data_set>
 
 <addition rdf:about="#data_generation_model_1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <stochastically_models_experiment rdf:resource="#Wolf 8.2 Probe 1.csv"/>
-  <has_summand rdf:resource="http:///data_generation_model_1#model_error"/>
   <has_summand rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
+  <has_summand rdf:resource="http:///data_generation_model_1#model_error"/>
 </addition>
 
 <one_dimensional_interval rdf:about="#domain_E">
@@ -807,16 +807,6 @@
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
 </constant>
 
-<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#height">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.2</has_scalar_value>
-</constant>
-
-<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#radius">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">49.3</has_scalar_value>
-</constant>
-
 <constant rdf:about="http:///Wolf 8.2 Probe 1.csv#nu">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.2</has_scalar_value>
@@ -828,6 +818,16 @@
   <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_dimension>
   <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</has_number_of_rows>
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
+</constant>
+
+<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#height">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.2</has_scalar_value>
+</constant>
+
+<constant rdf:about="http:///Wolf 8.2 Probe 1.csv#radius">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">49.3</has_scalar_value>
 </constant>
 
 <normal_random_variable rdf:about="http:///data_generation_model_1#model_error">
