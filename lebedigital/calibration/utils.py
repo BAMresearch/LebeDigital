@@ -168,14 +168,14 @@ class PosteriorPredictive:
         # Monte carlo step
         output = []
         for i in range(0, samples):
-            # TODO improve this!!!
+            # TODO improve this!!!, this is specific to "three point bending beam"
             parameters = fenics_concrete.Parameters()  # using the current default values
             # input values for the material
             parameters['E'] = self._parameter[i]
             parameters['nu'] = self._known_input
             y = self._forward_solver(parameters)
-            output.append(y)
-            # TODO there is probably some changes needed to deal with pint output
+            output.append(y.magnitude)  # removes the units
+            # TODO is there a more general way to deal with the units, without loosing the information?
 
         # get the posterior pred stats
         mean = np.mean(output, axis=0)

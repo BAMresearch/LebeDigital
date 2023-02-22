@@ -19,7 +19,8 @@ def test_emodulus_calibration():
         calibrated_data_path=os.path.dirname(Path(__file__)), mode='cheap'
     )
     # checking if the KG file for the calibration is created
-    assert os.path.exists(os.path.join(os.path.dirname(Path(__file__)), 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl')) == True
+    assert os.path.exists(os.path.join(os.path.dirname(Path(__file__)),
+                          'calibrationWorkflowWolf 8.2 Probe 1.csv.owl')) is True
 
     # checking for the calibrated E modulus
     print(f"The posterior E mean is {np.mean(E_samples)} KN/mm2")
