@@ -6,6 +6,7 @@ import numpy as np
 import os
 from pathlib import Path
 import sys
+import fenics_concrete
 
 baseDir1 = Path(__file__).resolve().parents[1]
 sys.path.append(os.path.join(os.path.join(baseDir1, "knowledgeGraph"), "emodul"))
@@ -167,8 +168,14 @@ class PosteriorPredictive:
         # Monte carlo step
         output = []
         for i in range(0, samples):
-            y = self._forward_solver(self._parameter[i], self._known_input)
+            # TODO improve this!!!
+            parameters = fenics_concrete.Parameters()  # using the current default values
+            # input values for the material
+            parameters['E'] = self._parameter[i]
+            parameters['nu'] = self._known_input
+            y = self._forward_solver(parameters)
             output.append(y)
+            # TODO there is probably some changes needed to deal with pint output
 
         # get the posterior pred stats
         mean = np.mean(output, axis=0)

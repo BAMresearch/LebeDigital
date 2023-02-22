@@ -43,6 +43,7 @@ def perform_prediction_three_point_bending(knowledge_graph_file:str,forward_solv
     # ========================================================================
     nu = 0.2 * ureg('')
     # conversion from kN/mm^2 to N/mm2
+    # TODO not the right location to define the units!!! this is just as a test
     E_pos = sample_dict["E"] * 1000 * ureg('N/mm^2')  # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
     # is harcoded here.
     # three_point = three_point_bending_example()
