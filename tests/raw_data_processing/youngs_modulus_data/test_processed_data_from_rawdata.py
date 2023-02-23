@@ -1,5 +1,5 @@
-from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import \
-    processed_data_from_rawdata
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data \
+        import processed_data_from_rawdata
 from pathlib import Path
 
 def test_emodul_generate_processed_data():
