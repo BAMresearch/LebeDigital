@@ -28,13 +28,3 @@ def computation_GWP_mix(constituents):
         gwp_mix += constituents[constituent]['content'] * constituents[constituent]['GWP']
 
     return gwp_mix
-
-
-if __name__ == "__main__":
-    # test while developing this
-    constituents = {'cement' : {'content': 5 * ureg('kg/m^3'), 'GWP': 2 * ureg('kg_CO2_eq/kg') },
-                    'aggregates': {'content': 10 * ureg('kg/m^3'), 'GWP': 1 * ureg('kg_CO2_eq/kg') },
-                    'slag': {'content': 5 * ureg('kg/m^3'), 'GWP': 20 * ureg('kg_CO2_eq/kg') }
-                    }
-
-    print(computation_GWP_mix(constituents))
