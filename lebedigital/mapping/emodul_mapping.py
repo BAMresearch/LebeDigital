@@ -103,16 +103,32 @@ def placeholderreplacement(
             if "E-ModulTestSpecimen_ " in lines[i]:
                 logger.debug('Found "E-ModulTestSpecimen_" in line ' + str(i + 1) \
                              + ' and appended specimen-ID "' + str(specimenID) + '".')    
-                lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" + str(specimenID) + " ")
+                lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
+                            + str(specimenID) + " ")
                 #counter += 1   
                 #usedKeys.append(keys[0])
+
+            # depending on shape of specimen, set null pointers            
+            if "SpecimenHeight" not in keys:
+                if "SpecimenHeight" in lines[i]:
+                    placeholder = '$$' + 'SpecimenHeight' + '_Value$$'
+                    logger.debug('Specimen shape is cylindrical, set placeholder ' \
+                            + placeholder + ' to None.')
+                    lines[i] = lines[i].replace(placeholder, str(None))
+            if "SpecimenWidth" not in keys:
+                if "SpecimenWidth" in lines[i]:
+                    placeholder = '$$' + 'SpecimenWidth' + '_Value$$'
+                    logger.debug('Specimen shape is cylindrical, set placeholder ' \
+                            + placeholder + ' to None.')
+                    lines[i] = lines[i].replace(placeholder, str(None))
+
+
+    ############################ L O G G I N G #############################        
 
             # create a list of leftover placeholders to see which ones didn't recieve a value
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
                 remainingPH.append(ph)
-
-    ############################ L O G G I N G #############################
 
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
