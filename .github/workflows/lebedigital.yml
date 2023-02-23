@@ -48,7 +48,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning
+          pytest -s -W error::UserWarning -m "not login"  
 
       - name: run-minimum-working-example
         shell: bash -l {0}

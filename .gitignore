@@ -170,4 +170,5 @@ usecases/optimization_paper/optimization_workflow/Results/*
 # openbis upload log file
 usecases/MinimumWorkingExample/logfile_openbis.txt
 
-tests/emodulus_calibration/*.dat
+tests/emodulus_calibration/calibration_data/*
+!tests/emodulus_calibration/calibration_data/Wolf 8.2 Probe 1.csv
