@@ -18,6 +18,9 @@ from lebedigital.shacl import validation as shacl
 
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
+# "cheap" option is to reduce computation time once the workflow gets more expensive (calibration)
+#  - currently this means: all mixes, one tests data + KG
+# "single" option is to test the dodo file on a single example (similar to cheap but only a single mix)
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
@@ -56,7 +59,6 @@ defaults_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
-
 # EMODULE PATHS
 # defining paths for emodule
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
@@ -64,10 +66,6 @@ raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with 
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
-calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')  # folder with calibration output
-
-# when "cheap option" is run, only this souce of raw data is processed
-cheap_example_name = 'Wolf 8.2 Probe 1'
 openbis_directory = Path(emodul_output_directory, 'openbis_upload')  # folder with openBIS log files
 openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
 openbis_sample_types_directory = Path(openbis_directory, 'openbis_sample_types')
@@ -75,7 +73,6 @@ openbis_sample_types_directory = Path(openbis_directory, 'openbis_sample_types')
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 
-#extract standardized meta data for Young' modulus tests
 # MIXTURE PATHS
 # defining paths for mixture
 raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
@@ -132,10 +129,9 @@ def task_extract_metadata_emodul():
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-
-    #if config['mode'] == 'cheap' or config['mode'] == 'single':
+    # if config['mode'] == 'cheap' or config['mode'] == 'single':
     #    list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
-    #else: # go through all files
+    # else: # go through all files
     list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
 
     for f in list_raw_data_emodulus_directories:
@@ -145,11 +141,11 @@ def task_extract_metadata_emodul():
             yaml_metadata_file = Path(
                 metadata_emodulus_directory, f.name + '.yaml')
             yield {
-                'name': yaml_metadata_file,
+                'name': f.name,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
                 'targets': [yaml_metadata_file],
-                'clean': [clean_targets]  # what does this do?
+                'clean': [clean_targets]
             }
 
 
@@ -161,7 +157,6 @@ def task_extract_processed_data_emodul():
     Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-
     if config['mode'] == 'cheap' or config['mode'] == 'single':
         list_raw_data_emodulus_directories = [Path(raw_data_emodulus_directory, single_example_name)]
     else:  # go through all files
@@ -176,7 +171,7 @@ def task_extract_processed_data_emodul():
                 processed_data_emodulus_directory, f.name + '.csv')
 
             yield {
-                'name': csv_data_file,
+                'name': f.name,
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
@@ -256,7 +251,6 @@ def task_extract_processed_data_emodul():
 # define global metadata schemata (fitting for all data) and create sample types in openbis for that (as admin)
 @create_after(target_regex='.*emodul$')
 def task_create_openbis_types():
-
     Path(openbis_sample_types_directory).mkdir(parents=True, exist_ok=True)
 
     yield {
