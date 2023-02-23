@@ -85,3 +85,10 @@ jobs:
               usecases/optimization_paper/figures/
               usecases/optimization_paper/optimization_workflow/Results
               
+
+      - name: Archive test files
+        uses: actions/upload-artifact@v3
+        with:
+            name: debugging_tests
+            path: |
+              tests/emodulus_calibration/calibration_data/
