@@ -6,7 +6,7 @@
 
 ns1: a owl:Ontology ;
     rdfs:comment "Creator Max Mustermann",
-        "Title Simple Ontology" ;
+        "Title Simple Ontology" ;
     owl:versionInfo "0.0.1" .
 
 ns2:Probe_Probe1 a ns2:Artifact,
@@ -32,12 +32,8 @@ xsd:float a rdfs:Datatype .
 
 xsd:string a rdfs:Datatype .
 
-ns2:Artifact a owl:Class .
-
 ns2:Cylindrical a ns2:Shape,
         owl:NamedIndividual .
-
-ns2:Diameter a owl:Class .
 
 ns2:Diameter_Probe1 a ns2:Diameter,
         owl:NamedIndividual ;
@@ -47,13 +43,17 @@ ns2:ID_Probe1 a ns2:NonNameIdentifier,
         owl:NamedIndividual ;
     ns2:has_text_value "ABCD1E"^^xsd:string .
 
-ns2:Length a owl:Class .
-
 ns2:Length_Probe1 a ns2:Length,
         owl:NamedIndividual ;
     ns2:has_value "15.8"^^xsd:float .
 
+ns2:Artifact a owl:Class .
+
+ns2:Diameter a owl:Class .
+
+ns2:Length a owl:Class .
+
 ns2:NonNameIdentifier a owl:Class .
 
-ns2:Shape a owl:Class .
 
+ns2:Shape a owl:Class .
