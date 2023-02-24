@@ -147,26 +147,27 @@ def beam_section_design(
     Aw=2*math.pi*12**2/4 #[mm²]
     slmax=Aw/a_used*1000 #[mm]
     #Minimum structural reinforcement----
-    if fck<=50:
-        if max_shear_force<= 0.3*V_Rdmax:
-            S= min(0.7 * height, 300, slmax)
-        elif max_shear_force<= 0.6*V_Rdmax:
-            S= min(0.5 * height, 300, slmax)
-        else:
-            S= min(0.25 * height, 200, slmax)
-    else:
-        if max_shear_force<= 0.3*V_Rdmax:
-            S= min(0.7 * height, 200, slmax)
-        elif max_shear_force<= 0.6*V_Rdmax:
-            S= min(0.7 * height, 200, slmax)
-        else:
-            S= min(0.25 * height, 200, slmax)
+    # this is not used for our case and I could not find values to actually test them
+    # if fck<=50:
+    #     if max_shear_force<= 0.3*V_Rdmax:
+    #         S= min(0.7 * height, 300, slmax)
+    #     elif max_shear_force<= 0.6*V_Rdmax:
+    #         S= min(0.5 * height, 300, slmax)
+    #     else:
+    #         S= min(0.25 * height, 200, slmax)
+    # else:
+    #     if max_shear_force<= 0.3*V_Rdmax:
+    #         S= min(0.7 * height, 200, slmax)
+    #     elif max_shear_force<= 0.6*V_Rdmax:
+    #         S= min(0.7 * height, 200, slmax)
+    #     else:
+    #         S= min(0.25 * height, 200, slmax)
     #output final design
     out = {}
     out["top_steel_dia"] = steel_dia * ureg('mm')
     out["top_steel_numbers"] = 2
     out["shear_reinforcement_dia"] = 12 * ureg('mm')
-    out["shear_reinforcement_spacing"] = S * ureg('mm')
+    #out["shear_reinforcement_spacing"] = S * ureg('mm')
     out["required_area_bottom_steel"] = As1 * ureg('mm^2')
 
     return out
