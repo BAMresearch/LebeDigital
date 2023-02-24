@@ -139,7 +139,7 @@ def beam_section_design(
     alpha=math.radians(90)# Angle between shear force reinforcement and the component axis perpendicular to the shear force: α = 90° (vertical stirrups)
     #fctm mean tensile strength 
     if fck<=50: fctm=0.3*fck**(2/3)
-    else: fctm=2.12*math.ln(1+((fck+8)/10)) 
+    else: fctm=2.12*math.log(1+((fck+8)/10))
     a_swmin=0.16*fctm/fyk*(bw/1000)*math.sin(alpha)*1e6 #[mm2/m]
     #Statically required stirrup spacing----
     #print(f"stirrup and bending reinforcment have same diameter = {steelDia} [mm]")

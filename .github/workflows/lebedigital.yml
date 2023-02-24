@@ -49,7 +49,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/tests/
           pytest -s -m "not login" --cov ../lebedigital --cov-report=xml  # testing coverage!!!
-          #coverage report -m
+          coverage report -m
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
