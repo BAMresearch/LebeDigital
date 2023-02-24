@@ -16,4 +16,3 @@ def test_simple_mapping ():
 
     exact_result = placeholderreplacement(ontoPath, dataPath)
     assert (set(lines).discard('\n')) == (set(exact_result).discard('\n'))
-

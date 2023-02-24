@@ -1,4 +1,5 @@
 [![Continuous integration](https://github.com/BAMresearch/LebeDigital/actions/workflows/lebedigital.yml/badge.svg)](https://github.com/BAMresearch/LebeDigital/actions)
+[![codecov](https://codecov.io/gh/BAMresearch/LebeDigital/branch/main/graph/badge.svg?token=IL2JDF447Z)](https://codecov.io/gh/BAMresearch/LebeDigital)
 
 ## Overview
 This repository contains an automatic workflow to extract relevant 
