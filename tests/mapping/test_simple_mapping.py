@@ -1,7 +1,6 @@
 from lebedigital.mapping.simple_mapping import placeholderreplacement
-def test_simple_mapping ():
-    print("S T A R T - T E S T I N G")
 
+def test_simple_mapping ():
     # defining paths : Simple ONTOLOGY Mapped
     mappedPath = "../usecases/SimpleOntology/Mapping/SimpleOntologyMappedProbe1.ttl"  # for current ontology
 
@@ -17,9 +16,4 @@ def test_simple_mapping ():
 
     exact_result = placeholderreplacement(ontoPath, dataPath)
     assert (set(lines).discard('\n')) == (set(exact_result).discard('\n'))
-
-
-
-test_simple_mapping()
-
 

@@ -1,12 +1,17 @@
 import os
 from lebedigital.raw_data_processing.mixture.mixture_metadata_extraction import extract_metadata_mixture
+from pathlib import Path
 
 
 def test_mixture_metadata_extraction():
     """Testing the mixture metadata extraction on a single example"""
 
-    # setting up the test example input
-    input_path = '../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
+    # setup paths and directories
+    data_dir = 'test_data'
+    data_path = Path(__file__).parent / data_dir
+    input_file = '2014_08_05 Rezeptur_MI.xlsx'
+    input_path = data_path / input_file
+    output_file = data_path / 'processed_data.csv'
 
     # make sure that the path exists
     assert(os.path.exists(input_path))
