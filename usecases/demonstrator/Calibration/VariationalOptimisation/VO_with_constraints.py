@@ -35,7 +35,7 @@ datetime = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 def function(X,Y):
     """
-
+    TODO: extend this to have D dimentional structure and test it fort D =100, then maybe variance reduction methods may come handy
     Args:
      x:
 
@@ -97,9 +97,9 @@ def objective(mu,sigma, beta = None):
         c = 1
         constraint = c*th.max(alpha-x_sample[0],th.tensor(0))
         # with constraints
-        #U_theta_holder.append((th.as_tensor(y)+constraint)*dist.log_prob(x_sample))
+        U_theta_holder.append((th.as_tensor(y)+constraint)*dist.log_prob(x_sample))
         # w/o constraints
-        U_theta_holder.append((th.as_tensor(y)) * dist.log_prob(x_sample))
+        #U_theta_holder.append((th.as_tensor(y)) * dist.log_prob(x_sample))
     U_theta = th.sum(th.stack(U_theta_holder))/num_samples
 
     assert U_theta.requires_grad == True
@@ -157,25 +157,44 @@ def optimize(mu_init:float,eps =0.001, verbose = True) -> None:
 
 
 
-mu_evolution, sigma_evolution = optimize(mu_init=[4.,-4.])
+mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4.,-4.])
+mu_evolution_2, sigma_evolution_2 = optimize(mu_init=[-4.,0.]) # starting from constraint violation and crossing the optima
 
 x = np.arange(-5.0,5.0,0.1)
 y = np.arange(-5.0,5.0,0.1)
 X,Y = np.meshgrid(x, y) # grid of point
 Z = function(X, Y) # evaluation of the function on the grid
 
+fig, ax = plt.subplots(1, 2, figsize=(10, 5), constrained_layout=True)
+def plot_evolution(mu,sigma,color,fig,ax):
+    ax[0].contourf(X, Y, Z, levels=20)
+    ax[0].plot(mu[:, 0], mu[:, 1], 'x', color=color)
+    ax[0].set_xlabel('$x_1$')
+    ax[0].set_ylabel('$x_2$')
+    ax[1].plot(sigma)
+    ax[1].set_ylabel('$\sigma$')
+    ax[1].set_xlabel('iterations')
+    #plt.savefig('./Figs/theta_evolution_VO_' + datetime + '.pdf')
+    plt.show()
+    return fig
 
-
-fig, ax = plt.subplots(1,2, figsize=(10, 5),constrained_layout=True)
-ax[0].contourf(X,Y,Z, levels =20)
-ax[0].plot(mu_evolution[:,0],mu_evolution[:,1],'x',color='r' )
+ax[0].contourf(X, Y, Z, levels=20)
+ax[0].plot(mu_evolution_1[:, 0], mu_evolution_1[:, 1], 'x', color='r')
+ax[0].plot(mu_evolution_2[:, 0], mu_evolution_2[:, 1], 'x', color='y')
 ax[0].set_xlabel('$x_1$')
 ax[0].set_ylabel('$x_2$')
-ax[1].plot(sigma_evolution)
+ax[1].plot(sigma_evolution_1,'r')
+ax[1].plot(sigma_evolution_2,'y')
 ax[1].set_ylabel('$\sigma$')
 ax[1].set_xlabel('iterations')
-plt.savefig('./Figs/theta_evolution_VO_'+datetime+'.pdf')
+plt.savefig('./Figs/theta_evolution_VO_constraints_' + datetime + '.pdf')
 plt.show()
+
+
+
+#plot_evolution(mu_evolution_1,sigma_evolution_1,'r',fig,ax)
+#plot_evolution(mu_evolution_2,sigma_evolution_2,'g',fig,ax)
+
 # class VO:
 #     def __init__(self):
 #
