@@ -19,17 +19,27 @@
 #     there already
 # 3.e Define a function to ignore empty annotations.
 # 3.f Extract the metadata for each label which is existing. 
-# 3.g Depending on wheter an output-path is given or not, return the metadata
+# 3.g Depending on whether an output-path is given or not, return the metadata
 #     dictionary or create a yaml-file.
 
 #------------------------------------------------------------------------------
 
 from cmath import nan
 import pandas as pd
+# removing 'SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame'
+pd.options.mode.chained_assignment = None  # default='warn'
+
 import os
 import yaml
 from loguru import logger 
+from pathlib import Path
 
+
+# Set up logger
+baseDir = Path(__file__).parents[0]
+logPath = os.path.join(baseDir, "logs","file_{time}.log")
+#logger.add(logPath, level="DEBUG")  # this also displays the log in the console
+logger.configure(handlers=[{"sink": logPath, "level": "DEBUG"}])
 
 # function to convert german formatting to english
 def replace_comma(string, format = 'float'):
@@ -48,7 +58,9 @@ def replace_comma(string, format = 'float'):
 def isNaN(num):
     return num!= num
 
-
+# decorater in case you want to catch errors so that the script won't break 
+# but just pass without output:
+# @logger.catch
 # extraction script
 def extract_metadata_mixture(
         locationOfRawData,
@@ -67,7 +79,8 @@ def extract_metadata_mixture(
             Path of the excelsheet (xls or xlsx) containing the metadata in one 
             or multiple "Rezeptur"-Sheet(s).
         locationOfProcessedData : string
-            Path of the target folder for yaml-file.
+            Path of the target folder for yaml-file (optional, give only if you 
+            want a yaml-file to be generated).
 
         Output
         -------
@@ -78,21 +91,22 @@ def extract_metadata_mixture(
     """
     
 
-    # Find sheets in the file containing the mixture (keyword: "Rezeptur")
+    # Find sheets in the file containing the mixture (keyword: "Rezeptur"), allow
+    # only one sheet per file
     excelsheet = os.path.basename(locationOfRawData)
     excelfile = pd.read_excel(locationOfRawData, sheet_name= None) 
     listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i] 
     logger.debug('Working on file: '+ excelsheet)
-    logger.debug('Following sheets contain mixture metadata in this file: ' + str(listofkeys))
+    logger.debug('Following sheet(s) contain mixture metadata in this file: ' + str(listofkeys))
 
+    if len(listofkeys) != 1:
+        logger.error('None or multiple sheets with mixture found in the raw data.')
+        raise Exception('None or multiple sheets with mixture found in the raw data.')
+    else:
+        sheet = listofkeys[0]
 
-    for sheet in listofkeys:
-
-        logger.debug('Working on sheet: '+ sheet)
-        ##############  S E T U P ##############
-
-        # name of yaml-file will be experiment-name + sheet name
-        name = os.path.basename(excelsheet).split('.xl')[0] + ' ___ ' + sheet
+        # name of yaml-file will be experiment-name 
+        name = os.path.basename(excelsheet).split('.xl')[0]
         
         # save data from excelsheet into pandas dataframe
         exceltodf = excelfile[sheet]
@@ -107,17 +121,20 @@ def extract_metadata_mixture(
         labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
         for i in range(len(labelcolumn)):
             labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
+
             # fill dictionary with labels and corresponding indices, unless the
             # label is "addition". Then differ between 1st and 2nd addition
             if labelcolumn[i] != 'Zusatzstoff':
                 labelidx[labelcolumn[i]] = i                
             elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' not in labelidx.keys():
                 labelidx['Zusatzstoff1'] = i   
-            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' in labelidx.keys():
+            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' in labelidx.keys() \
+                    and 'Zusatzstoff2' not in labelidx.keys():
                 labelidx['Zusatzstoff2'] = i 
-                logger.debug("Second addition found in raw data.")  
+                logger.debug('Second addition found in raw data.')  
             else:
-                logger.warning('More than 2 additions/Zusatzstoffe found!')
+                logger.error('More than two additions found in raw data.')
+                raise Exception('More than two additions found in raw data.')
 
 
         # Check for missing labels; the following labels should exist (except 
@@ -127,8 +144,11 @@ def extract_metadata_mixture(
                         'Zusatzmittel', 'Zuschlag (gesamt)'] 
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
-            logger.warning('Check raw data, there are labels missing:')
-            logger.warning(missing_labels)
+            if missing_labels == ['Zusatzstoff2']:
+                logger.warning('No addition2 in raw data.')
+            else:
+                logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
+                raise KeyError('Check raw data, there are labels missing', missing_labels)
 
 
         # Some files don't have the type of addition/Zusatzstoff only labeled 
@@ -169,7 +189,7 @@ def extract_metadata_mixture(
 
         # name of specimen
         idx = labelidx['Bezeichnung der Proben:']
-        metadata['specimen_name'] = exceltodf.iloc[idx,3] #4
+        metadata['specimen_name'] = exceltodf.iloc[idx,3]
 
         #----------------------------------------------------------------------
 
@@ -185,7 +205,7 @@ def extract_metadata_mixture(
             metadata['cement--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('cement')
         else:
-            logger.warning('cement not included in yaml-file')
+            logger.error('cement not included in yaml-file')
 
         # total water data ('Wasser (gesamt)') 
         if 'Wasser (gesamt)' not in missing_labels:
@@ -195,7 +215,7 @@ def extract_metadata_mixture(
             metadata['water_total--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('water_total')
         else:
-            logger.warning('water_total not included in yaml-file')
+            logger.error('water_total not included in yaml-file')
 
 
         # water cement ratio ('Wasserzementwert')
@@ -203,7 +223,7 @@ def extract_metadata_mixture(
             metadata['water_cement_ratio'] = float(metadata['water_total--QuantityInMix'] 
                                                     / metadata['cement--QuantityInMix'])
         else:
-            logger.warning('water_cement_ratio not included in yaml-file')
+            logger.error('water_cement_ratio not included in yaml-file')
 
 
         # effective water data ('Wasser (wirksam)')  
@@ -214,7 +234,7 @@ def extract_metadata_mixture(
             metadata['water_effective--Volume'] = replace_comma(str(exceltodf.iat[idx,6]))
             no_empty_annotation('water_effective')
         else:
-            logger.warning('water_effective not included in yaml-file')
+            logger.error('water_effective not included in yaml-file')
 
 
         # air content data ('Luftgehalt') 
@@ -225,7 +245,7 @@ def extract_metadata_mixture(
             metadata['air_content--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('air_content')
         else:
-            logger.warning('air_content not included in yaml-file')
+            logger.error('air_content not included in yaml-file')
 
 
         # Addition data ('Zusatzstoff') 1 
@@ -236,7 +256,7 @@ def extract_metadata_mixture(
             metadata['addition1--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('addition1')
         else:
-            logger.warning('addition1 not included in yaml-file')
+            logger.error('addition1 not included in yaml-file')
 
 
         # Addition data ('Zusatzstoff') 2 
@@ -258,7 +278,7 @@ def extract_metadata_mixture(
             metadata['admixture--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('admixture')
         else:
-            logger.warning('admixture not included in yaml-file')
+            logger.error('admixture not included in yaml-file')
 
 
         # Aggregate ('Zuschlag (gesamt)')
@@ -269,7 +289,7 @@ def extract_metadata_mixture(
             metadata['aggregate--Volume'] = float(replace_comma(str(exceltodf.iat[idx,6])))
             no_empty_annotation('aggregate')
         else:
-            logger.warning('aggregate not included in yaml-file')
+            logger.error('aggregate not included in yaml-file')
 
 
 
@@ -280,3 +300,4 @@ def extract_metadata_mixture(
             with open(os.path.join(locationOfProcessedData, name + '.yaml'), mode='w') as yamlFile:
                 yaml.dump(metadata, yamlFile, sort_keys=False, allow_unicode=True)
            
+

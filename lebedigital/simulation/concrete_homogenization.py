@@ -1,14 +1,15 @@
-from __future__ import print_function
-from fenics import *
-import numpy as np
-import matplotlib.pyplot as plt
 import fenics_concrete
+from lebedigital.unit_registry import ureg
 
 def concrete_homogenization(parameters):
     """ returns homogenized concrete parameter
 
     this function calls the Mori-Tanaka homogenization scheme
     A dictionary with the required parameter is given
+
+    The input and output is wrapped by the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
+    Units will be automatically converted to what is required, an appropriate dimensionality must be given.
 
     Parameters
     ----------
@@ -37,30 +38,42 @@ def concrete_homogenization(parameters):
         - E, nu, fc, C, rho, kappa, Q
     """
 
+    # converting to correct pint units / automatic check for pint input
+    parameters['paste_E'].ito('Pa')
+    parameters['paste_fc'].ito('Pa')
+    parameters['paste_kappa'].ito('W/m/K')
+    parameters['paste_rho'].ito('kg/m^3')
+    parameters['paste_C'].ito('J/kg/K')
+    parameters['paste_Q'].ito('J/kg')
+    parameters['aggregates_E'].ito('Pa')
+    parameters['aggregates_kappa'].ito('W/m/K')
+    parameters['aggregates_rho'].ito('kg/m^3')
+    parameters['aggregates_C'].ito('J/kg/K')
 
     # initialize concrete paste
-    concrete = fenics_concrete.ConcreteHomogenization(E_matrix=parameters['paste_E'],
-                                                      nu_matrix=parameters['paste_nu'],
-                                                      fc_matrix=parameters['paste_fc'],
-                                                      kappa_matrix=parameters['paste_kappa'],
-                                                      rho_matrix=parameters['paste_rho'],
-                                                      C_matrix=parameters['paste_C'],
-                                                      Q_matrix=parameters['paste_Q'])
+    concrete = fenics_concrete.ConcreteHomogenization(E_matrix=parameters['paste_E'].magnitude,
+                                                      nu_matrix=parameters['paste_nu'].magnitude,
+                                                      fc_matrix=parameters['paste_fc'].magnitude,
+                                                      kappa_matrix=parameters['paste_kappa'].magnitude,
+                                                      rho_matrix=parameters['paste_rho'].magnitude,
+                                                      C_matrix=parameters['paste_C'].magnitude,
+                                                      Q_matrix=parameters['paste_Q'].magnitude)
 
     # adding uncoated aggregates
-    concrete.add_uncoated_particle(E=parameters['aggregates_E'],
-                                   nu=parameters['aggregates_nu'],
-                                   volume_fraction=parameters['aggregates_vol_frac'],
-                                   kappa=parameters['aggregates_kappa'],
-                                   rho=parameters['aggregates_rho'],
-                                   C=parameters['aggregates_C'])
+    concrete.add_uncoated_particle(E=parameters['aggregates_E'].magnitude,
+                                   nu=parameters['aggregates_nu'].magnitude,
+                                   volume_fraction=parameters['aggregates_vol_frac'].magnitude,
+                                   kappa=parameters['aggregates_kappa'].magnitude,
+                                   rho=parameters['aggregates_rho'].magnitude,
+                                   C=parameters['aggregates_C'].magnitude)
 
-    results = {'E': concrete.E_eff,
-               'nu': concrete.nu_eff,
-               'fc': concrete.fc_eff,
-               'C': concrete.C_vol_eff,
-               'rho': concrete.rho_eff,
-               'kappa': concrete.kappa_eff,
-               'Q': concrete.Q_vol_eff}
+    # output with corresponding units
+    results = {'E': concrete.E_eff * ureg('Pa'),
+               'nu': concrete.nu_eff * ureg('dimensionless'),
+               'fc': concrete.fc_eff * ureg('Pa'),
+               'C': concrete.C_vol_eff * ureg('J/m^3/K'),
+               'rho': concrete.rho_eff * ureg('kg/m^3'),
+               'kappa': concrete.kappa_eff * ureg('W/m/K'),
+               'Q': concrete.Q_vol_eff * ureg('J/m^3')}
 
     return results

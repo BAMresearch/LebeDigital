@@ -1,0 +1,71 @@
+
+
+The general idea of this analytical homogenization procedure is to describe the overall stiffness of a body $\body$, based on the properties of the individual phases, i.e. the matrix and the inclusions.
+Each of the $n$ phases is denoted by the index $\phaseIndex$, where $\phaseIndex = 0$ is defined as the matrix phase.
+The volume fraction of each phase is defined as
+\begin{align}
+	\volFracPhase = \frac{\left\| \bodyPhase \right\|}{\left\| \body \right\|} \quad  \text{for}~ \phaseIndex = 0, ..., n.
+\end{align}
+The inclusions are assumed to be spheres, defined by their radius $\radiusPhase$.
+The shells are defined by their outer radius, their thickness follows as the difference to the inner inclusions.
+The elastic properties of each homogeneous and isotropic phase is given by the material stiffness matrix $\bL^{(\phaseIndex)}$, here written in terms of the bulk and shear moduli $\bulkMod$ and $\shearMod$,
+\begin{align}
+	\matStiffPhase= 3 \bulkModPhase \orthProjV + 2 \shearModPhase \orthProjD  \quad \text{for}~ \phaseIndex = 0, ..., n, \label{eq:Lr}
+\end{align}
+where $\orthProjV$ and $\orthProjD$ are the orthogonal projections of the volumetric and deviatoric components.\\
+The methods assumes that the micro-heterogeneous body $\body$ is subjected to a macroscale strain $\strain$.
+It is assumed that for each phase concentration factor $\concentrationPhase$ can be defined such that
+\begin{align}
+	\strainPhase = \concentrationPhase\strain \quad  \text{for}~ \phaseIndex = 0, ..., n, \label{eq:strainaverage}
+\end{align}
+which computes the average strain $\strainPhase$ based on the overall strains.
+This can then be used to compute the effective stiffness matrix $\matStiffEff$ as a volumetric sum over the constituents weighted by the concentration factor 
+\begin{align}
+	\matStiffEff = \sum_{\phaseIndex=0}^{n} \volFracPhase \matStiffPhase\concentrationPhase \quad  \text{for}~ \phaseIndex = 0, ..., n.\label{eq:Leff}
+\end{align}
+
+The concentration factors $\concentrationPhase$,
+\begin{align}
+	\concentrationZero &= \left( \volFracZero\bI + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationPhase\right)^{-1}\label{eq:A0}\\
+	\concentrationPhase &= \dilConcentrationPhase\concentrationZero\quad  \text{for}~ \phaseIndex = 1, ..., n,
+\end{align}
+are based on the dilute concentration factors $\dilConcentrationPhase$, which need to be obtained first.
+The dilute concentration factors are based on the assumption that each inclusion is subjected to the average strain in the matrix $\strainZero$.
+\begin{align}
+	\strainPhase = \dilConcentrationPhase\strainZero \quad  \text{for}~ \phaseIndex = 1, ..., n. 
+\end{align}
+
+
+The dilute concentration factors neglect the interaction among phases and are only defined for the inclusion phases $\phaseIndex = 1,...,n$.
+The applied formulation uses an additive volumetric-deviatoric split. where
+\begin{align}
+	\dilConcentrationPhase = \dilConcentrationVPhase\Ivol +  \dilConcentrationDPhase \Idev \quad  \text{for}~ \phaseIndex = 1, ..., n,
+\end{align}
+This chosen method extends the basic Mori-Tanaka method the coated inclusions, following \cite{her_1993_nlib}, therefore two different formulations for the dilute concentration factors are given for the uncoated and coated inclusion. 
+
+\paragraph{Dilute concentration factors for uncoated inclusions}
+The formulations of the dilute concentration factors for an uncoated inclusion $\phaseIndex$ are
+\begin{align}
+	\dilConcentrationVPhase = \dfrac{\bulkModZero}{\bulkModZero + \auxAlphaZero(\bulkModPhase - \bulkModZero)}, \\
+	\dilConcentrationDPhase = \dfrac{\shearModZero}{\shearModZero + \auxBetaZero(\shearModPhase - \shearModZero)}, 
+\end{align}
+with the auxiliary factors following from the Eshelby solution as
+\begin{align}
+	\auxAlphaZero = \frac{1 + \poissionZero}{3(1+ \poissionZero)} \quad\text{and}\quad 
+	\auxBetaZero = \frac{2(4 - 5\poissionZero)}{15(1 - \poissionZero)}
+\end{align}
+where  $\poissionZero$ refers to the Poission's ratio of the matrix phase.
+\paragraph{Effective stiffness}
+Now that the formulation for the dilute concentration factor for inclusions are defined the effective bulk and shear modului can be computed based on a sum over the phases
+\begin{align}
+\bulkModEff = \dfrac{\volFracZero\bulkModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \bulkModPhase \dilConcentrationVPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationVPhase},\label{eq:keff} \\
+\shearModEff = \dfrac{\volFracZero\shearModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \shearModPhase \dilConcentrationDPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationDPhase}.\label{eq:geff}
+\end{align}
+\paragraph{Average stress in matrix}
+
+Based on the concept of \eqref{eq:strainaverage}, with the formulations \eqref{eq:Lr},\eqref{eq:Leff} and \eqref{eq:A0}, the average matrix stress is defined as 
+\begin{align}
+\stressZero = \matStiffZero\concentrationZero {\matStiffEff}^{-1}\stress. \label{eq:matrixstress}
+\end{align}
+
+

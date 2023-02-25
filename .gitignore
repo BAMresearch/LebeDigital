@@ -138,6 +138,7 @@ dmypy.json
 
 # results of minimum working example
 usecases/MinimumWorkingExample/emodul/*
+usecases/MinimumWorkingExample/mixture/*
 
 # graphviz
 *.gv
@@ -145,3 +146,26 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 
 # ignore mesh files
 **/mesh/*
+
+# sphinx website build
+.build
+
+# ignore pdf and resulting figures in optimization paper
+usecases/optimization_paper/tex/optimization_paper.pdf
+usecases/optimization_paper/figures/*
+usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
+
+# ignore workflow outputs
+usecases/optimization_paper/optimization_workflow/Results/*
+**/.snakemake/*
+
+# tex temp
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+
+
+# openbis upload log file
+usecases/MinimumWorkingExample/logfile_openbis.txt

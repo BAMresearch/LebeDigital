@@ -14,7 +14,10 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import  sphinx_rtd_theme
+import os
+import sys
 
+sys.path.insert(0, os.path.abspath('./lebedigital'))
 
 # -- Project information -----------------------------------------------------
 
@@ -32,6 +35,9 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
     'sphinx_rtd_theme',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

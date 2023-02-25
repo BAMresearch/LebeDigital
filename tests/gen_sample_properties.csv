@@ -1,0 +1,15 @@
+,code,label,description,managedInternally,dataType,vocabulary,materialType,schema,transformation,semanticAnnotations,registrator,registrationDate,metaData
+0,$NAME,Name,Name,True,VARCHAR,,,,,[],system,2023-01-25 10:30:52,{}
+1,$SHOW_IN_PROJECT_OVERVIEW,Show in project overview,Show in project overview page,True,BOOLEAN,,,,,[],system,2023-01-25 10:30:52,{}
+2,FINISHED_FLAG,Experiment completed,Marks the experiment as finished,False,BOOLEAN,,,,,[],system,2023-01-25 10:30:52,{}
+3,START_DATE,Start date,Start date,False,TIMESTAMP,,,,,[],system,2023-01-25 10:30:52,{}
+4,END_DATE,End date,End date,False,TIMESTAMP,,,,,[],system,2023-01-25 10:30:52,{}
+5,EXPERIMENTAL_STEP.EXPERIMENTAL_GOALS,Experimental goals,Goals of the experiment,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+6,EXPERIMENTAL_STEP.EXPERIMENTAL_DESCRIPTION,Experimental description,Description of the experiment,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+7,EXPERIMENTAL_STEP.EXPERIMENTAL_RESULTS,Experimental results,Summary of  experimental results,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+8,EXPERIMENTAL_STEP.SPREADSHEET,Spreadsheet,Multi purpose Spreatsheet,False,XML,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Spreadsheet'}
+9,REFERENCE,References,Useful refences,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+10,PUBLICATION,Publication,Own publication where this entity is referenced,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+11,NOTES,Notes,Notes,False,MULTILINE_VARCHAR,,,,,[],system,2023-01-25 10:30:52,{'custom_widget': 'Word Processor'}
+12,$XMLCOMMENTS,Comments,Comments log,True,XML,,,,,[],system,2023-01-25 10:30:52,{}
+13,$ANNOTATIONS_STATE,Annotations State,Annotations State,True,XML,,,,,[],system,2023-01-25 10:30:52,{}

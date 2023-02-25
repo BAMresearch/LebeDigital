@@ -1,0 +1,358 @@
+import fenics_concrete  # somehow required...
+from lebedigital.unit_registry import ureg
+import pint_pandas
+import pint
+import pandas as pd
+
+PATH_TO_SCRIPTS = '../../../lebedigital/'
+
+
+#transforms dictionary in the form "example:{"value": 1 "units": "..."}, example2:{"value": 1 "units": "..."}, ... to pint object
+def from_dict_2_pint_object(dictionary):
+    new_dict_pint={}
+    for key in dictionary.keys():
+        if dictionary[key]['unit'] == 'degree_Celsius':
+            # somehow temperature is different...
+            Q_ = ureg.Quantity
+            new_dict_pint[key] = Q_(dictionary[key]['value'],ureg.degC)
+            continue
+        new_dict_pint[key] = dictionary[key]['value'] * ureg(dictionary[key]['unit'])
+    return new_dict_pint
+
+
+def read_pint_dicts(input):
+    dict = {}
+    for path in input:
+        # only include .json files
+        # maybe this has to change at some point...
+        if path[-5:] == '.json':
+            with open(path) as f:
+                # TODO implement check so that parameters are not overwritten
+                dict.update(json.loads(f.read()))
+
+    return from_dict_2_pint_object(dict)
+
+
+#transforms pint object to the standard dictionary form decided
+def from_pint_object_2_dict(dictionary):
+    new_dict={}
+    for key in dictionary.keys():
+        new_dict[key] = {"value": dictionary[key].magnitude, "unit":"{0.units}".format(dictionary[key])}
+    return new_dict
+
+
+def write_pint_dict(dict,path):
+    dict=from_pint_object_2_dict(dict)
+    with open(path,"w") as f:
+        f.write(json.dumps(dict, indent=4))
+#
+def write_pint_df(pint_df,path):
+    pint_df.pint.dequantify().to_csv(path, index=None)
+
+def read_pint_df(path):
+    pint_df = pd.read_csv(path, header=[0, 1])
+    pint.set_application_registry(ureg)  # required to use the same registry
+    return pint_df.pint.quantify(level=-1)
+
+# this rule collects all overall targets.
+# an output must be an input to be computed
+# the alternative is to define them in the console cmmand, which is suboptimal
+rule workflow_targets:
+    input:
+        "Results/gwp_beam.json",
+        "Results/beam_design.json",
+        "Results/kpi_from_fem.json",
+        'Results/demonstrator_beam.xdmf'
+
+
+rule kpi_from_fem:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/kpi_from_fem.py',
+        temperature_limit = "Inputs/temperature_limit.json",
+        fem_model = "Results/fem_model.csv",
+
+    output:
+        results = "Results/kpi_from_fem.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.kpi_from_fem import kpi_from_fem
+        p = read_pint_dicts(input)
+        df = read_pint_df(input.fem_model)
+
+
+        # run script
+        results = kpi_from_fem(df,p['temperature_limit'])
+
+        write_pint_dict(results,output.results)
+
+
+# TODO, add/write respective FEM model for beam...
+rule fem_model:
+    input:
+        script = PATH_TO_SCRIPTS + 'simulation/precast_column.py',
+        geometry = "Inputs/geometry.json",
+        steel_yield = 'Inputs/steel_yield.json',
+        fem_control = "Inputs/fem_control.json",
+        fem_parameters = "Inputs/fem_parameters.json",
+        results_homogenization = "Results/homogenization.json",
+        results_approx_max_doh = "Results/approx_max_doh.json",
+        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
+
+    output:
+        pint_results = "Results/fem_model.csv",
+        paraview = 'Results/demonstrator_beam.xdmf'
+
+    run:
+        from lebedigital.simulation.demonstrator_beam import demonstrator_beam
+
+        # get parameters
+        p = read_pint_dicts(input)
+
+        # fixing name discrepancies from other rules or inputs
+        p['E_28'] = p.pop('E')
+        p['fc_inf'] = p.pop('fc')
+        p['vol_heat_cap'] = p.pop('C')
+        p['density'] = p.pop('rho')
+        p['themal_cond'] = p.pop('kappa')
+        p['Q_inf'] = p.pop('Q')
+        p['alpha_max'] = p.pop('max_degree_of_hydration')
+        p['ft_inf'] = p.pop('steel_yield')  # setting the tensile yield to steel as a test, only used in yield fct
+
+        results = {}
+        # run script
+        # output is a pandas-pint dataframe
+        df_pint =  demonstrator_beam(p['full_time'], p['time_step'],p,
+                                     pv_output=True, pv_name='Results/demonstrator_beam')
+
+        # writing the data frame
+        write_pint_df(df_pint, output.pint_results)
+
+
+rule approx_max_doh:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/approximate_max_degree_of_hydration.py',
+        wb_ratio = 'Inputs/wb_ratio.json'
+
+    output:
+        results = "Results/approx_max_doh.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.approximate_max_degree_of_hydration import approximate_max_degree_of_hydration
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["max_degree_of_hydration"] =  approximate_max_degree_of_hydration(p['wb_mass_ratio'])
+
+        write_pint_dict(results,output.results)
+
+
+rule approx_tensile_strength:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/approximate_tensile_strength.py',
+        results_homogenization = "Results/homogenization.json",
+
+    output:
+        results = "Results/approx_tensile_strength.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.approximate_tensile_strength import approximate_tensile_strength
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["concrete_ft"] =  approximate_tensile_strength(p['fc'])
+
+        write_pint_dict(results,output.results)
+
+
+rule beam_design:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/beam_design.py',
+        geometry = "Inputs/geometry.json",
+        steel_yield = 'Inputs/steel_yield.json',
+        beam_design = "Inputs/beam_design.json",
+        loads = "Inputs/loads.json",
+        results_homogenization = "Results/homogenization.json",
+
+    output:
+        results = "Results/beam_design.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.beam_design import check_design
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+
+        results = {}
+        # run script
+        results["check_steel_area"] =  check_design(span=p['length'],
+                                                    width=p['width'],
+                                                    height=p['height'],
+                                                    point_load = p["point_load"],
+                                                    distributed_load = p["distributed_load"],
+                                                    compr_str_concrete=p["fc"],
+                                                    yield_str_steel=p['steel_yield'],
+                                                    steel_dia=p['reinforcement_diameter'],
+                                                    n_bottom=p['n_reinforcement'],
+                                                    cover=p['concrete_cover'])
+
+        write_pint_dict(results,output.results)
+
+
+rule gwp_beam:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
+        geometry = "Inputs/geometry.json",
+        results_gwp_mix = "Results/gwp_mix.json",
+
+    output:
+        results = "Results/gwp_beam.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_GWP_per_part import computation_GWP_per_part
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["gwp_mix"] = computation_GWP_per_part(p['gwp_mix'], p['width'], p['height'], p['length'])
+
+        write_pint_dict(results,output.results)
+
+
+rule gwp_mix:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_mix.py',
+        material_properties = "Inputs/material_properties.json",
+        results_mix_volume_contents = 'Results/mix_volume_contents.json',
+
+    output:
+        results = "Results/gwp_mix.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_GWP_mix import computation_GWP_mix
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        constituents = {'cement' : {'content': p['cem_vol_content'], 'GWP': p['gwp_cement']},
+                        'slag' : {'content': p['sub_vol_content'], 'GWP': p['gwp_slag']},
+                        'aggregates' : {'content': p['aggregates_vol_content'], 'GWP': p['gwp_aggregates']}
+                        }
+
+        results = {}
+        # run script
+        results["gwp_mix"] = computation_GWP_mix(constituents)
+
+        write_pint_dict(results,output.results)
+
+
+rule approx_paste_properties:
+    # the stiffness and strength of the cement paste is estimated and interpolated
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
+        slag_ratio = "Inputs/slag_ratio.json",
+        sc_fraction = "Inputs/sc_fraction.json",
+        phi_paste = "Inputs/phi_paste.json"
+
+    output:
+        results = "Results/approx_paste_properties.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.dummy_paste_strength_stiffness import dummy_paste_strength_stiffness
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['slag_ratio'],p['paste_phi'])
+
+        write_pint_dict(results,output.results)
+
+
+rule approx_hydration_parameters:
+    # the hydration parameters are approximated based on slag content
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
+        slag_ratio = 'Inputs/slag_ratio.json',
+        sc_fraction = "Inputs/sc_fraction.json",
+        phi_hydration = 'Inputs/phi_hydration.json'
+
+    output:
+        results = 'Results/approx_hydration_parameters.json'
+
+    run:
+        from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+
+        # run script
+        results['B1'], results['B2'], results['eta'], results['E_act'], results['Q_pot'], results['T_ref'] = \
+            dummy_hydration_parameters(p['slag_ratio'], p['hydration_phi'])
+
+        write_pint_dict(results,output.results)
+
+
+rule mix_volume_contents:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_volume_content.py',
+        material_properties = "Inputs/material_properties.json",
+        slag_ratio = 'Inputs/slag_ratio.json',
+        aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
+        sc_fraction = "Inputs/sc_fraction.json",
+        wb_ratio = 'Inputs/wb_ratio.json',
+
+
+    output:
+        results = 'Results/mix_volume_contents.json'
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_volume_content import computation_volume_content
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        # run script
+        # running and storing the results
+        results = computation_volume_content(p)
+
+        write_pint_dict(results,output.results)
+
+
+rule homogenization:
+    input:
+        script = PATH_TO_SCRIPTS + 'simulation/concrete_homogenization.py',
+        material_properties = "Inputs/material_properties.json",
+        results_mix_volume_contents = 'Results/mix_volume_contents.json',
+        aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
+        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json',
+        results_approx_paste_properties = 'Results/approx_paste_properties.json',
+
+    output:
+        results = "Results/homogenization.json"
+
+    run:
+        from lebedigital.simulation.concrete_homogenization import concrete_homogenization
+
+        p = read_pint_dicts(input)
+
+        # fixing name discrepancies from other rules or inputs
+        p['paste_Q'] = p.pop('Q_pot')
+        p['paste_rho'] = p.pop('density_paste')
+        p['aggregates_rho'] = p.pop('density_aggregates')
+        p['aggregates_vol_frac'] = p.pop('aggregates_volume_fraction')
+
+        results = concrete_homogenization(p)
+
+        write_pint_dict(results, output.results)
