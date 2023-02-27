@@ -26,7 +26,8 @@ class Constants(Enum):
     collection: str = 'TEST_COLLECTION'
     collection_id: str = '/DUMMY/TEST_PROJECT/TEST_COLLECTION'
     sample_type: str = 'EXPERIMENTAL_STEP'
-    db_url: str = "https://openbis.matolab.org/openbis/"
+    # db_url: str = "https://openbis.matolab.org/openbis/"
+    db_url: str = "https://localhost:8443/openbis/"
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
 
 
