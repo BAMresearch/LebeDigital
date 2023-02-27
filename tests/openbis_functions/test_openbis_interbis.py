@@ -74,14 +74,14 @@ def setup(pytestconfig):
 
     # Create project and collection, if not there
     try:
-        o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
+        project_obj = o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
     except (KeyError, ValueError):
         project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value,
                                     description="Test project")
         project_obj.save()
 
     try:
-        o.get_collection(code=Constants.collection_id.value)
+        collection_obj = o.get_collection(code=Constants.collection_id.value)
     except ValueError:
         collection_obj = o.new_collection(project=Constants.project.value, code=Constants.collection.value,
                                           type="COLLECTION")
@@ -108,6 +108,8 @@ def setup(pytestconfig):
     yield
 
     sample.delete('cleaning up after test run')
+    project_obj.delete('cleaning up after test run')
+    collection_obj.delete('cleaning up after test run')
 
     o.logout()
 
