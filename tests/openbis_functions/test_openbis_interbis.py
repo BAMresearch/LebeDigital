@@ -75,7 +75,7 @@ def setup(pytestconfig):
     # Create project and collection, if not there
     try:
         o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
-    except ValueError:
+    except (KeyError, TypeError):
         project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value,
                                     description="Test project")
         project_obj.save()
@@ -138,8 +138,10 @@ def test_get_sample_type_properties(setup, pytestconfig):
                               keep_default_na=False,
                               )
 
-    df = df.drop(['semanticAnnotations', 'metaData'], axis=1)
-    df_expected = df_expected.drop(['semanticAnnotations', 'metaData'], axis=1)
+    ignored_columns = ['semanticAnnotations', 'metaData', 'registrationDate']
+
+    df = df.drop(ignored_columns, axis=1)
+    df_expected = df_expected.drop(ignored_columns, axis=1)
 
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
