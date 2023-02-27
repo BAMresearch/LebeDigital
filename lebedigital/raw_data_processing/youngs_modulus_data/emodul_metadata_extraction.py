@@ -99,7 +99,7 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
 
         # set Compression and Transducer Column
         metadata['CompressionColumn'] = 0
-        metadata['TransducerColumn'] = [1,2,3]
+        metadata['TransducerColumn'] = "[1,2,3]"
 
         # set paths
         metadata['RawDataFile'] = os.path.join(rawDataPath,specimen_file) # path to specimen.dat
