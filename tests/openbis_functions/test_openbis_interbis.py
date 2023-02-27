@@ -56,10 +56,11 @@ def setup(pytestconfig):
     login_val = pytestconfig.getoption('--login')
     password_val = pytestconfig.getoption('--password')
 
-    o = Interbis(Constants.db_url.value)
+    # o = Interbis(Constants.db_url.value)
+    o = Interbis(Constants.db_url.value, verify_certificates=False)
 
     if login_val != 'no_cl_login' and password_val != 'no_cl_password':
-        o.connect_to_datastore(username=login_val, password=password_val)
+        o.connect_to_datastore(username=login_val, password=password_val, )
     else:
         o.connect_to_datastore()
 

@@ -1,4 +1,4 @@
-name: lebedigital
+name: interbis
 on:
   push:
     branches-ignore:
