@@ -33,9 +33,9 @@ class Constants(Enum):
 
 
 class Filepaths(Enum):
-    import_template: str = 'tests/openbis_functions/test_files/gen_import_template.csv'
-    sample_properties: str = 'tests/openbis_functions/test_files/gen_sample_properties.csv'
-    test_sheet: str = 'tests/openbis_functions/test_files/test_sheet.xlsx'
+    import_template: str = './openbis_functions/test_files/gen_import_template.csv'
+    sample_properties: str = './openbis_functions/test_files/gen_sample_properties.csv'
+    test_sheet: str = './openbis_functions/test_files/test_sheet.xlsx'
 
 
 @pytest.fixture(scope='session')
