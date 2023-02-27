@@ -92,18 +92,28 @@ def placeholderreplacement(
                     lines[i] = lines[i].replace(placeholder, str(metadata[key]))
                     usedKeys.append(key)
 
-                # append the specimen-ID name to "key"_    
+                # append the specimen-ID name to "key"_ , works for most keys, except 
+                # some keys below
                 key_ = key + "_ "
                 if key_ in lines[i]:
                     lines[i] = lines[i].replace(key_, key + "_" + str(specimenID) + " ")
 
-            # append the specimen-ID name to "E-ModulTestSpecimen_"
+            # append the specimen-ID name to the exceptions 
             if "E-ModulTestSpecimen_ " in lines[i]:
                 logger.debug('Found "E-ModulTestSpecimen_" in line ' + str(i + 1) \
                              + ' and appended specimen-ID "' + str(specimenID) + '".')    
                 lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
                             + str(specimenID) + " ")
-                #usedKeys.append(keys[0])
+            if "Transducer_ " in lines[i]:
+                logger.debug('Found "Transducer_" in line ' + str(i + 1) \
+                             + ' and appended specimen-ID "' + str(specimenID) + '".')    
+                lines[i] = lines[i].replace("Transducer_ ", "Transducer_" \
+                            + str(specimenID) + " ")                
+            if "CompressionForce_ " in lines[i]:
+                logger.debug('Found "CompressionForce_" in line ' + str(i + 1) \
+                             + ' and appended specimen-ID "' + str(specimenID) + '".')    
+                lines[i] = lines[i].replace("CompressionForce_ ", "CompressionForce_" \
+                            + str(specimenID) + " ")
 
             # depending on shape of specimen, set null pointers            
             if "SpecimenHeight" not in keys:
@@ -173,4 +183,4 @@ dataFile = "../lebedigital/mapping/testMetaData.yaml"
 dataPath = os.path.join(dataDir, dataFile)
 
 mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-placeholderreplacement(ontoPath, dataPath)#, mappedOntoName)
+placeholderreplacement(ontoPath, dataPath, mappedOntoName)
