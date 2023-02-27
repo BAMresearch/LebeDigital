@@ -22,10 +22,10 @@ url is localhost by default, when you want to test on some other database then y
 
 
 class Constants(Enum):
-    space: str = 'DUMMY'
+    space: str = 'DEFAULT'
     project: str = 'TEST_PROJECT'
     collection: str = 'TEST_COLLECTION'
-    collection_id: str = '/DUMMY/TEST_PROJECT/TEST_COLLECTION'
+    collection_id: str = '/DEFAULT/TEST_PROJECT/TEST_COLLECTION'
     sample_type: str = 'EXPERIMENTAL_STEP'
     # db_url: str = "https://openbis.matolab.org/openbis/"
     db_url: str = "https://localhost:8443/openbis/"
@@ -116,7 +116,7 @@ def setup(pytestconfig):
 def test_get_metadata_import_template(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner)
+    o = Interbis(chosen_runner, verify_certificates=False)
 
     df = o.get_metadata_import_template(Constants.sample_type.value)
 
@@ -129,7 +129,7 @@ def test_get_metadata_import_template(setup, pytestconfig):
 def test_get_sample_type_properties(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner)
+    o = Interbis(chosen_runner, verify_certificates=False)
 
     df = o.get_sample_type_properties(Constants.sample_type.value)
 
@@ -149,7 +149,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
 def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner)
+    o = Interbis(chosen_runner, verify_certificates=False)
 
     o.create_sample_type(sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
 
@@ -173,6 +173,6 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
                                             (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_exists_in_datastore(setup, sample, output, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner)
+    o = Interbis(chosen_runner, verify_certificates=False)
 
     assert o.exists_in_datastore(str(sample)) == output

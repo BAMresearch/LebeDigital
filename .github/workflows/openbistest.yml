@@ -19,9 +19,10 @@ jobs:
       - name: build docker
         run: |
           mkdir data 
-          ls -la
+          ls -a
           docker create --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/data/:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:latest
           docker start openbis
+          ls -a
 
       - name: checkout repo
         uses: actions/checkout@v3
