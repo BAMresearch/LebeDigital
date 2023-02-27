@@ -99,11 +99,11 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
 
         # set Compression and Transducer Column
         metadata['CompressionColumn'] = 0
-        metadata['TransducerColumn'] = "[1,2,3]"
+        metadata['TransducerColumn'] = [1,2,3]
 
         # set paths
+        metadata['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
         metadata['RawDataFile'] = os.path.join(rawDataPath,specimen_file) # path to specimen.dat
-        metadata['ProcessedFile'] = None # path to csv file with values extracted by emodul_generate_processed_data.py
         try:
             with open(str(rawDataPath)+'/'+ str(mix_file), encoding="utf8", errors='ignore') as mix_data:
                 lines = mix_data.readlines()
@@ -180,7 +180,8 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/Data/testMetaData.yaml'
+        #args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
 
     # run extraction and write metadata file
     emodul_metadata(args.input, args.output)
