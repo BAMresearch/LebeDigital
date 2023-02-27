@@ -67,8 +67,7 @@ def placeholderreplacement(
         # Set up logger
         logger.debug('S T A R T')
         logger.debug('File has ' + str(len(lines)) + ' lines.')
-        counter = 0
-        usedKeys = [] # to count keys that didn't find a placeholder
+        usedKeys = [] # to count keys that found a placeholder
         ontoPHcounter = [] # to count all placeholders
         remainingPH = [] # to count the placeholders that recieved no data
 
@@ -91,7 +90,6 @@ def placeholderreplacement(
                     logger.debug('Found placeholder "' + placeholder + '" for key "' \
                                  + key + '" with value "' + str(metadata[key]) + '".')
                     lines[i] = lines[i].replace(placeholder, str(metadata[key]))
-                    counter += 1
                     usedKeys.append(key)
 
                 # append the specimen-ID name to "key"_    
@@ -105,7 +103,6 @@ def placeholderreplacement(
                              + ' and appended specimen-ID "' + str(specimenID) + '".')    
                 lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
                             + str(specimenID) + " ")
-                #counter += 1   
                 #usedKeys.append(keys[0])
 
             # depending on shape of specimen, set null pointers            
@@ -133,12 +130,12 @@ def placeholderreplacement(
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
     if len(unusedKeys) > 0:
-        logger.warning('Replaced only ' + str(counter) + ' placeholders within the ontology.')
+        logger.warning('Mapped only ' + str(len(usedKeys)) + ' keys to the ontology.')
         logger.warning('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
                      + ' metadata keys have not been mapped: ')
         logger.warning(unusedKeys)
     else:
-        logger.debug('All ' + str(counter) + ' metadata keys have been mapped.')
+        logger.debug('All ' + str(len(usedKeys)) + ' metadata keys have been mapped.')
 
     # for placeholders
     if len(remainingPH) > 0:
@@ -162,18 +159,18 @@ def placeholderreplacement(
 
 
 
-# # T E M P O R A R Y !!!
-# # For my personal testing, will be removed later.
+# T E M P O R A R Y !!!
+# For my personal testing, will be removed later.
 
-# # defining paths : ONTOLOGY
-# ontoDir = Path(__file__).parents[1]
-# ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
-# ontoPath = os.path.join(ontoDir, ontoFile)
+# defining paths : ONTOLOGY
+ontoDir = Path(__file__).parents[1]
+ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
+ontoPath = os.path.join(ontoDir, ontoFile)
 
-# # defining paths : METADATA
-# dataDir = Path(__file__).parents[1]
-# dataFile = "../lebedigital/mapping/testMetaData.yaml"  
-# dataPath = os.path.join(dataDir, dataFile)
+# defining paths : METADATA
+dataDir = Path(__file__).parents[1]
+dataFile = "../lebedigital/mapping/testMetaData.yaml"  
+dataPath = os.path.join(dataDir, dataFile)
 
-# mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-# placeholderreplacement(ontoPath, dataPath)#, mappedOntoName)
+mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
+placeholderreplacement(ontoPath, dataPath)#, mappedOntoName)
