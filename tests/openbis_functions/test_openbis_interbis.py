@@ -108,8 +108,6 @@ def setup(pytestconfig):
     yield
 
     sample.delete('cleaning up after test run')
-    collection_obj.delete('cleaning up after test run')
-    project_obj.delete('cleaning up after test run')
 
     o.logout()
 
