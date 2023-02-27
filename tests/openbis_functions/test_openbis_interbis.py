@@ -113,7 +113,9 @@ def setup(pytestconfig):
 
 
 @pytest.mark.login
-def test_get_metadata_import_template(setup):
+def test_get_metadata_import_template(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner)
 
     df = o.get_metadata_import_template(Constants.sample_type.value)
@@ -124,8 +126,10 @@ def test_get_metadata_import_template(setup):
 
 
 @pytest.mark.login
-def test_get_sample_type_properties(setup):
-    o = Interbis(Constants.db_url.value)
+def test_get_sample_type_properties(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner)
 
     df = o.get_sample_type_properties(Constants.sample_type.value)
 
@@ -142,8 +146,10 @@ def test_get_sample_type_properties(setup):
 
 # no way of testing on dummy account
 @pytest.mark.skip
-def test_create_sample_type(sample_code, sample_dict):
-    o = Interbis(Constants.db_url.value)
+def test_create_sample_type(sample_code, sample_dict, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner)
 
     o.create_sample_type(sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
 
@@ -165,7 +171,8 @@ def test_create_sample_type(sample_code, sample_dict):
 @pytest.mark.login
 @pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
                                             (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
-def test_exists_in_datastore(setup, sample, output):
-    o = Interbis(Constants.db_url.value)
+def test_exists_in_datastore(setup, sample, output, pytestconfig):
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner)
 
     assert o.exists_in_datastore(str(sample)) == output
