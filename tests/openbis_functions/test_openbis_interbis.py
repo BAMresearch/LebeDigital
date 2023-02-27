@@ -32,7 +32,7 @@ class Constants(Enum):
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
 
 
-class Testfiles(Enum):
+class Filepaths(Enum):
     import_template: str = 'tests/openbis_functions/test_files/gen_import_template.csv'
     sample_properties: str = 'tests/openbis_functions/test_files/gen_sample_properties.csv'
     test_sheet: str = 'tests/openbis_functions/test_files/test_sheet.xlsx'
@@ -120,7 +120,7 @@ def test_get_metadata_import_template(setup, pytestconfig):
 
     df = o.get_metadata_import_template(Constants.sample_type.value)
 
-    df_expected = pd.read_csv(Testfiles.import_template.value, index_col=0, keep_default_na=False)
+    df_expected = pd.read_csv(Filepaths.import_template.value, index_col=0, keep_default_na=False)
 
     pd.testing.assert_frame_equal(df, df_expected)
 
@@ -133,7 +133,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
 
     df = o.get_sample_type_properties(Constants.sample_type.value)
 
-    df_expected = pd.read_csv(Testfiles.sample_properties.value,
+    df_expected = pd.read_csv(Filepaths.sample_properties.value,
                               index_col=0,
                               keep_default_na=False,
                               )
