@@ -75,7 +75,7 @@ def setup(pytestconfig):
     # Create project and collection, if not there
     try:
         o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
-    except (KeyError, TypeError):
+    except (KeyError, ValueError):
         project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value,
                                     description="Test project")
         project_obj.save()
