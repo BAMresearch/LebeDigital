@@ -1,0 +1,10 @@
+{
+   "point_load": {
+     "value" : 36000,
+     "unit" : "N"
+   },
+   "distributed_load": {
+     "value" : 0,
+     "unit" : "N/mm"
+   }
+}

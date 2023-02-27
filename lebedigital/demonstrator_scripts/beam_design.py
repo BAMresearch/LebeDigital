@@ -108,10 +108,10 @@ def beam_section_design(
     a_cc=0.85
     gamma_c=1.5 #Concrete partial material safety factor
     fcd=a_cc*fck/gamma_c #N/mm^2
-    gamma_s=1.0
+    gamma_s=1.15
     fywd=fyk/gamma_s#N/mm^2
     #Bending measurement (here with stress block) (Biegebemessung (hier mit Spannungsblock))
-    muEd= max_moment / (width * deff ** 2 * fcd) / 1000
+    muEd= max_moment / (width * deff ** 2 * fcd)
     xi=0.5*(1+math.sqrt(1-2*muEd))
     As1= 1 / fywd * max_moment / (xi * deff) #[-]
     A=(math.pi * steel_dia ** 2 / 4) #mm^2

@@ -1,0 +1,18 @@
+{
+    "full_time" :{
+      "value":12,
+      "unit":"h"
+    },
+    "time_step" : {
+      "value":20,
+      "unit":"min"
+    },
+    "mesh_density" : {
+      "value":2,
+      "unit":""
+    },
+    "mesh_density_min" : {
+      "value":2,
+      "unit":""
+    }
+}
