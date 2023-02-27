@@ -15,8 +15,9 @@ All tests which require an openBIS login are marked as login
 
 in order to specify which tests to skip these tests run the command
 
-pytest -m 'not login' OR pytest -m 'login' --login <username> --password <password> in test folder
+pytest -m 'not login' OR pytest -m 'login' --login <username> --password <password> --url <url> in test folder
 
+url is localhost by default, when you want to test on some other database then you need to specify the url address
 """
 
 
