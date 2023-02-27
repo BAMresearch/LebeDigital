@@ -31,6 +31,12 @@ class Constants(Enum):
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
 
 
+class Testfiles(Enum):
+    import_template: str = 'tests/openbis_functions/test_files/gen_import_template.csv'
+    sample_properties: str = 'tests/openbis_functions/test_files/gen_sample_properties.csv'
+    test_sheet: str = 'tests/openbis_functions/test_files/test_sheet.xlsx'
+
+
 @pytest.fixture(scope='session')
 def sample_code():
     sample_code = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
@@ -55,9 +61,10 @@ def sample_dict():
 def setup(pytestconfig):
     login_val = pytestconfig.getoption('--login')
     password_val = pytestconfig.getoption('--password')
+    chosen_runner = pytestconfig.getoption('--url')
 
     # o = Interbis(Constants.db_url.value)
-    o = Interbis(Constants.db_url.value, verify_certificates=False)
+    o = Interbis(chosen_runner, verify_certificates=False)
 
     if login_val != 'no_cl_login' and password_val != 'no_cl_password':
         o.connect_to_datastore(username=login_val, password=password_val, )
@@ -68,13 +75,15 @@ def setup(pytestconfig):
     try:
         o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
     except ValueError:
-        project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value, description="Test project")
+        project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value,
+                                    description="Test project")
         project_obj.save()
 
     try:
         o.get_collection(code=Constants.collection_id.value)
     except ValueError:
-        collection_obj = o.new_collection(project=Constants.project.value, code=Constants.collection.value, type="COLLECTION")
+        collection_obj = o.new_collection(project=Constants.project.value, code=Constants.collection.value,
+                                          type="COLLECTION")
         collection_obj.save()
 
     # Creating testing object
@@ -104,11 +113,11 @@ def setup(pytestconfig):
 
 @pytest.mark.login
 def test_get_metadata_import_template(setup):
-    o = Interbis(Constants.db_url.value)
+    o = Interbis(chosen_runner)
 
     df = o.get_metadata_import_template(Constants.sample_type.value)
 
-    df_expected = pd.read_csv('./gen_import_template.csv', index_col=0, keep_default_na=False)
+    df_expected = pd.read_csv(Testfiles.import_template.value, index_col=0, keep_default_na=False)
 
     pd.testing.assert_frame_equal(df, df_expected)
 
@@ -119,7 +128,7 @@ def test_get_sample_type_properties(setup):
 
     df = o.get_sample_type_properties(Constants.sample_type.value)
 
-    df_expected = pd.read_csv('./gen_sample_properties.csv',
+    df_expected = pd.read_csv(Testfiles.sample_properties.value,
                               index_col=0,
                               keep_default_na=False,
                               )
