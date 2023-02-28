@@ -117,4 +117,3 @@ def test_generate_knowledge_graph():
     #
     # print("End testing")
 
-# test_generate_knowledge_graph()
