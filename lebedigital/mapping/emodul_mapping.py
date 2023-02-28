@@ -1,5 +1,7 @@
 # Script for the e-module ontology (extracted from CPTO) to map e-module metadata
 # by reading every line of that ontology and finding/ # replacing the placeholders.
+# Logging through loguru, you can ignore "debug" messages. "Warning" appear if not 
+# everything has been mapped.
 
 # import libraries
 import yaml
@@ -23,6 +25,7 @@ def load_metadata(dataPath):
             return metadata
         except Exception as e:
             logger.error("Path error: " + str(e))
+
 
 def generate_placeholder(key):
     '''
@@ -108,6 +111,7 @@ def placeholderreplacement(
                 if key_ in lines[i]:
                     lines[i] = lines[i].replace(key_, key + "_" + str(specimenID) + " ")
 
+
             # append the specimen-ID name to the exceptions 
             if "_," in lines[i]:
                 logger.debug('Appended specimen-ID in line ' + str(i + 1) \
@@ -118,26 +122,12 @@ def placeholderreplacement(
                              + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
                 lines[i] = lines[i].replace("_ ", "_" + str(specimenID) + " ")
 
-            # if "E-ModulTestSpecimen_ " in lines[i]:
-            #     logger.debug('Found "E-ModulTestSpecimen_" in line ' + str(i + 1) \
-            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
-            #     lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
-            #                 + str(specimenID) + " ")
-            # if "Transducer_ " in lines[i]:
-            #     logger.debug('Found "Transducer_" in line ' + str(i + 1) \
-            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
-            #     lines[i] = lines[i].replace("Transducer_ ", "Transducer_" \
-            #                 + str(specimenID) + " ")                
-            # if "CompressionForce_ " in lines[i]:
-            #     logger.debug('Found "CompressionForce_" in line ' + str(i + 1) \
-            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
-            #     lines[i] = lines[i].replace("CompressionForce_ ", "CompressionForce_" \
-            #                 + str(specimenID) + " ")
 
-            # ID-key is not given but created in this script, so map it now:
+            # ID-key is not given by metadata but created in this script, so map it now:
             if generate_placeholder("SpecimenID") in lines[i]:
                     logger.debug('Found placeholder "' + generate_placeholder("SpecimenID")+ '".')
                     lines[i] = lines[i].replace(generate_placeholder("SpecimenID"), str(specimenID))
+
 
             # depending on shape of specimen, set null pointers            
             if "SpecimenHeight" not in keys:
@@ -190,19 +180,20 @@ def placeholderreplacement(
 
 
 
+# # T E M P O R A R Y !!!
+# # For my personal testing, will be removed later. Will cause test-failures
+# # because of my own local testing data that doesn't exist on your PC.
 
-# T E M P O R A R Y !!!
-# For my personal testing, will be removed later.
+# # defining paths : ONTOLOGY
+# ontoDir = Path(__file__).parents[1]
+# ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
+# ontoPath = os.path.join(ontoDir, ontoFile)
 
-# defining paths : ONTOLOGY
-ontoDir = Path(__file__).parents[1]
-ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
-ontoPath = os.path.join(ontoDir, ontoFile)
+# # defining paths : METADATA
+# dataDir = Path(__file__).parents[1]
+# dataFile = "../lebedigital/mapping/testMetaData.yaml"  
+# dataPath = os.path.join(dataDir, dataFile)
 
-# defining paths : METADATA
-dataDir = Path(__file__).parents[1]
-dataFile = "../lebedigital/mapping/testMetaData.yaml"  
-dataPath = os.path.join(dataDir, dataFile)
-
-mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-placeholderreplacement(ontoPath, dataPath, mappedOntoName)
+# # creating mapped ttl
+# mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
+# placeholderreplacement(ontoPath, dataPath, mappedOntoName)
