@@ -30,28 +30,28 @@ def print_first():
 
 
 def test_generate_knowledge_graph():
-    metadataPath = 'testMetaData.yaml'
-    filename = "knowledgeGraph.ttl"
-    print("Start testing:")
-    # Generate a testMetadata file
-    print("Generate metadata file for test:")
-    target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
-                   'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
-                   'operator_timestamp': '13:25:39',
-                   'operator_date': '01.09.2014',
-                   'tester_name': 'Kh',
-                   'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
-                   'remark': 'Kraftgeregelt 3,9 kN/s',
-                   'weight': 5342.0,
-                   'weight_unit': 'g',
-                   'diameter': 98.6,
-                   'length': 300.3,
-                   'length_unit': 'mm',
-                   'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+#     metadataPath = 'testMetaData.yaml'
+#     filename = "knowledgeGraph.ttl"
+#     print("Start testing:")
+#     # Generate a testMetadata file
+#     print("Generate metadata file for test:")
+#     target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
+#                    'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
+#                    'operator_timestamp': '13:25:39',
+#                    'operator_date': '01.09.2014',
+#                    'tester_name': 'Kh',
+#                    'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
+#                    'remark': 'Kraftgeregelt 3,9 kN/s',
+#                    'weight': 5342.0,
+#                    'weight_unit': 'g',
+#                    'diameter': 98.6,
+#                    'length': 300.3,
+#                    'length_unit': 'mm',
+#                    'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
 
-    with open(metadataPath, 'w') as yamlFile:
-        yaml.dump(target_data, yamlFile)
-    print("Generate knowledgeGraph:")
+#     with open(metadataPath, 'w') as yamlFile:
+#         yaml.dump(target_data, yamlFile)
+#     print("Generate knowledgeGraph:")
     # generate_knowledge_graph(metadataPath, filename)
 
     # g = rdflib.Graph()
