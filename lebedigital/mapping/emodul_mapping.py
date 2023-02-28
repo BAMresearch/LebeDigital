@@ -24,6 +24,17 @@ def load_metadata(dataPath):
         except Exception as e:
             logger.error("Path error: " + str(e))
 
+def generate_placeholder(key):
+    '''
+        Generates a placeholder (str) in the format $$key_Value$$ for a given key.
+        This function should allow to easily change the structure of the placeholder
+        given in the ontology without having to rewrite the function placeholderreplacement.
+        Just change the structure here.
+    '''
+
+    placeholder = '$$' + str(key) + '_Value$$'
+    return placeholder
+
 
 def placeholderreplacement(
         ontoPath,
@@ -82,8 +93,7 @@ def placeholderreplacement(
             # iterate through list of metadata-keys
             for key in keys:
 
-                # create placeholder from keyname f.e. "Length_Value"^^xsd:float
-                placeholder = '$$' + key + '_Value$$'
+                placeholder = generate_placeholder(key)
 
                 # if placeholder is in line, replace it with metadata
                 if placeholder in lines[i]:
@@ -99,35 +109,47 @@ def placeholderreplacement(
                     lines[i] = lines[i].replace(key_, key + "_" + str(specimenID) + " ")
 
             # append the specimen-ID name to the exceptions 
-            if "E-ModulTestSpecimen_ " in lines[i]:
-                logger.debug('Found "E-ModulTestSpecimen_" in line ' + str(i + 1) \
-                             + ' and appended specimen-ID "' + str(specimenID) + '".')    
-                lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
-                            + str(specimenID) + " ")
-            if "Transducer_ " in lines[i]:
-                logger.debug('Found "Transducer_" in line ' + str(i + 1) \
-                             + ' and appended specimen-ID "' + str(specimenID) + '".')    
-                lines[i] = lines[i].replace("Transducer_ ", "Transducer_" \
-                            + str(specimenID) + " ")                
-            if "CompressionForce_ " in lines[i]:
-                logger.debug('Found "CompressionForce_" in line ' + str(i + 1) \
-                             + ' and appended specimen-ID "' + str(specimenID) + '".')    
-                lines[i] = lines[i].replace("CompressionForce_ ", "CompressionForce_" \
-                            + str(specimenID) + " ")
+            if "_," in lines[i]:
+                logger.debug('Appended specimen-ID in line ' + str(i + 1) \
+                             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')    
+                lines[i] = lines[i].replace("_,", "_" + str(specimenID) + ",")
+            if "_ " in lines[i]:
+                logger.debug('Appended specimen-ID in line ' + str(i + 1) \
+                             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
+                lines[i] = lines[i].replace("_ ", "_" + str(specimenID) + " ")
+
+            # if "E-ModulTestSpecimen_ " in lines[i]:
+            #     logger.debug('Found "E-ModulTestSpecimen_" in line ' + str(i + 1) \
+            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
+            #     lines[i] = lines[i].replace("E-ModulTestSpecimen_ ", "E-ModulTestSpecimen_" \
+            #                 + str(specimenID) + " ")
+            # if "Transducer_ " in lines[i]:
+            #     logger.debug('Found "Transducer_" in line ' + str(i + 1) \
+            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
+            #     lines[i] = lines[i].replace("Transducer_ ", "Transducer_" \
+            #                 + str(specimenID) + " ")                
+            # if "CompressionForce_ " in lines[i]:
+            #     logger.debug('Found "CompressionForce_" in line ' + str(i + 1) \
+            #                  + ' and appended specimen-ID "' + str(specimenID) + '".')    
+            #     lines[i] = lines[i].replace("CompressionForce_ ", "CompressionForce_" \
+            #                 + str(specimenID) + " ")
+
+            # ID-key is not given but created in this script, so map it now:
+            if generate_placeholder("SpecimenID") in lines[i]:
+                    logger.debug('Found placeholder "' + generate_placeholder("SpecimenID")+ '".')
+                    lines[i] = lines[i].replace(generate_placeholder("SpecimenID"), str(specimenID))
 
             # depending on shape of specimen, set null pointers            
             if "SpecimenHeight" not in keys:
                 if "SpecimenHeight" in lines[i]:
-                    placeholder = '$$' + 'SpecimenHeight' + '_Value$$'
                     logger.debug('Specimen shape is cylindrical, set placeholder ' \
-                            + placeholder + ' to None.')
-                    lines[i] = lines[i].replace(placeholder, str(None))
+                            + generate_placeholder("SpecimenHeight") + ' to None.')
+                    lines[i] = lines[i].replace(generate_placeholder("SpecimenHeight"), str(None))
             if "SpecimenWidth" not in keys:
                 if "SpecimenWidth" in lines[i]:
-                    placeholder = '$$' + 'SpecimenWidth' + '_Value$$'
                     logger.debug('Specimen shape is cylindrical, set placeholder ' \
-                            + placeholder + ' to None.')
-                    lines[i] = lines[i].replace(placeholder, str(None))
+                            + generate_placeholder("SpecimenWidth") + ' to None.')
+                    lines[i] = lines[i].replace(generate_placeholder("SpecimenWidth"), str(None))
 
 
     ############################ L O G G I N G #############################        
