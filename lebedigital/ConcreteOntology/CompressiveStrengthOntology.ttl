@@ -53,7 +53,7 @@ con:AppliedLoad a owl:Class .
 
 con:CompressionForce_ a con:AppliedLoad,
         owl:NamedIndividual ;
-    cco:has_decimal_value "$$CompressionColumn_Value$$"^^xsd:decimal ;
+    cco:has_text_value "$$CompressionColumn_Value$$"^^xsd:string ;
     pmd:hasPmdUnit pmd:Q56402798 .
 
 con:CompressiveStrength a owl:Class .
@@ -144,7 +144,7 @@ con:Time_ a owl:NamedIndividual,
 
 con:Transducer_ a con:MeasuringGauge,
         owl:NamedIndividual ;
-    cco:has_decimal_value "$$TransducerColumn_Value$$"^^xsd:decimal ;
+    cco:has_text_value "$$TransducerColumn_Value$$"^^xsd:string ;
     pmd:hasPmdUnit pmd:Q174789 .
 
 cco:Day a owl:Class .
