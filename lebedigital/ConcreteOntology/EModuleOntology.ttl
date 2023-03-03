@@ -60,7 +60,7 @@ con:AppliedLoad a owl:Class .
 con:CompressionForce_ a con:AppliedLoad,
         owl:NamedIndividual ;
     ns3:hasPmdUnit ns3:Q56402798 ;
-    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:integer .
+    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:string .
 
 con:Computation a owl:NamedIndividual,
         mid:RawDataSet .
@@ -155,7 +155,7 @@ con:SpecimenWidth_ a cco:Width,
 con:Transducer_ a con:MeasuringGauge,
         owl:NamedIndividual ;
     ns3:hasPmdUnit ns3:Q56402798 ;
-    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:integer .
+    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:string .
 
 cco:Day a owl:Class .
 
