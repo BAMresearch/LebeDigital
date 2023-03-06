@@ -23,8 +23,7 @@ def upload_to_openbis_doit(
         mixture_data_path: str,
         output_path: str,
         config: dict,
-        default_props: dict,
-        dataset_upload: str):
+        default_props: dict):
     """Function for uploading data to the openbis datastore from within the doit environment
 
     Needed parameters in the config dict are:
