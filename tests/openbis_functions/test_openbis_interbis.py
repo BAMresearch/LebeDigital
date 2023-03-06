@@ -40,7 +40,8 @@ class Filepaths(Enum):
 
 @pytest.fixture(scope='session')
 def sample_code():
-    sample_code = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+    sample_code = ''.join(random.choices(
+        string.ascii_letters + string.digits, k=10))
     sample_prefix = ''.join(sample_code[:5])
     return sample_code, sample_prefix
 
@@ -68,13 +69,14 @@ def setup(pytestconfig):
     o = Interbis(chosen_runner, verify_certificates=False)
 
     if login_val != 'no_cl_login' and password_val != 'no_cl_password':
-        o.connect_to_datastore(username=login_val, password=password_val, )
+        o.connect_to_datastore(username=login_val, password=password_val)
     else:
         o.connect_to_datastore()
 
     # Create project and collection, if not there
     try:
-        project_obj = o.get_project(projectId=f"/{Constants.space.value}/{Constants.project.value}")
+        project_obj = o.get_project(
+            projectId=f"/{Constants.space.value}/{Constants.project.value}")
     except (KeyError, ValueError):
         project_obj = o.new_project(space=Constants.space.value, code=Constants.project.value,
                                     description="Test project")
@@ -120,7 +122,8 @@ def test_get_metadata_import_template(setup, pytestconfig):
 
     df = o.get_metadata_import_template(Constants.sample_type.value)
 
-    df_expected = pd.read_csv(Filepaths.import_template.value, index_col=0, keep_default_na=False)
+    df_expected = pd.read_csv(
+        Filepaths.import_template.value, index_col=0, keep_default_na=False)
 
     pd.testing.assert_frame_equal(df, df_expected)
 
@@ -153,9 +156,11 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    o.create_sample_type(sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
+    o.create_sample_type(
+        sample_code=sample_code[0], sample_prefix=sample_code[1], sample_properties=sample_dict)
 
-    true_sample_type = o.get_sample_type(sample_code[0]).get_property_assignments()
+    true_sample_type = o.get_sample_type(
+        sample_code[0]).get_property_assignments()
 
     true_sample_type_df = true_sample_type.df
 
@@ -165,7 +170,8 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     for prop in true_sample_props_list:
         prop_object = o.get_property_type(prop)
-        true_sample_dict[prop] = [prop_object.dataType, prop_object.label, prop_object.description]
+        true_sample_dict[prop] = [prop_object.dataType,
+                                  prop_object.label, prop_object.description]
 
     assert true_sample_dict == sample_dict
 
