@@ -16,7 +16,7 @@ def test_beam_design():
                                    height=height,
                                    point_load = 36e3*ureg('N'),
                                    distributed_load= 0*ureg('N/mm'),
-                                   compr_str_concrete=20*ureg('N/mm^2'),
+                                   compr_str_concrete=12*ureg('N/mm^2'),
                                    yield_str_steel=500*ureg('N/mm^2'),
                                    steel_dia=12*ureg('mm'),
                                    n_bottom=4,

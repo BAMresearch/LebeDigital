@@ -27,11 +27,15 @@ def dummy_paste_strength_stiffness(slag_ratio, phi_mean, phi_cov, seed):
 
     paste_youngs_modulus_min = 15 * ureg('GPa')
     paste_youngs_modulus_max = 25 * ureg('GPa')
-    paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
+    #paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
+    # E is "mostly" inversely proportional to the slag
+    paste_youngs_modulus = paste_youngs_modulus_max - (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
 
-    paste_strength_min = 8 * ureg('MPa')
-    paste_strength_max = 13 * ureg('MPa')
-    paste_strength = paste_strength_min + (paste_strength_max - paste_strength_min) * slag_ratio
+    paste_strength_min = 10 * ureg('MPa')
+    paste_strength_max = 15 * ureg('MPa')
+    #paste_strength = paste_strength_min + (paste_strength_max - paste_strength_min) * slag_ratio
+    # E is "mostly" inversely proportional to the slag
+    paste_strength = paste_strength_max - (paste_strength_max - paste_strength_min) * slag_ratio
 
     # ATUL : temporary q(b|x)~N(mu,cov), b=(sigma_paste,E_paste), x = slag ratio
     th.manual_seed(seed=seed)
@@ -43,5 +47,5 @@ def dummy_paste_strength_stiffness(slag_ratio, phi_mean, phi_cov, seed):
 
 if __name__ == "__main__":
     # test while developing this
-    E, fc = dummy_paste_strength_stiffness(0, phi_mean=[[1., 25], [0., 1.]], phi_cov=[[1., 0], [0., 1.]], seed=5)
+    E, fc = dummy_paste_strength_stiffness(0.8, phi_mean=[[1., 25], [0., 1.]], phi_cov=[[1., 0], [0., 1.]], seed=5)
     print(E, fc)
