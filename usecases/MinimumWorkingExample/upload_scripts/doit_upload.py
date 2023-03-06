@@ -101,7 +101,7 @@ def upload_to_openbis_doit(
     """
     PARSING DATASET UPLOAD FLAG
     """
-    dataset_upload = True if dataset_upload == 'yes' else False
+    dataset_upload = True if config['dataset_upload'] == 'yes' else False
 
     """
     DIRECTORY SETUP
