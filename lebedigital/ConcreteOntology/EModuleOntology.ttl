@@ -103,6 +103,10 @@ con:MeasurementDuration_ a con:Duration,
 
 con:MeasuringGauge a owl:Class .
 
+con:OpenBisRawDataFile a con:RawDataFile,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
 con:ProcessedFile_ a owl:NamedIndividual,
         mid:ProcessDataSet ;
     cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
@@ -181,11 +185,6 @@ mid:ExperimentTime a owl:Class .
 mid:ProcessDataSet a owl:Class .
 
 mid:Specimen a owl:Class .
-
-con:OpenBisRawDataFile a con:OpenBisRawDataFile,
-        owl:Class,
-        owl:NamedIndividual ;
-    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
 
 ns3:Q11574 a owl:NamedIndividual,
         ns3:PmdSiUnit .
