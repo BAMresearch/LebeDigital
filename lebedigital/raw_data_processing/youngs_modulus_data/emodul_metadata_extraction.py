@@ -116,8 +116,8 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
 
         ###########  D A T A   A B O U T    S P E C I M E N #######
 
-        # name of specimen - This data has no placeholder yet.
-        metadata['specimen_name'] = serviceInformation[3][1] 
+        # name of specimen 
+        metadata['SpecimenName'] = serviceInformation[3][1] 
 
         # set specimen age to 28 days
         metadata['SpecimenAge'] = 28.0
