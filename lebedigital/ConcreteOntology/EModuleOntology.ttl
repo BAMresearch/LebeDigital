@@ -130,7 +130,7 @@ con:SpecimenAge_ a con:Age,
 
 con:SpecimenDiameter_ a cco:Diameter,
         owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenDiameter_Vlaue$$"^^xsd:decimal ;
+    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
     ns3:hasPmdUnit ns3:Q174789 .
 
 con:SpecimenHeight_ a cco:Height,
