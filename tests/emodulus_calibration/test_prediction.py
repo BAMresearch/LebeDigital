@@ -1,4 +1,6 @@
-from lebedigital.calibration.posterior_predictive import perform_prediction_three_point_bending
+from lebedigital.calibration.posterior_predictive_three_point_bending import perform_prediction_three_point_bending
+from lebedigital.calibration.posterior_predictive_three_point_bending import wrapper_three_point_bending
+from probeye.ontology.knowledge_graph_import import import_parameter_samples
 import pytest
 import numpy as np
 import os
@@ -6,20 +8,18 @@ from pathlib import Path
 
 
 def test_prediction():
-    # defining paths and directories
-    # TODO: this is not good!!! one test depending on another
-    #       however, as we are planning on removing the ontologie part anyways, this will soon change...
-    data_dir = 'calibration_data'
-    data_path = Path(__file__).parent / data_dir
-    input_file = 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl'
-    kg_path = data_path / input_file
+    # Reading in the calibrated data. TO be pas here by some KG
+    E_samples = [30.1,30.2,30.53,30.8,29.6] #kN/mm2
+    KG = False
+    if KG:
+        data_dir = 'calibration_data'
+        data_path = Path(__file__).parent / data_dir
+        input_file = 'calibrationWorkflowWolf 8.2 Probe 1.csv.owl'
+        kg_path = data_path / input_file
+        assert kg_path.is_file()
+        E_samples = import_parameter_samples(kg_path)
 
-    # check if KG is present
-    assert kg_path.is_file()
-
-    pos_pred = perform_prediction_three_point_bending(knowledge_graph_file=str(kg_path), mode="cheap")
-
-    # TODO carry units till the end (if possible...)!!!
-    #      this result depends on the result of the calibration, which is random...
-    #      this needs to change once we fix the interfaces and datatypes..
-    assert np.mean(pos_pred) == pytest.approx(125, rel=0.3)  # rel=0.5, only for debugging
+    # performing posterior predictive
+    pos_pred = perform_prediction_three_point_bending(forward_solver=wrapper_three_point_bending,
+                                                      parameter=E_samples)
+    assert np.mean(pos_pred) == pytest.approx(120, rel=0.1)  # rel=0.5, only for debugging

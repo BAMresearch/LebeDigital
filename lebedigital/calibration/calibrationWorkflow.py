@@ -59,7 +59,7 @@ def _test_E_mod_experimental_data(experimental_data: dict):
         return False
 
 
-def esimate_Youngs_modulus(
+def esimate_youngs_modulus(
         experimental_data: dict, calibration_metadata: dict, calibrated_data_path: str, mode="full"
 ):
     """
@@ -200,7 +200,7 @@ def esimate_Youngs_modulus(
     # ========================================================================
 
     # run inference step using emcee
-    emcee_solver = EmceeSolver(problem, seed=0, show_progress=True)
+    emcee_solver = EmceeSolver(problem, seed=10, show_progress=True)
 
     if mode == "cheap":
         inference_data = emcee_solver.run_mcmc(
