@@ -16,7 +16,8 @@ def test_emodulus_calibration():
 
     # query knowledge graph
     # Note remove the mode 'dheap' for local testing so that 'full' sampling can be tested
-    output = read_exp_data_E_mod(path=data_path, exp_name=input_file)
+    # passing the length and diameter for the specific experiment
+    output = read_exp_data_E_mod(path=data_path, exp_name=input_file,length=300.2,diameter=98.6)
     E_samples = esimate_youngs_modulus(experimental_data=output,
                                        calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
                                        calibrated_data_path=data_path, mode='cheap')
