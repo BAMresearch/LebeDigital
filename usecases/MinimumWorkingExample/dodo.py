@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+<<<<<<<<< Temporary merge branch 1
 import yaml
 from doit import create_after, get_var
 from doit.task import clean_targets
@@ -15,20 +16,33 @@ from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_process
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
     emodul_metadata
 from lebedigital.shacl import validation as shacl
+=========
+from lebedigital.raw_data_processing.metadata_extraction \
+    .emodul_metadata_extraction import emodul_metadata
+
+from lebedigital.mapping.emodul_mapping import generate_knowledge_graph
+
+from lebedigital.raw_data_processing.processed_data_generation \
+    .emodul_generate_processed_data import processed_data_from_rawdata
+from lebedigital.calibration.calibrationWorkflow import perform_calibration
+
+from doit import get_var
+from doit.tools import config_changed
+>>>>>>>>> Temporary merge branch 2
 
 # set a variable to define a cheap or full run
 # the default "doit" is set to "doit mode=cheap"
-# "cheap" option is to reduce computation time once the workflow gets more expensive (calibration)
-#  - currently this means: all mixes, one tests data + KG
-# "single" option is to test the dodo file on a single example (similar to cheap but only a single mix)
 # any other mode value runs the expensive version i.e. "doit mode=full"
 config = {"mode": get_var('mode', 'cheap')}
 
+<<<<<<<<< Temporary merge branch 1
 # when "cheap option" or "single" is run, only this souce of raw data is processed
 single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
 single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
 
+=========
+>>>>>>>>> Temporary merge branch 2
 DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
@@ -59,21 +73,33 @@ defaults_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
+<<<<<<<<< Temporary merge branch 1
 
 # EMODULE PATHS
 # defining paths for emodule
+=========
+# defining paths
+>>>>>>>>> Temporary merge branch 2
 emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
 metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
 processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+<<<<<<<<< Temporary merge branch 1
 openbis_directory = Path(emodul_output_directory, 'openbis_upload')  # folder with openBIS log files
 openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
 openbis_sample_types_directory = Path(openbis_directory, 'openbis_sample_types')
+=========
+calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')  # folder with calibration output
+
+# when "cheap option" is run, only this souce of raw data is processed
+cheap_example_name = 'Wolf 8.2 Probe 1'
+>>>>>>>>> Temporary merge branch 2
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 
+<<<<<<<<< Temporary merge branch 1
 # MIXTURE PATHS
 # defining paths for mixture
 raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
@@ -125,16 +151,27 @@ def task_extract_metadata_mixture():
 
 
 # extract standardized meta data for Young' modulus tests
+=========
+#extract standardized meta data for Young' modulus tests
+>>>>>>>>> Temporary merge branch 2
 def task_extract_metadata_emodul():
     # create folder, if it is not there
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
+<<<<<<<<< Temporary merge branch 1
     #if config['mode'] == 'cheap' or config['mode'] == 'single':
     #    list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
     #else: # go through all files
     list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
     
+=========
+    if config['mode'] == 'cheap':
+        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
+    else: # go through all files
+        list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
+
+>>>>>>>>> Temporary merge branch 2
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_path = Path(f)
@@ -142,11 +179,11 @@ def task_extract_metadata_emodul():
             yaml_metadata_file = Path(
                 metadata_emodulus_directory, f.name + '.yaml')
             yield {
-                'name': f.name,
+                'name': yaml_metadata_file,
                 'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
                 'file_dep': [raw_data_file],
                 'targets': [yaml_metadata_file],
-                'clean': [clean_targets]
+                'clean': [clean_targets]  # what does this do?
             }
 
 
@@ -158,9 +195,15 @@ def task_extract_processed_data_emodul():
     Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
+<<<<<<<<< Temporary merge branch 1
     if config['mode'] == 'cheap' or config['mode'] == 'single':
         list_raw_data_emodulus_directories = [Path(raw_data_emodulus_directory, single_example_name)]
     else:  # go through all files
+=========
+    if config['mode'] == 'cheap':
+        list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, cheap_example_name) ]
+    else: # go through all files
+>>>>>>>>> Temporary merge branch 2
         list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
 
     for f in list_raw_data_emodulus_directories:
@@ -172,7 +215,7 @@ def task_extract_processed_data_emodul():
                 processed_data_emodulus_directory, f.name + '.csv')
 
             yield {
-                'name': f.name,
+                'name': csv_data_file,
                 'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
                 'file_dep': [raw_data_file],
                 'targets': [csv_data_file],
@@ -274,11 +317,19 @@ def task_upload_to_openbis():
     Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
+<<<<<<<<< Temporary merge branch 1
     if config['mode'] == 'cheap' or config['mode'] == 'single':
         single_example_name_extended = "".join([single_example_name, ".yaml"])
         list_metadata_emodul_yaml_files = [Path(metadata_emodulus_directory, single_example_name_extended)]
     else:  # go through all files
         list_metadata_emodul_yaml_files = os.scandir(metadata_emodulus_directory)
+=========
+    if config['mode'] == 'cheap':
+        list_metadata_yaml_files = [ Path(metadata_emodulus_directory, cheap_example_name + '.yaml') ]
+    else: # go through all files
+        # list of all meta data files....
+        list_metadata_yaml_files = os.scandir(metadata_emodulus_directory)
+>>>>>>>>> Temporary merge branch 2
 
     for meta_f in list_metadata_emodul_yaml_files:
         # getting path for metadata yaml file
@@ -288,6 +339,7 @@ def task_upload_to_openbis():
         processed_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0]) + '.csv'
         processed_file_path = Path(processed_data_emodulus_directory, processed_file_name)
 
+<<<<<<<<< Temporary merge branch 1
         # here we get the corresponding mix_file
         with open(metadata_file_path, 'r') as file:
             data = yaml.safe_load(file)

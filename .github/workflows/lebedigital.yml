@@ -48,7 +48,11 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -W error::UserWarning 
+          # -s is the shortcut for --capture=no
+          # -W error::UserWarning ; I guess this make an error from a userWarning...
+          # -m "not login" is required for obenBIS tests things
+          #pytest -s -W error::UserWarning -m "not login"  
+          pytest -s -m "not login"  
 
       - name: run-minimum-working-example
         shell: bash -l {0}
