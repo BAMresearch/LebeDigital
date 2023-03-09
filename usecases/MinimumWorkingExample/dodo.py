@@ -34,7 +34,7 @@ DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
 openbis_config = {
-    'datastore_url': get_var("url", 'https://localhost:8443/openbis/'),
+    'datastore_url': get_var("url", 'https://localhost:8443/'),
     'user': get_var("user", 'admin'),
     'pw': get_var("pw", "changeit"),
     'space': get_var("space", 'EMODUL'),
