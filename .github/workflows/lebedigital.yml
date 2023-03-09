@@ -20,7 +20,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-      OPENBIS_STATE_DIR: /home/openbis/openbis_state
+      OPENBIS_STATE_DIR: openbis/openbis_state
     steps:
       - name: build docker
         run: |
