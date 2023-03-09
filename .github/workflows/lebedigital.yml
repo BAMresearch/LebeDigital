@@ -19,13 +19,14 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
+    env:
+      OPENBIS_STATE_DIR: /home/openbis/openbis_state
     steps:
       - name: build docker
         run: |
-          mkdir data 
+          mkdir data, openbis/openbis_state
           ls -a
-          docker create --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/data/:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:latest
+          docker create --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v $OPENBIS_STATE_DIR -p 8443:443 --restart=always openbis/debian-openbis:latest
           docker start openbis
           ls -a
           cd data
