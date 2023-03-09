@@ -50,7 +50,7 @@ openbis_config = {
     # this is here to have a check for the upload, when space does not match any space then the script will exit
     # except when this is set to "yes"
     'force_upload': get_var("force", "yes"),
-    'dataset_upload': get_var('dataset_upload', 'no')
+    'dataset_upload': get_var('dataset_upload', 'yes')
 }
 
 # default properties for openbis

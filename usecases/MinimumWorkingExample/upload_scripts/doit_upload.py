@@ -106,8 +106,7 @@ def upload_to_openbis_doit(
     """
     DIRECTORY SETUP
     """
-    force_upload = config['force_upload']
-    force_upload = True if force_upload == "yes" else False
+    force_upload = True if config['force_upload'] == "yes" else False
 
     _setup_openbis_directories(
         o,
