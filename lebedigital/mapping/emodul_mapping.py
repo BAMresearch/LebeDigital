@@ -80,7 +80,7 @@ def placeholderreplacement(
 
         # Set up logger
         logger.debug('S T A R T')
-        logger.debug('File has ' + str(len(lines)) + ' lines.')
+        logger.debug('Loaded ttl-File has ' + str(len(lines)) + ' lines.')
         usedKeys = [] # to count keys that found a placeholder
         ontoPHcounter = [] # to count all placeholders
         remainingPH = [] # to count the placeholders that recieved no data
@@ -114,12 +114,12 @@ def placeholderreplacement(
 
             # append the specimen-ID name to the exceptions 
             if "_," in lines[i]:
-                logger.debug('Appended specimen-ID in line ' + str(i + 1) \
-                             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')    
+                #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
+                #             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')    
                 lines[i] = lines[i].replace("_,", "_" + str(specimenID) + ",")
             if "_ " in lines[i]:
-                logger.debug('Appended specimen-ID in line ' + str(i + 1) \
-                             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
+                #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
+                #             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
                 lines[i] = lines[i].replace("_ ", "_" + str(specimenID) + " ")
 
 
