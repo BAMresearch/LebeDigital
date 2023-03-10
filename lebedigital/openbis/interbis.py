@@ -582,5 +582,12 @@ class Interbis(Openbis):
         sample = self.get_sample(sample_identifier)
         return sample.data["parentsRelationships"]
 
-    def set_parent_annotation():
-        pass
+    def set_parent_annotation(self):
+        request = {
+            "method": "createRelationshipSomethingTODO",
+            "params": [
+                self.token,
+            ],
+            "id": "1",
+            "jsonrpc": "2.0"
+        }
