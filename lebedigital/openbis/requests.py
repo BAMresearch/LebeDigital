@@ -53,3 +53,10 @@ class RequestsGenerator():
         "type": {"@type": "as.dto.sample.fetchoptions.SampleTypeFetchOptions"},
     }
     """
+
+
+class RequestStub():
+    """
+    instead of searching for the format of the request by hand just write a stub which will eat the formatted request and go from there
+    """
+    pass

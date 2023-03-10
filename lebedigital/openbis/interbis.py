@@ -2,10 +2,13 @@ import logging
 import os
 import sys
 from getpass import getpass
+import json
 
 import pandas as pd
 from pybis import Openbis
 from pybis.sample import Sample
+
+from typing import Optional
 
 
 class Interbis(Openbis):
@@ -536,3 +539,40 @@ class Interbis(Openbis):
 
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
+
+    def create_parent_hint(self, sample_type: str, label: str, parent_type: str, min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
+        """
+        Method for creating parent hints with comments
+        """
+
+        # TODO: Accept SampleType objects as arguments too
+
+        settings_sample = self.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+        settings = json.loads(settings_sample.props["$eln_settings"])
+
+        hint = {
+            "LABEL": label,
+            "TYPE": parent_type,
+        }
+
+        if min_count:
+            assert min_count >= 0, "min_count can not be negative"
+            hint["MIN_COUNT"] = min_count
+
+        if min_count:
+            assert max_count >= 0, "max_count can not be negative"
+            hint["MAX_COUNT"] = max_count
+
+        if annotation_properties:
+            hint["ANNOTATION_PROPERTIES"] = annotation_properties
+        else:
+            hint["ANNOTATION_PROPERTIES"] = [{
+                "TYPE": "ANNOTATION.SYSTEM.COMMENTS",
+                "MANDATORY": False,
+            }]
+
+        settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", []).append(hint)
+
+        settings_sample.props["$eln_settings"] = json.dumps(settings)
+
+        settings_sample.save()
