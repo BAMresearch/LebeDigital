@@ -55,7 +55,7 @@ def get_kpis(input: dict, path: Path) -> dict:
     # directory_path = Optimization_workflow_path
 
     # run workflow
-    os.system(f'snakemake --cores 1 --snakefile {path / "Snakefile"} '
+    os.system(f'snakemake --cores 4 --snakefile {path / "Snakefile"} '
               f'--directory {path}')
 
 
@@ -79,13 +79,18 @@ if __name__ == "__main__":
     input_path = path_to_workflow / 'Inputs'
 
     # input lists
-    aggregate_ratio_list = [0.0,0.2, 0.4]
-    slag_ratio_list = [0.0,0.1, 0.5]
+    aggregate_ratio_list = [0.1, 0.5, 0.8]
+    slag_ratio_list = [0.1, 0.5, 0.8]
 
     df = pd.DataFrame()
 
-    for agg_ratio in aggregate_ratio_list:
-        for slag_ratio in slag_ratio_list:
+    for i, agg_ratio in enumerate(aggregate_ratio_list):
+        for j, slag_ratio in enumerate(slag_ratio_list):
+            total = len(aggregate_ratio_list) * len(slag_ratio_list)
+            current = i*len(slag_ratio_list) + j +1
+            print('___________________________________________________________')
+            print(f' {current}/{total}     RUN WORKFLOW WITH {agg_ratio} {slag_ratio}')
+            print('___________________________________________________________')
             inputs = {'agg_ratio': agg_ratio, 'slag_ratio': slag_ratio}
             results = get_kpis(inputs, path_to_workflow)
 
@@ -97,5 +102,7 @@ if __name__ == "__main__":
                                  'time_of_demoulding': results['time_of_demolding']['value']
                                  }, ignore_index=True)
 
-    print('Done')
-    df.to_csv('kpis.csv',index=False)
+    #df.to_csv(f"kpis_{inputs['agg_ratio']}_{inputs['slag_ratio']}.csv",index=False)
+    df.to_csv(f"kpis.csv",index=False)
+
+print('Done')

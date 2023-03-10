@@ -56,24 +56,35 @@ def kpi_from_fem(df,limit_temp):
     df['temperature'] = df['temperature'].pint.to("degree_Celsius")
     df['yield'] = df['yield'].pint.to("dimensionless")
 
-    # subsequent operations have problems with the units (interpolation) therefore convert to standard df
-    df = df.pint.dequantify()
+    if (df['yield'] < 0).all():
+        results['time_of_demolding'] = 0 * ureg('h')
+    elif (df['yield'] > 0).all():
+        results['time_of_demolding'] = np.nan * ureg('h')
+    else:
 
-    # adding new row with zero yield
-    new_line = pd.DataFrame({('time', 'second'): [np.nan], ('temperature', 'degree_Celsius'): [np.nan], ('yield', 'dimensionless'): [0.0]})
-    df = pd.concat([df, new_line],  ignore_index=True)
 
-    # sort table
-    df = df.sort_values(by=[('yield', 'dimensionless')], ascending=False)
 
-    # interpolate missing values
-    df = df.interpolate(method='linear', limit_direction='forward')
 
-    # locate time of demoldung
-    results['time_of_demolding'] = df.at[df.loc[df[('yield', 'dimensionless')] == 0.0].index.values[0],('time', 'second')] * ureg('s')
+        # subsequent operations have problems with the units (interpolation) therefore convert to standard df
+        df = df.pint.dequantify()
 
-    # changing units, because we can
-    results['time_of_demolding'].ito('h')
+        # adding new row with zero yield
+        new_line = pd.DataFrame({('time', 'second'): [np.nan], ('temperature', 'degree_Celsius'): [np.nan], ('yield', 'dimensionless'): [0.0]})
+        df = pd.concat([df, new_line],  ignore_index=True)
+
+        # sort table
+        df = df.sort_values(by=[('yield', 'dimensionless')], ascending=False)
+
+        # interpolate missing values
+        df = df.interpolate(method='linear', limit_direction='forward')
+
+        # locate time of demoldung
+        results['time_of_demolding'] = df.at[df.loc[df[('yield', 'dimensionless')] == 0.0].index.values[0],('time', 'second')] * ureg('s')
+
+        # changing units, because we can
+        results['time_of_demolding'].ito('h')
+
+
 
     return results
 
@@ -85,7 +96,7 @@ if __name__ == "__main__":
     df = pd.DataFrame({
         "time": pd.Series([0,10,20], dtype="pint[hours]"),
         "temperature": pd.Series([10,40,80], dtype="pint[degree_Celsius]"),
-        "yield": pd.Series([-40,-20,20], dtype="pint[dimensionless]"),
+        "yield": pd.Series([40,20,20], dtype="pint[dimensionless]"),
     })
 
     Q_ = ureg.Quantity

@@ -4,7 +4,7 @@
      "unit" : "kg_CO2_eq/kg"
    },
    "density_sub":{
-     "value":840,
+     "value":1840,
      "unit":"kg/m^3"
    } ,
    "gwp_cement": {
@@ -12,7 +12,7 @@
      "unit" : "kg_CO2_eq/kg"
    },
    "density_cem":{
-     "value":1.44,
+     "value":4.44,
      "unit":"g/cm^3"
    } ,
     "paste_nu" :{
@@ -32,7 +32,7 @@
      "unit" : "kg_CO2_eq/kg"
    },
    "density_aggregates":{
-     "value":1.5,
+     "value":4,
      "unit":"kg/m^3"
    },
     "aggregates_E" :{

@@ -1,6 +1,6 @@
 {
    "point_load": {
-     "value" : 36000,
+     "value" : 9500,
      "unit" : "N"
    },
    "distributed_load": {
