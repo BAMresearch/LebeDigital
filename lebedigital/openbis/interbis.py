@@ -29,9 +29,10 @@ class Interbis(Openbis):
             "get_collection_identifier()",
             "exists_in_datastore()",
             "create_sample_type()",
+            "create_parent_hint()"
         ] + super().__dir__()
 
-    def connect_to_datastore(self, username: str = None, password: str = None):
+    def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
         """
         Establishes a connection to an openBIS Datastore. If username/password are parsed then
         they take precedence over default logic.
@@ -542,7 +543,7 @@ class Interbis(Openbis):
 
     def create_parent_hint(self, sample_type: str, label: str, parent_type: str, min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
         """
-        Method for creating parent hints with comments
+        Method for creating parent hints with comments, has to be set before the parent annotation can be specified, similar to SampleType before Sample
         """
 
         # TODO: Accept SampleType objects as arguments too
@@ -576,3 +577,10 @@ class Interbis(Openbis):
         settings_sample.props["$eln_settings"] = json.dumps(settings)
 
         settings_sample.save()
+
+    def get_parent_annotations(self, sample_identifier: str):
+        sample = self.get_sample(sample_identifier)
+        return sample.data["parentsRelationships"]
+
+    def set_parent_annotation():
+        pass
