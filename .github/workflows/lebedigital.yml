@@ -67,7 +67,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/usecases/MinimumWorkingExample/
-          doit runson=docker dataset_upload=yes
+          doit runson=docker dataset_upload=no
 
       - name: run-optimization-workflow
         shell: bash -l {0}
