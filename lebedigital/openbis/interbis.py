@@ -592,23 +592,18 @@ class Interbis(Openbis):
                               [{'@id': 0,
                                 'properties': {},
                                   'relationships': {parent_sample: {'@id': 1,
-                                                                    'childAnnotations': {'@id': 2,
-                                                                                         'actions': [],
-                                                                                         '@type': 'as.dto.common.update.ListUpdateMapValues'},
-                                                                    'parentAnnotations': {'@id': 3,
-                                                                                          'actions': [{'@id': 4,
+                                                                    'parentAnnotations': {'@id': 2,
+                                                                                          'actions': [{'@id': 3,
                                                                                                        'items': [{'ANNOTATION.SYSTEM.COMMENTS': comment}],
                                                                                                        '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
                                                                                           '@type': 'as.dto.common.update.ListUpdateMapValues'},
                                                                     '@type': 'as.dto.common.update.RelationshipUpdate'}},
-                                  'sampleId': {'@id': 5,
+                                  'sampleId': {'@id': 4,
                                                'permId': child_sample_permid,
                                                '@type': 'as.dto.sample.id.SamplePermId'},
                                   '@type': 'as.dto.sample.update.SampleUpdate'}]],
                    'id': '1',
                    'jsonrpc': '2.0'}
 
-        url = self.url + "openbis/rmi-application-server-v3.json"
-
-        response = requests.post(url, json=request).json()
+        response = requests.post(self.as_v3, json=request).json()
         return response
