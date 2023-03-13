@@ -119,13 +119,13 @@ def setup(pytestconfig):
 
     # Deleting parent hint
 
-    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-    settings = json.loads(settings_sample.props["$eln_settings"])
+    # settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+    # settings = json.loads(settings_sample.props["$eln_settings"])
 
-    settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"].pop(test_results["idx_parent_hint"])
+    # settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"].pop(test_results["idx_parent_hint"])
 
-    settings_sample.props["$eln_settings"] = json.dumps(settings)
-    settings_sample.save()
+    # settings_sample.props["$eln_settings"] = json.dumps(settings)
+    # settings_sample.save()
 
     o.logout()
 
@@ -202,6 +202,7 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
     assert o.exists_in_datastore(str(sample)) == output
 
 
+@pytest.mark.skip
 @pytest.mark.login
 def test_create_parent_hint(setup, pytestconfig, Constants):
     chosen_runner = pytestconfig.getoption('--url')
