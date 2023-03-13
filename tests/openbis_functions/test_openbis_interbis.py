@@ -120,7 +120,7 @@ def setup(pytestconfig):
     # Deleting parent hint
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-    settings = json.loads(settings_sample.set_props["$eln_settings"])
+    settings = json.loads(settings_sample.props["$eln_settings"])
 
     settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"].pop(test_results["idx_parent_hint"])
 
@@ -210,7 +210,7 @@ def test_create_parent_hint(setup, pytestconfig, Constants):
     o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-    settings = json.loads(settings_sample.set_props["$eln_settings"])
+    settings = json.loads(settings_sample.props["$eln_settings"])
 
     output = settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"]
     output = [idx for idx, val in enumerate(output) if val["LABEL"] == Constants.parent_hint_label.value]
