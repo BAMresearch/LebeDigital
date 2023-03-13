@@ -7,9 +7,9 @@ import requests
 
 import pandas as pd
 from pybis import Openbis
-from pybis.sample import Sample
+from pybis.sample import Sample, SampleType
 
-from typing import Optional
+from typing import Optional, Union
 
 
 class Interbis(Openbis):
@@ -31,6 +31,8 @@ class Interbis(Openbis):
             "exists_in_datastore()",
             "create_sample_type()",
             "create_parent_hint()"
+            "set_parent_annotation()"
+            "get_parent_annotation()"
         ] + super().__dir__()
 
     def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
@@ -542,12 +544,16 @@ class Interbis(Openbis):
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
 
-    def create_parent_hint(self, sample_type: str, label: str, parent_type: str, min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
+    def create_parent_hint(self, sample_type: Union[str, SampleType], label: str, parent_type: Union[str, SampleType], min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
         """
         Method for creating parent hints with comments, has to be set before the parent annotation can be specified, similar to SampleType before Sample
         """
 
-        # TODO: Accept SampleType objects as arguments too
+        if isinstance(sample_type, SampleType):
+            sample_type = sample_type.code
+
+        if isinstance(parent_type, SampleType):
+            parent_type = parent_type.code
 
         settings_sample = self.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
         settings = json.loads(settings_sample.props["$eln_settings"])
@@ -584,6 +590,9 @@ class Interbis(Openbis):
         return sample.data["parentsRelationships"]
 
     def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str):
+        """
+        Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
+        """
 
         child_sample_permid = self.get_sample(child_sample).permId
 

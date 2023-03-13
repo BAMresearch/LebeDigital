@@ -2,6 +2,7 @@ import random
 import string
 from datetime import datetime, timedelta
 from enum import Enum
+import json
 
 import pandas as pd
 import pytest
@@ -29,12 +30,18 @@ class Constants(Enum):
     # db_url: str = "https://openbis.matolab.org/openbis/"
     db_url: str = "https://localhost:8443/openbis/"
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
+    parent_hint_label: str = "testing label"
 
 
 class Filepaths(Enum):
     import_template: str = './openbis_functions/test_files/gen_import_template.csv'
     sample_properties: str = './openbis_functions/test_files/gen_sample_properties.csv'
     test_sheet: str = './openbis_functions/test_files/test_sheet.xlsx'
+
+
+test_results = {
+    "idx_parent_hint": None
+}
 
 
 @pytest.fixture(scope='session')
@@ -110,6 +117,16 @@ def setup(pytestconfig):
 
     sample.delete('cleaning up after test run')
 
+    # Deleting parent hint
+
+    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+    settings = json.loads(settings_sample.set_props["$eln_settings"])
+
+    settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"].pop(test_results["idx_parent_hint"])
+
+    settings_sample.props["$eln_settings"] = json.dumps(settings)
+    settings_sample.save()
+
     o.logout()
 
 
@@ -183,3 +200,21 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
     o = Interbis(chosen_runner, verify_certificates=False)
 
     assert o.exists_in_datastore(str(sample)) == output
+
+
+@pytest.mark.login
+def test_create_parent_hint(setup, pytestconfig, Constants):
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
+
+    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+    settings = json.loads(settings_sample.set_props["$eln_settings"])
+
+    output = settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"]
+    output = [idx for idx, val in enumerate(output) if val["LABEL"] == Constants.parent_hint_label.value]
+
+    test_results["idx_parent_hint"] = output
+
+    assert len(output) == 1
