@@ -3,6 +3,7 @@ import os
 import sys
 from getpass import getpass
 import json
+import requests
 
 import pandas as pd
 from pybis import Openbis
@@ -582,9 +583,12 @@ class Interbis(Openbis):
         sample = self.get_sample(sample_identifier)
         return sample.data["parentsRelationships"]
 
-    def set_parent_annotation(self):
+    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str):
+
+        child_sample_permid = self.get_sample(child_sample).permId
+
         request = {'method': 'updateSamples',
-                   'params': ['admin-230313081622949x3D7BFC81EE96EC78BDF71AD4993480D3',
+                   'params': [self.token,
                               [{'@id': 0,
                                 'properties': {},
                                   'experimentId': {'@id': 1,
@@ -611,22 +615,27 @@ class Interbis(Openbis):
                                   'childIds': {'@id': 8,
                                                'actions': [],
                                                '@type': 'as.dto.common.update.IdListUpdateValue'},
-                                  'relationships': {'/MATERIALS/MATERIALS_TEST/TMAT51': {'@id': 9,
-                                                                                         'childAnnotations': {'@id': 10,
-                                                                                                              'actions': [],
-                                                                                                              '@type': 'as.dto.common.update.ListUpdateMapValues'},
-                                                                                         'parentAnnotations': {'@id': 11,
-                                                                                                               'actions': [{'@id': 12,
-                                                                                                                            'items': [{'ANNOTATION.SYSTEM.COMMENTS': 'test_comment'}],
-                                                                                                                            '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
-                                                                                                               '@type': 'as.dto.common.update.ListUpdateMapValues'},
-                                                                                         '@type': 'as.dto.common.update.RelationshipUpdate'}},
+                                  'relationships': {parent_sample: {'@id': 9,
+                                                                    'childAnnotations': {'@id': 10,
+                                                                                         'actions': [],
+                                                                                         '@type': 'as.dto.common.update.ListUpdateMapValues'},
+                                                                    'parentAnnotations': {'@id': 11,
+                                                                                          'actions': [{'@id': 12,
+                                                                                                       'items': [{'ANNOTATION.SYSTEM.COMMENTS': comment}],
+                                                                                                       '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
+                                                                                          '@type': 'as.dto.common.update.ListUpdateMapValues'},
+                                                                    '@type': 'as.dto.common.update.RelationshipUpdate'}},
                                   'attachments': {'@id': 13,
                                                   'actions': [],
                                                   '@type': 'as.dto.attachment.update.AttachmentListUpdateValue'},
                                   'sampleId': {'@id': 14,
-                                               'permId': '20230227085922965-37',
+                                               'permId': child_sample_permid,
                                                '@type': 'as.dto.sample.id.SamplePermId'},
                                   '@type': 'as.dto.sample.update.SampleUpdate'}]],
                    'id': '1',
                    'jsonrpc': '2.0'}
+
+        url = self.url + "openbis/rmi-application-server-v3.json"
+
+        response = requests.post(url, json=request).json()
+        return response
