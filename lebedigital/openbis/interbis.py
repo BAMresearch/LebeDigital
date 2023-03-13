@@ -7,7 +7,8 @@ import requests
 
 import pandas as pd
 from pybis import Openbis
-from pybis.sample import Sample, SampleType
+from pybis.sample import Sample
+from pybis.entity_type import SampleType
 
 from typing import Optional, Union
 
