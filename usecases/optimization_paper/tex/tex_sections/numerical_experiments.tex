@@ -5,7 +5,7 @@ Lets consider a simple 2D quadratic function given by:
 \end{align}
 with $\bm{x} = (x_1,x_2)$. For the function, consider the problem:
 \be
-\min_{\bs{x}} f(\bs{x}), \qquad \textrm{ such that $x_1 \geq 1$ }
+\min_{\bs{x}} f(\bs{x}), \qquad \text{ such that  }  x_1 \geq 1
 \ee
 %
 Following from Eq.\ref{eq:U_theta_constraint}, the upper bound can be given by the following for a Gaussian with the variational parameter $\theta$:
@@ -16,15 +16,15 @@ with $\bm{\theta} = (\mu,\sigma)$. The gradients of the upper bound $U(\bm{\thet
 
 \begin{figure}[!htpb]
 	\centering
-	\begin{subfigure}{0.75\textwidth}
+	\begin{subfigure}
 		\centering
-		\includegraphics[width=\linewidth]{../figures/TUM/theta_evolution_VO_2023_02_21-03_34_28_PM.pdf}
+		\includegraphics[width=0.75\linewidth]{../figures/TUM/theta_evolution_VO_2023_02_21-03_34_28_PM.pdf}
 		\caption{}
 		\label{fig:VO_no_cons}
 	\end{subfigure}
-	\begin{subfigure}{0.75\textwidth}
+	\begin{subfigure}
 		\centering
-		\includegraphics[width=\linewidth]{../figures/TUM/theta_evolution_VO_constraints_2023_02_24-05_12_07_PM.pdf}
+		\includegraphics[width=0.75\linewidth]{../figures/TUM/theta_evolution_VO_constraints_2023_02_24-05_12_07_PM.pdf}
 		\caption{}
 		\label{fig:VO_constraints}
 	\end{subfigure}
