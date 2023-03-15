@@ -207,6 +207,11 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
+    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+    with capsys.disabled():
+        print(settings_sample.props)
+        print(o.get_samples())
+
     o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
