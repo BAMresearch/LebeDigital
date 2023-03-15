@@ -14,13 +14,20 @@ conv_dict = {
     int: 'INTEGER',
 }
 
+ingredient_code = "EMODUL_INGREDIENT"
+ingredient_prefix = "EMODUL_ING"
+ingredient_props = {"$name": ["VARCHAR", "Name", "Name"],
+                    f"{ingredient_code}.bulk_density": ["REAL", "Bulk Density", "Bulk Density"],
+                    f"{ingredient_code}.source": ["VARCHAR", "source", "source"]}
+
 
 def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  emodul_directory_path: Union[Path, str],
                                  config: dict,
                                  default_props: dict,
-                                 logging_path: Union[Path, str]):
-    if config['runson'] == 'actions':
+                                 logging_path: Union[Path, str],
+                                 ingredient_keywords: list):
+    if config['runson'] == 'nodb':
         _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
                          emodul_sample_type='RAN ON ACTIONS',
                          logging_path=logging_path)
@@ -30,12 +37,17 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     o = Interbis(config['datastore_url'])
     o.connect_to_datastore(username=config['user'], password=config['pw'])
 
+    ingredient_sample_type = o.create_sample_type(ingredient_code, ingredient_prefix, ingredient_props)
+
     # creating union dict
-    mix_union_dict = _create_union_yaml(
+    mix_union_dict = _create_union_dict(
         yaml_directory_path=Path(mixture_directory_path),
         output_path=None,
         mixture_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
         defaults_dict=default_props)
+
+    # filtering out ingredient_keywords
+    mix_union_dict = {key: val for key, val in mix_union_dict.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
 
     mixture_sample_type = o.create_sample_type(
         sample_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
@@ -63,12 +75,13 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
 
     _create_logfiles(mixture_sample_type=mixture_sample_type.code,
                      emodul_sample_type=emodul_sample_type.code,
+                     ingredient_sample_type=ingredient_sample_type.code,
                      logging_path=logging_path)
 
     o.logout()
 
 
-def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
+def _create_union_dict(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
                        defaults_dict: dict) -> dict:
     union_dict = defaults_dict
     for file in os.scandir(yaml_directory_path):
@@ -85,11 +98,6 @@ def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None]
             output.write(yaml.dump(union_dict))
 
     return union_dict
-
-
-def _create_material_subdicts(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
-                              defaults_dict: dict):
-    pass
 
 
 def _read_metadata_for_types(yaml_path: Union[str, Path], sample_type_code: str, default_props: dict):
@@ -160,7 +168,7 @@ def _create_unit_vocabularies(o: Interbis, length_vocab_name: str = 'LENGTH_VOCA
         ).save()
 
 
-def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str],
+def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str], ingredient_sample_type: Union[SampleType, str],
                      logging_path: Union[Path, str]):
     with open(Path(logging_path, 'mixture_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': mixture_sample_type}))
@@ -169,3 +177,7 @@ def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_
     with open(Path(logging_path, 'emodul_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
         print(emodul_sample_type, file=file)
+
+    with open(Path(logging_path, 'ingredient_sample_type.yaml'), 'w') as file:
+        # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
+        print(ingredient_sample_type, file=file)

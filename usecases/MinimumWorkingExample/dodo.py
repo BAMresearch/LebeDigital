@@ -58,6 +58,9 @@ defaults_dict = {"operator_date": ["TIMESTAMP", "operator_date", "operator_date"
                  "tester_name": ["VARCHAR", "tester_name", "tester_name"],
                  "$name": ["VARCHAR", "Name", "Name"]}
 
+# ingredient keywords for openbis
+ingredient_keywords = ["cement", "water_total", "addition", "admixture", "aggregate"]
+
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
 
@@ -278,7 +281,8 @@ def task_create_openbis_types():
                                                     metadata_emodulus_directory,
                                                     openbis_config,
                                                     defaults_dict,
-                                                    openbis_sample_types_directory])],
+                                                    openbis_sample_types_directory,
+                                                    ingredient_keywords])],
         'targets': [openbis_sample_types_directory],
         'clean': [clean_targets],
     }
@@ -341,7 +345,7 @@ def task_upload_to_openbis():
             'actions': [(upload_to_openbis_doit,
                          [metadata_file_path, processed_file_path, raw_data_file,
                           mixture_metadata_file_path, mixture_data_path,
-                          openbis_samples_directory, openbis_config, defaults_dict])],
+                          openbis_samples_directory, openbis_config, defaults_dict, ingredient_keywords])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],

@@ -7,11 +7,9 @@ from pathlib import Path
 from pprint import pformat
 from typing import Union
 
-import pandas as pd
 import yaml
 from dateutil.parser import parse
 from pybis.sample import Sample
-from datetime import datetime
 from lebedigital.openbis.interbis import Interbis
 
 
@@ -23,7 +21,8 @@ def upload_to_openbis_doit(
         mixture_data_path: str,
         output_path: str,
         config: dict,
-        default_props: dict):
+        default_props: dict,
+        ingredient_keywords: list):
     """Function for uploading data to the openbis datastore from within the doit environment
 
     Needed parameters in the config dict are:
@@ -48,6 +47,7 @@ def upload_to_openbis_doit(
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
         default_props (dict): A dictionary containing the predefined default properties of sample types
+        ingredient_keywords (list): A predefined list of keywords which will be their own ingredients instead of mixture metadata
     """
 
     logger = logging.getLogger(__name__)
@@ -131,6 +131,10 @@ def upload_to_openbis_doit(
         mixture_metadata = _read_metadata(
             mixture_metadata_file_path, mixture_sample_code, default_props)
         logger.debug("Read Mixture Metadata")
+
+        # filtering the metadata
+        mixture_metadata = {key: val for key, val in mixture_metadata.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
+        logging.debug("Filtered metadata")
 
         mixture_sample = _mixture_upload(
             o,
@@ -216,7 +220,7 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
             if isinstance(val, float) and isnan(val):
                 data[key] = 0.0
 
-        return data
+    return data
 
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
@@ -351,7 +355,7 @@ def _mixture_upload(
         mixture_sample = o.get_sample(
             exist_mixture_sample_df.loc[exist_mixture_sample_df['$name'] == mixture_sample_name, 'identifier'].values[
                 0])
-        logger.debug(f'mixture found in dataset')
+        logger.debug('mixture found in dataset')
 
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
     logger.debug("Starting Mixture Dataset upload")

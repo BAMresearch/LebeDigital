@@ -502,6 +502,28 @@ class Interbis(Openbis):
             )
             new_sample_type.save()
 
+        pt_dict = self.create_property_types(sample_properties)
+
+        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
+
+        for i, p in enumerate(pt_dict.keys(), start=1):
+            block_print()
+            new_sample_type.assign_property(
+                prop=p,
+                section='Metadata',
+                ordinal=i,
+                mandatory=False,
+                # initialValueForExistingEntities=f'Initial_Val_{p}',
+                showInEditView=True,
+                showRawValueInForms=True,
+            )
+            enable_print()
+
+        logging.debug(f'Sample Type {sample_code} created.')
+        return self.get_sample_type(sample_code)
+
+    def create_property_types(self, sample_properties: dict) -> dict:
+
         # Create a dictionary with the samples
         pt_dict = {}
 
@@ -527,23 +549,7 @@ class Interbis(Openbis):
 
             pt_dict[new_pt.code] = new_pt
 
-        # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
-
-        for i, p in enumerate(pt_dict.keys(), start=1):
-            block_print()
-            new_sample_type.assign_property(
-                prop=p,
-                section='Metadata',
-                ordinal=i,
-                mandatory=False,
-                # initialValueForExistingEntities=f'Initial_Val_{p}',
-                showInEditView=True,
-                showRawValueInForms=True,
-            )
-            enable_print()
-
-        logging.debug(f'Sample Type {sample_code} created.')
-        return self.get_sample_type(sample_code)
+        return pt_dict
 
     def create_parent_hint(self, sample_type: Union[str, SampleType], label: str, parent_type: Union[str, SampleType], min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
         """
