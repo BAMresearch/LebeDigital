@@ -202,7 +202,6 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
 
 
 # skipped for now, need to find out why the docker build does not have this sample
-@pytest.mark.skip
 @pytest.mark.login
 def test_create_parent_hint(setup, pytestconfig, capsys):
     chosen_runner = pytestconfig.getoption('--url')
