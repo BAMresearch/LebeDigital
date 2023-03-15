@@ -202,7 +202,7 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
 
 
 @pytest.mark.login
-def test_create_parent_hint(setup, pytestconfig, Constants):
+def test_create_parent_hint(setup, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
