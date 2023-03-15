@@ -213,6 +213,9 @@ def test_create_parent_hint(setup, pytestconfig):
     o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+
+    print(settings_sample.props)
+
     settings = json.loads(settings_sample.props["$eln_settings"])
 
     output = settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"]
