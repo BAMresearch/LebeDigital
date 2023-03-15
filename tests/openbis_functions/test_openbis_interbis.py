@@ -223,7 +223,7 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
 
     settings = json.loads(settings_sample.props["$eln_settings"])
 
-    output = settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"]
+    output = settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENTS_HINT"]
     output = [idx for idx, val in enumerate(output) if val["LABEL"] == Constants.parent_hint_label.value]
 
     test_results["idx_parent_hint"] = output

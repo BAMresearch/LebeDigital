@@ -87,6 +87,11 @@ def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None]
     return union_dict
 
 
+def _create_material_subdicts(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
+                              defaults_dict: dict):
+    pass
+
+
 def _read_metadata_for_types(yaml_path: Union[str, Path], sample_type_code: str, default_props: dict):
     """
     Reads the metadata from a single yaml file and converts the dict to a format accepted by the create sample type
