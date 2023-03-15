@@ -165,8 +165,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
 
-# no way of testing on dummy account
-@pytest.mark.skip
+@pytest.mark.login
 def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -202,7 +201,6 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
     assert o.exists_in_datastore(str(sample)) == output
 
 
-@pytest.mark.skip
 @pytest.mark.login
 def test_create_parent_hint(setup, pytestconfig, Constants):
     chosen_runner = pytestconfig.getoption('--url')
