@@ -125,7 +125,7 @@ conda-env/
 # mkdocs documentation
 /site
 
-# my
+# mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -147,10 +147,25 @@ LebeDigital_optimization_graph_ignored.gv.pdf
 # ignore mesh files
 **/mesh/*
 
-# ignore latex temp files
-*.out
-*.aux
-*.blg
-*.synctex.gz
-*.bbl
+# sphinx website build
+.build
 
+# ignore pdf and resulting figures in optimization paper
+usecases/optimization_paper/tex/optimization_paper.pdf
+usecases/optimization_paper/figures/*
+usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
+
+# ignore workflow outputs
+usecases/optimization_paper/optimization_workflow/Results/*
+**/.snakemake/*
+
+# tex temp
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+
+
+# openbis upload log file
+usecases/MinimumWorkingExample/logfile_openbis.txt
