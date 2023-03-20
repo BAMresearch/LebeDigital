@@ -33,11 +33,6 @@ jobs:
           ls -a
           cd ..
 
-      - name: set default docker settings
-        run: |
-          cd $GITHUB_WORKSPACE/lebedigital/openbis/docker/
-          python3 -m init_settings_docker --login admin --password changeit --url https://localhost:8443/openbis/
-
       - name: checkout repo content
         uses: actions/checkout@v2
 
@@ -61,6 +56,11 @@ jobs:
       - name: Update environment
         run: mamba env update -n lebedigital -f environment.yml
         if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: set default docker settings
+        run: |
+          cd $GITHUB_WORKSPACE/lebedigital/openbis/docker/
+          python3 -m init_settings_docker --login admin --password changeit --url https://localhost:8443/openbis/
 
       - name: run-pytest
         shell: bash -l {0}
