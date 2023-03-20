@@ -1,0 +1,202 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix ns3: <https://material-digital.de/pmdco/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:RO_0000086 a owl:ObjectProperty .
+
+con:E-ModuleTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenDiameter_,
+        con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenWidth_ ;
+    con:has_age con:SpecimenAge_ ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
+    cco:is_input_of con:SecantModulusOfElasticty_ .
+
+con:has_age a owl:ObjectProperty .
+
+cco:described_by a owl:ObjectProperty .
+
+cco:designated_by a owl:ObjectProperty .
+
+cco:has_datetime_value a owl:DatatypeProperty .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_output a owl:ObjectProperty .
+
+cco:has_process_part a owl:ObjectProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+cco:is_input_of a owl:ObjectProperty .
+
+xsd:dateTimeStamp a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+ns3: a owl:Ontology .
+
+ns3:hasPmdUnit a owl:ObjectProperty .
+
+mid:has_column_index a owl:DatatypeProperty .
+
+mid:in_accordance_with a owl:ObjectProperty .
+
+con:Age a owl:Class .
+
+con:AppliedLoad a owl:Class .
+
+con:CompressionForce_ a con:AppliedLoad,
+        owl:NamedIndividual ;
+    ns3:hasPmdUnit ns3:Q56402798 ;
+    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:string .
+
+con:Computation a owl:NamedIndividual,
+        mid:RawDataSet .
+
+con:DINEN12390-13:2021 a cco:Document,
+        owl:NamedIndividual .
+
+con:Duration a owl:Class .
+
+con:ExperimentDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+
+con:ExperimentInfo a owl:Class .
+
+con:ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:CompressionForce_,
+        con:ExperimentDate_,
+        con:ExperimentTime_,
+        con:Lab_,
+        con:MeasurementDuration_,
+        con:ProcessedFile_,
+        con:Transducer_ .
+
+con:ExperimentTime_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "$$ExperimentTime_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q11574 .
+
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+
+con:Location a owl:Class .
+
+con:MeasurementDuration_ a con:Duration,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$MeasurementDuration_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q11574 .
+
+con:MeasuringGauge a owl:Class .
+
+con:ProcessedFile_ a owl:NamedIndividual,
+        mid:ProcessDataSet ;
+    cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
+
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string .
+
+con:SecantModulusOfElasticty a owl:Class .
+
+con:SecantModulusOfElasticty_ a con:SecantModulusOfElasticty,
+        owl:NamedIndividual ;
+    cco:described_by con:OpenBisRawDataFile,
+        con:RawDataFile_ ;
+    cco:has_decimal_value "$$EModule_Value$$"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    cco:has_process_part con:Computation ;
+    ns3:hasPmdUnit ns3:Q107378499 ;
+    mid:in_accordance_with con:DINEN12390-13:2021 .
+
+con:SpecimenAge_ a con:Age,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenAge_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit cco:DayMeasurementUnit .
+
+con:SpecimenDiameter_ a cco:Diameter,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q174789 .
+
+con:SpecimenHeight_ a cco:Height,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q174789 .
+
+con:SpecimenID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
+
+con:SpecimenLength_ a cco:Length,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q174789 .
+
+con:SpecimenWidth_ a cco:Width,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit ns3:Q174789 .
+
+con:Transducer_ a con:MeasuringGauge,
+        owl:NamedIndividual ;
+    ns3:hasPmdUnit ns3:Q56402798 ;
+    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:string .
+
+cco:Day a owl:Class .
+
+cco:DayMeasurementUnit a owl:NamedIndividual .
+
+cco:Diameter a owl:Class .
+
+cco:Document a owl:Class .
+
+cco:Height a owl:Class .
+
+cco:Length a owl:Class .
+
+cco:NonNameIdentifier a owl:Class .
+
+cco:Width a owl:Class .
+
+ns3:Q107378499 a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+mid:ExperimentTime a owl:Class .
+
+mid:ProcessDataSet a owl:Class .
+
+mid:Specimen a owl:Class .
+
+con:OpenBisRawDataFile a con:OpenBisRawDataFile,
+        owl:Class,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+ns3:Q11574 a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+ns3:Q56402798 a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+mid:RawDataSet a owl:Class .
+
+ns3:PmdSiUnit a owl:Class .
+
+ns3:Q174789 a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
