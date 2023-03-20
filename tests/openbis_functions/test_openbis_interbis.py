@@ -89,8 +89,6 @@ def setup(pytestconfig):
     settings_sample.props["$eln_settings"] = json.dumps(default_settings)
     settings_sample.save()
 
-    settings_sample.props["$eln_general"]
-
     # Create project and collection, if not there
     try:
         project_obj = o.get_project(
@@ -220,19 +218,10 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
     o = Interbis(chosen_runner, verify_certificates=False)
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-    with capsys.disabled():
-        print("BEFORE UPLOAD")
-        print(settings_sample.props)
-        print(o.get_samples())
 
     o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-
-    with capsys.disabled():
-        print("AFTER UPLOAD")
-        print(settings_sample.props)
-        print(o.get_samples())
 
     settings = json.loads(settings_sample.props["$eln_settings"])
 
