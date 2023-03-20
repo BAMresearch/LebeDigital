@@ -43,6 +43,17 @@ openbis_config = {
     'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
     'emodul_prefix': 'EMODUL',
     'mixture_prefix': 'EMODUL_MIX',
+    'ingredient_metadata': {
+        'ingredient_code': "EMODUL_INGREDIENT",
+        'ingredient_prefix': "EMODUL_ING",
+        'ingredient_props': {"$name": ["VARCHAR", "Name", "Name"],
+                             "EMODUL_ING.bulk_density": ["REAL", "Bulk Density", "Bulk Density"],
+                             "EMODUL_ING.source": ["VARCHAR", "source", "source"]},
+        'ingredient_keywords': ["cement", "water_total", "addition", "admixture", "aggregate"],
+        'ingredient_space': 'MATERIALS',
+        'ingredient_project': 'EMODUL_INGREDIENTS',
+        'ingredient_collection': 'LEBEDIGITAL_INGREDIENT_COLLECTION',
+    },
     'verbose': False,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on GitHub actions as they need a password to run

@@ -14,19 +14,13 @@ conv_dict = {
     int: 'INTEGER',
 }
 
-ingredient_code = "EMODUL_INGREDIENT"
-ingredient_prefix = "EMODUL_ING"
-ingredient_props = {"$name": ["VARCHAR", "Name", "Name"],
-                    f"{ingredient_code}.bulk_density": ["REAL", "Bulk Density", "Bulk Density"],
-                    f"{ingredient_code}.source": ["VARCHAR", "source", "source"]}
-
 
 def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  emodul_directory_path: Union[Path, str],
                                  config: dict,
                                  default_props: dict,
-                                 logging_path: Union[Path, str],
-                                 ingredient_keywords: list):
+                                 logging_path: Union[Path, str],):
+
     if config['runson'] == 'nodb':
         _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
                          emodul_sample_type='RAN ON ACTIONS',
@@ -36,6 +30,11 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     # connecting to datastore
     o = Interbis(config['datastore_url'])
     o.connect_to_datastore(username=config['user'], password=config['pw'])
+
+    ingredient_code = config['ingredient_metadata']['ingredient_code']
+    ingredient_prefix = config['ingredient_metadata']['ingredient_prefix']
+    ingredient_props = config['ingredient_metadata']['ingredient_props']
+    ingredient_keywords = config['ingredient_metadata']['ingredient_keywords']
 
     ingredient_sample_type = o.create_sample_type(ingredient_code, ingredient_prefix, ingredient_props)
 
