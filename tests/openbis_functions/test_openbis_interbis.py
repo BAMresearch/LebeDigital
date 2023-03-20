@@ -3,6 +3,7 @@ import string
 from datetime import datetime, timedelta
 from enum import Enum
 import json
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -34,9 +35,10 @@ class Constants(Enum):
 
 
 class Filepaths(Enum):
-    import_template: str = './openbis_functions/test_files/gen_import_template.csv'
-    sample_properties: str = './openbis_functions/test_files/gen_sample_properties.csv'
-    test_sheet: str = './openbis_functions/test_files/test_sheet.xlsx'
+    import_template: Path = Path('./openbis_functions/test_files/gen_import_template.csv')
+    sample_properties: Path = Path('./openbis_functions/test_files/gen_sample_properties.csv')
+    test_sheet: Path = Path('./openbis_functions/test_files/test_sheet.xlsx')
+    init_settings: Path = Path('./openbis_functions/test_files/init_settings.json')
 
 
 test_results = {
@@ -78,6 +80,16 @@ def setup(pytestconfig):
         o.connect_to_datastore(username=login_val, password=password_val)
     else:
         o.connect_to_datastore()
+
+    # Setting initial settings to make parent_hint setting possible
+    with open(Filepaths.init_settings.value, 'r') as file:
+        default_settings = json.load(file)
+
+    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+    settings_sample.props["$eln_settings"] = json.dumps(default_settings)
+    settings_sample.save()
+
+    settings_sample.props["$eln_general"]
 
     # Create project and collection, if not there
     try:
@@ -210,6 +222,7 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
 
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
     with capsys.disabled():
+        print("BEFORE UPLOAD")
         print(settings_sample.props)
         print(o.get_samples())
 
@@ -218,6 +231,7 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
     settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
 
     with capsys.disabled():
+        print("AFTER UPLOAD")
         print(settings_sample.props)
         print(o.get_samples())
 
