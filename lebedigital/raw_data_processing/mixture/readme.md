@@ -3,7 +3,8 @@ There are two scripts for extracting mixture metadata:
 # The first script: mixture_metadata_extraction.py
 
 This script was the first one and is designed for the raw data we have ("..\usecases\MinimumWorkingExample\Data\Mischungen").
-This raw data contains only one type of cement and up to two additions. 
+This raw data contains only one type of cement and up to two additions. We don't use the resulting metadata-yaml-file at the 
+moment for any ontology. 
 
 # The second script: mixdesign_metadata_extraction.py
 
@@ -17,7 +18,7 @@ Main differences to the raw data that we have:
 3. Aggregate is always of type "Okrilla". 
 
 The following information is attempted to be extracted from raw data:
-- Raw data file ("$$RawDataFile_Value$$"^^xsd:string)
+- Raw data file name ("$$RawDataFile_Value$$"^^xsd:string)
 - Water cement ratio ("$$WaterCementRatio_Value$$"^^xsd:decimal), calculated in the script
 - Mixing Date ("$$MixingDate_Value$$"^^xsd:dateTimeStamp)
 - Location of the lab ("$$Lab_Value$$"^^xsd:string)
@@ -27,6 +28,9 @@ The following information is attempted to be extracted from raw data:
 - Admixture: Quantity and density ("$$PlasticizerQtyInMix_Value$$"^^xsd:decimal, "$$PlasticizerDensity_Value$$"^^xsd:decimal)
 - AirContent: Quantity and density ("$$AirContent_Value$$"^^xsd:decimal, "$$AirDensity_Value$$"^^xsd:decimal)
 
-The following information is not existent in the raw data:
+Please note:
+- The following information is not existent in the raw data: 
 Cement 2: Quantity and density ("$$CEMIIQtyInMix_Value$$"^^xsd:decimal, "$$CEMIIDensity_Value$$"^^xsd:decimal)
-For calculating the water-cement-ratio, CemI is used.
+- For calculating the water-cement-ratio, Cem I is used.
+- 'OkrillaDensity' ('Zuschlag (gesamt)') seems to have no value given in most raw data files. Instead the volume is given.
+- 'AirContent' seems to have no value given for quantity and density in most raw files. Only the volume is given.
