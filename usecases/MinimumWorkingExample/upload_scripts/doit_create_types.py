@@ -46,12 +46,12 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         defaults_dict=default_props)
 
     # filtering out ingredient_keywords
-    mix_union_dict = {key: val for key, val in mix_union_dict.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
+    filtered_mix_union_dict = {key: val for key, val in mix_union_dict.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
 
     mixture_sample_type = o.create_sample_type(
         sample_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
         sample_prefix=config['mixture_prefix'],
-        sample_properties=mix_union_dict,
+        sample_properties=filtered_mix_union_dict,
     )
     logging.debug(f'mixture type created: {mixture_sample_type.code}')
 

@@ -587,6 +587,9 @@ class Interbis(Openbis):
 
         settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", []).append(hint)
 
+        if hint not in settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"]:
+            settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", []).append(hint)
+
         settings_sample.props["$eln_settings"] = json.dumps(settings)
 
         settings_sample.save()

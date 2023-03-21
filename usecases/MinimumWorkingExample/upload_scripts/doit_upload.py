@@ -165,6 +165,7 @@ def upload_to_openbis_doit(
             ingredient_identifier, props_for_hints = \
                 _ingredient_upload(
                     o,
+                    ingredient_type=ingredient_keyword,
                     ingredient_metadata_dict=ingredient_dict,
                     ingredient_sample_type=_INGREDIENT_CODE,
                     ingredient_space=_INGREDIENT_SPACE,
@@ -666,6 +667,7 @@ def _emodul_upload(
 
 def _ingredient_upload(
     o: Interbis,
+    ingredient_type: str,
     ingredient_metadata_dict: dict,
     ingredient_sample_type: str,
     ingredient_space: str,
@@ -695,8 +697,9 @@ def _ingredient_upload(
     logger.debug(bulk_density_val)
 
     ingredient_sample_props = {
-        '$name': annotation,
-        bulk_density_key: bulk_density_val
+        '$name': ingredient_type,
+        'emodul_ingredient.source': annotation,
+        bulk_density_key: bulk_density_val,
     }
 
     samples_with_same_props = o.get_samples(
