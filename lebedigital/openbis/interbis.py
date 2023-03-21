@@ -585,10 +585,10 @@ class Interbis(Openbis):
                 "MANDATORY": False,
             }]
 
-        settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", []).append(hint)
+        settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", [])
 
         if hint not in settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"]:
-            settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", []).append(hint)
+            settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"].append(hint)
 
         settings_sample.props["$eln_settings"] = json.dumps(settings)
 
@@ -598,7 +598,7 @@ class Interbis(Openbis):
         sample = self.get_sample(sample_identifier)
         return sample.data["parentsRelationships"]
 
-    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str):
+    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str, set_property: str):
         """
         Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
         """
@@ -626,7 +626,7 @@ class Interbis(Openbis):
                                   'relationships': {parent_sample: {'@id': 1,
                                                                     'parentAnnotations': {'@id': 2,
                                                                                           'actions': [{'@id': 3,
-                                                                                                       'items': [{'ANNOTATION.SYSTEM.COMMENTS': str(comment)}],
+                                                                                                       'items': [{set_property: str(comment)}],
                                                                                                        '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
                                                                                           '@type': 'as.dto.common.update.ListUpdateMapValues'},
                                                                     '@type': 'as.dto.common.update.RelationshipUpdate'}},

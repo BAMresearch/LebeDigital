@@ -53,6 +53,11 @@ openbis_config = {
         'ingredient_space': get_var("space", 'EMODUL'),
         'ingredient_project': 'LEBEDIGITAL',
         'ingredient_collection': 'LEBEDIGITAL_INGREDIENT_COLLECTION',
+        'ingredient_hint_props': {
+            'emodul.quantity_in_mix': ['REAL', 'quantity_in_mix', 'quantity_in_mix'],
+            'emodul.volume': ['REAL', 'volume', 'volume']
+        }
+
     },
     'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped

@@ -197,15 +197,17 @@ def upload_to_openbis_doit(
             logger.debug(f'parent hints for: {ingredient_identifier}')
             for prop_key, prop_value in props_for_hints.items():
                 logger.debug(f'parent hint for {prop_key}: {prop_value}')
-                o.create_parent_hint(
-                    sample_type=mixture_sample.type,
-                    label=prop_key,
-                    parent_type=_INGREDIENT_CODE,
-                )
+
+                if 'volume' in prop_key:
+                    set_property = 'EMODUL.VOLUME'
+                else:
+                    set_property = 'EMODUL.QUANTITY_IN_MIX'
+
                 o.set_parent_annotation(
                     child_sample=mixture_sample.identifier,
                     parent_sample=ingredient_identifier,
-                    comment=prop_value
+                    comment=prop_value,
+                    set_property=set_property
                 )
 
     else:

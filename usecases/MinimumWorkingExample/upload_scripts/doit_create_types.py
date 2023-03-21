@@ -38,6 +38,12 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
 
     ingredient_sample_type = o.create_sample_type(ingredient_code, ingredient_prefix, ingredient_props)
 
+    ingredient_hint_props = config['ingredient_metadata']['ingredient_hint_props']
+    ingredient_hint_created_props = o.create_property_types(ingredient_hint_props)
+
+    ingredient_hint_created_props = list(ingredient_hint_created_props.keys())
+    # logging.warning(ingredient_hint_created_props)
+
     # creating union dict
     mix_union_dict = _create_union_dict(
         yaml_directory_path=Path(mixture_directory_path),
@@ -54,6 +60,27 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         sample_properties=filtered_mix_union_dict,
     )
     logging.debug(f'mixture type created: {mixture_sample_type.code}')
+
+    filtered_ingredient_union_list = [key.split('--')[0].split('.')[1] for key in mix_union_dict if key not in filtered_mix_union_dict]
+    set_ingredients = list(set(filtered_ingredient_union_list))
+    # logging.warning(set_ingredients)
+
+    annotations = [{
+        "TYPE": ingredient_hint_created_props[0],
+        "MANDATORY": False,
+    },
+        {
+        "TYPE": ingredient_hint_created_props[1],
+        "MANDATORY": False
+    }]
+
+    for ingredient in set_ingredients:
+        o.create_parent_hint(
+            sample_type=mixture_sample_type,
+            label=f"Emodul Ingredient {ingredient.capitalize()}",
+            parent_type=ingredient_sample_type,
+            annotation_properties=annotations
+        )
 
     metadata_path = Path(emodul_directory_path, os.fsdecode(os.listdir(emodul_directory_path)[0]))
 
