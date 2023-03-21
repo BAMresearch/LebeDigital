@@ -4,7 +4,6 @@ import sys
 from getpass import getpass
 import json
 import requests
-
 import pandas as pd
 from pybis import Openbis
 from pybis.sample import Sample
@@ -600,6 +599,20 @@ class Interbis(Openbis):
         """
         Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
         """
+        def combine_urls(base_url, relative_url):
+            # Remove any trailing or leading slashes
+            base_url = base_url.strip('/')
+            relative_url = relative_url.strip('/')
+
+            # Remove the last object in the base URL
+            base_url_parts = base_url.split('/')
+            base_url_parts.pop()
+            base_url = '/'.join(base_url_parts)
+
+            # Combine the two URLs
+            full_url = f'{base_url}/{relative_url}'
+
+            return full_url
 
         child_sample_permid = self.get_sample(child_sample).permId
 
@@ -610,7 +623,7 @@ class Interbis(Openbis):
                                   'relationships': {parent_sample: {'@id': 1,
                                                                     'parentAnnotations': {'@id': 2,
                                                                                           'actions': [{'@id': 3,
-                                                                                                       'items': [{'ANNOTATION.SYSTEM.COMMENTS': comment}],
+                                                                                                       'items': [{'ANNOTATION.SYSTEM.COMMENTS': str(comment)}],
                                                                                                        '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
                                                                                           '@type': 'as.dto.common.update.ListUpdateMapValues'},
                                                                     '@type': 'as.dto.common.update.RelationshipUpdate'}},
@@ -621,5 +634,5 @@ class Interbis(Openbis):
                    'id': '1',
                    'jsonrpc': '2.0'}
 
-        response = requests.post(self.as_v3, json=request).json()
+        response = requests.post(combine_urls(self.url, self.as_v3), json=request).json()
         return response

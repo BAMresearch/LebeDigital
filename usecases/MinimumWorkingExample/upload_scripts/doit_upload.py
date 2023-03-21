@@ -12,6 +12,7 @@ import yaml
 from dateutil.parser import parse
 from pybis.sample import Sample
 from lebedigital.openbis.interbis import Interbis
+from typing import List, Dict
 
 
 def upload_to_openbis_doit(
@@ -88,10 +89,11 @@ def upload_to_openbis_doit(
     _PROJECT = config['project']
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
-    _INGREDIENT_SPACE = config['ingredient_metadata']['ingredient_space'],
-    _INGREDIENT_PROJECT = config['ingredient_metadata']['ingredient_space'],
+    _INGREDIENT_SPACE = config['ingredient_metadata']['ingredient_space']
+    _INGREDIENT_PROJECT = config['ingredient_metadata']['ingredient_project']
     _INGREDIENT_COLLECTION = f"/{_INGREDIENT_SPACE}/{_INGREDIENT_PROJECT}/{config['ingredient_metadata']['ingredient_collection']}"
     logger.debug("Set constants")
+    logger.debug(_INGREDIENT_SPACE)
 
     """
     FETCHING BOTH MIXTURE AND EMODUL SAMPLE TYPES
@@ -145,11 +147,34 @@ def upload_to_openbis_doit(
         # Reading the metadata from output metadata yaml file
         mixture_sample_code = f"EXPERIMENTAL_STEP_{config['mixture_prefix']}"
         mixture_ingredient_dict = _read_metadata_mixture_ingredients(
-            mixture_metadata_file_path, mixture_sample_code, _INGREDIENT_PREFIX, default_props, _INGREDIENT_KEYWORDS)
+            mixture_metadata_file_path, mixture_sample_code, _INGREDIENT_CODE, default_props, _INGREDIENT_KEYWORDS)
         logger.debug("Read Mixture/Ingredient Metadata")
 
-        mixture_metadata = mixture_ingredient_dict.pop('mixture')
+        mixture_metadata = mixture_ingredient_dict['mixture']
 
+        del mixture_ingredient_dict['mixture']
+
+        additions_dict = _split_addition(mixture_ingredient_dict.pop('addition'), _INGREDIENT_CODE)
+        mixture_ingredient_dict = mixture_ingredient_dict | additions_dict
+
+        # uploading ingredients
+
+        logger.debug('starting ingredient sample upload')
+        parent_hints = {}
+        for ingredient_keyword, ingredient_dict in mixture_ingredient_dict.items():
+            ingredient_identifier, props_for_hints = \
+                _ingredient_upload(
+                    o,
+                    ingredient_metadata_dict=ingredient_dict,
+                    ingredient_sample_type=_INGREDIENT_CODE,
+                    ingredient_space=_INGREDIENT_SPACE,
+                    ingredient_project=_INGREDIENT_PROJECT,
+                    ingredient_collection=_INGREDIENT_COLLECTION,
+                    logger=logger)
+            parent_hints[ingredient_identifier] = props_for_hints
+        logger.debug('finished ingredient sample upload')
+
+        logger.debug('starting mixture sample upload')
         mixture_sample = _mixture_upload(
             o,
             mixture_metadata_dict=mixture_metadata,
@@ -157,12 +182,31 @@ def upload_to_openbis_doit(
                 os.path.basename(mixture_metadata_file_path))[0],
             mixture_sample_type=mixture_sample_type.code,
             mixture_data_filepath=mixture_data_path,
+            mixture_parent_ingredients=parent_hints,
             space=_SPACE,
             project=_PROJECT,
             collection=_MIXTURE_COLLECTION,
             dataset_upload=dataset_upload,
             logger=logger,
         )
+        logger.debug('finished mixture sample upload')
+
+        logger.debug('staring parent comment assignment')
+        for ingredient_identifier, props_for_hints in parent_hints.items():
+            logger.debug(f'parent hints for: {ingredient_identifier}')
+            for prop_key, prop_value in props_for_hints.items():
+                logger.debug(f'parent hint for {prop_key}: {prop_value}')
+                o.create_parent_hint(
+                    sample_type=mixture_sample.type,
+                    label=prop_key,
+                    parent_type=_INGREDIENT_CODE,
+                )
+                o.set_parent_annotation(
+                    child_sample=mixture_sample.identifier,
+                    parent_sample=ingredient_identifier,
+                    comment=prop_value
+                )
+
     else:
         mixture_sample = "Not Found"
 
@@ -246,6 +290,7 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
         loaded = dict(yaml.safe_load(file))
 
     data = {keyword: {} for keyword in keywords}
+    data['mixture'] = {}
 
     for key, val in loaded.items():
         print(key, val)
@@ -376,7 +421,7 @@ def _setup_openbis_directories(
         # No space with that code found
         if force_upload:
             project_obj = o.new_project(
-                space=ingredient_space, code=ingredient_project, description="Project for Emodul mxiture ingredients")
+                space=ingredient_space, code=ingredient_project, description="Project for Emodul mixture ingredients")
             project_obj.save()
         else:
             raise ValueError(err)
@@ -401,6 +446,7 @@ def _mixture_upload(
         sample_name: str,
         mixture_sample_type: str,
         mixture_data_filepath: str,
+        mixture_parent_ingredients: Dict[str, list],
         space: str,
         project: str,
         collection: str,
@@ -412,7 +458,8 @@ def _mixture_upload(
         type=mixture_sample_type,
         space=space,
         project=project,
-        collection=collection
+        collection=collection,
+        parents=list(mixture_parent_ingredients.keys()),
     )
 
     # Setting the props from metadata and adding '$name' for better readability in the web view
@@ -620,23 +667,76 @@ def _emodul_upload(
 def _ingredient_upload(
     o: Interbis,
     ingredient_metadata_dict: dict,
-    ingredient_sample_name: str,
     ingredient_sample_type: str,
     ingredient_space: str,
     ingredient_project: str,
     ingredient_collection: str,
     logger: logging.Logger
 ):
-    annotation = {key: val for key, val in ingredient_metadata_dict.items() if re.search("Annotation$", key)}.pop(0)
-    (bulk_density_key, bulk_density_val) = {key: val for key, val in ingredient_metadata_dict.items() if re.search("BulkDensity$", key)}.popitem(0)
-    ingredient_props = {
+    logger.debug(ingredient_metadata_dict)
+    annotation = {key: val for key, val in ingredient_metadata_dict.items() if key.endswith('annotation')}
+
+    for key, val in annotation.items():
+        ingredient_metadata_dict.pop(key)
+
+    annotation = list(annotation.values())[0] if annotation else "no annotation"
+
+    bulk_density_key, bulk_density_val = {key: val for key, val in ingredient_metadata_dict.items() if key.endswith('bulkdensity')}.popitem()
+
+    logger.debug(bulk_density_key)
+
+    def fit_bulk_density_key(input_str):
+        return re.sub(r'\..+--', '.', input_str)
+
+    bulk_density_key = fit_bulk_density_key(bulk_density_key)
+
+    logger.debug(bulk_density_key)
+    logger.debug(type(bulk_density_val))
+    logger.debug(bulk_density_val)
+
+    ingredient_sample_props = {
         '$name': annotation,
         bulk_density_key: bulk_density_val
     }
 
-    same_props_samples = o.get_samples(
-        where=ingredient_props
-    )
+    samples_with_same_props = o.get_samples(
+        where=ingredient_sample_props,
+        type=ingredient_sample_type
+    ).df
+
+    if samples_with_same_props.empty:
+        ingredient_sample = o.new_sample(
+            type=ingredient_sample_type,
+            space=ingredient_space,
+            project=ingredient_project,
+            collection=ingredient_collection,
+            props=ingredient_sample_props
+        )
+        ingredient_sample.save()
+    else:
+        ingredient_sample_identifier = samples_with_same_props['identifier'].values[0]
+        ingredient_sample = o.get_sample(ingredient_sample_identifier)
+
+    return (ingredient_sample.identifier, ingredient_metadata_dict)
+
+
+def _split_addition(addition_combined_dict: dict, ingredient_code: str) -> List[dict]:
+    """
+    Recieves a dict where additions 1..x are contained and returns a list of their split dicts
+    """
+    current_addition_counter = 1
+    current_addition = "addition" + str(current_addition_counter)
+
+    split_dict = {}
+
+    while f"{ingredient_code.lower()}.{current_addition}--bulkdensity" in addition_combined_dict:
+        filtered_dict = {key: val for key, val in addition_combined_dict.items() if current_addition in key}
+        split_dict[current_addition] = filtered_dict
+        addition_combined_dict = {key: val for key, val in addition_combined_dict.items() if key not in filtered_dict}
+        current_addition_counter += 1
+        current_addition = "addition" + str(current_addition_counter)
+
+    return split_dict
 
 
 def _no_db_run(
