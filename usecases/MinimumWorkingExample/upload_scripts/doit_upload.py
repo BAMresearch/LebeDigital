@@ -200,8 +200,10 @@ def upload_to_openbis_doit(
 
                 if 'volume' in prop_key:
                     set_property = 'EMODUL.VOLUME'
-                else:
+                elif 'quantity' in prop_key:
                     set_property = 'EMODUL.QUANTITY_IN_MIX'
+                else:
+                    continue
 
                 o.set_parent_annotation(
                     child_sample=mixture_sample.identifier,
@@ -700,7 +702,7 @@ def _ingredient_upload(
 
     ingredient_sample_props = {
         '$name': ingredient_type,
-        'emodul_ingredient.source': annotation,
+        'emodul_ingredient.annotation': annotation,
         bulk_density_key: bulk_density_val,
     }
 

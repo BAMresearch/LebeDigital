@@ -48,7 +48,7 @@ openbis_config = {
         'ingredient_prefix': "EMODUL_ING",
         'ingredient_props': {"$name": ["VARCHAR", "Name", "Name"],
                              "EMODUL_INGREDIENT.bulkdensity": ["REAL", "Bulk Density", "Bulk Density"],
-                             "EMODUL_INGREDIENT.source": ["VARCHAR", "source", "source"]},
+                             "EMODUL_INGREDIENT.annotation": ["VARCHAR", "source", "source"]},
         'ingredient_keywords': ["cement", "water_total", "addition", "admixture", "aggregate"],
         'ingredient_space': get_var("space", 'EMODUL'),
         'ingredient_project': 'LEBEDIGITAL',
