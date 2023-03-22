@@ -74,13 +74,12 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         "MANDATORY": False
     }]
 
-    for ingredient in set_ingredients:
-        o.create_parent_hint(
-            sample_type=mixture_sample_type,
-            label=f"Emodul Ingredient {ingredient.capitalize()}",
-            parent_type=ingredient_sample_type,
-            annotation_properties=annotations
-        )
+    o.create_parent_hint(
+        sample_type=mixture_sample_type,
+        label="Emodul Raw Material",
+        parent_type=ingredient_sample_type,
+        annotation_properties=annotations
+    )
 
     metadata_path = Path(emodul_directory_path, os.fsdecode(os.listdir(emodul_directory_path)[0]))
 
