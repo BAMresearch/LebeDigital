@@ -4,8 +4,9 @@ import datetime
 import os
 import yaml
 from pathlib import Path
+import re
 
-from lebedigital.mapping.emodul_mapping import generate_knowledge_graph, get_date_time_value
+from lebedigital.mapping.emodul_mapping import placeholderreplacement
 
 
 def query_and_test_result(typeOfQuery, predicate, prop, g):
@@ -13,6 +14,7 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
     q = f"""
             SELECT ?o WHERE {{
                     {predicate} {prop} ?o .
+                    FILTER (strstarts(str(), {predicate})) 
             }}
             """
     print(q)
@@ -31,7 +33,7 @@ def print_first():
 
 def test_generate_knowledge_graph():
     metadataPath = 'testMetaData.yaml'
-    filename = "knowledgeGraph.ttl"
+    filename = "EmoduleMappedExmpl.ttl"
     print("Start testing:")
     # Generate a testMetadata file
     print("Generate metadata file for test:")
@@ -54,16 +56,16 @@ def test_generate_knowledge_graph():
     print("Generate knowledgeGraph:")
     # generate_knowledge_graph(metadataPath, filename)
 
-    # g = rdflib.Graph()
-    # result = g.parse(filename, format='ttl')
-    # print("Query knowledgeGraph:")
-    #
-    # print_first()
-    #
-    # result = query_and_test_result('diameter', 'ns1:informationbearingentity1',
-    #                                'ns7:has_decimal_value', g)
+    g = rdflib.Graph()
+    g.parse(filename, format='ttl')
+    print("Query knowledgeGraph:")
+
+    print_first()
+
+    # result = query_and_test_result("diameter", 'con:SpecimenDiameter_',
+    #                                "cco:has_decimal_value", g)
     # for row in result:
-    #     assert (target_data['diameter'] = float(row.o))
+    #     assert (target_data['diameter'] == float(row.o))
     #
     # print_next()
     #
@@ -117,4 +119,4 @@ def test_generate_knowledge_graph():
     #
     # print("End testing")
 
-# test_generate_knowledge_graph()
+test_generate_knowledge_graph()
