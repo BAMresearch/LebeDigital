@@ -26,3 +26,4 @@ def computation_GWP_per_part(gwp_mix, width, height, length):
     beam_gwp = width * height * length * gwp_mix
 
     return beam_gwp
+    
