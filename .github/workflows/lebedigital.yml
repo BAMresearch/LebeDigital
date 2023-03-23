@@ -123,6 +123,20 @@ jobs:
               usecases/optimization_paper/optimization_workflow/Results
               
 
+      - name: Create Coverage Badge
+        #if: contains(env.BRANCH_NAME, 'main')
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: c10a5b6d0714b1fe2344eb60918e92f8
+          filename: lebedigital_${{ env.BRANCH_NAME }}_coverage.json
+          label: coverage
+          message: ${{ env.COVERAGE_PCT }}
+          valColorRange: ${{ env.COVERAGE_PCT }}
+          maxColorRange: 95  # value where ligth green starts
+          minColorRange: 50  # value where red starts
+              
+
   check_coverage:
     needs: tests
     runs-on: ubuntu-latest
