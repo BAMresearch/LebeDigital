@@ -258,7 +258,6 @@ rule approx_paste_properties:
     # the stiffness and strength of the cement paste is estimated and interpolated
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
-        slag_ratio = "Inputs/slag_ratio.json",
         sc_fraction = "Inputs/sc_fraction.json",
         phi_paste = "Inputs/phi_paste.json"
 
@@ -273,7 +272,7 @@ rule approx_paste_properties:
 
         results = {}
         # run script
-        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['slag_ratio'],p['paste_phi'])
+        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['sc_volume_fraction'],p['paste_phi'])
 
         write_pint_dict(results,output.results)
 
@@ -282,7 +281,6 @@ rule approx_hydration_parameters:
     # the hydration parameters are approximated based on slag content
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
-        slag_ratio = 'Inputs/slag_ratio.json',
         sc_fraction = "Inputs/sc_fraction.json",
         phi_hydration = 'Inputs/phi_hydration.json'
 
@@ -299,7 +297,7 @@ rule approx_hydration_parameters:
 
         # run script
         results['B1'], results['B2'], results['eta'], results['E_act'], results['Q_pot'], results['T_ref'] = \
-            dummy_hydration_parameters(p['slag_ratio'], p['hydration_phi'])
+            dummy_hydration_parameters(p['sc_volume_fraction'], p['hydration_phi'])
 
         write_pint_dict(results,output.results)
 
@@ -308,7 +306,6 @@ rule mix_volume_contents:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_volume_content.py',
         material_properties = "Inputs/material_properties.json",
-        slag_ratio = 'Inputs/slag_ratio.json',
         aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
         sc_fraction = "Inputs/sc_fraction.json",
         wb_ratio = 'Inputs/wb_ratio.json',
