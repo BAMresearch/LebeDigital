@@ -26,13 +26,4 @@ def computation_GWP_per_part(gwp_mix, width, height, length):
     beam_gwp = width * height * length * gwp_mix
 
     return beam_gwp
-
-if __name__ == "__main__":
-    # test while developing this
-    gwp = 10 * ureg('kg_CO2_eq/m^3')
-    width = 0.2 * ureg('m')
-    height = 0.5 * ureg('m')
-    length = 10000 * ureg('mm')
-
-
-    print(computation_GWP_per_part(gwp,width,height,length))
+    
