@@ -124,7 +124,7 @@ jobs:
               
 
       - name: Create Coverage Badge
-        #if: contains(env.BRANCH_NAME, 'main')
+        if: contains(env.BRANCH_NAME, 'main')
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
