@@ -20,9 +20,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-  outputs:
-    branch_coverage: ${{ steps.pytest.outputs.coverage }}
-    coverage_report: ${{ steps.pytest.outputs.report }}
+    outputs:
+      branch_coverage: ${{ steps.pytest.outputs.coverage }}
+      coverage_report: ${{ steps.pytest.outputs.report }}
 
     steps:
       - name: build docker
