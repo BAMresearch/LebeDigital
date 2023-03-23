@@ -33,3 +33,5 @@ implemented in a local modul called lebedigital. This is installed thus
 allowing to import these classes and functions in other files, e.g. the test 
 files or the usecases. For the usecases, we intend to have two, one is a 
 minimum working example, and another one relates to the final demonstrator. 
+
+## Dummy changes
