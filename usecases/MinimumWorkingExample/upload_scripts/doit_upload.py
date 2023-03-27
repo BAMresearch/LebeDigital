@@ -80,30 +80,24 @@ def upload_to_openbis_doit(
 
     # Connecting to the datastore
     logger.debug("Starting upload")
-    o = Interbis(config['datastore_url'], verify_certificates=False)
+
+    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'nodb' else True)
     o.connect_to_datastore(username=config['user'], password=config['pw'])
+
     logger.debug("Connected to datastore")
 
-    # Setting "constants"
+    """
+    SETTING LOCATION VARIABLES
+    """
     _SPACE = config['space']
     _PROJECT = config['project']
+
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
+
     _INGREDIENT_SPACE = config['ingredient_metadata']['ingredient_space']
     _INGREDIENT_PROJECT = config['ingredient_metadata']['ingredient_project']
     _INGREDIENT_COLLECTION = f"/{_INGREDIENT_SPACE}/{_INGREDIENT_PROJECT}/{config['ingredient_metadata']['ingredient_collection']}"
-    logger.debug("Set constants")
-    logger.debug(_INGREDIENT_SPACE)
-
-    """
-    FETCHING BOTH MIXTURE AND EMODUL SAMPLE TYPES
-    """
-    mixture_sample_type = o.get_sample_type(
-        f"EXPERIMENTAL_STEP_{config['mixture_prefix']}")
-    emodul_sample_type = o.get_sample_type(
-        f"EXPERIMENTAL_STEP_{config['emodul_prefix']}")
-    ingredient_sample_type = o.get_sample_type("EMODUL_INGREDIENT")
-    logger.debug("Samples created")
 
     """
     SETTING IGNREDIENT METADATA
@@ -112,6 +106,22 @@ def upload_to_openbis_doit(
     _INGREDIENT_CODE = config['ingredient_metadata']['ingredient_code']
     _INGREDIENT_PREFIX = config['ingredient_metadata']['ingredient_prefix']
     _INGREDIENT_PROPS = config['ingredient_metadata']['ingredient_props']
+
+    logger.debug("Set constants")
+
+    """
+    FETCHING MIXTURE, EMODUL AND INGREDIENT SAMPLE TYPES
+    """
+    mixture_sample_type = o.get_sample_type(
+        f"EXPERIMENTAL_STEP_{config['mixture_prefix']}")
+
+    emodul_sample_type = o.get_sample_type(
+        f"EXPERIMENTAL_STEP_{config['emodul_prefix']}")
+
+    ingredient_sample_type = o.get_sample_type(
+        config['ingredient_metadata']['ingredient_code'])
+
+    logger.debug("Samples created")
 
     """
     PARSING DATASET UPLOAD FLAG
@@ -150,32 +160,36 @@ def upload_to_openbis_doit(
             mixture_metadata_file_path, mixture_sample_code, _INGREDIENT_CODE, default_props, _INGREDIENT_KEYWORDS)
         logger.debug("Read Mixture/Ingredient Metadata")
 
-        mixture_metadata = mixture_ingredient_dict['mixture']
+        # Splitting read dictionary into mixture dictionaty and ingredient dictionary
+        mixture_metadata = mixture_ingredient_dict.pop('mixture')
 
-        del mixture_ingredient_dict['mixture']
-
+        # Splitting addition into addition1, addition2 ... to upload separate ingreeients
         additions_dict = _split_addition(mixture_ingredient_dict.pop('addition'), _INGREDIENT_CODE)
-        mixture_ingredient_dict = mixture_ingredient_dict | additions_dict
+        ingredient_metadata = mixture_ingredient_dict | additions_dict
 
         # uploading ingredients
 
         logger.debug('starting ingredient sample upload')
+
         parent_hints = {}
-        for ingredient_keyword, ingredient_dict in mixture_ingredient_dict.items():
-            ingredient_identifier, props_for_hints = \
-                _ingredient_upload(
-                    o,
-                    ingredient_type=ingredient_keyword,
-                    ingredient_metadata_dict=ingredient_dict,
-                    ingredient_sample_type=_INGREDIENT_CODE,
-                    ingredient_space=_INGREDIENT_SPACE,
-                    ingredient_project=_INGREDIENT_PROJECT,
-                    ingredient_collection=_INGREDIENT_COLLECTION,
-                    logger=logger)
+        for ingredient_keyword, ingredient_dict in ingredient_metadata.items():
+
+            ingredient_identifier, props_for_hints = _ingredient_upload(
+                o,
+                ingredient_type=ingredient_keyword,
+                ingredient_metadata_dict=ingredient_dict,
+                ingredient_sample_type=_INGREDIENT_CODE,
+                ingredient_space=_INGREDIENT_SPACE,
+                ingredient_project=_INGREDIENT_PROJECT,
+                ingredient_collection=_INGREDIENT_COLLECTION,
+                logger=logger)
+
             parent_hints[ingredient_identifier] = props_for_hints
+
         logger.debug('finished ingredient sample upload')
 
         logger.debug('starting mixture sample upload')
+
         mixture_sample = _mixture_upload(
             o,
             mixture_metadata_dict=mixture_metadata,
@@ -265,7 +279,6 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
 
     data = defaultdict(lambda: "Not In Props")
     for key, val in loaded.items():
-        print(key, val)
         if val is None:
             continue
         if key in default_keys:
@@ -298,7 +311,6 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
     data['mixture'] = {}
 
     for key, val in loaded.items():
-        print(key, val)
         if val is None:
             continue
         for keyword in keywords:

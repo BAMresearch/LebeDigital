@@ -19,6 +19,7 @@ env:
 jobs:
   tests:
     runs-on: ubuntu-latest
+
     env:
       OPENBIS_STATE_DIR: openbis/openbis_state
 

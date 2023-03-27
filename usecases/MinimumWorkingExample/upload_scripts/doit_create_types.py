@@ -28,7 +28,7 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         return
 
     # connecting to datastore
-    o = Interbis(config['datastore_url'], verify_certificates=False)
+    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'nodb' else True)
     o.connect_to_datastore(username=config['user'], password=config['pw'])
 
     ingredient_code = config['ingredient_metadata']['ingredient_code']
