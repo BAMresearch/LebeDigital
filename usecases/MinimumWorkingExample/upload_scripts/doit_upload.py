@@ -81,7 +81,7 @@ def upload_to_openbis_doit(
     # Connecting to the datastore
     logger.debug("Starting upload")
 
-    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'nodb' else True)
+    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'docker' else True)
     o.connect_to_datastore(username=config['user'], password=config['pw'])
 
     logger.debug("Connected to datastore")

@@ -62,7 +62,7 @@ openbis_config = {
     'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on GitHub actions as they need a password to run
-    'runson': get_var('runson', 'actions'),
+    'runson': get_var('runson', 'nodb'),
     # this is here to have a check for the upload, when space does not match any space then the script will exit
     # except when this is set to "yes"
     'force_upload': get_var("force", "yes"),
