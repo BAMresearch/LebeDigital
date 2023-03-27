@@ -69,7 +69,7 @@ jobs:
           cd $GITHUB_WORKSPACE/lebedigital/openbis/docker/
           python3 -m init_settings_docker --login admin --password changeit --url https://localhost:8443/openbis/
 
-      - name: run-pytest
+      - name: pytest
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
