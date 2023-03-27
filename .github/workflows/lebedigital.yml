@@ -67,7 +67,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -m "not login" --cov ../lebedigital --cov-report=xml  --login admin --password changeit
+          pytest -s --cov ../lebedigital --cov-report=xml  --login admin --password changeit
           COVERAGE_REPORT=$(coverage report -m | tee /dev/stderr)
           
           # passing a multiline string to output to use it in next job

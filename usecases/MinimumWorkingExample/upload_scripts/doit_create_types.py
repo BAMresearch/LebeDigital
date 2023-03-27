@@ -61,8 +61,8 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     )
     logging.debug(f'mixture type created: {mixture_sample_type.code}')
 
-    filtered_ingredient_union_list = [key.split('--')[0].split('.')[1] for key in mix_union_dict if key not in filtered_mix_union_dict]
-    set_ingredients = list(set(filtered_ingredient_union_list))
+    # filtered_ingredient_union_list = [key.split('--')[0].split('.')[1] for key in mix_union_dict if key not in filtered_mix_union_dict]
+    # set_ingredients = list(set(filtered_ingredient_union_list))
     # logging.warning(set_ingredients)
 
     annotations = [{
