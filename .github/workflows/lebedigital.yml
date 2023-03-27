@@ -21,6 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENBIS_STATE_DIR: openbis/openbis_state
+
+    outputs:
+      branch_coverage: ${{ steps.pytest.outputs.coverage }}
+      coverage_report: ${{ steps.pytest.outputs.report }}
+
     steps:
       - name: build docker
         run: |
@@ -67,7 +72,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s --cov ../lebedigital --cov-report=xml  --login admin --password changeit
+          pytest -s --cov ../lebedigital --cov-report=xml --login admin --password changeit
           COVERAGE_REPORT=$(coverage report -m | tee /dev/stderr)
           
           # passing a multiline string to output to use it in next job
@@ -87,7 +92,6 @@ jobs:
           # add them to the github env for later usage
           echo "COVERAGE_NUM=$(echo $COVERAGE_NUM)" >> $GITHUB_ENV
           echo "coverage=$(echo $COVERAGE_NUM)" >> $GITHUB_OUTPUT  # to be used in next job
-          echo "branch_coverage=$(echo $COVERAGE_NUM)" >> $GITHUB_OUTPUT  # to be used in next job
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           
           # removing all possible slashes in file names, they seem to appear during Pull Requests
