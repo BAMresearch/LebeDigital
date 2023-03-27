@@ -96,7 +96,7 @@ def task_paper():
     """compile pdf from latex source"""
     return {
         "file_dep": [paper_file] + TEX_MACROS + PAPER_PLOTS,
-        "actions": [f"tectonic {paper_file}"],
+        "actions": [f"tectonic {paper_file}"], # AA: I need to add./tectonic
         "targets": [paper_file.with_suffix('.pdf')],
         "clean": True,
     }

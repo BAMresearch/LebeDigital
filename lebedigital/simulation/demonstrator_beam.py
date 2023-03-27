@@ -85,3 +85,4 @@ def demonstrator_beam(time, dt, parameters, pv_output=False, pv_name='beam_simul
                                 "yield": pd.Series(problem.sensors['MaxYieldSensor'].data, dtype='pint[]')})
 
         return pint_df
+        

@@ -35,6 +35,8 @@ dependencies:
   - xlsxwriter
   - termcolor
   - sphinx
+  - pytest-cov
+  - codecov
   - pip:
     - probeye==2.3.2
     - -e .
