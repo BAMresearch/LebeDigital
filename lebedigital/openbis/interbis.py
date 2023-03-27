@@ -550,7 +550,15 @@ class Interbis(Openbis):
 
         return pt_dict
 
-    def create_parent_hint(self, sample_type: Union[str, SampleType], label: str, parent_type: Union[str, SampleType], min_count: Optional[int] = None, max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
+    def create_parent_hint(
+        self,
+        sample_type: Union[str, SampleType],
+        label: str,
+        parent_type: Union[str, SampleType],
+        min_count: Optional[int] = None,
+        max_count: Optional[int] = None,
+        annotation_properties: Optional[list] = None
+    ):
         """
         Method for creating parent hints with comments, has to be set before the parent annotation can be specified, similar to SampleType before Sample
         """
@@ -585,6 +593,8 @@ class Interbis(Openbis):
                 "MANDATORY": False,
             }]
 
+        # For the case that no settings for the sample type have been set before
+        settings["sampleTypeDefinitionsExtension"].setdefault(sample_type, {})
         settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", [])
 
         if hint not in settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"]:
