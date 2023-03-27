@@ -87,6 +87,7 @@ jobs:
           # add them to the github env for later usage
           echo "COVERAGE_NUM=$(echo $COVERAGE_NUM)" >> $GITHUB_ENV
           echo "coverage=$(echo $COVERAGE_NUM)" >> $GITHUB_OUTPUT  # to be used in next job
+          echo "branch_coverage=$(echo $COVERAGE_NUM)" >> $GITHUB_OUTPUT  # to be used in next job
           echo "COVERAGE_PCT=$(echo $COVERAGE_PCT)" >> $GITHUB_ENV
           
           # removing all possible slashes in file names, they seem to appear during Pull Requests
