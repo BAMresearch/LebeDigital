@@ -59,7 +59,7 @@ openbis_config = {
         }
 
     },
-    'verbose': True,
+    'verbose': False,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on GitHub actions as they need a password to run
     'runson': get_var('runson', 'nodb'),

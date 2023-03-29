@@ -70,6 +70,7 @@ jobs:
           python3 -m init_settings_docker --login admin --password changeit --url https://localhost:8443/openbis/
 
       - name: pytest
+        id: pytest
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
