@@ -167,19 +167,25 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
 
 
 @pytest.mark.login
-@pytest.mark.parametrize('level, space, project, collection',
-                         [('full', 'DEFAULT_SPACE', 'DEFAULT_PROJECT', 'DEFAULT_COLLECTION')])
-def test_get_overview(setup, pytestconfig, level, space, project, collection):
+@pytest.mark.parametrize('level', [('full'), ('space'), ('project'), ('collection')])
+def test_get_overview(setup, pytestconfig, level):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    overview = o.get_overview(level=level, space=space, project=project, collection=collection)
+    overview = o.get_overview(level=level, space=Constants.space.value, project=Constants.project.value, collection=Constants.collection.value)
 
-    print('========================' + level + '========================')
+    print('======================== ' + level.upper() + ' ========================')
     print(overview)
 
-    assert True
+    if level == 'full':
+        assert overview['DATASTORE']['ELN_SETTINGS']
+    elif level == 'space':
+        assert overview['DEFAULT']['TEST_PROJECT']
+    elif level == 'project':
+        assert overview['TEST_PROJECT']['TEST_COLLECTION']
+    else:
+        assert len(overview['TEST_COLLECTION']) >= 1
 
 
 @pytest.mark.login
