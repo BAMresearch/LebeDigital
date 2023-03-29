@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 import json
 from pathlib import Path
+import os
 
 import pandas as pd
 import pytest
@@ -65,6 +66,11 @@ def sample_dict():
                                                  'typeMultilineVarchar_desc'],
                         'TYPETIMESTAMP': ['TIMESTAMP', 'typeTimestamp_label', 'typeTimestamp_desc']}
     return sample_type_dict
+
+
+@pytest.fixture(scope='session')
+def expected_df_import():
+    return pd.read_csv(Filepaths.import_template.value, index_col=0, keep_default_na=False)
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -141,17 +147,23 @@ def setup(pytestconfig):
 
 
 @pytest.mark.login
-def test_get_metadata_import_template(setup, pytestconfig):
+@pytest.mark.parametrize("write", [False, True])
+@pytest.mark.parametrize("sheet_name", ["metadata", "some_named_sheet"])
+@pytest.mark.parametrize("path", ["", "~/dev/testing/output.xlsx"])
+def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, write, sheet_name, path):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    df = o.get_metadata_import_template(Constants.sample_type.value)
+    df = o.get_metadata_import_template(Constants.sample_type.value, write, sheet_name, path)
 
-    df_expected = pd.read_csv(
-        Filepaths.import_template.value, index_col=0, keep_default_na=False)
-
-    pd.testing.assert_frame_equal(df, df_expected)
+    if write:
+        assert os.path.isfile(path)
+        written_df = pd.read_excel(path, sheet_name=sheet_name, index_col=0, keep_default_na=False)
+        pd.testing.assert_frame_equal(written_df, expected_df_import)
+        os.remove(path)
+    else:
+        pd.testing.assert_frame_equal(df, expected_df_import)
 
 
 @pytest.mark.login
