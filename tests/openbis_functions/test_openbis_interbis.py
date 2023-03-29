@@ -167,6 +167,22 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
 
 
 @pytest.mark.login
+@pytest.mark.parametrize('level, space, project, collection',
+                         [('full', 'DEFAULT_SPACE', 'DEFAULT_PROJECT', 'DEFAULT_COLLECTION')])
+def test_get_overview(setup, pytestconfig, level, space, project, collection):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    overview = o.get_overview(level=level, space=space, project=project, collection=collection)
+
+    print('========================' + level + '========================')
+    print(overview)
+
+    assert True
+
+
+@pytest.mark.login
 def test_get_sample_type_properties(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -187,7 +203,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
 
-@ pytest.mark.login
+@pytest.mark.login
 def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -213,9 +229,9 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
     assert true_sample_dict == sample_dict
 
 
-@ pytest.mark.login
-@ pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
-                                             (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+@pytest.mark.login
+@pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
+                                            (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_exists_in_datastore(setup, sample, output, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
@@ -224,7 +240,7 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
 
 
 # skipped for now, need to find out why the docker build does not have any default settings
-@ pytest.mark.login
+@pytest.mark.login
 def test_create_parent_hint(setup, pytestconfig, capsys):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)

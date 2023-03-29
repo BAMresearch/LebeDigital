@@ -206,7 +206,7 @@ class Interbis(Openbis):
 
         def get_project_names(space):
             project_names = self.get_projects(space=space).df
-            return [name.split('/')[-1] for name in list(project_names['identifier'].values)]
+            return list(project_names['code'].values)
 
         def get_collection_names(space, project):
             collection_names = self.get_experiments(space=space, project=project).df
