@@ -551,12 +551,14 @@ class Interbis(Openbis):
         return pt_dict
 
     def create_parent_hint(
-            self,
-            sample_type: Union[str, SampleType],
-            label: str,
-            parent_type: Union[str, SampleType],
-            min_count: Optional[int] = None,
-            max_count: Optional[int] = None, annotation_properties: Optional[list] = None):
+        self,
+        sample_type: Union[str, SampleType],
+        label: str,
+        parent_type: Union[str, SampleType],
+        min_count: Optional[int] = None,
+        max_count: Optional[int] = None,
+        annotation_properties: Optional[list] = None
+    ):
         """
         Method for creating parent hints with comments, has to be set before the parent annotation can be specified, similar to SampleType before Sample
         """
@@ -645,5 +647,5 @@ class Interbis(Openbis):
                    'id': '1',
                    'jsonrpc': '2.0'}
 
-        response = requests.post(combine_urls(self.url, self.as_v3), json=request).json()
+        response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
         return response
