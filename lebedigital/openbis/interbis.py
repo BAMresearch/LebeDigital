@@ -645,5 +645,5 @@ class Interbis(Openbis):
                    'id': '1',
                    'jsonrpc': '2.0'}
 
-        response = requests.post(combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
+        response = requests.post(combine_urls(self.url, self.as_v3), json=request).json()
         return response
