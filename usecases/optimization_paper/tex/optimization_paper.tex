@@ -24,10 +24,11 @@
 
 %%%% Standard Packages
 %%<additional latex packages if required can be included here>
-\input{macros/tex_macros.tex}  % tex commands not variable
-\input{macros/py_macros.tex}   % tex commands created by script
+\input{macros/tex_macros_BAM.tex}  % tex commands not variable
 \input{macros/tex_macros_TUM.tex}
-\input{macros/preamble.tex}
+\input{macros/py_macros.tex}   % tex commands created by script
+\input{macros/packages_BAM.tex}
+\input{macros/packages_TUM.tex}
 
 \newcommand{\figures}{../figures/} % scale factor for affinity
 %%%%
@@ -127,7 +128,7 @@
 %% file, and delete the associated \verb+\bibliography+ commands.                            %%
 %%===========================================================================================%%
 
-\bibliography{optimization_paper_bibliography}% common bib file
+\bibliography{optimization_paper_bibliography_BAM,optimization_paper_bibliography_TUM}% common bib file
 %% if required, the content of .bbl file can be included here once bbl is generated
 %%\input sn-article.bbl
 
