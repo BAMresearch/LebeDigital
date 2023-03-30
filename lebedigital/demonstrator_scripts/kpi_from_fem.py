@@ -76,19 +76,3 @@ def kpi_from_fem(df,limit_temp):
     results['time_of_demolding'].ito('h')
 
     return results
-
-
-if __name__ == "__main__":
-    # test while developing this
-
-    pint.set_application_registry(ureg)  # required to use the same registry
-    df = pd.DataFrame({
-        "time": pd.Series([0,10,20], dtype="pint[hours]"),
-        "temperature": pd.Series([10,40,80], dtype="pint[degree_Celsius]"),
-        "yield": pd.Series([-40,-20,20], dtype="pint[dimensionless]"),
-    })
-
-    Q_ = ureg.Quantity
-    limit = Q_(70,ureg.degC)
-
-    print(kpi_from_fem(df, limit))

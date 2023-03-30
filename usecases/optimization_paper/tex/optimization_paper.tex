@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Please do not use \input{...} to include other tex files.       %%
 %% Submit your LaTeX manuscript as one .tex document.              %%
@@ -10,7 +11,7 @@
 % some aditional \documentclass options:
 % \documentclass[referee,...]{sn-jnl}% referee option is meant for double line spacing
 %\documentclass[lineno,...]{sn-jnl}% to print line numbers in the margin use lineno option
-
+\RequirePackage{tikz}
 \documentclass[pdflatex,sn-basic]{template/sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 %%\documentclass[sn-mathphys]{sn-jnl}% Math and Physical Sciences Reference Style
 %%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
@@ -25,6 +26,8 @@
 %%<additional latex packages if required can be included here>
 \input{macros/tex_macros.tex}  % tex commands not variable
 \input{macros/py_macros.tex}   % tex commands created by script
+\input{macros/tex_macros_TUM.tex}
+\input{macros/preamble.tex}
 
 \newcommand{\figures}{../figures/} % scale factor for affinity
 %%%%
@@ -49,8 +52,7 @@
 %%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
-
-\title[Awesome Article Title]{Awesome Article Title}
+\title[From concrete mixture to structural design - a holistic optimization procedure]{From concrete mixture to structural design - a holistic optimization procedure}
 
 %%=============================================================%%
 %% Prefix	-> \pfx{Dr}
@@ -86,22 +88,35 @@
 \section{Introduction}\label{sec:introduction}
 \input{tex_sections/introduction.tex}
 
-\section{Models}\label{sec:models}
-\input{tex_sections/models.tex}
+\section{Experimental data}\label{sec:data}
+\input{tex_sections/data.tex}
 
-\section{Calibration}\label{sec:calibration}
+\section{Models}\label{sec:models}
+\input{tex_sections/homogenization.tex}
+\input{tex_sections/concrete_model.tex}
+\input{tex_sections/other_models.tex}
+
+\section{Calibration Method}\label{sec:calibration}
 \input{tex_sections/calibration.tex}
 
-\section{Example code from template}
-\input{tex_sections/template_examples.tex}
+\section{Optimization Method}\label{sec:optimization}
+\input{tex_sections/optimization.tex}
+
+\section{Numerical Experiments}\label{sec:numericalexperiments}
+\input{tex_sections/numerical_experiments.tex}
+
+\section{Results}\label{sec:results}
+\input{tex_sections/results.tex}
+
+\section{Conclusion and Outlook}\label{sec:results}
+\input{tex_sections/conclusion.tex}
 
 % supplementary information, acknowledgements, declarations, etc
 \input{tex_sections/backmatter.tex}
 
 \begin{appendices}
-	
-\section{Section title of first appendix}\label{secA1}
-\input{tex_sections/appendix_1.tex}
+\section{Mori-Tanaka Homogenization}\label{appendix:hom}
+\input{tex_sections/appendix_mori_tanaka_hom.tex}
 
 \end{appendices}
 
@@ -120,3 +135,4 @@
 %%\input sn-sample-bib.tex%
 
 \end{document}
+

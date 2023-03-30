@@ -1,20 +1,18 @@
-import unittest
-import os
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data \
+        import processed_data_from_rawdata
+from pathlib import Path
 
-from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import \
-    processed_data_from_rawdata
-
-class TestProcessedDataFromRawData(unittest.TestCase):
-
-    def test_emodul_generate_processed_data(self):
+def test_emodul_generate_processed_data():
         """
         Testing the processed data generation on a single experiment
         """
 
-        rawdata_location = '../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
-        processeddat_location = './BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4' + '.csv'
+        # setup paths and directories
+        data_dir = 'test_data'
+        data_path = Path(__file__).parent / data_dir
+        output_file = data_path / 'processed_data.csv'
 
-        processed_data_from_rawdata(locationOfRawData=rawdata_location, locationOfProcessedData=processeddat_location)
+        processed_data_from_rawdata(locationOfRawData=data_path, locationOfProcessedData=output_file)
 
-        self.assertTrue(os.path.exists('./BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4.csv'))
+        assert output_file.is_file
 

@@ -9,7 +9,7 @@ from pybis.sample import Sample
 
 
 class Interbis(Openbis):
-    def __init__(self, url, verify_certificates=True, token=None, use_cache=True,
+    def __init__(self, url, verify_certificates=False, token=None, use_cache=True,
                  allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
         super().__init__(url, verify_certificates, token, use_cache,
                          allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
@@ -509,6 +509,8 @@ class Interbis(Openbis):
                     dataType=val[0],
                     label=val[1],
                     description=val[2],
+                    # The vocabulary needs to exist at this point
+                    vocabulary=val[3] if val[0] == 'CONTROLLEDVOCABULARY' else None
                 )
                 new_pt.save()
             else:

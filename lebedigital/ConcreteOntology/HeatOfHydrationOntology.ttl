@@ -67,7 +67,7 @@ con:Energy a owl:Class .
 
 con:ExperimentDate_ a cco:Day,
         owl:NamedIndividual ;
-    cco:has_datetime_value "value"^^xsd:dateTime .
+    cco:has_datetime_value "$$ExperimentDate_Value$$"^^xsd:dateTime .
 
 con:ExperimentInfo a owl:Class .
 
@@ -85,33 +85,33 @@ con:HeatOfHydration a owl:Class .
 
 con:Lab_ a con:Location,
         owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
 
 con:Location a owl:Class .
 
 con:MeasurementDuration_ a con:Duration,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MeasurementDuration_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit cco:HourMeasurementUnit .
 
 con:MeasurementEnergy_ a con:Energy,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MeasurementEnergy_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q106611903 .
 
 con:MeasurementPower_ a cco:Power,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MeasurementPower_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit con:MilliwattPerGramOfMaterial .
 
 con:MeasurementTime_ a owl:NamedIndividual,
         mid:ExperimentTime ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MeasurementTime_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit cco:HourMeasurementUnit .
 
 con:MeasurementVoltage_ a owl:NamedIndividual,
         mid:Voltage ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MeasurementVoltage_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q2448803 .
 
 con:MilliwattPerGramOfMaterial a owl:NamedIndividual,
@@ -123,14 +123,14 @@ con:MixingWater_ a con:Water,
 con:PasteHeatOfHydration_ a con:HeatOfHydration,
         owl:NamedIndividual ;
     cco:described_by con:RawDataFile_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$HeatOfHydration_Value$$"^^xsd:decimal ;
     cco:has_output con:ExperimentInfo_ ;
     pmd:hasPmdUnit cco:KilogramMeasurementUnit ;
     mid:in_accordance_with con:DINEN196-8:2010 .
 
 con:PasteID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$PasteID_Value$$"^^xsd:string .
 
 con:PasteRawMaterials_ a con:RawMaterials,
         owl:NamedIndividual ;
@@ -145,20 +145,20 @@ con:Plasticizer_ a con:Admixture,
 
 con:RawDataFile_ a owl:NamedIndividual,
         mid:RawDataSet ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$RawDataFile_Value§§"^^xsd:string .
 
 con:RawMaterials a owl:Class .
 
 con:SampleMass_ a cco:Mass,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$SampleMass_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q41803 .
 
 con:Water a owl:Class .
 
 con:WaterCementRatio_ a owl:NamedIndividual,
         mid:WeightRatio ;
-    cco:has_decimal_value "value"^^xsd:decimal .
+    cco:has_decimal_value "$$WaterCementRatio_Value$$"^^xsd:decimal .
 
 cco:Artifact a owl:Class .
 
