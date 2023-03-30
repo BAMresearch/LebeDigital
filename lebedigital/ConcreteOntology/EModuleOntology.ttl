@@ -9,7 +9,7 @@
 
 obo:RO_0000086 a owl:ObjectProperty .
 
-con:E-ModulTestSpecimen_ a owl:NamedIndividual,
+con:E-ModuleTestSpecimen_ a owl:NamedIndividual,
         mid:Specimen ;
     obo:RO_0000086 con:SpecimenDiameter_,
         con:SpecimenHeight_,
@@ -17,6 +17,7 @@ con:E-ModulTestSpecimen_ a owl:NamedIndividual,
         con:SpecimenWidth_ ;
     con:has_age con:SpecimenAge_ ;
     cco:designated_by con:SpecimenID_ ;
+    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
     cco:is_input_of con:SecantModulusOfElasticty_ .
 
 con:has_age a owl:ObjectProperty .
@@ -41,8 +42,6 @@ xsd:dateTimeStamp a rdfs:Datatype .
 
 xsd:decimal a rdfs:Datatype .
 
-xsd:integer a rdfs:Datatype .
-
 xsd:string a rdfs:Datatype .
 
 ns3: a owl:Ontology .
@@ -60,7 +59,7 @@ con:AppliedLoad a owl:Class .
 con:CompressionForce_ a con:AppliedLoad,
         owl:NamedIndividual ;
     ns3:hasPmdUnit ns3:Q56402798 ;
-    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:integer .
+    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:string .
 
 con:Computation a owl:NamedIndividual,
         mid:RawDataSet .
@@ -104,9 +103,15 @@ con:MeasurementDuration_ a con:Duration,
 
 con:MeasuringGauge a owl:Class .
 
+con:OpenBisRawDataFile a con:RawDataFile,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
 con:ProcessedFile_ a owl:NamedIndividual,
         mid:ProcessDataSet ;
     cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
+
+con:RawDataFile a owl:Class .
 
 con:RawDataFile_ a owl:NamedIndividual,
         mid:RawDataSet ;
@@ -116,7 +121,8 @@ con:SecantModulusOfElasticty a owl:Class .
 
 con:SecantModulusOfElasticty_ a con:SecantModulusOfElasticty,
         owl:NamedIndividual ;
-    cco:described_by con:RawDataFile_ ;
+    cco:described_by con:OpenBisRawDataFile,
+        con:RawDataFile_ ;
     cco:has_decimal_value "$$EModule_Value$$"^^xsd:decimal ;
     cco:has_output con:ExperimentInfo_ ;
     cco:has_process_part con:Computation ;
@@ -155,7 +161,7 @@ con:SpecimenWidth_ a cco:Width,
 con:Transducer_ a con:MeasuringGauge,
         owl:NamedIndividual ;
     ns3:hasPmdUnit ns3:Q56402798 ;
-    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:integer .
+    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:string .
 
 cco:Day a owl:Class .
 
