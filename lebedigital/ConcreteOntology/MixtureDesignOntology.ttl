@@ -11,8 +11,8 @@ obo:RO_0000086 a owl:ObjectProperty .
 
 con:ConcreteMixture_ a con:Mixture,
         owl:NamedIndividual ;
-    obo:RO_0000086 con:CMix_WaterCementRatio_ ;
-    cco:described_by con:CMix_RawDataFile_ ;
+    obo:RO_0000086 con:WaterCementRatio_ ;
+    cco:described_by con:RawDataFile_ ;
     cco:designated_by con:MixtureID_ ;
     cco:has_input con:ConcreteRawMaterials_ ;
     cco:has_output con:CMix_ExperimentInfo_ .
@@ -45,11 +45,6 @@ pmd:hasPmdUnit a owl:ObjectProperty .
 
 con:Admixture a owl:Class .
 
-con:AggregateDensity_ a cco:Density,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q2175964 .
-
 con:Aggregates a owl:Class .
 
 con:AirContent a owl:Class .
@@ -57,76 +52,83 @@ con:AirContent a owl:Class .
 con:AirContent_ a con:AirContent,
         owl:NamedIndividual ;
     obo:RO_0000086 con:AirDensity_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$AirContent_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit con:PercentByVolume .
 
 con:AirDensity_ a cco:Density,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$AirDensity_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q2175964 .
 
-con:CEMII_ a con:Cement,
+con:CEMIDensity_ a cco:Density,
         owl:NamedIndividual ;
-    obo:RO_0000086 con:CementDensity_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$CEMIDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:CEMIIDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$CEMIIDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:CEMIIQtyInMix_ a con:Cement,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CEMIIDensity_ ;
+    cco:has_decimal_value "$$CEMIIQtyInMix_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q844211 .
 
-con:CEMI_ a con:Cement,
+con:CEMIQtyInMix_ a con:Cement,
         owl:NamedIndividual ;
-    obo:RO_0000086 con:CementDensity_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    obo:RO_0000086 con:CEMIDensity_ ;
+    cco:has_decimal_value "$$CEMIQtyInMix_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q844211 .
 
 con:CMix_ExperimentInfo_ a con:ExperimentInfo,
         owl:NamedIndividual ;
-    cco:has_output con:CMix_MixingDate_,
-        con:Cmix_Lab_ .
-
-con:CMix_MixingDate_ a cco:Day,
-        owl:NamedIndividual ;
-    cco:has_datetime_value "value"^^xsd:dateTimeStamp .
-
-con:CMix_RawDataFile_ a owl:NamedIndividual,
-        mid:RawDataSet ;
-    cco:has_text_value "value"^^xsd:string .
-
-con:CMix_WaterCementRatio_ a owl:NamedIndividual,
-        mid:WeightRatio ;
-    cco:has_decimal_value "value"^^xsd:decimal .
-
-con:Cmix_Lab_ a con:Location,
-        owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_output con:Lab_,
+        con:MixingDate_ .
 
 con:ConcreteRawMaterials_ a con:RawMaterials,
         owl:NamedIndividual ;
     pmd:composedBy con:AirContent_,
-        con:CEMII_,
-        con:CEMI_,
-        con:MixingWater_,
-        con:Okrilla_,
-        con:Plasticizer_ .
+        con:CEMIIQtyInMix_,
+        con:CEMIQtyInMix_,
+        con:MixingWaterQtyInMix_,
+        con:OkrillaQtyInMix_,
+        con:PlasticizerQtyInMix_ .
 
 con:ExperimentInfo a owl:Class .
 
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+
 con:Location a owl:Class .
 
-con:MixingWater_ a con:Water,
+con:MixingDate_ a cco:Day,
         owl:NamedIndividual ;
-    obo:RO_0000086 con:WaterDensity2_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_datetime_value "$$MixingDate_Value$$"^^xsd:dateTimeStamp .
+
+con:MixingWaterQtyInMix_ a con:Water,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:WaterDensity_ ;
+    cco:has_decimal_value "$$MixingWaterQtyInMix_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q844211 .
 
 con:Mixture a owl:Class .
 
 con:MixtureID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$MixtureID_Value$$"^^xsd:string .
 
-con:Okrilla_ a con:Aggregates,
+con:OkrillaDensity_ a cco:Density,
         owl:NamedIndividual ;
-    obo:RO_0000086 con:AggregateDensity_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$OkrillaDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:OkrillaQtyInMix_ a con:Aggregates,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:OkrillaDensity_ ;
+    cco:has_decimal_value "$$OkrillaQtyInMix_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q844211 .
 
 con:PercentByVolume a owl:NamedIndividual,
@@ -134,22 +136,30 @@ con:PercentByVolume a owl:NamedIndividual,
 
 con:PlasticizerDensity_ a cco:Density,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$PlasticizerDensity_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q2175964 .
 
-con:Plasticizer_ a con:Admixture,
+con:PlasticizerQtyInMix_ a con:Admixture,
         owl:NamedIndividual ;
     obo:RO_0000086 con:PlasticizerDensity_ ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$PlasticizerQtyInMix_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q844211 .
+
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string .
 
 con:RawMaterials a owl:Class .
 
 con:Water a owl:Class .
 
-con:WaterDensity2_ a cco:Density,
+con:WaterCementRatio_ a owl:NamedIndividual,
+        mid:WeightRatio ;
+    cco:has_decimal_value "$$WaterCementRatio_Value$$"^^xsd:decimal .
+
+con:WaterDensity_ a cco:Density,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$WaterDensity_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q2175964 .
 
 cco:Day a owl:Class .
@@ -162,18 +172,13 @@ mid:WeightRatio a owl:Class .
 
 con:Cement a owl:Class .
 
-con:CementDensity_ a cco:Density,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q2175964 .
-
 pmd:PmdSiUnit a owl:Class .
+
+pmd:Q844211 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
 cco:Density a owl:Class .
 
 pmd:Q2175964 a owl:NamedIndividual,
-        pmd:PmdSiUnit .
-
-pmd:Q844211 a owl:NamedIndividual,
         pmd:PmdSiUnit .
 
