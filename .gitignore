@@ -155,7 +155,23 @@ usecases/optimization_paper/tex/optimization_paper.pdf
 usecases/optimization_paper/figures/*
 usecases/optimization_paper/workflow_graph/graph_tex_nodes/*
 
+# ignore workflow outputs
+usecases/optimization_paper/optimization_workflow/Results/*
+**/.snakemake/*
+
+# tex temp
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
 
 
 # openbis upload log file
 usecases/MinimumWorkingExample/logfile_openbis.txt
+
+# test for emodule data processing
+tests/raw_data_processing/youngs_modulus_data/test_data
+!tests/raw_data_processing/youngs_modulus_data/test_data/specimen.dat
+!tests/raw_data_processing/youngs_modulus_data/test_data/mix.dat
+

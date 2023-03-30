@@ -1,9 +1,0 @@
-ConcreteOntology/catalog-v001.xml
-knowledgeGraph/emodul/E-modul-processed-data/
-knowledgeGraph/compression/compression-processed-data/
-knowledgeGraph/RDFConverter/
-Example/emodul/metadata_yaml_files/
-Example/emodul/processeddata/
-Example/emodul/triples/
-__pycache__/
-.doit.*

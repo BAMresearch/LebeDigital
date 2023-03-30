@@ -1,0 +1,6 @@
+{
+    "temperature_limit": {
+      "value":70,
+      "unit":"degree_Celsius"
+    }
+}

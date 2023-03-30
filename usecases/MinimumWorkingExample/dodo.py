@@ -27,15 +27,16 @@ config = {"mode": get_var('mode', 'cheap')}
 # when "cheap option" or "single" is run, only this souce of raw data is processed
 single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
-single_mix_name = '2014_12_10 Wolf.xls'  # corresponding mix for the "single" example
+# corresponding mix sor the "single" example
+single_mix_name = '2014_12_10 Wolf.xls'
 
 DOIT_CONFIG = {'verbosity': 2}
 
 # openbis config needed for the upload to the datastore
 openbis_config = {
-    'datastore_url': get_var("url", 'https://openbis.matolab.org/openbis/'),
-    'user': get_var("user", 'dummy'),
-    'pw': get_var("pw", None),
+    'datastore_url': get_var("url", 'https://localhost:8443/openbis/'),
+    'user': get_var("user", 'admin'),
+    'pw': get_var("pw", "changeit"),
     'space': get_var("space", 'EMODUL'),
     'project': 'LEBEDIGITAL',
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
@@ -48,11 +49,12 @@ openbis_config = {
     'runson': get_var('runson', 'actions'),
     # this is here to have a check for the upload, when space does not match any space then the script will exit
     # except when this is set to "yes"
-    'force_upload': get_var("force", "no")
+    'force_upload': get_var("force", "yes"),
+    'dataset_upload': get_var('dataset_upload', 'no')
 }
 
 # default properties for openbis
-defaults_dict = {"operator_date": ["DATE", "operator_date", "operator_date"],
+defaults_dict = {"operator_date": ["TIMESTAMP", "operator_date", "operator_date"],
                  "tester_name": ["VARCHAR", "tester_name", "tester_name"],
                  "$name": ["VARCHAR", "Name", "Name"]}
 
@@ -62,25 +64,35 @@ ParentDir = os.path.dirname(Path(__file__))
 
 # EMODULE PATHS
 # defining paths for emodule
-emodul_output_directory = Path(ParentDir, 'emodul')  # folder with metadata yaml files
-raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')  # folder with folders of raw data files
-metadata_emodulus_directory = Path(emodul_output_directory, 'metadata_yaml_files')  # folder with metadata yaml files
-processed_data_emodulus_directory = Path(emodul_output_directory, 'processed_data')  # folder with csv data files
-knowledge_graphs_directory = Path(emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
-openbis_directory = Path(emodul_output_directory, 'openbis_upload')  # folder with openBIS log files
+# folder with metadata yaml files
+emodul_output_directory = Path(ParentDir, 'emodul')
+# folder with folders of raw data files
+raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')
+# folder with metadata yaml files
+metadata_emodulus_directory = Path(
+    emodul_output_directory, 'metadata_yaml_files')
+processed_data_emodulus_directory = Path(
+    emodul_output_directory, 'processed_data')  # folder with csv data files
+knowledge_graphs_directory = Path(
+    emodul_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+# folder with openBIS log files
+openbis_directory = Path(emodul_output_directory, 'openbis_upload')
 openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
-openbis_sample_types_directory = Path(openbis_directory, 'openbis_sample_types')
+openbis_sample_types_directory = Path(
+    openbis_directory, 'openbis_sample_types')
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 
 # MIXTURE PATHS
 # defining paths for mixture
-raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')  # folder with raw data files (excel)
+# folder with raw data files (excel)
+raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')
 mixture_output_directory = Path(ParentDir, 'mixture')  # folder with folders
 metadata_mixture_directory = Path(mixture_output_directory,
                                   'metadata_yaml_files')  # folder with mixture metadata yaml files
-mixture_knowledge_graphs_directory = Path(mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
+mixture_knowledge_graphs_directory = Path(
+    mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
 # List with mixes with problems, to be excluded for now
 excluded_mix_list = ['2014_08_04 Rezepturen_auf 85 Liter_Werner_Losert.xlsx']
@@ -105,7 +117,8 @@ def task_extract_metadata_mixture():
 
     # setting for fast test, defining the list
     if config['mode'] == 'single':
-        list_raw_data_mixture_files = [Path(raw_data_mixture_directory, single_mix_name)]
+        list_raw_data_mixture_files = [
+            Path(raw_data_mixture_directory, single_mix_name)]
 
     else:  # make a list of all files
         list_raw_data_mixture_files = os.scandir(raw_data_mixture_directory)
@@ -113,7 +126,8 @@ def task_extract_metadata_mixture():
     for f in list_raw_data_mixture_files:
         if f.is_file():
             raw_data_path = Path(f)
-            yaml_metadata_file = Path(metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
+            yaml_metadata_file = Path(
+                metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
 
             if f.name not in excluded_mix_list:
                 yield {
@@ -130,11 +144,12 @@ def task_extract_metadata_emodul():
     Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    #if config['mode'] == 'cheap' or config['mode'] == 'single':
+    # if config['mode'] == 'cheap' or config['mode'] == 'single':
     #    list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
-    #else: # go through all files
-    list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
-    
+    # else: # go through all files
+    list_raw_data_emodulus_directories = os.scandir(
+        raw_data_emodulus_directory)
+
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
             raw_data_path = Path(f)
@@ -159,9 +174,11 @@ def task_extract_processed_data_emodul():
 
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_raw_data_emodulus_directories = [Path(raw_data_emodulus_directory, single_example_name)]
+        list_raw_data_emodulus_directories = [
+            Path(raw_data_emodulus_directory, single_example_name)]
     else:  # go through all files
-        list_raw_data_emodulus_directories = os.scandir(raw_data_emodulus_directory)
+        list_raw_data_emodulus_directories = os.scandir(
+            raw_data_emodulus_directory)
 
     for f in list_raw_data_emodulus_directories:
         if f.is_dir():
@@ -276,17 +293,21 @@ def task_upload_to_openbis():
     # setting for fast test, defining the list
     if config['mode'] == 'cheap' or config['mode'] == 'single':
         single_example_name_extended = "".join([single_example_name, ".yaml"])
-        list_metadata_emodul_yaml_files = [Path(metadata_emodulus_directory, single_example_name_extended)]
+        list_metadata_emodul_yaml_files = [
+            Path(metadata_emodulus_directory, single_example_name_extended)]
     else:  # go through all files
-        list_metadata_emodul_yaml_files = os.scandir(metadata_emodulus_directory)
+        list_metadata_emodul_yaml_files = os.scandir(
+            metadata_emodulus_directory)
 
     for meta_f in list_metadata_emodul_yaml_files:
         # getting path for metadata yaml file
         metadata_file_path = Path(meta_f)
 
         # getting the processed file path
-        processed_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0]) + '.csv'
-        processed_file_path = Path(processed_data_emodulus_directory, processed_file_name)
+        processed_file_name = str(os.path.splitext(
+            os.path.basename(metadata_file_path))[0]) + '.csv'
+        processed_file_path = Path(
+            processed_data_emodulus_directory, processed_file_name)
 
         # here we get the corresponding mix_file
         with open(metadata_file_path, 'r') as file:
@@ -311,7 +332,8 @@ def task_upload_to_openbis():
             raw_data_emodulus_directory,
             os.path.splitext(os.path.basename(meta_f))[0], 'specimen.dat')
 
-        sample_file_name = str(os.path.splitext(os.path.basename(metadata_file_path))[0] + '_oB_upload_log.yaml')
+        sample_file_name = str(os.path.splitext(os.path.basename(
+            metadata_file_path))[0] + '_oB_upload_log.yaml')
         sample_file_path = Path(openbis_samples_directory, sample_file_name)
 
         yield {
