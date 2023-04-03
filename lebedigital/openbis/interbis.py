@@ -153,7 +153,7 @@ class Interbis(Openbis):
         else:
             return meta_df
 
-    def import_props_from_template(self, path_to_file: str, sample_object: Sample):
+    def import_props_from_template(self, path_to_file: str) -> dict:
 
         df = pd.read_excel(path_to_file)
         df.columns = df.columns.str.lower()
@@ -180,7 +180,7 @@ class Interbis(Openbis):
             elif property_data_type == "INTEGER":
                 metadata[key] = int(metadata[key])
 
-        sample_object.set_props(metadata)
+        return metadata
 
     def get_overview(self, level: str, **kwargs) -> dict:
         """

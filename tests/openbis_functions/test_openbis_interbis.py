@@ -245,7 +245,6 @@ def test_exists_in_datastore(setup, sample, output, pytestconfig):
     assert o.exists_in_datastore(str(sample)) == output
 
 
-# skipped for now, need to find out why the docker build does not have any default settings
 @pytest.mark.login
 def test_create_parent_hint(setup, pytestconfig, capsys):
     chosen_runner = pytestconfig.getoption('--url')
