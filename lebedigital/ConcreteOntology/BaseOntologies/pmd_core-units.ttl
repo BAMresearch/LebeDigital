@@ -6759,4 +6759,3 @@ In PMD, a process is conducted via process nodes and has a discernable duration 
 pmd:PmdSiUnit a owl:Class ;
     rdfs:label "PmdSiUnit"@en ;
     rdfs:comment "Equivalent to the definition found at https://www.wikidata.org/wiki/Q61610698. Instances of this class represent a tuple of prefix and SI unit"@en .
-
