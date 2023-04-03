@@ -41,6 +41,7 @@ class Filepaths(Enum):
     test_sheet: Path = Path('./openbis_functions/test_files/test_sheet.xlsx')
     init_settings: Path = Path('./openbis_functions/test_files/init_settings.json')
     excel_output: Path = Path('./openbis_functions/test_files/output.xlsx')
+    filled_out_sheet: Path = Path('./openbis_functions/test_files/filled_out_sheet.xlsx')
 
 
 test_results = {
@@ -164,6 +165,34 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
         os.remove(path)
     else:
         pd.testing.assert_frame_equal(df, expected_df_import)
+
+
+@pytest.mark.login
+def test_import_props_from_template(stetup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    read_sample = o.import_props_from_template(Filepaths.filled_out_sheet.value)
+
+    expected_sample = o.get_sample(Constants.testing_sample_name.value)
+    expected_sample_props = expected_sample.props
+    expected_sample_props = {key: val for key, val in expected_sample_props.items() if not (key == "experimental_step.experimental_goals" or key == "experimental_step.experimental_description")}
+
+    assert read_sample.props == expected_sample_props
+
+
+@pytest.mark.login
+def test_get_sample_dict(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample_dict = o.get_sample_dict(Constants.testing_sample_name.value)
+
+    expected_sample_dict = {}
+
+    assert sample_dict == expected_sample_dict
 
 
 @pytest.mark.login
