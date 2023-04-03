@@ -268,10 +268,37 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 @pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
                                             (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_exists_in_datastore(setup, sample, output, pytestconfig):
+
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
     assert o.exists_in_datastore(str(sample)) == output
+
+
+@pytest.mark.login
+def test_get_sample_identifier(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    fetched_sample_identifier = o.get_sample_identifier(Constants.testing_sample_name.value)
+
+    assert fetched_sample_identifier == f"/{Constants.space.value}/{Constants.project.value}/{Constants.testing_sample_name.value}"
+
+
+@pytest.mark.login
+@pytest.mark.parametrize("collection, should_pass", [(Constants.collection.value, True), (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+def test_get_collection_identifier(setup, pytestconfig, collection, should_pass):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    if should_pass:
+        collection_identifier = o.get_collection_identifier(collection)
+        assert collection_identifier == Constants.collection_id.value
+    else:
+        with pytest.raises(ValueError) as e_info:
+            collection_identifier = o.get_collection_identifier(collection)
 
 
 @pytest.mark.login
