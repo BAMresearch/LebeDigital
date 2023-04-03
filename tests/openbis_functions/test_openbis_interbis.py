@@ -32,6 +32,7 @@ class Constants(Enum):
     # db_url: str = "https://openbis.matolab.org/openbis/"
     db_url: str = "https://localhost:8443/openbis/"
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
+    testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE/"
     parent_hint_label: str = "testing label"
 
 
@@ -47,6 +48,8 @@ class Filepaths(Enum):
 test_results = {
     "idx_parent_hint": None
 }
+
+created_samples_in_tests = []
 
 
 @pytest.fixture(scope='session')
@@ -130,10 +133,13 @@ def setup(pytestconfig):
     })
 
     sample.save()
+    created_samples_in_tests.append(sample.identifier)
 
     yield
 
-    sample.delete('cleaning up after test run')
+    for sample_id in created_samples_in_tests:
+        sample = o.get_sample(sample_id)
+        sample.delete("cleaning up after tests")
 
     # Deleting parent hint
 
@@ -265,14 +271,31 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("sample, output", [(Constants.testing_sample_name.value, True),
-                                            (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
-def test_exists_in_datastore(setup, sample, output, pytestconfig):
+@pytest.mark.parametrize("sample_name, output", [(Constants.testing_sample_name.value, True),
+                                                 (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False),
+                                                 ("make_two_of_me", True)])
+def test_exists_in_datastore(setup, sample_name, output, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    assert o.exists_in_datastore(str(sample)) == output
+    if sample_name == "make_two_of_me":
+        for _ in range(2):
+            new_sample = o.new_sample(
+                type=Constants.sample_type.value,
+                space=Constants.space.value,
+                project=Constants.project.value,
+                collection=Constants.collection_id.value
+            )
+
+            new_sample.set_props({
+                '$name': sample_name,
+            })
+
+            new_sample.save()
+            created_samples_in_tests.append(new_sample.identifier)
+
+    assert o.exists_in_datastore(str(sample_name)) == output
 
 
 @pytest.mark.login
@@ -302,11 +325,10 @@ def test_get_collection_identifier(setup, pytestconfig, collection, should_pass)
 
 
 @pytest.mark.login
-def test_create_parent_hint(setup, pytestconfig, capsys):
+def test_create_parent_hint(setup, pytestconfig):
+
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
-
-    settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
 
     o.create_parent_hint(sample_type=Constants.sample_type.value, label="testing label", parent_type=Constants.sample_type.value)
 
@@ -320,3 +342,37 @@ def test_create_parent_hint(setup, pytestconfig, capsys):
     test_results["idx_parent_hint"] = output
 
     assert len(output) == 1
+
+
+@pytest.mark.login
+def test_set_parent_hint(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    parent_sample = o.new_sample(
+        type=Constants.sample_type.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value
+    )
+
+    parent_sample.set_props({
+        '$name': "parent_sample_hint_test",
+    })
+
+    parent_sample.save()
+    created_samples_in_tests.append(parent_sample.identifier)
+
+    o.set_parent_annotation(
+        child_sample=Constants.testing_sample_identifier.value,
+        parent_sample=parent_sample.identifier,
+        comment="comment_comment",
+    )
+
+    annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
+    expected_annotation = {}
+
+    # TODO find the correct output when fenicsconcrete fixed comes
+
+    assert annotation == expected_annotation

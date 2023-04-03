@@ -604,11 +604,11 @@ class Interbis(Openbis):
 
         settings_sample.save()
 
-    def get_parent_annotations(self, sample_identifier: str):
+    def get_parent_annotations(self, sample_identifier: str) -> dict:
         sample = self.get_sample(sample_identifier)
         return sample.data["parentsRelationships"]
 
-    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str, set_property: str):
+    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str, set_property: Optional[str] = None):
         """
         Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
 
@@ -634,6 +634,9 @@ class Interbis(Openbis):
             return full_url
 
         child_sample_permid = self.get_sample(child_sample).permId
+
+        if not set_property:
+            set_property = "ANNOTATION.SYSTEM.COMMENTS"
 
         request = {'method': 'updateSamples',
                    'params': [self.token,
