@@ -64,11 +64,8 @@ class Interbis(Openbis):
             else:
                 os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
 
-            try:
-                self.login(os.environ['OPENBIS_USERNAME'], os.environ['OPENBIS_PASSWORD'])
-            except ValueError:
-                print("Wrong Credentials")
-                sys.exit(1)
+            self.login(os.environ['OPENBIS_USERNAME'], os.environ['OPENBIS_PASSWORD'])
+
         else:
             logging.debug('Connection already established with ' + self.url)
 
