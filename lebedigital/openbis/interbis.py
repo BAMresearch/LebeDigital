@@ -611,6 +611,12 @@ class Interbis(Openbis):
     def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str, set_property: str):
         """
         Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
+
+        Args:
+            child_sample(str): The identifier of the child sample in the relationship
+            parent_sample(str): The identifier of the parent sample in the relationship
+            comment(str): The value of the annotation
+            set_property(str): The property of the annotation to be commented
         """
         def combine_urls(base_url, relative_url):
             # Remove any trailing or leading slashes
