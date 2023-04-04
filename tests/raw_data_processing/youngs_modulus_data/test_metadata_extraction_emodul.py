@@ -11,19 +11,29 @@ def test_metadata_extraction_emodul():
         mix_file = 'mix.dat'
         specimen_file = 'specimen.dat'
 
-        target_data = {'experimentName': 'test_data',
-                                         'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
-                                         'operator_timestamp': '13:25:39',
-                                         'operator_date': '01.09.2014',
-                                         'tester_name': 'Kh',
-                                         'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
-                                         'remark': 'Kraftgeregelt 3,9 kN/s',
-                                         'weight': 5342.0,
-                                         'diameter': 98.6,
-                                         'weight_unit': 'g',
-                                         'length': 300.3,
-                                         'length_unit': 'mm',
-                                         'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+        target_data = {
+                        'ExperimentDate': '01.09.2014',
+                        'ExperimentTime': '13:25:39',
+                        'Lab': 'BAM',
+                        'MeasurementDuration': 320.02344,
+                        'MixDataFile': '..\\..\\..\\usecases\\MinimumWorkingExample\\Data\\Mischungen\\2014_08_05 Rezeptur_MI.xlsx',
+                        'ProcessedFile': '../usecases/MinimumWorkingExample/emodul/processed_data',
+                        'RawDataFile': '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4\specimen.dat',
+                        'SpecimenAge': 28.0,
+                        'SpecimenDiameter': 98.6,
+                        'SpecimenLength': 300.3,
+                        'SpecimenName': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
+                        'TransducerColumn':
+                        - 1
+                        - 2
+                        - 3,
+                        'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
+                        'length_unit': 'mm',
+                        'remark': 'Kraftgeregelt 3,9 kN/s',
+                        'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
+                        'tester_name': 'Kh',
+                        'weight': 5342.0,
+                        }
 
         # run extraction and getting a dictionary with metadata
         test_data = extract_metadata_emodulus(data_path, specimen_file, mix_file)
