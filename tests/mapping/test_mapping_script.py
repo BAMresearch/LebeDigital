@@ -1,3 +1,4 @@
+import unittest
 import rdflib
 import datetime
 import os
@@ -29,43 +30,47 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
 # def print_first():
 #     print("###################First Query####################################")
 
-#
-# def test_generate_knowledge_graph():
-#     metadataPath = 'testMetaData.yaml'
-#     filename = "knowledgeGraph.ttl"
-#     print("Start testing:")
-#     # Generate a testMetadata file
-#     print("Generate metadata file for test:")
-#     target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
-#                    'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
-#                    'operator_timestamp': '13:25:39',
-#                    'operator_date': '01.09.2014',
-#                    'tester_name': 'Kh',
-#                    'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
-#                    'remark': 'Kraftgeregelt 3,9 kN/s',
-#                    'weight': 5342.0,
-#                    'weight_unit': 'g',
-#                    'diameter': 98.6,
-#                    'length': 300.3,
-#                    'length_unit': 'mm',
-#                    'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
-#
-#     with open(metadataPath, 'w') as yamlFile:
-#         yaml.dump(target_data, yamlFile)
-#     print("Generate knowledgeGraph:")
+
+def print_first():
+    print("###################First Query####################################")
+
+
+def test_generate_knowledge_graph():
+    metadataPath = 'testMetaData.yaml'
+    filename = "EmoduleMappedExmpl.ttl"
+    print("Start testing:")
+    # Generate a testMetadata file
+    print("Generate metadata file for test:")
+    target_data = {'experimentName': 'BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4',
+                   'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
+                   'operator_timestamp': '13:25:39',
+                   'operator_date': '01.09.2014',
+                   'tester_name': 'Kh',
+                   'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
+                   'remark': 'Kraftgeregelt 3,9 kN/s',
+                   'weight': 5342.0,
+                   'weight_unit': 'g',
+                   'diameter': 98.6,
+                   'length': 300.3,
+                   'length_unit': 'mm',
+                   'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+
+    with open(metadataPath, 'w') as yamlFile:
+        yaml.dump(target_data, yamlFile)
+    print("Generate knowledgeGraph:")
     # generate_knowledge_graph(metadataPath, filename)
 
-    g = rdflib.Graph()
-    g.parse(filename, format='ttl')
-    print("Query knowledgeGraph:")
+    # g = rdflib.Graph()
+    # g.parse(filename, format='ttl')
+    # print("Query knowledgeGraph:")
 
-    print_first()
+    # print_first()
 
     # result = query_and_test_result("diameter", 'con:SpecimenDiameter_',
     #                                "cco:has_decimal_value", g)
     # for row in result:
     #     assert (target_data['diameter'] == float(row.o))
-    #
+
     # print_next()
     #
     # result = query_and_test_result('length', 'ns1:informationbearingentity2',
@@ -118,4 +123,4 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
     #
     # print("End testing")
 
-#test_generate_knowledge_graph()
+# test_generate_knowledge_graph()
