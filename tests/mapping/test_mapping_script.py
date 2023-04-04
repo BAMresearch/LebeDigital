@@ -118,4 +118,4 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
     #
     # print("End testing")
 
-test_generate_knowledge_graph()
+#test_generate_knowledge_graph()
