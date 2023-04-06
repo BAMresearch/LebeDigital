@@ -32,7 +32,7 @@ class Constants(Enum):
     # db_url: str = "https://openbis.matolab.org/openbis/"
     db_url: str = "https://localhost:8443/openbis/"
     testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
-    testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE/"
+    testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE"
     parent_hint_label: str = "testing label"
 
 
@@ -211,7 +211,7 @@ def test_get_overview(setup, pytestconfig, level):
 
     overview = o.get_overview(level=level, space=Constants.space.value, project=Constants.project.value, collection=Constants.collection.value)
 
-    print('======================== ' + level.upper() + ' ========================')
+    print('\n======================== ' + level.upper() + ' ========================')
     print(overview)
 
     if level == 'full':
