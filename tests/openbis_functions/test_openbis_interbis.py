@@ -182,8 +182,6 @@ def test_import_props_from_template(setup, pytestconfig):
 
     read_sample_props = o.import_props_from_template(Filepaths.filled_out_sheet.value)
 
-    print(read_sample_props)
-
     checked_keys = ["experimental_step.experimental_goals", "experimental_step.experimental_description", "$name"]
 
     expected_sample_props = o.get_sample(Constants.testing_sample_identifier.value).props()
@@ -192,8 +190,6 @@ def test_import_props_from_template(setup, pytestconfig):
         for key, val in expected_sample_props.items()
         if key in checked_keys
     }
-
-    print(expected_sample_props)
 
     assert read_sample_props == expected_sample_props
 
@@ -422,29 +418,6 @@ def test_set_parent_hint(setup, pytestconfig):
         comment=comment_value,
     )
 
-    cs = o.get_sample(Constants.testing_sample_identifier.value)
-    cs.save()
-    print(cs.data["parentsRelationships"])
-    # print(cs.data)
-
-    ps = o.get_sample(parent_sample.identifier)
-    ps.save()
-    print(ps.data['parentsRelationships'])
-    #print(ps.data)
-
-
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
-    print(annotation)
-
-    annotation_other = o.get_parent_annotations(parent_sample.identifier)
-    print(annotation_other)
-
-
-    expected_annotation = {
-        '20230406113139247-28': 
-                           {'@id': 43,
-                            '@type': 'as.dto.common.Relationship',
-                            'childAnnotations': {},
-                            'parentAnnotations': {'ANNOTATION.SYSTEM.COMMENTS': 'comment_comment'}}}
 
     assert annotation[parent_sample.permId]['parentAnnotations']['ANNOTATION.SYSTEM.COMMENTS'] == comment_value
