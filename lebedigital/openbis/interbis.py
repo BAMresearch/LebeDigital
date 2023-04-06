@@ -424,9 +424,15 @@ class Interbis(Openbis):
         collections_df = self.get_collections().df
         collections_df['code'] = collections_df['identifier'].str.split("/").str[-1]
 
+        print(collections_df)
+
         collection_code = collection_code.upper()
 
         relevant_rows = collections_df.loc[collections_df['code'] == collection_code]
+        print(relevant_rows)
+
+        print("\nrelevant_rows.empty")
+        print(relevant_rows.empty)
 
         if relevant_rows.empty:
             raise ValueError(f'No collection with name {collection_code} found')

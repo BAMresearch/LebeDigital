@@ -180,14 +180,22 @@ def test_import_props_from_template(setup, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    read_sample = o.import_props_from_template(Filepaths.filled_out_sheet.value)
+    read_sample_props = o.import_props_from_template(Filepaths.filled_out_sheet.value)
+
+    print(read_sample_props)
+
+    checked_keys = ["experimental_step.experimental_goals", "experimental_step.experimental_description", "$name"]
 
     expected_sample_props = o.get_sample(Constants.testing_sample_identifier.value).props()
-    expected_sample_props = {key: val for key, val in expected_sample_props.items() if 
-        key == "experimental_step.experimental_goals" or 
-        key == "experimental_step.experimental_description"}
+    expected_sample_props = {
+        key: val 
+        for key, val in expected_sample_props.items()
+        if key in checked_keys
+    }
 
-    assert read_sample == expected_sample_props
+    print(expected_sample_props)
+
+    assert read_sample_props == expected_sample_props
 
 
 @pytest.mark.login
