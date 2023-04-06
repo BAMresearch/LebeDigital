@@ -399,6 +399,8 @@ def test_set_parent_hint(setup, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
+    comment_value = 'comment_comment'
+
     parent_sample = o.new_sample(
         type=Constants.sample_type.value,
         space=Constants.space.value,
@@ -417,7 +419,7 @@ def test_set_parent_hint(setup, pytestconfig):
     o.set_parent_annotation(
         child_sample=Constants.testing_sample_identifier.value,
         parent_sample=parent_sample.identifier,
-        comment="comment_comment",
+        comment=comment_value,
     )
 
     cs = o.get_sample(Constants.testing_sample_identifier.value)
@@ -438,8 +440,11 @@ def test_set_parent_hint(setup, pytestconfig):
     print(annotation_other)
 
 
-    expected_annotation = {}
+    expected_annotation = {
+        '20230406113139247-28': 
+                           {'@id': 43,
+                            '@type': 'as.dto.common.Relationship',
+                            'childAnnotations': {},
+                            'parentAnnotations': {'ANNOTATION.SYSTEM.COMMENTS': 'comment_comment'}}}
 
-    # TODO find out why set_parent_annotation does nothing on actions
-
-    assert annotation == expected_annotation
+    assert annotation[parent_sample.permId]['parentAnnotations']['ANNOTATION.SYSTEM.COMMENTS'] == comment_value
