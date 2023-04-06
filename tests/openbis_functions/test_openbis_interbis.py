@@ -121,7 +121,8 @@ def setup(pytestconfig):
         type=Constants.sample_type.value,
         space=Constants.space.value,
         project=Constants.project.value,
-        collection=Constants.collection_id.value
+        collection=Constants.collection_id.value,
+        code = Constants.testing_sample_name,
     )
 
     sample.set_props({
@@ -174,14 +175,14 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
 
 
 @pytest.mark.login
-def test_import_props_from_template(stetup, pytestconfig):
+def test_import_props_from_template(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
     read_sample = o.import_props_from_template(Filepaths.filled_out_sheet.value)
 
-    expected_sample = o.get_sample(Constants.testing_sample_name.value)
+    expected_sample = o.get_sample(Constants.testing_sample_identifier.value)
     expected_sample_props = expected_sample.props
     expected_sample_props = {key: val for key, val in expected_sample_props.items() if not (key == "experimental_step.experimental_goals" or key == "experimental_step.experimental_description")}
 
@@ -194,7 +195,7 @@ def test_get_sample_dict(setup, pytestconfig):
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    sample_dict = o.get_sample_dict(Constants.testing_sample_name.value)
+    sample_dict = o.get_sample_dict(Constants.testing_sample_identifier.value)
 
     expected_sample_dict = {}
 
