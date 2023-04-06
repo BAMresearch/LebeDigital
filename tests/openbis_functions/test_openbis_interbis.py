@@ -419,6 +419,14 @@ def test_set_parent_hint(setup, pytestconfig):
         comment="comment_comment",
     )
 
+    cs = o.get_sample(Constants.testing_sample_identifier.value)
+    cs.save()
+    print(cs.data["parentsRelationships"])
+
+    ps = o.get_sample(parent_sample.identifier)
+    print(ps.data['parentsRelationships'])
+    ps.save()
+
 
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
     print(annotation)
