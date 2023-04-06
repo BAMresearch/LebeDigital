@@ -182,9 +182,10 @@ def test_import_props_from_template(setup, pytestconfig):
 
     read_sample = o.import_props_from_template(Filepaths.filled_out_sheet.value)
 
-    expected_sample = o.get_sample(Constants.testing_sample_identifier.value)
-    expected_sample_props = expected_sample.props()
-    expected_sample_props = {key: val for key, val in expected_sample_props.items() if not (key == "experimental_step.experimental_goals" or key == "experimental_step.experimental_description")}
+    expected_sample_props = o.get_sample(Constants.testing_sample_identifier.value).props()
+    expected_sample_props = {key: val for key, val in expected_sample_props.items() if 
+        key == "experimental_step.experimental_goals" or 
+        key == "experimental_step.experimental_description"}
 
     assert read_sample == expected_sample_props
 
@@ -348,7 +349,9 @@ def test_get_sample_identifier(setup, pytestconfig):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("collection, should_pass", [(Constants.collection.value, True), (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+@pytest.mark.parametrize("collection, should_pass", 
+                         [(Constants.collection.value, True),
+                         (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_get_collection_identifier(setup, pytestconfig, collection, should_pass):
 
     chosen_runner = pytestconfig.getoption('--url')
