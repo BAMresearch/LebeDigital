@@ -403,7 +403,8 @@ def test_set_parent_hint(setup, pytestconfig):
         type=Constants.sample_type.value,
         space=Constants.space.value,
         project=Constants.project.value,
-        collection=Constants.collection_id.value
+        collection=Constants.collection_id.value,
+        children=[Constants.testing_sample_identifier.value]
     )
 
     parent_sample.set_props({
@@ -422,12 +423,12 @@ def test_set_parent_hint(setup, pytestconfig):
     cs = o.get_sample(Constants.testing_sample_identifier.value)
     cs.save()
     print(cs.data["parentsRelationships"])
-    print(cs.data)
+    # print(cs.data)
 
     ps = o.get_sample(parent_sample.identifier)
     ps.save()
     print(ps.data['parentsRelationships'])
-    print(ps.data)
+    #print(ps.data)
 
 
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
