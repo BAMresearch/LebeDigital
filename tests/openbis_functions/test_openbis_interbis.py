@@ -186,7 +186,7 @@ def test_import_props_from_template(setup, pytestconfig):
     expected_sample_props = expected_sample.props()
     expected_sample_props = {key: val for key, val in expected_sample_props.items() if not (key == "experimental_step.experimental_goals" or key == "experimental_step.experimental_description")}
 
-    assert read_sample.props() == expected_sample_props
+    assert read_sample == expected_sample_props
 
 
 @pytest.mark.login
@@ -197,7 +197,10 @@ def test_get_sample_dict(setup, pytestconfig):
 
     sample_dict = o.get_sample_dict(Constants.testing_sample_identifier.value)
 
-    # Dict with all mentions of date removed
+    # Dict with: 
+    #   mentions of date removed
+    #   removed permId
+
     expected_sample_dict = {
         '$ANNOTATIONS_STATE': None,
         '$NAME': 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
@@ -225,7 +228,6 @@ def test_get_sample_dict(setup, pytestconfig):
         'identifier': '/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
         'modifier': 'admin',
         'parents': [],
-        'permId': '20230406081319697-25',
         'project': '/DEFAULT/TEST_PROJECT',
         'registrator': 'admin',
         'space': 'DEFAULT',

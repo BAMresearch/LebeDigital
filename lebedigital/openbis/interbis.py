@@ -428,7 +428,7 @@ class Interbis(Openbis):
 
         relevant_rows = collections_df.loc[collections_df['code'] == collection_code]
 
-        if len(relevant_rows):
+        if not relevant_rows.empty:
             return relevant_rows.at[0, 'identifier']
         else:
             raise ValueError(f'No collection with name {collection_code} found')
