@@ -413,15 +413,20 @@ def test_set_parent_hint(setup, pytestconfig):
     parent_sample.save()
     created_samples_in_tests.append(parent_sample.identifier)
 
-    response = o.set_parent_annotation(
+    o.set_parent_annotation(
         child_sample=Constants.testing_sample_identifier.value,
         parent_sample=parent_sample.identifier,
         comment="comment_comment",
     )
 
-    print(response)
 
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
+    print(annotation)
+
+    annotation_other = o.get_parent_annotations(parent_sample.identifier)
+    print(annotation_other)
+
+
     expected_annotation = {}
 
     # TODO find out why set_parent_annotation does nothing on actions
