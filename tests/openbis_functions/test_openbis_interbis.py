@@ -122,7 +122,7 @@ def setup(pytestconfig):
         space=Constants.space.value,
         project=Constants.project.value,
         collection=Constants.collection_id.value,
-        code = Constants.testing_sample_name,
+        code = Constants.testing_sample_name.value,
     )
 
     sample.set_props({
