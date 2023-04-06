@@ -183,10 +183,10 @@ def test_import_props_from_template(setup, pytestconfig):
     read_sample = o.import_props_from_template(Filepaths.filled_out_sheet.value)
 
     expected_sample = o.get_sample(Constants.testing_sample_identifier.value)
-    expected_sample_props = expected_sample.props
+    expected_sample_props = expected_sample.props()
     expected_sample_props = {key: val for key, val in expected_sample_props.items() if not (key == "experimental_step.experimental_goals" or key == "experimental_step.experimental_description")}
 
-    assert read_sample.props == expected_sample_props
+    assert read_sample.props() == expected_sample_props
 
 
 @pytest.mark.login
@@ -197,9 +197,44 @@ def test_get_sample_dict(setup, pytestconfig):
 
     sample_dict = o.get_sample_dict(Constants.testing_sample_identifier.value)
 
-    expected_sample_dict = {}
+    # Dict with all mentions of date removed
+    expected_sample_dict = {
+        '$ANNOTATIONS_STATE': None,
+        '$NAME': 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        '$SHOW_IN_PROJECT_OVERVIEW': None,
+        '$XMLCOMMENTS': None,
+        'EXPERIMENTAL_STEP.EXPERIMENTAL_DESCRIPTION': 'Also testing',
+        'EXPERIMENTAL_STEP.EXPERIMENTAL_GOALS': 'Testing',
+        'EXPERIMENTAL_STEP.EXPERIMENTAL_RESULTS': None,
+        'EXPERIMENTAL_STEP.SPREADSHEET': None,
+        'FINISHED_FLAG': None,
+        'NOTES': None,
+        'PUBLICATION': None,
+        'REFERENCE': None,
+        'children': [],
+        'code': 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        'collection': '/DEFAULT/TEST_PROJECT/TEST_COLLECTION',
+        'components': [],
+        'container': None,
+        'experiment': '/DEFAULT/TEST_PROJECT/TEST_COLLECTION',
+        'frozen': False,
+        'frozenForChildren': False,
+        'frozenForComponents': False,
+        'frozenForDataSets': False,
+        'frozenForParents': False,
+        'identifier': '/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        'modifier': 'admin',
+        'parents': [],
+        'permId': '20230406081319697-25',
+        'project': '/DEFAULT/TEST_PROJECT',
+        'registrator': 'admin',
+        'space': 'DEFAULT',
+        'tags': [],
+        'type': 'EXPERIMENTAL_STEP'
+    }
 
-    assert sample_dict == expected_sample_dict
+
+    assert expected_sample_dict.items() <= sample_dict.items()
 
 
 @pytest.mark.login

@@ -412,7 +412,8 @@ class Interbis(Openbis):
 
     def get_collection_identifier(self, collection_code: str) -> str:
         """
-        Returns the full identifier of the collection
+        Returns the full identifier of the collection provided only one collection
+        with the specified name exists
 
         Args:
             collection_code (str): Name of the collection
@@ -421,11 +422,14 @@ class Interbis(Openbis):
             str: Identifier of the collection
         """
         collections_df = self.get_collections().df
+        collections_df['code'] = collections_df['identifier'].str.split("/").str[-1]
+
         collection_code = collection_code.upper()
 
-        if len(collections_df.index):
-            return collections_df[collections_df['identifier'].str.contains(
-                collection_code)].iloc[0]['identifier']
+        relevant_rows = collections_df.loc[collections_df['code'] == collection_code]
+
+        if len(relevant_rows):
+            return relevant_rows.at[0, 'identifier']
         else:
             raise ValueError(f'No collection with name {collection_code} found')
 
