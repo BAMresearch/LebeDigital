@@ -100,6 +100,10 @@ openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
 openbis_sample_types_directory = Path(
     openbis_directory, 'openbis_sample_types')
 
+Path(openbis_directory).mkdir(parents=True, exist_ok=True)
+Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
+Path(openbis_sample_types_directory).mkdir(parents=True, exist_ok=True)
+
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 
@@ -357,10 +361,15 @@ def task_upload_to_openbis():
 
         yield {
             'name': metadata_file_path,
-            'actions': [(upload_to_openbis_doit,
-                         [metadata_file_path, processed_file_path, raw_data_file,
-                          mixture_metadata_file_path, mixture_data_path,
-                          openbis_samples_directory, openbis_config, defaults_dict])],
+            'actions': [(upload_to_openbis_doit, [
+                metadata_file_path, 
+                processed_file_path, 
+                raw_data_file,
+                mixture_metadata_file_path,
+                mixture_data_path,
+                openbis_samples_directory,
+                openbis_config,
+                defaults_dict])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],

@@ -14,7 +14,6 @@ from pybis.sample import Sample
 from lebedigital.openbis.interbis import Interbis
 from typing import List, Dict
 
-
 def upload_to_openbis_doit(
     metadata_path: str,
     processed_data_path: str,
@@ -797,3 +796,4 @@ def _no_db_run(
     with open(Path(output_path, file_name_with_extension), 'w') as file:
         _ = yaml.dump(output_dict, file)
     return
+
