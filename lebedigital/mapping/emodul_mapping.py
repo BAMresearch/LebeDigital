@@ -40,20 +40,20 @@ def generate_placeholder(key):
 
 
 def placeholderreplacement(
-        ontoPath,
+        kgPath,
         metadataPath,
         outputPath=None
         ):
     '''
         Maps the values of one given metadata file (for one specimen or
-        experiment) to a given ontology, by searching within ontology linewise
-        for all metadata keys and replacing placeholders with values from the
-        metadata. Also creates and appends an ID for the specimen.
+        experiment) to a given knowdledge graph (KG) template, by searching through 
+        it linewise for all metadata keys and replacing placeholders with values 
+        from the metadata. Also creates and appends an ID for the specimen.
 
         Parameter:
         -----
-        ontoPath : string
-            complete path to Ontology (ttl-format)
+        kgPath : string
+            complete path to KG template with placeholders (ttl-format)
         metadataPath : string
             complete path to metadata (yaml-format)
         outputPath : string
@@ -62,7 +62,7 @@ def placeholderreplacement(
         Output:
         ---
         If no ouput path is given (f.e. for unittesting), the lines will be
-        returned. If the "ontoPath" is given for output, the ontology will
+        returned. If the "kgPath" is given for output, the KG template will
         be overwritten. To avoid this, give a new name to create a new ttl-file.
 
     '''
@@ -75,7 +75,7 @@ def placeholderreplacement(
     specimenID = str(uuid.uuid4())
 
     # read in the ontology as text linewise, creating a list of lines
-    with open(ontoPath, 'r') as file:
+    with open(kgPath, 'r') as file:
         lines = file.readlines()
 
         # Set up logger
@@ -177,23 +177,3 @@ def placeholderreplacement(
         with open(outputPath, 'w') as file:
             for line in lines:
                 file.write(line)
-
-
-
-# # T E M P O R A R Y !!!
-# # For my personal testing, will be removed later. Will cause test-failures
-# # because of my own local testing data that doesn't exist on your PC.
-
-# # defining paths : ONTOLOGY
-# ontoDir = Path(__file__).parents[1]
-# ontoFile = "../lebedigital/ConcreteOntology/EModuleOntology.ttl"
-# ontoPath = os.path.join(ontoDir, ontoFile)
-
-# # defining paths : METADATA
-# dataDir = Path(__file__).parents[1]
-# dataFile = "../lebedigital/mapping/testMetaData.yaml"  
-# dataPath = os.path.join(dataDir, dataFile)
-
-# # creating mapped ttl
-# mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-# placeholderreplacement(ontoPath, dataPath, mappedOntoName)
