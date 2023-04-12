@@ -1,5 +1,5 @@
-# Script for the e-module ontology (extracted from CPTO) to map e-module metadata
-# by reading every line of that ontology and finding/ # replacing the placeholders.
+# Script for the knowledge graph template derived from the e-module ontology (extracted from CPTO) 
+# to map e-module metadata by reading every line of the template and finding/ # replacing the placeholders.
 # Logging through loguru, you can ignore "debug" messages. "Warning" appear if not 
 # everything has been mapped.
 
@@ -31,7 +31,7 @@ def generate_placeholder(key):
     '''
         Generates a placeholder (str) in the format $$key_Value$$ for a given key.
         This function should allow to easily change the structure of the placeholder
-        given in the ontology without having to rewrite the function placeholderreplacement.
+        given in the template without having to rewrite the function placeholderreplacement.
         Just change the structure here.
     '''
 
@@ -74,7 +74,7 @@ def placeholderreplacement(
     # generate ID for the e-module metadata
     specimenID = str(uuid.uuid4())
 
-    # read in the ontology as text linewise, creating a list of lines
+    # read in the KG template as text linewise, creating a list of lines
     with open(kgPath, 'r') as file:
         lines = file.readlines()
 
@@ -82,7 +82,7 @@ def placeholderreplacement(
         logger.debug('S T A R T')
         logger.debug('Loaded ttl-File has ' + str(len(lines)) + ' lines.')
         usedKeys = [] # to count keys that found a placeholder
-        ontoPHcounter = [] # to count all placeholders
+        kgPHcounter = [] # to count all placeholders
         remainingPH = [] # to count the placeholders that recieved no data
 
         # iterating through the list of lines
@@ -91,7 +91,7 @@ def placeholderreplacement(
             # create a list of placeholders
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
-                ontoPHcounter.append(ph)
+                kgPHcounter.append(ph)
 
             # iterate through list of metadata-keys
             for key in keys:
@@ -152,7 +152,7 @@ def placeholderreplacement(
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
     if len(unusedKeys) > 0:
-        logger.warning('Mapped only ' + str(len(usedKeys)) + ' keys to the ontology.')
+        logger.warning('Mapped only ' + str(len(usedKeys)) + ' keys to the KG template.')
         logger.warning('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
                      + ' metadata keys have not been mapped: ')
         logger.warning(unusedKeys)
@@ -161,12 +161,12 @@ def placeholderreplacement(
 
     # for placeholders
     if len(remainingPH) > 0:
-        logger.warning('File has ' + str(len(ontoPHcounter)) + ' placeholders.')
-        logger.warning('The following ' + str(len(remainingPH)) + ' of ' + str(len(ontoPHcounter)) \
+        logger.warning('File has ' + str(len(kgPHcounter)) + ' placeholders.')
+        logger.warning('The following ' + str(len(remainingPH)) + ' of ' + str(len(kgPHcounter)) \
                     + ' placeholders did not recieve a metadata value: ')
         logger.warning(remainingPH)
     else:
-        logger.debug('All ' + str(len(ontoPHcounter)) + ' placeholders within the ontology revieced metadata.')
+        logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template revieced metadata.')
 
     ############################ O U T P U T #############################
     if outputPath == None:
