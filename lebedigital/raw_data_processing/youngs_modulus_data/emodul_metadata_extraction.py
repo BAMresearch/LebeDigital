@@ -78,7 +78,7 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
         ###########  D A T A   A B O U T    E X P E R I M E N T  #######
 
         # name of experiment is the folder name of the data file
-        metadata['experimentName'] = folderName  # This data has no placeholder yet.
+        metadata['ExperimentName'] = folderName  # This data has no placeholder yet.
 
         # get experiment date and time
         date, time = serviceInformation[0][4].split(' ')
@@ -123,23 +123,14 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
         metadata['SpecimenAge'] = 28.0
 
         # weight - This data has no placeholder yet.
-        weight = float(replace_comma(serviceInformation[5][1]))
-        metadata['weight'] = weight
+        metadata['SpecimenWeight'] = float(replace_comma(serviceInformation[5][1]))
 
         # set size of specimen
         metadata['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1])) #diameter
         metadata['SpecimenLength'] = float(replace_comma(serviceInformation[7][1])) #length
         if metadata['SpecimenDiameter'] > metadata['SpecimenLength']:
-            dir_name = metadata['experimentName']
+            dir_name = metadata['ExperimentName']
             raise Exception(f'Diameter is larger then length, please fix the mistake in {dir_name}')
-
-        # set units, assuming length and diameter have the same - This data has no placeholder yet.
-        if metadata['SpecimenLength'] > 100:
-            metadata['length_unit'] = 'mm'
-        elif metadata['SpecimenLength'] < 1:
-            metadata['length_unit'] = 'm'
-        else:
-            raise Exception('Unexpected value of length')
 
     return metadata
 
