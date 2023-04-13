@@ -9,7 +9,7 @@ metadata from concrete tests (e.g. Young's modulus, compression tests).
 ## Installation of the conda environment
 Clone the repository and make sure to include the submodules
 ```
-git clone https://github.com/BAMresearch/ModelCalibration.git
+git clone https://github.com/BAMresearch/LebeDigital.git
 ```
 
 Create environment within the main project folder
