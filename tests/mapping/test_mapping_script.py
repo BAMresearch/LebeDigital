@@ -14,7 +14,7 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
     q = f"""
             SELECT ?o WHERE {{
                     {predicate} {prop} ?o .
-                    FILTER (strstarts(str(), {predicate})) 
+                    FILTER (contains(str(?p), {predicate})) 
             }}
             """
     print(q)
