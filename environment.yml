@@ -6,6 +6,7 @@ channels:
   - defaults
 dependencies:
   - python=3.9.7
+  - pip
   - matplotlib
   - mamba
   - scipy
