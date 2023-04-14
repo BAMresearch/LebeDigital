@@ -18,7 +18,7 @@ $Q$ is the volumetric heat, due to hydration, it is also called the latent heat 
 For now we assume the density, the thermal conductivity and the volumetric heat capacity as constant, however there are models that make them dependent on the temperature, moisture and/or the hydration.
 
 
-\subsubsection{Degree of hydration $\DOH$}
+\subsubsection{Degree of hydration\texorpdfstring{ $\DOH$}{}}
 The degree of hydration $\DOH$ is defined as the ratio between the cumulative heat $\heat$ at time $\zeit$ and the total theoretical volumetric heat by complete hydration $\heatInf$,
 \begin{align}
 	\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf},
@@ -82,9 +82,9 @@ Now, we use \eqref{eq:timediscr2} and \eqref{eq:affinitydot} to get a formulatio
 \begin{align}
 	\Delta \DOH = \Delta \zeit \affinityTemp( \DOH)\affinityScale(\temp) \label{eq:deltaalpha}
 \end{align}
-\subsubsection{Computing $\Delta \DOH$ at the Gauss-point}
+\subsubsection{Computing \texorpdfstring{$\Delta \DOH$}{change in DoH} at the Gauss-point}
 As $\Delta \DOH$ is not a global field, rather locally defined information.
-\subsubsection{Solving for $\Delta \DOH$}
+\subsubsection{Solving for \texorpdfstring{$\Delta \DOH$}{change in DoH}}
 To solve for $\Delta \DOH$ we define the affinity in terms of $ \DOHLast$ and $\Delta \DOH$
 \begin{align}
 	\affinityTemp = \hydParBone\exp\left(-\hydParEta \frac{\Delta \DOH+\DOHLast}{\DOHmax}\right) \left(\tfrac{\hydParBtwo}{\DOHmax} + \Delta\DOH+\DOHLast\right) (\DOHmax - \Delta\DOH - \DOHLast).
