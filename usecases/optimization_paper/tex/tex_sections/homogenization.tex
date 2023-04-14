@@ -3,7 +3,8 @@ The homogenization method approximates concrete material properties, based on th
 This step is necessary for two reasons.
 First, there are some properties like the heat release during hydration, that are more easily measured on the cement paste.
 Second, the homogenization method allows for a continuous optimization of the aggregate amount, requiring few experimental data points.
-The properties in question, are the Young's modulus $\eMod$, the Poission's ratio $\poission$, the compressive strength $\fc$, the density $\density$, the thermal conductivity $\thermCond$, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
+As the chosen optimization goal is the reduction of cement, this as a good option.
+The effective concrete properties that are computed using homogenization, are the Young's modulus $\eMod$, the Poission's ratio $\poission$, the compressive strength $\fc$, the density $\density$, the thermal conductivity $\thermCond$, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
 Depending on the physical meaning, these properties need different methods to estimate the effective concrete properties.
 \subsubsection{Approximation of elastic properties}
 The chosen method to homogenize the elastic, isotropic properties $\eMod$ and $\poission$ is the Mori-Tanaka homogenization scheme, \cite{mor_1973_asi}
@@ -25,7 +26,7 @@ The superscript $(\matrixIndex)$ denotes quantities associated with the matrix m
 
 \subsubsection{Approximation of compressive strength}
 The estimation of the concrete compressive strength $\fcEff$ follows the ideas of \cite{nev_2018_mcam}.
-The assumption is that a failure in the cement paste will cause the concrete crack.
+The assumption is that a failure in the cement paste will cause the concrete to crack.
 The approach is based on two main assumptions.
 First, the Mori-Tanaka method is used to estimate the average stress within the matrix material $\stressMatrix$. 
 The formulation is given in Appendix \ref{appendix:hom} in \eqref{eq:matrixstress}.
@@ -44,7 +45,7 @@ Finally the effective compressive strength is estimated as
 	\fcEff = \frac{\JtwoTest}{\JtwoMatrix} \forceTest.
 \end{align}
 \subsubsection{Approximation of thermal conductivity }
-Homogenization the thermal conductivity is also based on the Mori-Tanaka method.
+Homogenization of the thermal conductivity is also based on the Mori-Tanaka method.
 The formulation is similar to \eqref{eq:keff} and \eqref{eq:geff}.
 The expressions are taken from \cite{str_2011_mbeo}.
 The thermal conductivity $\thermCondHom$ is computed as
@@ -53,8 +54,7 @@ The thermal conductivity $\thermCondHom$ is computed as
 	\concentrationThermCondIncl = \frac{3\thermCondMatrix}{2\thermCondMatrix+\thermCondIncl}.
 \end{align}
 \subsubsection{Approximation by volume average}
-The other values can be easily computed based on their volume average.
-....
-This is the case for density, heat of hydration and .. thermal something.
-Note, the heat of hydration for aggregates is zero.
+The other values can be directly computed based on their volume average.
+This is the case for density \density, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
+Note, the heat release for aggregates is zero.
 
