@@ -3,7 +3,6 @@ channels:
   - conda-forge                     # third party stuff
   - bioconda                        # snakemake
   - bam77
-  - hannes2621  # only for testing
   - defaults
 dependencies:
   - python=3.9.7
