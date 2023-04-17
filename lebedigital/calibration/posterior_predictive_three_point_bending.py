@@ -12,7 +12,7 @@ import fenics_concrete
 from probeye.ontology.knowledge_graph_import import import_parameter_samples
 
 # local imports (others)
-from lebedigital.simulation.three_point_bending_beam import three_point_bending_example
+from lebedigital.simulation.three_pont_bending_beam import three_point_bending_example
 from lebedigital.calibration.utils import PosteriorPredictive
 from lebedigital.unit_registry import ureg
 
