@@ -18,7 +18,7 @@ def test_metadata_extraction_emodul():
                         "ExperimentTime": '13:25:39',
                         "Lab": "BAM",
                         "MeasurementDuration": 320.02344,
-                        "MixDataFile": "..\..\..\usecases\MinimumWorkingExample\Data\Mischungen\2014_08_05 Rezeptur_MI.xlsx",
+                        #"MixDataFile": "..\..\..\usecases\MinimumWorkingExample\Data\Mischungen\2014_08_05 Rezeptur_MI.xlsx",
                         "ProcessedFile": "..//usecases//MinimumWorkingExample//emodul//processed_data",
                         "RawDataFile": "../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4\specimen.dat",
                         "SpecimenAge": 28.0,
