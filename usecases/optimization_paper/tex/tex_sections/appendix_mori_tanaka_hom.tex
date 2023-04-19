@@ -1,4 +1,4 @@
-\subsection{Approximation of elastic properties}
+\subsection{Approximation of elastic properties}\label{ssec:mt_elastic}
 The chosen method to homogenize the elastic, isotropic properties $\eMod$ and $\poission$ is the Mori-Tanaka homogenization scheme, \cite{mor_1973_asi}.
 It is a well-established, analytical homogenization method.
 The formulation uses bulk and shear moduli $\bulkMod$ and $\shearMod$.
@@ -13,19 +13,18 @@ The volume fraction of each phase is defined as
 	\volFracPhase = \frac{\left\| \bodyPhase \right\|}{\left\| \body \right\|} \quad  \text{for}~ \phaseIndex = 0, ..., n.
 \end{align}
 The inclusions are assumed to be spheres, defined by their radius $\radiusPhase$.
-The shells are defined by their outer radius, their thickness follows as the difference to the inner inclusions.
 The elastic properties of each homogeneous and isotropic phase is given by the material stiffness matrix $\bL^{(\phaseIndex)}$, here written in terms of the bulk and shear moduli $\bulkMod$ and $\shearMod$,
 \begin{align}
 	\matStiffPhase= 3 \bulkModPhase \orthProjV + 2 \shearModPhase \orthProjD  \quad \text{for}~ \phaseIndex = 0, ..., n, \label{eq:Lr}
 \end{align}
 where $\orthProjV$ and $\orthProjD$ are the orthogonal projections of the volumetric and deviatoric components.\\
-The methods assumes that the micro-heterogeneous body $\body$ is subjected to a macroscale strain $\strain$.
-It is assumed that for each phase a concentration factor $\concentrationPhase$ can be defined such that
+The method assumes that the micro-heterogeneous body $\body$ is subjected to a macroscale strain $\strain$.
+It is considered that for each phase a concentration factor $\concentrationPhase$ can be defined such that
 \begin{align}
 	\strainPhase = \concentrationPhase\strain \quad  \text{for}~ \phaseIndex = 0, ..., n, \label{eq:strainaverage}
 \end{align}
-which computes the average strain $\strainPhase$ within a phase based on the overall strains.
-This can then be used to compute the effective stiffness matrix $\matStiffEff$ as a volumetric sum over the constituents weighted by the concentration factor 
+which computes the average strain $\strainPhase$ within a phase, based on the overall strains.
+This can then be used to compute the effective stiffness matrix $\matStiffEff$ as a volumetric sum over the constituents weighted by the corresponding concentration factor 
 \begin{align}
 	\matStiffEff = \sum_{\phaseIndex=0}^{n} \volFracPhase \matStiffPhase\concentrationPhase \quad  \text{for}~ \phaseIndex = 0, ..., n.\label{eq:Leff}
 \end{align}
@@ -36,44 +35,37 @@ The concentration factors $\concentrationPhase$,
 	\concentrationPhase &= \dilConcentrationPhase\concentrationZero\quad  \text{for}~ \phaseIndex = 1, ..., n,
 \end{align}
 are based on the dilute concentration factors $\dilConcentrationPhase$, which need to be obtained first.
-The dilute concentration factors are based on the assumption that each inclusion is subjected to the average strain in the matrix $\strainZero$.
+The dilute concentration factors are based on the assumption that each inclusion is subjected to the average strain in the matrix $\strainZero$, therefore
 \begin{align}
 	\strainPhase = \dilConcentrationPhase\strainZero \quad  \text{for}~ \phaseIndex = 1, ..., n. 
 \end{align}
 The dilute concentration factors neglect the interaction among phases and are only defined for the inclusion phases $\phaseIndex = 1,...,n$.
-The applied formulation uses an additive volumetric-deviatoric split. where
+The applied formulation uses an additive volumetric-deviatoric split, where
 \begin{align}
-	\dilConcentrationPhase = \dilConcentrationVPhase\Ivol +  \dilConcentrationDPhase \Idev \quad  \text{for}~ \phaseIndex = 1, ..., n,
+	\dilConcentrationPhase = \dilConcentrationVPhase\Ivol +  \dilConcentrationDPhase \Idev \quad  \text{for}~ \phaseIndex = 1, ..., n, \text{\quad with}
 \end{align}
-This presented method applies the basic Mori-Tanaka method.
-Extension for coated inclusions have been published, e.g. \cite{her_1993_nlib}.
-This would modifies the dilute concentration factors. 
-\paragraph{Dilute concentration factors}
-The formulations of the dilute concentration factors $\phaseIndex$ are
 \begin{align}
 	\dilConcentrationVPhase = \dfrac{\bulkModZero}{\bulkModZero + \auxAlphaZero(\bulkModPhase - \bulkModZero)}, \\
-	\dilConcentrationDPhase = \dfrac{\shearModZero}{\shearModZero + \auxBetaZero(\shearModPhase - \shearModZero)}, 
+	\dilConcentrationDPhase = \dfrac{\shearModZero}{\shearModZero + \auxBetaZero(\shearModPhase - \shearModZero)}.
 \end{align}
-with the auxiliary factors following from the Eshelby solution as
+The auxiliary factors follow from the Eshelby solution as
 \begin{align}
 	\auxAlphaZero = \frac{1 + \poissionZero}{3(1+ \poissionZero)} \quad\text{and}\quad 
 	\auxBetaZero = \frac{2(4 - 5\poissionZero)}{15(1 - \poissionZero)}
 \end{align}
 where  $\poissionZero$ refers to the Poission's ratio of the matrix phase.
-\paragraph{Effective stiffness}
 The effective bulk and shear modului can be computed based on a sum over the phases
 \begin{align}
 \bulkModEff = \dfrac{\volFracZero\bulkModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \bulkModPhase \dilConcentrationVPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationVPhase},\label{eq:keff} \\
 \shearModEff = \dfrac{\volFracZero\shearModZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \shearModPhase \dilConcentrationDPhase}{\volFracZero + \sum^{n}_{\phaseIndex=1} \volFracPhase \dilConcentrationDPhase}.\label{eq:geff}
 \end{align}
-\paragraph{Average stress in matrix}
 Based on the concept of \eqref{eq:strainaverage}, with the formulations \eqref{eq:Lr},\eqref{eq:Leff} and \eqref{eq:A0}, the average matrix stress is defined as 
 \begin{align}
 \stressZero = \matStiffZero\concentrationZero {\matStiffEff}^{-1}\stress. \label{eq:matrixstress}
 \end{align}
-
-\subsubsection{Approximation of compressive strength}
+\subsubsection{Approximation of compressive strength}\label{ssec:compressivestrength}
 The estimation of the concrete compressive strength $\fcEff$ follows the ideas of \cite{nev_2018_mcam}.
+The procedure here is taken from the code provided in the link in \cite{nee_2012_ammf}.
 The assumption is that a failure in the cement paste will cause the concrete to crack.
 The approach is based on two main assumptions.
 First, the Mori-Tanaka method is used to estimate the average stress within the matrix material $\stressMatrix$. 
@@ -92,8 +84,8 @@ Finally the effective compressive strength is estimated as
 \begin{align}
 	\fcEff = \frac{\JtwoTest}{\JtwoMatrix} \forceTest.
 \end{align}
-\subsubsection{Approximation of thermal conductivity }
-Homogenization of the thermal conductivity is also based on the Mori-Tanaka method.
+\subsubsection{Approximation of thermal conductivity}\label{ssec:thermalconductivity}
+Homogenization of the thermal conductivity is based on the Mori-Tanaka method as well.
 The formulation is similar to \eqref{eq:keff} and \eqref{eq:geff}.
 The expressions are taken from \cite{str_2011_mbeo}.
 The thermal conductivity $\thermCondHom$ is computed as
@@ -101,7 +93,7 @@ The thermal conductivity $\thermCondHom$ is computed as
 	\thermCondHom = \dfrac{\volFracMatrix\thermCondMatrix + \volFracIncl \thermCondIncl \concentrationThermCondIncl}{\volFracMatrix +  \volFracIncl \concentrationThermCondIncl}\quad\text{and}\quad
 	\concentrationThermCondIncl = \frac{3\thermCondMatrix}{2\thermCondMatrix+\thermCondIncl}.
 \end{align}
-\subsubsection{Approximation by volume average}
-The other values can be directly computed based on their volume average.
-This is the case for density $\density$, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
-Note, the heat release for aggregates is zero.
+%\subsubsection{Approximation by volume average}
+%The other values can be directly computed based on their volume average.
+%This is the case for density $\density$, the heat capacity $\heatCapSpecific$ and the total heat release %$\heatInf$.
+%Note, the heat release for aggregates is zero.
