@@ -198,7 +198,7 @@ def test_get_sample_dict(setup, pytestconfig):
 
     expected_sample_dict = {
         '$ANNOTATIONS_STATE': None,
-        '$NAME': 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        '$NAME': 'PYTEST_SAMPLE',
         '$SHOW_IN_PROJECT_OVERVIEW': None,
         '$XMLCOMMENTS': None,
         'EXPERIMENTAL_STEP.EXPERIMENTAL_DESCRIPTION': 'Also testing',
@@ -210,7 +210,7 @@ def test_get_sample_dict(setup, pytestconfig):
         'PUBLICATION': None,
         'REFERENCE': None,
         'children': [],
-        'code': 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        'code': 'PYTEST_SAMPLE',
         'collection': '/DEFAULT/TEST_PROJECT/TEST_COLLECTION',
         'components': [],
         'container': None,
@@ -220,7 +220,7 @@ def test_get_sample_dict(setup, pytestconfig):
         'frozenForComponents': False,
         'frozenForDataSets': False,
         'frozenForParents': False,
-        'identifier': '/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE',
+        'identifier': '/DEFAULT/TEST_PROJECT/PYTEST_SAMPLE',
         'modifier': 'admin',
         'parents': [],
         'project': '/DEFAULT/TEST_PROJECT',
