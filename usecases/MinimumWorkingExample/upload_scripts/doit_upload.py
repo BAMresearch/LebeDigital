@@ -307,7 +307,7 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
         loaded = dict(yaml.safe_load(file))
 
     data = {keyword: {} for keyword in keywords}
-    data['mixture'] = {}
+    data['mixture'] = {f'{mixture_code}.water_cement_ratio'.lower(): loaded.pop('water_cement_ratio')}
 
     for key, val in loaded.items():
         if val is None:

@@ -31,8 +31,8 @@ class Constants(Enum):
     sample_type: str = 'EXPERIMENTAL_STEP'
     # db_url: str = "https://openbis.matolab.org/openbis/"
     db_url: str = "https://localhost:8443/openbis/"
-    testing_sample_name: str = 'TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE'
-    testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/TESTING_SAMPLE_NAME_PYTEST_DO_NOT_DELETE"
+    testing_sample_name: str = 'PYTEST_SAMPLE'
+    testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/PYTEST_SAMPLE"
     parent_hint_label: str = "testing label"
 
 
@@ -141,16 +141,6 @@ def setup(pytestconfig):
     for sample_id in created_samples_in_tests:
         sample = o.get_sample(sample_id)
         sample.delete("cleaning up after tests")
-
-    # Deleting parent hint
-
-    # settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
-    # settings = json.loads(settings_sample.props["$eln_settings"])
-
-    # settings["sampleTypeDefinitionsExtension"][Constants.sample_type.value]["SAMPLE_PARENT_HINTS"].pop(test_results["idx_parent_hint"])
-
-    # settings_sample.props["$eln_settings"] = json.dumps(settings)
-    # settings_sample.save()
 
     o.logout()
 

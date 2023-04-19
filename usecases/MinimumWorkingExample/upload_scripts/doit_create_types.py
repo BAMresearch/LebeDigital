@@ -52,7 +52,9 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         defaults_dict=default_props)
 
     # filtering out ingredient_keywords
+    water_cement_ratio_prop = mix_union_dict.pop(f"EXPERIMENTAL_STEP_{config['mixture_prefix']}.water_cement_ratio")
     filtered_mix_union_dict = {key: val for key, val in mix_union_dict.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
+    filtered_mix_union_dict[f"EXPERIMENTAL_STEP_{config['mixture_prefix']}.water_cement_ratio"] = water_cement_ratio_prop
 
     mixture_sample_type = o.create_sample_type(
         sample_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
@@ -66,11 +68,11 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     # logging.warning(set_ingredients)
 
     annotations = [{
-        "TYPE": ingredient_hint_created_props[0],
-        "MANDATORY": False,
+        "TYPE": ingredient_hint_created_props[0], # quantity in mix
+        "MANDATORY": True,
     },
         {
-        "TYPE": ingredient_hint_created_props[1],
+        "TYPE": ingredient_hint_created_props[1], # volume
         "MANDATORY": False
     }]
 
@@ -78,7 +80,8 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
         sample_type=mixture_sample_type,
         label="Emodul Raw Material",
         parent_type=ingredient_sample_type,
-        annotation_properties=annotations
+        annotation_properties=annotations,
+        min_count=2
     )
 
     metadata_path = Path(emodul_directory_path, os.fsdecode(os.listdir(emodul_directory_path)[0]))

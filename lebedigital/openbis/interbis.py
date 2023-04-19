@@ -582,7 +582,7 @@ class Interbis(Openbis):
             assert min_count >= 0, "min_count can not be negative"
             hint["MIN_COUNT"] = min_count
 
-        if min_count:
+        if max_count:
             assert max_count >= 0, "max_count can not be negative"
             hint["MAX_COUNT"] = max_count
 
