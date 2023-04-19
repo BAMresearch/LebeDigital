@@ -302,6 +302,8 @@ def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     assert true_sample_dict == sample_dict
 
+    true_sample_type.delete(reason='testing cleanup')
+
 
 @pytest.mark.login
 @pytest.mark.parametrize("sample_name, output", [(Constants.testing_sample_name.value, True),
