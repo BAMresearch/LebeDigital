@@ -1,29 +1,29 @@
 import logging
 import os
 import sys
+import re
 from collections import defaultdict
 from math import isnan
 from pathlib import Path
 from pprint import pformat
 from typing import Union
 
-import pandas as pd
 import yaml
 from dateutil.parser import parse
 from pybis.sample import Sample
-from datetime import datetime
 from lebedigital.openbis.interbis import Interbis
-
+from typing import List, Dict
 
 def upload_to_openbis_doit(
-        metadata_path: str,
-        processed_data_path: str,
-        raw_data_path: str,
-        mixture_metadata_file_path: str,
-        mixture_data_path: str,
-        output_path: str,
-        config: dict,
-        default_props: dict):
+    metadata_path: str,
+    processed_data_path: str,
+    raw_data_path: str,
+    mixture_metadata_file_path: str,
+    mixture_data_path: str,
+    output_path: str,
+    config: dict,
+    default_props: dict,
+):
     """Function for uploading data to the openbis datastore from within the doit environment
 
     Needed parameters in the config dict are:
@@ -48,6 +48,7 @@ def upload_to_openbis_doit(
         output_path (str): Path where the samples overview should be saved
         config (dict): A dictionary containing the necessary info for uploading to openbis
         default_props (dict): A dictionary containing the predefined default properties of sample types
+        ingredient_keywords (list): A predefined list of keywords which will be their own ingredients instead of mixture metadata
     """
 
     logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ def upload_to_openbis_doit(
     # Skipping the upload if the platform the code runs on can't log in to the Datastore
     if config['runson'] == 'nodb':
         args = locals()
-        _actions_run(
+        _no_db_run(
             metadata_path=args["metadata_path"],
             processed_data_path=args["processed_data_path"],
             raw_data_path=args["raw_data_path"],
@@ -78,24 +79,47 @@ def upload_to_openbis_doit(
 
     # Connecting to the datastore
     logger.debug("Starting upload")
-    o = Interbis(config['datastore_url'])
+
+    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'docker' else True)
     o.connect_to_datastore(username=config['user'], password=config['pw'])
+
     logger.debug("Connected to datastore")
 
-    # Setting "constants"
+    """
+    SETTING LOCATION VARIABLES
+    """
     _SPACE = config['space']
     _PROJECT = config['project']
+
     _EMODUL_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['emodul_collection']}"
     _MIXTURE_COLLECTION = f"/{_SPACE}/{_PROJECT}/{config['mixture_collection']}"
+
+    _INGREDIENT_SPACE = config['ingredient_metadata']['ingredient_space']
+    _INGREDIENT_PROJECT = config['ingredient_metadata']['ingredient_project']
+    _INGREDIENT_COLLECTION = f"/{_INGREDIENT_SPACE}/{_INGREDIENT_PROJECT}/{config['ingredient_metadata']['ingredient_collection']}"
+
+    """
+    SETTING IGNREDIENT METADATA
+    """
+    _INGREDIENT_KEYWORDS = config['ingredient_metadata']['ingredient_keywords']
+    _INGREDIENT_CODE = config['ingredient_metadata']['ingredient_code']
+    _INGREDIENT_PREFIX = config['ingredient_metadata']['ingredient_prefix']
+    _INGREDIENT_PROPS = config['ingredient_metadata']['ingredient_props']
+
     logger.debug("Set constants")
 
     """
-    FETCHING BOTH MIXTURE AND EMODUL SAMPLE TYPES
+    FETCHING MIXTURE, EMODUL AND INGREDIENT SAMPLE TYPES
     """
     mixture_sample_type = o.get_sample_type(
         f"EXPERIMENTAL_STEP_{config['mixture_prefix']}")
+
     emodul_sample_type = o.get_sample_type(
         f"EXPERIMENTAL_STEP_{config['emodul_prefix']}")
+
+    ingredient_sample_type = o.get_sample_type(
+        config['ingredient_metadata']['ingredient_code'])
+
     logger.debug("Samples created")
 
     """
@@ -106,8 +130,7 @@ def upload_to_openbis_doit(
     """
     DIRECTORY SETUP
     """
-    force_upload = config['force_upload']
-    force_upload = True if force_upload == "yes" else False
+    force_upload = True if config['force_upload'] == "yes" else False
 
     _setup_openbis_directories(
         o,
@@ -115,6 +138,9 @@ def upload_to_openbis_doit(
         project=_PROJECT,
         mixture_collection=_MIXTURE_COLLECTION,
         emodul_collection=_EMODUL_COLLECTION,
+        ingredient_space=_INGREDIENT_SPACE,
+        ingredient_project=_INGREDIENT_PROJECT,
+        ingredient_collection=_INGREDIENT_COLLECTION,
         force_upload=force_upload,
         mixture_sample_type=mixture_sample_type.code,
         emodul_sample_type=emodul_sample_type.code
@@ -122,16 +148,46 @@ def upload_to_openbis_doit(
     logger.debug("Set up directory structure")
 
     """
-    MIXTURE EXPERIMENTAL STEP UPLOAD
+    MIXTURE AND INGREDIENTS EXPERIMENTAL STEPS UPLOAD
     """
 
     # We skip the mixture upload when the mixture yaml is not found
     if mixture_metadata_file_path and Path(mixture_metadata_file_path).is_file():
         # Reading the metadata from output metadata yaml file
         mixture_sample_code = f"EXPERIMENTAL_STEP_{config['mixture_prefix']}"
-        mixture_metadata = _read_metadata(
-            mixture_metadata_file_path, mixture_sample_code, default_props)
-        logger.debug("Read Mixture Metadata")
+        mixture_ingredient_dict = _read_metadata_mixture_ingredients(
+            mixture_metadata_file_path, mixture_sample_code, _INGREDIENT_CODE, default_props, _INGREDIENT_KEYWORDS)
+        logger.debug("Read Mixture/Ingredient Metadata")
+
+        # Splitting read dictionary into mixture dictionaty and ingredient dictionary
+        mixture_metadata = mixture_ingredient_dict.pop('mixture')
+
+        # Splitting addition into addition1, addition2 ... to upload separate ingreeients
+        additions_dict = _split_addition(mixture_ingredient_dict.pop('addition'), _INGREDIENT_CODE)
+        ingredient_metadata = mixture_ingredient_dict | additions_dict
+
+        # uploading ingredients
+
+        logger.debug('starting ingredient sample upload')
+
+        parent_hints = {}
+        for ingredient_keyword, ingredient_dict in ingredient_metadata.items():
+
+            ingredient_identifier, props_for_hints = _ingredient_upload(
+                o,
+                ingredient_type=ingredient_keyword,
+                ingredient_metadata_dict=ingredient_dict,
+                ingredient_sample_type=_INGREDIENT_CODE,
+                ingredient_space=_INGREDIENT_SPACE,
+                ingredient_project=_INGREDIENT_PROJECT,
+                ingredient_collection=_INGREDIENT_COLLECTION,
+                logger=logger)
+
+            parent_hints[ingredient_identifier] = props_for_hints
+
+        logger.debug('finished ingredient sample upload')
+
+        logger.debug('starting mixture sample upload')
 
         mixture_sample = _mixture_upload(
             o,
@@ -140,12 +196,35 @@ def upload_to_openbis_doit(
                 os.path.basename(mixture_metadata_file_path))[0],
             mixture_sample_type=mixture_sample_type.code,
             mixture_data_filepath=mixture_data_path,
+            mixture_parent_ingredients=parent_hints,
             space=_SPACE,
             project=_PROJECT,
             collection=_MIXTURE_COLLECTION,
             dataset_upload=dataset_upload,
             logger=logger,
         )
+        logger.debug('finished mixture sample upload')
+
+        logger.debug('staring parent comment assignment')
+        for ingredient_identifier, props_for_hints in parent_hints.items():
+            logger.debug(f'parent hints for: {ingredient_identifier}')
+            for prop_key, prop_value in props_for_hints.items():
+                logger.debug(f'parent hint for {prop_key}: {prop_value}')
+
+                if 'volume' in prop_key:
+                    set_property = 'EMODUL.VOLUME'
+                elif 'quantity' in prop_key:
+                    set_property = 'EMODUL.QUANTITY_IN_MIX'
+                else:
+                    continue
+
+                o.set_parent_annotation(
+                    child_sample=mixture_sample.identifier,
+                    parent_sample=ingredient_identifier,
+                    comment=prop_value,
+                    set_property=set_property
+                )
+
     else:
         mixture_sample = "Not Found"
 
@@ -196,28 +275,64 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
 
     with open(yaml_path, 'r') as file:
         loaded = dict(yaml.safe_load(file))
-        data = defaultdict(lambda: "Not In Props")
-        for key, val in loaded.items():
-            print(key, val)
-            if val is None:
-                continue
+
+    data = defaultdict(lambda: "Not In Props")
+    for key, val in loaded.items():
+        if val is None:
+            continue
+        if key in default_keys:
+            if key.lower() == 'operator_date':
+                # convert german date to openBIS date format YYYY-MM-DD
+                data[key] = parse(val).strftime('%Y-%m-%d')
+            else:
+                data[key] = val
+        else:
+            data[f"{sample_type_code}.{key}".lower()] = val
+
+    data = dict(data)
+
+    # Converting NaN values to 0.0 as openBIS does not accept NaNs
+    for key, val in data.items():
+        if isinstance(val, float) and isnan(val):
+            data[key] = 0.0
+
+    return data
+
+
+def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code: str, ingredient_code: str, default_props: dict, keywords: list) -> dict:
+
+    default_keys = default_props.keys()
+
+    with open(yaml_path, 'r') as file:
+        loaded = dict(yaml.safe_load(file))
+
+    data = {keyword: {} for keyword in keywords}
+    data['mixture'] = {f'{mixture_code}.water_cement_ratio'.lower(): loaded.pop('water_cement_ratio')}
+
+    for key, val in loaded.items():
+        if val is None:
+            continue
+        for keyword in keywords:
+            if keyword in key:
+                data[keyword][f"{ingredient_code}.{key}".lower()] = val
+                break
+        else:
             if key in default_keys:
                 if key.lower() == 'operator_date':
                     # convert german date to openBIS date format YYYY-MM-DD
-                    data[key] = parse(val).strftime('%Y-%m-%d')
+                    data['mixture'][key] = parse(val).strftime('%Y-%m-%d')
                 else:
-                    data[key] = val
+                    data['mixture'][key] = val
             else:
-                data[f"{sample_type_code}.{key}".lower()] = val
+                data['mixture'][f"{mixture_code}.{key}".lower()] = val
 
-        data = dict(data)
-
-        # Converting NaN values to 0.0 as openBIS does not accept NaNs
-        for key, val in data.items():
+    # Converting NaN values to 0.0 as openBIS does not accept NaNs
+    for id_dict, kw_dict in data.items():
+        for key, val in kw_dict.items():
             if isinstance(val, float) and isnan(val):
-                data[key] = 0.0
+                data[id_dict][key] = 0.0
 
-        return data
+    return data
 
 
 def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_sample: Union[str, Sample],
@@ -242,8 +357,18 @@ def _after_upload_check(o: Interbis, emodul_sample_identifier: str, mixture_samp
         print(mix_output_sample, file=file)
 
 
-def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_collection: str, emodul_collection: str,
-                               force_upload: bool, mixture_sample_type: str, emodul_sample_type: str):
+def _setup_openbis_directories(
+        o: Interbis,
+        space: str,
+        project: str,
+        mixture_collection: str,
+        emodul_collection: str,
+        ingredient_space: str,
+        ingredient_project: str,
+        ingredient_collection: str,
+        force_upload: bool,
+        mixture_sample_type: str,
+        emodul_sample_type: str):
     # Setting up space
     try:
         o.get_space(code=space)
@@ -293,6 +418,42 @@ def _setup_openbis_directories(o: Interbis, space: str, project: str, mixture_co
             mix_collection_obj.save()
         else:
             raise ValueError(err)
+    # Settig up ingredient space
+    try:
+        o.get_space(code=ingredient_space)
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            space_obj = o.new_space(
+                code=ingredient_space, description="Space for Emodul mixture ingredients")
+            space_obj.save()
+        else:
+            raise ValueError(err)
+
+    # Setting up ingredient project
+    try:
+        o.get_project(projectId=f"/{ingredient_space}/{ingredient_project}")
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            project_obj = o.new_project(
+                space=ingredient_space, code=ingredient_project, description="Project for Emodul mixture ingredients")
+            project_obj.save()
+        else:
+            raise ValueError(err)
+
+    # Setting up ingredient collection
+    try:
+        o.get_collection(code=ingredient_collection)
+    except ValueError as err:
+        # No space with that code found
+        if force_upload:
+            ing_col_code = ingredient_collection.split("/")[-1]
+            ing_collection_obj = o.new_collection(
+                project=ingredient_project, code=ing_col_code, type="COLLECTION")
+            ing_collection_obj.save()
+        else:
+            raise ValueError(err)
 
 
 def _mixture_upload(
@@ -301,6 +462,7 @@ def _mixture_upload(
         sample_name: str,
         mixture_sample_type: str,
         mixture_data_filepath: str,
+        mixture_parent_ingredients: Dict[str, list],
         space: str,
         project: str,
         collection: str,
@@ -312,7 +474,8 @@ def _mixture_upload(
         type=mixture_sample_type,
         space=space,
         project=project,
-        collection=collection
+        collection=collection,
+        parents=list(mixture_parent_ingredients.keys()),
     )
 
     # Setting the props from metadata and adding '$name' for better readability in the web view
@@ -352,7 +515,7 @@ def _mixture_upload(
         mixture_sample = o.get_sample(
             exist_mixture_sample_df.loc[exist_mixture_sample_df['$name'] == mixture_sample_name, 'identifier'].values[
                 0])
-        logger.debug(f'mixture found in dataset')
+        logger.debug('mixture found in dataset')
 
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
     logger.debug("Starting Mixture Dataset upload")
@@ -517,7 +680,84 @@ def _emodul_upload(
     return emodul_sample
 
 
-def _actions_run(
+def _ingredient_upload(
+    o: Interbis,
+    ingredient_type: str,
+    ingredient_metadata_dict: dict,
+    ingredient_sample_type: str,
+    ingredient_space: str,
+    ingredient_project: str,
+    ingredient_collection: str,
+    logger: logging.Logger
+):
+    logger.debug(ingredient_metadata_dict)
+    annotation = {key: val for key, val in ingredient_metadata_dict.items() if key.endswith('annotation')}
+
+    for key, val in annotation.items():
+        ingredient_metadata_dict.pop(key)
+
+    annotation = list(annotation.values())[0] if annotation else "no annotation"
+
+    bulk_density_key, bulk_density_val = {key: val for key, val in ingredient_metadata_dict.items() if key.endswith('bulkdensity')}.popitem()
+
+    logger.debug(bulk_density_key)
+
+    def fit_bulk_density_key(input_str):
+        return re.sub(r'\..+--', '.', input_str)
+
+    bulk_density_key = fit_bulk_density_key(bulk_density_key)
+
+    logger.debug(bulk_density_key)
+    logger.debug(type(bulk_density_val))
+    logger.debug(bulk_density_val)
+
+    ingredient_sample_props = {
+        '$name': ingredient_type,
+        'emodul_ingredient.annotation': annotation,
+        bulk_density_key: bulk_density_val,
+    }
+
+    samples_with_same_props = o.get_samples(
+        where=ingredient_sample_props,
+        type=ingredient_sample_type
+    ).df
+
+    if samples_with_same_props.empty:
+        ingredient_sample = o.new_sample(
+            type=ingredient_sample_type,
+            space=ingredient_space,
+            project=ingredient_project,
+            collection=ingredient_collection,
+            props=ingredient_sample_props
+        )
+        ingredient_sample.save()
+    else:
+        ingredient_sample_identifier = samples_with_same_props['identifier'].values[0]
+        ingredient_sample = o.get_sample(ingredient_sample_identifier)
+
+    return (ingredient_sample.identifier, ingredient_metadata_dict)
+
+
+def _split_addition(addition_combined_dict: dict, ingredient_code: str) -> List[dict]:
+    """
+    Recieves a dict where additions 1..x are contained and returns a list of their split dicts
+    """
+    current_addition_counter = 1
+    current_addition = "addition" + str(current_addition_counter)
+
+    split_dict = {}
+
+    while f"{ingredient_code.lower()}.{current_addition}--bulkdensity" in addition_combined_dict:
+        filtered_dict = {key: val for key, val in addition_combined_dict.items() if current_addition in key}
+        split_dict[current_addition] = filtered_dict
+        addition_combined_dict = {key: val for key, val in addition_combined_dict.items() if key not in filtered_dict}
+        current_addition_counter += 1
+        current_addition = "addition" + str(current_addition_counter)
+
+    return split_dict
+
+
+def _no_db_run(
         metadata_path: str,
         processed_data_path: str,
         raw_data_path: str,
@@ -556,3 +796,4 @@ def _actions_run(
     with open(Path(output_path, file_name_with_extension), 'w') as file:
         _ = yaml.dump(output_dict, file)
     return
+
