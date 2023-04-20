@@ -32,19 +32,21 @@ mpl.rcParams['font.size'] = 16
 mpl.rcParams['legend.fontsize'] = 'large'
 mpl.rcParams['figure.titlesize'] = 'medium'
 mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath,bm}']
-datetime = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
+datetime = datetime.now().strftime("%d_%m_%Y-%I_%M_%S_%p")
 
 # local imports
 from usecases.demonstrator.Calibration.utils.viz import plot_constraints_and_objective
 
-#%%
+
+# %%
 def load_json(path: str) -> dict:
     if path[-5:] == '.json':
         with open(path) as f:
             data = json.load(f)
     return data
 
-#%%
+
+# %%
 def update_json(file_path: str, key: str, value):
     # Read the JSON file
     with open(file_path, 'r') as f:
@@ -101,7 +103,7 @@ def function(X: dict, seed: int) -> dict:
     # add the path to the workflow file and the path to the directory
     workflow_file_path = Optimization_workflow_path + '/Snakefile'
     directory_path = Optimization_workflow_path
-    os.system(f'snakemake --cores 6 --snakefile {workflow_file_path} '
+    os.system(f'snakemake --cores 7 --snakefile {workflow_file_path} '
               f'--directory {directory_path}  workflow_targets --use-conda')
 
     # Read in the KPIs in a dict
@@ -116,7 +118,8 @@ def function(X: dict, seed: int) -> dict:
     # return the KPIs
     return y
 
-#tmp = function(X,seed)
+
+# tmp = function(X,seed)
 
 class objective_constraints_demonstrator:
     def __init__(self, function: callable):
@@ -125,7 +128,7 @@ class objective_constraints_demonstrator:
 
     def objective(self, x_1, x_2, **kwargs) -> float:
         seed = kwargs['seed']
-        X_design= {'agg_ratio': x_1, 'slag_ratio': x_2}
+        X_design = {'slag_ratio': x_1, 'agg_ratio': x_2}
         self.KPI_store = self.function(X_design, seed)
         y_o = self.KPI_store['gwp_mix']['value']  # the gwp of th beam
         return y_o
@@ -150,7 +153,7 @@ class objective_constraints_demonstrator:
 # y_c_1 = oc.constraint(KPI='check_steel_area')
 # y_c_2 = oc.constraint(KPI='max_reached_temperature')
 # y_c_3 = oc.constraint(KPI='time_of_demolding')
-plot = True
+plot = False
 if plot:
     x_bounds = (0.1, 0.9)
     y_bounds = (0.1, 0.9)
@@ -163,7 +166,7 @@ if plot:
 
     x_grid = np.linspace(x_bounds[0], x_bounds[1], 5)
     y_grid = np.linspace(y_bounds[0], y_bounds[1], 5)
-    X,Y = np.meshgrid(x_grid,y_grid)
+    X, Y = np.meshgrid(x_grid, y_grid)
     for k, con_vals_k in enumerate(cons_val):
         ax[k].set_aspect('equal')
         cons_contour = ax[k].contourf(
@@ -194,7 +197,7 @@ if plot:
     fig.savefig('./Results/Objective_vs_design_variables' + datetime + '.pdf')
     fig.savefig('./Results/Objective_vs_design_variables' + datetime + '.png')
 
-optimization = False
+optimization = True
 if optimization:
     def MVN(mu: list, cov: list):
         # define the parametric mean
@@ -221,9 +224,13 @@ if optimization:
         """
         if isinstance(x_2, dict):
             mean = x_2['mean']
-            std = x_2['std']
+            std = (x_2['std'])  # sigma is the input not sigma^2
             # dist for design variable wrt grad is not there
-            q_x_2 = th.distributions.Normal(th.as_tensor(mean), th.as_tensor(std))
+            assert mean.requires_grad == True
+            q_x_2 = th.distributions.Normal(mean, std)  # can use lognormal maybe to ensure +
+            print("using log Normal for x_2")
+            # q_x_2 = th.distributions.LogNormal(th.log(mean),std)
+            # q_x_2 = th.distributions.LogNormal(mean, std)
 
         # define dist of b_1
         # TODO: write a class/fn for relation between design variable and latents
@@ -239,17 +246,24 @@ if optimization:
         cov_b_2 = phi_paste['phi_cov']['value']
         # mean_b_2 = th.matmul(th.tensor(mu_b_2), x_1)
         # TODO: dummy now, need to write a proper function
-        mean_b_2 = th.tensor(mu_b_2) * (x_1+th.tensor(0.5))
+        # mean_b_2 = th.tensor(mu_b_2) * (x_1+th.tensor(0.5))
+        mean_b_2 = th.matmul(th.tensor(mu_b_2)[:, :-1], x_1) + th.tensor(mu_b_2)[:, -1]
         q_b_2 = MVN(mean_b_2, th.as_tensor(cov_b_2))
 
         num_samples = kwargs['num_samples']
 
         # defining holders
         U_theta_holder = []
+        obj_holder = []
+        C_1_holder = []
+        C_2_holder = []
+        C_3_holder = []
+        C_4_holder = []
 
         for i in range(num_samples):
             # set seed
-            random_seed = i+420
+            # The seed will ensure that the same RV samples are passed inside the forward model
+            random_seed = np.random.randint(666)
             th.manual_seed(random_seed)
 
             # collect RV samples
@@ -267,115 +281,178 @@ if optimization:
             # --- Set inputs for the constraints
             time_max = th.tensor(3)
             temp_max = th.tensor(70)
-            c_1 = 1
-            c_2 = 1
+            max_agg_ratio = th.tensor(0.6)
+            # workability constraint. Now temp that agg ratio < 0.6
+            c_1 = 1e03
+            c_2 = 0.1
             c_3 = 1
-            C_x_1 = oc.constraint_1(x_1, x_2)
+            c_4 = 1
+            C_x_1 = oc.constraint_1(x_1, x_2)  # design criterion
             G_x_1 = c_1 * th.max(-th.as_tensor(C_x_1), th.tensor(0))
-            C_x_2 = oc.constraint_2(x_1, x_2)
+            C_x_2 = oc.constraint_2(x_1, x_2)  # temp
             G_x_2 = c_2 * th.max(th.as_tensor(C_x_2) - temp_max, th.tensor(0))
-            C_x_3 = oc.constraint_3(x_1, x_2)
+            C_x_3 = oc.constraint_3(x_1, x_2)  # demoulding time
             G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
-            constraints = G_x_1 + G_x_2 + G_x_3
+            G_x_4 = th.max(x_2 - max_agg_ratio, th.tensor(0))
+            constraints = G_x_1 + G_x_2 + G_x_3 + G_x_4
 
             # with constraints
-            U_theta_holder.append((obj + constraints) * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
+            c_o = 0.0001  # objective scaling
+            U_theta_holder.append(
+                (0.0001 * obj + constraints) * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
+
+            # without constraints
+            # U_theta_holder.append(obj * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
             # w/o constraints
             # U_theta_holder.append((th.as_tensor(y)) * dist.log_prob(x_sample))
-        U_theta = th.sum(th.stack(U_theta_holder)) / num_samples
 
+            # add to lists
+            obj_holder.append(obj)
+            C_1_holder.append(C_x_1)
+            C_2_holder.append(C_x_2)
+            C_3_holder.append(C_x_3)
+        U_theta = th.sum(th.stack(U_theta_holder)) / num_samples
+        with th.no_grad():
+            obj_mean = np.sum(np.stack(obj_holder)) / num_samples
+            C_1_mean = np.sum(np.stack(C_1_holder)) / num_samples
+            C_2_mean = np.sum(np.stack(C_2_holder)) / num_samples
+            C_3_mean = np.sum(np.stack(C_3_holder)) / num_samples
         assert U_theta.requires_grad == True
-        return U_theta
+        return U_theta, obj_mean, C_1_mean, C_2_mean, C_3_mean
+
 
     # check
-    tmp = objective(x_1=th.tensor([0.4], requires_grad=True), x_2={'mean': [0.4], 'std': [0.1]}, num_samples=2)
+    # sigma = th.tensor([1.])
+    # beta = th.tensor(2 * th.log(sigma), requires_grad=True)
+    # tmp = objective(x_1=th.tensor([0.4], requires_grad=True), x_2={'mean': [0.45], 'cov': th.exp(beta)}, num_samples=2)
 
-    def optimize(mu_init: float, eps=0.001, verbose=True) -> None:
-        mu = th.tensor(mu_init, requires_grad=True)
-        sigma = th.tensor([5.])
-        beta = th.tensor(2 * th.log(sigma), requires_grad=True)
-        # C = th.tensor(50,requires_grad=False)
-        optimizer = th.optim.SGD([mu, beta], lr=0.1)
+    def optimize(x1_init: list, x2_mu: list, x2_sigma: list, eps=0.001, verbose=True, lr=0.01, number_steps: int = 10,
+                 number_samples: int = 1) -> None:
+        """
+
+        Parameters
+        ----------
+        x1_init: slag
+        x2_mu : agg ratio
+        x2_sigma
+        eps
+        verbose
+        lr
+        number_steps
+        number_samples
+
+        Returns
+        -------
+
+        """
+        # defining design variables
+        x_1 = th.tensor(x1_init, requires_grad=True)
+        x2_mean = th.tensor(x2_mu, requires_grad=True)
+        x2_sigma = th.tensor(x2_sigma)
+        beta = th.tensor(2 * th.log(x2_sigma), requires_grad=True)
+
+        # setting the bounds for design variables
+        th.clamp(x_1, min=0.0, max=1.0)
+        th.clamp(x2_mean, min=0.0, max=1.0)
+
+        # defining optimizer
+        optimizer = th.optim.Adam([x_1, x2_mean, beta], lr=lr)
+
+        # value holders
         losses = []
         objective_value = []
         constraints = []
-        x_inmdt = []  # Intermediate for tracking
-        sigma_list = []
-        grad = []
+        x1_tracking = []  # Intermediate for tracking
+        x2_mean_tracking = []
+        x2_sigma_tracking = []
+        grad_1 = []
         # Y_b_step = []
-        num_steps = 150
+        df = pd.DataFrame()
+        num_steps = number_steps
         for i in range(num_steps):
             optimizer.zero_grad()
             # Y_b is the samples of the solver output for the last opt step.
             # loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
-            loss = objective(mu, sigma, beta=beta)
+            x_2 = {'mean': x2_mean, 'std': th.exp(0.5 * beta)}  # sigma = sqrt(esp(beta))
+            loss, obj_mean, C_1_mean, C_2_mean, C_3_mean = objective(x_1=x_1, x_2=x_2, num_samples=number_samples)
             # compute grads
             loss.backward()
             # print(XX.grad)
-            losses.append(loss)
-            x_inmdt.append(mu.clone())
-            # sigma_list.append(sigma)
-            sigma_list.append(th.sqrt(th.exp(beta.clone())))
-            grad.append(th.norm(mu.grad.clone()))
-            optimizer.step()
+            # losses.append(loss)
+            # x1_tracking.append(x_1.clone().detach())
+            # x2_mean_tracking.append(x2_mean.clone().detach())
+            # # sigma_list.append(sigma)
+            # x2_sigma_tracking.append(th.sqrt(th.exp(beta.clone().detach())))
+            # grad_1.append(x_1.grad.clone().detach())
 
-            # Y_b_step.append(Y_b)
+            optimizer.step()
 
             if verbose:
                 # if num_steps % 5 == 0:
                 print(
-                    f"Iteration :{i + 1}, loss value: {loss}, mu value: {mu}, sigma value: {sigma},grad w.r.t x: {mu.grad} ")
-            if i > 0:
-                if th.norm(mu - x_inmdt[-2]) < eps:
-                    print("----------------- Converged !! ----------------------")
-                    break
-        # data = {'loss':th.stack(losses).detach().numpy(),
-        #         'X':th.cat(x_inmdt).detach().numpy(),
-        #         'X_grad':th.stack(grad).detach().numpy(),
-        #         }
-        # df = pd.DataFrame(data=data)
-        return th.stack(x_inmdt).detach().numpy(), th.stack(sigma_list).detach().numpy()
+                    f"Iteration :{i + 1}, loss value: {loss}, x1: {x_1}, x2_mean: {x2_mean}, sigma value: {x2_sigma}"
+                    f",grad w.r.t x_1: {x_1.grad},,grad w.r.t x2_mean: {x2_mean.grad}"
+                    f",grad w.r.t x2_sigma: {x2_sigma.grad}")
+            # if i > 0:
+            #     if th.norm(x_1 - x1_tracking[-2]) < eps:
+            #         print("----------------- Converged !! ----------------------")
+            #         break
+            # -----saving va
+            df = df.append({'loss': loss.item(), 'objective': obj_mean, 'C_1': C_1_mean,
+                              'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1': x_1.clone().detach().item(),
+                              'x_2_mean': x2_mean.clone().detach().item(),
+                              'x_2_std': np.sqrt(np.exp(beta.clone().detach().item())),
+                              'x_1_grad': x_1.grad.clone().detach().item(),
+                              'x_2_mean_grad': x2_mean.grad.clone().detach().item(),
+                              'x_2_beta_grad': beta.grad.clone().detach().item()}
+                             , ignore_index=True)
+            df.to_csv('./Results/Optimization_results_tmp.csv',index=False)
 
+        return df
 
-    mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])
-    mu_evolution_2, sigma_evolution_2 = optimize(
-        mu_init=[-4., 0.])  # starting from constraint violation and crossing the optima
+if __name__ == '__main__':
+    df = optimize(x1_init=[0.2], x2_mu=[0.3], x2_sigma=[0.1],number_steps=50,number_samples=35)
+    df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 
-    x = np.arange(-5.0, 5.0, 0.1)
-    y = np.arange(-5.0, 5.0, 0.1)
-    X, Y = np.meshgrid(x, y)  # grid of point
-    Z = function(X, Y)  # evaluation of the function on the grid
-
-    fig, ax = plt.subplots(1, 2, figsize=(10, 5), constrained_layout=True)
-
-
-    def plot_evolution(mu, sigma, color, fig, ax):
-        ax[0].contourf(X, Y, Z, levels=20)
-        ax[0].plot(mu[:, 0], mu[:, 1], 'x', color=color)
-        ax[0].set_xlabel('$x_1$')
-        ax[0].set_ylabel('$x_2$')
-        ax[1].plot(sigma)
-        ax[1].set_ylabel('$\sigma$')
-        ax[1].set_xlabel('iterations')
-        # plt.savefig('./Figs/theta_evolution_VO_' + datetime + '.pdf')
-        plt.show()
-        return fig
-
-
-    ax[0].contourf(X, Y, Z, levels=20)
-    ax[0].plot(mu_evolution_1[:, 0], mu_evolution_1[:, 1], 'x', color='r')
-    ax[0].plot(mu_evolution_2[:, 0], mu_evolution_2[:, 1], 'x', color='y')
-    ax[0].set_xlabel('$x_1$')
-    ax[0].set_ylabel('$x_2$')
-    ax[1].plot(sigma_evolution_1, 'r')
-    ax[1].plot(sigma_evolution_2, 'y')
-    ax[1].set_ylabel('$\sigma$')
-    ax[1].set_xlabel('iterations')
-    plt.savefig('./Figs/theta_evolution_VO_constraints_' + datetime + '.pdf')
-    plt.show()
-
-    plot_evolution(mu_evolution_1, sigma_evolution_1, 'r', fig, ax)
-    plot_evolution(mu_evolution_2, sigma_evolution_2, 'g', fig, ax)
+    # mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])
+    # mu_evolution_2, sigma_evolution_2 = optimize(
+    #     mu_init=[-4., 0.])  # starting from constraint violation and crossing the optima
+    #
+    # x = np.arange(-5.0, 5.0, 0.1)
+    # y = np.arange(-5.0, 5.0, 0.1)
+    # X, Y = np.meshgrid(x, y)  # grid of point
+    # Z = function(X, Y)  # evaluation of the function on the grid
+    #
+    # fig, ax = plt.subplots(1, 2, figsize=(10, 5), constrained_layout=True)
+    #
+    #
+    # def plot_evolution(mu, sigma, color, fig, ax):
+    #     ax[0].contourf(X, Y, Z, levels=20)
+    #     ax[0].plot(mu[:, 0], mu[:, 1], 'x', color=color)
+    #     ax[0].set_xlabel('$x_1$')
+    #     ax[0].set_ylabel('$x_2$')
+    #     ax[1].plot(sigma)
+    #     ax[1].set_ylabel('$\sigma$')
+    #     ax[1].set_xlabel('iterations')
+    #     # plt.savefig('./Figs/theta_evolution_VO_' + datetime + '.pdf')
+    #     plt.show()
+    #     return fig
+    #
+    #
+    # ax[0].contourf(X, Y, Z, levels=20)
+    # ax[0].plot(mu_evolution_1[:, 0], mu_evolution_1[:, 1], 'x', color='r')
+    # ax[0].plot(mu_evolution_2[:, 0], mu_evolution_2[:, 1], 'x', color='y')
+    # ax[0].set_xlabel('$x_1$')
+    # ax[0].set_ylabel('$x_2$')
+    # ax[1].plot(sigma_evolution_1, 'r')
+    # ax[1].plot(sigma_evolution_2, 'y')
+    # ax[1].set_ylabel('$\sigma$')
+    # ax[1].set_xlabel('iterations')
+    # plt.savefig('./Figs/theta_evolution_VO_constraints_' + datetime + '.pdf')
+    # plt.show()
+    #
+    # plot_evolution(mu_evolution_1, sigma_evolution_1, 'r', fig, ax)
+    # plot_evolution(mu_evolution_2, sigma_evolution_2, 'g', fig, ax)
 
 # class VO:
 #     def __init__(self):
