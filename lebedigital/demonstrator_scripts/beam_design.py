@@ -1,5 +1,6 @@
 import math
 from lebedigital.unit_registry import ureg
+import numpy as np
 
 @ureg.wraps(('mm','mm'), 'mm')
 def section_dimension_rule_of_thumb(span: float) -> tuple:
@@ -60,7 +61,7 @@ def max_bending_moment_and_shear_force(span: float, point_load: float, distribut
             max_shear_force_dist_load + max_shear_force_point_load)
 
 
-@ureg.wraps(None, ('mm', 'mm', 'N*mm', 'N', 'N/mm^2','N/mm^2','mm','mm'))
+@ureg.wraps(None, ('mm', 'mm', 'N*mm', 'N', 'N/mm^2','N/mm^2','mm','mm','mm'))
 def beam_section_design(
                        width: float,
                        height: float,
@@ -69,6 +70,7 @@ def beam_section_design(
                        fck: float,
                        fyk: float,
                        steel_dia: float,
+                       steel_dia_bu: float,
                        cover: float,
                        ) -> dict:
     """
@@ -92,7 +94,9 @@ def beam_section_design(
     fyk : float / pint stress unit, will be converted to 'N/mm^2'
         Yield strength of steel in N/mm2.
     steel_dia : int
-        Diameter of steel in mm.
+        Diameter of steel in mm for longitudinal reinforcement.
+    steel_dia_bu : int
+        Diameter of steel in mm, for Buegel-Bewehrung.
     cover : float / pint length unit, will be converted to 'mm'
         Depth of cover required as per exposure class in mm.
 
@@ -103,7 +107,7 @@ def beam_section_design(
     """
     #effective section depth
     # TODO: first steel diameter is reinforcement in width direction. does it need to be the same? do we need to account for it at all?
-    deff = height - cover - steel_dia - steel_dia / 2
+    deff = height - cover - steel_dia_bu - steel_dia / 2
     #fcd=Design compressive strength
     a_cc=0.85
     gamma_c=1.5 #Concrete partial material safety factor
@@ -173,8 +177,71 @@ def beam_section_design(
     return out
 
 
-@ureg.check('[length]','[length]','[length]','[force]','[force]/[length]','[stress]','[stress]','[length]',None,'[length]')
-def check_design(span:float,
+@ureg.wraps(None, ('mm', 'mm', 'N*mm','N/mm^2','N/mm^2','mm','mm','mm'))
+def beam_required_steel(
+        width: float,
+        height: float,
+        max_moment: float,
+        fck: float,
+        fyk: float,
+        steel_dia: float,
+        steel_dia_bu: float,
+        cover: float,
+) -> dict:
+    """
+    Function to design singly reinforced beam with minimum shear reinforcement required.
+
+    The input and output is wrapped by the python pint package: https://pint.readthedocs.io/
+    This requires units to be attached to the input values.
+
+    Parameters
+    ----------
+    width: float / pint length unit, will be converted to 'mm'
+        beam width in mm.
+    height: float / pint length unit, will be converted to 'mm'
+        beam depth in mm.
+    max_moment : float / pint moment unit, will be converted to 'N*mm'
+        Maximum bending moment in N-mm.
+    max_shear_force : float / pint force unit, will be converted to 'mm'
+        Maximum shear force in N.
+    fck : float / pint stress unit, will be converted to 'N/mm^2'
+        charateristic compressive strength of concrete in N/mm2.
+    fyk : float / pint stress unit, will be converted to 'N/mm^2'
+        Yield strength of steel in N/mm2.
+    steel_dia : int
+        Diameter of steel in mm for longitudinal reinforcement.
+    steel_dia_bu : int
+        Diameter of steel in mm, for Buegel-Bewehrung.
+    cover : float / pint length unit, will be converted to 'mm'
+        Depth of cover required as per exposure class in mm.
+
+    Returns
+    -------
+    dict : with fixed pint units when appropriate (length in 'mm')
+        Design of the reinforced beam section.
+    """
+    # effective section depth
+    deff = height - cover - steel_dia_bu - steel_dia / 2
+    # fcd=Design compressive strength
+    a_cc = 0.85
+    gamma_c = 1.5  # Concrete partial material safety factor
+    fcd = a_cc * fck / gamma_c  # N/mm^2
+    gamma_s = 1.15
+    fywd = fyk / gamma_s  # N/mm^2
+    # Bending measurement (here with stress block) (Biegebemessung (hier mit Spannungsblock))
+    muEd = max_moment / (width * deff ** 2 * fcd)
+    xi = 0.5 * (1 + math.sqrt(1 - 2 * muEd))
+    As1 = 1 / fywd * max_moment / (xi * deff)  # [-]
+
+    out = {"required_area_bottom_steel": As1 * ureg('mm^2')}
+
+    return out
+
+
+
+
+@ureg.check('[length]','[length]','[length]','[force]','[force]/[length]','[stress]','[stress]','[length]','[length]',None,'[length]')
+def check_beam_design(span:float,
                  width:float,
                  height:float,
                  point_load:float,
@@ -182,8 +249,9 @@ def check_design(span:float,
                  compr_str_concrete:float,
                  yield_str_steel:float,
                  steel_dia:float,
+                 steel_dia_bu:float,
                  n_bottom:int,
-                 cover:float,
+                 cover_min:float,
                  ) -> float:
     """
     Function to check specified design for area of steel
@@ -209,6 +277,8 @@ def check_design(span:float,
         Yield strength of steel in N/mm2.
     steel_dia : float / pint length unit
         Diameter of steel in mm.
+    steel_dia_bu : float / pint length unit
+        Diameter of steel in mm for Buegel-Bewehrung
     n_bottom:int,
         Number of steel bars in the bottom of the section.
         On top for singly reinforced section we assume 2 steel bars of 12 mm which holds the cage
@@ -222,20 +292,88 @@ def check_design(span:float,
         in the bottom of the section. It is negative if  design is not satisfied and positive if design is satisfied.
         Optimal will be close to zero.
     """
+    # set correct cover
+    if cover_min < steel_dia:
+        cover = steel_dia
+    else:
+        cover = cover_min
+
     max_moment, max_shear_force = max_bending_moment_and_shear_force(span,
                                                                      point_load,
                                                                      distributed_load)
 
-    design = beam_section_design(width,
-                                 height,
-                                 max_moment,
-                                 max_shear_force,
-                                 compr_str_concrete,
-                                 yield_str_steel,
-                                 steel_dia ,
-                                 cover)
+    acceptable_reinforcement_diameters = [6,8,10,12,14,16,20,25,28,32,40] * ureg('mm')
+    for diameter in acceptable_reinforcement_diameters:
+        design = beam_required_steel(width,
+                                     height,
+                                     max_moment,
+                                     compr_str_concrete,
+                                     yield_str_steel,
+                                     diameter,
+                                     steel_dia_bu,
+                                     cover)
 
-    specified_area = (math.pi * (steel_dia) ** 2 / 4) * n_bottom
-    required_area = design["required_area_bottom_steel"]
+        required_area = design["required_area_bottom_steel"]
+        A = (np.pi * (diameter / 2) ** 2)  # mm^2
+        nsteel = max(2 * ureg(''), np.rint(required_area / A))  # rounds up
+        if beam_check_spacing(diameter, nsteel, steel_dia_bu, width, cover):
+            # found smalest diameter that has correct spacing
+            discrete_reinforcement = {'crosssection': A,'n_steel_bars':nsteel,'diameter':diameter}
+            break
 
-    return (specified_area-required_area)/required_area
+    return discrete_reinforcement
+
+def beam_check_spacing(diameter_l, n_steel, diameter_bu, b, cover):
+    assert n_steel >= 2 * ureg('')
+    # effective width for reinforcements
+    b_eff = b - 2 * cover - 2 * diameter_bu
+    # compute spacing
+    s = (b_eff - n_steel * diameter_l)/(n_steel - 1)
+
+    # set minimum spacing
+    # currently ignoring aggregate size, diameter_largest_rock + 5mm is another constraint
+    s_min = 20 * ureg('mm')
+    if diameter_l > 20 * ureg('mm'):
+        s_min = diameter_l
+
+    if s_min > s:
+        return False
+    else:
+        return True
+
+
+
+
+
+def simple_setup(height,fc):
+
+    out = check_beam_design(span=6750*ureg('mm'),
+                                   width=200*ureg('mm'),
+                                   height=height*ureg('mm'),
+                                   point_load = 36e3*ureg('N'),
+                                   distributed_load= 0*ureg('N/mm'),
+                                   compr_str_concrete=fc*ureg('N/mm^2'),
+                                   yield_str_steel=500*ureg('N/mm^2'),
+                                   steel_dia=12*ureg('mm'),
+                                   steel_dia_bu=12*ureg('mm'),
+                                   n_bottom=4,
+                                   cover_min=2.5*ureg('cm'))
+    return out
+
+
+
+if __name__ == "__main__":
+
+    height_list = np.arange(280,1000,10)
+    fc_list = np.arange(10,90,1)
+    height_A = []
+    for height in height_list:
+        out = simple_setup(height,20)
+        height_A.append(out['crosssection'])
+
+    fc_A = []
+    for fc in fc_list:
+        out = simple_setup(400,fc)
+        fc_A.append(out['crosssection'])
+    print(fc_A)
+
