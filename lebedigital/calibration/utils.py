@@ -70,9 +70,6 @@ class PosteriorPredictive:
             Pass known input value to the solver in whichever format the forward_solve object needs.
         """
 
-        # assert (parameter == np.array), "Parameter needs to be np.ndarray"
-        # assert parameter.shape[1] == 1, "Currently support only 1 parameter"
-
         self._forward_solver = forward_solver
         if parameter is not None:
             self._parameter = parameter
@@ -87,10 +84,12 @@ class PosteriorPredictive:
 
         Parameters
         ----------
-        samples :
+        samples : the number of samples
 
         Returns
         -------
+        mean : (np.array) mean the of the posterior
+        sd : sd of the posterior
 
         """
         # Monte carlo step

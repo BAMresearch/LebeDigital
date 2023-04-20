@@ -24,7 +24,7 @@ from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import (
 )
 
 
-def _test_E_mod_calibration_metadata(calibration_metadata: dict):
+def _check_E_mod_calibration_metadata(calibration_metadata: dict):
     """
     Checks the calibration metadata dictionary for completeness
     Parameters
@@ -41,7 +41,7 @@ def _test_E_mod_calibration_metadata(calibration_metadata: dict):
         return False
 
 
-def _test_E_mod_experimental_data(experimental_data: dict):
+def _check_E_mod_experimental_data(experimental_data: dict):
     """
     Performs a sanity check for the experimental data dict.
     Parameters
@@ -59,7 +59,7 @@ def _test_E_mod_experimental_data(experimental_data: dict):
         return False
 
 
-def esimate_youngs_modulus(
+def estimate_youngs_modulus(
         experimental_data: dict, calibration_metadata: dict, calibrated_data_path: str, mode="full"
 ):
     """
@@ -91,9 +91,6 @@ def esimate_youngs_modulus(
     -------
     E_pos : np.array
         The samples of the inferred Young's Modulus.
-    posterior_pred_samples: np.array
-        The posterior predictive values of the stress in the three point bending beam obtained using the inferred E-modulus.
-
     """
 
     # =========================================
@@ -101,7 +98,7 @@ def esimate_youngs_modulus(
     # =========================================
     # perform check of the experimental data keys
     assert (
-            _test_E_mod_experimental_data(experimental_data) == True
+            _check_E_mod_experimental_data(experimental_data) == True
     ), "Some values are missing in the experimental data"
     exp_output = experimental_data  #
 
@@ -110,7 +107,7 @@ def esimate_youngs_modulus(
     # ========================================
     # performing check of calibration metadata
     assert (
-            _test_E_mod_calibration_metadata(calibration_metadata) == True
+            _check_E_mod_calibration_metadata(calibration_metadata) == True
     ), "Some values are missing in the calibration metadata"
     # "uninformed" Normal prior for the E modulus
     loc_E = calibration_metadata["E_loc"]  # 100  kN/mm2

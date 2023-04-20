@@ -1,4 +1,4 @@
-from lebedigital.calibration.calibrationWorkflow import esimate_youngs_modulus
+from lebedigital.calibration.calibrationWorkflow import estimate_youngs_modulus
 from lebedigital.calibration.utils import read_exp_data_E_mod
 import pytest
 import numpy as np
@@ -18,9 +18,9 @@ def test_emodulus_calibration():
     # Note remove the mode 'dheap' for local testing so that 'full' sampling can be tested
     # passing the length and diameter for the specific experiment
     output = read_exp_data_E_mod(path=data_path, exp_name=input_file,length=300.2,diameter=98.6)
-    E_samples = esimate_youngs_modulus(experimental_data=output,
-                                       calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
-                                       calibrated_data_path=data_path, mode='cheap')
+    E_samples = estimate_youngs_modulus(experimental_data=output,
+                                        calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
+                                        calibrated_data_path=data_path, mode='cheap')
 
     # checking if the KG file for the calibration is created
     assert (data_path / f'calibrationWorkflow{input_file}.owl').is_file()

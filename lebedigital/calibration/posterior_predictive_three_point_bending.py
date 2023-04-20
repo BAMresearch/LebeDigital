@@ -23,10 +23,11 @@ def wrapper_three_point_bending(parameter, known_input):
     Parameters
     ----------
     parameter : parameter is E in kN/mm2
-    known_input :
+    known_input : Poisson's ratio 'nu'
 
     Returns
     -------
+    y : magnitude of stress output from the three point bending test
 
     """
     parameters = fenics_concrete.Parameters()
@@ -37,14 +38,15 @@ def wrapper_three_point_bending(parameter, known_input):
     return y.magnitude
 
 
-def perform_prediction_three_point_bending(forward_solver:callable, parameter:list, known_input:float = 0.2, no_sample :int = 10,mode = 'cheap'):
+def perform_prediction(forward_solver:callable, parameter:list, known_input:float = 0.2, no_sample :int = 10, mode ='cheap', viz=False):
     """
 
     Parameters
     ----------
-    forward_solver : The solver through which parametric uncertainty needs to be propagated
-    parameter : the samples of the parameter which was calibrated. (E here)
-    known_input: Known input to teh solver. (nu here)
+    forward_solver : (callable) The solver through which parametric uncertainty needs to be propagated
+    parameter : (list) the samples of the parameter which was calibrated. (E for eg)
+    known_input: Known input to the solver. (nu for eg)
+    no_sample: total no of samples for the MC estimate
     mode : "full" or "cheap". For testing purposes.
 
     Returns
@@ -65,12 +67,11 @@ def perform_prediction_three_point_bending(forward_solver:callable, parameter:li
     # ========================================================================
     #       Posterior Predictive
     # ========================================================================
-    nu = known_input
-    E_pos = np.array(parameter)   # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
+    # nu = known_input
+    # E_pos = np.array(parameter)   # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
     # is harcoded here.
-    # three_point = three_point_bending_example()
     pos_pred = PosteriorPredictive(
-        forward_solver, known_input_solver=nu, parameter=E_pos
+        forward_solver, known_input_solver=known_input, parameter=np.array(parameter)
     )
 
     if mode == "cheap":
@@ -80,13 +81,15 @@ def perform_prediction_three_point_bending(forward_solver:callable, parameter:li
     # ---- visualize posterior predictive
     posterior_pred_samples = pos_pred._samples
     # np.save('./post_pred.npy', posterior_pred_samples)
-    plt.figure()
-    sns.kdeplot(posterior_pred_samples)
-    plt.xlabel("stress in x-direction")
+    if viz:
+        plt.figure()
+        sns.kdeplot(posterior_pred_samples)
+        plt.xlabel("stress in x-direction")
 
     return posterior_pred_samples
 
 if __name__ == "__main__":
     E_samples = [30.1,30.2,30.53,30.8,29.6]
-    pos_pred = perform_prediction_three_point_bending(forward_solver=wrapper_three_point_bending,
-                                                      parameter=E_samples)
+    pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,
+                                  parameter=E_samples)
+    print(pos_pred)

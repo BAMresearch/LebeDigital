@@ -1,4 +1,4 @@
-from lebedigital.calibration.posterior_predictive_three_point_bending import perform_prediction_three_point_bending
+from lebedigital.calibration.posterior_predictive_three_point_bending import perform_prediction
 from lebedigital.calibration.posterior_predictive_three_point_bending import wrapper_three_point_bending
 from probeye.ontology.knowledge_graph_import import import_parameter_samples
 import pytest
@@ -20,6 +20,6 @@ def test_prediction():
         E_samples = import_parameter_samples(kg_path)
 
     # performing posterior predictive
-    pos_pred = perform_prediction_three_point_bending(forward_solver=wrapper_three_point_bending,
-                                                      parameter=E_samples)
+    pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,
+                                  parameter=E_samples)
     assert np.mean(pos_pred) == pytest.approx(120, rel=0.1)  # rel=0.5, only for debugging
