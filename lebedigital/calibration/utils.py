@@ -9,8 +9,9 @@ import sys
 import fenics_concrete
 
 baseDir1 = Path(__file__).resolve().parents[1]
-sys.path.append(os.path.join(os.path.join(baseDir1, "knowledgeGraph"), "emodul"))
-sys.path.append(os.path.join(baseDir1, "Data"))
+#sys.path.append(os.path.join(os.path.join(baseDir1, "knowledgeGraph"), "emodul"))
+#sys.path.append(os.path.join(baseDir1, "Data"))
+baseDir1 = baseDir1 /"knowledgeGraph"/"emodul"/"Data"
 
 
 # import emodul_query
