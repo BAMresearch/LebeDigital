@@ -2,7 +2,7 @@ name: lebedigital
 channels:
   - conda-forge                     # third party stuff
   - bioconda                        # snakemake
-  - etamsen
+  - bam77
   - defaults
 dependencies:
   - python=3.9.7

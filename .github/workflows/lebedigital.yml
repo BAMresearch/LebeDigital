@@ -20,6 +20,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    env:
+      OPENBIS_STATE_DIR: openbis/openbis_state
+
     outputs:
       branch_coverage: ${{ steps.pytest.outputs.coverage }}
       coverage_report: ${{ steps.pytest.outputs.report }}
@@ -27,11 +30,14 @@ jobs:
     steps:
       - name: build docker
         run: |
-          mkdir data 
+          mkdir -p $OPENBIS_STATE_DIR
           ls -a
-          docker create --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/data/:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:latest
+          docker create --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/$OPENBIS_STATE_DIR:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:latest
           docker start openbis
           ls -a
+          cd openbis
+          ls -a
+          cd ..
 
       - name: checkout repo content
         uses: actions/checkout@v2
@@ -57,12 +63,18 @@ jobs:
         run: mamba env update -n lebedigital -f environment.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: set default docker settings
+        shell: bash -l {0}
+        run: |
+          cd $GITHUB_WORKSPACE/lebedigital/openbis/docker/
+          python3 -m init_settings_docker --login admin --password changeit --url https://localhost:8443/openbis/
+
       - name: pytest
-        id : pytest
+        id: pytest
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s -m "not login" --cov ../lebedigital --cov-report=xml  --login admin --password changeit
+          pytest -s --cov ../lebedigital --cov-report=xml --login admin --password changeit
           COVERAGE_REPORT=$(coverage report -m | tee /dev/stderr)
           
           # passing a multiline string to output to use it in next job
