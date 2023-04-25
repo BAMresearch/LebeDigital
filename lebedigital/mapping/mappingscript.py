@@ -1,6 +1,6 @@
-# Script for the knowledge graph template derived from the e-module ontology (extracted from CPTO) 
-# to map e-module metadata by reading every line of the template and finding/ # replacing the placeholders.
-# Logging through loguru, you can ignore "debug" messages. "Warning" appear if not 
+# Script for a knowledge graph template derived from an ontology
+# to map metadata by reading every line of the template and finding/ replacing the placeholders.
+# Logging through loguru, you can ignore "debug" messages. "Warning" appears if not
 # everything has been mapped.
 
 # import libraries
@@ -46,7 +46,7 @@ def placeholderreplacement(
         ):
     '''
         Maps the values of one given metadata file (for one specimen or
-        experiment) to a given knowdledge graph (KG) template, by searching through 
+        experiment) to a given knowledge graph (KG) template, by searching through
         it linewise for all metadata keys and replacing placeholders with values 
         from the metadata. Also creates and appends an ID for the specimen.
 
@@ -61,7 +61,7 @@ def placeholderreplacement(
 
         Output:
         ---
-        If no ouput path is given (f.e. for unittesting), the lines will be
+        If no output path is given (f.e. for unittesting), the lines will be
         returned. If the "kgPath" is given for output, the KG template will
         be overwritten. To avoid this, give a new name to create a new ttl-file.
 
@@ -71,7 +71,7 @@ def placeholderreplacement(
     metadata = load_metadata(metadataPath)
     keys = list(metadata.keys())  
 
-    # generate ID for the e-module metadata
+    # generate ID
     specimenID = str(uuid.uuid4())
 
     # read in the KG template as text linewise, creating a list of lines
@@ -129,22 +129,9 @@ def placeholderreplacement(
                     lines[i] = lines[i].replace(generate_placeholder("SpecimenID"), str(specimenID))
 
 
-            # depending on shape of specimen, set null pointers            
-            if "SpecimenHeight" not in keys:
-                if "SpecimenHeight" in lines[i]:
-                    logger.debug('Specimen shape is cylindrical, set placeholder ' \
-                            + generate_placeholder("SpecimenHeight") + ' to None.')
-                    lines[i] = lines[i].replace(generate_placeholder("SpecimenHeight"), str(None))
-            if "SpecimenWidth" not in keys:
-                if "SpecimenWidth" in lines[i]:
-                    logger.debug('Specimen shape is cylindrical, set placeholder ' \
-                            + generate_placeholder("SpecimenWidth") + ' to None.')
-                    lines[i] = lines[i].replace(generate_placeholder("SpecimenWidth"), str(None))
-
-
     ############################ L O G G I N G #############################        
 
-            # create a list of leftover placeholders to see which ones didn't recieve a value
+            # create a list of leftover placeholders to see which ones didn't receive a value
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
                 remainingPH.append(ph)
@@ -163,10 +150,10 @@ def placeholderreplacement(
     if len(remainingPH) > 0:
         logger.warning('File has ' + str(len(kgPHcounter)) + ' placeholders.')
         logger.warning('The following ' + str(len(remainingPH)) + ' of ' + str(len(kgPHcounter)) \
-                    + ' placeholders did not recieve a metadata value: ')
+                    + ' placeholders did not receive a metadata value: ')
         logger.warning(remainingPH)
     else:
-        logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template revieced metadata.')
+        logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template received metadata.')
 
     ############################ O U T P U T #############################
     if outputPath == None:
