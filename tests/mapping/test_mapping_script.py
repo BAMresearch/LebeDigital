@@ -6,7 +6,7 @@ import yaml
 from pathlib import Path
 import re
 
-from lebedigital.mapping.emodul_mapping import placeholderreplacement
+from lebedigital.mapping.mappingscript import placeholderreplacement
 
 
 def query_and_test_result(typeOfQuery, predicate, prop, g):
