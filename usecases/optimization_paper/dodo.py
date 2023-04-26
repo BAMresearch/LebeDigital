@@ -3,6 +3,22 @@ from workflow_graph.paper_workflow_graph import paper_workflow_graph
 from tex.macros.py_macros import py_macros
 import yaml
 from doit import get_var
+from doit.action import CmdAction
+import collections.abc
+
+
+def update(d, u):
+    """ Merging nested dictionaries without deleting data
+        from https://stackoverflow.com/questions/3232943/update-value-of-a-nested-dictionary-of-varying-depth
+        Required to merge the two py marco yaml files
+    """
+    for k, v in u.items():
+        if isinstance(v, collections.abc.Mapping):
+            d[k] = update(d.get(k, {}), v)
+        else:
+            d[k] = v
+    return d
+
 
 DOIT_CONFIG = {
     "verbosity": 2,
@@ -36,14 +52,22 @@ paper_file = ROOT / paper_dir / paper_name
 
 
 # macros
-py_macros_file = ROOT / paper_dir / 'macros' / 'py_macros.tex'
-tex_macros_file = ROOT / paper_dir / 'macros' / 'tex_macros.tex'
-TEX_MACROS = [py_macros_file, tex_macros_file]
+py_macros_file_BAM = ROOT / paper_dir / 'macros' / 'py_macros_BAM.tex'
+py_macros_file_TUM = ROOT / paper_dir / 'macros' / 'py_macros_TUM.tex'
+tex_macros_file_BAM = ROOT / paper_dir / 'macros' / 'tex_macros_BAM.tex'
+tex_macros_file_TUM = ROOT / paper_dir / 'macros' / 'tex_macros_TUM.tex'
+TEX_MACROS = [py_macros_file_BAM, py_macros_file_TUM, tex_macros_file_BAM, tex_macros_file_TUM]
+
+
+
+
 
 
 # read macros yaml to define figure file names
-with open(py_macros_file.with_suffix('.yaml')) as f:
+with open(py_macros_file_TUM.with_suffix('.yaml')) as f:
     data = yaml.load(f, Loader=yaml.SafeLoader)
+with open(py_macros_file_BAM.with_suffix('.yaml')) as f:
+    data = update(data, yaml.load(f, Loader=yaml.SafeLoader))
 
 
 # workflow graph
@@ -65,12 +89,28 @@ def task_build_graph():
     }
 
 
+def task_build_snakemake_dag():
+    """build snakemake optimization workflow graph"""
+    output_file_name = data['file_names']['snakemakeGraph']  # name of output pdf file as defined in macros yaml
+    snakemake_dir = 'optimization_workflow'
+    snakefile = ROOT / snakemake_dir / 'Snakefile'
+
+    target = paper_plot_target(output_file_name)
+
+    return {
+        "file_dep": [snakefile],
+        "actions": [CmdAction(f'cd {snakemake_dir} && snakemake --forceall --dag | dot -Tpdf > {target}')],
+        "targets": [target],
+        "clean": True,
+    }
+
+
 def task_build_tex_macros():
     """build tex macros"""
     return {
-        "file_dep": [py_macros_file.with_suffix('.yaml')],
-        "actions": [(py_macros, [py_macros_file.with_suffix('')])],
-        "targets": [py_macros_file],
+        "file_dep": [py_macros_file_BAM.with_suffix('.yaml'),py_macros_file_TUM.with_suffix('.yaml')],
+        "actions": [(py_macros, [[py_macros_file_BAM.with_suffix(''),py_macros_file_TUM.with_suffix('')]])],
+        "targets": [py_macros_file_BAM,py_macros_file_TUM],
         "clean": True,
     }
 
@@ -79,7 +119,7 @@ def task_paper():
     """compile pdf from latex source"""
     return {
         "file_dep": [paper_file] + TEX_MACROS + PAPER_PLOTS,
-        "actions": [f"tectonic {paper_file}"],
+        "actions": [f"tectonic {paper_file}"], # AA: I need to add./tectonic
         "targets": [paper_file.with_suffix('.pdf')],
         "clean": True,
     }

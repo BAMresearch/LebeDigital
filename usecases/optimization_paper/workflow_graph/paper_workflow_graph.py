@@ -73,7 +73,14 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('aggregate content', 'aggregate/(water+cement volume ratio) [-]', color=input, shape='rectangle')
     dot.node('ratio_cemI_cemII', 'slag to cement ratio', color=input, shape='rectangle')
     dot.edge('w/c','volume computation')
-    dot.node('w/c', 'water cement mass ratio [-]\n plasticizer content [kg/m³]', color=input)
+    dot.node('w/c', 'water cement mass ratio [-]', color=input)
+    dot.node('plasticizer', 'plasticizer content [kg/m³]', color=input)
+    dot.edge('plasticizer','volume computation')
+    dot.edge('w/c','compute max doh')
+    dot.node('compute max doh', 'function: max degree of hydration', color=process)
+    dot.edge('compute max doh', 'max doh')
+    dot.node('max doh', 'max degree of hydration [-]')
+    dot.edge('max doh', 'fem model')
     dot.node('volume computation', 'computation of volume contents', color=process)
     dot.edge('aggregate content', 'concrete homogenization')
     dot.edge('ratio_cemI_cemII',  'interpolation_paste')
@@ -163,6 +170,8 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.node('interpolation_paste','function to "interpolate" paste strength and E \nf(phi_paste,slag ratio)', color=process)
 
 
+
+
     dot.node('Youngs modulus function','Youngs modulus function', color=process)
 
     dot.edge('strength data','Youngs modulus function')
@@ -174,6 +183,7 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
 
     dot.edge('phi','interpolation')
+    dot.edge('max doh','hydration identifcation')
     dot.node('interpolation','function to "interpolate" paramters \nf(phi,slag ratio)', color=process)
     dot.edge('interpolation','hydration parameters')
     dot.edge('interpolation','heat release binder')
@@ -186,7 +196,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.node('steel', 'steel: diameter [mm],\n n bars', color=input)
     dot.edge('steel', 'load bearing capacity')
-    dot.edge('steel', 'co2 computation volume')
 
     dot.node('input beam', 'steel yield strenght [N/mm2]\n'
                            'concrete: cover [mm]', color=input)
@@ -194,7 +203,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
 
     dot.node('fem input',' * initial and boundary temperature \n'
-                         '* max degree of hydration \n'
                          '* parameter ft(DoH): a_ft\n'
                          '* parameter fc(DoH): a_fc\n'
                          '* parameter E(DoH): alpha_t, alpha_0, a_E', color=input)

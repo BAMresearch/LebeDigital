@@ -32,7 +32,7 @@ pmd:hasPmdUnit a owl:ObjectProperty .
 
 con:ConcreteMixer_ a con:Mixer,
         owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$ConcreteMixer_Value$$"^^xsd:string .
 
 con:Intensity a owl:Class .
 
@@ -41,7 +41,7 @@ con:Intensity_ a con:Intensity,
 
 con:Lab_ a con:Location,
         owl:NamedIndividual ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
 
 con:Location a owl:Class .
 
@@ -49,11 +49,11 @@ con:Mixer a owl:Class .
 
 con:MixingDate_ a cco:Day,
         owl:NamedIndividual ;
-    cco:has_datetime_value "value"^^xsd:dateTime .
+    cco:has_datetime_value "$$MixingDate_Value$$"^^xsd:dateTime .
 
 con:MixingTime_ a con:Time,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$MixingTime_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit cco:HourMeasurementUnit .
 
 con:Mixing_ a cco:Artifact,
@@ -68,13 +68,13 @@ con:Mixing_ a cco:Artifact,
 
 con:RawDataFile_ a owl:NamedIndividual,
         mid:RawDataSet ;
-    cco:has_text_value "value"^^xsd:string .
+    cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string .
 
 con:Time a owl:Class .
 
 con:Weight_ a cco:Weight,
         owl:NamedIndividual ;
-    cco:has_decimal_value "value"^^xsd:decimal ;
+    cco:has_decimal_value "$$Weight_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit pmd:Q11570 .
 
 cco:Day a owl:Class .

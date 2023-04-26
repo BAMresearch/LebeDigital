@@ -1,10 +1,12 @@
 name: lebedigital
 channels:
   - conda-forge                     # third party stuff
-  - etamsen
+  - bioconda                        # snakemake
+  - bam77
   - defaults
 dependencies:
   - python=3.9.7
+  - pip
   - matplotlib
   - mamba
   - scipy
@@ -24,15 +26,18 @@ dependencies:
   - fenics_concrete
   - python-graphviz
   - pytest
-  - pip
   - xlrd
   - openpyxl
   - tectonic=0.8
   - pint
+  - pint-pandas
+  - snakemake
   - pybis
   - xlsxwriter
   - termcolor
   - sphinx
+  - pytest-cov
+  - codecov
   - pip:
     - probeye==2.3.2
     - -e .

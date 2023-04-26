@@ -74,6 +74,50 @@ def test_computation_volume_content() :
     assert_approx(output3['water_vol_fraction'], output3['cem_vol_fraction'], rtol=1e-6)
 
 
+
+def test_computation_slag_ratio():
+    """
+    testing minimal option of computation of the ratios
+    """
+
+    # compute ratios and fractions based on content, minimal input
+
+    # TEST No 1, check the output of changes to sc_volume_fraction
+    # reference
+    input1 = {}
+    # densities
+    input1['density_cem'] = 1.44 * ureg('g/cm^3')
+    input1['density_sub'] = 840 * ureg('kg/m^3')
+    input1['density_water'] = 977 * ureg('kg/m^3')
+    input1['density_plasticizer'] = 0.98 * ureg('g/cm^3')
+    input1['density_aggregates'] = 1.5 * ureg('t/m^3')
+
+    input1['wb_mass_ratio'] = 0.4 * ureg('dimensionless')
+    input1['sc_volume_fraction'] = 0.4 * ureg('dimensionless')
+    input1['aggregates_volume_fraction'] = 0.65 * ureg('dimensionless')
+    input1['plasticizer_volume_content'] = 10 * ureg('kg/m^3')
+
+    output1 = computation_volume_content(input1)
+
+    # checking extremes
+    sc_vol_fraction = output1['sub_vol_fraction'] + output1['cem_vol_fraction']
+
+    input2 = input1
+    input2['sc_volume_fraction'] = 0.0 * ureg('dimensionless')
+    output2 = computation_volume_content(input2)
+
+    assert_approx(output2['sub_vol_fraction'], 0.0, rtol=0.05)
+    assert_approx(output2['cem_vol_fraction'], sc_vol_fraction, rtol=0.1)
+
+    input3 = input1
+    input3['sc_volume_fraction'] = 1.0 * ureg('dimensionless')
+
+    output3 = computation_volume_content(input3)
+
+    assert_approx(output3['sub_vol_fraction'], sc_vol_fraction, rtol=0.1)
+    assert_approx(output3['cem_vol_fraction'], 0.0, rtol=0.05)
+
+
 def test_computation_ratio():
     """
     testing minimal option of computation of the ratios

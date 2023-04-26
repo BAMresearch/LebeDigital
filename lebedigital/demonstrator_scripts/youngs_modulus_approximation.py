@@ -29,12 +29,3 @@ def youngs_modulus_approximation(fc,density) :
     youngs_modulus = 3320*np.sqrt(fc)+6895*(density/2320)**1.5
 
     return youngs_modulus
-
-
-if __name__ == "__main__":
-    # test while developing this
-    fc = np.array([30,90]) * ureg('MPa')
-    density = np.array([2400,2400]) * ureg('kg/m^3') # kg/m
-
-    E = youngs_modulus_approximation(fc,density)
-    print(E)

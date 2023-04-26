@@ -17,6 +17,7 @@ openBIS (that you use to log in normally)
 def pytest_addoption(parser):
     parser.addoption("--login", action="store", default="no_cl_login")
     parser.addoption("--password", action="store", default="no_cl_password")
+    parser.addoption("--url", action="store", default="https://localhost:8443/openbis/")
 
 
 # @pytest.fixture(scope='session', autouse=True)

@@ -1,0 +1,30 @@
+{
+    "alpha_t":{
+      "value":0.2,
+      "unit":"dimensionless"
+    },
+    "alpha_0":{
+      "value":0.05,
+      "unit":"dimensionless"
+    },
+    "a_E":{
+      "value":0.6,
+      "unit":"dimensionless"
+    },
+    "a_fc":{
+      "value":0.4,
+      "unit":"dimensionless"
+    },
+    "a_ft":{
+      "value":1.2,
+      "unit":"dimensionless"
+    },
+    "T_0":{
+      "value":10,
+      "unit":"degree_Celsius"
+    } ,
+    "T_bc1":{
+      "value":15,
+      "unit":"degree_Celsius"
+    }
+}
