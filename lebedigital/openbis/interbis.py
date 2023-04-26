@@ -319,7 +319,7 @@ class Interbis(Openbis):
         else:
             raise ValueError('No correct level specified')
 
-    def get_sample_type_properties(self, sample_type: str) -> pd.DataFrame:
+    def get_sample_type_properties(self, sample_type: Union[SampleType, str]) -> pd.DataFrame:
         """
         Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
@@ -329,8 +329,11 @@ class Interbis(Openbis):
         Returns:
             pd.DataFrame: DataFrame of all properties with their attributes
         """
+        if isinstance(sample_type, str):
+            sample_type = self.get_sample_type(sample_type)
+
         # Getting a list of all the sample's properties
-        props_list = list(self.get_sample_type(sample_type)
+        props_list = list(sample_type
                           .get_property_assignments()
                           .df['propertyType'])
 
