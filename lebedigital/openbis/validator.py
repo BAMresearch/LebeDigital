@@ -1,6 +1,14 @@
 from lebedigital.openbis.interbis import Interbis
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, validator
+from typing import Optional, Union
+from pybis.entity_type import SampleType
 
-class SampleSkeleton(BaseModel):
-    pass
+class SampleBase(BaseModel):
+    type: Union[SampleType, str] = ""
+    space: str = ""
+    project: str = ""
+    experiment: str = ""
+    parents: Optional[list[str]] = [] 
+    children: Optional[list[str]] = [] 
+
+
