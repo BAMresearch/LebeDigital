@@ -183,7 +183,7 @@ rule beam_design:
         results = "Results/beam_design.json"
 
     run:
-        from lebedigital.demonstrator_scripts.beam_design import check_design
+        from lebedigital.demonstrator_scripts.beam_design import check_beam_design
          #merging contents of both dictionaries and individual variable inputs
 
         p = read_pint_dicts(input)
@@ -191,16 +191,20 @@ rule beam_design:
 
         results = {}
         # run script
-        results["check_steel_area"] =  check_design(span=p['length'],
-                                                    width=p['width'],
-                                                    height=p['height'],
-                                                    point_load = p["point_load"],
-                                                    distributed_load = p["distributed_load"],
-                                                    compr_str_concrete=p["fc"],
-                                                    yield_str_steel=p['steel_yield'],
-                                                    steel_dia=p['reinforcement_diameter'],
-                                                    n_bottom=p['n_reinforcement'],
-                                                    cover=p['concrete_cover'])
+        beam_design =  check_beam_design(span=p['length'],
+                                                         width=p['width'],
+                                                         height=p['height'],
+                                                         point_load=p["point_load"],
+                                                         distributed_load=p["distributed_load"],
+                                                         compr_str_concrete=p["fc"],
+                                                         yield_str_steel=p['steel_yield'],
+                                                         steel_dia_bu=p['stirrups_diameter'],
+                                                         cover_min=p['concrete_cover'])
+        results["n_reinforcement"] = beam_design["n_steel_bars"]
+        results["reinforcement_diameter"] = beam_design["diameter"]
+        # breakpoint()
+        # results["n_reinforcement"] = 17.0 * ureg("")
+        # results["reinforcement_diameter"] = 6 * ureg("m")
 
         write_pint_dict(results,output.results)
 

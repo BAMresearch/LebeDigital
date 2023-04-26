@@ -132,7 +132,7 @@ def check_beam_design(span: pint.Quantity,
                       yield_str_steel: pint.Quantity,
                       steel_dia_bu: pint.Quantity,
                       cover_min: pint.Quantity,
-                      ) -> dict:
+                      ) -> dict[str, pint.Quantity]:
     """
     Function to check specified design for area of steel
 
@@ -171,7 +171,9 @@ def check_beam_design(span: pint.Quantity,
                                                                      point_load,
                                                                      distributed_load)
 
-    acceptable_reinforcement_diameters = [6, 8, 10, 12, 14, 16, 20, 25, 28, 32, 40] * ureg('mm')
+    discrete_reinforcement = {'crosssection': np.nan, 'n_steel_bars': np.nan, 'diameter': np.nan}
+
+    acceptable_reinforcement_diameters = [6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 20.0, 25.0, 28.0, 32.0, 40.0] * ureg('mm')
     for diameter in acceptable_reinforcement_diameters:
 
         # set correct cover
@@ -190,13 +192,14 @@ def check_beam_design(span: pint.Quantity,
                                             cover)
 
         area = (np.pi * (diameter / 2) ** 2)  # mm^2
-        nsteel = max(2 * ureg(''), np.rint(required_area / area))  # rounds up
+        nsteel = max(2.0 * ureg(''), np.rint(required_area / area))  # rounds up
         if beam_check_spacing(diameter, nsteel, steel_dia_bu, width, cover):
             # found smalest diameter that has correct spacing
-            discrete_reinforcement = {'crosssection': area*nsteel, 'n_steel_bars': nsteel, 'diameter': diameter}
+
+            discrete_reinforcement['crosssection'] = area * nsteel
+            discrete_reinforcement['n_steel_bars'] = nsteel
+            discrete_reinforcement['diameter'] = diameter
             break
-        else:
-            discrete_reinforcement = {'crosssection': np.nan, 'n_steel_bars': np.nan, 'diameter': np.nan}
 
     return discrete_reinforcement
 
@@ -219,5 +222,3 @@ def beam_check_spacing(diameter_l, n_steel, diameter_bu, width, cover) -> bool:
         return False
     else:
         return True
-
-
