@@ -1,0 +1,6 @@
+{
+   "gwp_steel": {
+     "value" : 1000,
+     "unit" : "kg_CO2_eq/m**3"
+   }
+ }

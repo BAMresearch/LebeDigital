@@ -60,7 +60,6 @@ def read_pint_df(path):
 rule workflow_targets:
     input:
         "Results/gwp_beam.json",
-        "Results/beam_design.json",
         "Results/kpi_from_fem.json",
         'Results/demonstrator_beam.xdmf'
 
@@ -213,7 +212,9 @@ rule gwp_beam:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
         geometry = "Inputs/geometry.json",
+        steel_gwp = "Inputs/steel_gwp.json",
         results_gwp_mix = "Results/gwp_mix.json",
+        results_beam_design = "Results/beam_design.json",
 
     output:
         results = "Results/gwp_beam.json"
@@ -226,7 +227,9 @@ rule gwp_beam:
 
         results = {}
         # run script
-        results["gwp_mix"] = computation_GWP_per_part(p['gwp_mix'], p['width'], p['height'], p['length'])
+        results["gwp_beam"] = computation_GWP_per_part(p['gwp_mix'], p['gwp_steel'],
+                                                       p['width'], p['height'], p['length'],
+                                                       p['n_reinforcement'],p['reinforcement_diameter'])
 
         write_pint_dict(results,output.results)
 
