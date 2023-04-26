@@ -15,7 +15,8 @@ CONVERSION_DICT = {
     'REAL': float
 }
 
-class SampleBase(BaseModel):
+
+class AttrsValidatorr(BaseModel):
     space: str = ""
     project: str = ""
     experiment: str = ""
@@ -34,12 +35,5 @@ def generate_validator(interbis_obj: Interbis, sample_type: Union[SampleType, st
 
     return create_model(
         'Validator',
-        __base__=SampleBase,
         **property_function_input
     )
-
-
-
-
-
-
