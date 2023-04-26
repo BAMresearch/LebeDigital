@@ -2,22 +2,14 @@
 @prefix con: <http://w3id.org/concrete/> .
 @prefix mid: <https://purl.matolab.org/mseo/mid/> .
 @prefix ns3: <https://material-digital.de/pmdco/> .
-@prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-obo:RO_0000086 a owl:ObjectProperty .
-
 con:E-ModuleTestSpecimen_ a owl:NamedIndividual,
         mid:Specimen ;
-    obo:RO_0000086 con:SpecimenDiameter_,
-        con:SpecimenHeight_,
-        con:SpecimenLength_,
-        con:SpecimenWidth_ ;
     con:has_age con:SpecimenAge_ ;
     cco:designated_by con:SpecimenID_ ;
-    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
     cco:is_input_of con:SecantModulusOfElasticty_ .
 
 con:has_age a owl:ObjectProperty .
@@ -126,7 +118,6 @@ con:SecantModulusOfElasticty_ a con:SecantModulusOfElasticty,
     cco:has_decimal_value "$$EModule_Value$$"^^xsd:decimal ;
     cco:has_output con:ExperimentInfo_ ;
     cco:has_process_part con:Computation ;
-    cco:has_text_value "$$URI_Value$$"^^xsd:string ;
     ns3:hasPmdUnit ns3:Q107378499 ;
     mid:in_accordance_with con:DINEN12390-13:2021 .
 
@@ -135,29 +126,9 @@ con:SpecimenAge_ a con:Age,
     cco:has_decimal_value "$$SpecimenAge_Value$$"^^xsd:decimal ;
     ns3:hasPmdUnit cco:DayMeasurementUnit .
 
-con:SpecimenDiameter_ a cco:Diameter,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
-
-con:SpecimenHeight_ a cco:Height,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
-
 con:SpecimenID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
     cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
-
-con:SpecimenLength_ a cco:Length,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
-
-con:SpecimenWidth_ a cco:Width,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
 
 con:Transducer_ a con:MeasuringGauge,
         owl:NamedIndividual ;
@@ -168,17 +139,9 @@ cco:Day a owl:Class .
 
 cco:DayMeasurementUnit a owl:NamedIndividual .
 
-cco:Diameter a owl:Class .
-
 cco:Document a owl:Class .
 
-cco:Height a owl:Class .
-
-cco:Length a owl:Class .
-
 cco:NonNameIdentifier a owl:Class .
-
-cco:Width a owl:Class .
 
 ns3:Q107378499 a owl:NamedIndividual,
         ns3:PmdSiUnit .
@@ -198,7 +161,4 @@ ns3:Q56402798 a owl:NamedIndividual,
 mid:RawDataSet a owl:Class .
 
 ns3:PmdSiUnit a owl:Class .
-
-ns3:Q174789 a owl:NamedIndividual,
-        ns3:PmdSiUnit .
 
