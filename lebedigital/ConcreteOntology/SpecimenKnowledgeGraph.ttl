@@ -14,11 +14,16 @@ con:TestSpecimen_ a owl:NamedIndividual,
     obo:RO_0000086 con:SpecimenDiameter_,
         con:SpecimenHeight_,
         con:SpecimenLength_,
+        con:SpecimenMass_,
         con:SpecimenWidth_ ;
-    cco:designated_by <http://w3id.org/concrete/&&Shape_Quality&&>,
-        con:MixtureID,
-        con:SpecimenID_ ;
-    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string .
+    con:has_name "$$SpecimenName_Value$$"^^xsd:string ;
+    con:has_shape <http://w3id.org/concrete/&&SpecimenShape&&> ;
+    cco:designated_by con:MixtureID_,
+        con:SpecimenID_ .
+
+con:has_name a owl:DatatypeProperty .
+
+con:has_shape a owl:ObjectProperty .
 
 cco:designated_by a owl:ObjectProperty .
 
@@ -34,22 +39,37 @@ ns3: a owl:Ontology .
 
 ns3:hasPmdUnit a owl:ObjectProperty .
 
-<http://w3id.org/concrete/&&Shape_Quality&&> a cco:ShapeQuality,
+<http://w3id.org/concrete/$$SpecimenDiameter_Unit$$> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/$$SpecimenHeight_Unit$$> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/$$SpecimenLength_Unit$$> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/$$SpecimenMass_Unit$$> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/$$SpecimenWidth_Unit$$> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/&&SpecimenShape&&> a cco:ShapeQuality,
         owl:NamedIndividual .
 
-con:MixtureID a cco:NonNameIdentifier,
+con:MixtureID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
     cco:has_text_value "$$MixtureID_Value$$"^^xsd:string .
 
 con:SpecimenDiameter_ a cco:Diameter,
         owl:NamedIndividual ;
     cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
+    ns3:hasPmdUnit <http://w3id.org/concrete/$$SpecimenDiameter_Unit$$> .
 
 con:SpecimenHeight_ a cco:Height,
         owl:NamedIndividual ;
     cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
+    ns3:hasPmdUnit <http://w3id.org/concrete/$$SpecimenHeight_Unit$$> .
 
 con:SpecimenID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
@@ -58,12 +78,17 @@ con:SpecimenID_ a cco:NonNameIdentifier,
 con:SpecimenLength_ a cco:Length,
         owl:NamedIndividual ;
     cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
+    ns3:hasPmdUnit <http://w3id.org/concrete/$$SpecimenLength_Unit$$> .
+
+con:SpecimenMass_ a cco:Mass,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenMass_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/$$SpecimenMass_Unit$$> .
 
 con:SpecimenWidth_ a cco:Width,
         owl:NamedIndividual ;
     cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
-    ns3:hasPmdUnit ns3:Q174789 .
+    ns3:hasPmdUnit <http://w3id.org/concrete/$$SpecimenWidth_Unit$$> .
 
 cco:Diameter a owl:Class .
 
@@ -71,16 +96,15 @@ cco:Height a owl:Class .
 
 cco:Length a owl:Class .
 
+cco:Mass a owl:Class .
+
 cco:ShapeQuality a owl:Class .
 
 cco:Width a owl:Class .
-
-ns3:PmdSiUnit a owl:Class .
 
 mid:Specimen a owl:Class .
 
 cco:NonNameIdentifier a owl:Class .
 
-ns3:Q174789 a owl:NamedIndividual,
-        ns3:PmdSiUnit .
+ns3:PmdSiUnit a owl:Class .
 
