@@ -184,17 +184,17 @@ def main():
     # input file for raw data
     parser.add_argument('-i', '--input', help='Path to raw data file')
     # output file for metadata yaml
-    parser.add_argument('-o', '--output', help='Path to extracted meta data yaml file')
+    parser.add_argument('-o', '--output', help='Path to extracted yaml files, one for emodule and one for specimen')
     args = parser.parse_args()
 
     # default values for testing of my script
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml',
+        args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml','../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testSpecimenData.yaml']
 
     # run extraction and write metadata file
-    emodul_metadata(args.input, args.output)
+    emodul_metadata(args.input, args.output[0],args.output[1])
 
 
 if __name__ == "__main__":
