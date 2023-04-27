@@ -6,8 +6,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://material-digital.de/pmdco/> .
 
-<https://material-digital.de/pmdco/> rdf:type owl:Ontology .
-
+<https://material-digital.de/pmdco> rdf:type owl:Ontology ;
+                                    <http://purl.org/dc/elements/1.1/title> "Platform Material Digital Core Ontology (pmdco)"@en ;
+                                    owl:versionInfo "1.0"^^xsd:string .
 #################################################################
 #    Object Properties
 #################################################################
@@ -48,19 +49,10 @@
 ###  https://material-digital.de/pmdco/execute
 :execute rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
-         owl:inverseOf :executedBy ;
          rdfs:domain :ProcessNode ;
          rdfs:range :Process ;
          rdfs:comment "This property represents which process node executes a process"@en ;
          rdfs:label "execute"@en .
-
-
-###  https://material-digital.de/pmdco/executedBy
-:executedBy rdf:type owl:ObjectProperty ;
-            rdfs:domain :Process ;
-            rdfs:range :ProcessNode ;
-            rdfs:comment "This property represents which process is executed by which process node."@en ;
-            rdfs:label "executed by"@en .
 
 
 ###  https://material-digital.de/pmdco/hasDataResource
@@ -71,28 +63,12 @@
                  rdfs:label "has data resource"@en .
 
 
-###  https://material-digital.de/pmdco/hasFinalProcess
-:hasFinalProcess rdf:type owl:ObjectProperty ;
-                 rdfs:domain :Process ;
-                 rdfs:range :Process ;
-                 rdfs:comment "This property is used to indicate the last process conducted by a process node in a series of processes conducted by the same process node."@en ;
-                 rdfs:label "has final process"@en .
-
-
 ###  https://material-digital.de/pmdco/hasHeaderField
 :hasHeaderField rdf:type owl:ObjectProperty ;
                 rdfs:domain :DataResource ;
                 rdfs:range :HeaderField ;
                 rdfs:comment "A description for each header field included in the blob represented by the data resource"@en ;
                 rdfs:label "has header field"@en .
-
-
-###  https://material-digital.de/pmdco/hasInitialProcess
-:hasInitialProcess rdf:type owl:ObjectProperty ;
-                   rdfs:domain :Process ;
-                   rdfs:range :Process ;
-                   rdfs:comment "This property is used to indicate the initial process conducted by a process node in a series of processes conducted by the same process node."@en ;
-                   rdfs:label "has initial process"@en .
 
 
 ###  https://material-digital.de/pmdco/hasInputObject
@@ -340,8 +316,8 @@
 #    Data properties
 #################################################################
 
-###  http://wikiba.se/ontology/quantityAmount
-<http://wikiba.se/ontology/quantityAmount> rdf:type owl:DatatypeProperty ;
+###  http://wikiba.se/ontology#quantityAmount
+<http://wikiba.se/ontology#quantityAmount> rdf:type owl:DatatypeProperty ;
                                            rdfs:domain <http://wikiba.se/ontology#QuantityValue> ;
                                            rdfs:range xsd:decimal ;
                                            rdfs:comment "Amount of quantity."@en ;
@@ -361,7 +337,8 @@
                            rdfs:domain :Object ;
                            rdfs:range xsd:string ;
                            rdfs:comment "A machine-readable identifier associated with a discernable, tangible or simulated entity that is intended to be unique in a given scope. Examples for scope include: a database storing object data or a supply chain principal creating its own identifiers for the reports it generates"@en ;
-                           rdfs:label "generated object identifier"@en .
+                           rdfs:label "generated object identifier"@en ,
+                                      "has generated object identifier"@en .
 
 
 ###  https://material-digital.de/pmdco/hasAcquisitionDate
@@ -418,7 +395,7 @@
                                                   )
                                     ] ;
                         rdfs:range xsd:string ;
-                        rdfs:comment "A machine-readable identifier that is intended to be unique in a given scope. Examples for scope include: a database storing process data or a *process node* creating its own identifiers for the reports it generates"@en ;
+                        rdfs:comment "A machine-readable identifier that is intended to be unique in a given scope."@en ;
                         rdfs:label "has generated identifier"@en .
 
 
@@ -445,7 +422,7 @@
                 rdfs:subPropertyOf :hasParameter ;
                 rdfs:domain :Process ;
                 rdfs:range rdfs:Literal ;
-                rdfs:comment "This property is used to describe parameters that are created by measurements of a process."@en ;
+                rdfs:comment "This property is used to describe parameters that are created by measurements of a process but that do not represent a quantity and are not associate to units."@en ;
                 rdfs:label "has measurement"@en .
 
 
@@ -455,6 +432,15 @@
                         rdfs:domain :Process ;
                         rdfs:range rdfs:Literal ;
                         rdfs:label "has metadata measurement"@en .
+
+
+###  https://material-digital.de/pmdco/hasModel
+:hasModel rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
+          rdfs:domain :ProcessNode ;
+          rdfs:range xsd:string ;
+          rdfs:comment "Process Node short description, e.g. \"Vacuum Furnace\""@en ;
+          rdfs:label "has model"@en .
 
 
 ###  https://material-digital.de/pmdco/hasNominalEndPosixTimestap
@@ -537,22 +523,6 @@
                           rdfs:label "has process node identifier"@en .
 
 
-###  https://material-digital.de/pmdco/hasProcessNodeManufacturer
-:hasProcessNodeManufacturer rdf:type owl:DatatypeProperty ;
-                            rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
-                            rdfs:comment "Process Node's manufacturer name, e.g.: \"Ipsen\" or \"UPC\""@en ;
-                            rdfs:label "has process node manufacturer"@en .
-
-
-###  https://material-digital.de/pmdco/hasProcessNodeModel
-:hasProcessNodeModel rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
-                     rdfs:domain :ProcessNode ;
-                     rdfs:range xsd:string ;
-                     rdfs:comment "Process Node short description, e.g. \"Vacuum Furnace\""@en ;
-                     rdfs:label "has process node model"@en .
-
-
 ###  https://material-digital.de/pmdco/hasProcessNodeName
 :hasProcessNodeName rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
@@ -578,21 +548,6 @@
                        rdfs:range xsd:string ;
                        rdfs:comment "Process Node Version Number, e.g. \"2.24\""@en ;
                        rdfs:label "has process node version"@en .
-
-
-###  https://material-digital.de/pmdco/hasQualifyingProcessAnnotation
-:hasQualifyingProcessAnnotation rdf:type owl:DatatypeProperty ;
-                                rdfs:subPropertyOf :hasNominalMetadataParameter ;
-                                rdfs:label "has qualifying process annotation"@en .
-
-
-###  https://material-digital.de/pmdco/hasQualifyingProcessNodeAnnotation
-:hasQualifyingProcessNodeAnnotation rdf:type owl:DatatypeProperty ;
-                                    rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
-                                    rdfs:domain :ProcessNode ;
-                                    rdfs:range xsd:string ;
-                                    rdfs:comment "Description for Process Node's utility, e.g. \"Rear Vacuum Furnace Oil Quenching\""@en ;
-                                    rdfs:label "has qualifying process node annotation"@en .
 
 
 ###  https://material-digital.de/pmdco/hasSecondaryMeasurement
@@ -632,9 +587,18 @@
                        rdfs:label "has supplied identifier"@en .
 
 
+###  https://material-digital.de/pmdco/hasTypeDescription
+:hasTypeDescription rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :hasProcessNodeCharacteristic ;
+                    rdfs:domain :ProcessNode ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Description for Process Node's utility, e.g. \"Rear Vacuum Furnace Oil Quenching\""@en ;
+                    rdfs:label "has type description"@en .
+
+
 ###  https://material-digital.de/pmdco/hasUcumCode
 :hasUcumCode rdf:type owl:DatatypeProperty ;
-             rdfs:subPropertyOf :hasUnitLabel ;
+             rdfs:subPropertyOf owl:topDataProperty ;
              rdfs:domain :PmdSiUnit ;
              rdfs:range rdfs:Literal ;
              rdfs:comment "This property is used the enrich a unit with its common used label within the UCUM vocabulary"@en ;
@@ -656,13 +620,22 @@
                            rdfs:label "has header field characteristic"@en .
 
 
-###  https://material-digital.de/pmdco/methodDescriptor
-:methodDescriptor rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf :hasNominalMetadataParameter ;
-                  rdfs:domain :Process ;
-                  rdfs:range xsd:string ;
-                  rdfs:comment "A label or key-word that is part of a finite list of descriptors categorizing the procedure used by a process node, e.g. carbourising"@en ;
-                  rdfs:label "method descriptor"@en .
+###  https://material-digital.de/pmdco/isFinalProcessNode
+:isFinalProcessNode rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :hasNominalMetadataParameter ;
+                    rdfs:domain :Process ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:comment "This property is used to indicate the last process conducted by a process node in a series of processes conducted by the same process node."@en ;
+                    rdfs:label "is final process node"@en .
+
+
+###  https://material-digital.de/pmdco/isInitialProcessNode
+:isInitialProcessNode rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :hasNominalMetadataParameter ;
+                      rdfs:domain :Process ;
+                      rdfs:range xsd:boolean ;
+                      rdfs:comment "This property is used to indicate the first process conducted by a process node in a series of processes conducted by the same process node."@en ;
+                      rdfs:label "is initial process node"@en .
 
 
 ###  https://material-digital.de/pmdco/objectCharacteristics
@@ -797,9 +770,9 @@ represented by the sum of material properties and material structure"""@en ;
 
 ###  https://material-digital.de/pmdco/NonTransformativeAnalysisProcess
 :NonTransformativeAnalysisProcess rdf:type owl:Class ;
-                                  rdfs:subClassOf :AnalysisProcess ;
-                                  rdfs:comment "An analysis process that is also a non-transformative process"@en ;
-                                  rdfs:label "Non Transformative Analysis Process"@en .
+                                rdfs:subClassOf :AnalysisProcess ;
+                                rdfs:comment "An analysis process that is also a non-transformative process"@en ;
+                                rdfs:label "Non Transformative Analysis Process"@en .
 
 
 ###  https://material-digital.de/pmdco/Object
@@ -823,7 +796,7 @@ In PMD, a process is conducted via process nodes and has a discernable duration 
 
 ###  https://material-digital.de/pmdco/ProcessNode
 :ProcessNode rdf:type owl:Class ;
-             rdfs:comment "A workflow constituent that facilitates process instances, e.g. a service, tool, or machine."@en ;
+             rdfs:comment "A constituent that consumes and creates the objects in a process. The enabler of manufacture process steps, analysis process steps or simulation process steps. A process node realizes transformative processes and/or non-transformative processes."@en ;
              rdfs:label "ProcessNode"@en .
 
 
@@ -839,11 +812,11 @@ In PMD, a process is conducted via process nodes and has a discernable duration 
                 rdfs:label "Simulation Node"@en .
 
 
-###  https://material-digital.de/pmdco/TransformativeAnalysisProcess
-:TransformativeAnalysisProcess rdf:type owl:Class ;
-                               rdfs:subClassOf :AnalysisProcess ;
-                               rdfs:comment "An analysis process that is also a transformative process"@en ;
-                               rdfs:label "Transformative Analysis Process"@en .
+###  https://material-digital.de/pmdco/TranformativeAnalysisProcess
+:TranformativeAnalysisProcess rdf:type owl:Class ;
+                              rdfs:subClassOf :AnalysisProcess ;
+                              rdfs:comment "An analysis process that is also a transformative process"@en ;
+                              rdfs:label "Tranformative Analysis Process"@en .
 
 
 ###  https://material-digital.de/pmdco/Voxel
