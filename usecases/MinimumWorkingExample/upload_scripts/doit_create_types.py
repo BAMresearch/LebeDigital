@@ -19,30 +19,70 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  emodul_directory_path: Union[Path, str],
                                  config: dict,
                                  default_props: dict,
-                                 logging_path: Union[Path, str]):
-    if config['runson'] == 'actions':
+                                 logging_path: Union[Path, str],):
+
+    if config['runson'] == 'nodb':
         _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
                          emodul_sample_type='RAN ON ACTIONS',
                          logging_path=logging_path)
         return
 
     # connecting to datastore
-    o = Interbis(config['datastore_url'])
+    o = Interbis(config['datastore_url'], verify_certificates=False if config['runson'] == 'docker' else True)
     o.connect_to_datastore(username=config['user'], password=config['pw'])
 
+    ingredient_code = config['ingredient_metadata']['ingredient_code']
+    ingredient_prefix = config['ingredient_metadata']['ingredient_prefix']
+    ingredient_props = config['ingredient_metadata']['ingredient_props']
+    ingredient_keywords = config['ingredient_metadata']['ingredient_keywords']
+
+    ingredient_sample_type = o.create_sample_type(ingredient_code, ingredient_prefix, ingredient_props)
+
+    ingredient_hint_props = config['ingredient_metadata']['ingredient_hint_props']
+    ingredient_hint_created_props = o.create_property_types(ingredient_hint_props)
+
+    ingredient_hint_created_props = list(ingredient_hint_created_props.keys())
+    # logging.warning(ingredient_hint_created_props)
+
     # creating union dict
-    mix_union_dict = _create_union_yaml(
+    mix_union_dict = _create_union_dict(
         yaml_directory_path=Path(mixture_directory_path),
         output_path=None,
         mixture_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
         defaults_dict=default_props)
 
+    # filtering out ingredient_keywords
+    water_cement_ratio_prop = mix_union_dict.pop(f"EXPERIMENTAL_STEP_{config['mixture_prefix']}.water_cement_ratio")
+    filtered_mix_union_dict = {key: val for key, val in mix_union_dict.items() if not [keyword for keyword in ingredient_keywords if keyword in key]}
+    filtered_mix_union_dict[f"EXPERIMENTAL_STEP_{config['mixture_prefix']}.water_cement_ratio"] = water_cement_ratio_prop
+
     mixture_sample_type = o.create_sample_type(
         sample_code=f"EXPERIMENTAL_STEP_{config['mixture_prefix']}",
         sample_prefix=config['mixture_prefix'],
-        sample_properties=mix_union_dict,
+        sample_properties=filtered_mix_union_dict,
     )
     logging.debug(f'mixture type created: {mixture_sample_type.code}')
+
+    # filtered_ingredient_union_list = [key.split('--')[0].split('.')[1] for key in mix_union_dict if key not in filtered_mix_union_dict]
+    # set_ingredients = list(set(filtered_ingredient_union_list))
+    # logging.warning(set_ingredients)
+
+    annotations = [{
+        "TYPE": ingredient_hint_created_props[0], # quantity in mix
+        "MANDATORY": True,
+    },
+        {
+        "TYPE": ingredient_hint_created_props[1], # volume
+        "MANDATORY": False
+    }]
+
+    o.create_parent_hint(
+        sample_type=mixture_sample_type,
+        label="Emodul Raw Material",
+        parent_type=ingredient_sample_type,
+        annotation_properties=annotations,
+        min_count=2
+    )
 
     metadata_path = Path(emodul_directory_path, os.fsdecode(os.listdir(emodul_directory_path)[0]))
 
@@ -63,12 +103,13 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
 
     _create_logfiles(mixture_sample_type=mixture_sample_type.code,
                      emodul_sample_type=emodul_sample_type.code,
+                     ingredient_sample_type=ingredient_sample_type.code,
                      logging_path=logging_path)
 
     o.logout()
 
 
-def _create_union_yaml(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
+def _create_union_dict(yaml_directory_path: Path, output_path: Union[Path, None], mixture_code: str,
                        defaults_dict: dict) -> dict:
     union_dict = defaults_dict
     for file in os.scandir(yaml_directory_path):
@@ -155,7 +196,7 @@ def _create_unit_vocabularies(o: Interbis, length_vocab_name: str = 'LENGTH_VOCA
         ).save()
 
 
-def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str],
+def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_type: Union[SampleType, str], ingredient_sample_type: Union[SampleType, str],
                      logging_path: Union[Path, str]):
     with open(Path(logging_path, 'mixture_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': mixture_sample_type}))
@@ -164,3 +205,7 @@ def _create_logfiles(mixture_sample_type: Union[SampleType, str], emodul_sample_
     with open(Path(logging_path, 'emodul_sample_type.yaml'), 'w') as file:
         # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
         print(emodul_sample_type, file=file)
+
+    with open(Path(logging_path, 'ingredient_sample_type.yaml'), 'w') as file:
+        # file.write(yaml.dump({'Sample Type': emodul_sample_type}))
+        print(ingredient_sample_type, file=file)
