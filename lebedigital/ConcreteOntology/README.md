@@ -1,4 +1,5 @@
 ## Info
+- The CPTO Ontology is only for development and overview and DOES NOT work for mapping/usage
 - For each Ontology there is a drawio-file and a ttl file
 - The Mapping Example is moved to usecases/MinimumWorkingExample/Example_Mapping
 - Moved all Base-Ontologies in the BaseOntology folder

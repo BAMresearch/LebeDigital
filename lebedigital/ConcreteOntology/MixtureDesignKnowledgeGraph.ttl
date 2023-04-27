@@ -15,7 +15,8 @@ con:ConcreteMixture_ a con:Mixture,
     cco:described_by con:RawDataFile_ ;
     cco:designated_by con:MixtureID_ ;
     cco:has_input con:ConcreteRawMaterials_ ;
-    cco:has_output con:CMix_ExperimentInfo_ .
+    cco:has_output con:CMix_ExperimentInfo_ ;
+    cco:has_text_value "$$URI_Value$$"^^xsd:string .
 
 cco:described_by a owl:ObjectProperty .
 
