@@ -7,6 +7,7 @@ import yaml
 from pathlib import Path
 import argparse
 import warnings
+import uuid
 
 
 # the function read each line and return metadata as key and value
@@ -24,7 +25,8 @@ def replace_comma(string):
 
 
 def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
-    """Return a dictionary with extracted metadata
+    """Returns two dictionaries: one with extracted emodule-metadata and one with
+    extracted specimen metadata.
 
     Parameters
     ----------
@@ -37,12 +39,16 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
 
     Returns
     -------
-    metadata : dict
-        Return the dictionary with the extracted metadata
+    metadata_emodule : dict
+        Return the dictionary with the extracted metadata for emodule
+    metadata_specimen : dict
+        Return the dictionary with specimen metadata
+    
     """
 
     # create empty dictionary for metadata
-    metadata = {}
+    metadata_emodule = {}
+    metadata_specimen = {}
 
     # read raw data file
     with open(str(rawDataPath)+'/'+str(specimen_file), encoding="utf8", errors='ignore') as data:
@@ -56,11 +62,11 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
         lines = data.readlines()
 
         # set software header - This data has no placeholder yet.
-        metadata['software_specification'] = get_metadata_in_one_line(lines[0])[0] 
+        metadata_emodule['software_specification'] = get_metadata_in_one_line(lines[0])[0] 
 
         # specific testing machine and software version this script is optimized for
         # - This data has no placeholder yet.
-        assert metadata['software_specification'] == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A' 
+        assert metadata_emodule['software_specification'] == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A' 
 
         # get empty lines (where start and end the header)
         emptyLineIndex = []
@@ -78,72 +84,84 @@ def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
         ###########  D A T A   A B O U T    E X P E R I M E N T  #######
 
         # name of experiment is the folder name of the data file
-        metadata['ExperimentName'] = folderName  # This data has no placeholder yet.
+        metadata_emodule['ExperimentName'] = folderName  # This data has no placeholder yet.
 
         # get experiment date and time
         date, time = serviceInformation[0][4].split(' ')
-        metadata['ExperimentTime'] = str(time) # operator_timestamp
-        metadata['ExperimentDate'] = str(date) # operator_date
+        metadata_emodule['ExperimentTime'] = str(time) # operator_timestamp
+        metadata_emodule['ExperimentDate'] = str(date) # operator_date
 
         # get measurement duration  
-        metadata['MeasurementDuration'] = float(replace_comma(serviceInformation[10][2]))
+        metadata_emodule['MeasurementDuration'] = float(replace_comma(serviceInformation[10][2]))
 
         # operator name - This data has no placeholder yet.
-        metadata['tester_name'] = serviceInformation[2][1] 
+        metadata_emodule['tester_name'] = serviceInformation[2][1] 
 
         # remarks - This data has no placeholder yet.
-        metadata['remark'] = serviceInformation[4][1]
+        metadata_emodule['remark'] = serviceInformation[4][1]
 
         # set experiment lab location to BAM
-        metadata['Lab'] = 'BAM'
+        metadata_emodule['Lab'] = 'BAM'
 
         # set Compression and Transducer Column
-        metadata['CompressionColumn'] = 0
-        metadata['TransducerColumn'] = [1,2,3]
+        metadata_emodule['CompressionColumn'] = 0
+        metadata_emodule['TransducerColumn'] = [1,2,3]
 
         # set paths
-        metadata['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
-        metadata['RawDataFile'] = os.path.join(rawDataPath,specimen_file) # path to specimen.dat
+        metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
+        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath,specimen_file) # path to specimen.dat
         try:
             with open(str(rawDataPath)+'/'+ str(mix_file), encoding="utf8", errors='ignore') as mix_data:
                 lines = mix_data.readlines()
                 lines = lines[0].strip()
                 dataPath = Path(rawDataPath).parents[1]
-                metadata['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
+                metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
         except:
-            metadata['MixDataFile'] = None
+            metadata_emodule['MixDataFile'] = None
 
 
         ###########  D A T A   A B O U T    S P E C I M E N #######
 
-        # name of specimen 
-        metadata['SpecimenName'] = serviceInformation[3][1] 
+        # name of specimen (human readable)
+        metadata_emodule['SpecimenName'] = metadata_specimen['SpecimenName'] = serviceInformation[3][1] 
+
+        # ID of specimen (machine readable)
+        specimenID = str(uuid.uuid4())
+        metadata_emodule['SpecimenID'] = metadata_specimen['SpecimenID'] = specimenID
 
         # set specimen age to 28 days
-        metadata['SpecimenAge'] = 28.0
+        metadata_emodule['SpecimenAge'] = 28.0
+        metadata_emodule['SpecimenAge_Unit'] = 'day'
 
-        # weight - This data has no placeholder yet.
-        metadata['SpecimenWeight'] = float(replace_comma(serviceInformation[5][1]))
+        # weight 
+        metadata_specimen['SpecimenWeight'] = float(replace_comma(serviceInformation[5][1]))
+        metadata_specimen['SpecimenWeight_Unit'] = 'g'
 
         # set size of specimen
-        metadata['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1])) #diameter
-        metadata['SpecimenLength'] = float(replace_comma(serviceInformation[7][1])) #length
-        if metadata['SpecimenDiameter'] > metadata['SpecimenLength']:
-            dir_name = metadata['ExperimentName']
+        metadata_specimen['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1])) #diameter
+        metadata_specimen['SpecimenDiameter_Unit'] = 'mm'
+        metadata_specimen['SpecimenLength'] = float(replace_comma(serviceInformation[7][1])) #length
+        metadata_specimen['SpecimenLength_Unit'] = 'mm'
+        if metadata_specimen['SpecimenDiameter'] > metadata_specimen['SpecimenLength']:
+            dir_name = metadata_emodule['ExperimentName']
             raise Exception(f'Diameter is larger then length, please fix the mistake in {dir_name}')
 
-    return metadata
+    return metadata_emodule, metadata_specimen
 
 
-def emodul_metadata(rawDataPath, metaDataFile):
-    """Creates a yaml file with extracted metadata
+def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
+    """Creates two yaml files with extracted metadata, one for emodule and one
+    for the specimen
 
     Parameters
     ----------
     rawDataFile : string
         Path to the raw data file
     metaDataFile : string
-        Path to the output data file
+        Path to the output data file for emodule metadata
+    specimenDataFile : string
+        Path to the output data file for specimen metadata
+
     """
 
     # define file names for each data set
@@ -151,11 +169,13 @@ def emodul_metadata(rawDataPath, metaDataFile):
     specimen_file = 'specimen.dat'
 
     # extracting the metadata
-    metadata = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file)
-
+    metadata, specimen = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file)
+    
     # writing the metadata to yaml file
     with open(metaDataFile, 'w') as yamlFile:
         yaml.dump(metadata, yamlFile)
+    with open(specimenDataFile, 'w') as yamlFile:
+        yaml.dump(specimen, yamlFile)
 
 
 def main():
@@ -171,7 +191,7 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml',
 
     # run extraction and write metadata file
     emodul_metadata(args.input, args.output)
