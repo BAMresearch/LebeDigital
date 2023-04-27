@@ -1,7 +1,8 @@
 file_names : {
   'workflowGraph': 'paper_workflow_graph.gv.pdf',
   'snakemakeGraph': 'snakemake_optimization_graph.pdf',
-  'homogenizationPlot': 'homogenization_figure.pdf'
+  'homogenizationPlot': 'homogenization_figure.pdf',
+  'beamDesignPlot': 'beam_design_figure.pdf'
 }
 homogenization_example_parameters : {
     'pasteE' : 30e9,
@@ -29,3 +30,21 @@ homogenization_example_parameters : {
     'aggregatesrho'  : 2600,
     'aggregatesrhounit' : 'kg/m^3'
 }
+beam_design_example_parameters : {
+        'beamExSpan': 675,
+        'beamExSpanUnit': 'cm',
+        'beamExWidth': 200,
+        'beamExWidthUnit': 'mm',
+        'beamExYieldStrSteel': 500,
+        'beamExYieldStrSteelUnit': 'N/mm^2',
+        'beamExSteelDiaBu': 10,
+        'beamExSteelDiaBuUnit': 'mm',
+        'beamExCoverMin': 2.5,
+        'beamExCoverMinUnit': 'cm',
+        'beamExHeightC': 450,
+        'beamExHeightCUnit': 'mm',
+        'beamExPointLoadC': 50,
+        'beamExPointLoadCUnit': 'kN',
+        'beamExComprStrConcreteC': 40,
+        'beamExComprStrConcreteCUnit': 'N/mm^2',
+    }
