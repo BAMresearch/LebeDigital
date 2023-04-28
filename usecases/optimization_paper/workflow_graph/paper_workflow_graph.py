@@ -64,13 +64,14 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('gwp','co2 computation volume')
     dot.node('co2 computation volume', 'GWP per part', color=process)
     dot.edge('geometry','co2 computation volume')
+    dot.edge('height','co2 computation volume')
     dot.edge('co2 computation volume','gwp total')
     dot.edge('cemI','co2 computation')
     dot.node('gwp total', 'GWP per part [kg CO2,eq]', color=kpi, shape='rectangle')
     dot.node('cemI', 'cement, slag, aggregate content \n[kg/m³]')
     dot.edge('volume computation', 'cemI')
     dot.edge('ratio_cemI_cemII','volume computation')
-    dot.node('aggregate content', 'aggregate/(water+cement volume ratio) [-]', color=input, shape='rectangle')
+    dot.node('aggregate content', 'aggregate/(water+cement volume ratio) [-]', color=input)
     dot.node('ratio_cemI_cemII', 'slag to cement ratio', color=input, shape='rectangle')
     dot.edge('w/c','volume computation')
     dot.node('w/c', 'water cement mass ratio [-]', color=input)
@@ -92,8 +93,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('concrete strength 28d', 'ft(fc)')
     dot.edge('geometry', 'load bearing capacity')
     dot.node('load bearing capacity', 'beam design', color= process)
-    dot.edge('load bearing capacity', 'kpi load bearing capacity')
-    dot.node('kpi load bearing capacity', 'relative A diff:\n(A_prop-A_req)/A_req', color=kpi, shape='rectangle')
     dot.node('fem model', 'fem model', color=process)
     dot.edge('fem model','fem output')
     dot.node('fem output', 'max temperature over time\nmax yield over time',)
@@ -129,9 +128,10 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.edge('concrete homogenization', 'concrete strength 28d')
     dot.edge('aggregate content','volume computation')
-    dot.node('geometry', 'cross section: width, height\n'
-                         'beam span (lenght)', color=input)
+    dot.node('height', 'beam height', color=input, shape='rectangle')
+    dot.node('geometry', 'beam width, beam lenght', color=input)
     dot.edge('geometry', 'fem model')
+    dot.edge('height', 'fem model')
     dot.edge('homogenized values', 'fem model')
     dot.node('homogenized values', 'concrete: density, nu, concrete thermal conductivity (kappa) \nconcrete heat capacity (C), heat release [J/m^3] \n concrete E 28 days [N/mm2]')
     dot.edge('concrete homogenization', 'homogenized values')
@@ -151,7 +151,6 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
 
     dot.node('strength data','concrete strength data', color=input)
     dot.edge('strength data','paste identifcation')
-    #dot.node('strength identifcation','strength parameter\nidentification', color=process)
 
 
     tex_node(dot,'paste identifcation',r'parameter identification: $\phi_{\mathrm{paste}}$', color=process)
@@ -194,13 +193,17 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('ratio_cemI_cemII','interpolation')
 
 
-    dot.node('steel', 'steel: diameter [mm],\n n bars', color=input)
-    dot.edge('steel', 'load bearing capacity')
+    dot.edge('steel', 'co2 computation volume')
+    dot.node('steel', 'steel: diameter [mm],\n n bars')
+    dot.edge('load bearing capacity', 'steel')
 
     dot.node('input beam', 'steel yield strenght [N/mm2]\n'
-                           'concrete: cover [mm]', color=input)
+                           'concrete: cover [mm]\n'
+                            'diameter stirrups [mm]', color=input)
     dot.edge('input beam', 'load bearing capacity')
-
+    dot.edge('height', 'load bearing capacity')
+    dot.node('GWP steel','GWP steel', color=input)
+    dot.edge('GWP steel', 'co2 computation volume')
 
     dot.node('fem input',' * initial and boundary temperature \n'
                          '* parameter ft(DoH): a_ft\n'
