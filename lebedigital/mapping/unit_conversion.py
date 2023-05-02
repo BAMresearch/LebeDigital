@@ -24,11 +24,12 @@ def unit_conversion(input_metadata):
     debug_counter = 0
 
     for key in keys:
-        if key[-4:] = "Unit":
-            keys[key] = "Successfully replaced this unit!" #placeholder for testing the conversion until I get a table with real data
+        if key[-4:] == "Unit":
+            input_metadata[key] = "Successfully replaced this unit!" #placeholder for testing the conversion until I get a table with real data
             debug_counter += 1
 
-    logger.debug("Replaced ", str(debug_counter), " units.")
+    logger.debug("Replaced units:")
+    logger.debug(str(debug_counter))
 
     output_metadata = input_metadata
 

@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 from loguru import logger
 import uuid
-#from lebedigital.mapping.unit_conversion import unit_conversion
+from lebedigital.mapping.unit_conversion import unit_conversion
 
 
 def load_metadata(dataPath):
@@ -70,8 +70,9 @@ def placeholderreplacement(
 
     # load metadata and get the keys
     metadata = load_metadata(metadataPath)
+    metadata = unit_conversion(metadata)
     keys = list(metadata.keys())  
-    #print(unit_conversion(metadata))
+
     # generate ID
     specimenID = str(uuid.uuid4())
 
@@ -165,3 +166,18 @@ def placeholderreplacement(
         with open(outputPath, 'w') as file:
             for line in lines:
                 file.write(line)
+
+
+# defining paths : ONTOLOGY
+ontoDir = Path(__file__).parents[1]
+ontoFile = "../lebedigital/ConcreteOntology/EModuleKnowledgeGraph.ttl"
+kgPath = os.path.join(ontoDir, ontoFile)
+
+# defining paths : METADATA
+dataDir = Path(__file__).parents[1]
+dataFile = "../lebedigital/mapping/testMetaData.yaml"
+dataPath = os.path.join(dataDir, dataFile)
+
+# creating mapped ttl
+mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
+placeholderreplacement(kgPath, dataPath)#, mappedOntoName)
