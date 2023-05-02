@@ -89,10 +89,12 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
         # get experiment date and time
         date, time = serviceInformation[0][4].split(' ')
         metadata_emodule['ExperimentTime'] = str(time) # operator_timestamp
+        metadata_emodule['ExperimentTime_Unit'] = None
         metadata_emodule['ExperimentDate'] = str(date) # operator_date
 
         # get measurement duration  
         metadata_emodule['MeasurementDuration'] = float(replace_comma(serviceInformation[10][2]))
+        metadata_emodule['MeasurementDuration_Unit'] = "s"
 
         # operator name - This data has no placeholder yet.
         metadata_emodule['tester_name'] = serviceInformation[2][1] 
@@ -105,7 +107,11 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
 
         # set Compression and Transducer Column
         metadata_emodule['CompressionColumn'] = 0
+        metadata_emodule['AppliedLoad_Unit'] = None
         metadata_emodule['TransducerColumn'] = [1,2,3]
+        metadata_emodule['MeasuringGauge_Unit'] = None
+
+        metadata_emodule['EModule_Value_Unit'] = None
 
         # set paths
         metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
@@ -175,7 +181,7 @@ def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
     with open(metaDataFile, 'w') as yamlFile:
         yaml.dump(metadata, yamlFile)
     with open(specimenDataFile, 'w') as yamlFile:
-        json.dump(specimen, yamlFile)
+        yaml.dump(specimen, yamlFile)
 
 
 def main():

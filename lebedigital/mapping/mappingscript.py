@@ -166,18 +166,3 @@ def placeholderreplacement(
         with open(outputPath, 'w') as file:
             for line in lines:
                 file.write(line)
-
-
-# defining paths : ONTOLOGY
-ontoDir = Path(__file__).parents[1]
-ontoFile = "../lebedigital/ConcreteOntology/EModuleKnowledgeGraph.ttl"
-kgPath = os.path.join(ontoDir, ontoFile)
-
-# defining paths : METADATA
-dataDir = Path(__file__).parents[1]
-dataFile = "../lebedigital/mapping/testMetaData.yaml"
-dataPath = os.path.join(dataDir, dataFile)
-
-# creating mapped ttl
-mappedOntoName = os.path.join(Path(__file__).parents[0], 'EmoduleMappedExmpl.ttl')
-placeholderreplacement(kgPath, dataPath)#, mappedOntoName)
