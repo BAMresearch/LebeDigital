@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 from loguru import logger
 import uuid
+#from lebedigital.mapping.unit_conversion import unit_conversion
 
 
 def load_metadata(dataPath):
@@ -70,7 +71,7 @@ def placeholderreplacement(
     # load metadata and get the keys
     metadata = load_metadata(metadataPath)
     keys = list(metadata.keys())  
-
+    #print(unit_conversion(metadata))
     # generate ID
     specimenID = str(uuid.uuid4())
 

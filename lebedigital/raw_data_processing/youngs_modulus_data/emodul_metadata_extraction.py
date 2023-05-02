@@ -24,7 +24,7 @@ def replace_comma(string):
     return string
 
 
-def extract_metadata_emodulus(rawDataPath,specimen_file,mix_file):
+def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
     """Returns two dictionaries: one with extracted emodule-metadata and one with
     extracted specimen metadata.
 
@@ -175,7 +175,7 @@ def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
     with open(metaDataFile, 'w') as yamlFile:
         yaml.dump(metadata, yamlFile)
     with open(specimenDataFile, 'w') as yamlFile:
-        yaml.dump(specimen, yamlFile)
+        json.dump(specimen, yamlFile)
 
 
 def main():
