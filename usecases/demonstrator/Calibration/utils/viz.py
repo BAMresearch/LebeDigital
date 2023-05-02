@@ -15,7 +15,7 @@ plt.rcParams['text.usetex'] = True
 mpl.rcParams['font.size'] = 16
 mpl.rcParams['legend.fontsize'] = 'large'
 mpl.rcParams['figure.titlesize'] = 'medium'
-mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath,bm}']
+#mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath,bm}']
 datetime = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 

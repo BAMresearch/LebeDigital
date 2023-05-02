@@ -31,7 +31,7 @@ plt.rcParams['text.usetex'] = True
 mpl.rcParams['font.size'] = 16
 mpl.rcParams['legend.fontsize'] = 'large'
 mpl.rcParams['figure.titlesize'] = 'medium'
-mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath,bm}']
+#mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath,bm}']
 datetime = datetime.now().strftime("%d_%m_%Y-%I_%M_%S_%p")
 
 # local imports
@@ -210,6 +210,44 @@ if optimization:
     phi_hydration = load_json(phi_hydration_path)
     phi_paste = load_json(phi_paste_path)
 
+    def _translate_design_variable_to_stochastic(x:dict):
+        """
+
+        Parameters
+        ----------
+        x (dict) with keys:
+        "mean" : the mean of the dist, assumed to be normal
+        "s.d" : the std of the dist
+
+        Returns
+        -------
+        q_x :  th.dist object
+        """
+        mean = x['mean']
+        sd = x['s.d']
+        assert mean.requires_grad == True, "The computational graph seems to be detached"
+        assert sd.requires_grad == True, "The computational graph seems to be detached"
+        q_x = th.distributions.Normal(mean,sd) #TODO: it just assumes normal now, can be log normal too.
+        return q_x
+
+    def _p_b_given_x(phi, x):
+        """
+        constract the stochstic node for b's for given phi and design variable x (slag)
+        Parameters
+        ----------
+        phi: (dict) should contain the keys "phi_mean""value", "phi_cov""value" (its nested dict)
+        x: the design variable (x_1 here)
+
+        Returns
+        -------
+
+        """
+        mu_b = phi['phi_mean']['value']
+        cov_b = phi['phi_cov']['value']
+        mean_b = th.matmul(th.tensor(mu_b)[:, :-1], x) + th.tensor(mu_b)[:, -1]
+        q_b = MVN(mean_b,th.as_tensor(cov_b))
+        return q_b
+
 
     def objective(x_1, x_2, **kwargs):
         """
@@ -223,32 +261,36 @@ if optimization:
 
         """
         if isinstance(x_2, dict):
-            mean = x_2['mean']
-            std = (x_2['std'])  # sigma is the input not sigma^2
-            # dist for design variable wrt grad is not there
-            assert mean.requires_grad == True
-            q_x_2 = th.distributions.Normal(mean, std)  # can use lognormal maybe to ensure +
-            print("using log Normal for x_2")
+            # mean = x_2['mean']
+            # std = (x_2['std'])  # sigma is the input not sigma^2
+            # # dist for design variable wrt grad is not there
+            # assert mean.requires_grad == True
+            # q_x_2 = th.distributions.Normal(mean, std)  # can use lognormal maybe to ensure +
+            # print("using log Normal for x_2")
+            q_x_2 = _translate_design_variable_to_stochastic(x=x_2)
             # q_x_2 = th.distributions.LogNormal(th.log(mean),std)
             # q_x_2 = th.distributions.LogNormal(mean, std)
 
-        # define dist of b_1
-        # TODO: write a class/fn for relation between design variable and latents
-        # get input from phi_hydration.json
-        mu_b_1 = phi_hydration['phi_mean']['value']
-        cov_b_1 = phi_hydration['phi_cov']['value']
-        mean_b_1 = th.matmul(th.tensor(mu_b_1)[:, :-1], x_1) + th.tensor(mu_b_1)[:, -1]
-        q_b_1 = MVN(mean_b_1, th.as_tensor(cov_b_1))
+        if isinstance(x_1,dict):
+            q_x_1 = _translate_design_variable_to_stochastic(x=x_1)
 
-        # define dist of b_2
-        # get input from phi_paste.json
-        mu_b_2 = phi_paste['phi_mean']['value']
-        cov_b_2 = phi_paste['phi_cov']['value']
-        # mean_b_2 = th.matmul(th.tensor(mu_b_2), x_1)
-        # TODO: dummy now, need to write a proper function
-        # mean_b_2 = th.tensor(mu_b_2) * (x_1+th.tensor(0.5))
-        mean_b_2 = th.matmul(th.tensor(mu_b_2)[:, :-1], x_1) + th.tensor(mu_b_2)[:, -1]
-        q_b_2 = MVN(mean_b_2, th.as_tensor(cov_b_2))
+
+        # define dist of b_1
+        # get input from phi_hydration.json
+        # mu_b_1 = phi_hydration['phi_mean']['value']
+        # cov_b_1 = phi_hydration['phi_cov']['value']
+        # mean_b_1 = th.matmul(th.tensor(mu_b_1)[:, :-1], x_1) + th.tensor(mu_b_1)[:, -1]
+        # q_b_1 = MVN(mean_b_1, th.as_tensor(cov_b_1))
+        #
+        # # define dist of b_2
+        # # get input from phi_paste.json
+        # mu_b_2 = phi_paste['phi_mean']['value']
+        # cov_b_2 = phi_paste['phi_cov']['value']
+        # # mean_b_2 = th.matmul(th.tensor(mu_b_2), x_1)
+        # # TODO: dummy now, need to write a proper function
+        # # mean_b_2 = th.tensor(mu_b_2) * (x_1+th.tensor(0.5))
+        # mean_b_2 = th.matmul(th.tensor(mu_b_2)[:, :-1], x_1) + th.tensor(mu_b_2)[:, -1]
+        # q_b_2 = MVN(mean_b_2, th.as_tensor(cov_b_2))
 
         num_samples = kwargs['num_samples']
 
@@ -267,45 +309,55 @@ if optimization:
             th.manual_seed(random_seed)
 
             # collect RV samples
-            b_1 = q_b_1.sample()
-            b_2 = q_b_2.sample()
             if isinstance(x_2, dict):
                 x_2 = q_x_2.sample()
+            if isinstance(x_1, dict):
+                x_1 = q_x_1.sample()
+            q_b_1 = _p_b_given_x(phi=phi_hydration,x=x_1)
+            q_b_2 = _p_b_given_x(phi=phi_paste,x=x_1)
+            b_1 = q_b_1.sample()
+            b_2 = q_b_2.sample()
 
             # intstance for objectives and constraints
             oc = objective_constraints_demonstrator(function)
             # define objetcive
-            obj = oc.objective(x_1=x_1.item(), x_2=x_2.item(), seed=random_seed)
+            # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y))
+            x_1_scaled = th.special.expit(x_1)
+            x_2_scaled = th.special.expit(x_2)
+            obj = oc.objective(x_1=x_1_scaled.item(), x_2=x_2_scaled.item(), seed=random_seed)
 
             # define constraints
             # --- Set inputs for the constraints
             time_max = th.tensor(3)
             temp_max = th.tensor(70)
-            max_agg_ratio = th.tensor(0.6)
+            max_agg_ratio = th.tensor(0.7)
             # workability constraint. Now temp that agg ratio < 0.6
             c_1 = 1e03
             c_2 = 0.1
             c_3 = 1
             c_4 = 1
-            C_x_1 = oc.constraint_1(x_1, x_2)  # design criterion
+            C_x_1 = oc.constraint_1(x_1_scaled, x_2_scaled)  # design criterion
             G_x_1 = c_1 * th.max(-th.as_tensor(C_x_1), th.tensor(0))
-            C_x_2 = oc.constraint_2(x_1, x_2)  # temp
+            C_x_2 = oc.constraint_2(x_1_scaled, x_2_scaled)  # temp
             G_x_2 = c_2 * th.max(th.as_tensor(C_x_2) - temp_max, th.tensor(0))
-            C_x_3 = oc.constraint_3(x_1, x_2)  # demoulding time
+            C_x_3 = oc.constraint_3(x_1_scaled, x_2_scaled)  # demoulding time
             G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
             G_x_4 = th.max(x_2 - max_agg_ratio, th.tensor(0))
             constraints = G_x_1 + G_x_2 + G_x_3 + G_x_4
 
             # with constraints
             c_o = 0.0001  # objective scaling
-            U_theta_holder.append(
-                (0.0001 * obj + constraints) * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
+            grad_est_obj = (c_o * obj)*(q_x_1.log_prob(x_1)+q_x_2.log_prob(x_2))
+            grad_est_cons = constraints*(q_x_1.log_prob(x_1)+q_x_2.log_prob(x_2))
+            U_theta_holder.append(grad_est_obj+grad_est_cons)
+            # w/o gradients
+            #U_theta_holder.append(grad_est_obj)
+
+            #U_theta_holder.append(
+            #    (0.0001 * obj + constraints) * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
 
             # without constraints
             # U_theta_holder.append(obj * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
-            # w/o constraints
-            # U_theta_holder.append((th.as_tensor(y)) * dist.log_prob(x_sample))
-
             # add to lists
             obj_holder.append(obj)
             C_1_holder.append(C_x_1)
@@ -326,7 +378,7 @@ if optimization:
     # beta = th.tensor(2 * th.log(sigma), requires_grad=True)
     # tmp = objective(x_1=th.tensor([0.4], requires_grad=True), x_2={'mean': [0.45], 'cov': th.exp(beta)}, num_samples=2)
 
-    def optimize(x1_init: list, x2_mu: list, x2_sigma: list, eps=0.001, verbose=True, lr=0.01, number_steps: int = 10,
+    def optimize(design_variables:dict, eps=0.001, verbose=True, lr=0.01, number_steps: int = 10,
                  number_samples: int = 1) -> None:
         """
 
@@ -346,17 +398,17 @@ if optimization:
 
         """
         # defining design variables
-        x_1 = th.tensor(x1_init, requires_grad=True)
-        x2_mean = th.tensor(x2_mu, requires_grad=True)
-        x2_sigma = th.tensor(x2_sigma)
-        beta = th.tensor(2 * th.log(x2_sigma), requires_grad=True)
-
-        # setting the bounds for design variables
-        th.clamp(x_1, min=0.0, max=1.0)
-        th.clamp(x2_mean, min=0.0, max=1.0)
+        #x_1 = th.tensor(x1_init, requires_grad=True)
+        x1_mean = th.tensor(design_variables['x_1']['mean'], requires_grad=True)
+        x1_sigma = th.tensor(design_variables['x_1']['s.d'])
+        beta_1 = th.tensor(2 * th.log(x1_sigma), requires_grad=True)
+        x2_mean = th.tensor(design_variables['x_2']['mean'], requires_grad=True)
+        x2_sigma = th.tensor(design_variables['x_2']['s.d'])
+        beta_2 = th.tensor(2 * th.log(x2_sigma), requires_grad=True)
 
         # defining optimizer
-        optimizer = th.optim.Adam([x_1, x2_mean, beta], lr=lr)
+        parameters = [x1_mean,beta_1,x2_mean,beta_2]
+        optimizer = th.optim.Adam(parameters, lr=lr)
 
         # value holders
         losses = []
@@ -373,7 +425,8 @@ if optimization:
             optimizer.zero_grad()
             # Y_b is the samples of the solver output for the last opt step.
             # loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
-            x_2 = {'mean': x2_mean, 'std': th.exp(0.5 * beta)}  # sigma = sqrt(esp(beta))
+            x_1 = {'mean': x1_mean, 's.d': th.exp(0.5 * beta_1)}
+            x_2 = {'mean': x2_mean, 's.d': th.exp(0.5 * beta_2)}  # sigma = sqrt(esp(beta))
             loss, obj_mean, C_1_mean, C_2_mean, C_3_mean = objective(x_1=x_1, x_2=x_2, num_samples=number_samples)
             # compute grads
             loss.backward()
@@ -384,34 +437,47 @@ if optimization:
             # # sigma_list.append(sigma)
             # x2_sigma_tracking.append(th.sqrt(th.exp(beta.clone().detach())))
             # grad_1.append(x_1.grad.clone().detach())
-
-            optimizer.step()
-
             if verbose:
                 # if num_steps % 5 == 0:
                 print(
-                    f"Iteration :{i + 1}, loss value: {loss}, x1: {x_1}, x2_mean: {x2_mean}, sigma value: {x2_sigma}"
-                    f",grad w.r.t x_1: {x_1.grad},,grad w.r.t x2_mean: {x2_mean.grad}"
+                    f"Iteration :{i + 1}, loss value: {loss}, x1: {x1_mean}, x2_mean: {x2_mean}, sigma value: {x2_sigma}"
+                    f",grad w.r.t x_1: {x1_mean.grad},,grad w.r.t x2_mean: {x2_mean.grad}"
                     f",grad w.r.t x2_sigma: {x2_sigma.grad}")
-            # if i > 0:
-            #     if th.norm(x_1 - x1_tracking[-2]) < eps:
-            #         print("----------------- Converged !! ----------------------")
-            #         break
-            # -----saving va
+
+
+            # taking optimizer step
+            optimizer.step()
+            # setting bounds for the design variables
+            # with th.no_grad(): # this works
+            #     x1_mean.clamp_(0.1,0.8)
+            #     x2_mean.clamp_(0.1,0.7) # agg ratio is set to 0.7 for workability contraints
+
             df = df.append({'loss': loss.item(), 'objective': obj_mean, 'C_1': C_1_mean,
-                              'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1': x_1.clone().detach().item(),
+                              'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1_mean': x1_mean.clone().detach().item(),
+                            'x_1_std': np.sqrt(np.exp(beta_1.clone().detach().item())),
                               'x_2_mean': x2_mean.clone().detach().item(),
-                              'x_2_std': np.sqrt(np.exp(beta.clone().detach().item())),
-                              'x_1_grad': x_1.grad.clone().detach().item(),
+                              'x_2_std': np.sqrt(np.exp(beta_2.clone().detach().item())),
+                              'x_1_mean_grad': x1_mean.grad.clone().detach().item(),
+                            'x_1_beta_grad': beta_1.grad.clone().detach().item(),
                               'x_2_mean_grad': x2_mean.grad.clone().detach().item(),
-                              'x_2_beta_grad': beta.grad.clone().detach().item()}
+                              'x_2_beta_grad': beta_2.grad.clone().detach().item()}
                              , ignore_index=True)
             df.to_csv('./Results/Optimization_results_tmp.csv',index=False)
 
         return df
 
 if __name__ == '__main__':
-    df = optimize(x1_init=[0.2], x2_mu=[0.3], x2_sigma=[0.1],number_steps=50,number_samples=35)
+    # x = 1/(1+e^(-y)), where y is the gaussian. so y = ln(x/(1-x)). So y mean and sd needs to be init by this.
+
+    x1_init = th.special.logit(th.tensor([0.25]))
+    x2_init = th.special.logit(th.tensor([0.35]))
+
+    design_variables = {'x_1': {'mean': [x1_init.item()] ,'s.d': [0.5]},
+                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.5]}}
+
+    #design_variables = {'x_1': {'mean': [0.25] ,'s.d': [0.5]},
+    #                    'x_2': {'mean': [0.35] ,'s.d': [0.5]}}
+    df = optimize(design_variables,lr =0.1,number_steps=50,number_samples=10)
     df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 
     # mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])

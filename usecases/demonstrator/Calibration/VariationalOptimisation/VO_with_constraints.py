@@ -121,7 +121,8 @@ def optimize(mu_init:float,eps =0.001, verbose = True) -> None:
     constraints = []
     x_inmdt = [] # Intermediate for tracking
     sigma_list = []
-    grad = []
+    grad_mu = []
+    grad_beta = []
     #Y_b_step = []
     num_steps = 150
     for i in range(num_steps):
@@ -136,14 +137,15 @@ def optimize(mu_init:float,eps =0.001, verbose = True) -> None:
         x_inmdt.append(mu.clone())
         #sigma_list.append(sigma)
         sigma_list.append(th.sqrt(th.exp(beta.clone())))
-        grad.append(th.norm(mu.grad.clone()))
+        grad_mu.append(th.norm(mu.grad.clone()))
+        grad_beta.append(th.norm(beta.grad.clone()))
         optimizer.step()
 
         #Y_b_step.append(Y_b)
 
         if verbose:
             #if num_steps % 5 == 0:
-            print(f"Iteration :{i+1}, loss value: {loss}, mu value: {mu}, sigma value: {sigma},grad w.r.t x: {mu.grad} ")
+            print(f"Iteration :{i+1}, loss value: {loss}, mu value: {mu}, sigma value: {sigma_list[i]},grad w.r.t mean: {mu.grad}, grad w.r.t beta {beta.grad} ")
         if i>0:
             if th.norm(mu - x_inmdt[-2]) < eps:
                 print("----------------- Converged !! ----------------------")
@@ -153,11 +155,13 @@ def optimize(mu_init:float,eps =0.001, verbose = True) -> None:
     #         'X_grad':th.stack(grad).detach().numpy(),
     #         }
     # df = pd.DataFrame(data=data)
-    return th.stack(x_inmdt).detach().numpy(), th.stack(sigma_list).detach().numpy()
+    return th.stack(x_inmdt).detach().numpy(), th.stack(sigma_list).detach().numpy(), \
+           th.stack(grad_mu).detach().numpy(),th.stack(grad_beta).detach().numpy()
 
 
 
-mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4.,-4.])
+
+mu_evolution_1, sigma_evolution_1, grad_mu, grad_beta = optimize(mu_init=[4.,-4.])
 mu_evolution_2, sigma_evolution_2 = optimize(mu_init=[-4.,0.]) # starting from constraint violation and crossing the optima
 
 x = np.arange(-5.0,5.0,0.1)
