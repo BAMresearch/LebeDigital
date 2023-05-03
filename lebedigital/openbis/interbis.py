@@ -9,22 +9,23 @@ from pybis import Openbis
 from pybis.entity_type import SampleType
 from typing import Optional, Union
 from pydantic import create_model, AnyUrl
+from pydantic.main import ModelMetaclass
 from enum import Enum
 from datetime import datetime
 
 
 CONVERSION_DICT = {
     'BOOLEAN': bool,
-    'DATE': datetime,
+    'DATE': datetime,  # TODO write a parser for datetimes
     'HYPERLINK': AnyUrl,
     'INTEGER': int,
     'MATERIAL': str,
-    'MULTILINE_VARCHAR': None,  # TODO find out how multilines are saved
+    'MULTILINE_VARCHAR': str,
     'OBJECT': str,
     'REAL': float,
     'TIMESTAMP': str,
     'VARCHAR': str,
-    'XML': None  # TODO find out how xmls are saved
+    'XML': str,  # TODO write a parser for XMLs
 }
 
 
@@ -49,7 +50,7 @@ class Interbis(Openbis):
             "create_parent_hint()",
             "set_parent_annotation()",
             "get_parent_annotation()",
-            "get_datatype_conversion()",
+            "_get_datatype_conversion()",
             "generate_validator()"
         ] + super().__dir__()
 
@@ -681,7 +682,7 @@ class Interbis(Openbis):
         response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
         return response
 
-    def get_datatype_conversion(self, property_name: str, property_datatype: str):
+    def _get_datatype_conversion(self, property_name: str, property_datatype: str):
         """
         Converts the openbis datatypes into python datatypes if possible, else a custom datatype
         Use with the `generate_validator` method
@@ -697,7 +698,7 @@ class Interbis(Openbis):
 
         return list[Enum('Vocabulary', vocabulary_enum_dict)]
 
-    def generate_validator(self, sample_type: Union[SampleType, str]):
+    def generate_validator(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
         """
         Generates a pydantic validator with property types saved in openbis for a given sample type
         """
@@ -706,9 +707,9 @@ class Interbis(Openbis):
 
         name_prop = property_dict.pop('$NAME')
 
-        property_function_input = {key.lower(): (self.get_datatype_conversion(key, val), None) for key, val in property_dict.items()}
+        property_function_input = {key.lower(): (self._get_datatype_conversion(key, val), None) for key, val in property_dict.items()}
 
-        property_function_input['$name'] = (self.get_datatype_conversion('$name', name_prop), ...)
+        property_function_input['$name'] = (self._get_datatype_conversion('$name', name_prop), ...)
 
         class Config:
             extra = "forbid"

@@ -122,7 +122,7 @@ def setup(pytestconfig):
         space=Constants.space.value,
         project=Constants.project.value,
         collection=Constants.collection_id.value,
-        code = Constants.testing_sample_name.value,
+        code=Constants.testing_sample_name.value,
     )
 
     sample.set_props({
@@ -176,7 +176,7 @@ def test_import_props_from_template(setup, pytestconfig):
 
     expected_sample_props = o.get_sample(Constants.testing_sample_identifier.value).props()
     expected_sample_props = {
-        key: val 
+        key: val
         for key, val in expected_sample_props.items()
         if key in checked_keys
     }
@@ -192,7 +192,7 @@ def test_get_sample_dict(setup, pytestconfig):
 
     sample_dict = o.get_sample_dict(Constants.testing_sample_identifier.value)
 
-    # Dict with: 
+    # Dict with:
     #   mentions of date removed
     #   removed permId
 
@@ -229,7 +229,6 @@ def test_get_sample_dict(setup, pytestconfig):
         'tags': [],
         'type': 'EXPERIMENTAL_STEP'
     }
-
 
     assert expected_sample_dict.items() <= sample_dict.items()
 
@@ -345,9 +344,9 @@ def test_get_sample_identifier(setup, pytestconfig):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("collection, should_pass", 
+@pytest.mark.parametrize("collection, should_pass",
                          [(Constants.collection.value, True),
-                         (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+                          (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_get_collection_identifier(setup, pytestconfig, collection, should_pass):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -413,3 +412,33 @@ def test_set_parent_hint(setup, pytestconfig):
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
 
     assert annotation[parent_sample.permId]['parentAnnotations']['ANNOTATION.SYSTEM.COMMENTS'] == comment_value
+
+
+@pytest.mark.login
+def test_generate_validator_passing(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample = o.new_sample(
+        type=Constants.sample_type.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value,
+    )
+
+    sample_props = {
+        "$name": "passing_sample_name",
+    }
+
+    sample_validator = o.generate_validator(Constants.sample_type.value)
+
+    sample_validator.validate(sample_props)
+
+    sample.set_props(sample_props)
+
+    sample.save()
+
+    created_samples_in_tests.append(sample.identifier)
+
+    sample.space = Constants.space.value
