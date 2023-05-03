@@ -39,10 +39,7 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
     min_height = 150
     max_height = 500
     height_unit = 'mm'
-
-
-
-
+    crosssection_unit = 'cm^2'
 
     def get_list(min,max,n):
         step = (max-min)/(n-1)
@@ -61,7 +58,7 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
                 try:
                     out = simple_setup(input_parameter, constant_height,fc ,load )
                     crosssection = out['crosssection']
-                    crosssection.ito('cm^2')
+                    crosssection.ito(crosssection_unit)
                     crosssection = crosssection.magnitude
                 except:
                     crosssection = np.nan
@@ -77,7 +74,7 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
                 try:
                     out = simple_setup(input_parameter, height,constant_fc,load )
                     crosssection = out['crosssection']
-                    crosssection.ito('cm^2')
+                    crosssection.ito(crosssection_unit)
                     crosssection = crosssection.magnitude
                 except:
                     crosssection = np.nan
@@ -95,7 +92,7 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
                 try:
                     out = simple_setup(input_parameter, height,fc,constant_load)
                     crosssection = out['crosssection']
-                    crosssection.ito('cm^2')
+                    crosssection.ito(crosssection_unit)
                     crosssection = crosssection.magnitude
                 except:
                     crosssection = np.nan
@@ -121,7 +118,7 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
 
             if colorbar:
                 cbar = plt.colorbar(cs)
-                cbar.set_label('cross section')
+                cbar.set_label(f'total steel cross section in {ureg(crosssection_unit).units}')
 
 
         fig, axs = plt.subplots(1, 3, figsize=(15, 5))
