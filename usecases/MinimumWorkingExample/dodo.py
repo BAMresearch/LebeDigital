@@ -386,6 +386,7 @@ def task_upload_to_openbis():
             'clean': [clean_targets],
         }
 
+@create_after(executed='extract_metadata_emodul')
 def task_perform_calibration():
     """Loop over the experiments and store the calibrated E in csv file. Each iteration generates four files
     viz. calibrated data.csv, displacement data used, load data used and the knowledge graph file containing the calibration details
@@ -436,7 +437,7 @@ def task_perform_calibration():
             'targets': [owl_file,displ_list,force_list,calibrated_data_file], # the files which are output for each calibration
             'clean': [clean_targets]
         }
-
+@create_after(executed='perform_calibration')
 def task_perform_prediction():
     # create folder, if it is not there
     Path(predicted_data_directory).mkdir(parents=True, exist_ok=True)
