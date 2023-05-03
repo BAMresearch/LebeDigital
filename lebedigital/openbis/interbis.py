@@ -8,7 +8,7 @@ import pandas as pd
 from pybis import Openbis
 from pybis.entity_type import SampleType
 from typing import Optional, Union
-from pydantic import BaseModel, create_model, Field, AnyUrl
+from pydantic import create_model, AnyUrl
 from enum import Enum
 from datetime import datetime
 
@@ -46,9 +46,11 @@ class Interbis(Openbis):
             "get_collection_identifier()",
             "exists_in_datastore()",
             "create_sample_type()",
-            "create_parent_hint()"
-            "set_parent_annotation()"
-            "get_parent_annotation()"
+            "create_parent_hint()",
+            "set_parent_annotation()",
+            "get_parent_annotation()",
+            "get_datatype_conversion()",
+            "generate_validator()"
         ] + super().__dir__()
 
     def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
@@ -679,7 +681,7 @@ class Interbis(Openbis):
         response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
         return response
 
-    def get_conversion(self, property_name: str, property_datatype: str):
+    def get_datatype_conversion(self, property_name: str, property_datatype: str):
         """
         Converts the openbis datatypes into python datatypes if possible, else a custom datatype
         Use with the `generate_validator` method
@@ -704,9 +706,9 @@ class Interbis(Openbis):
 
         name_prop = property_dict.pop('$NAME')
 
-        property_function_input = {key.lower(): (self.get_conversion(key, val), None) for key, val in property_dict.items()}
+        property_function_input = {key.lower(): (self.get_datatype_conversion(key, val), None) for key, val in property_dict.items()}
 
-        property_function_input['$name'] = (self.get_conversion('$name', name_prop), ...)
+        property_function_input['$name'] = (self.get_datatype_conversion('$name', name_prop), ...)
 
         class Config:
             extra = "forbid"
