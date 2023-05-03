@@ -6,10 +6,27 @@ import json
 import requests
 import pandas as pd
 from pybis import Openbis
-from pybis.sample import Sample
 from pybis.entity_type import SampleType
-
 from typing import Optional, Union
+from lebedigital.openbis.interbis import Interbis
+from pydantic import BaseModel, create_model, Field, AnyUrl
+from enum import Enum
+from datetime import datetime
+
+
+CONVERSION_DICT = {
+    'BOOLEAN': bool,
+    'DATE': datetime,
+    'HYPERLINK': AnyUrl,
+    'INTEGER': int,
+    'MATERIAL': str,
+    'MULTILINE_VARCHAR': None,  # TODO find out how multilines are saved
+    'OBJECT': str,
+    'REAL': float,
+    'TIMESTAMP': str,
+    'VARCHAR': str,
+    'XML': None  # TODO find out how xmls are saved
+}
 
 
 class Interbis(Openbis):
@@ -662,3 +679,34 @@ class Interbis(Openbis):
 
         response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
         return response
+
+    def get_conversion(self, property_name: str, property_datatype: str):
+        # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
+        if property_datatype in CONVERSION_DICT:
+            return CONVERSION_DICT[property_datatype]
+
+        vocabulary_name = self.get_property_type(property_name).vocabulary
+        vocabulary_df = self.get_vocabulary(vocabulary_name).get_terms().df
+        vocabulary_term_list = vocabulary_df['code'].to_list()
+        vocabulary_enum_dict = dict(zip(vocabulary_term_list, vocabulary_term_list))
+
+        return list[Enum('Vocabulary', vocabulary_enum_dict)]
+
+    def generate_validator(self, sample_type: Union[SampleType, str]):
+        property_df = self.get_sample_type_properties(sample_type)
+        property_dict = pd.Series(property_df.dataType.values, index=property_df.code).to_dict()
+
+        name_prop = property_dict.pop('$NAME')
+
+        property_function_input = {key.lower(): (self.get_conversion(key, val), None) for key, val in property_dict.items()}
+
+        property_function_input['$name'] = (self.get_conversion('$name', name_prop), ...)
+
+        class Config:
+            extra = "forbid"
+
+        return create_model(
+            'SampleType_Props_Validator',
+            **property_function_input,
+            __config__=Config
+        )

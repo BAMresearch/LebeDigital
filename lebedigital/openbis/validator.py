@@ -13,13 +13,13 @@ CONVERSION_DICT = {
     'DATE': datetime,
     'HYPERLINK': AnyUrl,
     'INTEGER': int,
-    'MATERIAL': None,
-    'MULTILINE_VARCHAR': None,
-    'OBJECT': None,
+    'MATERIAL': str,
+    'MULTILINE_VARCHAR': None,  # TODO find out how multilines are saved
+    'OBJECT': str,
     'REAL': float,
     'TIMESTAMP': str,
     'VARCHAR': str,
-    'XML': None
+    'XML': None  # TODO find out how xmls are saved
 }
 
 
