@@ -116,6 +116,12 @@ def beam_required_steel(
     fywd = fyk / gamma_s  # N/mm^2
     # Bending measurement (here with stress block) (Biegebemessung (hier mit Spannungsblock))
     mued = max_moment / (width * deff ** 2 * fcd)
+
+    # TODO: just testing
+    if mued >= 0.5:
+        # this basically breaks the minimum compressive strength boundary!!!
+        mued = 0.5
+
     xi = 0.5 * (1 + math.sqrt(1 - 2 * mued))
 
     return 1 / fywd * max_moment / (xi * deff)
@@ -199,7 +205,15 @@ def check_beam_design(span: pint.Quantity,
             discrete_reinforcement['crosssection'] = area * nsteel
             discrete_reinforcement['n_steel_bars'] = nsteel
             discrete_reinforcement['diameter'] = diameter
+            
             break
+        else:
+            # TODO: testing!!!!
+            discrete_reinforcement['crosssection'] = required_area
+            discrete_reinforcement['n_steel_bars'] = 2
+            discrete_reinforcement['diameter'] = 2 * np.sqrt(required_area / 2 / np.pi)
+
+
 
     return discrete_reinforcement
 
@@ -222,3 +236,21 @@ def beam_check_spacing(diameter_l, n_steel, diameter_bu, width, cover) -> bool:
         return False
     else:
         return True
+
+# TODO: just for development purpose
+if __name__ == "__main__":
+
+    width, height = section_dimension_rule_of_thumb(span=6.75*ureg('m'))
+    results = check_beam_design(span=6750*ureg('mm'),
+                                width=200*ureg('mm'),
+                                height=300*ureg('mm'),
+                                point_load=50*ureg('kN'),
+                                distributed_load=0*ureg('N/mm'),
+                                compr_str_concrete=20*ureg('N/mm^2'),
+                                yield_str_steel=500*ureg('N/mm^2'),
+                                steel_dia_bu=10*ureg('mm'),
+                                cover_min=2.5*ureg('cm'))
+
+    print(results['n_steel_bars'])
+    print(results['diameter'])
+    print(results['crosssection'])
