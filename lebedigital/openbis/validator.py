@@ -1,6 +1,7 @@
 from lebedigital.openbis.interbis import Interbis
-from pydantic import BaseModel, create_model, Field
-from typing import Optional, Union
+from pydantic import BaseModel, create_model, Field, AnyUrl
+from typing import Optional, Union, List
+from enum import Enum
 from pybis.entity_type import SampleType
 from datetime import datetime
 import os
@@ -9,24 +10,30 @@ import pprint
 
 CONVERSION_DICT = {
     'BOOLEAN': bool,
-    'CONTROLLEDVOCABULARY': None,
     'DATE': datetime,
+    'HYPERLINK': AnyUrl,
+    'INTEGER': int,
+    'MATERIAL': None,
+    'MULTILINE_VARCHAR': None,
+    'OBJECT': None,
+    'REAL': float,
     'TIMESTAMP': str,
     'VARCHAR': str,
-    'INTEGER': int,
-    'REAL': float
+    'XML': None
 }
 
 
-class AttrsValidatorr(BaseModel):
-    space: str = ""
-    project: str = ""
-    experiment: str = ""
-    parents: Optional[list[str]] = []
-    children: Optional[list[str]] = []
+def get_conversion(interbis_obj: Interbis, property_name: str, property_datatype: str):
+    # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
+    if property_datatype in CONVERSION_DICT:
+        return CONVERSION_DICT[property_datatype]
 
-    class Config:
-        title = 'sampletypeschema'
+    vocabulary_name = o.get_property_type(property_name).vocabulary
+    vocabulary_df = o.get_vocabulary(vocabulary_name).get_terms().df
+    vocabulary_term_list = vocabulary_df['code'].to_list()
+    vocabulary_enum_dict = dict(zip(vocabulary_term_list, vocabulary_term_list))
+
+    return list[Enum('Vocabulary', vocabulary_enum_dict)]
 
 
 def generate_validator(interbis_obj: Interbis, sample_type: Union[SampleType, str]):
@@ -35,9 +42,9 @@ def generate_validator(interbis_obj: Interbis, sample_type: Union[SampleType, st
 
     name_prop = property_dict.pop('$NAME')
 
-    property_function_input = {key: (CONVERSION_DICT[val], None) for key, val in property_dict.items()}
+    property_function_input = {key.lower(): (get_conversion(o, key, val), None) for key, val in property_dict.items()}
 
-    property_function_input['$name'] = (CONVERSION_DICT[name_prop], ...)
+    property_function_input['$name'] = (get_conversion(o, '$name', name_prop), ...)
 
     pp = pprint.PrettyPrinter(depth=4)
     pp.pprint(property_function_input)
@@ -46,7 +53,7 @@ def generate_validator(interbis_obj: Interbis, sample_type: Union[SampleType, st
         extra = "forbid"
 
     return create_model(
-        'Validator',
+        'SampleType_Props_Validator',
         **property_function_input,
         __config__=Config
     )
@@ -56,18 +63,17 @@ if __name__ == "__main__":
     o = Interbis(os.environ['OPENBIS_URL'])
     # print(o.is_session_active())
 
-    new_sample = o.new_sample('EXPERIMENTAL_STEP_EMODUL_MIX')
+    new_sample = o.new_sample('EXPERIMENTAL_STEP_EMODUL')
 
     new_sample_props = {
         '$name': 'test_name',
-        'experimental_step_emodul_mix.water_cement_ratio': 1.23,
-        'experimental_step_emodul_mix.admixture--volume': 'ABC',
+        'experimental_step_emodul.weight_unit': 'TWOSJTARY',
     }
 
-    new_sample.props = new_sample_props
+    new_sample.set_props(new_sample_props)
 
-    Model = generate_validator(o, 'EXPERIMENTAL_STEP_EMODUL_MIX')
+    Model = generate_validator(o, 'EXPERIMENTAL_STEP_EMODUL')
     print(Model)
-    print(Model.schema_json(indent=2))
+    # print(Model.schema_json(indent=2))
 
     Model.validate(new_sample.props.all_nonempty())
