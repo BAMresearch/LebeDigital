@@ -38,7 +38,7 @@ def wrapper_three_point_bending(parameter, known_input):
     return y.magnitude
 
 
-def perform_prediction(forward_solver:callable, parameter:list, known_input:float = 0.2, no_sample :int = 10, mode ='cheap', viz=False):
+def perform_prediction(forward_solver:callable, parameter:list, known_input:float = 0.2, no_sample :int = 50, mode ='cheap', viz=False):
     """
 
     Parameters

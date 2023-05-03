@@ -1,3 +1,5 @@
+# Atul : this is a sandbox file for the calibration, please let it be here
+
 import os
 from pathlib import Path
 import numpy as np
@@ -72,7 +74,7 @@ def task_perform_prediction():
     samples = df[0].tolist()
 
     # perform prediction
-    pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples)
+    pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples,mode=config['mode'])
 
     # store prediction in csv
     np.savetxt(os.path.join(predicted_data_directory,'prediction_with_'+calibrated_data+'.csv'),pos_pred,delimiter=',')
