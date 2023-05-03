@@ -67,7 +67,8 @@ if __name__ == "__main__":
 
     new_sample_props = {
         '$name': 'test_name',
-        'experimental_step_emodul.weight_unit': 'TWOSJTARY',
+        'experimental_step_emodul.weight_unit': 'GIGAGRAM',
+        'experimental_step_emodul.length_unit': 'M',
     }
 
     new_sample.set_props(new_sample_props)
