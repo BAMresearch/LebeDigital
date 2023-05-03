@@ -166,6 +166,8 @@ usecases/optimization_paper/optimization_workflow/Results/*
 *.out
 *.synctex.gz
 
+#flake8 config
+.flake8
 
 # openbis upload log file
 usecases/MinimumWorkingExample/logfile_openbis.txt

@@ -1,0 +1,232 @@
+{
+    "mainMenu": {
+        "showLabNotebook": true,
+        "showInventory": true,
+        "showStock": true,
+        "showObjectBrowser": true,
+        "showExports": true,
+        "showStorageManager": true,
+        "showAdvancedSearch": true,
+        "showArchivingHelper": true,
+        "showUnarchivingHelper": true,
+        "showTrashcan": true,
+        "showVocabularyViewer": true,
+        "showUserManager": true,
+        "showUserProfile": true,
+        "showZenodoExportBuilder": false,
+        "showBarcodes": false,
+        "showDatasets": true
+    },
+    "sampleTypeDefinitionsExtension": {
+        "ENTRY": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": true,
+            "SHOW_ON_NAV": true
+        },
+        "EXPERIMENTAL_STEP": {
+            "SAMPLE_PARENTS_HINT": [
+                {
+                    "LABEL": "General protocol",
+                    "TYPE": "GENERAL_PROTOCOL",
+                    "MIN_COUNT": 0,
+                    "ANNOTATION_PROPERTIES": [
+                        {
+                            "TYPE": "ANNOTATION.SYSTEM.COMMENTS",
+                            "MANDATORY": false
+                        }
+                    ]
+                }
+            ],
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": true,
+            "SHOW_ON_NAV": true
+        },
+        "GENERAL_ELN_SETTINGS": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "GENERAL_PROTOCOL": {
+            "SAMPLE_PARENTS_HINT": [
+                {
+                    "LABEL": "General protocol",
+                    "TYPE": "GENERAL_PROTOCOL",
+                    "MIN_COUNT": 0,
+                    "ANNOTATION_PROPERTIES": [
+                        {
+                            "TYPE": "ANNOTATION.SYSTEM.COMMENTS",
+                            "MANDATORY": false
+                        }
+                    ]
+                }
+            ],
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": true,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "ORDER": {
+            "SAMPLE_PARENTS_HINT": [
+                {
+                    "LABEL": "Requests",
+                    "TYPE": "REQUEST",
+                    "MIN_COUNT": 1,
+                    "ANNOTATION_PROPERTIES": []
+                }
+            ],
+            "SAMPLE_PARENTS_TITLE": "Requests",
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": true,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "PRODUCT": {
+            "SAMPLE_PARENTS_HINT": [
+                {
+                    "LABEL": "Suppliers",
+                    "TYPE": "SUPPLIER",
+                    "MIN_COUNT": 1,
+                    "MAX_COUNT": 1,
+                    "ANNOTATION_PROPERTIES": []
+                }
+            ],
+            "SAMPLE_PARENTS_TITLE": "Suppliers",
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": true,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "PUBLICATION": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "REQUEST": {
+            "SAMPLE_PARENTS_HINT": [
+                {
+                    "LABEL": "Products",
+                    "TYPE": "PRODUCT",
+                    "MIN_COUNT": 1,
+                    "MAX_COUNT": 1,
+                    "ANNOTATION_PROPERTIES": [
+                        {
+                            "TYPE": "ANNOTATION.REQUEST.QUANTITY_OF_ITEMS",
+                            "MANDATORY": true
+                        },
+                        {
+                            "TYPE": "ANNOTATION.SYSTEM.COMMENTS",
+                            "MANDATORY": false
+                        }
+                    ]
+                }
+            ],
+            "SAMPLE_PARENTS_TITLE": "Products from Catalog",
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": true,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "SEARCH_QUERY": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "STORAGE": {
+            "SAMPLE_PARENTS_DISABLED": true,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "STORAGE_POSITION": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "SUPPLIER": {
+            "SAMPLE_PARENTS_DISABLED": true,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": true,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        },
+        "UNKNOWN": {
+            "SAMPLE_PARENTS_DISABLED": false,
+            "SAMPLE_PARENTS_ANY_TYPE_DISABLED": false,
+            "SAMPLE_CHILDREN_DISABLED": false,
+            "SAMPLE_CHILDREN_ANY_TYPE_DISABLED": false,
+            "USE_AS_PROTOCOL": false,
+            "ENABLE_STORAGE": false,
+            "SHOW": false,
+            "SHOW_ON_NAV": false
+        }
+    },
+    "showDatasetArchivingButton": false,
+    "hideSectionsByDefault": true,
+    "inventorySpaces": [
+        "MATERIALS",
+        "METHODS",
+        "STORAGE",
+        "STOCK_CATALOG"
+    ],
+    "inventorySpacesReadOnly": [
+        "ELN_SETTINGS",
+        "STOCK_ORDERS",
+        "PUBLICATIONS"
+    ],
+    "dataSetTypeForFileNameMap": [],
+    "forceMonospaceFont": [],
+    "forcedDisableRTF": []
+}

@@ -46,10 +46,26 @@ openbis_config = {
     'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
     'emodul_prefix': 'EMODUL',
     'mixture_prefix': 'EMODUL_MIX',
+    'ingredient_metadata': {
+        'ingredient_code': "EMODUL_INGREDIENT",
+        'ingredient_prefix': "EMODUL_ING",
+        'ingredient_props': {"$name": ["VARCHAR", "Name", "Name"],
+                             "EMODUL_INGREDIENT.bulkdensity": ["REAL", "Bulk Density", "Bulk Density"],
+                             "EMODUL_INGREDIENT.annotation": ["VARCHAR", "source", "source"]},
+        'ingredient_keywords': ["cement", "water_total", "addition", "admixture", "aggregate"],
+        'ingredient_space': get_var("space", 'EMODUL'),
+        'ingredient_project': 'LEBEDIGITAL',
+        'ingredient_collection': 'LEBEDIGITAL_INGREDIENT_COLLECTION',
+        'ingredient_hint_props': {
+            'emodul.quantity_in_mix': ['REAL', 'quantity_in_mix', 'quantity_in_mix'],
+            'emodul.volume': ['REAL', 'volume', 'volume']
+        }
+
+    },
     'verbose': False,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on GitHub actions as they need a password to run
-    'runson': get_var('runson', 'actions'),
+    'runson': get_var('runson', 'nodb'),
     # this is here to have a check for the upload, when space does not match any space then the script will exit
     # except when this is set to "yes"
     'force_upload': get_var("force", "yes"),
@@ -60,6 +76,9 @@ openbis_config = {
 defaults_dict = {"operator_date": ["TIMESTAMP", "operator_date", "operator_date"],
                  "tester_name": ["VARCHAR", "tester_name", "tester_name"],
                  "$name": ["VARCHAR", "Name", "Name"]}
+
+# ingredient keywords for openbis
+ingredient_keywords = ["cement", "water_total", "addition", "admixture", "aggregate"]
 
 # parent directory of the minimum working example
 ParentDir = os.path.dirname(Path(__file__))
@@ -85,6 +104,10 @@ openbis_sample_types_directory = Path(
     openbis_directory, 'openbis_sample_types')
 # folder with calibrated data and the predictions for a provided case
 calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')
+
+Path(openbis_directory).mkdir(parents=True, exist_ok=True)
+Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
+Path(openbis_sample_types_directory).mkdir(parents=True, exist_ok=True)
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
@@ -283,7 +306,7 @@ def task_create_openbis_types():
                                                     metadata_emodulus_directory,
                                                     openbis_config,
                                                     defaults_dict,
-                                                    openbis_sample_types_directory])],
+                                                    openbis_sample_types_directory,])],
         'targets': [openbis_sample_types_directory],
         'clean': [clean_targets],
     }
@@ -343,10 +366,15 @@ def task_upload_to_openbis():
 
         yield {
             'name': metadata_file_path,
-            'actions': [(upload_to_openbis_doit,
-                         [metadata_file_path, processed_file_path, raw_data_file,
-                          mixture_metadata_file_path, mixture_data_path,
-                          openbis_samples_directory, openbis_config, defaults_dict])],
+            'actions': [(upload_to_openbis_doit, [
+                metadata_file_path, 
+                processed_file_path, 
+                raw_data_file,
+                mixture_metadata_file_path,
+                mixture_data_path,
+                openbis_samples_directory,
+                openbis_config,
+                defaults_dict])],
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],
