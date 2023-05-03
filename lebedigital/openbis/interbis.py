@@ -8,7 +8,6 @@ import pandas as pd
 from pybis import Openbis
 from pybis.entity_type import SampleType
 from typing import Optional, Union
-from lebedigital.openbis.interbis import Interbis
 from pydantic import BaseModel, create_model, Field, AnyUrl
 from enum import Enum
 from datetime import datetime
@@ -681,6 +680,10 @@ class Interbis(Openbis):
         return response
 
     def get_conversion(self, property_name: str, property_datatype: str):
+        """
+        Converts the openbis datatypes into python datatypes if possible, else a custom datatype
+        Use with the `generate_validator` method
+        """
         # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
         if property_datatype in CONVERSION_DICT:
             return CONVERSION_DICT[property_datatype]
@@ -693,6 +696,9 @@ class Interbis(Openbis):
         return list[Enum('Vocabulary', vocabulary_enum_dict)]
 
     def generate_validator(self, sample_type: Union[SampleType, str]):
+        """
+        Generates a pydantic validator with property types saved in openbis for a given sample type
+        """
         property_df = self.get_sample_type_properties(sample_type)
         property_dict = pd.Series(property_df.dataType.values, index=property_df.code).to_dict()
 
