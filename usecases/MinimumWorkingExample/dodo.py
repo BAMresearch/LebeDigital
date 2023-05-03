@@ -14,6 +14,9 @@ from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_process
     processed_data_from_rawdata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
     emodul_metadata
+from lebedigital.calibration.calibrationWorkflow import estimate_youngs_modulus
+from lebedigital.calibration.utils import read_exp_data_E_mod
+
 from lebedigital.shacl import validation as shacl
 
 # set a variable to define a cheap or full run
@@ -80,6 +83,8 @@ openbis_directory = Path(emodul_output_directory, 'openbis_upload')
 openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
 openbis_sample_types_directory = Path(
     openbis_directory, 'openbis_sample_types')
+# folder with calibrated data and the predictions for a provided case
+calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')
 
 # create folder, if it is not there
 Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)

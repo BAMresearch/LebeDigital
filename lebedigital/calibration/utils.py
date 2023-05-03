@@ -16,7 +16,7 @@ baseDir1 = baseDir1 /"knowledgeGraph"/"emodul"/"Data"
 
 # import emodul_query
 
-def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float) -> dict:
+def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float,vizualize=False) -> dict:
     """
     Reads in the experiment data for a specified experiment and stores the extracted results in the dict.
     The arguments to the provided by the Knowledge Graph.
@@ -37,7 +37,7 @@ def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float) ->
     results = {}
     results["length"] = length
     results["diameter"] = diameter
-    df = extract_third_load_cycle(data_path=file_path)
+    df = extract_third_load_cycle(data_path=file_path,vizualize=vizualize)
     df["displacement"] = (
         df["Transducer 1[mm]"] + df["Transducer 2[mm]"] + df["Transducer 3[mm]"]
     ) / 3

@@ -207,9 +207,9 @@ def estimate_youngs_modulus(
         )
     else:
         inference_data = emcee_solver.run_mcmc(
-            n_walkers=5,
-            n_steps=50,
-            n_initial_steps=10,
+            n_walkers=4,
+            n_steps=100,
+            n_initial_steps=20,
         )
 
     # export the results from the 'inference_data' object to the graph
