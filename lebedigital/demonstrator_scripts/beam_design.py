@@ -65,7 +65,7 @@ def max_bending_moment_and_shear_force(span: pint.Quantity,
             max_shear_force_dist_load + max_shear_force_point_load)
 
 
-@ureg.wraps('mm^2', ('mm', 'mm', 'N*mm', 'N/mm^2', 'N/mm^2', 'mm', 'mm', 'mm'))
+@ureg.wraps(('mm^2',''), ('mm', 'mm', 'N*mm', 'N/mm^2', 'N/mm^2', 'mm', 'mm', 'mm'))
 def beam_required_steel(
         width: pint.Quantity,
         height: pint.Quantity,
@@ -120,11 +120,40 @@ def beam_required_steel(
     # TODO: just testing
     if mued >= 0.5:
         # this basically breaks the minimum compressive strength boundary!!!
-        mued = 0.5
+        mued_eff = 0.5
+    else:
+        mued_eff = mued
 
-    xi = 0.5 * (1 + math.sqrt(1 - 2 * mued))
+    xi = 0.5 * (1 + math.sqrt(1 - 2 * mued_eff))
 
-    return 1 / fywd * max_moment / (xi * deff)
+    return 1 / fywd * max_moment / (xi * deff), 0.5 - mued   # TODO: new error measure
+
+
+@ureg.check('[length]','[length]', '[length]','[length]')
+def get_max_reinforcement(acceptable_reinforcement_diameters, width, cover_min, steel_dia_bu):
+    for diameter in reversed(acceptable_reinforcement_diameters):
+        if cover_min < diameter:
+            cover = diameter
+        else:
+            cover = cover_min
+
+        n_steel = 2 * ureg('')
+        # if two bars are too much, go to the lower diameter
+        if not beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
+            continue
+
+        while beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
+            max_diameter = diameter
+            max_n = n_steel
+            max_area = n_steel * np.pi * (diameter / 2) ** 2
+            n_steel += 1 * ureg('')
+
+        break
+    return max_area
+
+
+
+
 
 
 @ureg.check('[length]', '[length]', '[length]', '[force]', '[force]/[length]',
@@ -180,6 +209,10 @@ def check_beam_design(span: pint.Quantity,
     discrete_reinforcement = {'crosssection': np.nan, 'n_steel_bars': np.nan, 'diameter': np.nan}
 
     acceptable_reinforcement_diameters = [6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 20.0, 25.0, 28.0, 32.0, 40.0] * ureg('mm')
+
+    # get max reinforcement
+    max_reinforcement = get_max_reinforcement(acceptable_reinforcement_diameters, width, cover_min, steel_dia_bu)
+
     for diameter in acceptable_reinforcement_diameters:
 
         # set correct cover
@@ -188,7 +221,7 @@ def check_beam_design(span: pint.Quantity,
         else:
             cover = cover_min
 
-        required_area = beam_required_steel(width,
+        required_area, fc_error = beam_required_steel(width,
                                             height,
                                             max_moment,
                                             compr_str_concrete,
@@ -205,13 +238,21 @@ def check_beam_design(span: pint.Quantity,
             discrete_reinforcement['crosssection'] = area * nsteel
             discrete_reinforcement['n_steel_bars'] = nsteel
             discrete_reinforcement['diameter'] = diameter
-            
+            discrete_reinforcement['fc_error'] = fc_error
+            discrete_reinforcement['A_error'] = (max_reinforcement - discrete_reinforcement['crosssection'])/max_reinforcement
+
+
             break
         else:
             # TODO: testing!!!!
             discrete_reinforcement['crosssection'] = required_area
             discrete_reinforcement['n_steel_bars'] = 2
             discrete_reinforcement['diameter'] = 2 * np.sqrt(required_area / 2 / np.pi)
+            discrete_reinforcement['fc_error'] = fc_error
+            discrete_reinforcement['A_error'] = (max_reinforcement - discrete_reinforcement['crosssection'])/max_reinforcement
+
+
+
 
 
 
@@ -239,6 +280,7 @@ def beam_check_spacing(diameter_l, n_steel, diameter_bu, width, cover) -> bool:
 
 # TODO: just for development purpose
 if __name__ == "__main__":
+
 
     width, height = section_dimension_rule_of_thumb(span=6.75*ureg('m'))
     results = check_beam_design(span=6750*ureg('mm'),

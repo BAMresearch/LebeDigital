@@ -26,10 +26,6 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
     # TODO:
     #       integrate this into dodo and tex
 
-    constant_fc = input_parameter['beamExComprStrConcreteC'] * ureg(input_parameter['beamExComprStrConcreteCUnit'])
-    constant_height = input_parameter['beamExHeightC'] * ureg(input_parameter['beamExHeightCUnit'])
-    constant_load = input_parameter['beamExPointLoadC'] * ureg(input_parameter['beamExPointLoadCUnit'])
-
     min_fc = 1
     max_fc = 100
     fc_unit = 'N/mm^2'
@@ -45,110 +41,123 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
         step = (max-min)/(n-1)
         return np.arange(min, max+step, step)
 
+    def get_plot_lists(order_list, values_dict, input_parameter):
+        print(f'compute: {order_list[0]} - {order_list[1]}')
+        x_list = values_dict[order_list[0]]['list']
+        y_list = values_dict[order_list[1]]['list']
+        constant = values_dict[order_list[2]]['constant']
+
+
+        order_list = [0 if item == 'height' else item for item in order_list]
+        order_list = [1 if item == 'fc' else item for item in order_list]
+        order_list = [2 if item == 'load' else item for item in order_list]
+
+        crosssections = np.zeros(shape=(len(x_list), len(y_list)))
+        fc_errors = np.zeros(shape=(len(x_list), len(y_list)))
+        A_errors = np.zeros(shape=(len(x_list), len(y_list)))
+
+        values = [0,0,0]
+        values[order_list[2]] = constant
+        for i,x in enumerate(x_list):
+            values[order_list[0]] = x
+            for j,y in enumerate(y_list):
+                values[order_list[1]] = y
+
+                out = simple_setup(input_parameter,*values)
+                crosssection = out['crosssection']
+                crosssection.ito(crosssection_unit)
+                crosssection = crosssection.magnitude
+                crosssections[i][j] = crosssection
+                fc_errors[i][j] = out['fc_error']
+                A_errors[i][j] = out['A_error']
+
+        return crosssections, fc_errors, A_errors
+
+    def plot_contour(ax,x,y,Z,xlabel,ylabel,title,colorbar=False,max=None):
+        if not max:
+            max = np.nanmax(Z)
+
+        min = np.nanmin(Z)
+        # # TODO: testing...
+        # max = 16.08
+
+        n_levels = 8
+        level_step = max/(n_levels-1)
+        levels = np.arange(min,max+level_step,level_step)
+
+        # # TODO: testing:
+        # levels = np.append(levels, [200])
+
+        X, Y = np.meshgrid(y, x)
+        #cs = ax.contourf(X, Y, Z, vmin=0, vmax=max-level_step,levels=levels)
+        cs = ax.contourf(X, Y, Z, vmin=min, vmax=max-level_step, levels=levels)
+        ax.set_ylabel(xlabel)
+        ax.set_xlabel(ylabel)
+        ax.set_title(title)
+
+        if colorbar:
+            cbar = plt.colorbar(cs)
+            cbar.set_label(f'total steel cross section in {ureg(crosssection_unit).units}')
+
+
+    constant_fc = input_parameter['beamExComprStrConcreteC'] * ureg(input_parameter['beamExComprStrConcreteCUnit'])
+    constant_height = input_parameter['beamExHeightC'] * ureg(input_parameter['beamExHeightCUnit'])
+    constant_load = input_parameter['beamExPointLoadC'] * ureg(input_parameter['beamExPointLoadCUnit'])
+
+    # generate lists
     fc_list = get_list(min_fc, max_fc, n) * ureg(fc_unit)
     load_list = get_list(min_load,max_load,n) * ureg(load_unit)
     height_list = get_list(min_height,max_height,n) * ureg(height_unit)
 
-    if True:
-        print('compute: fc - load')
-        crossections_1 = np.zeros(shape=(len(fc_list), len(load_list)))
+    values = {'fc' : {'list' : get_list(min_fc, max_fc, n) * ureg(fc_unit),
+                      'constant' : input_parameter['beamExComprStrConcreteC'] * ureg(input_parameter['beamExComprStrConcreteCUnit'])},
+              'load': {'list': get_list(min_load,max_load,n) * ureg(load_unit),
+                       'constant': input_parameter['beamExPointLoadC'] * ureg(input_parameter['beamExPointLoadCUnit'])},
+              'height': {'list': get_list(min_height,max_height,n) * ureg(height_unit),
+                         'constant': input_parameter['beamExHeightC'] * ureg(input_parameter['beamExHeightCUnit'])}}
 
-        for i,fc in enumerate(fc_list):
-            for j,load in enumerate(load_list):
-                try:
-                    out = simple_setup(input_parameter, constant_height,fc ,load )
-                    crosssection = out['crosssection']
-                    crosssection.ito(crosssection_unit)
-                    crosssection = crosssection.magnitude
-                except:
-                    crosssection = np.nan
-                crossections_1[i][j] = crosssection
+    chosen_plots = [('fc', 'load', 'height'),
+                    ('height', 'load', 'fc'),
+                    ('height', 'fc', 'load')]
 
-    if True:
-        print('compute: height - load')
-        # plot height vs load
-        crossections_2 = np.zeros(shape=(len(height_list), len(load_list)))
-
-        for i,height in enumerate(height_list):
-            for j,load in enumerate(load_list):
-                try:
-                    out = simple_setup(input_parameter, height,constant_fc,load )
-                    crosssection = out['crosssection']
-                    crosssection.ito(crosssection_unit)
-                    crosssection = crosssection.magnitude
-                except:
-                    crosssection = np.nan
-                crossections_2[i][j] = crosssection
-
-
-    if True:
-        print('compute: height - fc')
-        #plot fc vs height
-
-        crossections_3 = np.zeros(shape=(len(height_list), len(fc_list)))
-
-        for i,height in enumerate(height_list):
-            for j,fc in enumerate(fc_list):
-                try:
-                    out = simple_setup(input_parameter, height,fc,constant_load)
-                    crosssection = out['crosssection']
-                    crosssection.ito(crosssection_unit)
-                    crosssection = crosssection.magnitude
-                except:
-                    crosssection = np.nan
-                crossections_3[i][j] = crosssection
+    # empty lists
+    crosssection_plots = [0]*len(chosen_plots)
+    fc_error_plots = [0]*len(chosen_plots)
+    A_error_plots = [0]*len(chosen_plots)
+    plot_values = {}
+    for i, plot in enumerate(chosen_plots):
+        crosssection_plots[i], fc_error_plots[i], A_error_plots[i] = get_plot_lists(plot, values, input_parameter)
+        plot_values[plot] = {'crosssections' : crosssection_plots[i],
+                             'fc_errors' : fc_error_plots[i],
+                             'A_errors' : A_error_plots[i]}
 
 
 
-        def plot_contour(ax,x,y,Z,xlabel,ylabel,title,colorbar=False,max=None):
-            if not max:
-                max = np.nanmax(Z)
 
-            # TODO: testing...
-            max = 16.08
-
-            n_levels = 8
-            level_step = max/(n_levels-1)
-            levels = np.arange(0,max+level_step,level_step)
-
-            # TODO: testing:
-            levels = np.append(levels, [200])
-
-            X, Y = np.meshgrid(y, x)
-            #cs = ax.contourf(X, Y, Z, vmin=0, vmax=max-level_step,levels=levels)
-            cs = ax.contourf(X, Y, Z, vmin=0, vmax=200,levels=levels)
-            ax.set_ylabel(xlabel)
-            ax.set_xlabel(ylabel)
-            ax.set_title(title)
+    fig, axs = plt.subplots(3, 3, figsize=(15, 12))
 
 
+    #max_crossection = max([np.nanmax(crossections_1),np.nanmax(crossections_2),np.nanmax(crossections_3)])
+    #    # plot figure 1
 
-            if colorbar:
-                cbar = plt.colorbar(cs)
-                cbar.set_label(f'total steel cross section in {ureg(crosssection_unit).units}')
+    for i, plot in enumerate(chosen_plots):
+        plot_contour(axs[0][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['crosssections'],
+                     xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
+                     ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
+                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
 
+        plot_contour(axs[1][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['fc_errors'],
+                     xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
+                     ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
+                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
 
-        fig, axs = plt.subplots(1, 3, figsize=(15, 5))
-        max_crossection = max([np.nanmax(crossections_1),np.nanmax(crossections_2),np.nanmax(crossections_3)])
-        # plot figure 1
-        plot_contour(axs[2],fc_list,load_list,crossections_1,
-                     xlabel=f'fc in {fc_list.units}',
-                     ylabel=f'load in {load_list.units}',
-                     title=f'height = {constant_height}',max=max_crossection, colorbar=True)
-        plot_contour(axs[1],height_list,load_list,crossections_2,
-                     xlabel=f'height in {height_list.units}',
-                     ylabel=f'load in {load_list.units}',
-                     title=f'fc = {constant_fc}',max=max_crossection)
-        plot_contour(axs[0],height_list,fc_list,crossections_3,
-                     xlabel=f'height in {height_list.units}',
-                     ylabel=f'fc in {fc_list.units}',
-                     title=f'load = {constant_load}',max=max_crossection)
+        plot_contour(axs[2][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['A_errors'],
+                     xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
+                     ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
+                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
 
-        # plt.subplots_adjust(wspace=0.4)
-        fig.tight_layout()
-
-        fig.savefig(fig_path)
-        #plt.show()
+    fig.tight_layout()
+    fig.savefig(fig_path)
 
 
 
