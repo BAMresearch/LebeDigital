@@ -429,6 +429,8 @@ def test_generate_validator_passing(setup, pytestconfig):
 
     sample_props = {
         "$name": "passing_sample_name",
+        "finished_flag": True,
+        "start_date": "05.05.2023 19:45",
     }
 
     sample_validator = o.generate_validator(Constants.sample_type.value)

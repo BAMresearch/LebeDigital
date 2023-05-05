@@ -8,10 +8,11 @@ import pandas as pd
 from pybis import Openbis
 from pybis.entity_type import SampleType
 from typing import Optional, Union
-from pydantic import create_model, AnyUrl
+from pydantic import create_model, AnyUrl, validator
 from pydantic.main import ModelMetaclass
 from enum import Enum
 from datetime import datetime
+from dateutil.parser import parse
 
 
 CONVERSION_DICT = {
@@ -711,11 +712,24 @@ class Interbis(Openbis):
 
         property_function_input['$name'] = (self._get_datatype_conversion('$name', name_prop), ...)
 
+        datetime_props = {key: val for key, val in property_dict.items() if isinstance(val, datetime)}
+
+        if datetime_props:
+
+            def datetime_correct_format(cls, v):
+                return parse(v).strftime(v, "%Y-%m-%d")
+
+            validators = {f"{key}_validator": validator(key)(datetime_correct_format) for key, val in datetime_props.items()}
+
+        else:
+            validators = {}
+
         class Config:
             extra = "forbid"
 
         return create_model(
             'SampleType_Props_Validator',
             **property_function_input,
-            __config__=Config
+            __config__=Config,
+            __validators__=validators
         )
