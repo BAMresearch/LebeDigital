@@ -55,9 +55,11 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
         crosssections = np.zeros(shape=(len(x_list), len(y_list)))
         fc_errors = np.zeros(shape=(len(x_list), len(y_list)))
         A_errors = np.zeros(shape=(len(x_list), len(y_list)))
+        constraint = np.zeros(shape=(len(x_list), len(y_list)))
 
         values = [0,0,0]
         values[order_list[2]] = constant
+        max_admissable_area = 0.0
         for i,x in enumerate(x_list):
             values[order_list[0]] = x
             for j,y in enumerate(y_list):
@@ -68,29 +70,48 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
                 crosssection.ito(crosssection_unit)
                 crosssection = crosssection.magnitude
                 crosssections[i][j] = crosssection
-                fc_errors[i][j] = out['fc_error']
-                A_errors[i][j] = out['A_error']
+                fc_errors[i][j] = out['constraint_min_fc']
+                A_errors[i][j] = out['constraint_max_steel_area']
+                constraint[i][j] = out['constraint_beam_design']
 
-        return crosssections, fc_errors, A_errors
+                if constraint[i][j] >= 0:
+                    if max_admissable_area < crosssections[i][j]:
+                        max_admissable_area = crosssections[i][j]
 
-    def plot_contour(ax,x,y,Z,xlabel,ylabel,title,colorbar=False,max=None):
+
+
+        return crosssections, fc_errors, A_errors, constraint, max_admissable_area
+
+    def plot_contour(ax,x,y,Z,color,linewidth,linestyle='solid'):
+        max = np.nanmax(Z)
+        min = np.nanmin(Z)
+
+        levels = [min-1,0.0,max+1]
+
+        X, Y = np.meshgrid(y, x)
+        ax.contour(X.magnitude, Y.magnitude, Z, colors=color, levels=levels, linewidths=linewidth, linestyles=linestyle)
+
+    def plot_contour_filled_white(ax,x,y,Z):
+        max = np.nanmax(Z)
+        min = np.nanmin(Z)
+        levels = [min-1,0.0]
+
+        X, Y = np.meshgrid(y, x)
+        ax.contourf(X.magnitude, Y.magnitude, Z, colors='white',levels=levels)
+
+    def plot_contour_filled(ax,x,y,Z,xlabel,ylabel,title,colorbar=False,max=None,min=None):
         if not max:
             max = np.nanmax(Z)
-
-        min = np.nanmin(Z)
-        # # TODO: testing...
-        # max = 16.08
+        if not min:
+            min = 0
+        max = max * 1.1
 
         n_levels = 8
         level_step = max/(n_levels-1)
         levels = np.arange(min,max+level_step,level_step)
 
-        # # TODO: testing:
-        # levels = np.append(levels, [200])
-
         X, Y = np.meshgrid(y, x)
-        #cs = ax.contourf(X, Y, Z, vmin=0, vmax=max-level_step,levels=levels)
-        cs = ax.contourf(X, Y, Z, vmin=min, vmax=max-level_step, levels=levels)
+        cs = ax.contourf(X.magnitude, Y.magnitude, Z, vmin=min, vmax=max-level_step, levels=levels)
         ax.set_ylabel(xlabel)
         ax.set_xlabel(ylabel)
         ax.set_title(title)
@@ -99,15 +120,6 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
             cbar = plt.colorbar(cs)
             cbar.set_label(f'total steel cross section in {ureg(crosssection_unit).units}')
 
-
-    constant_fc = input_parameter['beamExComprStrConcreteC'] * ureg(input_parameter['beamExComprStrConcreteCUnit'])
-    constant_height = input_parameter['beamExHeightC'] * ureg(input_parameter['beamExHeightCUnit'])
-    constant_load = input_parameter['beamExPointLoadC'] * ureg(input_parameter['beamExPointLoadCUnit'])
-
-    # generate lists
-    fc_list = get_list(min_fc, max_fc, n) * ureg(fc_unit)
-    load_list = get_list(min_load,max_load,n) * ureg(load_unit)
-    height_list = get_list(min_height,max_height,n) * ureg(height_unit)
 
     values = {'fc' : {'list' : get_list(min_fc, max_fc, n) * ureg(fc_unit),
                       'constant' : input_parameter['beamExComprStrConcreteC'] * ureg(input_parameter['beamExComprStrConcreteCUnit'])},
@@ -124,42 +136,50 @@ def beam_design_plot(input_parameter, n, fig_path:str = "beam_design_plot.pdf"):
     crosssection_plots = [0]*len(chosen_plots)
     fc_error_plots = [0]*len(chosen_plots)
     A_error_plots = [0]*len(chosen_plots)
+    constraint_plots = [0]*len(chosen_plots)
     plot_values = {}
+    max_plot_area = 0.0
     for i, plot in enumerate(chosen_plots):
-        crosssection_plots[i], fc_error_plots[i], A_error_plots[i] = get_plot_lists(plot, values, input_parameter)
+        crosssection_plots[i], fc_error_plots[i], A_error_plots[i], constraint_plots[i], max_admissible_area = get_plot_lists(plot, values, input_parameter)
+        if max_admissible_area > max_plot_area:
+            max_plot_area = max_admissible_area
+
         plot_values[plot] = {'crosssections' : crosssection_plots[i],
                              'fc_errors' : fc_error_plots[i],
-                             'A_errors' : A_error_plots[i]}
+                             'A_errors' : A_error_plots[i],
+                             'constraint' : constraint_plots[i]}
 
+    fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 
+    max_crosssection = 0.0
+    for plot in chosen_plots:
+        plot_max = np.nanmax(plot_values[plot]['crosssections'])
+        if plot_max > max_crosssection:
+            max_crosssection = plot_max
 
-
-    fig, axs = plt.subplots(3, 3, figsize=(15, 12))
-
-
-    #max_crossection = max([np.nanmax(crossections_1),np.nanmax(crossections_2),np.nanmax(crossections_3)])
-    #    # plot figure 1
+    max_crosssection = max_plot_area
 
     for i, plot in enumerate(chosen_plots):
-        plot_contour(axs[0][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['crosssections'],
-                     xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
-                     ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
-                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
+        colorbar_bool = False
+        if i+1 == len(chosen_plots):
+            colorbar_bool = True
 
-        plot_contour(axs[1][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['fc_errors'],
+        plot_contour_filled(axs[i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['crosssections'],
                      xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
                      ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
-                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
+                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=colorbar_bool, max=max_crosssection)
 
-        plot_contour(axs[2][i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['A_errors'],
-                     xlabel=f'{plot[0]} in {values[plot[0]]["list"].units}',
-                     ylabel=f'{plot[1]} in {values[plot[1]]["list"].units}',
-                     title=f'{plot[2]} = {values[plot[2]]["constant"]}', colorbar=True)
+        plot_contour_filled_white(axs[i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['constraint'])
+
+        plot_contour(axs[i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['fc_errors'],
+                     color='black', linewidth=3.0, linestyle='dashed')
+
+        plot_contour(axs[i], values[plot[0]]['list'], values[plot[1]]['list'], plot_values[plot]['A_errors'],
+                     color='black', linewidth=3.0, linestyle='dotted')
+
 
     fig.tight_layout()
     fig.savefig(fig_path)
-
-
 
 
 if __name__ == "__main__":

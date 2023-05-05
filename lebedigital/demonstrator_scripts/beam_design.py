@@ -105,6 +105,7 @@ def beam_required_steel(
     -------
     req_steel : with fixed pint units when appropriate (length in 'mm')
         Design of the reinforced beam section.
+    fc_constraint : checks if fc is fallen below the minimum. negative values are bad
     """
     # effective section depth
     deff = height - cover - steel_dia_bu - steel_dia / 2
@@ -117,20 +118,38 @@ def beam_required_steel(
     # Bending measurement (here with stress block) (Biegebemessung (hier mit Spannungsblock))
     mued = max_moment / (width * deff ** 2 * fcd)
 
-    # TODO: just testing
+    # when mued >= 0.5, xi cannot be computed, the compressive strength is to low
+    # this causes problems for the optimization scheme
+    # therefore we set an effective mued, which is wrong, but we have a constraint to check for that
     if mued >= 0.5:
-        # this basically breaks the minimum compressive strength boundary!!!
         mued_eff = 0.5
     else:
         mued_eff = mued
 
-    xi = 0.5 * (1 + math.sqrt(1 - 2 * mued_eff))
+    fc_constraint = 0.5 - mued
 
-    return 1 / fywd * max_moment / (xi * deff), 0.5 - mued   # TODO: new error measure
+    xi = 0.5 * (1 + math.sqrt(1 - 2 * mued_eff))
+    req_steel = 1 / fywd * max_moment / (xi * deff)
+
+    return req_steel, fc_constraint
 
 
 @ureg.check('[length]','[length]', '[length]','[length]')
-def get_max_reinforcement(acceptable_reinforcement_diameters, width, cover_min, steel_dia_bu):
+def get_max_reinforcement(acceptable_reinforcement_diameters : list, width, cover_min, steel_dia_bu):
+    """
+    computes the maximum reinforcement, that fits, based on geometry
+
+    Parameters
+    ----------
+    acceptable_reinforcement_diameters: list with possible diameters
+    width : width of the beam
+    cover_min : minimum concrete cover
+    steel_dia_bu: diameter of stirrups
+
+    Returns
+    -------
+    max_area: maximum area of steel reinforcement
+    """
     for diameter in reversed(acceptable_reinforcement_diameters):
         if cover_min < diameter:
             cover = diameter
@@ -142,9 +161,8 @@ def get_max_reinforcement(acceptable_reinforcement_diameters, width, cover_min, 
         if not beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
             continue
 
+        # for a level, that fits at least two bars, see what the maximum is
         while beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
-            max_diameter = diameter
-            max_n = n_steel
             max_area = n_steel * np.pi * (diameter / 2) ** 2
             n_steel += 1 * ureg('')
 
@@ -232,35 +250,51 @@ def check_beam_design(span: pint.Quantity,
 
         area = (np.pi * (diameter / 2) ** 2)  # mm^2
         nsteel = max(2.0 * ureg(''), np.rint(required_area / area))  # rounds up
-        if beam_check_spacing(diameter, nsteel, steel_dia_bu, width, cover):
-            # found smalest diameter that has correct spacing
 
+        # set constraints
+        discrete_reinforcement['constraint_min_fc'] = fc_error
+        discrete_reinforcement['constraint_max_steel_area'] = (max_reinforcement - required_area)/max_reinforcement
+
+        # combined constraint
+        if discrete_reinforcement['constraint_min_fc'] < 0.0 or\
+           discrete_reinforcement['constraint_max_steel_area'] < 0.0:
+            sign = -1
+        else:
+            sign = 1
+
+        discrete_reinforcement['constraint_beam_design'] = (sign * abs(discrete_reinforcement['constraint_min_fc']) *
+                                                            abs(discrete_reinforcement['constraint_max_steel_area']))
+
+        if beam_check_spacing(diameter, nsteel, steel_dia_bu, width, cover):
+            # found the smallest diameter that has correct spacing
             discrete_reinforcement['crosssection'] = area * nsteel
             discrete_reinforcement['n_steel_bars'] = nsteel
             discrete_reinforcement['diameter'] = diameter
-            discrete_reinforcement['fc_error'] = fc_error
-            discrete_reinforcement['A_error'] = (max_reinforcement - discrete_reinforcement['crosssection'])/max_reinforcement
-
-
             break
         else:
-            # TODO: testing!!!!
             discrete_reinforcement['crosssection'] = required_area
             discrete_reinforcement['n_steel_bars'] = 2
             discrete_reinforcement['diameter'] = 2 * np.sqrt(required_area / 2 / np.pi)
-            discrete_reinforcement['fc_error'] = fc_error
-            discrete_reinforcement['A_error'] = (max_reinforcement - discrete_reinforcement['crosssection'])/max_reinforcement
-
-
-
-
-
 
     return discrete_reinforcement
 
 
 @ureg.check('[length]', None, '[length]', '[length]', '[length]')
 def beam_check_spacing(diameter_l, n_steel, diameter_bu, width, cover) -> bool:
+    """
+
+    Parameters
+    ----------
+    diameter_l : diameter of the steel reinforcement in longitudinal direction
+    n_steel : number of steel bars
+    diameter_bu : diameter of the stirrups
+    width : width of the beam
+    cover : concrete cover
+
+    Returns
+    -------
+    bool : True when there is space for the given reinforcement, False, when not
+    """
     assert n_steel >= 2 * ureg('')
     # effective width for reinforcements
     b_eff = width - 2 * cover - 2 * diameter_bu
@@ -277,22 +311,3 @@ def beam_check_spacing(diameter_l, n_steel, diameter_bu, width, cover) -> bool:
         return False
     else:
         return True
-
-# TODO: just for development purpose
-if __name__ == "__main__":
-
-
-    width, height = section_dimension_rule_of_thumb(span=6.75*ureg('m'))
-    results = check_beam_design(span=6750*ureg('mm'),
-                                width=200*ureg('mm'),
-                                height=300*ureg('mm'),
-                                point_load=50*ureg('kN'),
-                                distributed_load=0*ureg('N/mm'),
-                                compr_str_concrete=20*ureg('N/mm^2'),
-                                yield_str_steel=500*ureg('N/mm^2'),
-                                steel_dia_bu=10*ureg('mm'),
-                                cover_min=2.5*ureg('cm'))
-
-    print(results['n_steel_bars'])
-    print(results['diameter'])
-    print(results['crosssection'])
