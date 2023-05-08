@@ -717,7 +717,7 @@ class Interbis(Openbis):
         if datetime_props:
 
             def datetime_correct_format(cls, v):
-                return parse(v).strftime("%Y-%m-%d")
+                return parse(v).strftime("%Y-%m-%d %H:%M")
 
             validators = {f"{key}_validator": validator(key, pre=True)(datetime_correct_format) for key, val in datetime_props.items()}
 
