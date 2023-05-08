@@ -17,7 +17,7 @@ from dateutil.parser import parse
 
 CONVERSION_DICT = {
     'BOOLEAN': bool,
-    'DATE': datetime,  # TODO write a parser for datetimes
+    'DATE': str,  # TODO write a parser for datetimes
     'HYPERLINK': AnyUrl,
     'INTEGER': int,
     'MATERIAL': str,
@@ -697,7 +697,7 @@ class Interbis(Openbis):
         vocabulary_term_list = vocabulary_df['code'].to_list()
         vocabulary_enum_dict = dict(zip(vocabulary_term_list, vocabulary_term_list))
 
-        return list[Enum('Vocabulary', vocabulary_enum_dict)]
+        return Enum('Vocabulary', vocabulary_enum_dict)
 
     def generate_validator(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
         """
@@ -712,20 +712,21 @@ class Interbis(Openbis):
 
         property_function_input['$name'] = (self._get_datatype_conversion('$name', name_prop), ...)
 
-        datetime_props = {key: val for key, val in property_dict.items() if isinstance(val, datetime)}
+        datetime_props = {key: val for key, val in property_dict.items() if key == "DATE" or key == "TIMESTAMP"}
 
         if datetime_props:
 
             def datetime_correct_format(cls, v):
-                return parse(v).strftime(v, "%Y-%m-%d")
+                return parse(v).strftime("%Y-%m-%d")
 
-            validators = {f"{key}_validator": validator(key)(datetime_correct_format) for key, val in datetime_props.items()}
+            validators = {f"{key}_validator": validator(key, pre=True)(datetime_correct_format) for key, val in datetime_props.items()}
 
         else:
             validators = {}
 
         class Config:
             extra = "forbid"
+            use_enum_values = True
 
         return create_model(
             'SampleType_Props_Validator',
