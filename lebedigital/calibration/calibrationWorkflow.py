@@ -72,7 +72,7 @@ def estimate_youngs_modulus(
     ----------
     experimental_data : dict
         Must contain the following keys:
-        - exp_name (str) : The name of the experiment
+        - exp_name (str) : The name of the experiment with file extension.
         - force : The force value (kN) array
         - displacement : The displacement array (mm)
         - height: The height of the sample (mm)
@@ -148,7 +148,7 @@ def estimate_youngs_modulus(
     # ============================================
     #     Add experimental data to the Inverse Problem
     # ============================================
-    experiment_name = exp_output["exp_name"]
+    experiment_name = os.path.splitext(exp_output['exp_name'])[0]
     y_test = exp_output["force"]  # in kN
     # add the experimental data
     problem.add_experiment(
@@ -188,7 +188,8 @@ def estimate_youngs_modulus(
     # dir_path = os.path.dirname(__file__)
     dir_path = calibrated_data_path
     # basename_owl = os.path.basename(__file__).split(".")[0] + ".owl"
-    basename_owl = os.path.basename(__file__).split(".")[0] + exp_output['exp_name'] + ".owl"
+    # if the file name has extension, take only the base name.
+    basename_owl = os.path.basename(__file__).split(".")[0] + experiment_name
     knowledge_graph_file = os.path.join(dir_path, basename_owl)
     export_knowledge_graph(problem, knowledge_graph_file, data_dir=dir_path)
 
@@ -202,7 +203,7 @@ def estimate_youngs_modulus(
     if mode == "cheap":
         inference_data = emcee_solver.run_mcmc(
             n_walkers=4,
-            n_steps=5,
+            n_steps=6,
             n_initial_steps=2,
         )
     else:
@@ -226,6 +227,6 @@ def estimate_youngs_modulus(
 
     # get the samples from the knowledge graph
     sample_dict = import_parameter_samples(knowledge_graph_file)
-    E_pos = sample_dict["E"]  # kN/mm2 ~ E_mean ~ 95E03N/mm2
+    E_pos = sample_dict["E"]  # kN/mm2 ~ E_mean ~ 30E03N/mm2
 
     return E_pos

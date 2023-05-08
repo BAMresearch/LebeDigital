@@ -96,9 +96,8 @@ class PosteriorPredictive:
         # Monte carlo step
         output = []
         for i in range(0, samples):
-            for i in range(0, samples):
-                y = self._forward_solver(self._parameter[i], self._known_input)
-                output.append(y)
+            y = self._forward_solver(self._parameter[i], self._known_input)
+            output.append(y)
 
         # get the posterior pred stats
         mean = np.mean(output, axis=0)

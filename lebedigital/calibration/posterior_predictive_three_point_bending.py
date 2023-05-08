@@ -1,6 +1,7 @@
 # third party imports
 import os
 from pathlib import Path
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -75,7 +76,7 @@ def perform_prediction(forward_solver:callable, parameter:list, known_input:floa
     )
 
     if mode == "cheap":
-        mean, sd = pos_pred.get_stats(samples=3)  # mean : ~365 N/mm2, sd = 30
+        mean, sd = pos_pred.get_stats(samples=5)  # mean : ~365 N/mm2, sd = 30
     else:
         mean, sd = pos_pred.get_stats(samples=no_sample)  # mean : ~365 N/mm2, sd = 30
     # ---- visualize posterior predictive
@@ -90,6 +91,7 @@ def perform_prediction(forward_solver:callable, parameter:list, known_input:floa
 
 if __name__ == "__main__":
     E_samples = [30.1,30.2,30.53,30.8,29.6]
+    random.shuffle(E_samples)
     pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,
                                   parameter=E_samples)
     print(pos_pred)

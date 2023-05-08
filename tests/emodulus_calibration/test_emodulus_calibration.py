@@ -3,6 +3,7 @@ from lebedigital.calibration.utils import read_exp_data_E_mod
 import pytest
 import numpy as np
 from pathlib import Path
+import os
 
 def test_emodulus_calibration():
     # defining paths and directories
@@ -23,7 +24,7 @@ def test_emodulus_calibration():
                                         calibrated_data_path=data_path, mode='cheap')
 
     # checking if the KG file for the calibration is created
-    assert (data_path / f'calibrationWorkflow{input_file}.owl').is_file()
+    assert (data_path / f'calibrationWorkflow{os.path.splitext(input_file)[0]}').is_file()
 
     # checking for the mean of the calibrated E modulus
     # Note : Somehow the seed in EMCEE deosnt seed to work.

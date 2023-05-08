@@ -1,4 +1,5 @@
 import os
+import random
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -406,11 +407,21 @@ def task_perform_calibration():
             processed_data_emodulus_directory)
         list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
     for f in list_exp_name:
+        calibrated_data_expwise = os.path.join(calibrated_data_directory,f) # create new folder for each exp
+        try:
+            # Create the directory
+            os.mkdir(calibrated_data_expwise)
+        except FileExistsError:
+            # Directory already exists, continue with the next one
+            continue
+
+        # read in the metadata for each exp
         exp_metadata_path = os.path.join(metadata_emodulus_directory, f + '.yaml')
         with open(exp_metadata_path) as file:
             data = yaml.safe_load(file)
         diameter = float(data['diameter'])
-        length = float(data['length'])
+        #length = float(data['length'])
+        length = 100 # as suggested here :https://github.com/BAMresearch/LebeDigital/pull/152#discussion_r1187107430
 
         def calibrate_it(path_exp_data=processed_data_emodulus_directory,path_calibrated_data=calibrated_data_directory,
                          exp_name=f):
@@ -420,19 +431,19 @@ def task_perform_calibration():
                                                 calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
                                                 calibrated_data_path=path_calibrated_data, mode=config['mode'])
             # store samples as csv
-            np.savetxt(os.path.join(calibrated_data_directory, f + '_calibrated_samples.csv'), E_samples, delimiter=',')
+            np.savetxt(os.path.join(calibrated_data_expwise, f + '_calibrated_samples.csv'), E_samples, delimiter=',')
         # current outputs
         ## -- output from probeye. dont really need it but for the time being
-        owl_file = Path(calibrated_data_directory, 'calibrationWorkflow' + f + '.csv.owl')
-        displ_list = Path(calibrated_data_directory, 'displacement_list_' + f + '.csv.dat')
-        force_list = Path(calibrated_data_directory, 'force_list_' + f + '.csv.dat')
+        owl_file = Path(calibrated_data_expwise, 'calibrationWorkflow' + f)
+        displ_list = Path(calibrated_data_expwise, 'displacement_list_' + f + '.dat')
+        force_list = Path(calibrated_data_expwise, 'force_list_' + f + '.dat')
         #another_file = Path(calibrated_data_directory, 'joint_samples_compression_test_calibration.dat')
         ## -- created by the calibration script
-        calibrated_data_file = Path(calibrated_data_directory,f + '_calibrated_samples.csv')
+        calibrated_data_file = Path(calibrated_data_expwise,f + '_calibrated_samples.csv')
 
         yield {
             'name': f'calibrate {f}',
-            'actions': [(calibrate_it,[processed_data_emodulus_directory,calibrated_data_directory,f])],
+            'actions': [(calibrate_it,[processed_data_emodulus_directory,calibrated_data_expwise,f])],
             'file_dep': [exp_metadata_path,Path(processed_data_emodulus_directory,f+'.csv')], # the file dependancies, the metadata and exp files.
             'targets': [owl_file,displ_list,force_list,calibrated_data_file], # the files which are output for each calibration
             'clean': [clean_targets]
@@ -442,27 +453,38 @@ def task_perform_prediction():
     # create folder, if it is not there
     Path(predicted_data_directory).mkdir(parents=True, exist_ok=True)
 
-    # choose calibrated data to be used for prediction
-    calibrated_data = single_example_name
-    calibrated_data_path = os.path.join(calibrated_data_directory,calibrated_data+'_calibrated_samples.csv')
-    df = pd.read_csv(calibrated_data_path, header=None)
-    samples = df[0].tolist()
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap':
+        list_exp_name = [single_example_name]
+    else:  # go through all files
+        list_exp_name = os.listdir(
+            processed_data_emodulus_directory)
+        list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
 
-    # output of this step
-    predicted_data_path = os.path.join(predicted_data_directory, 'prediction_with_' + calibrated_data + '.csv')
+    for f in list_exp_name:
+        # choose calibrated data to be used for prediction
+        #calibrated_data = single_example_name
+        calibrated_data =f
+        calibrated_data_path = os.path.join(calibrated_data_directory,calibrated_data + '/' + calibrated_data+'_calibrated_samples.csv')
+        df = pd.read_csv(calibrated_data_path, header=None)
+        samples = df.iloc[:,0].tolist()
+        random.shuffle(samples)
 
-    def do_prediction(samples):
-        # perform prediction
-        pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples,mode=config['mode'])
+        # output of this step
+        predicted_data_path = os.path.join(predicted_data_directory, 'prediction_with_' + calibrated_data + '.csv')
 
-        # store prediction in csv
+        def do_prediction(samples):
+            # perform prediction
+            pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples,mode=config['mode'])
 
-        np.savetxt(predicted_data_path,pos_pred,delimiter=',')
+            # store prediction in csv
 
-    yield{
-        'name': f'predict using {calibrated_data}',
-        'actions': [(do_prediction,[samples])],
-        'file_dep': [calibrated_data_path],
-        'targets': [predicted_data_path],
-        'clean': [clean_targets]
-    }
+            np.savetxt(predicted_data_path,pos_pred,delimiter=',')
+
+        yield{
+            'name': f'predict using {calibrated_data}',
+            'actions': [(do_prediction,[samples])],
+            'file_dep': [calibrated_data_path],
+            'targets': [predicted_data_path],
+            'clean': [clean_targets]
+        }
