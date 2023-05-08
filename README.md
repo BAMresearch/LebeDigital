@@ -1,5 +1,6 @@
 [![Continuous integration](https://github.com/BAMresearch/LebeDigital/actions/workflows/lebedigital.yml/badge.svg)](https://github.com/BAMresearch/LebeDigital/actions)
 [![coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/eriktamsen/c10a5b6d0714b1fe2344eb60918e92f8/raw/lebedigital_main_coverage.json)](https://en.wikipedia.org/wiki/Code_coverage)
+[![DOI](https://zenodo.org/badge/311899936.svg)](https://zenodo.org/badge/latestdoi/311899936)
 
 
 ## Overview
