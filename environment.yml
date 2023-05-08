@@ -29,7 +29,7 @@ dependencies:
   - xlrd
   - openpyxl
   - tectonic=0.8
-  - pint=20.1
+  - pint=0.20.1
   - pint-pandas
   - snakemake
   - pybis
