@@ -1,0 +1,1923 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://w3id.org/concrete#"
+     xml:base="http://w3id.org/concrete"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:con="http://w3id.org/concrete#"
+     xmlns:mid="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:mid1="https://purl.matolab.org/mseo/mid/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:graph_designer="https://www.materials.fraunhofer.de/ontologies/graph_designer#"
+     xmlns:CommonCoreOntologies="http://www.ontologyrepository.com/CommonCoreOntologies/">
+    <owl:Ontology rdf:about="http://w3id.org/concrete">
+        <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/2021-03-01/MergedAllCoreOntology"/>
+        <owl:imports rdf:resource="https://purl.matolab.org/mseo/mid"/>
+        <rdfs:comment xml:lang="en">Concrete Ontology curated within the LeBeDigital-project.
+For more information visit https://material-digital.de/project/3</rdfs:comment>
+        <rdfs:comment xml:lang="kit.edu">Contact:
+David Alós Shepherd
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Straße 3, 76131 Karlsruhe
+david.alosshepherd@kit.edu</rdfs:comment>
+        <rdfs:comment xml:lang="bam.de">Contact:
+Juliette Winkler
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+juliette.winkler@bam.de</rdfs:comment>
+        <rdfs:comment xml:lang="kit.edu">Contact:
+Ravi Ajitbhai Patel
+Karlsruher Institut für Technologie (KIT)
+Gotthard-Franz-Straße 3, 76131 Karlsruhe
+ravi.patel@kit.edu</rdfs:comment>
+        <rdfs:comment xml:lang="bam.de">Contact:
+Stephan Pirskawetz
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+stephan.pirskawetz@bam.de</rdfs:comment>
+        <rdfs:comment xml:lang="bam.de">Contact:
+Sven Iwaszko
+Bundesanstalt für Materialforschung und -prüfung (BAM)
+Unter den Eichen 87, 12205 Berlin
+sven.iwaszko@bam.de</rdfs:comment>
+        <rdfs:comment xml:lang="de">Domain Ontologie für Beton, kuratiert im LeBeDigital-Projekt.
+Für weitere Informationen besuchen Sie https://material-digital.de/project/3</rdfs:comment>
+        <mid1:curator>David Alós Shepherd (KIT)</mid1:curator>
+        <mid1:curator>Juliette Winkler (BAM)</mid1:curator>
+        <mid1:curator>Ravi Ajitbhai Patel (KIT)</mid1:curator>
+        <mid1:curator>Stephan Pirskawetz (BAM)</mid1:curator>
+        <mid1:curator>Sven Iwaszko (BAM)</mid1:curator>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/curator -->
+
+    <owl:AnnotationProperty rdf:about="https://purl.matolab.org/mseo/mid/curator"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete#hasClassification -->
+
+    <owl:ObjectProperty rdf:about="http://w3id.org/concrete#hasClassification">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:range rdf:resource="http://w3id.org/concrete#CompactionClass"/>
+        <rdfs:range rdf:resource="http://w3id.org/concrete#CompressiveStregthClass"/>
+        <rdfs:range rdf:resource="http://w3id.org/concrete#FlowClass"/>
+        <rdfs:range rdf:resource="http://w3id.org/concrete#SlumpClass"/>
+        <rdfs:range rdf:resource="http://w3id.org/concrete#VebeClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/in_accordance_with -->
+
+    <owl:ObjectProperty rdf:about="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313">
+        <rdfs:domain rdf:resource="http://w3id.org/concrete#CompressionTestingMachine"/>
+        <rdfs:domain rdf:resource="http://w3id.org/concrete#TestingMachine"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00316"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00317">
+        <rdfs:domain rdf:resource="http://w3id.org/concrete#MeasuredStrain"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00318"/>
+    
+
+
+    <!-- https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343 -->
+
+    <owl:DatatypeProperty rdf:about="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00343"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete#ActuatorEquipment -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ActuatorEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Admixture -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Admixture">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#Air"/>
+        <CommonCoreOntologies:definition xml:lang="en">Material added during the mixing process of concrete in small quantities related to the mass of cement to modify the properties of fresh or hardened concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Stoff, der während des Mischvorgangs des Betons in kleinen Mengen, bezogen auf den Zementgehalt, zugegeben wird, um die Eigenschaften des Frischbetons oder Festbetons zu verändern</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:comment xml:lang="de">Flüssige Stoffe, die dem Beton in geringer Menge zugegeben werden, um durch chemische und/oder physikalische Wirkung Eigenschaften des Frisch- oder Festbetons zu ändern. (Beton - Herstellung nach Norm)</rdfs:comment>
+        <rdfs:label xml:lang="en">Admixture</rdfs:label>
+        <rdfs:label xml:lang="de">Betonzusatzmittel</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Aggregate -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Aggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#Air"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#Water"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition"/>
+        <CommonCoreOntologies:definition xml:lang="de">Für die Verwendung in Beton geeigneter gekörnter, mineralischer Stoff, der natürlich, künstlich, wiedergewonnen oder rezykliert sein kann.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Natural, artificial, reclaimed or recycled granular mineral constituent suitable for use in concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Air -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Air">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition"/>
+        <rdfs:label xml:lang="en">Air</rdfs:label>
+        <rdfs:label xml:lang="de">Luft</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CalibrationOfEquipment -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CalibrationOfEquipment">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <rdfs:label xml:lang="en">Calibration of Equipment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Classification -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Classification">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://www.materials.fraunhofer.de/ontologies/BWMD_ontology/mid#BWMD_00313"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompactionClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompactionClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistencyClass"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompositeMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompositeMaterial">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">Eengineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Technische Werkstoffe, die aus zwei oder mehr Bestandteilen bestehen, die getrennt bleiben, sich aber zu Materialien mit Eigenschaften verbinden, die keiner der Bestandteile einzeln besitzt.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">ACI</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Composite Material</rdfs:label>
+        <rdfs:label xml:lang="de">Verbundwerkstoff</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressionTest -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressionTest">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DestructiveTesting"/>
+        <obo:IAO_0000115 xml:lang="en">test made on a test specimen of mortar or concrete to determine either the compressive strength or the youngs modulus</obo:IAO_0000115>
+        <rdfs:label xml:lang="de">Druckversuch</rdfs:label>
+        <rdfs:label xml:lang="en">compression test</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressionTestingMachine -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressionTestingMachine">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#TestingMachine"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressiveStregthClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStregthClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Classification"/>
+        <CommonCoreOntologies:definition xml:lang="en">Classification comprising the type of concrete (normal-weight and heavy-weight or lightweight), the minimum characteristic cylinder strength (150 mm diameter by 300 mm length) and the minimum characteristic cube strength (150 mm edge length).</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Klassifizierung bestehend aus der Betonart (Normal-, Schwer- oder Leichtbeton), dem Mindestwert der charakteristischen Zylinderfestigkeit (bei Zylindern von 150 mm Durchmesser und 300 mm Länge) und dem Mindestwert der charakteristischen Würfelfestigkeit (bei einer Kantenlänge des Würfels von 150 mm).</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Compressive Strength Class</rdfs:label>
+        <rdfs:label xml:lang="de">Druckfestigkeitsklasse</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressiveStrength -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrength">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <rdfs:label xml:lang="en">Compressive Strength</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressiveStrengthCube -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrengthCube">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConcreteCompressiveStrength"/>
+        <CommonCoreOntologies:alternative_label xml:lang="en">cube strength</CommonCoreOntologies:alternative_label>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">concrete compressive strength determined using a standard cube test specimen.</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Compressive Strength Cube</rdfs:label>
+        <rdfs:label xml:lang="de">Würfeldruckfestigkeit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#CompressiveStrengthCylinder -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#CompressiveStrengthCylinder">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConcreteCompressiveStrength"/>
+        <CommonCoreOntologies:alternative_label xml:lang="en">cylinder strength</CommonCoreOntologies:alternative_label>
+        <CommonCoreOntologies:definition xml:lang="en">concrete compressive strength determined using a standard cylinder test specimen.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Compressive Strength Cylinder</rdfs:label>
+        <rdfs:label xml:lang="de">Zylinderdruckfestigkeit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Concrete -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Concrete">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompositeMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="de">Baustoff, der durch Mischen von Zement, grober und feiner Gesteinskörnung und Wasser, mit oder ohne Zugabe von Zusatzmitteln und Zusatzstoffen oder Fasern, hergestellt wird und seine Eigenschaften durch Hydratation des Zements erhält.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Material formed by mixing cement, coarse and fine aggregate and water, with or without the incorporation of admixtures and additions, which develops ist properties by hydration of the cement.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Beton</rdfs:label>
+        <rdfs:label xml:lang="en">Concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ConcreteCompressiveStrength -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ConcreteCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompressiveStrength"/>
+        <CommonCoreOntologies:definition xml:lang="de">Der Quotient aus Bruchlast und Fläche des Probenquerschnitts eines einachsig beanspruchten Betonprobekörpers.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">The measured maximum resistance of a concrete specimen to axial compressive loading.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 12390-3</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Betondruckfestigkeit</rdfs:label>
+        <rdfs:label xml:lang="en">concrete compressive strength</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ConcreteSpecimen -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ConcreteSpecimen">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_made_of"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#Concrete"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+        <obo:IAO_0000115>An Artifact made out of Concrete manufactured with the purpose to be the scope Act of Observation or Measurement.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ConsistencyClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ConsistencyClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Classification"/>
+        <CommonCoreOntologies:definition xml:lang="en">Classification of the consistency of fresh concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Einteilung der Konsistenz von Frischbeton.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">Konsistenzklasse</rdfs:label>
+        <rdfs:label xml:lang="en">consistency class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DATFile -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DATFile">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/File"/>
+        <rdfs:label xml:lang="de">DAT Datei</rdfs:label>
+        <rdfs:label xml:lang="en">DAT File</rdfs:label>
+        <rdfs:label xml:lang="en">Standard data document (.dat) that contains data and is recognized by any text editing or word processing software.</rdfs:label>
+        <rdfs:label xml:lang="de">Standarddatendokument (.dat), das Daten enthält und von jeder Textbearbeitungs- oder Textverarbeitungssoftware erkannt wird.</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DINStandard -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DINStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <CommonCoreOntologies:definition xml:lang="de">Unter Leitung des Deutschen Instituts für Normung (DIN) erarbeiteter freiwilliger Standard, in dem materielle und immaterielle Gegenstände vereinheitlicht sind.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Voluntary standard developed under the direction of the German Institute for Standardization (DIN) in which tangible and intangible objects are standardized.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">DIN Norm</rdfs:label>
+        <rdfs:label xml:lang="en">DIN Standard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Desktop -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Desktop">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DestructiveTesting -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DestructiveTesting">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#NonDestructiveTesting"/>
+        <CommonCoreOntologies:definition xml:lang="de">Prüfung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprüft und dabei zerstört oder verändert werden.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Testing for chemical and/or physical properties where materials were destroyed or changed in the process.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">Krankenhagen &amp; Laube (1983)</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Destructive Testing</rdfs:label>
+        <rdfs:label xml:lang="de">Zerstörende Prüfung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DeterminationOfCompressiveStrength -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DeterminationOfCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DestructiveTesting"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#SpecimenAfterTesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_precedes"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label>Determination of Compressive Strength</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DeterminationOfSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#DestructiveTesting"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#SpecimenAfterTesting"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_output"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/RawDataSet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/process_preceded_by"/>
+                <owl:someValuesFrom rdf:resource="http://w3id.org/concrete#DeterminationOfCompressiveStrength"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://purl.matolab.org/mseo/mid/in_accordance_with"/>
+                <owl:someValuesFrom rdf:resource="https://purl.matolab.org/mseo/mid/Regulation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <CommonCoreOntologies:definition xml:lang="de">Bestimmung des Elastizitätsmoduls an zylindrischen oder prismatischen Probekörpern, die in einer Druckprüfmaschine unter axialer Druckbelastung beansprucht und die auftretenden Spannungen und Dehnungen aufgezeichnet werden. Aus dem Anstieg der Spannungs-Dehnungs-Kurve wird der Sekantenmodul bei der ersten Belastung (nur bei Verfahren A) und nach drei Belastungszyklen (Verfahren A und B) ermittelt.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Determination of the modulus of elasticity on cylinder or prismatic specimens loaded under axial compression in a compression testing machine. The stresses and strains are recorded. The slope of the secant to the stress-strain curve is determined at first loading (Method A only) and after three loading cycles (Methods A and B).</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 12390-13</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 12390-13</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Bestimmung des Elastizitätsmoduls (Sekantenmodul)</rdfs:label>
+        <rdfs:label>Determination of Secant Modulus of Elasticity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#DifferenceBetweenMeasuredStresses -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#DifferenceBetweenMeasuredStresses">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ENStandard -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ENStandard">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+        <CommonCoreOntologies:definition xml:lang="de">Norm, die von einer der folgenden Institutionen veröffentlicht wird: CEN (Comité Européen de Normalisation) CENELEC (Europäisches Komitee für Elektronische Normen) ETSI (Europäisches Institut für Telekommunikationsnormen).</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Standard published by one of the following Institutions: CEN (Comité Européen de Normalisation) CENELEC (European Committee for Electronical Standards) ETSI (European Telecommunications Standard Institute).</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">EN Norm</rdfs:label>
+        <rdfs:label xml:lang="en">EN Standard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#EngineeringMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#EngineeringMaterial">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000030"/>
+        <owl:disjointWith rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
+        <CommonCoreOntologies:definition xml:lang="de">Materialien, die in Produktionsprozessen verarbeitet werden.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Materials that are processed in production processes.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Engineering Material</rdfs:label>
+        <rdfs:label xml:lang="de">Werkstoff</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#EquivalentWaterCementRatio -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#EquivalentWaterCementRatio">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#WaterCementRatio"/>
+        <rdfs:comment>ratio by mass of the effective water content to the combined cement content and the k-value to take int account additions</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#FlowClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#FlowClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistencyClass"/>
+        <CommonCoreOntologies:definition xml:lang="en">Classification of consistency by determining the flow spread.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Einteilung der Konsistenz durch die Bestimmung des Ausbreitmaßes.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">Ausbreitmaßklasse</rdfs:label>
+        <rdfs:label xml:lang="en">Flow class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#FlyAsh -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#FlyAsh">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIIAddition"/>
+        <CommonCoreOntologies:definition xml:lang="de">Feines graues Pulver, das hauptsächlich aus kugelförmigen, glasartigen Partikeln besteht und als Nebenprodukt in Kohlekraftwerken anfällt.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Fine gray powder consisting mostly of spherical, glassy particles that are produced as a byproduct in coal-fired power stations.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Flugasche</rdfs:label>
+        <rdfs:label xml:lang="en">Fly Ash</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ForceRate -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ForceRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <rdfs:label xml:lang="en">Force Rate</rdfs:label>
+        <rdfs:label xml:lang="de">Kraftgeschwindigkeit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#FreshConcrete -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#FreshConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#HardenedConcrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, der fertig gemischt ist, sich noch in einem verarbeitbaren Zustand befindet und durch das gewählte Verfahren verdichtet werden kann.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Fresh Concrete</rdfs:label>
+        <rdfs:label xml:lang="de">Frischbeton</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#HardenedConcrete -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#HardenedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, der sich in einem festen Zustand befindet und eine gewisse Festigkeit entwickelt hat.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete which is in a solid state and which has developed a certain strength.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Festbeton</rdfs:label>
+        <rdfs:label xml:lang="en">Hardened Concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#ITEquipment -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#ITEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#InfrastructureEquipment -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#InfrastructureEquipment">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#InitialSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#InitialSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SecantModulusOfElasticty"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#StabilizedSecantModulusOfElasticity"/>
+        <rdfs:label xml:lang="en">Initial Secant Modulus of Elasticity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#InorganicMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#InorganicMaterial">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#NonMettalicMaterial"/>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#OrganicMaterial"/>
+        <rdfs:label>Inorganic Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#LabInfrastructureEquipmentSet -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#LabInfrastructureEquipmentSet">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Laptop -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Laptop">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#LoadingRate -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#LoadingRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <rdfs:label xml:lang="en">Loading Rate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MaxDiameter -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MaxDiameter">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MeasuredStrain -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStrain">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Strain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalLowerStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalLowerStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalPreloadStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MeasuredStressCorrespondingToNominalUpperStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MeasuredStressCorrespondingToNominalUpperStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+        <rdfs:comment>Measured stress corresponding to nominal upper stress, σa</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MeasurementUnitOfForceRate -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MeasurementUnitOfForceRate">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnit"/>
+        <rdfs:label>Measurement Unit of Force Rate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MetallicMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MetallicMaterial">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
+        <CommonCoreOntologies:definition>Any kind of metallic material</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Metallic Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Procedure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#MinDiameter -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#MinDiameter">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Diameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Mixer -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Mixer">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InfrastructureEquipment"/>
+        <CommonCoreOntologies:definition xml:lang="en">a machine used for blending the constituents of concrete, grout, mortar, cement paste, or other mixture.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Mischer</rdfs:label>
+        <rdfs:label xml:lang="en">mixer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Mortar -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Mortar">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompositeMaterial"/>
+        <CommonCoreOntologies:definition>Mortar is a workable paste which hardens to bind building blocks such as stones, bricks and concrete masonry units, to fill and seal the irregular gaps between themas descibed by https://en.wikipedia.org/wiki/Mortar_(masonry)</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Mortar</rdfs:label>
+        <rdfs:label xml:lang="de">Mörtel</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#NominalLowerStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#NominalLowerStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#NominalPreloadStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#NominalPreloadStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+        <rdfs:comment>arbitrary value between 10% and 15% of fc</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#NominalUpperStress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#NominalUpperStress">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Stress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#NonDestructiveTesting -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#NonDestructiveTesting">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+        <CommonCoreOntologies:definition xml:lang="de">Prüfung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprüft und dabei nicht beschädigt werden.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Testing for chemical and/or physical properties where materials were not destroyed or changed in the process.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">Krankenhagen &amp; Laube (1983)</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Nondestructive Testing</rdfs:label>
+        <rdfs:label xml:lang="de">Zerstörungsfreie Prüfung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#NonMettalicMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#NonMettalicMaterial">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EngineeringMaterial"/>
+        <CommonCoreOntologies:definition>Any kind of non-metallic material (either organic or inorganic)</CommonCoreOntologies:definition>
+        <rdfs:label>Nonmetallic Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#OperatorOfProcess -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#OperatorOfProcess">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#OrganicMaterial -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#OrganicMaterial">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#NonMettalicMaterial"/>
+        <rdfs:label>Organic Material</rdfs:label>
+        <rdfs:label>Organisches Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#QuantityInMix -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#QuantityInMix">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
+        <CommonCoreOntologies:definition xml:lang="de">Die Stoffmenge eines Stoffes ergibt sich aus dem Produkt aus der Dichte des Stoffes und dem Stoffraum.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Quantity in mix</rdfs:label>
+        <rdfs:label xml:lang="de">Stoffmenge</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#RelativeDensity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#RelativeDensity">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SecantModulusOfElasticty -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SecantModulusOfElasticty">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <CommonCoreOntologies:definition xml:lang="en">Material parameter from materials engineering that describes the proportional relationship between stress and strain during the deformation of a solid with linear elastic behavior.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Materialkennwert aus der Werkstofftechnik, der den proportionalen Zusammenhang zwischen Spannung und Dehnung bei der Verformung eines Festkörpers bei linear elastischem Verhalten beschreibt.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">Elastizitätsmodul (Sekantenmodul)</rdfs:label>
+        <rdfs:label xml:lang="en">Secant Modulus of Elasticity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Server -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Server">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ITEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SilicaFume -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SilicaFume">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIIAddition"/>
+        <CommonCoreOntologies:definition xml:lang="de">Sehr feines, nicht kristallines Siliziumdioxid, das in Lichtbogenöfen als Nebenprodukt bei der Herstellung von elementarem Silizium oder siliziumhaltigen Legierungen entsteht.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Very fine non-crystalline silica produced in electric arc furnaces as a by-product of the production of elemental silicon or alloys containing silicon.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">Silikastaub</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SlagCement -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SlagCement">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIIAddition"/>
+        <CommonCoreOntologies:definition xml:lang="de">Hüttensand entsteht durch schnelles Abkühlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. In feingemahlenem Zustand ist er ein latenthydraulischer Stoff, der zum hydraulischen Erhärten einen Anreger braucht. Siehe https://www.betontechnische-daten.de/de/1-1-begriffe</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">granulated blast-furnace slag that has been finely ground and that is hydraulic cement.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Hüttensand</rdfs:label>
+        <rdfs:label xml:lang="en">Slag Cement</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SlumpClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SlumpClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistencyClass"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SpecificGravity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SpecificGravity">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Density"/>
+        <CommonCoreOntologies:definition xml:lang="de">Gewicht eines Körpers im Verhältnis zu seinem Volumen.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Weight of a body in relation to its volume.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="en">Specific Gravity</rdfs:label>
+        <rdfs:label xml:lang="de">spezifisches Gewicht</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SpecimenAfterTesting -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SpecimenAfterTesting">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_output_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://w3id.org/concrete#SpecimenBeforeTesting"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SpecimenBeforeTesting -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SpecimenBeforeTesting">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/Specimen"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#StabilizedSecantModulusOfElasticity -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#StabilizedSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SecantModulusOfElasticty"/>
+        <rdfs:label xml:lang="en">Sttabilized Secant Modulus of Elasticity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Strain -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Strain">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <rdfs:label xml:lang="en">Strain</rdfs:label>
+        <rdfs:label xml:lang="de">Verformung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#StrainMeasuringInstrument -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#StrainMeasuringInstrument">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Stress -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Stress">
+        <owl:equivalentClass rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure"/>
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Force"/>
+        <rdfs:label xml:lang="de">Mechanische Spannung</rdfs:label>
+        <rdfs:label xml:lang="en">Stress</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#StressRate -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#StressRate">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <rdfs:label xml:lang="de">Spannungsgeschwindigkeit</rdfs:label>
+        <rdfs:label xml:lang="en">Stress Rate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#TensileSplittingStrength -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#TensileSplittingStrength">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000144"/>
+        <CommonCoreOntologies:definition xml:lang="en">A cylindrical specimen is exposed to a compressive load applied in a narrow strip along the longitudinal axis of the specimen. The resulting orthogonal tensile force causes the specimen to fracture under tensile stress.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Ein zylindrischer Probekörper wird einer Druckkraft ausgesetzt, die in einem schmalen Streifen entlang der Längsachse des Probekörpers aufgebracht wird. Die sich ergebende orthogonale Zugkraft verursacht den Bruch des Probekörpers unter Zugspannung.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de"> DIN EN 12390-6</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Spaltzugfestigkeit</rdfs:label>
+        <rdfs:label>Tensile Splitting Strength</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#TestingMachine -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#TestingMachine">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ActuatorEquipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#TimeInterval -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#TimeInterval">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000038"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Transducer -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Transducer">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#StrainMeasuringInstrument"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#VebeClass -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#VebeClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#ConsistencyClass"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Volume -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Volume">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#Water -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#Water">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">Chemical compound of oxygen (O) and hydrogen (H) in the liquid state of aggregation</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Chemische Verbindung von Sauerstoff (O) und Wasserstoff (H) im flüssigen Aggregatzustand</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">Chemie.de</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">Chemie.de</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Wasser</rdfs:label>
+        <rdfs:label xml:lang="en">Water</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#WaterCementRatio -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#WaterCementRatio">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/ProportionalRatioMeasurementInformationContentEntity"/>
+        <CommonCoreOntologies:definition xml:lang="de">Masseverhältnis des wirksamen Wassergehaltes zum Zementgehalt im Frischbeton.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Ratio of the effective water content to cement content by mass in the fresh concrete</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Wasserzementwert</rdfs:label>
+        <rdfs:label xml:lang="en">Water Cement Ratio</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#kValueAccountingForFlyAsh -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#kValueAccountingForFlyAsh">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForTypeIIAdditions"/>
+        <CommonCoreOntologies:definition xml:lang="de">Anrechenbarkeit von Flugasche auf den Zementgehalt und den Wasserzementwert.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Eligibility of fly ash on the cement content and the water-cement ratio.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">k Value Accounting for Fly Ash</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert für Flugasche</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#kValueAccountingForSilicaFume -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#kValueAccountingForSilicaFume">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForTypeIIAdditions"/>
+        <CommonCoreOntologies:definition xml:lang="de">Anrechenbarkeit von Silikastaub auf den Zementgehalt und den Wasserzementwert.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Eligibility of silica fume on the cement content and the water-cement ratio.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">k Value Accounting for Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert für Silikastaub</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition -->
+
+    <owl:Class rdf:about="http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="de">Betonzusatzstoffe sind fein aufgeteilte Zusätze, wie z.B. Trass, Gesteinsmehl (Quarzmehl/Kalksteinmehl), Flugasche, Silikastaub und Pigmente zum Einfärben des Betons, die bestimmte Eigenschaften des Betons beeinflussen. Dies sind vorrangig die Verarbeitbarkeit des Frischbetons und die Festigkeit und Dichtigkeit des Festbetons.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">inorganic material such as fly ash, silica fume, metakaolin, or slag cement that reacts pozzolanically or hydraulically.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.beton.wiki/index.php?title=Kategorie:Betonzusatzstoffe</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Betonzusatzstoffe</rdfs:label>
+        <rdfs:label xml:lang="en">Supplementary Cementious Material</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Artifact -->
+
+    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Pressure -->
+
+    <rdf:Description rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Pressure"/>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#AggregateSize -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#AggregateSize">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/IntervalMeasurementInformationContentEntity"/>
+        <CommonCoreOntologies:definition xml:lang="de">Bezeichnung einer Gesteinskörnung mittels unterer (d) und oberer (D) Siebgröße, angegeben als d/D.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Designation of aggregate in terms of lower (d) and upper (D) sieve sizes expressed as d/D.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Korngröße</rdfs:label>
+        <rdfs:label xml:lang="en">aggregate size</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#AllinAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#AllinAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate consisting of a mixture of coarse and fine aggregates with D greater than 4 mm and d = 0.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung, bestehend aus einem Gemisch grober und feiner Gesteinskörnungen mit D größer als 4 mm und mit d = 0.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Gesteinskörnungsgemisch</rdfs:label>
+        <rdfs:label xml:lang="en">all-in aggregate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Calorimeter -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Calorimeter">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+        <CommonCoreOntologies:definition xml:lang="en">Instrument for measuring heat exchange during a chemical reaction, such as the quantity of heat liberated by the combustion of a fuel or hydration of a cement.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Instrument zur Messung des Wärmeaustauschs während einer chemischen Reaktion, wie z. B. der Wärmemenge, die durch die Verbrennung eines Brennstoffs oder die Hydratation eines Zements freigesetzt wird.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">ACI CT-21: ACI Concrete Terminology</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Calorimeter</rdfs:label>
+        <rdfs:label xml:lang="de">Kalorimeter</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CastingDevice -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CastingDevice">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
+        <CommonCoreOntologies:definition xml:lang="en">Device or tool used to cast concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Geräte oder Hilfsmittel zur Verwendung bei einer Betonage.</CommonCoreOntologies:definition>
+        <rdfs:label xml:lang="de">Betoniervorrichtung</rdfs:label>
+        <rdfs:label xml:lang="en">Casting Device</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Cement -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Cement">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">A finely ground inorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Fein gemahlener anorganischer Stoff, der, mit Wasser gemischt, Zementleim ergibt, welcher durch Hydratation erstarrt und erhärtet und nach dem Erhärten auch unter Wasser stabil und raumbeständig bleibt.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">EN 197-1</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">EN 197-1</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">Cement</rdfs:label>
+        <rdfs:label xml:lang="de">Zement</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CharacteristicStrength -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CharacteristicStrength">
+        <rdfs:subClassOf rdf:resource="https://purl.matolab.org/mseo/mid/MechanicalStrength"/>
+        <CommonCoreOntologies:definition xml:lang="de">Festigkeitswert, unter dem erwartungsgemäß 5 % der Grundgesamtheit aller möglichen Festigkeitswerte des betrachteten Betonvolumens liegen.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Value of strength below which 5 % of the population of all possible strength determinations of the volume of concrete under consideration, are expected to fall.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">characteristic strength</rdfs:label>
+        <rdfs:label xml:lang="de">charakteristische Festigkeit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByDensity -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByDensity">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Die Verwendung von Beton setzt die jeweilige Erfüllung seiner beabsichtigten Funktion am Bauwerk voraus. Diese können hohe Tragfähigkeit, Schallschutz, Strahlenschutz, Außen- und Innenwände oder Stahl- und Spannbeton sein. Die Betone für die jeweiligen Anwendungen unterscheidet man nach ihrer Trockenrohdichte.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">The use of concrete presupposes that it fulfills its intended function in the structure. These can be high load-bearing capacity, noise protection, radiation protection, external and internal walls or reinforced and prestressed concrete. The concretes for the respective applications are differentiated according to their dry density.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.baunetzwissen.de/beton/fachwissen/betonarten/betonarten-nach-rohdichte-150970</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">https://www.baunetzwissen.de/beton/fachwissen/betonarten/betonarten-nach-rohdichte-150970</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Betonarten nach Rohdichte</rdfs:label>
+        <rdfs:label xml:lang="en">Types of concrete according to density</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Genormte Betonbezeichnungen geben Informationen über die Herstellung/Verarbeitung und die Eigenschaften bzw. den Anwendungsbereich des Betons.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Standardized concrete designations provide information about the production/processing and the properties or the area of ​​application of the concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.baunetzwissen.de/beton/fachwissen/betonarten/betonarten-nach-verarbeitung-150976</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">https://www.baunetzwissen.de/beton/fachwissen/betonarten/betonarten-nach-verarbeitung-150976</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Betonarten nach Verarbeitung</rdfs:label>
+        <rdfs:label xml:lang="en">Types of concrete according to the processing</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteFamily -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteFamily">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#CompositeMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">A group of concrete compositions for which a reliable relationship between properties is established and documented.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gruppe von Betonzusammensetzungen, für die ein verlässlicher Zusammenhang zwischen maßgebenden Eigenschaften festgelegt und dokumentiert ist.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Betonfamilie</rdfs:label>
+        <rdfs:label xml:lang="en">concrete family</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#DesignedConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#DesignedConcrete">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, für den die geforderten Eigenschaften und zusätzliche Anforderungen, sofern erforderlich, gegenüber dem Hersteller festgelegt sind, der für die Bereitstellung eines Betons, der den geforderten Eigenschaften und den zusätzlichen Anforderungen entspricht, verantwortlich ist.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete for which the required properties and additional characteristics are specified to the producer who is responsible for providing a concrete confirming to the required properties and additional characteristics.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Beton nach Eigenschaften</rdfs:label>
+        <rdfs:label xml:lang="en">designed concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#EntrainedAir -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#EntrainedAir">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Air"/>
+        <CommonCoreOntologies:definition xml:lang="en">Microscopic air bubbles intentionally incorporated in concrete during mixing, usually by use of a surface active agent; typically between 10 μm and 300 μm in diameter and spherical or nearly so.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">mikroskopisch kleine Luftporen, die während des Mischens - im Allgemeinen unter Verwendung eines oberflächenaktiven Stoffes - absichtlich im Beton erzeugt werden; typischerweise kugelförmig oder nahezu kugelförmig sowie mit einem Durchmesser von 10 μm bis 300 μm.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">entrained air</rdfs:label>
+        <rdfs:label xml:lang="de">künstliche Luftporen</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#EntrappedAir -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#EntrappedAir">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Air"/>
+        <CommonCoreOntologies:definition xml:lang="en">Air voids in concrete which are not purposely entrained.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Luftporen, die unbeabsichtigt in den Beton gelangen.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Lufteinschlüsse</rdfs:label>
+        <rdfs:label xml:lang="en">entrapped air</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ExposureClass -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ExposureClass">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Classification"/>
+        <CommonCoreOntologies:definition xml:lang="en">Classification of those chemical and physical actions to which the concrete is exposed and which result in effects on the concrete or reinforcement or embedded metal that are not considered as loads in structural design.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Klassifizierung derjenigen chemischen und physikalischen Umgebungsbedingungen, denen der Beton ausgesetzt ist und die zu Auswirkungen auf den Beton oder die Bewehrung oder das eingebettete Metall führen, die nicht als Lasten bei der konstruktiven Bemessung berücksichtigt sind.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:comment xml:lang="de">vgl: Umwelteinflüsse/Einwirkungen aus der Umgebung
+vgl: environmental actions</rdfs:comment>
+        <rdfs:label xml:lang="de">Expositionsklasse</rdfs:label>
+        <rdfs:label xml:lang="en">Exposure Class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#FinesInConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#FinesInConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Amount"/>
+        <CommonCoreOntologies:definition xml:lang="en">Sum of solid materials in fresh concrete with particle sizes less than or equal to 0,125 mm.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Summe der festen Partikel im Frischbeton mit einer Korngröße ≤ 0,125 mm.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Mehlkorn</rdfs:label>
+        <rdfs:label xml:lang="en">fines in concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#HeavyWeightAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#HeavyWeightAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate with an oven-dry particle density ≥ 3000 kg/dm3 when determined according to EN 1097-6.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung im ofentrockenen Zustand mit einer Kornrohdichte ≥ 3 000 kg/m3 bei Bestimmung nach EN 1097-6.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">heavy-weight aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">schwere Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#HeavyweightConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#HeavyweightConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByDensity"/>
+        <owl:disjointWith rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#LightweightConcrete"/>
+        <owl:disjointWith rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightConcrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte über 2600 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete having an oven-dry density greater than 2600 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Schwerbeton</rdfs:label>
+        <rdfs:label xml:lang="en">heavy-weight concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#LightWeightAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#LightWeightAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate of mineral origin having an oven-dry particle density ≤ 2000 kg/dm3  when determined according to EN 1097-6 or a loose buld-density ≤ 1200 kg/dm3  when determined according to EN 1097-3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung mineralischen Ursprungs im ofentrockenen Zustand mit einer Kornrohdichte ≤ 2 000 kg/m3, bestimmt nach EN 1097-6, oder einer Schüttdichte ≤ 1 200 kg/m3, bestimmt nach EN 1097-3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">leichte Gesteinskörnung</rdfs:label>
+        <rdfs:label xml:lang="en">lightweight aggregate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#LightweightConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#LightweightConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByDensity"/>
+        <owl:disjointWith rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightConcrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte von mindestens 800 kg/m3 und höchstens 2000 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete having an oven-dry density of not less than 800 kg/m3 and not more than 2000 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Leichtbeton</rdfs:label>
+        <rdfs:label xml:lang="en">lightweight concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate with an oven-dry particle density &gt; 2000 kg/dm3 and &lt; 3000 kg/dm3 when determined according to EN 1097-6.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung im ofentrockenen Zustand mit einer Kornrohdichte &gt; 2 000 kg/m3 und &lt; 3 000 kg/m3, bestimmt nach EN 1097-6.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">normal-weight aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">normale Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#NormalWeightConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByDensity"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte über 2000 kg/m3 und höchstens 2600 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete having an oven-dry density greater than 2000 kg/m3 but not exceeding 2600 kg/m3.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Normalbeton</rdfs:label>
+        <rdfs:label xml:lang="en">normal-weight concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PolymerFibres -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PolymerFibres">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InorganicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="en">Straight or deformed pieces of extruded, orientated and cut material, which are suitable to be homogenously mixed into concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">gerade oder verformte Fasern aus extrudiertem, orientiertem oder geschnittenem Material, die für eine gleichmäßige Verteilung in Betonmischungen geeignet sind</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Polymerfasern</rdfs:label>
+        <rdfs:label xml:lang="en">polymer fibres</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrecastElement -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrecastElement">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
+        <CommonCoreOntologies:definition xml:lang="de">Betonbauteil, dass an einem anderen Ort als dem endgültigen Ort der Verwendung (im Werk oder auf der Baustelle) hergestellt und nachbehandelt wird</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">concrete product cast and cured in a place other than the final location of use</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Fertigteil</rdfs:label>
+        <rdfs:label xml:lang="en">precast element</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrecastProduct -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrecastProduct">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact"/>
+        <CommonCoreOntologies:definition xml:lang="de">Nach der relevanten europäischen Produktnorm hergestelltes Fertigteil.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Precast element manufactured in compliance with the relevant European product standard.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Fertigteil (Bauprodukt)</rdfs:label>
+        <rdfs:label xml:lang="en">precast product</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrescribedConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#PrescribedConcrete">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, für den die Zusammensetzung und die Ausgangsstoffe, die verwendet werden müssen, dem Hersteller, der für die Lieferung eines Betons mit der festgelegten Zusammensetzung verantwortlich ist, vorgegeben werden.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete for which the composition of the concrete and the constituent materials to be used are specified to the producer who is responsible for providing a concrete with the specified composition.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Beton nach Zusammensetzung</rdfs:label>
+        <rdfs:label xml:lang="en">prescribed concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReadyMixedConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReadyMixedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing"/>
+        <owl:disjointWith rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SiteMixedConcrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, der in frischem Zustand durch eine Person oder Stelle geliefert wird, die nicht der Verwender ist. Transportbeton im Sinne von DIN EN 206 ist auch vom Verwender außerhalb der Baustelle hergestellter Beton oder auf der Baustelle nicht vom Verwender hergestellter Beton.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete delivered in a fresh state by a person or body who is not the user. Ready-mixed concrete in the sense of DIN EN 206 is also concrete produced off site by the user or produced on site. But not by the user.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Transportbeton</rdfs:label>
+        <rdfs:label xml:lang="en">ready-mixed concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReclaimedCrushedAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReclaimedCrushedAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate gained by crushing hardened concrete that has not been previously used in construction.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung, die durch Brechen von Festbeton, der noch nicht beim Bauen verwendet wurde, gewonnen wird.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">reclaimed crushed aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">wiedergewonnene gebrochene Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReclaimedWashedAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ReclaimedWashedAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregates gained by washing fresh concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung, die durch Waschen von Frischbeton gewonnen wird.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">reclaimed washed aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">wiedergewonnene gewaschene Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#RecycledAggregate -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#RecycledAggregate">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Aggregate"/>
+        <CommonCoreOntologies:definition xml:lang="en">Aggregate resulting from the processing of inorganic material previously used in construction.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gesteinskörnung, die durch Aufbereitung von vorher beim Bauen verwendeten anorganischen Stoffen gewonnen wird</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">recycled aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">rezyklierte Gesteinskörnung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SelfcompactingConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SelfcompactingConcrete">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, der aufgrund seines eigenen Gewichts fließt und sich selbst verdichtet sowie die Schalung mit Bewehrung, Kanälen, Aussparungskästen usw. ausfüllt und dabei seine Homogenität beibehält.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete that is able to flow and compact under its own weight, fill the formwork with its reinforcement, ducts, boxouts etc., whilst maintaining homogeneity.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Selbstverdichtender Beton (SVB)</rdfs:label>
+        <rdfs:label xml:lang="en">self-compacting concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SieveSize -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SieveSize">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/SizeQuality"/>
+        <rdfs:label xml:lang="de">Siebgröße</rdfs:label>
+        <rdfs:label xml:lang="en">Sieve Size</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Site -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#Site">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/GeospatialLocation"/>
+        <CommonCoreOntologies:definition xml:lang="en">Area where the construction work is undertaken.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">Gebiet, in dem die Bauarbeiten durchgeführt werden</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:comment xml:lang="en">Syn: construction site</rdfs:comment>
+        <rdfs:label xml:lang="de">Baustelle</rdfs:label>
+        <rdfs:label xml:lang="en">site</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SiteMixedConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SiteMixedConcrete">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#ConcreteByProcessing"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton, der auf der Baustelle vom Verwender des Betons für seine eigene Verwendung hergestellt wird.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete produced on the construction site by the user of the concrete for his own use.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Baustellenbeton</rdfs:label>
+        <rdfs:label xml:lang="en">site-mixed concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#StandardizedPrescribedConcrete -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#StandardizedPrescribedConcrete">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#Concrete"/>
+        <CommonCoreOntologies:definition xml:lang="de">Beton nach Zusammensetzung, dessen Zusammensetzung in einer am Ort der Verwendung des Betons gültigen Norm vorgegeben ist.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Prescribed concrete for which the composition is given in a standard valid in the place of use of the concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Standardbeton</rdfs:label>
+        <rdfs:label xml:lang="en">standardized prescribed concrete</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SteelFibres -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#SteelFibres">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#MetallicMaterial"/>
+        <CommonCoreOntologies:definition xml:lang="de">Gerade oder verformte Fasern aus kalt gezogenem Stahldraht, gerade oder verformte zugeschnittene Einzelfasern, aus Schmelzgut hergestellte Fasern, von kalt gezogenem Draht gespante Fasern oder aus Stahlblöcken gehobelte Fasern, die für eine gleichmäßige Verteilung in Beton geeignet sind.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Straight or deformed pieces of cold-drawn steel wire, straight or deformed cut sheet fibres, melt extracted fibres, shaved cold drawn wire fibres or fibres milled from steel blocks, which are suitable to be homogeneously mixed into concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Stahlfasern</rdfs:label>
+        <rdfs:label xml:lang="en">steel fibres</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TruckMixer -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TruckMixer">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#InfrastructureEquipment"/>
+        <CommonCoreOntologies:definition xml:lang="de">Betonmischer, der auf einem Fahrgestell mit Eigenantrieb montiert und in der Lage ist, einen gleichmäßig gemischten Beton herzustellen und auszuliefern.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Concrete mixer mounted on a self-propelled chassis capable of mixing and delivering a homogeneous concrete.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Fahrmischer</rdfs:label>
+        <rdfs:label xml:lang="en">truck mixer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIAddition -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIAddition">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition"/>
+        <CommonCoreOntologies:definition xml:lang="de">nahezu inaktiver Zusatzstoff</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">nearly inert additions</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Typ-I-Zusatzstoff</rdfs:label>
+        <rdfs:label xml:lang="en">type I addition</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIIAddition -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#TypeIIAddition">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#SupplementaryCementiousMaterials/Addition"/>
+        <CommonCoreOntologies:definition xml:lang="en">pozzolanic or latent hydraulic additions</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="de">puzzolanischer oder latenthydraulischer Zusatzstoff</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Typ-II-Zusatzstoff</rdfs:label>
+        <rdfs:label xml:lang="en">type II addition</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForTypeIIAdditions -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForTypeIIAdditions">
+        <rdfs:subClassOf rdf:resource="http://w3id.org/concrete#EquivalentWaterCementRatio"/>
+        <CommonCoreOntologies:definition xml:lang="de">Anrechenbarkeit von Zusatzstoffen des Typs II auf den Zementgehalt und den Wasserzementwert.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Eligibility of Type II additives on the cement content and the water-cement ratio.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">k Value Accounting for type II additions</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert für Zusatzstoffe Typ II</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForFlyAsh+SilicaFume -->
+
+    <owl:Class rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForFlyAsh+SilicaFume">
+        <rdfs:subClassOf rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#kValueAccountingForTypeIIAdditions"/>
+        <CommonCoreOntologies:definition xml:lang="de">Anrechenbarkeit von Flugasche + Silikastaub auf den Zementgehalt und den Wasserzementwert.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">Eligibility of fly ash + silica fume on the cement content and the water-cement ratio.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">translated from https://www.betontechnische-daten.de/de/4-1-1-anrechenbarkeit-von-flugasche-und-silikastaub-nach-din-en-206-1/din-1045-2</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="en">k Value Accounting for Fly Ash + Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert für Flugasche + Silikastaub</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/Equipment -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Equipment"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/File -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/File"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/ISOStandard -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/ISOStandard"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/MeasurementDevice -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/MeasurementDevice"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/MechanicalStrength -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/MechanicalStrength"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/Procedure -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Procedure"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/RawDataSet -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/RawDataSet">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/has_URI_value"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/Regulation -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Regulation"/>
+    
+
+
+    <!-- https://purl.matolab.org/mseo/mid/Specimen -->
+
+    <owl:Class rdf:about="https://purl.matolab.org/mseo/mid/Specimen"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://w3id.org/concrete#DIN_EN_12390-13 -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#DIN_EN_12390-13">
+        <rdf:type rdf:resource="http://w3id.org/concrete#DINStandard"/>
+        <rdf:type rdf:resource="http://w3id.org/concrete#ENStandard"/>
+        <rdfs:comment>Prüfung von Festbeton –
+Teil 13: Bestimmung des Elastizitätsmoduls unter Druckbelastung
+(Sekantenmodul)</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#EN12390-3 -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#EN12390-3">
+        <rdf:type rdf:resource="http://w3id.org/concrete#ENStandard"/>
+        <rdfs:comment>Testing hardened concrete –
+Part 13: Determination of secant modulus of elasticity in compression</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#KiloNewtonPerSecondMeasurementUnit -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#KiloNewtonPerSecondMeasurementUnit">
+        <rdf:type rdf:resource="http://w3id.org/concrete#MeasurementUnitOfForceRate"/>
+        <rdfs:label>Kilo Newton Per Second Measurement Unit</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#KilogramPerCubicDecimeterMeasurementUnit -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#KilogramPerCubicDecimeterMeasurementUnit">
+        <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfDensity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#MegaPascalPerSecond -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MegaPascalPerSecond">
+        <rdf:type rdf:resource="http://w3id.org/concrete#StressRate"/>
+        <owl:sameAs rdf:resource="http://w3id.org/concrete#NewtonSecondPerMilimeterSquared"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#Meter -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Meter"/>
+    
+
+
+    <!-- http://w3id.org/concrete#MeterKilogramPerSecondSquarred -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MeterKilogramPerSecondSquarred">
+        <owl:sameAs rdf:resource="http://w3id.org/concrete#Newton"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#MethodA -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MethodA">
+        <rdf:type rdf:resource="http://w3id.org/concrete#MethodA_DeterminationOfInitialAndStabilizedSecantModulusOfElasticity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#MethodB -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#MethodB">
+        <rdf:type rdf:resource="http://w3id.org/concrete#MethodB_DeterminationOfStabilizedSecantModulusOfElasticity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#Newton -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Newton"/>
+    
+
+
+    <!-- http://w3id.org/concrete#NewtonSecondPerMilimeterSquared -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#NewtonSecondPerMilimeterSquared">
+        <rdf:type rdf:resource="http://w3id.org/concrete#StressRate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://w3id.org/concrete#Second -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#Second"/>
+    
+
+
+    <!-- http://w3id.org/concrete#YoungsModulusTest -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/concrete#YoungsModulusTest"/>
+    
+
+
+    <!-- http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CubicMetreOfConcreteMeasurementUnit -->
+
+    <owl:NamedIndividual rdf:about="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ExtendedRelationOntology#CubicMetreOfConcreteMeasurementUnit">
+        <rdf:type rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/MeasurementUnitOfVolume"/>
+        <CommonCoreOntologies:definition xml:lang="de">Menge Frischbeton, die bei Verdichtung nach EN 12350-6 ein Volumen von 1 m3 einnimmt.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition xml:lang="en">The quantity of fresh concrete which, when compacted in accordance with the procedure given in EN 12350-6 occupies a volume of one cubic metre.</CommonCoreOntologies:definition>
+        <CommonCoreOntologies:definition_source xml:lang="de">DIN EN 206</CommonCoreOntologies:definition_source>
+        <CommonCoreOntologies:definition_source xml:lang="en">DIN EN 206</CommonCoreOntologies:definition_source>
+        <rdfs:label xml:lang="de">Kubikmeter Beton</rdfs:label>
+        <rdfs:label xml:lang="en">cubic metre of concrete</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://w3id.org/concrete#CompactionClass"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#FlowClass"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#SlumpClass"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#VebeClass"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://w3id.org/concrete#CompositeMaterial"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#MetallicMaterial"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#NonMettalicMaterial"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://w3id.org/concrete#Desktop"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#Laptop"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#Server"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://w3id.org/concrete#NominalLowerStress"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#NominalPreloadStress"/>
+            <rdf:Description rdf:about="http://w3id.org/concrete#NominalUpperStress"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

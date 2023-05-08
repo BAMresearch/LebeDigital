@@ -1,0 +1,916 @@
+@prefix : <https://material-digital.de/pmdco/> .
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://material-digital.de/pmdco/> .
+
+<https://material-digital.de/pmdco/> rdf:type owl:Ontology ;
+                                      owl:imports <http://w3id.org/concrete> ,
+                                                  <http://www.ontologyrepository.com/CommonCoreOntologies/Mid/2021-03-01/MergedAllCoreOntology> ,
+                                                  <https://material-digital.de/pmdco/> .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#dateTime
+xsd:dateTime rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#dateTimeStamp
+xsd:dateTimeStamp rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#decimal
+xsd:decimal rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#string
+xsd:string rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/RO_0000086
+obo:RO_0000086 rdf:type owl:ObjectProperty .
+
+
+###  http://w3id.org/concrete/has_age
+con:has_age rdf:type owl:ObjectProperty .
+
+
+###  http://w3id.org/concrete/has_property
+con:has_property rdf:type owl:ObjectProperty .
+
+
+###  http://w3id.org/concrete/has_state
+con:has_state rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/described_by
+cco:described_by rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/designated_by
+cco:designated_by rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_input
+cco:has_input rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_output
+cco:has_output rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_process_part
+cco:has_process_part rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/is_input_of
+cco:is_input_of rdf:type owl:ObjectProperty .
+
+
+###  https://material-digital.de/pmdco/composedBy
+pmd:composedBy rdf:type owl:ObjectProperty .
+
+
+###  https://material-digital.de/pmdco/hasPmdUnit
+pmd:hasPmdUnit rdf:type owl:ObjectProperty .
+
+
+###  https://purl.matolab.org/mseo/mid/in_accordance_with
+mid:in_accordance_with rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_datetime_value
+cco:has_datetime_value rdf:type owl:DatatypeProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value
+cco:has_decimal_value rdf:type owl:DatatypeProperty .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/has_text_value
+cco:has_text_value rdf:type owl:DatatypeProperty .
+
+
+###  https://purl.matolab.org/mseo/mid/has_column_index
+mid:has_column_index rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000038
+obo:BFO_0000038 rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Admixture
+con:Admixture rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Age
+con:Age rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Aggregates
+con:Aggregates rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/AirContent
+con:AirContent rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/AppliedLoad
+con:AppliedLoad rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Cement
+con:Cement rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/CompressiveStrength
+con:CompressiveStrength rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Duration
+con:Duration rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Energy
+con:Energy rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/ExperimentInfo
+con:ExperimentInfo rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/FlowClass
+con:FlowClass rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/FlowSpread
+con:FlowSpread rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/HeatOfHydration
+con:HeatOfHydration rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Intensity
+con:Intensity rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Location
+con:Location rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/MeasuringGauge
+con:MeasuringGauge rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Mixer
+con:Mixer rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Mixture
+con:Mixture rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/RawDataFile
+con:RawDataFile rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/RawMaterials
+con:RawMaterials rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/SecantModulusOfElasticty
+con:SecantModulusOfElasticty rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Time
+con:Time rdf:type owl:Class .
+
+
+###  http://w3id.org/concrete/Water
+con:Water rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Artifact
+cco:Artifact rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Day
+cco:Day rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Density
+cco:Density rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Diameter
+cco:Diameter rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Document
+cco:Document rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Height
+cco:Height rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Length
+cco:Length rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Mass
+cco:Mass rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/NonNameIdentifier
+cco:NonNameIdentifier rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Power
+cco:Power rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Temperature
+cco:Temperature rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Weight
+cco:Weight rdf:type owl:Class .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/Width
+cco:Width rdf:type owl:Class .
+
+
+###  https://material-digital.de/pmdco/PmdSiUnit
+pmd:PmdSiUnit rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/ExperimentTime
+mid:ExperimentTime rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/ProcessDataSet
+mid:ProcessDataSet rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/RawDataSet
+mid:RawDataSet rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/Specimen
+mid:Specimen rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/Voltage
+mid:Voltage rdf:type owl:Class .
+
+
+###  https://purl.matolab.org/mseo/mid/WeightRatio
+mid:WeightRatio rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://w3id.org/concrete/AirContent_
+con:AirContent_ rdf:type owl:NamedIndividual ,
+                         con:AirContent ;
+                obo:RO_0000086 con:AirDensity_ ;
+                pmd:hasPmdUnit con:PercentByVolume ;
+                cco:has_decimal_value $$AirContent_Value$$ .
+
+
+###  http://w3id.org/concrete/AirDensity_
+con:AirDensity_ rdf:type owl:NamedIndividual ,
+                         cco:Density ;
+                pmd:hasPmdUnit pmd:Q2175964 ;
+                cco:has_decimal_value $$AirDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/CEMIDensity_
+con:CEMIDensity_ rdf:type owl:NamedIndividual ,
+                          cco:Density ;
+                 pmd:hasPmdUnit pmd:Q2175964 ;
+                 cco:has_decimal_value $$CEMIDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/CEMIIDensity_
+con:CEMIIDensity_ rdf:type owl:NamedIndividual ,
+                           cco:Density ;
+                  pmd:hasPmdUnit pmd:Q2175964 ;
+                  cco:has_decimal_value $$CEMIIDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/CEMIIQtyInMix_
+con:CEMIIQtyInMix_ rdf:type owl:NamedIndividual ,
+                            con:Cement ;
+                   obo:RO_0000086 con:CEMIIDensity_ ;
+                   pmd:hasPmdUnit pmd:Q844211 ;
+                   cco:has_decimal_value $$CEMIIQtyInMix_Value$$ .
+
+
+###  http://w3id.org/concrete/CEMII_
+con:CEMII_ rdf:type owl:NamedIndividual ,
+                    con:Cement .
+
+
+###  http://w3id.org/concrete/CEMIQtyInMix_
+con:CEMIQtyInMix_ rdf:type owl:NamedIndividual ,
+                           con:Cement ;
+                  obo:RO_0000086 con:CEMIDensity_ ;
+                  pmd:hasPmdUnit pmd:Q844211 ;
+                  cco:has_decimal_value $$CEMIQtyInMix_Value$$ .
+
+
+###  http://w3id.org/concrete/CEMI_
+con:CEMI_ rdf:type owl:NamedIndividual ,
+                   con:Cement .
+
+
+###  http://w3id.org/concrete/CMix_ExperimentInfo_
+con:CMix_ExperimentInfo_ rdf:type owl:NamedIndividual ,
+                                  con:ExperimentInfo ;
+                         cco:has_output con:Lab_ ,
+                                        con:MixingDate_ .
+
+
+###  http://w3id.org/concrete/CementPaste_
+con:CementPaste_ rdf:type owl:NamedIndividual ,
+                          cco:Artifact ;
+                 obo:RO_0000086 con:PasteHeatOfHydration_ ,
+                                con:SampleMass_ ,
+                                con:WaterCementRatio_ ;
+                 cco:designated_by con:PasteID_ ;
+                 cco:has_input con:PasteRawMaterials_ .
+
+
+###  http://w3id.org/concrete/CompressionForce_
+con:CompressionForce_ rdf:type owl:NamedIndividual ,
+                               con:AppliedLoad ;
+                      pmd:hasPmdUnit pmd:Q56402798 ;
+                      cco:has_decimal_value "$$CompressionColumn_Value$$"^^xsd:string ;
+                      mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/CompressiveStrength_
+con:CompressiveStrength_ rdf:type owl:NamedIndividual ,
+                                  con:CompressiveStrength ;
+                         cco:described_by con:OpenBisRawDataFile_ ,
+                                          con:RawDataFile_ ;
+                         cco:has_output con:ExperimentInfo_ ;
+                         pmd:hasPmdUnit pmd:Q107378499 ;
+                         mid:in_accordance_with <http://w3id.org/concrete/DINEN12390-3:2019> ;
+                         cco:has_decimal_value $$CompressiveStregth_Value$$ .
+
+
+###  http://w3id.org/concrete/Computation
+con:Computation rdf:type owl:NamedIndividual ,
+                         mid:RawDataSet .
+
+
+###  http://w3id.org/concrete/ConcreteMixer_
+con:ConcreteMixer_ rdf:type owl:NamedIndividual ,
+                            con:Mixer ;
+                   cco:has_text_value "$$ConcreteMixer_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/ConcreteMixture_
+con:ConcreteMixture_ rdf:type owl:NamedIndividual ,
+                              con:Mixture ;
+                     obo:RO_0000086 con:WaterCementRatio_ ;
+                     con:has_property con:CompressiveStrength_ ,
+                                      con:FlowClass_ ,
+                                      con:PasteHeatOfHydration_ ,
+                                      con:SecantModulusOfElasticty_ ;
+                     cco:described_by con:RawDataFile_ ;
+                     cco:designated_by con:MixtureID_ ;
+                     cco:has_input con:ConcreteRawMaterials_ ;
+                     cco:has_output con:CMix_ExperimentInfo_ ,
+                                    con:Concrete_ .
+
+
+###  http://w3id.org/concrete/ConcreteRawMaterials_
+con:ConcreteRawMaterials_ rdf:type owl:NamedIndividual ,
+                                   con:RawMaterials ;
+                          pmd:composedBy con:AirContent_ ,
+                                         con:CEMIIQtyInMix_ ,
+                                         con:CEMIQtyInMix_ ,
+                                         con:MixingWaterQtyInMix_ ,
+                                         con:OkrillaQtyInMix_ ,
+                                         con:PlasticizerQtyInMix_ .
+
+
+###  http://w3id.org/concrete/Concrete_
+con:Concrete_ rdf:type owl:NamedIndividual ,
+                       cco:Artifact ;
+              con:has_state con:FreshConcrete_ ,
+                            con:HardenedConcrete_ ;
+              cco:has_process_part con:Mixing_ .
+
+
+###  http://w3id.org/concrete/E-ModuleTestSpecimen_
+con:E-ModuleTestSpecimen_ rdf:type owl:NamedIndividual ,
+                                   mid:Specimen ;
+                          obo:RO_0000086 con:SpecimenDiameter_ ,
+                                         con:SpecimenHeight_ ,
+                                         con:SpecimenLength_ ,
+                                         con:SpecimenWidth_ ;
+                          con:has_age con:SpecimenAge_ ;
+                          cco:designated_by con:SpecimenID_ ;
+                          cco:is_input_of con:SecantModulusOfElasticty_ ;
+                          cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/ExperimentDate_
+con:ExperimentDate_ rdf:type owl:NamedIndividual ,
+                             cco:Day ;
+                    cco:has_datetime_value "$$ExperimentDate_Value$$"^^xsd:dateTime ,
+                                           "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+
+
+###  http://w3id.org/concrete/ExperimentInfo_
+con:ExperimentInfo_ rdf:type owl:NamedIndividual ,
+                             con:ExperimentInfo ;
+                    cco:has_output con:CompressionForce_ ,
+                                   con:ExperimentDate_ ,
+                                   con:ExperimentTime_ ,
+                                   con:Lab_ ,
+                                   con:MeasurementDuration_ ,
+                                   con:MeasurementEnergy_ ,
+                                   con:MeasurementPower_ ,
+                                   con:MeasurementTime_ ,
+                                   con:MeasurementVoltage_ ,
+                                   con:ProcessedFile_ ,
+                                   con:Time_ ,
+                                   con:Transducer_ .
+
+
+###  http://w3id.org/concrete/ExperimentTime_
+con:ExperimentTime_ rdf:type owl:NamedIndividual ,
+                             mid:ExperimentTime ;
+                    pmd:hasPmdUnit pmd:Q11574 ;
+                    cco:has_decimal_value $$ExperimentTime_Value$$ .
+
+
+###  http://w3id.org/concrete/FlowClass_
+con:FlowClass_ rdf:type owl:NamedIndividual ,
+                        con:FlowClass ;
+               cco:has_text_value "$$FlowClass_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/FlowSpread_
+con:FlowSpread_ rdf:type owl:NamedIndividual ,
+                         con:FlowSpread ;
+                cco:has_output con:FlowClass_ ;
+                pmd:hasPmdUnit pmd:Q174789 ;
+                cco:has_decimal_value $$FlowSpread_Value$$ .
+
+
+###  http://w3id.org/concrete/FreshConcrete_
+con:FreshConcrete_ rdf:type owl:NamedIndividual ,
+                            cco:Artifact ;
+                   obo:RO_0000086 con:FlowSpread_ ;
+                   cco:has_process_part con:Hardening_ .
+
+
+###  http://w3id.org/concrete/HardenedConcrete_
+con:HardenedConcrete_ rdf:type owl:NamedIndividual ,
+                               cco:Artifact ;
+                      obo:RO_0000086 con:CompressiveStrength_ ,
+                                     con:SecantModulusOfElasticty_ ;
+                      cco:has_output con:E-ModuleTestSpecimen_ ,
+                                     con:StrengthTestSpecimen_ .
+
+
+###  http://w3id.org/concrete/Hardening_
+con:Hardening_ rdf:type owl:NamedIndividual ,
+                        cco:Artifact ;
+               cco:has_output con:HardenedConcrete_ .
+
+
+###  http://w3id.org/concrete/Intensity_
+con:Intensity_ rdf:type owl:NamedIndividual ,
+                        con:Intensity .
+
+
+###  http://w3id.org/concrete/Lab_
+con:Lab_ rdf:type owl:NamedIndividual ,
+                  con:Location ;
+         cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/MeasurementDuration_
+con:MeasurementDuration_ rdf:type owl:NamedIndividual ,
+                                  con:Duration ;
+                         pmd:hasPmdUnit cco:HourMeasurementUnit ,
+                                        pmd:Q11574 ;
+                         cco:has_decimal_value $$MeasurementDuration_Value$$ .
+
+
+###  http://w3id.org/concrete/MeasurementEnergy_
+con:MeasurementEnergy_ rdf:type owl:NamedIndividual ,
+                                con:Energy ;
+                       pmd:hasPmdUnit pmd:Q106611903 ;
+                       cco:has_decimal_value $$MeasurementEnergy_Value$$ .
+
+
+###  http://w3id.org/concrete/MeasurementPower_
+con:MeasurementPower_ rdf:type owl:NamedIndividual ,
+                               cco:Power ;
+                      pmd:hasPmdUnit con:MilliwattPerGramOfMaterial ;
+                      cco:has_decimal_value $$MeasurementPower_Value$$ .
+
+
+###  http://w3id.org/concrete/MeasurementTime_
+con:MeasurementTime_ rdf:type owl:NamedIndividual ,
+                              mid:ExperimentTime ;
+                     pmd:hasPmdUnit cco:HourMeasurementUnit ;
+                     cco:has_decimal_value $$MeasurementTime_Value$$ .
+
+
+###  http://w3id.org/concrete/MeasurementVoltage_
+con:MeasurementVoltage_ rdf:type owl:NamedIndividual ,
+                                 mid:Voltage ;
+                        pmd:hasPmdUnit pmd:Q2448803 ;
+                        cco:has_decimal_value $$MeasurementVoltage_Value$$ .
+
+
+###  http://w3id.org/concrete/MilliwattPerGramOfMaterial
+con:MilliwattPerGramOfMaterial rdf:type owl:NamedIndividual ,
+                                        pmd:PmdSiUnit .
+
+
+###  http://w3id.org/concrete/MixingDate_
+con:MixingDate_ rdf:type owl:NamedIndividual ,
+                         cco:Day ;
+                cco:has_datetime_value "$$MixingDate_Value$$"^^xsd:dateTime ,
+                                       "$$MixingDate_Value$$"^^xsd:dateTimeStamp .
+
+
+###  http://w3id.org/concrete/MixingTime_
+con:MixingTime_ rdf:type owl:NamedIndividual ,
+                         con:Time ;
+                pmd:hasPmdUnit cco:HourMeasurementUnit ;
+                cco:has_decimal_value $$MixingTime_Value$$ .
+
+
+###  http://w3id.org/concrete/MixingWaterQtyInMix_
+con:MixingWaterQtyInMix_ rdf:type owl:NamedIndividual ,
+                                  con:Water ;
+                         obo:RO_0000086 con:WaterDensity_ ;
+                         pmd:hasPmdUnit pmd:Q844211 ;
+                         cco:has_decimal_value $$MixingWaterQtyInMix_Value$$ .
+
+
+###  http://w3id.org/concrete/MixingWater_
+con:MixingWater_ rdf:type owl:NamedIndividual ,
+                          con:Water .
+
+
+###  http://w3id.org/concrete/Mixing_
+con:Mixing_ rdf:type owl:NamedIndividual ,
+                     cco:Artifact ;
+            cco:has_output con:ConcreteMixer_ ,
+                           con:Intensity_ ,
+                           con:Lab_ ,
+                           con:MixingDate_ ,
+                           con:MixingTime_ ,
+                           con:RawDataFile_ ,
+                           con:Weight_ .
+
+
+###  http://w3id.org/concrete/MixtureID_
+con:MixtureID_ rdf:type owl:NamedIndividual ,
+                        cco:NonNameIdentifier ;
+               cco:has_text_value "$$MixtureID_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/OkrillaDensity_
+con:OkrillaDensity_ rdf:type owl:NamedIndividual ,
+                             cco:Density ;
+                    pmd:hasPmdUnit pmd:Q2175964 ;
+                    cco:has_decimal_value $$OkrillaDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/OkrillaQtyInMix_
+con:OkrillaQtyInMix_ rdf:type owl:NamedIndividual ,
+                              con:Aggregates ;
+                     obo:RO_0000086 con:OkrillaDensity_ ;
+                     pmd:hasPmdUnit pmd:Q844211 ;
+                     cco:has_decimal_value $$OkrillaQtyInMix_Value$$ .
+
+
+###  http://w3id.org/concrete/OpenBisRawDataFile
+con:OpenBisRawDataFile rdf:type owl:NamedIndividual ,
+                                con:RawDataFile ;
+                       cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/OpenBisRawDataFile_
+con:OpenBisRawDataFile_ rdf:type owl:NamedIndividual ,
+                                 mid:RawDataSet ;
+                        cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/PasteHeatOfHydration_
+con:PasteHeatOfHydration_ rdf:type owl:NamedIndividual ,
+                                   con:HeatOfHydration ;
+                          cco:described_by con:RawDataFile_ ;
+                          cco:has_output con:ExperimentInfo_ ;
+                          pmd:hasPmdUnit cco:KilogramMeasurementUnit ;
+                          mid:in_accordance_with <http://w3id.org/concrete/DINEN196-8:2010> ;
+                          cco:has_decimal_value $$HeatOfHydration_Value$$ .
+
+
+###  http://w3id.org/concrete/PasteID_
+con:PasteID_ rdf:type owl:NamedIndividual ,
+                      cco:NonNameIdentifier ;
+             cco:has_text_value "$$PasteID_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/PasteRawMaterials_
+con:PasteRawMaterials_ rdf:type owl:NamedIndividual ,
+                                con:RawMaterials ;
+                       pmd:composedBy con:AirContent_ ,
+                                      con:CEMII_ ,
+                                      con:CEMI_ ,
+                                      con:MixingWater_ ,
+                                      con:Plasticizer_ .
+
+
+###  http://w3id.org/concrete/PercentByVolume
+con:PercentByVolume rdf:type owl:NamedIndividual ,
+                             pmd:PmdSiUnit .
+
+
+###  http://w3id.org/concrete/PlasticizerDensity_
+con:PlasticizerDensity_ rdf:type owl:NamedIndividual ,
+                                 cco:Density ;
+                        pmd:hasPmdUnit pmd:Q2175964 ;
+                        cco:has_decimal_value $$PlasticizerDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/PlasticizerQtyInMix_
+con:PlasticizerQtyInMix_ rdf:type owl:NamedIndividual ,
+                                  con:Admixture ;
+                         obo:RO_0000086 con:PlasticizerDensity_ ;
+                         pmd:hasPmdUnit pmd:Q844211 ;
+                         cco:has_decimal_value $$PlasticizerQtyInMix_Value$$ .
+
+
+###  http://w3id.org/concrete/Plasticizer_
+con:Plasticizer_ rdf:type owl:NamedIndividual ,
+                          con:Admixture .
+
+
+###  http://w3id.org/concrete/ProcessedFile_
+con:ProcessedFile_ rdf:type owl:NamedIndividual ,
+                            mid:ProcessDataSet ;
+                   cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/RawDataFile_
+con:RawDataFile_ rdf:type owl:NamedIndividual ,
+                          mid:RawDataSet ;
+                 cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string ,
+                                    "$$RawDataFile_Value§§"^^xsd:string .
+
+
+###  http://w3id.org/concrete/SampleMass_
+con:SampleMass_ rdf:type owl:NamedIndividual ,
+                         cco:Mass ;
+                pmd:hasPmdUnit pmd:Q41803 ;
+                cco:has_decimal_value $$SampleMass_Value$$ .
+
+
+###  http://w3id.org/concrete/SecantModulusOfElasticty_
+con:SecantModulusOfElasticty_ rdf:type owl:NamedIndividual ,
+                                       con:SecantModulusOfElasticty ;
+                              cco:described_by con:OpenBisRawDataFile ,
+                                               con:RawDataFile_ ;
+                              cco:has_output con:ExperimentInfo_ ;
+                              cco:has_process_part con:Computation ;
+                              pmd:hasPmdUnit pmd:Q107378499 ;
+                              mid:in_accordance_with <http://w3id.org/concrete/DINEN12390-13:2021> ;
+                              cco:has_decimal_value $$EModule_Value$$ .
+
+
+###  http://w3id.org/concrete/SpecimenAge_
+con:SpecimenAge_ rdf:type owl:NamedIndividual ,
+                          con:Age ;
+                 pmd:hasPmdUnit cco:DayMeasurementUnit ;
+                 cco:has_decimal_value $$SpecimenAge_Value$$ .
+
+
+###  http://w3id.org/concrete/SpecimenDiameter_
+con:SpecimenDiameter_ rdf:type owl:NamedIndividual ,
+                               cco:Diameter ;
+                      pmd:hasPmdUnit pmd:Q174789 ;
+                      cco:has_decimal_value $$SpecimenDiameter_Value$$ .
+
+
+###  http://w3id.org/concrete/SpecimenHeight_
+con:SpecimenHeight_ rdf:type owl:NamedIndividual ,
+                             cco:Height ;
+                    pmd:hasPmdUnit pmd:Q174789 ;
+                    cco:has_decimal_value $$SpecimenHeight_Value$$ .
+
+
+###  http://w3id.org/concrete/SpecimenID_
+con:SpecimenID_ rdf:type owl:NamedIndividual ,
+                         cco:NonNameIdentifier ;
+                cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/SpecimenLength_
+con:SpecimenLength_ rdf:type owl:NamedIndividual ,
+                             cco:Length ;
+                    pmd:hasPmdUnit pmd:Q174789 ;
+                    cco:has_decimal_value $$SpecimenLength_Value$$ .
+
+
+###  http://w3id.org/concrete/SpecimenWidth_
+con:SpecimenWidth_ rdf:type owl:NamedIndividual ,
+                            cco:Width ;
+                   pmd:hasPmdUnit pmd:Q174789 ;
+                   cco:has_decimal_value $$SpecimenWidth_Value$$ .
+
+
+###  http://w3id.org/concrete/StorageConditions_
+con:StorageConditions_ rdf:type owl:NamedIndividual ,
+                                cco:Artifact ;
+                       cco:has_input con:Hardening_ ;
+                       cco:has_output cco:DayMeasurementUnit ,
+                                      cco:DegreeCelsiusMeasurementUnit .
+
+
+###  http://w3id.org/concrete/StrengthTestSpecimen_
+con:StrengthTestSpecimen_ rdf:type owl:NamedIndividual ,
+                                   mid:Specimen ;
+                          obo:RO_0000086 con:SpecimenDiameter_ ,
+                                         con:SpecimenHeight_ ,
+                                         con:SpecimenLength_ ,
+                                         con:SpecimenWidth_ ;
+                          con:has_age con:SpecimenAge_ ;
+                          cco:designated_by con:SpecimenID_ ;
+                          cco:is_input_of con:CompressiveStrength_ ;
+                          cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/Time_
+con:Time_ rdf:type owl:NamedIndividual ,
+                   mid:ExperimentTime ;
+          pmd:hasPmdUnit pmd:Q11574 ;
+          cco:has_decimal_value $$Time_Value$$ .
+
+
+###  http://w3id.org/concrete/Transducer_
+con:Transducer_ rdf:type owl:NamedIndividual ,
+                         con:MeasuringGauge ;
+                pmd:hasPmdUnit pmd:Q174789 ,
+                               pmd:Q56402798 ;
+                cco:has_decimal_value "$$TransducerColumn_Value$$"^^xsd:string ;
+                mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:string .
+
+
+###  http://w3id.org/concrete/WaterCementRatio_
+con:WaterCementRatio_ rdf:type owl:NamedIndividual ,
+                               mid:WeightRatio ;
+                      cco:has_decimal_value $$WaterCementRatio_Value$$ .
+
+
+###  http://w3id.org/concrete/WaterDensity_
+con:WaterDensity_ rdf:type owl:NamedIndividual ,
+                           cco:Density ;
+                  pmd:hasPmdUnit pmd:Q2175964 ;
+                  cco:has_decimal_value $$WaterDensity_Value$$ .
+
+
+###  http://w3id.org/concrete/Weight_
+con:Weight_ rdf:type owl:NamedIndividual ,
+                     cco:Weight ;
+            pmd:hasPmdUnit pmd:Q11570 ;
+            cco:has_decimal_value $$Weight_Value$$ .
+
+
+###  http://w3id.org/concrete/DINEN12390-13:2021
+<http://w3id.org/concrete/DINEN12390-13:2021> rdf:type owl:NamedIndividual ,
+                                                       cco:Document .
+
+
+###  http://w3id.org/concrete/DINEN12390-3:2019
+<http://w3id.org/concrete/DINEN12390-3:2019> rdf:type owl:NamedIndividual ,
+                                                      cco:Document .
+
+
+###  http://w3id.org/concrete/DINEN196-8:2010
+<http://w3id.org/concrete/DINEN196-8:2010> rdf:type owl:NamedIndividual ,
+                                                    cco:Document .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/DayMeasurementUnit
+cco:DayMeasurementUnit rdf:type owl:NamedIndividual ,
+                                obo:BFO_0000038 ;
+                       pmd:hasPmdUnit cco:HourMeasurementUnit ;
+                       cco:has_decimal_value $$StorageTime_Value$$ .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/DegreeCelsiusMeasurementUnit
+cco:DegreeCelsiusMeasurementUnit rdf:type owl:NamedIndividual ,
+                                          cco:Temperature ;
+                                 pmd:hasPmdUnit con:PercentByVolume ,
+                                                pmd:Q25267 ;
+                                 cco:has_decimal_value $$Humidity_Value$$ ,
+                                                       $$Temperature_Value$$ .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/HourMeasurementUnit
+cco:HourMeasurementUnit rdf:type owl:NamedIndividual ,
+                                 pmd:PmdSiUnit .
+
+
+###  http://www.ontologyrepository.com/CommonCoreOntologies/KilogramMeasurementUnit
+cco:KilogramMeasurementUnit rdf:type owl:NamedIndividual ,
+                                     pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q106611903
+pmd:Q106611903 rdf:type owl:NamedIndividual ,
+                        pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q107378499
+pmd:Q107378499 rdf:type owl:NamedIndividual ,
+                        pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q11570
+pmd:Q11570 rdf:type owl:NamedIndividual ,
+                    pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q11574
+pmd:Q11574 rdf:type owl:NamedIndividual ,
+                    pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q174789
+pmd:Q174789 rdf:type owl:NamedIndividual ,
+                     pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q2175964
+pmd:Q2175964 rdf:type owl:NamedIndividual ,
+                      pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q2448803
+pmd:Q2448803 rdf:type owl:NamedIndividual ,
+                      pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q25267
+pmd:Q25267 rdf:type owl:NamedIndividual ,
+                    pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q41803
+pmd:Q41803 rdf:type owl:NamedIndividual ,
+                    pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q56402798
+pmd:Q56402798 rdf:type owl:NamedIndividual ,
+                       pmd:PmdSiUnit .
+
+
+###  https://material-digital.de/pmdco/Q844211
+pmd:Q844211 rdf:type owl:NamedIndividual ,
+                     pmd:PmdSiUnit .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
