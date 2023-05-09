@@ -68,7 +68,7 @@ def placeholderreplacement(
 
     '''
 
-    # load metadata and get the keys
+    # load metadata, convert the units through module and get the keys
     metadata = load_metadata(metadataPath)
     metadata = unit_conversion(metadata)
     keys = list(metadata.keys())  
