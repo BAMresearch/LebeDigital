@@ -76,7 +76,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
 
         # service information of the experiment, it should be in between the first two empty lines
         serviceInformation = []
-        for ind in range(emptyLineIndex[0]+1,emptyLineIndex[1]+2):
+        for ind in range(emptyLineIndex[0]+1,emptyLineIndex[1]+4):
             serviceInformation.append(get_metadata_in_one_line(lines[ind]))
 
 
@@ -89,8 +89,9 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
         # get experiment date and time
         date, time = serviceInformation[0][4].split(' ')
         metadata_emodule['ExperimentTime'] = str(time) # operator_timestamp
-        metadata_emodule['ExperimentTime_Unit'] = None
+        metadata_emodule['ExperimentTime_Unit'] = "hh:mm:ss"
         metadata_emodule['ExperimentDate'] = str(date) # operator_date
+        metadata_emodule['ExperimentDate_Unit'] = "dd.MM.yyyy"
 
         # get measurement duration  
         metadata_emodule['MeasurementDuration'] = float(replace_comma(serviceInformation[10][2]))
@@ -107,9 +108,9 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
 
         # set Compression and Transducer Column
         metadata_emodule['CompressionColumn'] = 0
-        metadata_emodule['AppliedLoad_Unit'] = None
+        metadata_emodule['AppliedLoad_Unit'] = "kN"
         metadata_emodule['TransducerColumn'] = [1,2,3]
-        metadata_emodule['MeasuringGauge_Unit'] = None
+        metadata_emodule['MeasuringGauge_Unit'] = "mm"  # Transducer messen eine Verschiebung.
 
         metadata_emodule['EModule_Value_Unit'] = None
 
