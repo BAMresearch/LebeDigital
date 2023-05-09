@@ -6,8 +6,8 @@ from loguru import logger
 
 def unit_conversion(input_metadata):
     """
-    Converts the units given in a metadata-file into ontology instances for
-    further mapping process.
+    Converts the units given in a metadata-file (like "mm") into ontology instances for
+    further mapping process (like "https://.....").
 
     Parameters:
     ----------
@@ -17,7 +17,7 @@ def unit_conversion(input_metadata):
     Returns:
     -------
     output_metadata : dict
-        Dictionary with units replaced by link to an instance defined in in the PMD core.
+        Dictionary with units replaced by link to an instance defined in the PMD core.
     """
 
     keys = list(input_metadata.keys()) 
@@ -25,7 +25,9 @@ def unit_conversion(input_metadata):
 
     for key in keys:
         if key[-4:] == "Unit":
-            input_metadata[key] = "Successfully replaced this unit!" #placeholder for testing the conversion until I get a table with real data
+
+            unit_URI = .... ### convert here the unit "mm" or something else to a proper ontology unit like "https://..."
+            input_metadata[key] = unit_URI  #change the old unit now to the new one
             debug_counter += 1
 
     logger.debug("Replaced units:")
