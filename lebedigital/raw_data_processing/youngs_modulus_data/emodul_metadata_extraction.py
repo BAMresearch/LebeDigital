@@ -87,15 +87,8 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
         metadata_emodule['ExperimentName'] = folderName  # This data has no placeholder yet.
 
         # get experiment date and time
-        date, time = serviceInformation[0][4].split(' ')
-        metadata_emodule['ExperimentTime'] = str(time) # operator_timestamp
-        metadata_emodule['ExperimentTime_Unit'] = "hh:mm:ss"
-        metadata_emodule['ExperimentDate'] = str(date) # operator_date
-        metadata_emodule['ExperimentDate_Unit'] = "dd.MM.yyyy"
-
-        # get measurement duration  
-        metadata_emodule['MeasurementDuration'] = float(replace_comma(serviceInformation[10][2]))
-        metadata_emodule['MeasurementDuration_Unit'] = "s"
+        date = serviceInformation[10][4]
+        metadata_emodule['ExperimentDateTime'] = str(date)
 
         # operator name - This data has no placeholder yet.
         metadata_emodule['tester_name'] = serviceInformation[2][1] 
