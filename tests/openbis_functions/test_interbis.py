@@ -433,9 +433,11 @@ def test_generate_validator_passing(setup, pytestconfig):
         "start_date": "05.05.2023 19:45",
     }
 
-    sample_validator = o.generate_validator(Constants.sample_type.value)
+    Model = o.generate_validator(Constants.sample_type.value)
 
-    sample_validator.validate(sample_props)
+    model_return = Model(**sample_props)
+
+    sample_props = model_return.dict(exclude_unset=True)
 
     sample.set_props(sample_props)
 
@@ -443,4 +445,26 @@ def test_generate_validator_passing(setup, pytestconfig):
 
     created_samples_in_tests.append(sample.identifier)
 
-    sample.space = Constants.space.value
+
+@pytest.mark.login
+@pytest.mark.xfail
+@pytest.mark.parametrize("param_name, param_val",
+                         [('start_date', 'not_a_date')])
+def test_generate_validator_failing(setup, pytestconfig, param_name, param_val):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample_props = {
+        "$name": "failing_sample_name",
+        "start_date": "not a date"
+    }
+
+    sample_props[param_name] = [param_val]
+
+    Model = o.generate_validator(Constants.sample_type.value)
+
+    model_return = Model(**sample_props)
+    # should fail here
+
+    sample_props = model_return.dict(exclude_unset=True)
