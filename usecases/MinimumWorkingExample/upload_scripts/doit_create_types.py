@@ -22,8 +22,9 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
                                  logging_path: Union[Path, str],):
 
     if config['runson'] == 'nodb':
-        _create_logfiles(mixture_sample_type='RAN ON ACTIONS',
-                         emodul_sample_type='RAN ON ACTIONS',
+        _create_logfiles(mixture_sample_type="RAN WITHOUT OPENBIS CONNECTION",
+                         emodul_sample_type="RAN WITHOUT OPENBIS CONNECTION",
+                         ingredient_sample_type="RAN WITHOUT OPENBIS CONNECTION",
                          logging_path=logging_path)
         return
 
@@ -68,11 +69,11 @@ def create_required_sample_types(mixture_directory_path: Union[Path, str],
     # logging.warning(set_ingredients)
 
     annotations = [{
-        "TYPE": ingredient_hint_created_props[0], # quantity in mix
+        "TYPE": ingredient_hint_created_props[0],  # quantity in mix
         "MANDATORY": True,
     },
         {
-        "TYPE": ingredient_hint_created_props[1], # volume
+        "TYPE": ingredient_hint_created_props[1],  # volume
         "MANDATORY": False
     }]
 
