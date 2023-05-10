@@ -34,6 +34,8 @@ class Constants(Enum):
     testing_sample_name: str = 'PYTEST_SAMPLE'
     testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/PYTEST_SAMPLE"
     parent_hint_label: str = "testing label"
+    sample_type_typechecker_code: str = "ST_TYPECHECKER"
+    sample_type_typechecker_prefix: str = "TYPECHK"
 
 
 class Filepaths(Enum):
@@ -64,7 +66,7 @@ def sample_code():
 def sample_dict():
     sample_type_dict = {'TYPESTR': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
                         'TYPEINT': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
-                        'TYPEFLOAT': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
+                        'TYPEFLOAT': ['timestamp', 'typeFloat_label', 'typeFloat_desc'],
                         'TYPEBOOLEAN': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
                         'TYPEHYPERLINK': ['HYPERLINK', 'typeHyperlink_label', 'typeHyperlink_desc'],
                         'TYPEMULTILINEVARCHAR': ['MULTILINE_VARCHAR', 'typeMultilineVarchar_label',
@@ -150,21 +152,34 @@ def setup(pytestconfig):
 
     test_vocab.save()
 
-    o.create_property_types(
-        {'testing_vocabulary': [
+    typechecker_sample_type_props = {
+        'testing_vocabulary': [
             'CONTROLLEDVOCABULARY',
             'testing_vocabulary_label',
             'testing_vocabulary_description',
             'test_vocab'
-        ]})
+        ],
+        'testing_real': [
+            'real',
+            'testing_real_label',
+            'testing_real_description',
+        ],
+        'testing_timestamp': [
+            'timestamp',
+            'testing_timestamp_label',
+            'testing_timestamp_description',
+        ],
+        'testing_varchar': [
+            'varchar',
+            'testing_varchar_label',
+            'testing_varchar_description',
+        ]
+    }
 
-    o.get_sample_type(Constants.sample_type.value).assign_property(
-        prop=o.get_property_type('testing_vocabulary'),
-        section='General info',
-        ordinal=5,
-        mandatory=False,
-        showInEditView=True,
-        showRawValueInForms=True,
+    o.create_sample_type(
+        Constants.sample_type_typechecker_code,
+        Constants.sample_type_typechecker_prefix,
+        typechecker_sample_type_props
     )
 
     yield
@@ -176,9 +191,9 @@ def setup(pytestconfig):
     o.logout()
 
 
-@pytest.mark.login
-@pytest.mark.parametrize("write, sheet_name, path", [(False, "metadata", ""),
-                                                     (True, "some_named_sheet", Filepaths.excel_output.value)])
+@ pytest.mark.login
+@ pytest.mark.parametrize("write, sheet_name, path", [(False, "metadata", ""),
+                                                      (True, "some_named_sheet", Filepaths.excel_output.value)])
 def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, write, sheet_name, path):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -195,7 +210,7 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
         pd.testing.assert_frame_equal(df, expected_df_import)
 
 
-@pytest.mark.login
+@ pytest.mark.login
 def test_import_props_from_template(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -215,7 +230,7 @@ def test_import_props_from_template(setup, pytestconfig):
     assert read_sample_props == expected_sample_props
 
 
-@pytest.mark.login
+@ pytest.mark.login
 def test_get_sample_dict(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -264,8 +279,8 @@ def test_get_sample_dict(setup, pytestconfig):
     assert expected_sample_dict.items() <= sample_dict.items()
 
 
-@pytest.mark.login
-@pytest.mark.parametrize('level', [('full'), ('space'), ('project'), ('collection')])
+@ pytest.mark.login
+@ pytest.mark.parametrize('level', [('full'), ('space'), ('project'), ('collection')])
 def test_get_overview(setup, pytestconfig, level):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -286,7 +301,7 @@ def test_get_overview(setup, pytestconfig, level):
         assert len(overview['TEST_COLLECTION']) >= 1
 
 
-@pytest.mark.login
+@ pytest.mark.login
 def test_get_sample_type_properties(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -307,7 +322,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
 
-@pytest.mark.login
+@ pytest.mark.login
 def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -452,21 +467,27 @@ def test_generate_validator_passing(setup, pytestconfig):
     o = Interbis(chosen_runner, verify_certificates=False)
 
     sample = o.new_sample(
-        type=Constants.sample_type.value,
+        type=Constants.sample_type_typechecker_code,
         space=Constants.space.value,
         project=Constants.project.value,
         collection=Constants.collection_id.value,
     )
 
     sample_props = {
-        "$name": "passing_sample_name",
-        "finished_flag": True,
-        "start_date": "05.05.2023 19:45",
+        'testing_varchar': 'varchar',
+        'testing_real': '21.37',
+        'testing_timestamp': '10.05.2023 10:05',
+        'testing_vocabulary': 'very'
     }
 
-    Model = o.generate_validator(Constants.sample_type.value)
+    Model = o.generate_validator(Constants.sample_type_typechecker_code)
 
     model_return = Model(**sample_props)
+
+    assert model_return.testing_varchar == 'varchar'
+    assert model_return.testing_real == 21.37
+    assert model_return.testing_timestamp == '2023-05-10 10:05'
+    assert model_return.testing_vocabulary == 'very'
 
     sample_props = model_return.dict(exclude_unset=True)
 
@@ -480,23 +501,17 @@ def test_generate_validator_passing(setup, pytestconfig):
 @pytest.mark.login
 @pytest.mark.xfail
 @pytest.mark.parametrize("param_name, param_val",
-                         [('start_date', 'not_a_date'),
-                          ('testing_vocabulary', '🤨')])
+                         [('testing_timestamp', 'not_a_date'),
+                          ('testing_vocabulary', '🤨'),
+                          ('testing_real', 'cant_cast_this')])
 def test_generate_validator_failing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
-    sample_props = {
-        "$name": "failing_sample_name",
-        "start_date": "not a date"
-    }
+    sample_props = {param_name: param_val}
 
-    sample_props[param_name] = [param_val]
+    Model = o.generate_validator(Constants.sample_type_typechecker_code)
 
-    Model = o.generate_validator(Constants.sample_type.value)
-
-    model_return = Model(**sample_props)
+    Model(**sample_props)
     # should fail here
-
-    sample_props = model_return.dict(exclude_unset=True)

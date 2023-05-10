@@ -703,16 +703,21 @@ class Interbis(Openbis):
         """
         Generates a pydantic validator with property types saved in openbis for a given sample type
         """
+
+        if not isinstance(sample_type, SampleType):
+            sample_type = self.get_sample_type(sample_type)
+
+        mandatory_props_df = sample_type.get_property_assignments().df
+        mandatory_props_dict = pd.Series(mandatory_props_df.mandatory.values, index=mandatory_props_df.propertyType).to_dict()
+        mandatory_props = [key.lower() for key, val in mandatory_props_dict.items() if val]
+
         property_df = self.get_sample_type_properties(sample_type)
         property_dict = pd.Series(property_df.dataType.values, index=property_df.code).to_dict()
+        property_dict = {key.lower(): val for key, val in property_dict.items()}
 
-        name_prop = property_dict.pop('$NAME')
+        property_function_input = {key: (self._get_datatype_conversion(key, val), None if key not in mandatory_props else ...) for key, val in property_dict.items()}
 
-        property_function_input = {key.lower(): (self._get_datatype_conversion(key, val), None) for key, val in property_dict.items()}
-
-        property_function_input['$name'] = (self._get_datatype_conversion('$name', name_prop), ...)
-
-        datetime_props = {key.lower(): val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
+        datetime_props = {key: val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
 
         validators = {}
 
