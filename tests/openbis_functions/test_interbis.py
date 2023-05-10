@@ -136,6 +136,37 @@ def setup(pytestconfig):
     sample.save()
     created_samples_in_tests.append(sample.identifier)
 
+    test_vocab_terms = [
+        {"code": 'very', "label": "very", "description": "very"},
+        {"code": 'interesting', "label": "interesting", "description": "interesting"},
+        {"code": 'terms', "label": "terms", "description": "terms"},
+    ]
+
+    test_vocab = o.new_vocabulary(
+        code='test_vocab',
+        description='test_vocab_description',
+        terms=test_vocab_terms
+    )
+
+    test_vocab.save()
+
+    o.create_property_types(
+        {'testing_vocabulary': [
+            'CONTROLLEDVOCABULARY',
+            'testing_vocabulary_label',
+            'testing_vocabulary_description',
+            'test_vocab'
+        ]})
+
+    o.get_sample_type(Constants.sample_type.value).assign_property(
+        prop=o.get_property_type('testing_vocabulary'),
+        section='General info',
+        ordinal=5,
+        mandatory=False,
+        showInEditView=True,
+        showRawValueInForms=True,
+    )
+
     yield
 
     for sample_id in created_samples_in_tests:
@@ -449,7 +480,8 @@ def test_generate_validator_passing(setup, pytestconfig):
 @pytest.mark.login
 @pytest.mark.xfail
 @pytest.mark.parametrize("param_name, param_val",
-                         [('start_date', 'not_a_date')])
+                         [('start_date', 'not_a_date'),
+                          ('testing_vocabulary', '🤨')])
 def test_generate_validator_failing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
