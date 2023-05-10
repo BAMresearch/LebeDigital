@@ -714,17 +714,17 @@ class Interbis(Openbis):
 
         datetime_props = {key.lower(): val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
 
-        print(property_dict)
-        print(datetime_props)
-
         validators = {}
 
         if datetime_props:
 
-            def datetime_correct_format(cls, v):
+            def date_correct_format(cls, v):
+                return parse(v).strftime("%Y-%m-%d")
+
+            def timestamp_correct_format(cls, v):
                 return parse(v).strftime("%Y-%m-%d %H:%M")
 
-            validators = {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(datetime_correct_format) for key, val in datetime_props.items()}
+            validators = {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(date_correct_format if val == 'DATE' else timestamp_correct_format) for key, val in datetime_props.items()}
 
         class Config:
             extra = "forbid"
