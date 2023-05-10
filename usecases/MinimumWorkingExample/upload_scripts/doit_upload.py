@@ -784,7 +784,7 @@ def _no_db_run(
     logger.debug(emodul_processed_data)
 
     output_dict = {
-        'ran_on': 'github_actions',
+        'ran_on': 'no_db_connection',
         'db_url': config["datastore_url"],
         'mix_file_yaml': mix_file_yaml,
         'mix_file_data': mix_file_data,
