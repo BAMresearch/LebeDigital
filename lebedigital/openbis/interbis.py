@@ -718,6 +718,7 @@ class Interbis(Openbis):
         property_function_input = {key: (self._get_datatype_conversion(key, val), None if key not in mandatory_props else ...) for key, val in property_dict.items()}
 
         datetime_props = {key: val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
+        controlledvocabulary_props = {key: val for key, val in property_dict.items() if val == "CONTROLLEDVOCABULARY"}
 
         validators = {}
 
@@ -729,7 +730,14 @@ class Interbis(Openbis):
             def timestamp_correct_format(cls, v):
                 return parse(v).strftime("%Y-%m-%d %H:%M")
 
-            validators = {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(date_correct_format if val == 'DATE' else timestamp_correct_format) for key, val in datetime_props.items()}
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(date_correct_format if val == 'DATE' else timestamp_correct_format) for key, val in datetime_props.items()}
+
+        if controlledvocabulary_props:
+
+            def props_to_uppercase(cls, v):
+                return v.upper()
+
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(props_to_uppercase) for key, val in controlledvocabulary_props.items()}
 
         class Config:
             extra = "forbid"

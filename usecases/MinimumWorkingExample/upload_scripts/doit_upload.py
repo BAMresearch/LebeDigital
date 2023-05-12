@@ -282,11 +282,7 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
         if val is None:
             continue
         if key in default_keys:
-            if key.lower() == 'operator_date':
-                # convert german date to openBIS date format YYYY-MM-DD
-                data[key] = parse(val).strftime('%Y-%m-%d')
-            else:
-                data[key] = val
+            data[key] = val
         else:
             data[f"{sample_type_code}.{key}".lower()] = val
 
