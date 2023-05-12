@@ -52,7 +52,7 @@ class Interbis(Openbis):
             "set_parent_annotation()",
             "get_parent_annotation()",
             "_get_datatype_conversion()",
-            "generate_validator()"
+            "generate_typechecker()"
         ] + super().__dir__()
 
     def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
@@ -686,7 +686,7 @@ class Interbis(Openbis):
     def _get_datatype_conversion(self, property_name: str, property_datatype: str):
         """
         Converts the openbis datatypes into python datatypes if possible, else a custom datatype
-        Use with the `generate_validator` method
+        Use with the `generate_typechecker` method
         """
         # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
         if property_datatype in CONVERSION_DICT:
@@ -699,7 +699,7 @@ class Interbis(Openbis):
 
         return Enum('Vocabulary', vocabulary_enum_dict)
 
-    def generate_validator(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
+    def generate_typechecker(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
         """
         Generates a pydantic validator with property types saved in openbis for a given sample type
         """

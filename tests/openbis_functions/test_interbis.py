@@ -461,7 +461,7 @@ def test_set_parent_hint(setup, pytestconfig):
 
 
 @pytest.mark.login
-def test_generate_validator_passing(setup, pytestconfig):
+def test_generate_typechecker_passing(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
@@ -477,10 +477,10 @@ def test_generate_validator_passing(setup, pytestconfig):
         'testing_varchar': 'varchar',
         'testing_real': '21.37',
         'testing_timestamp': '10.05.2023 10:05',
-        'testing_vocabulary': 'INTERESTING'
+        'testing_vocabulary': 'interesting'
     }
 
-    Model = o.generate_validator(Constants.sample_type_typechecker_code.value)
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
 
     model_return = Model(**sample_props)
 
@@ -504,14 +504,14 @@ def test_generate_validator_passing(setup, pytestconfig):
                          [('testing_timestamp', 'not_a_date'),
                           ('testing_vocabulary', '🤨'),
                           ('testing_real', 'cant_cast_this')])
-def test_generate_validator_failing(setup, pytestconfig, param_name, param_val):
+def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
     o = Interbis(chosen_runner, verify_certificates=False)
 
     sample_props = {param_name: param_val}
 
-    Model = o.generate_validator(Constants.sample_type_typechecker_code.value)
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
 
     Model(**sample_props)
     # should fail here

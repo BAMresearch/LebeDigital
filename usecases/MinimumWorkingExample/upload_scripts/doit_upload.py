@@ -475,7 +475,7 @@ def _mixture_upload(
         parents=list(mixture_parent_ingredients.keys()),
     )
 
-    MixtureModel = o.generate_validator(mixture_sample_type)
+    MixtureModel = o.generate_typechecker(mixture_sample_type)
     mixture_model_return = MixtureModel(**mixture_metadata_dict)
     mixture_metadata_dict = mixture_model_return.dict(exclude_unset=True)
 
@@ -591,7 +591,7 @@ def _emodul_upload(
     # logger.debug(o.get_sample_type_properties(emodul_sample_type))
     # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
 
-    EmodulModel = o.generate_validator(emodul_sample_type)
+    EmodulModel = o.generate_typechecker(emodul_sample_type)
     emodul_model_return = EmodulModel(**emodul_metadata_dict)
     emodul_metadata_dict = emodul_model_return.dict(exclude_unset=True)
 
@@ -731,7 +731,7 @@ def _ingredient_upload(
 
     if samples_with_same_props.empty:
 
-        IngredientModel = o.generate_validator(ingredient_sample_type)
+        IngredientModel = o.generate_typechecker(ingredient_sample_type)
         ingredient_model_return = IngredientModel(**ingredient_metadata_dict)
         ingredient_metadata_dict = ingredient_model_return.dict(exclude_unset=True)
 
