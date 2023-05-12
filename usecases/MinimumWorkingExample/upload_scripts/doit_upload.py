@@ -313,10 +313,10 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
             if keyword in key:
                 data[keyword][f"{ingredient_code}.{key}".lower()] = val
                 break
-            if key in default_keys:
-                data['mixture'][key] = val
-            else:
-                data['mixture'][f"{mixture_code}.{key}".lower()] = val
+        if key in default_keys:
+            data['mixture'][key] = val
+        else:
+            data['mixture'][f"{mixture_code}.{key}".lower()] = val
 
     # Converting NaN values to 0.0 as openBIS does not accept NaNs
     for id_dict, kw_dict in data.items():
