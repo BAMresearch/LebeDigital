@@ -160,17 +160,17 @@ def setup(pytestconfig):
             'test_vocab'
         ],
         'testing_real': [
-            'real',
+            'REAL',
             'testing_real_label',
             'testing_real_description',
         ],
         'testing_timestamp': [
-            'timestamp',
+            'TIMESTAMP',
             'testing_timestamp_label',
             'testing_timestamp_description',
         ],
         'testing_varchar': [
-            'varchar',
+            'VARCHAR',
             'testing_varchar_label',
             'testing_varchar_description',
         ]
