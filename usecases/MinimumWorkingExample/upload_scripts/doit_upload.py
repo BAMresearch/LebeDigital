@@ -9,7 +9,6 @@ from pprint import pformat
 from typing import Union
 
 import yaml
-from dateutil.parser import parse
 from pybis.sample import Sample
 from lebedigital.openbis.interbis import Interbis
 from typing import List, Dict
