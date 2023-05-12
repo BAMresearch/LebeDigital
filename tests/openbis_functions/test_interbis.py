@@ -66,7 +66,7 @@ def sample_code():
 def sample_dict():
     sample_type_dict = {'TYPESTR': ['VARCHAR', 'typeStr_label', 'typeStr_desc'],
                         'TYPEINT': ['INTEGER', 'typeInt_label', 'typeInt_desc'],
-                        'TYPEFLOAT': ['timestamp', 'typeFloat_label', 'typeFloat_desc'],
+                        'TYPEFLOAT': ['REAL', 'typeFloat_label', 'typeFloat_desc'],
                         'TYPEBOOLEAN': ['BOOLEAN', 'typeBool_label', 'typeBool_desc'],
                         'TYPEHYPERLINK': ['HYPERLINK', 'typeHyperlink_label', 'typeHyperlink_desc'],
                         'TYPEMULTILINEVARCHAR': ['MULTILINE_VARCHAR', 'typeMultilineVarchar_label',
@@ -477,7 +477,7 @@ def test_generate_validator_passing(setup, pytestconfig):
         'testing_varchar': 'varchar',
         'testing_real': '21.37',
         'testing_timestamp': '10.05.2023 10:05',
-        'testing_vocabulary': 'very'
+        'testing_vocabulary': 'INTERESTING'
     }
 
     Model = o.generate_validator(Constants.sample_type_typechecker_code.value)
