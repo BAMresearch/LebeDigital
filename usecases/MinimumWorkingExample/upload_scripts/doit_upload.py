@@ -479,6 +479,10 @@ def _mixture_upload(
         parents=list(mixture_parent_ingredients.keys()),
     )
 
+    MixtureModel = o.generate_validator(mixture_sample_type)
+    mixture_model_return = MixtureModel(**mixture_metadata_dict)
+    mixture_metadata_dict = mixture_model_return.dict(exclude_unset=True)
+
     # Setting the props from metadata and adding '$name' for better readability in the web view
     mixture_sample.set_props(mixture_metadata_dict)
 
@@ -508,6 +512,7 @@ def _mixture_upload(
 
     # NOTE: This is here only for our use, we want to make sure we don't upload multiple same samples in this example
     if mixture_sample_name not in exist_mixture_sample_list:
+
         mixture_sample.save()
         logger.debug(f'mixture {mixture_sample.code} uploaded')
     else:
@@ -589,6 +594,11 @@ def _emodul_upload(
     logger.debug(pformat(emodul_metadata_dict))
     # logger.debug(o.get_sample_type_properties(emodul_sample_type))
     # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
+
+    EmodulModel = o.generate_validator(emodul_sample_type)
+    emodul_model_return = EmodulModel(**emodul_metadata_dict)
+    emodul_metadata_dict = emodul_model_return.dict(exclude_unset=True)
+
     emodul_sample.set_props(emodul_metadata_dict)
 
     emodul_sample.set_props({'$name': emodul_sample.props.all()[
@@ -712,24 +722,29 @@ def _ingredient_upload(
     logger.debug(type(bulk_density_val))
     logger.debug(bulk_density_val)
 
-    ingredient_sample_props = {
+    ingredient_metadata_dict = {
         '$name': ingredient_type,
         'emodul_ingredient.annotation': annotation,
         bulk_density_key: bulk_density_val,
     }
 
     samples_with_same_props = o.get_samples(
-        where=ingredient_sample_props,
+        where=ingredient_metadata_dict,
         type=ingredient_sample_type
     ).df
 
     if samples_with_same_props.empty:
+
+        IngredientModel = o.generate_validator(ingredient_sample_type)
+        ingredient_model_return = IngredientModel(**ingredient_metadata_dict)
+        ingredient_metadata_dict = ingredient_model_return.dict(exclude_unset=True)
+
         ingredient_sample = o.new_sample(
             type=ingredient_sample_type,
             space=ingredient_space,
             project=ingredient_project,
             collection=ingredient_collection,
-            props=ingredient_sample_props
+            props=ingredient_metadata_dict
         )
         ingredient_sample.save()
     else:
