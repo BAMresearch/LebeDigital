@@ -177,8 +177,8 @@ def setup(pytestconfig):
     }
 
     o.create_sample_type(
-        Constants.sample_type_typechecker_code,
-        Constants.sample_type_typechecker_prefix,
+        Constants.sample_type_typechecker_code.value,
+        Constants.sample_type_typechecker_prefix.value,
         typechecker_sample_type_props
     )
 
@@ -467,7 +467,7 @@ def test_generate_validator_passing(setup, pytestconfig):
     o = Interbis(chosen_runner, verify_certificates=False)
 
     sample = o.new_sample(
-        type=Constants.sample_type_typechecker_code,
+        type=Constants.sample_type_typechecker_code.value,
         space=Constants.space.value,
         project=Constants.project.value,
         collection=Constants.collection_id.value,
@@ -480,7 +480,7 @@ def test_generate_validator_passing(setup, pytestconfig):
         'testing_vocabulary': 'very'
     }
 
-    Model = o.generate_validator(Constants.sample_type_typechecker_code)
+    Model = o.generate_validator(Constants.sample_type_typechecker_code.value)
 
     model_return = Model(**sample_props)
 
@@ -511,7 +511,7 @@ def test_generate_validator_failing(setup, pytestconfig, param_name, param_val):
 
     sample_props = {param_name: param_val}
 
-    Model = o.generate_validator(Constants.sample_type_typechecker_code)
+    Model = o.generate_validator(Constants.sample_type_typechecker_code.value)
 
     Model(**sample_props)
     # should fail here
