@@ -313,13 +313,8 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
             if keyword in key:
                 data[keyword][f"{ingredient_code}.{key}".lower()] = val
                 break
-        else:
             if key in default_keys:
-                if key.lower() == 'operator_date':
-                    # convert german date to openBIS date format YYYY-MM-DD
-                    data['mixture'][key] = parse(val).strftime('%Y-%m-%d')
-                else:
-                    data['mixture'][key] = val
+                data['mixture'][key] = val
             else:
                 data['mixture'][f"{mixture_code}.{key}".lower()] = val
 
