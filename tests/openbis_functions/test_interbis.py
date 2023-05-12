@@ -486,7 +486,7 @@ def test_generate_validator_passing(setup, pytestconfig):
 
     assert model_return.testing_varchar == 'varchar'
     assert model_return.testing_real == 21.37
-    assert model_return.testing_timestamp == '2023-05-10 10:05'
+    assert model_return.testing_timestamp == '2023-10-05 10:05'
     assert model_return.testing_vocabulary == 'very'
 
     sample_props = model_return.dict(exclude_unset=True)
