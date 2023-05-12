@@ -277,10 +277,10 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
     with open(yaml_path, 'r') as file:
         loaded = dict(yaml.safe_load(file))
 
+    loaded = {key: val for key, val in loaded.items() if val is not None}
+
     data = defaultdict(lambda: "Not In Props")
     for key, val in loaded.items():
-        if val is None:
-            continue
         if key in default_keys:
             data[key] = val
         else:
@@ -306,9 +306,9 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
     data = {keyword: {} for keyword in keywords}
     data['mixture'] = {f'{mixture_code}.water_cement_ratio'.lower(): loaded.pop('water_cement_ratio')}
 
+    loaded = {key: val for key, val in loaded.items() if val is not None}
+
     for key, val in loaded.items():
-        if val is None:
-            continue
         for keyword in keywords:
             if keyword in key:
                 data[keyword][f"{ingredient_code}.{key}".lower()] = val
