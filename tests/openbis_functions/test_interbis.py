@@ -465,8 +465,8 @@ def test_set_parent_hint(setup, pytestconfig):
 @pytest.mark.login
 @pytest.mark.parametrize("param_name, param_val",
                          [('testing_vocabulary', "interesting"),
-                          ('testing_vocabulary', 1)
-                          ('testing_vocabulary', 0.25,)])
+                          ('testing_vocabulary', 1),
+                          ('testing_vocabulary', 0.25)])
 def test_generate_typechecker_passing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
