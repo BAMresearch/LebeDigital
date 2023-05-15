@@ -142,6 +142,8 @@ def setup(pytestconfig):
         {"code": 'very', "label": "very", "description": "very"},
         {"code": 'interesting', "label": "interesting", "description": "interesting"},
         {"code": 'terms', "label": "terms", "description": "terms"},
+        {"code": 1, "label": "1", "description": "1"},
+        {"code": 0.25, "label": "0.25", "description": "0.25"},
     ]
 
     test_vocab = o.new_vocabulary(
@@ -191,9 +193,9 @@ def setup(pytestconfig):
     o.logout()
 
 
-@ pytest.mark.login
-@ pytest.mark.parametrize("write, sheet_name, path", [(False, "metadata", ""),
-                                                      (True, "some_named_sheet", Filepaths.excel_output.value)])
+@pytest.mark.login
+@pytest.mark.parametrize("write, sheet_name, path", [(False, "metadata", ""),
+                                                     (True, "some_named_sheet", Filepaths.excel_output.value)])
 def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, write, sheet_name, path):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -210,7 +212,7 @@ def test_get_metadata_import_template(setup, pytestconfig, expected_df_import, w
         pd.testing.assert_frame_equal(df, expected_df_import)
 
 
-@ pytest.mark.login
+@pytest.mark.login
 def test_import_props_from_template(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -230,7 +232,7 @@ def test_import_props_from_template(setup, pytestconfig):
     assert read_sample_props == expected_sample_props
 
 
-@ pytest.mark.login
+@pytest.mark.login
 def test_get_sample_dict(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -279,8 +281,8 @@ def test_get_sample_dict(setup, pytestconfig):
     assert expected_sample_dict.items() <= sample_dict.items()
 
 
-@ pytest.mark.login
-@ pytest.mark.parametrize('level', [('full'), ('space'), ('project'), ('collection')])
+@pytest.mark.login
+@pytest.mark.parametrize('level', [('full'), ('space'), ('project'), ('collection')])
 def test_get_overview(setup, pytestconfig, level):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -301,7 +303,7 @@ def test_get_overview(setup, pytestconfig, level):
         assert len(overview['TEST_COLLECTION']) >= 1
 
 
-@ pytest.mark.login
+@pytest.mark.login
 def test_get_sample_type_properties(setup, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -322,7 +324,7 @@ def test_get_sample_type_properties(setup, pytestconfig):
     pd.testing.assert_frame_equal(df, df_expected, check_dtype=False)
 
 
-@ pytest.mark.login
+@pytest.mark.login
 def test_create_sample_type(sample_code, sample_dict, pytestconfig):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -488,6 +490,82 @@ def test_generate_typechecker_passing(setup, pytestconfig):
     assert model_return.testing_real == 21.37
     assert model_return.testing_timestamp == '2023-10-05 10:05'
     assert model_return.testing_vocabulary == 'INTERESTING'
+
+    sample_props = model_return.dict(exclude_unset=True)
+
+    sample.set_props(sample_props)
+
+    sample.save()
+
+    created_samples_in_tests.append(sample.identifier)
+
+
+@pytest.mark.login
+def test_generate_typechecker_int_vocab(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample = o.new_sample(
+        type=Constants.sample_type_typechecker_code.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value,
+    )
+
+    sample_props = {
+        'testing_varchar': 'varchar',
+        'testing_real': '21.37',
+        'testing_timestamp': '10.05.2023 10:05',
+        'testing_vocabulary': 1
+    }
+
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
+
+    model_return = Model(**sample_props)
+
+    assert model_return.testing_varchar == 'varchar'
+    assert model_return.testing_real == 21.37
+    assert model_return.testing_timestamp == '2023-10-05 10:05'
+    assert model_return.testing_vocabulary == 1
+
+    sample_props = model_return.dict(exclude_unset=True)
+
+    sample.set_props(sample_props)
+
+    sample.save()
+
+    created_samples_in_tests.append(sample.identifier)
+
+
+@pytest.mark.login
+def test_generate_typechecker_float_vocab(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample = o.new_sample(
+        type=Constants.sample_type_typechecker_code.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value,
+    )
+
+    sample_props = {
+        'testing_varchar': 'varchar',
+        'testing_real': '21.37',
+        'testing_timestamp': '10.05.2023 10:05',
+        'testing_vocabulary': 0.25
+    }
+
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
+
+    model_return = Model(**sample_props)
+
+    assert model_return.testing_varchar == 'varchar'
+    assert model_return.testing_real == 21.37
+    assert model_return.testing_timestamp == '2023-10-05 10:05'
+    assert model_return.testing_vocabulary == 0.25
 
     sample_props = model_return.dict(exclude_unset=True)
 

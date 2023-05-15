@@ -11,13 +11,12 @@ from typing import Optional, Union
 from pydantic import create_model, AnyUrl, validator
 from pydantic.main import ModelMetaclass
 from enum import Enum
-from datetime import datetime
 from dateutil.parser import parse
 
 
 CONVERSION_DICT = {
     'BOOLEAN': bool,
-    'DATE': str,  # TODO write a parser for datetimes
+    'DATE': str,
     'HYPERLINK': AnyUrl,
     'INTEGER': int,
     'MATERIAL': str,
@@ -51,7 +50,6 @@ class Interbis(Openbis):
             "create_parent_hint()",
             "set_parent_annotation()",
             "get_parent_annotation()",
-            "_get_datatype_conversion()",
             "generate_typechecker()"
         ] + super().__dir__()
 
@@ -689,6 +687,8 @@ class Interbis(Openbis):
         Use with the `generate_typechecker` method
         """
         # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
+        # the CONTROLLED_VOCABULARY property type is the only one which cant be simply mapped to an exisiting
+        # python data type as we are handling it using an Enum which we create below
         if property_datatype in CONVERSION_DICT:
             return CONVERSION_DICT[property_datatype]
 
@@ -735,7 +735,9 @@ class Interbis(Openbis):
         if controlledvocabulary_props:
 
             def props_to_uppercase(cls, v):
-                return v.upper()
+                if isinstance(v, str):
+                    return v.upper()
+                return v
 
             validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(props_to_uppercase) for key, val in controlledvocabulary_props.items()}
 
