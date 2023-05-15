@@ -463,125 +463,54 @@ def test_set_parent_hint(setup, pytestconfig):
 
 
 @pytest.mark.login
-def test_generate_typechecker_passing(setup, pytestconfig):
-
-    chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner, verify_certificates=False)
-
-    sample = o.new_sample(
-        type=Constants.sample_type_typechecker_code.value,
-        space=Constants.space.value,
-        project=Constants.project.value,
-        collection=Constants.collection_id.value,
-    )
-
-    sample_props = {
-        'testing_varchar': 'varchar',
-        'testing_real': '21.37',
-        'testing_timestamp': '10.05.2023 10:05',
-        'testing_vocabulary': 'interesting'
-    }
-
-    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
-
-    model_return = Model(**sample_props)
-
-    assert model_return.testing_varchar == 'varchar'
-    assert model_return.testing_real == 21.37
-    assert model_return.testing_timestamp == '2023-10-05 10:05'
-    assert model_return.testing_vocabulary == 'INTERESTING'
-
-    sample_props = model_return.dict(exclude_unset=True)
-
-    sample.set_props(sample_props)
-
-    sample.save()
-
-    created_samples_in_tests.append(sample.identifier)
-
-
-@pytest.mark.login
-def test_generate_typechecker_int_vocab(setup, pytestconfig):
-
-    chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner, verify_certificates=False)
-
-    sample = o.new_sample(
-        type=Constants.sample_type_typechecker_code.value,
-        space=Constants.space.value,
-        project=Constants.project.value,
-        collection=Constants.collection_id.value,
-    )
-
-    sample_props = {
-        'testing_varchar': 'varchar',
-        'testing_real': '21.37',
-        'testing_timestamp': '10.05.2023 10:05',
-        'testing_vocabulary': 1
-    }
-
-    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
-
-    model_return = Model(**sample_props)
-
-    assert model_return.testing_varchar == 'varchar'
-    assert model_return.testing_real == 21.37
-    assert model_return.testing_timestamp == '2023-10-05 10:05'
-    assert model_return.testing_vocabulary == 1
-
-    sample_props = model_return.dict(exclude_unset=True)
-
-    sample.set_props(sample_props)
-
-    sample.save()
-
-    created_samples_in_tests.append(sample.identifier)
-
-
-@pytest.mark.login
-def test_generate_typechecker_float_vocab(setup, pytestconfig):
-
-    chosen_runner = pytestconfig.getoption('--url')
-    o = Interbis(chosen_runner, verify_certificates=False)
-
-    sample = o.new_sample(
-        type=Constants.sample_type_typechecker_code.value,
-        space=Constants.space.value,
-        project=Constants.project.value,
-        collection=Constants.collection_id.value,
-    )
-
-    sample_props = {
-        'testing_varchar': 'varchar',
-        'testing_real': '21.37',
-        'testing_timestamp': '10.05.2023 10:05',
-        'testing_vocabulary': 0.25
-    }
-
-    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
-
-    model_return = Model(**sample_props)
-
-    assert model_return.testing_varchar == 'varchar'
-    assert model_return.testing_real == 21.37
-    assert model_return.testing_timestamp == '2023-10-05 10:05'
-    assert model_return.testing_vocabulary == 0.25
-
-    sample_props = model_return.dict(exclude_unset=True)
-
-    sample.set_props(sample_props)
-
-    sample.save()
-
-    created_samples_in_tests.append(sample.identifier)
-
-
-@pytest.mark.login
-@pytest.mark.xfail
 @pytest.mark.parametrize("param_name, param_val",
-                         [('testing_timestamp', 'not_a_date'),
-                          ('testing_vocabulary', '🤨'),
-                          ('testing_real', 'cant_cast_this')])
+                         [('testing_vocabulary', "interesting"),
+                          ('testing_vocabulary', 1)
+                          ('testing_vocabulary', 0.25,)])
+def test_generate_typechecker_passing(setup, pytestconfig, param_name, param_val):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample = o.new_sample(
+        type=Constants.sample_type_typechecker_code.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value,
+    )
+
+    sample_props = {
+        'testing_varchar': 'varchar',
+        'testing_real': '21.37',
+        'testing_timestamp': '10.05.2023 10:05',
+    }
+
+    sample_props = sample_props | {param_name: param_val}
+
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
+
+    model_return = Model(**sample_props)
+
+    assert model_return.testing_varchar == 'varchar'
+    assert model_return.testing_real == 21.37
+    assert model_return.testing_timestamp == '2023-10-05 10:05'
+    assert model_return.testing_vocabulary == str(param_val).upper()
+
+    sample_props = model_return.dict(exclude_unset=True)
+
+    sample.set_props(sample_props)
+
+    sample.save()
+
+    created_samples_in_tests.append(sample.identifier)
+
+
+@ pytest.mark.login
+@ pytest.mark.xfail
+@ pytest.mark.parametrize("param_name, param_val",
+                          [('testing_timestamp', 'not_a_date'),
+                           ('testing_vocabulary', '🤨'),
+                           ('testing_real', 'cant_cast_this')])
 def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -592,4 +521,6 @@ def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val
     Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
 
     Model(**sample_props)
+    # should fail here
+    # should fail here
     # should fail here
