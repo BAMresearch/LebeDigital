@@ -735,9 +735,7 @@ class Interbis(Openbis):
         if controlledvocabulary_props:
 
             def props_to_uppercase(cls, v):
-                if isinstance(v, str):
-                    return v.upper()
-                return v
+                return str(v).upper()
 
             validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(props_to_uppercase) for key, val in controlledvocabulary_props.items()}
 
