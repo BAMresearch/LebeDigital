@@ -408,12 +408,8 @@ def task_perform_calibration():
         list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
     for f in list_exp_name:
         calibrated_data_expwise = os.path.join(calibrated_data_directory,f) # create new folder for each exp
-        try:
-            # Create the directory
-            os.mkdir(calibrated_data_expwise)
-        except FileExistsError:
-            # Directory already exists, continue with the next one
-            continue
+        # create the folder if its not there
+        Path(calibrated_data_expwise).mkdir(parents=True,exist_ok=True)
 
         # read in the metadata for each exp
         exp_metadata_path = os.path.join(metadata_emodulus_directory, f + '.yaml')
