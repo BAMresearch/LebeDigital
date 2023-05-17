@@ -1,23 +1,15 @@
 @prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
 @prefix con: <http://w3id.org/concrete/> .
 @prefix mid: <https://purl.matolab.org/mseo/mid/> .
-@prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix pmd: <https://material-digital.de/pmdco/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-obo:RO_0000086 a owl:ObjectProperty .
-
 con:StrengthTestSpecimen_ a owl:NamedIndividual,
         mid:Specimen ;
-    obo:RO_0000086 con:SpecimenDiameter_,
-        con:SpecimenHeight_,
-        con:SpecimenLength_,
-        con:SpecimenWidth_ ;
     con:has_age con:SpecimenAge_ ;
     cco:designated_by con:SpecimenID_ ;
-    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
     cco:is_input_of con:CompressiveStrength_ .
 
 con:has_age a owl:ObjectProperty .
@@ -119,29 +111,9 @@ con:SpecimenAge_ a con:Age,
     cco:has_decimal_value "$$SpecimenAge_Value$$"^^xsd:decimal ;
     pmd:hasPmdUnit cco:DayMeasurementUnit .
 
-con:SpecimenDiameter_ a cco:Diameter,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q174789 .
-
-con:SpecimenHeight_ a cco:Height,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q174789 .
-
 con:SpecimenID_ a cco:NonNameIdentifier,
         owl:NamedIndividual ;
     cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
-
-con:SpecimenLength_ a cco:Length,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q174789 .
-
-con:SpecimenWidth_ a cco:Width,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q174789 .
 
 con:Time_ a owl:NamedIndividual,
         mid:ExperimentTime ;
@@ -157,19 +129,14 @@ cco:Day a owl:Class .
 
 cco:DayMeasurementUnit a owl:NamedIndividual .
 
-cco:Diameter a owl:Class .
-
 cco:Document a owl:Class .
-
-cco:Height a owl:Class .
-
-cco:Length a owl:Class .
 
 cco:NonNameIdentifier a owl:Class .
 
-cco:Width a owl:Class .
-
 pmd:Q107378499 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q174789 a owl:NamedIndividual,
         pmd:PmdSiUnit .
 
 pmd:Q56402798 a owl:NamedIndividual,
@@ -187,7 +154,4 @@ pmd:Q11574 a owl:NamedIndividual,
 mid:RawDataSet a owl:Class .
 
 pmd:PmdSiUnit a owl:Class .
-
-pmd:Q174789 a owl:NamedIndividual,
-        pmd:PmdSiUnit .
 

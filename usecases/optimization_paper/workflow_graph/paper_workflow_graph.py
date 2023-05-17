@@ -93,6 +93,8 @@ def paper_workflow_graph(file_name = 'test_output', view=False):
     dot.edge('concrete strength 28d', 'ft(fc)')
     dot.edge('geometry', 'load bearing capacity')
     dot.node('load bearing capacity', 'beam design', color= process)
+    dot.edge('load bearing capacity','beam constraint')
+    dot.node('beam constraint', 'beam constraint', color= kpi, shape='rectangle')
     dot.node('fem model', 'fem model', color=process)
     dot.edge('fem model','fem output')
     dot.node('fem output', 'max temperature over time\nmax yield over time',)

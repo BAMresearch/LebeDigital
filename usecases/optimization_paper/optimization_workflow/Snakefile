@@ -201,6 +201,7 @@ rule beam_design:
                                                          cover_min=p['concrete_cover'])
         results["n_reinforcement"] = beam_design["n_steel_bars"]
         results["reinforcement_diameter"] = beam_design["diameter"]
+        results["constraint_beam_design"] = beam_design["constraint_beam_design"]
         # breakpoint()
         # results["n_reinforcement"] = 17.0 * ureg("")
         # results["reinforcement_diameter"] = 6 * ureg("m")
