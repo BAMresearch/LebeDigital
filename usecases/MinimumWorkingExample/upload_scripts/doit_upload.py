@@ -9,10 +9,10 @@ from pprint import pformat
 from typing import Union
 
 import yaml
-from dateutil.parser import parse
 from pybis.sample import Sample
 from lebedigital.openbis.interbis import Interbis
 from typing import List, Dict
+
 
 def upload_to_openbis_doit(
     metadata_path: str,
@@ -276,16 +276,12 @@ def _read_metadata(yaml_path: str, sample_type_code: str, default_props: dict):
     with open(yaml_path, 'r') as file:
         loaded = dict(yaml.safe_load(file))
 
+    loaded = {key: val for key, val in loaded.items() if val is not None}
+
     data = defaultdict(lambda: "Not In Props")
     for key, val in loaded.items():
-        if val is None:
-            continue
         if key in default_keys:
-            if key.lower() == 'operator_date':
-                # convert german date to openBIS date format YYYY-MM-DD
-                data[key] = parse(val).strftime('%Y-%m-%d')
-            else:
-                data[key] = val
+            data[key] = val
         else:
             data[f"{sample_type_code}.{key}".lower()] = val
 
@@ -309,20 +305,16 @@ def _read_metadata_mixture_ingredients(yaml_path: Union[str, Path], mixture_code
     data = {keyword: {} for keyword in keywords}
     data['mixture'] = {f'{mixture_code}.water_cement_ratio'.lower(): loaded.pop('water_cement_ratio')}
 
+    loaded = {key: val for key, val in loaded.items() if val is not None}
+
     for key, val in loaded.items():
-        if val is None:
-            continue
         for keyword in keywords:
             if keyword in key:
                 data[keyword][f"{ingredient_code}.{key}".lower()] = val
                 break
         else:
             if key in default_keys:
-                if key.lower() == 'operator_date':
-                    # convert german date to openBIS date format YYYY-MM-DD
-                    data['mixture'][key] = parse(val).strftime('%Y-%m-%d')
-                else:
-                    data['mixture'][key] = val
+                data['mixture'][key] = val
             else:
                 data['mixture'][f"{mixture_code}.{key}".lower()] = val
 
@@ -478,6 +470,10 @@ def _mixture_upload(
         parents=list(mixture_parent_ingredients.keys()),
     )
 
+    MixtureModel = o.generate_typechecker(mixture_sample_type)
+    mixture_model_return = MixtureModel(**mixture_metadata_dict)
+    mixture_metadata_dict = mixture_model_return.dict(exclude_unset=True)
+
     # Setting the props from metadata and adding '$name' for better readability in the web view
     mixture_sample.set_props(mixture_metadata_dict)
 
@@ -507,6 +503,7 @@ def _mixture_upload(
 
     # NOTE: This is here only for our use, we want to make sure we don't upload multiple same samples in this example
     if mixture_sample_name not in exist_mixture_sample_list:
+
         mixture_sample.save()
         logger.debug(f'mixture {mixture_sample.code} uploaded')
     else:
@@ -588,6 +585,11 @@ def _emodul_upload(
     logger.debug(pformat(emodul_metadata_dict))
     # logger.debug(o.get_sample_type_properties(emodul_sample_type))
     # Setting the metadata from the yaml file metadata, setting '$name' to 'experimentName'
+
+    EmodulModel = o.generate_typechecker(emodul_sample_type)
+    emodul_model_return = EmodulModel(**emodul_metadata_dict)
+    emodul_metadata_dict = emodul_model_return.dict(exclude_unset=True)
+
     emodul_sample.set_props(emodul_metadata_dict)
 
     emodul_sample.set_props({'$name': emodul_sample.props.all()[
@@ -711,24 +713,29 @@ def _ingredient_upload(
     logger.debug(type(bulk_density_val))
     logger.debug(bulk_density_val)
 
-    ingredient_sample_props = {
+    ingredient_metadata_dict = {
         '$name': ingredient_type,
         'emodul_ingredient.annotation': annotation,
         bulk_density_key: bulk_density_val,
     }
 
     samples_with_same_props = o.get_samples(
-        where=ingredient_sample_props,
+        where=ingredient_metadata_dict,
         type=ingredient_sample_type
     ).df
 
     if samples_with_same_props.empty:
+
+        IngredientModel = o.generate_typechecker(ingredient_sample_type)
+        ingredient_model_return = IngredientModel(**ingredient_metadata_dict)
+        ingredient_metadata_dict = ingredient_model_return.dict(exclude_unset=True)
+
         ingredient_sample = o.new_sample(
             type=ingredient_sample_type,
             space=ingredient_space,
             project=ingredient_project,
             collection=ingredient_collection,
-            props=ingredient_sample_props
+            props=ingredient_metadata_dict
         )
         ingredient_sample.save()
     else:
@@ -783,7 +790,7 @@ def _no_db_run(
     logger.debug(emodul_processed_data)
 
     output_dict = {
-        'ran_on': 'github_actions',
+        'ran_on': 'no_db_connection',
         'db_url': config["datastore_url"],
         'mix_file_yaml': mix_file_yaml,
         'mix_file_data': mix_file_data,
@@ -796,4 +803,3 @@ def _no_db_run(
     with open(Path(output_path, file_name_with_extension), 'w') as file:
         _ = yaml.dump(output_dict, file)
     return
-

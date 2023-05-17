@@ -163,3 +163,21 @@ samples = o.get_samples(
 ```
 > For detailed information see [here](https://pypi.org/project/PyBIS/) under 'search for samples / objects'.
 > Searching is also possible via Web-View.
+
+## Generating and working with type checkers.
+
+> You can generate type-checkers based on pydantic models to check your samples for formatting errors before uploading them to openbis
+
+```python
+sample_properties = {"$name": "sample_name"}
+
+SampleModel = o.generate_typechecker("SAMPLE_TYPE")
+sample_model_return = SampleModel(**sample_properties)
+sample_properties = sample_model_return.dict(exclude_unset=True) # exclude_unset is for not including other property types that were not set in sample_properties
+```
+
+> The sample_properties have been checked for their types and casted/formatted if possible. The functionality includes:
+
+- Casting strings like "2.13" or "7" to float or integer respectively
+- Checking if CONTROLLED_VOCABULARY Properties are withing their defined vocabularies
+- Casting date-strings into the required format. Ex "17.10.2023 10:45" will be formatted to "2023-10-17"

@@ -6,10 +6,27 @@ import json
 import requests
 import pandas as pd
 from pybis import Openbis
-from pybis.sample import Sample
 from pybis.entity_type import SampleType
-
 from typing import Optional, Union
+from pydantic import create_model, AnyUrl, validator
+from pydantic.main import ModelMetaclass
+from enum import Enum
+from dateutil.parser import parse
+
+
+CONVERSION_DICT = {
+    'BOOLEAN': bool,
+    'DATE': str,
+    'HYPERLINK': AnyUrl,
+    'INTEGER': int,
+    'MATERIAL': str,
+    'MULTILINE_VARCHAR': str,
+    'OBJECT': str,
+    'REAL': float,
+    'TIMESTAMP': str,
+    'VARCHAR': str,
+    'XML': str,  # TODO write a parser for XMLs
+}
 
 
 class Interbis(Openbis):
@@ -30,9 +47,10 @@ class Interbis(Openbis):
             "get_collection_identifier()",
             "exists_in_datastore()",
             "create_sample_type()",
-            "create_parent_hint()"
-            "set_parent_annotation()"
-            "get_parent_annotation()"
+            "create_parent_hint()",
+            "set_parent_annotation()",
+            "get_parent_annotation()",
+            "generate_typechecker()"
         ] + super().__dir__()
 
     def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
@@ -319,7 +337,7 @@ class Interbis(Openbis):
         else:
             raise ValueError('No correct level specified')
 
-    def get_sample_type_properties(self, sample_type: str) -> pd.DataFrame:
+    def get_sample_type_properties(self, sample_type: Union[SampleType, str]) -> pd.DataFrame:
         """
         Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
@@ -329,8 +347,11 @@ class Interbis(Openbis):
         Returns:
             pd.DataFrame: DataFrame of all properties with their attributes
         """
+        if isinstance(sample_type, str):
+            sample_type = self.get_sample_type(sample_type)
+
         # Getting a list of all the sample's properties
-        props_list = list(self.get_sample_type(sample_type)
+        props_list = list(sample_type
                           .get_property_assignments()
                           .df['propertyType'])
 
@@ -659,3 +680,77 @@ class Interbis(Openbis):
 
         response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
         return response
+
+    def _get_datatype_conversion(self, property_name: str, property_datatype: str):
+        """
+        Converts the openbis datatypes into python datatypes if possible, else a custom datatype
+        Use with the `generate_typechecker` method
+        """
+        # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
+        # the CONTROLLED_VOCABULARY property type is the only one which cant be simply mapped to an exisiting
+        # python data type as we are handling it using an Enum which we create below
+        if property_datatype in CONVERSION_DICT:
+            return CONVERSION_DICT[property_datatype]
+
+        vocabulary_name = self.get_property_type(property_name).vocabulary
+        vocabulary_df = self.get_vocabulary(vocabulary_name).get_terms().df
+        vocabulary_term_list = vocabulary_df['code'].to_list()
+        vocabulary_enum_dict = dict(zip(vocabulary_term_list, vocabulary_term_list))
+
+        return Enum('Vocabulary', vocabulary_enum_dict)
+
+    def generate_typechecker(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
+        """
+        Generates a pydantic-based typechecker with property types saved in openbis for a given sample.
+
+        Args:
+            sample_type(str | SampleType): The code of the sample the typechecker should be created for
+        Returns:
+            ModelMetaclass: A dynamically created pydantic model
+        """
+
+        if not isinstance(sample_type, SampleType):
+            sample_type = self.get_sample_type(sample_type)
+
+        mandatory_props_df = sample_type.get_property_assignments().df
+        mandatory_props_dict = pd.Series(mandatory_props_df.mandatory.values, index=mandatory_props_df.propertyType).to_dict()
+        mandatory_props = [key.lower() for key, val in mandatory_props_dict.items() if val]
+
+        property_df = self.get_sample_type_properties(sample_type)
+        property_dict = pd.Series(property_df.dataType.values, index=property_df.code).to_dict()
+        property_dict = {key.lower(): val for key, val in property_dict.items()}
+
+        property_function_input = {key: (self._get_datatype_conversion(key, val), None if key not in mandatory_props else ...) for key, val in property_dict.items()}
+
+        datetime_props = {key: val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
+        controlledvocabulary_props = {key: val for key, val in property_dict.items() if val == "CONTROLLEDVOCABULARY"}
+
+        validators = {}
+
+        if datetime_props:
+
+            def date_correct_format(cls, v):
+                return parse(v).strftime("%Y-%m-%d")
+
+            def timestamp_correct_format(cls, v):
+                return parse(v).strftime("%Y-%m-%d %H:%M")
+
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(date_correct_format if val == 'DATE' else timestamp_correct_format) for key, val in datetime_props.items()}
+
+        if controlledvocabulary_props:
+
+            def props_to_uppercase(cls, v):
+                return str(v).upper()
+
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(props_to_uppercase) for key, val in controlledvocabulary_props.items()}
+
+        class Config:
+            extra = "forbid"
+            use_enum_values = True
+
+        return create_model(
+            'SampleType_Props_Validator',
+            **property_function_input,
+            __config__=Config,
+            __validators__=validators
+        )

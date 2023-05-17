@@ -1,0 +1,44 @@
+\subsubsection{Compute required reinforcement steel}
+To ensure that the chosen mix and beam properties fully fulfill the requirements according to the standards, the computation of the required steel reinforcement is integrated into the workflow.
+The defining characteristic is the applied moment.
+It is mainly governed by the height of the beam and the external force.
+
+... continue this once we have discussed how this new optimization goal con be incorporated.
+
+
+
+\begin{table}[ht]
+	\begin{center}
+		\begin{minipage}{.9\textwidth}
+			\caption{Input for the computation of the steel reinforcement}\label{tab:beamdesigninput}
+			\begin{tabular}{lrl}
+				\toprule
+				Name &  Value&Unit\\
+				\midrule
+				Length & \beamExSpan &$\beamExSpanUnit$\\
+				Width & \beamExWidth &$\beamExWidthUnit$\\
+				Height& \beamExHeightC &$\beamExHeightCUnit$\\
+				Steel yield strength& \beamExYieldStrSteel &$\beamExYieldStrSteelUnit$\\
+				Diameter stirrups& \beamExSteelDiaBu &$\beamExSteelDiaBuUnit$\\
+				Minimal concrete cover& \beamExCoverMin &$\beamExCoverMinUnit$\\
+				Load& \beamExPointLoadC &$\beamExPointLoadCUnit$\\
+				Concrete compressive strength& \beamExComprStrConcreteC &$\beamExComprStrConcreteCUnit$\\
+				\botrule
+			\end{tabular}
+		\end{minipage}
+	\end{center}
+	
+\end{table}
+
+
+
+
+
+
+\begin{figure}[ht]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\beamDesignPlot}
+	\caption{Influence of beam height, concrete compressive strength and load in the center of the beam on the required steel.}\label{fig:beamdesign}
+\end{figure}
+
+
