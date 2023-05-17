@@ -39,14 +39,14 @@ def wrapper_three_point_bending(parameter, known_input):
     return y.magnitude
 
 
-def perform_prediction(forward_solver:callable, parameter:list, known_input:float = 0.2, no_sample :int = 50, mode ='cheap', viz=False):
+def perform_prediction(forward_solver:callable, parameter:list, nu:float = 0.2, no_sample :int = 50, mode ='cheap', viz=False):
     """
 
     Parameters
     ----------
     forward_solver : (callable) The solver through which parametric uncertainty needs to be propagated
     parameter : (list) the samples of the parameter which was calibrated. (E for eg)
-    known_input: Known input to the solver. (nu for eg)
+    nu: Known input to the solver ie. nu
     no_sample: total no of samples for the MC estimate
     mode : "full" or "cheap". For testing purposes.
 
@@ -72,7 +72,7 @@ def perform_prediction(forward_solver:callable, parameter:list, known_input:floa
     # E_pos = np.array(parameter)   # N/mm2 ~ E_mean ~ 95E03N/mm2, currently 'E' and the unit conversion factor 1000
     # is harcoded here.
     pos_pred = PosteriorPredictive(
-        forward_solver, known_input_solver=known_input, parameter=np.array(parameter)
+        forward_solver, known_input_solver=nu, parameter=np.array(parameter)
     )
 
     if mode == "cheap":
