@@ -34,6 +34,8 @@ class Constants(Enum):
     testing_sample_name: str = 'PYTEST_SAMPLE'
     testing_sample_identifier: str = "/DEFAULT/TEST_PROJECT/PYTEST_SAMPLE"
     parent_hint_label: str = "testing label"
+    sample_type_typechecker_code: str = "ST_TYPECHECKER"
+    sample_type_typechecker_prefix: str = "TYPECHK"
 
 
 class Filepaths(Enum):
@@ -122,7 +124,7 @@ def setup(pytestconfig):
         space=Constants.space.value,
         project=Constants.project.value,
         collection=Constants.collection_id.value,
-        code = Constants.testing_sample_name.value,
+        code=Constants.testing_sample_name.value,
     )
 
     sample.set_props({
@@ -135,6 +137,52 @@ def setup(pytestconfig):
 
     sample.save()
     created_samples_in_tests.append(sample.identifier)
+
+    test_vocab_terms = [
+        {"code": 'very', "label": "very", "description": "very"},
+        {"code": 'interesting', "label": "interesting", "description": "interesting"},
+        {"code": 'terms', "label": "terms", "description": "terms"},
+        {"code": 1, "label": "1", "description": "1"},
+        {"code": 0.25, "label": "0.25", "description": "0.25"},
+    ]
+
+    test_vocab = o.new_vocabulary(
+        code='test_vocab',
+        description='test_vocab_description',
+        terms=test_vocab_terms
+    )
+
+    test_vocab.save()
+
+    typechecker_sample_type_props = {
+        'testing_vocabulary': [
+            'CONTROLLEDVOCABULARY',
+            'testing_vocabulary_label',
+            'testing_vocabulary_description',
+            'test_vocab'
+        ],
+        'testing_real': [
+            'REAL',
+            'testing_real_label',
+            'testing_real_description',
+        ],
+        'testing_timestamp': [
+            'TIMESTAMP',
+            'testing_timestamp_label',
+            'testing_timestamp_description',
+        ],
+        'testing_varchar': [
+            'VARCHAR',
+            'testing_varchar_label',
+            'testing_varchar_description',
+        ]
+    }
+
+    o.create_sample_type(
+        Constants.sample_type_typechecker_code.value,
+        Constants.sample_type_typechecker_prefix.value,
+        typechecker_sample_type_props
+    )
 
     yield
 
@@ -176,7 +224,7 @@ def test_import_props_from_template(setup, pytestconfig):
 
     expected_sample_props = o.get_sample(Constants.testing_sample_identifier.value).props()
     expected_sample_props = {
-        key: val 
+        key: val
         for key, val in expected_sample_props.items()
         if key in checked_keys
     }
@@ -192,7 +240,7 @@ def test_get_sample_dict(setup, pytestconfig):
 
     sample_dict = o.get_sample_dict(Constants.testing_sample_identifier.value)
 
-    # Dict with: 
+    # Dict with:
     #   mentions of date removed
     #   removed permId
 
@@ -229,7 +277,6 @@ def test_get_sample_dict(setup, pytestconfig):
         'tags': [],
         'type': 'EXPERIMENTAL_STEP'
     }
-
 
     assert expected_sample_dict.items() <= sample_dict.items()
 
@@ -345,9 +392,9 @@ def test_get_sample_identifier(setup, pytestconfig):
 
 
 @pytest.mark.login
-@pytest.mark.parametrize("collection, should_pass", 
+@pytest.mark.parametrize("collection, should_pass",
                          [(Constants.collection.value, True),
-                         (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
+                          (''.join(random.choice('0123456789ABCDEF') for _ in range(16)), False)])
 def test_get_collection_identifier(setup, pytestconfig, collection, should_pass):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -413,3 +460,67 @@ def test_set_parent_hint(setup, pytestconfig):
     annotation = o.get_parent_annotations(Constants.testing_sample_identifier.value)
 
     assert annotation[parent_sample.permId]['parentAnnotations']['ANNOTATION.SYSTEM.COMMENTS'] == comment_value
+
+
+@pytest.mark.login
+@pytest.mark.parametrize("param_name, param_val",
+                         [('testing_vocabulary', "interesting"),
+                          ('testing_vocabulary', 1),
+                          ('testing_vocabulary', 0.25)])
+def test_generate_typechecker_passing(setup, pytestconfig, param_name, param_val):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample = o.new_sample(
+        type=Constants.sample_type_typechecker_code.value,
+        space=Constants.space.value,
+        project=Constants.project.value,
+        collection=Constants.collection_id.value,
+    )
+
+    sample_props = {
+        'testing_varchar': 'varchar',
+        'testing_real': '21.37',
+        'testing_timestamp': '10.05.2023 10:05',
+    }
+
+    sample_props = sample_props | {param_name: param_val}
+
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
+
+    model_return = Model(**sample_props)
+
+    assert model_return.testing_varchar == 'varchar'
+    assert model_return.testing_real == 21.37
+    assert model_return.testing_timestamp == '2023-10-05 10:05'
+    assert model_return.testing_vocabulary == str(param_val).upper()
+
+    sample_props = model_return.dict(exclude_unset=True)
+
+    sample.set_props(sample_props)
+
+    sample.save()
+
+    created_samples_in_tests.append(sample.identifier)
+
+
+@ pytest.mark.login
+@ pytest.mark.xfail
+@ pytest.mark.parametrize("param_name, param_val",
+                          [('testing_timestamp', 'not_a_date'),
+                           ('testing_vocabulary', '🤨'),
+                           ('testing_real', 'cant_cast_this')])
+def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    sample_props = {param_name: param_val}
+
+    Model = o.generate_typechecker(Constants.sample_type_typechecker_code.value)
+
+    Model(**sample_props)
+    # should fail here
+    # should fail here
+    # should fail here
