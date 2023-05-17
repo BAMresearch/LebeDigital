@@ -103,7 +103,7 @@ if __name__ == "__main__":
     parameters["vol_heat_cap"] = 2.4e6 * ureg("J/m^3/K")  # volumetric heat cap J/m3
 
     # parameters for mechanics problem
-    parameters["E_28"] = 25e9 * ureg("N/m^2")  # Youngs Modulus in Pa
+    parameters["E_28"] = 15e9 * ureg("N/m^2")  # Youngs Modulus in Pa
     parameters["nu"] = 0.2 * ureg("")  # Poissons Ratio
 
     # required parameters for alpha to E mapping
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
     # column geometry
     parameters["width"] = 0.3 * ureg("m")  # length of pillar in m
-    parameters["height"] = 0.1 * ureg("m")  # width (square cross-section)
+    parameters["height"] = 0.5 * ureg("m")  # width (square cross-section)
     parameters["length"] = 10 * ureg("m")  # width (square cross-section)
 
     # values for hydration
@@ -140,8 +140,8 @@ if __name__ == "__main__":
     parameters["mesh_density_min"] = 2 * ureg("")
 
     # simulation time
-    full_time = 60 * 60 * 1 * ureg("s")  # simulation time
-    time_step = 60 * 20 * ureg("s")  # timestep
+    full_time = 100 * ureg("h")  # simulation time
+    time_step = 20 * ureg("min")  # timestep
 
     # run simulation
     data = demonstrator_beam(full_time, time_step, parameters)
