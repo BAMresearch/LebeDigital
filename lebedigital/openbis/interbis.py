@@ -701,7 +701,12 @@ class Interbis(Openbis):
 
     def generate_typechecker(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
         """
-        Generates a pydantic validator with property types saved in openbis for a given sample type
+        Generates a pydantic-based typechecker with property types saved in openbis for a given sample.
+
+        Args:
+            sample_type(str | SampleType): The code of the sample the typechecker should be created for
+        Returns:
+            ModelMetaclass: A dynamically created pydantic model
         """
 
         if not isinstance(sample_type, SampleType):
