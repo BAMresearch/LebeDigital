@@ -157,7 +157,7 @@ def get_max_reinforcement(acceptable_reinforcement_diameters: list, width, cover
         else:
             cover = cover_min
 
-        n_steel = 2 * ureg("")
+        n_steel = 2 * ureg("dimensionless")
         # if two bars are too much, go to the lower diameter
         if not beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
             continue
@@ -165,7 +165,7 @@ def get_max_reinforcement(acceptable_reinforcement_diameters: list, width, cover
         # for a level, that fits at least two bars, see what the maximum is
         while beam_check_spacing(diameter, n_steel, steel_dia_bu, width, cover):
             max_area = n_steel * np.pi * (diameter / 2) ** 2
-            n_steel += 1 * ureg("")
+            n_steel += 1 * ureg("dimensionless")
 
         break
     return max_area
@@ -240,7 +240,7 @@ def check_beam_design(
         )
 
         area = np.pi * (diameter / 2) ** 2  # mm^2
-        nsteel = max(2.0 * ureg(""), np.rint(required_area / area))  # rounds up
+        nsteel = max(2.0 * ureg(""), float(np.rint(required_area / area))) * ureg("")  # rounds up
 
         # set constraints
         discrete_reinforcement["constraint_min_fc"] = fc_error
@@ -269,7 +269,7 @@ def check_beam_design(
             break
         else:
             discrete_reinforcement["crosssection"] = required_area
-            discrete_reinforcement["n_steel_bars"] = 2
+            discrete_reinforcement["n_steel_bars"] = 2 * ureg("")
             discrete_reinforcement["diameter"] = 2 * np.sqrt(required_area / 2 / np.pi)
 
     return discrete_reinforcement
