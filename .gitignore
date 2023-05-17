@@ -177,3 +177,7 @@ tests/raw_data_processing/youngs_modulus_data/test_data
 !tests/raw_data_processing/youngs_modulus_data/test_data/specimen.dat
 !tests/raw_data_processing/youngs_modulus_data/test_data/mix.dat
 
+# ignore resulting py macro tex files from snakemake
+usecases/optimization_paper/tex/macros/py_macros_BAM.tex
+usecases/optimization_paper/tex/macros/py_macros_TUM.tex
+
