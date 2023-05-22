@@ -60,7 +60,7 @@ def test_demonstrator_beam():
     time_step = 60 * 20 * ureg("s")  # timestep
 
     # run simulation
-    data = demonstrator_beam(full_time, time_step, parameters)
+    data = demonstrator_beam(full_time, time_step, parameters, pv_output=False, pv_name="test_beam_simulation")
 
     assert data.time.values.quantity.magnitude == pytest.approx([1200, 2400, 3600])
     assert data.temperature.values.quantity.magnitude == pytest.approx([56.32510829, 47.62081051, 47.59427378])

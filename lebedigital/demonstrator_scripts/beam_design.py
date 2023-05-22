@@ -152,6 +152,7 @@ def get_max_reinforcement(acceptable_reinforcement_diameters: list, width, cover
     max_area: maximum area of steel reinforcement
     """
     for diameter in reversed(acceptable_reinforcement_diameters):
+        max_area = 0.0 * ureg("mm^2")
         if cover_min < diameter:
             cover = diameter
         else:
