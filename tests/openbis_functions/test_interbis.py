@@ -36,6 +36,7 @@ class Constants(Enum):
     parent_hint_label: str = "testing label"
     sample_type_typechecker_code: str = "ST_TYPECHECKER"
     sample_type_typechecker_prefix: str = "TYPECHK"
+    testing_dataset_name: str = "TEST_DATASET"
 
 
 class Filepaths(Enum):
@@ -505,12 +506,12 @@ def test_generate_typechecker_passing(setup, pytestconfig, param_name, param_val
     created_samples_in_tests.append(sample.identifier)
 
 
-@ pytest.mark.login
-@ pytest.mark.xfail
-@ pytest.mark.parametrize("param_name, param_val",
-                          [('testing_timestamp', 'not_a_date'),
-                           ('testing_vocabulary', '🤨'),
-                           ('testing_real', 'cant_cast_this')])
+@pytest.mark.login
+@pytest.mark.xfail
+@pytest.mark.parametrize("param_name, param_val",
+                         [('testing_timestamp', 'not_a_date'),
+                          ('testing_vocabulary', '🤨'),
+                          ('testing_real', 'cant_cast_this')])
 def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val):
 
     chosen_runner = pytestconfig.getoption('--url')
@@ -524,3 +525,28 @@ def test_generate_typechecker_failing(setup, pytestconfig, param_name, param_val
     # should fail here
     # should fail here
     # should fail here
+
+
+@pytest.mark.login
+def test_get_dataset_permid(setup, pytestconfig):
+
+    chosen_runner = pytestconfig.getoption('--url')
+    o = Interbis(chosen_runner, verify_certificates=False)
+
+    dataset_name = Constants.testing_dataset_name.value
+
+    new_dataset = o.new_dataset(
+        type='RAW_DATA',
+        collection=Constants.collection_id.value,
+        sample=Constants.testing_sample_identifier.value,
+        files=[Filepaths.test_sheet.value],
+        props={'$name': dataset_name, }
+    )
+
+    new_dataset.save()
+
+    fetched_dataset_permid = o.get_dataset_permid(dataset_name)
+
+    fetched_dataset = o.get_dataset(fetched_dataset_permid)
+
+    assert fetched_dataset.props.all()['$name'] == Constants.testing_dataset_name.value
