@@ -1,7 +1,15 @@
+import warnings
+
+import dolfin as df
 import fenics_concrete
+from ffc.quadrature.deprecation import QuadratureRepresentationDeprecationWarning
+
 # import probeye
 from probeye.definition.forward_model import ForwardModelBase
 from probeye.definition.sensor import Sensor
+
+# df.parameters["form_compiler"]["representation"] = "quadrature"
+warnings.simplefilter("ignore", QuadratureRepresentationDeprecationWarning)
 
 
 class LinearElasticityCylinder(ForwardModelBase):
@@ -16,11 +24,9 @@ class LinearElasticityCylinder(ForwardModelBase):
         force_list        : resulting computed forces
         """
 
-        self.parameters = ['E']
-        self.input_sensors = [Sensor("nu"),
-                              Sensor("radius"),
-                              Sensor("displacement_list")]
-        self.output_sensors = [Sensor('force_list', std_model="sigma")]
+        self.parameters = ["E"]
+        self.input_sensors = [Sensor("nu"), Sensor("radius"), Sensor("displacement_list")]
+        self.output_sensors = [Sensor("force_list", std_model="sigma")]
 
     def response(self, inp: dict) -> dict:
         """Setup of the FEM problem
@@ -38,15 +44,15 @@ class LinearElasticityCylinder(ForwardModelBase):
         # this method *must* be provided by the user
         parameters = fenics_concrete.Parameters()
         # input parameters
-        parameters['E'] = inp["E"]
-        parameters['nu'] = inp["nu"]
-        parameters['radius'] = inp["radius"]
-        parameters['height'] = 100  # gauge length in experiment in mm
+        parameters["E"] = inp["E"]
+        parameters["nu"] = inp["nu"]
+        parameters["radius"] = inp["radius"]
+        parameters["height"] = 100  # gauge length in experiment in mm
         # problem parameters
-        parameters['mesh_density'] = 6
-        parameters['log_level'] = 'WARNING'
-        parameters['bc_setting'] = 'free'
-        parameters['dim'] = 3
+        parameters["mesh_density"] = 6
+        parameters["log_level"] = "WARNING"
+        parameters["bc_setting"] = "free"
+        parameters["dim"] = 3
 
         # as we know this problem is linear elastic, there is no point in solving it multiple times
         # a test load is applied and then interpolated to the load list
@@ -64,9 +70,9 @@ class LinearElasticityCylinder(ForwardModelBase):
         measured_test_force = problem.sensors[sensor.name].data[-1]
 
         # compute slope of linear problem
-        slope = measured_test_force/test_load
+        slope = measured_test_force / test_load
 
         # return a list with the interpolated reaction forces
-        force_list = inp["displacement_list"] *slope
+        force_list = inp["displacement_list"] * slope
 
-        return {'force_list': force_list}
+        return {"force_list": force_list}
