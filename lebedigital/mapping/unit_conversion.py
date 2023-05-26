@@ -1,13 +1,12 @@
 # Script to convert the units extracted from the raw data into valid ontology 
 # instances.
 
+
 from loguru import logger
 
 
 def unit_conversion(input_metadata):
     """
-    Converts the units given in a metadata-file (like "mm") into ontology instances for
-    further mapping process (like "https://.....").
 
     Parameters:
     ----------
@@ -19,15 +18,26 @@ def unit_conversion(input_metadata):
     output_metadata : dict
         Dictionary with units replaced by link to an instance defined in the PMD core.
     """
+    # Define the unit mappings as a dictionary
+    unit_mappings = {
+       'mm': 'http://qudt.org/vocab/unit/MilliM',
+       'g': 'http://qudt.org/vocab/unit/GM',
+       'kN': 'https://qudt.org/vocab/unit/KN',
+       'kg/m³': 'http://qudt.org/vocab/unit/KiloGM-PER-M3',
+       'kg/dm³': 'http://qudt.org/vocab/unit/KiloGM-PER-DeciM3',
+       'dm³': 'http://qudt.org/vocab/unit/DeciM3'
 
-    keys = list(input_metadata.keys()) 
+        # Add more unit mappings as needed
+    }
+
+
     debug_counter = 0
+    # Check if the unit string exists in the dictionary
+    for key in input_metadata:
+        if key.endswith("_Unit"):
+            if input_metadata[key] in unit_mappings:
+                input_metadata[key] = unit_mappings[input_metadata[key]]  ### Replace the unit "mm" or something else to a proper ontology unit like "https://..."
 
-    for key in keys:
-        if key[-4:] == "Unit":
-
-            unit_URI = .... ### convert here the unit "mm" or something else to a proper ontology unit like "https://..."
-            input_metadata[key] = unit_URI  #change the old unit now to the new one
             debug_counter += 1
 
     logger.debug("Replaced units:")
@@ -36,3 +46,4 @@ def unit_conversion(input_metadata):
     output_metadata = input_metadata
 
     return output_metadata
+
