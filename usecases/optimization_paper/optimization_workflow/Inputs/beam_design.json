@@ -4,7 +4,7 @@
      "unit" : "cm"
    },
    "stirrups_diameter": {
-    "value" : 10,
+    "value" : 10.0,
      "unit" : "mm"
    }
 }
