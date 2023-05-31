@@ -69,8 +69,8 @@ o.create_sample_type(
     sample_code='EXPERIMENTAL_STEP_UCT', # The code identifier of the new sample / object type
     sample_prefix='UCT', # The prefix of the sample / object. Will appear before every sample / object code
     sample_properties={
-        '$name': ['VARCHAR', 'Name', 'Name'] # Default system property
-        'date': ['DATE', 'Date' 'Date of the experiment']
+        '$name': ['VARCHAR', 'Name', 'Name'], # Default system property
+        'timestamp': ['TIMESTAMP', 'experiment_timestamp' 'Timestamp of the experiment'],
         'property1': ['VARCHAR', 'my_label1', 'my_description1'], # Define properties here with data in the order
         'property2': ['INTEGER', 'my_label2', 'my_description2'], # [Data Type, Label, Description]
         'property3': ['FLOAT', 'my_label2', 'my_description2']
