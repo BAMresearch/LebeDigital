@@ -36,7 +36,7 @@ datetime = datetime.now().strftime("%d_%m_%Y-%I_%M_%S_%p")
 
 # local imports
 from usecases.demonstrator.Calibration.utils.viz import plot_constraints_and_objective
-
+from lebedigital.demonstrator_optimization_scripts.utils import python_fn_run_jobs, read_kpis
 
 # %%
 def load_json(path: str) -> dict:
@@ -309,10 +309,10 @@ if optimization:
             th.manual_seed(random_seed)
 
             # collect RV samples
-            if isinstance(x_2, dict):
-                x_2 = q_x_2.sample()
-            if isinstance(x_1, dict):
-                x_1 = q_x_1.sample()
+
+            x_2 = q_x_2.sample()
+
+            x_1 = q_x_1.sample()
             q_b_1 = _p_b_given_x(phi=phi_hydration,x=x_1)
             q_b_2 = _p_b_given_x(phi=phi_paste,x=x_1)
             b_1 = q_b_1.sample()
@@ -372,6 +372,128 @@ if optimization:
         assert U_theta.requires_grad == True
         return U_theta, obj_mean, C_1_mean, C_2_mean, C_3_mean
 
+    def objective_parallel(x_1, x_2, **kwargs):
+        """
+
+        Parameters
+        ----------
+        x_1: aggregate,
+        x_2: cem ratio
+        kwargs
+
+        Returns
+        -------
+
+        """
+        if isinstance(x_2, dict):
+            q_x_2 = _translate_design_variable_to_stochastic(x=x_2)
+
+        if isinstance(x_1,dict):
+            q_x_1 = _translate_design_variable_to_stochastic(x=x_1)
+        num_samples = kwargs['num_samples']
+
+        # defining holders
+        U_theta_holder = []
+        obj_holder = []
+        C_1_holder = []
+        C_2_holder = []
+        C_3_holder = []
+
+        # generate seeds
+
+        seed_tmp = []
+        X_tmp = np.ndarray(shape=(num_samples,2))
+        for i in range(num_samples):
+            # set seed
+            # The seed will ensure that the same RV samples are passed inside the forward model
+            random_seed = np.random.randint(666)
+            seed_tmp.append(random_seed)
+            th.manual_seed(random_seed)
+
+            # collect RV samples
+            x_2 = q_x_2.sample()
+            x_1 = q_x_1.sample()
+
+            # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y))
+            x_1_scaled = th.special.expit(x_1)
+            x_2_scaled = th.special.expit(x_2)
+            X_tmp[i,0] = x_1_scaled.item()
+            X_tmp[i,1] = x_2_scaled.item()
+        # save the seed and the design varuables
+        np.save('./seed_tmp.npy', np.array(seed_tmp))
+        np.save('./design_var_tmp.npy',X_tmp)
+
+        # run the workflows in parallel
+        python_fn_run_jobs('../../../lebedigital/demonstrator_optimization_scripts/',no_samples=num_samples)
+
+        for i in range(num_samples):
+            th.manual_seed(seed_tmp[i])
+
+            # collect RV samples
+            x_2 = q_x_2.sample()
+            x_1 = q_x_1.sample()
+
+            # collect the kpis from the workflows
+            kpi_path = '../../optimization_paper/' + str(i+1) + '/kpi.json'
+            if not os.path.exists(kpi_path):
+                print(f"Error: File {kpi_path} does not exist.")
+                continue # some FEM solvers are not converging weirdly, so skipping those values
+
+            obj, C_x_1, C_x_2, C_x_3 = read_kpis(kpi_path=kpi_path)
+
+            # define constraints
+            # --- Set inputs for the constraints
+            time_max = th.tensor(3)
+            temp_max = th.tensor(70)
+            max_agg_ratio = th.tensor(0.7)
+            # workability constraint. Now temp that agg ratio < 0.6
+            c_1 = 1e03
+            c_2 = 0.1
+            c_3 = 1
+            c_4 = 1
+            # design criterion
+            G_x_1 = c_1 * th.max(-th.as_tensor(C_x_1), th.tensor(0))
+            # temp
+            G_x_2 = c_2 * th.max(th.as_tensor(C_x_2) - temp_max, th.tensor(0))
+            # demoulding time
+            G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
+            # TODO: X_tmp[i,0] below is temp for aggregate ratio.
+            G_x_4 = th.max(th.as_tensor(X_tmp[i,0]) - max_agg_ratio, th.tensor(0))
+            constraints = G_x_1 + G_x_2 + G_x_3 + G_x_4
+
+            # with constraints
+            c_o = 0.0001  # objective scaling
+            grad_est_obj = (c_o * obj) * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
+            grad_est_cons = constraints * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
+            U_theta_holder.append(grad_est_obj + grad_est_cons)
+            # w/o gradients
+            # U_theta_holder.append(grad_est_obj)
+
+            # U_theta_holder.append(
+            #    (0.0001 * obj + constraints) * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
+
+            # without constraints
+            # U_theta_holder.append(obj * (q_b_1.log_prob(b_1) + q_b_2.log_prob(b_2) + q_x_2.log_prob(x_2)))
+            # add to lists
+            obj_holder.append(obj)
+            C_1_holder.append(C_x_1)
+            C_2_holder.append(C_x_2)
+            C_3_holder.append(C_x_3)
+        U_theta = th.sum(th.stack(U_theta_holder)) / num_samples
+        with th.no_grad():
+            U_theta_var = th.var(th.stack(U_theta_holder))
+            obj_mean = np.sum(np.stack(obj_holder)) / num_samples
+            C_1_mean = np.sum(np.stack(C_1_holder)) / num_samples
+            C_2_mean = np.sum(np.stack(C_2_holder)) / num_samples
+            C_3_mean = np.sum(np.stack(C_3_holder)) / num_samples
+        assert U_theta.requires_grad == True
+        return U_theta, U_theta_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, np.std(X_tmp,axis=0)
+
+
+
+
+
+
 
     # check
     # sigma = th.tensor([1.])
@@ -427,7 +549,7 @@ if optimization:
             # loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
             x_1 = {'mean': x1_mean, 's.d': th.exp(0.5 * beta_1)}
             x_2 = {'mean': x2_mean, 's.d': th.exp(0.5 * beta_2)}  # sigma = sqrt(esp(beta))
-            loss, obj_mean, C_1_mean, C_2_mean, C_3_mean = objective(x_1=x_1, x_2=x_2, num_samples=number_samples)
+            loss, loss_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, x_std = objective_parallel(x_1=x_1, x_2=x_2, num_samples=number_samples)
             # compute grads
             loss.backward()
             # print(XX.grad)
@@ -452,11 +574,13 @@ if optimization:
             #     x1_mean.clamp_(0.1,0.8)
             #     x2_mean.clamp_(0.1,0.7) # agg ratio is set to 0.7 for workability contraints
 
-            df = df.append({'loss': loss.item(), 'objective': obj_mean, 'C_1': C_1_mean,
+            df = df.append({'loss': loss.item(), 'loss_var':loss_var.item(), 'objective': obj_mean, 'C_1': C_1_mean,
                               'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1_mean': x1_mean.clone().detach().item(),
-                            'x_1_std': np.sqrt(np.exp(beta_1.clone().detach().item())),
-                              'x_2_mean': x2_mean.clone().detach().item(),
-                              'x_2_std': np.sqrt(np.exp(beta_2.clone().detach().item())),
+                            'x_1_std': x_std[0],
+                            #'x_1_std': np.sqrt(np.exp(beta_1.clone().detach().item())),
+                            'x_2_mean': x2_mean.clone().detach().item(),
+                            'x_2_std': x_std[1],
+                              #'x_2_std': np.sqrt(np.exp(beta_2.clone().detach().item())),
                               'x_1_mean_grad': x1_mean.grad.clone().detach().item(),
                             'x_1_beta_grad': beta_1.grad.clone().detach().item(),
                               'x_2_mean_grad': x2_mean.grad.clone().detach().item(),
@@ -477,7 +601,7 @@ if __name__ == '__main__':
 
     #design_variables = {'x_1': {'mean': [0.25] ,'s.d': [0.5]},
     #                    'x_2': {'mean': [0.35] ,'s.d': [0.5]}}
-    df = optimize(design_variables,lr =0.1,number_steps=50,number_samples=10)
+    df = optimize(design_variables,lr =0.1,number_steps=120,number_samples=125)
     df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 
     # mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])
