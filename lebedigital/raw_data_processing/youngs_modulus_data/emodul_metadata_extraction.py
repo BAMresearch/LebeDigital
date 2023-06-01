@@ -125,14 +125,14 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
         # name of specimen (human readable)
         metadata_emodule['SpecimenName'] = metadata_specimen['SpecimenName'] = serviceInformation[3][1] 
 
-        # ID of specimen (machine readable), get it from Mixdesign
-        with open(lines[:-5] + ".yaml", "r") as mixyaml:
-            try:
+        # ID of specimen (machine readable), get it from the metadata of Mixdesign
+        try:
+            with open(lines[:-5] + ".yaml", "r") as mixyaml:
                 mixdesign = yaml.safe_load(mixyaml)
                 specimenID = mixdesign['MixtureID']
                 metadata_emodule['SpecimenID'] = metadata_specimen['SpecimenID'] = specimenID
-            except yaml.YAMLError as exc:
-                print(exc)
+        except:
+            raise Exception("No mixdesign yaml-file found!")
 
         # set specimen age to 28 days
         metadata_emodule['SpecimenAge'] = 28.0
