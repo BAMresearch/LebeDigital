@@ -132,7 +132,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
                 specimenID = mixdesign['MixtureID']
                 metadata_emodule['SpecimenID'] = metadata_specimen['SpecimenID'] = specimenID
         except:
-            raise Exception("No mixdesign yaml-file found!")
+            raise Exception("No mixdesign yaml-file found! Can't import the ID and save it to the output!")
 
         # set specimen age to 28 days
         metadata_emodule['SpecimenAge'] = 28.0
