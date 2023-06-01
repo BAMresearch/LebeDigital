@@ -3,12 +3,8 @@
     "value" : 2.5,
      "unit" : "cm"
    },
-   "n_reinforcement": {
-    "value" : 4,
-     "unit" : ""
-   },
-   "reinforcement_diameter": {
-    "value" : 12,
+   "stirrups_diameter": {
+    "value" : 10.0,
      "unit" : "mm"
    }
 }

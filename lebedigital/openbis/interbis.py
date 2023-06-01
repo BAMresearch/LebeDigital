@@ -2,14 +2,35 @@ import logging
 import os
 import sys
 from getpass import getpass
-
+import json
+import requests
 import pandas as pd
 from pybis import Openbis
-from pybis.sample import Sample
+from pybis.entity_type import SampleType
+from typing import Optional, Union
+from pydantic import create_model, AnyUrl, validator
+from pydantic.main import ModelMetaclass
+from enum import Enum
+from dateutil.parser import parse
+
+
+CONVERSION_DICT = {
+    'BOOLEAN': bool,
+    'DATE': str,
+    'HYPERLINK': AnyUrl,
+    'INTEGER': int,
+    'MATERIAL': str,
+    'MULTILINE_VARCHAR': str,
+    'OBJECT': str,
+    'REAL': float,
+    'TIMESTAMP': str,
+    'VARCHAR': str,
+    'XML': str,  # TODO write a parser for XMLs
+}
 
 
 class Interbis(Openbis):
-    def __init__(self, url, verify_certificates=True, token=None, use_cache=True,
+    def __init__(self, url, verify_certificates=False, token=None, use_cache=True,
                  allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=False):
         super().__init__(url, verify_certificates, token, use_cache,
                          allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks)
@@ -26,9 +47,13 @@ class Interbis(Openbis):
             "get_collection_identifier()",
             "exists_in_datastore()",
             "create_sample_type()",
+            "create_parent_hint()",
+            "set_parent_annotation()",
+            "get_parent_annotation()",
+            "generate_typechecker()"
         ] + super().__dir__()
 
-    def connect_to_datastore(self, username: str = None, password: str = None):
+    def connect_to_datastore(self, username: Optional[str] = None, password: Optional[str] = None):
         """
         Establishes a connection to an openBIS Datastore. If username/password are parsed then
         they take precedence over default logic.
@@ -57,11 +82,8 @@ class Interbis(Openbis):
             else:
                 os.environ['OPENBIS_PASSWORD'] = getpass("Give Password: ")
 
-            try:
-                self.login(os.environ['OPENBIS_USERNAME'], os.environ['OPENBIS_PASSWORD'])
-            except ValueError:
-                print("Wrong Credentials")
-                sys.exit(1)
+            self.login(os.environ['OPENBIS_USERNAME'], os.environ['OPENBIS_PASSWORD'])
+
         else:
             logging.debug('Connection already established with ' + self.url)
 
@@ -146,7 +168,7 @@ class Interbis(Openbis):
         else:
             return meta_df
 
-    def import_props_from_template(self, path_to_file: str, sample_object: Sample):
+    def import_props_from_template(self, path_to_file: str) -> dict:
 
         df = pd.read_excel(path_to_file)
         df.columns = df.columns.str.lower()
@@ -173,7 +195,7 @@ class Interbis(Openbis):
             elif property_data_type == "INTEGER":
                 metadata[key] = int(metadata[key])
 
-        sample_object.set_props(metadata)
+        return metadata
 
     def get_overview(self, level: str, **kwargs) -> dict:
         """
@@ -199,7 +221,7 @@ class Interbis(Openbis):
 
         def get_project_names(space):
             project_names = self.get_projects(space=space).df
-            return [name.split('/')[-1] for name in list(project_names['identifier'].values)]
+            return list(project_names['code'].values)
 
         def get_collection_names(space, project):
             collection_names = self.get_experiments(space=space, project=project).df
@@ -315,7 +337,7 @@ class Interbis(Openbis):
         else:
             raise ValueError('No correct level specified')
 
-    def get_sample_type_properties(self, sample_type: str) -> pd.DataFrame:
+    def get_sample_type_properties(self, sample_type: Union[SampleType, str]) -> pd.DataFrame:
         """
         Returns a DataFrame of the sample properties with their descriptions, labels and other metadata
 
@@ -325,8 +347,11 @@ class Interbis(Openbis):
         Returns:
             pd.DataFrame: DataFrame of all properties with their attributes
         """
+        if isinstance(sample_type, str):
+            sample_type = self.get_sample_type(sample_type)
+
         # Getting a list of all the sample's properties
-        props_list = list(self.get_sample_type(sample_type)
+        props_list = list(sample_type
                           .get_property_assignments()
                           .df['propertyType'])
 
@@ -408,7 +433,8 @@ class Interbis(Openbis):
 
     def get_collection_identifier(self, collection_code: str) -> str:
         """
-        Returns the full identifier of the collection
+        Returns the full identifier of the collection provided only one collection
+        with the specified name exists
 
         Args:
             collection_code (str): Name of the collection
@@ -417,13 +443,16 @@ class Interbis(Openbis):
             str: Identifier of the collection
         """
         collections_df = self.get_collections().df
+        collections_df['code'] = collections_df['identifier'].str.split("/").str[-1]
+
         collection_code = collection_code.upper()
 
-        if len(collections_df.index):
-            return collections_df[collections_df['identifier'].str.contains(
-                collection_code)].iloc[0]['identifier']
-        else:
+        relevant_rows = collections_df.loc[collections_df['code'] == collection_code]
+
+        if relevant_rows.empty:
             raise ValueError(f'No collection with name {collection_code} found')
+
+        return relevant_rows['identifier'].values[0]
 
     def exists_in_datastore(self, name: str) -> bool:
         """
@@ -494,28 +523,7 @@ class Interbis(Openbis):
             )
             new_sample_type.save()
 
-        # Create a dictionary with the samples
-        pt_dict = {}
-
-        # Get all possible property types from the datastore
-        pt_types = list(self.get_property_types().df['code'])
-
-        for prop, val in sample_properties.items():
-
-            if not prop.upper() in pt_types:
-                logging.debug(f"Creating new property type {prop.upper()}")
-                new_pt = self.new_property_type(
-                    code=prop,
-                    dataType=val[0],
-                    label=val[1],
-                    description=val[2],
-                )
-                new_pt.save()
-            else:
-                logging.debug(f"Fetching existing property type {prop.upper()}")
-                new_pt = self.get_property_type(prop)
-
-            pt_dict[new_pt.code] = new_pt
+        pt_dict = self.create_property_types(sample_properties)
 
         # ASSIGNING THE NEWLY CREATED PROPERTIES TO THE NEW SAMPLE TYPE
 
@@ -534,3 +542,215 @@ class Interbis(Openbis):
 
         logging.debug(f'Sample Type {sample_code} created.')
         return self.get_sample_type(sample_code)
+
+    def create_property_types(self, sample_properties: dict) -> dict:
+
+        # Create a dictionary with the samples
+        pt_dict = {}
+
+        # Get all possible property types from the datastore
+        pt_types = list(self.get_property_types().df['code'])
+
+        for prop, val in sample_properties.items():
+
+            if not prop.upper() in pt_types:
+                logging.debug(f"Creating new property type {prop.upper()}")
+                new_pt = self.new_property_type(
+                    code=prop,
+                    dataType=val[0],
+                    label=val[1],
+                    description=val[2],
+                    # The vocabulary needs to exist at this point
+                    vocabulary=val[3] if val[0] == 'CONTROLLEDVOCABULARY' else None
+                )
+                new_pt.save()
+            else:
+                logging.debug(f"Fetching existing property type {prop.upper()}")
+                new_pt = self.get_property_type(prop)
+
+            pt_dict[new_pt.code] = new_pt
+
+        return pt_dict
+
+    def create_parent_hint(
+        self,
+        sample_type: Union[str, SampleType],
+        label: str,
+        parent_type: Union[str, SampleType],
+        min_count: Optional[int] = None,
+        max_count: Optional[int] = None,
+        annotation_properties: Optional[list] = None
+    ):
+        """
+        Method for creating parent hints with comments, has to be set before the parent annotation can be specified, similar to SampleType before Sample
+        """
+
+        if isinstance(sample_type, SampleType):
+            sample_type = sample_type.code
+
+        if isinstance(parent_type, SampleType):
+            parent_type = parent_type.code
+
+        settings_sample = self.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")
+        settings = json.loads(settings_sample.props["$eln_settings"])
+
+        hint = {
+            "LABEL": label,
+            "TYPE": parent_type,
+        }
+
+        if min_count:
+            assert min_count >= 0, "min_count can not be negative"
+            hint["MIN_COUNT"] = min_count
+
+        if max_count:
+            assert max_count >= 0, "max_count can not be negative"
+            hint["MAX_COUNT"] = max_count
+
+        if annotation_properties:
+            hint["ANNOTATION_PROPERTIES"] = annotation_properties
+        else:
+            hint["ANNOTATION_PROPERTIES"] = [{
+                "TYPE": "ANNOTATION.SYSTEM.COMMENTS",
+                "MANDATORY": False,
+            }]
+
+        # For the case that no settings for the sample type have been set before
+        settings["sampleTypeDefinitionsExtension"].setdefault(sample_type, {})
+        settings["sampleTypeDefinitionsExtension"][sample_type].setdefault("SAMPLE_PARENTS_HINT", [])
+
+        if hint not in settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"]:
+            settings["sampleTypeDefinitionsExtension"][sample_type]["SAMPLE_PARENTS_HINT"].append(hint)
+
+        settings_sample.props["$eln_settings"] = json.dumps(settings)
+
+        settings_sample.save()
+
+    def get_parent_annotations(self, sample_identifier: str) -> dict:
+        sample = self.get_sample(sample_identifier)
+        return sample.data["parentsRelationships"]
+
+    def set_parent_annotation(self, child_sample: str, parent_sample: str, comment: str, set_property: Optional[str] = None):
+        """
+        Sets the ANNOTATION.SYSTEM.COMMENTS field for an existing parent-child relationship
+
+        Args:
+            child_sample(str): The identifier of the child sample in the relationship
+            parent_sample(str): The identifier of the parent sample in the relationship
+            comment(str): The value of the annotation
+            set_property(str): The property of the annotation to be commented
+        """
+        def combine_urls(base_url, relative_url):
+            # Remove any trailing or leading slashes
+            base_url = base_url.strip('/')
+            relative_url = relative_url.strip('/')
+
+            # Remove the last object in the base URL
+            base_url_parts = base_url.split('/')
+            base_url_parts.pop()
+            base_url = '/'.join(base_url_parts)
+
+            # Combine the two URLs
+            full_url = f'{base_url}/{relative_url}'
+
+            return full_url
+
+        child_sample_permid = self.get_sample(child_sample).permId
+
+        if not set_property:
+            set_property = "ANNOTATION.SYSTEM.COMMENTS"
+
+        request = {'method': 'updateSamples',
+                   'params': [self.token,
+                              [{'@id': 0,
+                                'properties': {},
+                                  'relationships': {parent_sample: {'@id': 1,
+                                                                    'parentAnnotations': {'@id': 2,
+                                                                                          'actions': [{'@id': 3,
+                                                                                                       'items': [{set_property: str(comment)}],
+                                                                                                       '@type': 'as.dto.common.update.ListUpdateActionAdd'}],
+                                                                                          '@type': 'as.dto.common.update.ListUpdateMapValues'},
+                                                                    '@type': 'as.dto.common.update.RelationshipUpdate'}},
+                                  'sampleId': {'@id': 4,
+                                               'permId': child_sample_permid,
+                                               '@type': 'as.dto.sample.id.SamplePermId'},
+                                  '@type': 'as.dto.sample.update.SampleUpdate'}]],
+                   'id': '1',
+                   'jsonrpc': '2.0'}
+
+        response = requests.post(url=combine_urls(self.url, self.as_v3), json=request, verify=self.verify_certificates).json()
+        return response
+
+    def _get_datatype_conversion(self, property_name: str, property_datatype: str):
+        """
+        Converts the openbis datatypes into python datatypes if possible, else a custom datatype
+        Use with the `generate_typechecker` method
+        """
+        # if the prop is in the dict then it is not a CONTROLLED_VOCABULARY
+        # the CONTROLLED_VOCABULARY property type is the only one which cant be simply mapped to an exisiting
+        # python data type as we are handling it using an Enum which we create below
+        if property_datatype in CONVERSION_DICT:
+            return CONVERSION_DICT[property_datatype]
+
+        vocabulary_name = self.get_property_type(property_name).vocabulary
+        vocabulary_df = self.get_vocabulary(vocabulary_name).get_terms().df
+        vocabulary_term_list = vocabulary_df['code'].to_list()
+        vocabulary_enum_dict = dict(zip(vocabulary_term_list, vocabulary_term_list))
+
+        return Enum('Vocabulary', vocabulary_enum_dict)
+
+    def generate_typechecker(self, sample_type: Union[SampleType, str]) -> ModelMetaclass:
+        """
+        Generates a pydantic-based typechecker with property types saved in openbis for a given sample.
+
+        Args:
+            sample_type(str | SampleType): The code of the sample the typechecker should be created for
+        Returns:
+            ModelMetaclass: A dynamically created pydantic model
+        """
+
+        if not isinstance(sample_type, SampleType):
+            sample_type = self.get_sample_type(sample_type)
+
+        mandatory_props_df = sample_type.get_property_assignments().df
+        mandatory_props_dict = pd.Series(mandatory_props_df.mandatory.values, index=mandatory_props_df.propertyType).to_dict()
+        mandatory_props = [key.lower() for key, val in mandatory_props_dict.items() if val]
+
+        property_df = self.get_sample_type_properties(sample_type)
+        property_dict = pd.Series(property_df.dataType.values, index=property_df.code).to_dict()
+        property_dict = {key.lower(): val for key, val in property_dict.items()}
+
+        property_function_input = {key: (self._get_datatype_conversion(key, val), None if key not in mandatory_props else ...) for key, val in property_dict.items()}
+
+        datetime_props = {key: val for key, val in property_dict.items() if val == "DATE" or val == "TIMESTAMP"}
+        controlledvocabulary_props = {key: val for key, val in property_dict.items() if val == "CONTROLLEDVOCABULARY"}
+
+        validators = {}
+
+        if datetime_props:
+
+            def date_correct_format(cls, v):
+                return parse(v).strftime("%Y-%m-%d")
+
+            def timestamp_correct_format(cls, v):
+                return parse(v).strftime("%Y-%m-%d %H:%M")
+
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(date_correct_format if val == 'DATE' else timestamp_correct_format) for key, val in datetime_props.items()}
+
+        if controlledvocabulary_props:
+
+            def props_to_uppercase(cls, v):
+                return str(v).upper()
+
+            validators = validators | {f"{key}_validator": validator(key, pre=True, allow_reuse=True)(props_to_uppercase) for key, val in controlledvocabulary_props.items()}
+
+        class Config:
+            extra = "forbid"
+            use_enum_values = True
+
+        return create_model(
+            'SampleType_Props_Validator',
+            **property_function_input,
+            __config__=Config,
+            __validators__=validators
+        )

@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Please do not use \input{...} to include other tex files.       %%
 %% Submit your LaTeX manuscript as one .tex document.              %%
@@ -10,7 +11,7 @@
 % some aditional \documentclass options:
 % \documentclass[referee,...]{sn-jnl}% referee option is meant for double line spacing
 %\documentclass[lineno,...]{sn-jnl}% to print line numbers in the margin use lineno option
-
+\RequirePackage{tikz}
 \documentclass[pdflatex,sn-basic]{template/sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
 %%\documentclass[sn-mathphys]{sn-jnl}% Math and Physical Sciences Reference Style
 %%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
@@ -23,8 +24,12 @@
 
 %%%% Standard Packages
 %%<additional latex packages if required can be included here>
-\input{macros/tex_macros.tex}  % tex commands not variable
-\input{macros/py_macros.tex}   % tex commands created by script
+\input{macros/tex_macros_BAM.tex}  % tex commands not variable
+\input{macros/tex_macros_TUM.tex}
+\input{macros/py_macros_BAM.tex}   % tex commands created by script
+\input{macros/py_macros_TUM.tex}   % tex commands created by script
+\input{macros/packages_BAM.tex}
+\input{macros/packages_TUM.tex}
 
 \newcommand{\figures}{../figures/} % scale factor for affinity
 %%%%
@@ -49,7 +54,6 @@
 %%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
-
 \title[From concrete mixture to structural design - a holistic optimization procedure]{From concrete mixture to structural design - a holistic optimization procedure}
 
 %%=============================================================%%
@@ -90,8 +94,10 @@
 \input{tex_sections/data.tex}
 
 \section{Models}\label{sec:models}
+\input{tex_sections/models_introduction.tex}
 \input{tex_sections/homogenization.tex}
 \input{tex_sections/concrete_model.tex}
+\input{tex_sections/beam_model.tex}
 \input{tex_sections/other_models.tex}
 
 \section{Calibration Method}\label{sec:calibration}
@@ -100,18 +106,25 @@
 \section{Optimization Method}\label{sec:optimization}
 \input{tex_sections/optimization.tex}
 
+\section{Numerical Experiments}\label{sec:numericalexperiments}
+\input{tex_sections/numerical_experiments.tex}
+
 \section{Results}\label{sec:results}
 \input{tex_sections/results.tex}
 
-\section{Conclusion and Outlook}\label{sec:results}
+\section{Conclusion and Outlook}\label{sec:conclusion}
 \input{tex_sections/conclusion.tex}
 
 % supplementary information, acknowledgements, declarations, etc
 \input{tex_sections/backmatter.tex}
 
 \begin{appendices}
-\section{Mori-Tanaka Homogenization}\label{appendix:hom}
+\section{Homogenization}\label{appendix:hom}
 \input{tex_sections/appendix_mori_tanaka_hom.tex}
+\section{FE Concrete Model}\label{appendix:fem}
+\input{tex_sections/appendix_fem_model.tex}
+\section{Beam Design}\label{appendix:beam}
+\input{tex_sections/appendix_beam_design.tex}
 
 \end{appendices}
 
@@ -122,7 +135,7 @@
 %% file, and delete the associated \verb+\bibliography+ commands.                            %%
 %%===========================================================================================%%
 
-\bibliography{optimization_paper_bibliography}% common bib file
+\bibliography{optimization_paper_bibliography_BAM,optimization_paper_bibliography_TUM}% common bib file
 %% if required, the content of .bbl file can be included here once bbl is generated
 %%\input sn-article.bbl
 
@@ -130,3 +143,4 @@
 %%\input sn-sample-bib.tex%
 
 \end{document}
+

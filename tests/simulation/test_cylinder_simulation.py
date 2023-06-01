@@ -1,7 +1,8 @@
 import numpy as np
 import fenics_concrete
 import pytest
-
+import os
+from pathlib import Path
 
 def test_cylinder_simulation():
     """Testing the cylinder simulation
@@ -30,6 +31,19 @@ def test_cylinder_simulation():
     problem.experiment.apply_displ_load(displacement)
 
     problem.solve()  # solving this
+
+    # remove temp mesh files that are generated during mesh generation
+    directory = Path('mesh')
+    files = ['cylinder.h5','cylinder.msh','cylinder.xdmf']
+
+    # delete files
+    for file in files:
+        path = directory / file
+        if path.is_file():
+            os.remove(path)
+
+    # delete directory
+    os.rmdir(directory)
 
     # last measurement
     measured_force = problem.sensors[sensor.name].data[-1]

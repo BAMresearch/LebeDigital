@@ -1,4 +1,0 @@
-file_names : {
-  'workflowGraph': 'paper_workflow_graph.gv.pdf',
-  'snakemakeGraph': 'snakemake_optimization_graph.pdf'
-}
