@@ -1,7 +1,7 @@
 # Script to convert the units extracted from the raw data into valid ontology 
 # instances.
 
-
+import json
 from loguru import logger
 
 
@@ -18,17 +18,22 @@ def unit_conversion(input_metadata):
     output_metadata : dict
         Dictionary with units replaced by link to an instance defined in the PMD core.
     """
+    with open(UnitURIpath, 'r') as file:
+        unit_mappings = json.load(file)
+
+
     # Define the unit mappings as a dictionary
-    unit_mappings = {
-       'mm': 'http://qudt.org/vocab/unit/MilliM',
-       'g': 'http://qudt.org/vocab/unit/GM',
-       'kN': 'https://qudt.org/vocab/unit/KN',
-       'kg/m³': 'http://qudt.org/vocab/unit/KiloGM-PER-M3',
-       'kg/dm³': 'http://qudt.org/vocab/unit/KiloGM-PER-DeciM3',
-       'dm³': 'http://qudt.org/vocab/unit/DeciM3'
+    #unit_mappings = {
+    #   'mm': 'http://qudt.org/vocab/unit/MilliM',
+    #   'g': 'http://qudt.org/vocab/unit/GM',
+    #   'kN': 'https://qudt.org/vocab/unit/KN',
+    #   'kg/m^3': 'http://qudt.org/vocab/unit/KiloGM-PER-M3',
+    #   'kg/dm^3': 'http://qudt.org/vocab/unit/KiloGM-PER-DeciM3',
+    #   'dm³': 'http://qudt.org/vocab/unit/DeciM3'
 
         # Add more unit mappings as needed
-    }
+    #}
+
 
 
     debug_counter = 0
@@ -46,4 +51,8 @@ def unit_conversion(input_metadata):
     output_metadata = input_metadata
 
     return output_metadata
+
+
+
+#UnitURIpath = "../../lebedigital/mapping/unit_URI.json"
 
