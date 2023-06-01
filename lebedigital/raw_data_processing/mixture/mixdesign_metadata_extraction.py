@@ -228,7 +228,7 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/testMixDesignMetaData.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/2014_08_05 Rezeptur_MI.yaml'
 
     # run extraction and write metadata file
     mix_metadata(args.input, args.output)
