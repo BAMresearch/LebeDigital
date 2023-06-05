@@ -24,7 +24,8 @@ def replace_comma(string):
     return string
 
 
-def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
+def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_file='mix.dat'):
+
     """Returns two dictionaries: one with extracted emodule-metadata and one with
     extracted specimen metadata.
 
@@ -127,7 +128,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file, mix_file):
 
         # ID of specimen (machine readable), get it from the metadata of Mixdesign
         try:
-            with open(lines[:-5] + ".yaml", "r") as mixyaml:
+            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/" + lines[:-5] + ".yaml", "r") as mixyaml: #change location of where 
                 mixdesign = yaml.safe_load(mixyaml)
                 specimenID = mixdesign['MixtureID']
                 metadata_emodule['SpecimenID'] = metadata_specimen['SpecimenID'] = specimenID
