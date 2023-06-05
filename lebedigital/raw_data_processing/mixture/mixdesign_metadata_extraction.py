@@ -120,9 +120,12 @@ def extract_metadata_mixdesign(locationOfRawData):
         # lab location - hardcoded
         metadata['Lab'] = "BAM"
 
-        # Mix ID to link all the KGs
+        # ID of this mix
         MixID = str(uuid.uuid4())
-        metadata['MixtureID'] = MixID
+        metadata['ID'] = MixID
+
+        # human readable ID of this mix
+        metadata['humanreadableID'] = "here should be the name of the file " # To do
 
         #----------------------------------------------------------------------
 
