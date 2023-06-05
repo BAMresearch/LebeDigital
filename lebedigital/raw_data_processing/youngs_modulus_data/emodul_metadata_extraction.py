@@ -84,8 +84,12 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         ###########  D A T A   A B O U T    E X P E R I M E N T  #######
 
-        # name of experiment is the folder name of the data file
-        metadata_emodule['ExperimentName'] = folderName  # This data has no placeholder yet.
+        # human readable ID = name of experiment is the folder name of the data file
+        metadata_emodule['humanreadableID'] = folderName  
+
+        # ID of this experiment
+        emoduleID = str(uuid.uuid4())
+        metadata_emodule['ID'] = emoduleID
 
         # get experiment date and time
         date = serviceInformation[10][4]
@@ -124,14 +128,18 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         ###########  D A T A   A B O U T    S P E C I M E N #######
 
         # name of specimen (human readable)
-        metadata_emodule['SpecimenName'] = metadata_specimen['SpecimenName'] = serviceInformation[3][1] 
+        metadata_emodule['SpecimenName'] = metadata_specimen['humanreadableID'] = serviceInformation[3][1] 
 
-        # ID of specimen (machine readable), get it from the metadata of Mixdesign
+        # ID of this specimen, save to specimen metadata and to emodule metadata
+        specimenID = str(uuid.uuid4())
+        metadata_emodule['SpecimenID'] = metadata_specimen['ID'] = specimenID
+
+        # save Mixdesign ID to specimen metadata
         try:
             with open("../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/" + lines[:-5] + ".yaml", "r") as mixyaml: #change location of where 
                 mixdesign = yaml.safe_load(mixyaml)
                 specimenID = mixdesign['MixtureID']
-                metadata_emodule['SpecimenID'] = metadata_specimen['SpecimenID'] = specimenID
+                metadata_specimen['MixtureID'] = specimenID
         except:
             raise Exception("No mixdesign yaml-file found! Can't import the ID and save it to the output!")
 
