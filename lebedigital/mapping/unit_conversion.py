@@ -5,13 +5,17 @@ import json
 from loguru import logger
 
 
-def unit_conversion(input_metadata):
+def unit_conversion(input_metadata, UnitURIpath = "../../lebedigital/mapping/unit_URI.json"):
+
     """
 
     Parameters:
     ----------
     input_metadata : dict
         Dictionary containing the extracted metadata.
+    UnitURIpath : string (path to json file)
+        Json file containing the translation of unit abbreviations to URIs, by default given
+        by "../../lebedigital/mapping/unit_URI.json".
 
     Returns:
     -------
@@ -34,14 +38,13 @@ def unit_conversion(input_metadata):
         # Add more unit mappings as needed
     #}
 
-
-
     debug_counter = 0
+    
     # Check if the unit string exists in the dictionary
     for key in input_metadata:
         if key.endswith("_Unit"):
             if input_metadata[key] in unit_mappings:
-                input_metadata[key] = unit_mappings[input_metadata[key]]  ### Replace the unit "mm" or something else to a proper ontology unit like "https://..."
+                input_metadata[key] = unit_mappings[input_metadata[key]]
 
             debug_counter += 1
 
@@ -51,8 +54,4 @@ def unit_conversion(input_metadata):
     output_metadata = input_metadata
 
     return output_metadata
-
-
-
-#UnitURIpath = "../../lebedigital/mapping/unit_URI.json"
 
