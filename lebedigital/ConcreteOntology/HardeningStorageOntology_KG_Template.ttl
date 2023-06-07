@@ -1,0 +1,88 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:RO_0000086 a owl:ObjectProperty .
+
+con:FreshConcrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:FlowSpread_ ;
+    cco:has_process_part con:Hardening_ .
+
+con:StorageConditions_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_input con:Hardening_ ;
+    cco:has_output cco:DayMeasurementUnit,
+        cco:DegreeCelsiusMeasurementUnit .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_input a owl:ObjectProperty .
+
+cco:has_output a owl:ObjectProperty .
+
+cco:has_process_part a owl:ObjectProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+pmd: a owl:Ontology .
+
+pmd:hasPmdUnit a owl:ObjectProperty .
+
+obo:BFO_0000038 a owl:Class .
+
+<http://w3id.org/concrete/##FlowSpread_Unit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<http://w3id.org/concrete/##Humidity_Unit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<http://w3id.org/concrete/##StorageTime_Unit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<http://w3id.org/concrete/##Temperature_Unit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:FlowClass a owl:Class .
+
+con:FlowClass_ a con:FlowClass,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$FlowClass_Value$$"^^xsd:string .
+
+con:FlowSpread a owl:Class .
+
+con:FlowSpread_ a con:FlowSpread,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$FlowSpread_Value$$"^^xsd:decimal ;
+    cco:has_output con:FlowClass_ ;
+    pmd:hasPmdUnit <http://w3id.org/concrete/##FlowSpread_Unit##> .
+
+cco:DayMeasurementUnit a obo:BFO_0000038,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$StorageTime_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit <http://w3id.org/concrete/##StorageTime_Unit##> .
+
+cco:DegreeCelsiusMeasurementUnit a cco:Temperature,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$Humidity_Value$$"^^xsd:decimal,
+        "$$Temperature_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit <http://w3id.org/concrete/##Humidity_Unit##>,
+        <http://w3id.org/concrete/##Temperature_Unit##> .
+
+cco:Temperature a owl:Class .
+
+con:Hardening_ a cco:Artifact,
+        owl:NamedIndividual .
+
+cco:Artifact a owl:Class .
+
+pmd:PmdSiUnit a owl:Class .
+

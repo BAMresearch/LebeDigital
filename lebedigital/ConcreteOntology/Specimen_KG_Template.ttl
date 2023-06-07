@@ -1,0 +1,112 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix ns3: <https://material-digital.de/pmdco/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:RO_0000086 a owl:ObjectProperty .
+
+con:TestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenDiameter_,
+        con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenMass_,
+        con:SpecimenWidth_ ;
+    con:has_shape <http://w3id.org/concrete/##SpecimenShape##> ;
+    cco:designated_by con:ID_,
+        con:MixtureID_,
+        con:humanreadableID_ .
+
+con:has_shape a owl:ObjectProperty .
+
+cco:designated_by a owl:ObjectProperty .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+ns3: a owl:Ontology .
+
+ns3:hasPmdUnit a owl:ObjectProperty .
+
+<http://w3id.org/concrete/##SpecimenDiameter_Unit##> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/##SpecimenHeight_Unit##> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/##SpecimenLength_Unit##> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/##SpecimenMass_Unit##> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+<http://w3id.org/concrete/##SpecimenShape##> a cco:ShapeQuality,
+        owl:NamedIndividual .
+
+<http://w3id.org/concrete/##SpecimenWidth_Unit##> a owl:NamedIndividual,
+        ns3:PmdSiUnit .
+
+con:ID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$ID_Value$$"^^xsd:string .
+
+con:MixtureID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$MixtureID_Value$$"^^xsd:string .
+
+con:SpecimenDiameter_ a cco:Diameter,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/##SpecimenDiameter_Unit##> .
+
+con:SpecimenHeight_ a cco:Height,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/##SpecimenHeight_Unit##> .
+
+con:SpecimenLength_ a cco:Length,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/##SpecimenLength_Unit##> .
+
+con:SpecimenMass_ a cco:Mass,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenMass_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/##SpecimenMass_Unit##> .
+
+con:SpecimenWidth_ a cco:Width,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
+    ns3:hasPmdUnit <http://w3id.org/concrete/##SpecimenWidth_Unit##> .
+
+con:humanreadableID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$humanreadableID_Value$$"^^xsd:string .
+
+cco:Diameter a owl:Class .
+
+cco:Height a owl:Class .
+
+cco:Length a owl:Class .
+
+cco:Mass a owl:Class .
+
+cco:ShapeQuality a owl:Class .
+
+cco:Width a owl:Class .
+
+mid:Specimen a owl:Class .
+
+cco:NonNameIdentifier a owl:Class .
+
+ns3:PmdSiUnit a owl:Class .
+
