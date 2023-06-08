@@ -1,6 +1,6 @@
 {
    "steel_yield": {
-     "value" : 500.0,
-     "unit" : "N/mm^2"
+     "value" : 300.0,
+     "unit" : "MPa"
    }
 }

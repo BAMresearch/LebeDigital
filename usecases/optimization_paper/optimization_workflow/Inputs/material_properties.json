@@ -52,7 +52,7 @@
       "unit":"W/m/K"
     } ,
    "density_water": {
-     "value":977,
+     "value":998,
      "unit": "kilogram / meter ** 3"
    }
 }
