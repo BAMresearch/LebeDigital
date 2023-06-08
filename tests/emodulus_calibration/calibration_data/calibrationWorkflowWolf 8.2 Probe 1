@@ -723,24 +723,24 @@
 <forward_model rdf:about="#linear_elasticity_cylinder">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <has_argument rdf:resource="#E"/>
+  <has_input_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
   <has_input_sensor rdf:resource="http:///linear_elasticity_cylinder#nu"/>
   <has_input_sensor rdf:resource="http:///linear_elasticity_cylinder#radius"/>
-  <has_input_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
   <has_output_sensor rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
 </forward_model>
 
 <single_experiment_data_set rdf:about="#Wolf 8.2 Probe 1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <is_deterministically_modeled_by rdf:resource="#linear_elasticity_cylinder"/>
-  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
+  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#nu"/>
   <has_sensor rdf:resource="http:///linear_elasticity_cylinder#radius"/>
-  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#displacement_list"/>
+  <has_sensor rdf:resource="http:///linear_elasticity_cylinder#force_list"/>
+  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#height"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#radius"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#nu"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#displacement_list"/>
   <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#force_list"/>
-  <has_measured_values rdf:resource="http:///Wolf 8.2 Probe 1#height"/>
 </single_experiment_data_set>
 
 <addition rdf:about="#data_generation_model_1">
@@ -780,15 +780,15 @@
   <has_upper_bound rdf:resource="#high_sigma"/>
 </uniform_density_function>
 
+<input_sensor rdf:about="http:///linear_elasticity_cylinder#displacement_list">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</input_sensor>
+
 <input_sensor rdf:about="http:///linear_elasticity_cylinder#nu">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 </input_sensor>
 
 <input_sensor rdf:about="http:///linear_elasticity_cylinder#radius">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-</input_sensor>
-
-<input_sensor rdf:about="http:///linear_elasticity_cylinder#displacement_list">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 </input_sensor>
 
@@ -807,6 +807,11 @@
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
 </constant>
 
+<constant rdf:about="http:///Wolf 8.2 Probe 1#height">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.2</has_scalar_value>
+</constant>
+
 <constant rdf:about="http:///Wolf 8.2 Probe 1#radius">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">49.3</has_scalar_value>
@@ -823,11 +828,6 @@
   <has_dimension rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_dimension>
   <has_number_of_rows rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</has_number_of_rows>
   <has_number_of_columns rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</has_number_of_columns>
-</constant>
-
-<constant rdf:about="http:///Wolf 8.2 Probe 1#height">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <has_scalar_value rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.2</has_scalar_value>
 </constant>
 
 <normal_random_variable rdf:about="http:///data_generation_model_1#model_error">
