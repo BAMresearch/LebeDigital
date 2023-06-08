@@ -282,7 +282,7 @@ rule approx_paste_properties:
     # the stiffness and strength of the cement paste is estimated and interpolated
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
-        sc_fraction = "Inputs/sc_fraction.json",
+        sc_fraction = 'Results/mix_volume_contents.json',
         phi_paste = "Inputs/phi_paste.json"
 
     output:
@@ -305,7 +305,7 @@ rule approx_hydration_parameters:
     # the hydration parameters are approximated based on slag content
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
-        sc_fraction = "Inputs/sc_fraction.json",
+        sc_fraction = 'Results/mix_volume_contents.json',
         phi_hydration = 'Inputs/phi_hydration.json'
 
     output:
