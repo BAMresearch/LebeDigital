@@ -4,11 +4,11 @@
       "unit":"h"
     },
     "time_step" : {
-      "value":15,
+      "value":20,
       "unit":"min"
     },
     "mesh_density" : {
-      "value":8,
+      "value":4,
       "unit":""
     },
     "mesh_density_min" : {
