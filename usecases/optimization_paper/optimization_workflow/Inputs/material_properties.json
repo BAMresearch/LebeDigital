@@ -63,7 +63,7 @@
      "value":3800,
      "unit": "J/kg/K"
    },
-   "GWP_water": {
+   "gwp_water": {
      "value":0.000133,
      "unit": "kg_CO2_eq/kg"
    }
