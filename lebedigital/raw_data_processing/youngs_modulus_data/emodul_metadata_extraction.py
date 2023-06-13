@@ -8,6 +8,7 @@ from pathlib import Path
 import argparse
 import warnings
 import uuid
+import  datetime
 
 
 # the function read each line and return metadata as key and value
@@ -91,9 +92,11 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         emoduleID = str(uuid.uuid4())
         metadata_emodule['ID'] = emoduleID
 
-        # get experiment date and time
-        date = serviceInformation[10][4]
-        metadata_emodule['ExperimentDateTime'] = str(date)
+        # get experiment date and time in protege format YYYY-MM-DDTHH:mm:SS
+        date = serviceInformation[10][4] #datetime.datetime.strptime(,'%d.%m.%y')
+        date_only = datetime.datetime.strptime(date.split(" ")[0], '%d.%m.%Y')
+        date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + date.split(" ")[1]
+        metadata_emodule['ExperimentDateTime'] = str(date_protegeformat)
 
         # operator name - This data has no placeholder yet.
         metadata_emodule['tester_name'] = serviceInformation[2][1] 
@@ -138,8 +141,8 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         try:
             with open("../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/" + lines[:-5] + ".yaml", "r") as mixyaml: #change location of where 
                 mixdesign = yaml.safe_load(mixyaml)
-                specimenID = mixdesign['MixtureID']
-                metadata_specimen['MixtureID'] = specimenID
+                mixtureID = mixdesign['ID']
+                metadata_specimen['MixtureID'] = mixtureID
         except:
             raise Exception("No mixdesign yaml-file found! Can't import the ID and save it to the output!")
 
