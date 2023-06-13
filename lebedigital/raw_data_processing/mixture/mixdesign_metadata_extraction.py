@@ -114,8 +114,8 @@ def extract_metadata_mixdesign(locationOfRawData):
         # get raw data file name
         metadata['RawDataFile'] = locationOfRawData
 
-        # get date (always the same position) & set time to 12:00
-        metadata['MixingDate'] = str(exceltodf.columns[9])[:10] + " 12:00:00"
+        # get date (always the same position) & set time to 12:00 - Protege datetime format YYY-MM-DDTHH:mm:SS
+        metadata['MixingDate'] = str(exceltodf.columns[9])[:10] + "T12:00:00"
 
         # lab location - hardcoded
         metadata['Lab'] = "BAM"
@@ -124,8 +124,8 @@ def extract_metadata_mixdesign(locationOfRawData):
         MixID = str(uuid.uuid4())
         metadata['ID'] = MixID
 
-        # human readable ID of this mix
-        metadata['humanreadableID'] = "here should be the name of the file " # To do
+        # human readable ID of this mix - is the name of the file without format
+        metadata['humanreadableID'] = name
 
         #----------------------------------------------------------------------
 
