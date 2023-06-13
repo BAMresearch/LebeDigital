@@ -1,4 +1,50 @@
 file_names : {
   'workflowGraph': 'paper_workflow_graph.gv.pdf',
-  'snakemakeGraph': 'snakemake_optimization_graph.pdf'
+  'snakemakeGraph': 'snakemake_optimization_graph.pdf',
+  'homogenizationPlot': 'homogenization_figure.pdf',
+  'beamDesignPlot': 'beam_design_figure.pdf'
 }
+homogenization_example_parameters : {
+    'pasteE' : 30e9,
+    'pasteEunit' : 'Pa',
+    'pastenu' : 0.2,
+    'pastenuunit' : 'dimensionless',
+    'pasteC' : 870,
+    'pasteCunit' : 'J/kg/K',
+    'pastekappa' : 1.8,
+    'pastekappaunit' : 'W/m/K',
+    'pasterho' : 2400,
+    'pasterhounit' : 'kg/m^3',
+    'pastefc' : 30e6,
+    'pastefcunit' : 'Pa',
+    'pasteQ' : 250000,
+    'pasteQunit' : 'J/kg',
+    'aggregatesE' : 25e9,
+    'aggregatesEunit' : 'Pa',
+    'aggregatesnu'  : 0.3,
+    'aggregatesnuunit'  : 'dimensionless',
+    'aggregatesC'  : 840,
+    'aggregatesCunit' : 'J/kg/K',
+    'aggregateskappa'  : 0.8,
+    'aggregateskappaunit' : 'W/m/K',
+    'aggregatesrho'  : 2600,
+    'aggregatesrhounit' : 'kg/m^3'
+}
+beam_design_example_parameters : {
+        'beamExSpan': 675,
+        'beamExSpanUnit': 'cm',
+        'beamExWidth': 200,
+        'beamExWidthUnit': 'mm',
+        'beamExYieldStrSteel': 500,
+        'beamExYieldStrSteelUnit': 'N/mm^2',
+        'beamExSteelDiaBu': 10,
+        'beamExSteelDiaBuUnit': 'mm',
+        'beamExCoverMin': 2.5,
+        'beamExCoverMinUnit': 'cm',
+        'beamExHeightC': 450,
+        'beamExHeightCUnit': 'mm',
+        'beamExPointLoadC': 50,
+        'beamExPointLoadCUnit': 'kN',
+        'beamExComprStrConcreteC': 40,
+        'beamExComprStrConcreteCUnit': 'N/mm^2',
+    }

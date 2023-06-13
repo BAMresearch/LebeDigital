@@ -1,6 +1,6 @@
 {
    "steel_yield": {
-     "value" : 500,
+     "value" : 500.0,
      "unit" : "N/mm^2"
    }
 }

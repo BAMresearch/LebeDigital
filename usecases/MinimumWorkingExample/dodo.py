@@ -1,5 +1,8 @@
 import os
+import random
 from pathlib import Path
+import numpy as np
+import pandas as pd
 
 import yaml
 from doit import create_after, get_var
@@ -14,6 +17,12 @@ from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_process
     processed_data_from_rawdata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
     emodul_metadata
+from lebedigital.calibration.calibrationWorkflow import estimate_youngs_modulus
+from lebedigital.calibration.utils import read_exp_data_E_mod
+from lebedigital.calibration.posterior_predictive_three_point_bending import wrapper_three_point_bending
+from lebedigital.calibration.posterior_predictive_three_point_bending import perform_prediction
+
+
 from lebedigital.shacl import validation as shacl
 
 # set a variable to define a cheap or full run
@@ -99,6 +108,9 @@ openbis_directory = Path(emodul_output_directory, 'openbis_upload')
 openbis_samples_directory = Path(openbis_directory, 'openbis_samples')
 openbis_sample_types_directory = Path(
     openbis_directory, 'openbis_sample_types')
+# folder with calibrated data and the predictions for a provided case
+calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')
+predicted_data_directory = Path(emodul_output_directory,'predicted_data')
 
 Path(openbis_directory).mkdir(parents=True, exist_ok=True)
 Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
@@ -362,8 +374,8 @@ def task_upload_to_openbis():
         yield {
             'name': metadata_file_path,
             'actions': [(upload_to_openbis_doit, [
-                metadata_file_path, 
-                processed_file_path, 
+                metadata_file_path,
+                processed_file_path,
                 raw_data_file,
                 mixture_metadata_file_path,
                 mixture_data_path,
@@ -373,4 +385,102 @@ def task_upload_to_openbis():
             'file_dep': [metadata_file_path, processed_file_path],
             'targets': [sample_file_path],
             'clean': [clean_targets],
+        }
+
+@create_after(executed='extract_metadata_emodul')
+def task_perform_calibration():
+    """Loop over the experiments and store the calibrated E in csv file. Each iteration generates four files
+    viz. calibrated data.csv, displacement data used, load data used and the knowledge graph file containing the calibration details
+    (these are not specific file names)"""
+    # create folder, if it is not there
+    Path(calibrated_data_directory).mkdir(parents=True, exist_ok=True)
+
+    # defining calibration input, setting the values for the priors
+    E_loc = 30  # KN/mm2 (mean)
+    E_scale = 10  # KN/mm2 (std)
+
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap':
+        list_exp_name = [single_example_name]
+    else:  # go through all files
+        list_exp_name = os.listdir(
+            processed_data_emodulus_directory)
+        list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
+    for f in list_exp_name:
+        calibrated_data_expwise = os.path.join(calibrated_data_directory,f) # create new folder for each exp
+        # create the folder if its not there
+        Path(calibrated_data_expwise).mkdir(parents=True,exist_ok=True)
+
+        # read in the metadata for each exp
+        exp_metadata_path = os.path.join(metadata_emodulus_directory, f + '.yaml')
+        with open(exp_metadata_path) as file:
+            data = yaml.safe_load(file)
+        diameter = float(data['diameter'])
+        #length = float(data['length'])
+        length = 100 # as suggested here :https://github.com/BAMresearch/LebeDigital/pull/152#discussion_r1187107430
+
+        def calibrate_it(path_exp_data=processed_data_emodulus_directory,path_calibrated_data=calibrated_data_directory,
+                         exp_name=f):
+            output = read_exp_data_E_mod(path=path_exp_data, exp_name=exp_name + '.csv',
+                                         length=length, diameter=diameter)
+            E_samples = estimate_youngs_modulus(experimental_data=output,
+                                                calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
+                                                calibrated_data_path=path_calibrated_data, mode=config['mode'])
+            # store samples as csv
+            np.savetxt(os.path.join(calibrated_data_expwise, f + '_calibrated_samples.csv'), E_samples, delimiter=',')
+        # current outputs
+        ## -- output from probeye. dont really need it but for the time being
+        owl_file = Path(calibrated_data_expwise, 'calibrationWorkflow' + f)
+        displ_list = Path(calibrated_data_expwise, 'displacement_list_' + f + '.dat')
+        force_list = Path(calibrated_data_expwise, 'force_list_' + f + '.dat')
+        #another_file = Path(calibrated_data_directory, 'joint_samples_compression_test_calibration.dat')
+        ## -- created by the calibration script
+        calibrated_data_file = Path(calibrated_data_expwise,f + '_calibrated_samples.csv')
+
+        yield {
+            'name': f'calibrate {f}',
+            'actions': [(calibrate_it,[processed_data_emodulus_directory,calibrated_data_expwise,f])],
+            'file_dep': [exp_metadata_path,Path(processed_data_emodulus_directory,f+'.csv')], # the file dependancies, the metadata and exp files.
+            'targets': [owl_file,displ_list,force_list,calibrated_data_file], # the files which are output for each calibration
+            'clean': [clean_targets]
+        }
+@create_after(executed='perform_calibration')
+def task_perform_prediction():
+    # create folder, if it is not there
+    Path(predicted_data_directory).mkdir(parents=True, exist_ok=True)
+
+    # setting for fast test, defining the list
+    if config['mode'] == 'cheap':
+        list_exp_name = [single_example_name]
+    else:  # go through all files
+        list_exp_name = os.listdir(
+            processed_data_emodulus_directory)
+        list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
+
+    for f in list_exp_name:
+        # choose calibrated data to be used for prediction
+        #calibrated_data = single_example_name
+        calibrated_data =f
+        calibrated_data_path = os.path.join(calibrated_data_directory,calibrated_data + '/' + calibrated_data+'_calibrated_samples.csv')
+        df = pd.read_csv(calibrated_data_path, header=None)
+        samples = df.iloc[:,0].tolist()
+        random.shuffle(samples)
+
+        # output of this step
+        predicted_data_path = os.path.join(predicted_data_directory, 'prediction_with_' + calibrated_data + '.csv')
+
+        def do_prediction(samples):
+            # perform prediction
+            pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples,mode=config['mode'])
+
+            # store prediction in csv
+
+            np.savetxt(predicted_data_path,pos_pred,delimiter=',')
+
+        yield{
+            'name': f'predict using {calibrated_data}',
+            'actions': [(do_prediction,[samples])],
+            'file_dep': [calibrated_data_path],
+            'targets': [predicted_data_path],
+            'clean': [clean_targets]
         }

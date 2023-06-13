@@ -29,7 +29,7 @@ dependencies:
   - xlrd
   - openpyxl
   - tectonic=0.8
-  - pint
+  - pint=0.20
   - pint-pandas
   - snakemake
   - pybis
@@ -38,6 +38,8 @@ dependencies:
   - sphinx
   - pytest-cov
   - codecov
+  - pydantic
+  - seaborn
   - pip:
-    - probeye==2.3.2
+    - probeye==2.3.0
     - -e .

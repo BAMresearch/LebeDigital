@@ -1,0 +1,157 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+con:HeatOfHydrationTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:is_input_of con:PasteHeatOfHydration_ .
+
+cco:described_by a owl:ObjectProperty .
+
+cco:designated_by a owl:ObjectProperty .
+
+cco:has_URI_value a owl:DatatypeProperty .
+
+cco:has_datetime_value a owl:DatatypeProperty .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_output a owl:ObjectProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+cco:is_input_of a owl:ObjectProperty .
+
+xsd:anyURI a rdfs:Datatype .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+pmd: a owl:Ontology .
+
+pmd:hasPmdUnit a owl:ObjectProperty .
+
+mid:has_column_index a owl:DatatypeProperty .
+
+mid:in_accordance_with a owl:ObjectProperty .
+
+con:DINEN196-8:2010 a cco:Document,
+        owl:NamedIndividual .
+
+con:ExperimentEndDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "$$ExperimentEndDate_Value$$"^^xsd:dateTime .
+
+con:ExperimentInfo a owl:Class .
+
+con:ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:ExperimentEndDate_,
+        con:ExperimentStartDate_,
+        con:HeatFlow_,
+        con:Heat_,
+        con:Lab_,
+        con:NormalizedHeatFlow_,
+        con:NormalizedHeat_,
+        con:Temperature_ .
+
+con:ExperimentStartDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "$$ExperimentStartDate_Value$$"^^xsd:dateTime .
+
+con:HeatFlow_ a con:HeatFlow,
+        owl:NamedIndividual ;
+    pmd:hasPmdUnit <https://purl.matolab.org/mseo/methods/example/##HeatFlowUnit##> ;
+    mid:has_column_index "$$HeatFlow_Value$$"^^xsd:string .
+
+con:HeatOfHydration a owl:Class .
+
+con:Heat_ a con:Heat,
+        owl:NamedIndividual ;
+    pmd:hasPmdUnit <https://purl.matolab.org/mseo/methods/example/##HeatUnit##> ;
+    mid:has_column_index "$$Heat_Value$$"^^xsd:string .
+
+con:ID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$ID_Value$$"^^xsd:string .
+
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+
+con:Location a owl:Class .
+
+con:NormalizedHeatFlow_ a con:HeatFlow,
+        owl:NamedIndividual ;
+    pmd:hasPmdUnit <https://purl.matolab.org/mseo/methods/example/##NormalizedHeatFlowUnit##> ;
+    mid:has_column_index "$$NormalizedHeatFlow_Value$$"^^xsd:string .
+
+con:NormalizedHeat_ a con:Heat,
+        owl:NamedIndividual ;
+    pmd:hasPmdUnit <https://purl.matolab.org/mseo/methods/example/##NormalizedHeatUnit##> ;
+    mid:has_column_index "$$NormalizedHeat_Value$$"^^xsd:string .
+
+con:PasteHeatOfHydration_ a con:HeatOfHydration,
+        owl:NamedIndividual ;
+    cco:described_by con:RawDataFile_ ;
+    cco:designated_by con:ID_,
+        con:humanreadableID_ ;
+    cco:has_output con:ExperimentInfo_ ;
+    mid:in_accordance_with con:DINEN196-8:2010 .
+
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_URI_value "$$RawDataFile_Value$$"^^xsd:anyURI .
+
+con:SpecimenID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
+
+con:Temperature_ a con:Heat,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$Temperature_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit <https://purl.matolab.org/mseo/methods/example/##TemperatureUnit##> .
+
+con:humanreadableID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$humanreadableID_Value$$"^^xsd:string .
+
+cco:Document a owl:Class .
+
+<https://purl.matolab.org/mseo/methods/example/##HeatFlowUnit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<https://purl.matolab.org/mseo/methods/example/##HeatUnit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<https://purl.matolab.org/mseo/methods/example/##NormalizedHeatFlowUnit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<https://purl.matolab.org/mseo/methods/example/##NormalizedHeatUnit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+<https://purl.matolab.org/mseo/methods/example/##TemperatureUnit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+mid:RawDataSet a owl:Class .
+
+mid:Specimen a owl:Class .
+
+con:HeatFlow a owl:Class .
+
+cco:Day a owl:Class .
+
+con:Heat a owl:Class .
+
+cco:NonNameIdentifier a owl:Class .
+
+pmd:PmdSiUnit a owl:Class .
+

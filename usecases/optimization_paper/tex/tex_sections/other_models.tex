@@ -1,4 +1,4 @@
-\subsection{Approximate concrete tensile strength based on compressive strenght}
+\subsection{Approximate concrete tensile strength based on compressive strength}
 To reduce the number of required experiments, the tensile strength of concrete is computed using the approximations given in \citeauthor{DIN1992-1-1}.
 They are based on the compressive strength, 
 \begin{align}
@@ -8,7 +8,7 @@ They are based on the compressive strength,
 \ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  \label{eq:tensilstrength}.
 \end{cases}
 \end{align}
-\subsection{$\DOHmax$ based on $\wc$}
+\subsection{\texorpdfstring{$\DOHmax$}{Maxiumum DoH} based on \texorpdfstring{$\wc$}{w/c}}
 Following \cite{Mills1966fico}, the maximum degree of hydration is given by the function
 \begin{align}
 	\DOHmax = \dfrac{1.031\,\wc}{0.194 + \wc}.
@@ -17,48 +17,3 @@ Contrary to other publications, this function does not assume a fully hydrated c
 It is possible that the maximum value might be underestimated.
 This should not be a problem, as we are identifying our hydration parameter for a given $\wc$ value.
 The relevant aspect is the change relative to the value for which experimental data is given.
-\subsection{Beam design}
-Following design code \citeauthor{DIN1992-1-1} for a singly reinforced beam, meaning a reinforced concrete beam with only reinforcement at the bottom.
-The assumed cross section is rectangular
-
-\subsubsection{Maximum bending moment and shear force}
-Assuming a simply supported beam with a given length $\beamLength$ in mm, a distributed load $\beamDistrLoad$ in N/mm and a point load $\beamPointLoad$ in N/mm
-the maximum bending moment $\beamMaxMoment$ in N/mm$^2$ is computed as
-% see Schneider (20. Auflage) 4.2
-\begin{align}
-	\beamMaxMoment= \beamDistrLoad \frac{\beamLength^2}{8} + \beamPointLoad \frac{\beamLength}{4}
-\end{align}
-The applied loads are supposed to already incorporate any required safety factors.
-\subsubsection{Computing the minimal required steel reinforcement}
-Given a beam with the height $\beamHeight$ in mm, a concrete cover of $\beamCover$ in mm, a steel reinforcement diameter of $\beamSteelDiameter$ in mm for both the longitudinal as well as transversal reinforcement, the effective height in mm is
-\begin{align}
-	\beamHeightEff = \beamHeight - \beamCover - \frac{3}{2} \beamSteelDiameter
-\end{align}
-According to the German norm standard safety factors are applied, $\beamTimeSF = 0.85$, $\beamConcreteSF = 1.5$ and $\beamSteelSF = 1$ (or 1.15???), leading to the design compressive strength for concrete $\beamfcd$ and  the design tensile yield strength $\beamfsd$ for steel
-\begin{align}
-	\beamfcd = \beamTimeSF \frac{\fc }{\beamConcreteSF}\\
-	\beamfsd = \frac{\beamfs}{\beamSteelSF},
-\end{align}
-where $\beamfs$ is the steel's tensile yield strength.
-% following ravis implementation
-% bending moment with stress block - K
-To compute the force applied in the compression zone, the need to compute the lever arm of the applied moment $\beamLeverMoment$ with 
-\begin{align}
-	\beamLeverMoment &= \beamHeightEff(0.5+\sqrt{0.25-0.5 \beamK}),\quad \text{with}\quad
-	\beamK = \frac{\beamMaxMoment }{\beamWidth \beamHeightEff^2 \beamfcd}
-\end{align}
-For singly reinforced beam $K < 0.167$.
-Maximum value $\beamLeverMoment = 0.95\beamHeightEff$.
-Required steel
-\begin{align}
-\beamSteelReq = \frac{\beamMaxMoment}{\beamfsd \beamLeverMoment}
-\end{align}
-Now compare to provided steel area
-\begin{align}
-	\beamSteelProv = \beamNSteel \pi \frac{\beamSteelDiameter^2}{4} 
-\end{align}
-Finally 
-\begin{align}
-	A_{check} = \frac{\beamSteelProv - \beamSteelReq}{\beamSteelProv}
-\end{align}
-Make pretty and move to appendix

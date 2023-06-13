@@ -60,7 +60,6 @@ def read_pint_df(path):
 rule workflow_targets:
     input:
         "Results/gwp_beam.json",
-        "Results/beam_design.json",
         "Results/kpi_from_fem.json",
         'Results/demonstrator_beam.xdmf'
 
@@ -183,7 +182,7 @@ rule beam_design:
         results = "Results/beam_design.json"
 
     run:
-        from lebedigital.demonstrator_scripts.beam_design import check_design
+        from lebedigital.demonstrator_scripts.beam_design import check_beam_design
          #merging contents of both dictionaries and individual variable inputs
 
         p = read_pint_dicts(input)
@@ -191,16 +190,18 @@ rule beam_design:
 
         results = {}
         # run script
-        results["check_steel_area"] =  check_design(span=p['length'],
-                                                    width=p['width'],
-                                                    height=p['height'],
-                                                    point_load = p["point_load"],
-                                                    distributed_load = p["distributed_load"],
-                                                    compr_str_concrete=p["fc"],
-                                                    yield_str_steel=p['steel_yield'],
-                                                    steel_dia=p['reinforcement_diameter'],
-                                                    n_bottom=p['n_reinforcement'],
-                                                    cover=p['concrete_cover'])
+        beam_design =  check_beam_design(span=p['length'],
+                                                         width=p['width'],
+                                                         height=p['height'],
+                                                         point_load=p["point_load"],
+                                                         distributed_load=p["distributed_load"],
+                                                         compr_str_concrete=p["fc"],
+                                                         yield_str_steel=p['steel_yield'],
+                                                         steel_dia_bu=p['stirrups_diameter'],
+                                                         cover_min=p['concrete_cover'])
+        results["n_reinforcement"] = beam_design["n_steel_bars"]
+        results["reinforcement_diameter"] = beam_design["diameter"]
+        results["constraint_beam_design"] = beam_design["constraint_beam_design"]
 
         write_pint_dict(results,output.results)
 
@@ -209,7 +210,9 @@ rule gwp_beam:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
         geometry = "Inputs/geometry.json",
+        steel_gwp = "Inputs/steel_gwp.json",
         results_gwp_mix = "Results/gwp_mix.json",
+        results_beam_design = "Results/beam_design.json",
 
     output:
         results = "Results/gwp_beam.json"
@@ -222,7 +225,9 @@ rule gwp_beam:
 
         results = {}
         # run script
-        results["gwp_mix"] = computation_GWP_per_part(p['gwp_mix'], p['width'], p['height'], p['length'])
+        results["gwp_beam"] = computation_GWP_per_part(p['gwp_mix'], p['gwp_steel'],
+                                                       p['width'], p['height'], p['length'],
+                                                       p['n_reinforcement'],p['reinforcement_diameter'])
 
         write_pint_dict(results,output.results)
 

@@ -1,5 +1,7 @@
 import pathlib
 from workflow_graph.paper_workflow_graph import paper_workflow_graph
+from bam_figures.create_homogenization_figure import create_homogenization_figure
+from bam_figures.beam_design_plot import beam_design_plot
 from tex.macros.py_macros import py_macros
 import yaml
 from doit import get_var
@@ -76,7 +78,6 @@ workflow_graph_name = data['file_names']['workflowGraph']  # name of output pdf 
 workflow_graph_script = ROOT / workflow_graph_dir / 'paper_workflow_graph.py'
 workflow_output_file = ROOT / figures_dir / workflow_graph_name
 
-
 def task_build_graph():
     """build workflow graph"""
     target = paper_plot_target(workflow_graph_name)
@@ -105,6 +106,40 @@ def task_build_snakemake_dag():
     }
 
 
+# homogenization figure
+bam_plot_dir = "bam_figures"
+homogenization_plot_name = data['file_names']['homogenizationPlot']  # name of output pdf file as defined in macros yaml
+homogenization_plot_script = ROOT / bam_plot_dir / 'create_homogenization_figure.py'
+homogenization_plot_output_file = ROOT / figures_dir / homogenization_plot_name
+
+def task_build_homogenization_figure():
+    """build homogenization figure"""
+    target = paper_plot_target(homogenization_plot_name)
+
+    return {
+        "file_dep": [homogenization_plot_script],
+        "actions": [(create_homogenization_figure,[data['homogenization_example_parameters'], homogenization_plot_output_file])],
+        "targets": [target],
+        "clean": True,
+    }
+
+# homogenization figure
+beam_design_plot_name = data['file_names']['beamDesignPlot']  # name of output pdf file as defined in macros yaml
+beam_design_plot_script = ROOT / bam_plot_dir / 'beam_design_plot.py'
+beam_design_plot_output_file = ROOT / figures_dir / beam_design_plot_name
+
+def task_build_beam_design_figure():
+    """build beam design figure"""
+    target = paper_plot_target(beam_design_plot_name)
+    n = 10  # number of points for figure, 150 should be good for final paper, but takes too long for development
+
+    return {
+        "file_dep": [beam_design_plot_script],
+        "actions": [(beam_design_plot,[data['beam_design_example_parameters'], n, beam_design_plot_output_file])],
+        "targets": [target],
+        "clean": True,
+    }
+
 def task_build_tex_macros():
     """build tex macros"""
     return {
@@ -123,3 +158,4 @@ def task_paper():
         "targets": [paper_file.with_suffix('.pdf')],
         "clean": True,
     }
+
