@@ -114,7 +114,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         # get raw data file name
         metadata['RawDataFile'] = locationOfRawData
 
-        # get date (always the same position) & set time to 12:00 - Protege datetime format YYY-MM-DDTHH:mm:SS
+        # get date (always the same position) & set time to 12:00 - Protege datetime format YYYY-MM-DDTHH:mm:SS
         metadata['MixingDate'] = str(exceltodf.columns[9])[:10] + "T12:00:00"
 
         # lab location - hardcoded
