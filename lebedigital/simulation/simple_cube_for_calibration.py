@@ -74,10 +74,9 @@ def setup_simple_cube(time, dt, parameters, pv_output=False):
     return problem
 
 
-def get_doh_at_28day(p):
+def get_doh_at_28day(p, ambient_temperature=ureg.Quantity(20, ureg.degC)):
     Q_ = ureg.Quantity
     parameters = fenics_concrete.Parameters()
-
     parameters = parameters + p
 
     # model parameters
@@ -85,10 +84,10 @@ def get_doh_at_28day(p):
     parameters["a_ft"] = 1.2 * ureg("")  # dummy value
 
     # temperature setings:
-    parameters["ambient_temperature"] = Q_(20, ureg.degC)  # ambient temperature
+    parameters["ambient_temperature"] = ambient_temperature
 
     # column geometry
-    parameters["edge_length"] = 0.01 * ureg("m")  # length of pillar in m
+    parameters["edge_length"] = 0.01 * ureg("m")
 
     # simulation time
     full_time = 28 * ureg("days")  # simulation time
@@ -119,7 +118,7 @@ def get_doh_at_28day(p):
     return fem_problem.sensors["DOHSensor"].data[-1]  # doh_at_28 days
 
 
-def get_E_and_fc_over_time(p, time_list):
+def get_E_and_fc_over_time(p, time_list, time_step=1 * ureg("hour"), ambient_temperature=ureg.Quantity(20, ureg.degC)):
     Q_ = ureg.Quantity
     parameters = fenics_concrete.Parameters()
 
@@ -130,29 +129,32 @@ def get_E_and_fc_over_time(p, time_list):
     parameters["a_ft"] = 1.2 * ureg("")  # dummy value
 
     # temperature setings:
-    parameters["ambient_temperature"] = Q_(20, ureg.degC)  # ambient temperature
+    parameters["ambient_temperature"] = ambient_temperature  # ambient temperature
 
     # column geometry
     parameters["edge_length"] = 0.01 * ureg("m")  # length of pillar in m
 
-    # simulation time
-    full_time = time_list[-1]  # simulation time, list must be ordered by size!!!
-    time_step = 1 * ureg("hour")  # timestep
+    # convert all entries in time list to seconds
+    for i in range(len(time_list)):
+        time_list[i] = time_list[i].to_base_units()
+
+    # sorting time list by size, converting to base unit
+    time_list = sorted(time_list, key=lambda x: x.magnitude)
+
+    full_time = time_list[-1]  # simulation time (max time value)
+    min_timestep = time_list[0]
+
+    if min_timestep < time_step:
+        time_step = min_timestep
 
     fem_problem = setup_simple_cube(full_time, time_step, parameters)
 
-    # same for the two values, not in the parameter list
-    full_time.ito("s")
-    print(full_time)
     time = full_time.magnitude
-    time_step.ito("s")
     dt = time_step.magnitude
 
     # initialize time
     t = dt  # first time step time
 
-    print("Run simulation!")
-    time_data = []
     while t <= time:  # time loop in seconds
         # solve temp-hydration-mechanics
         fem_problem.solve(t=t)  # solving this
@@ -160,7 +162,7 @@ def get_E_and_fc_over_time(p, time_list):
         # prepare next timestep
         t += dt
 
-    # Building Pandas-Pint DataFrame
+    # Building Pandas DataFrame
     df = pd.DataFrame(
         {
             "time": pd.Series(fem_problem.sensors["YoungsModulusSensor"].time, dtype="float"),
@@ -172,7 +174,6 @@ def get_E_and_fc_over_time(p, time_list):
 
     # check if all time values are in the list
     for t in time_list:
-        t.ito("s")
         if t.magnitude not in df["time"].unique():
             # add nan values if not in df
 
@@ -180,19 +181,23 @@ def get_E_and_fc_over_time(p, time_list):
             new_line = pd.DataFrame({("time"): [t.magnitude], ("E"): [np.nan], ("fc"): [np.nan]})
             df = pd.concat([df, new_line], ignore_index=True)
 
-            # raise ValueError("Time value {} not in pint_df".format(t))
-
-    print("Done!")
-
     # sort table
     df = df.sort_values(by=[("time")])
 
     # interpolate missing values
     df = df.interpolate(method="linear", limit_direction="forward")
 
-    print(df)
+    # add units to df
+    df_units = pd.DataFrame(
+        {
+            "time": pd.Series(df["time"], dtype="pint[s]"),
+            "E": pd.Series(df["E"], dtype="pint[N/m^2]"),
+            # datatype float
+            "fc": pd.Series(df["fc"], dtype="pint[N/m^2]"),
+        }
+    )
 
-    return df
+    return df_units
 
 
 if __name__ == "__main__":
@@ -228,7 +233,14 @@ if __name__ == "__main__":
     parameters["a_fc"] = 1.5 * ureg("")
 
     # list with time units, 1 day, 7 day, 24 day
-    time_list = [90 * ureg("min"), 2 * ureg("hours"), 2.02 * ureg("hours"), 3 * ureg("hours ")]
+    time_list = [
+        50 * ureg("min"),
+        55 * ureg("min"),
+        2 * ureg("hours"),
+        2.02 * ureg("hours"),
+        3 * ureg("hours "),
+        20 * ureg("min"),
+    ]
 
     result = get_E_and_fc_over_time(parameters, time_list)
-    # print(result)
+    print(result)
