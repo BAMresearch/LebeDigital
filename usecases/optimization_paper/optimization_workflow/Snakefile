@@ -3,6 +3,7 @@ from lebedigital.unit_registry import ureg
 import pint_pandas
 import pint
 import pandas as pd
+import json
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
 
