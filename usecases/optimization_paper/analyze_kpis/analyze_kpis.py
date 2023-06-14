@@ -42,7 +42,7 @@ def get_kpis(input: dict, path: Path) -> dict:
     # Pass the parameter to X to the input to forward. Meaning overwrite the input.
     # The design variables, aggregate ratio and the slag ratio needs to be updated.
     update_json(input_path / "geometry.json", "height", input["height"])
-    update_json(input_path / "sc_fraction.json", "sc_volume_fraction", input["slag_ratio"])
+    update_json(input_path / "sc_fraction.json", "sc_mass_fraction", input["slag_ratio"])
 
     # # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
     # # Updating the phi's which are input to the script.
@@ -76,10 +76,19 @@ if __name__ == "__main__":
     input_path = path_to_workflow / "Inputs"
 
     # input lists
-    height_list = [240.0, 300.0, 500.0]
+    height_list = [300.0, 500.0, 800.0]
     slag_ratio_list = [0.1, 0.5, 0.8]
 
     df = pd.DataFrame()
+
+    data = {
+        "height": [],
+        "slag_ratio": [],
+        "gwp": [],
+        "check_beam_design": [],
+        "max_temp": [],
+        "time_of_demoulding": [],
+    }
 
     for i, height in enumerate(height_list):
         for j, slag_ratio in enumerate(slag_ratio_list):
@@ -91,19 +100,14 @@ if __name__ == "__main__":
             inputs = {"height": height, "slag_ratio": slag_ratio}
             results = get_kpis(inputs, path_to_workflow)
 
-            df = df.append(
-                {
-                    "height": inputs["height"],
-                    "slag_ratio": inputs["slag_ratio"],
-                    "gwp": results["gwp_beam"]["value"],
-                    "check_beam_design": results["constraint_beam_design"]["value"],
-                    "max_temp": results["max_reached_temperature"]["value"],
-                    "time_of_demoulding": results["time_of_demolding"]["value"],
-                },
-                ignore_index=True,
-            )
+            data["height"].append(inputs["height"])
+            data["slag_ratio"].append(inputs["slag_ratio"])
+            data["gwp"].append(results["gwp_beam"]["value"])
+            data["check_beam_design"].append(results["constraint_beam_design"]["value"])
+            data["max_temp"].append(results["max_reached_temperature"]["value"])
+            data["time_of_demoulding"].append(results["time_of_demolding"]["value"])
 
-    # df.to_csv(f"kpis_{inputs['agg_ratio']}_{inputs['slag_ratio']}.csv",index=False)
+    df = pd.DataFrame(data)
     df.to_csv(f"kpis.csv", index=False)
 
 print("Done")
