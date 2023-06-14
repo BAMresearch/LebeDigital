@@ -22,12 +22,12 @@ def dummy_paste_strength_stiffness(slag_ratio, phi_paste) :
         approximated compressive strength of paste
     """
 
-    paste_youngs_modulus_min = 15 * ureg('GPa')
-    paste_youngs_modulus_max = 25 * ureg('GPa')
+    paste_youngs_modulus_min = 30 * ureg('GPa')
+    paste_youngs_modulus_max = 60 * ureg('GPa')
     paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max-paste_youngs_modulus_min)*slag_ratio
 
-    paste_strength_min = 8 * ureg('MPa')
-    paste_strength_max = 13 * ureg('MPa')
+    paste_strength_min = 25 * ureg('MPa')
+    paste_strength_max = 40 * ureg('MPa')
     paste_strength = paste_strength_min + (paste_strength_max-paste_strength_min)*slag_ratio
 
     return paste_youngs_modulus, paste_strength

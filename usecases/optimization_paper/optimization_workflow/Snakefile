@@ -57,7 +57,7 @@ def read_pint_df(path):
 
 # this rule collects all overall targets.
 # an output must be an input to be computed
-# the alternative is to define them in the console cmmand, which is suboptimal
+# the alternative is to define them in the console command, which is suboptimal
 rule workflow_targets:
     input:
         "Results/gwp_beam.json",
@@ -96,7 +96,8 @@ rule fem_model:
         fem_parameters = "Inputs/fem_parameters.json",
         results_homogenization = "Results/homogenization.json",
         results_approx_max_doh = "Results/approx_max_doh.json",
-        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
+        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json',
+        results_alpha_t28d = 'Results/alpha_t28d.json'
 
     output:
         pint_results = "Results/fem_model.csv",
@@ -109,6 +110,7 @@ rule fem_model:
         p = read_pint_dicts(input)
 
         # fixing name discrepancies from other rules or inputs
+        p['alpha_tx'] = p.pop('alpha_t28d')
         p['vol_heat_cap'] = p.pop('C')
         p['density'] = p.pop('rho')
         p['themal_cond'] = p.pop('kappa')
@@ -146,6 +148,26 @@ rule approx_max_doh:
 
         write_pint_dict(results,output.results)
 
+rule interpolate_alpha_t28d:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/interpolate_alpha_t28d.py',
+        sc_fraction = 'Results/mix_volume_contents.json',
+        alpha_t28d = 'Inputs/alpha_t28d.json'
+
+    output:
+        results = "Results/alpha_t28d.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.interpolate_alpha_t28d import interpolate_alpha_t28d
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["alpha_t28d"] =  interpolate_alpha_t28d(p['alpha_mix1'], p['alpha_mix2'], p['sc_volume_fraction'])
+
+        write_pint_dict(results,output.results)
 
 rule approx_tensile_strength:
     input:
