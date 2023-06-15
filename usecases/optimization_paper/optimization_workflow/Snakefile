@@ -3,6 +3,7 @@ from lebedigital.unit_registry import ureg
 import pint_pandas
 import pint
 import pandas as pd
+import json
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
 
@@ -108,14 +109,12 @@ rule fem_model:
         p = read_pint_dicts(input)
 
         # fixing name discrepancies from other rules or inputs
-        p['E_28'] = p.pop('E')
-        p['fc_inf'] = p.pop('fc')
         p['vol_heat_cap'] = p.pop('C')
         p['density'] = p.pop('rho')
         p['themal_cond'] = p.pop('kappa')
         p['Q_inf'] = p.pop('Q')
         p['alpha_max'] = p.pop('max_degree_of_hydration')
-        p['ft_inf'] = p.pop('steel_yield')  # setting the tensile yield to steel as a test, only used in yield fct
+        p['ft'] = p.pop('steel_yield')  # setting the tensile yield to steel as a test, only used in yield fct
 
         results = {}
         # run script
@@ -202,9 +201,6 @@ rule beam_design:
         results["n_reinforcement"] = beam_design["n_steel_bars"]
         results["reinforcement_diameter"] = beam_design["diameter"]
         results["constraint_beam_design"] = beam_design["constraint_beam_design"]
-        # breakpoint()
-        # results["n_reinforcement"] = 17.0 * ureg("")
-        # results["reinforcement_diameter"] = 6 * ureg("m")
 
         write_pint_dict(results,output.results)
 

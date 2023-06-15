@@ -152,6 +152,7 @@ def get_max_reinforcement(acceptable_reinforcement_diameters: list, width, cover
     max_area: maximum area of steel reinforcement
     """
     for diameter in reversed(acceptable_reinforcement_diameters):
+        max_area = 0.0 * ureg("mm^2")
         if cover_min < diameter:
             cover = diameter
         else:
@@ -240,7 +241,7 @@ def check_beam_design(
         )
 
         area = np.pi * (diameter / 2) ** 2  # mm^2
-        nsteel = max(2.0 * ureg(""), np.rint(required_area / area))  # rounds up
+        nsteel = max(2.0 * ureg(""), float(np.rint(required_area / area))) * ureg("")  # rounds up
 
         # set constraints
         discrete_reinforcement["constraint_min_fc"] = fc_error
@@ -269,7 +270,7 @@ def check_beam_design(
             break
         else:
             discrete_reinforcement["crosssection"] = required_area
-            discrete_reinforcement["n_steel_bars"] = 2
+            discrete_reinforcement["n_steel_bars"] = 2 * ureg("")
             discrete_reinforcement["diameter"] = 2 * np.sqrt(required_area / 2 / np.pi)
 
     return discrete_reinforcement

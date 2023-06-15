@@ -181,3 +181,7 @@ tests/raw_data_processing/youngs_modulus_data/test_data
 usecases/optimization_paper/tex/macros/py_macros_BAM.tex
 usecases/optimization_paper/tex/macros/py_macros_TUM.tex
 
+# test for calibration
+tests/emodulus_calibration/calibration_data/
+!tests/emodulus_calibration/calibration_data/Wolf 8.2 Probe 1.csv
+

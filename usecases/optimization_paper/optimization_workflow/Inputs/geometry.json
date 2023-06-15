@@ -1,14 +1,14 @@
 {
-   "width": {
-     "value" : 0.6,
-     "unit" : "m"
-   },
-   "length": {
-     "value" : 10,
-     "unit" : "m"
-   },
-   "height": {
-     "value" : 500,
-     "unit" : "mm"
-   }
+    "height": {
+        "unit": "mm",
+        "value": 500.0
+    },
+    "length": {
+        "unit": "m",
+        "value": 10.0
+    },
+    "width": {
+        "unit": "m",
+        "value": 0.5
+    }
 }
