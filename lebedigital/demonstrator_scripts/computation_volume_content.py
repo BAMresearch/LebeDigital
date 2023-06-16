@@ -27,7 +27,6 @@ def computation_volume_content(input_dic):
         optional (otherwise assumed to be zero)
              - 'plasticizer_volume_content'
              - 'density_plasticizer'
-             - 'sc_volume_fraction' : volume fraction of substitute to base cement
 
     Returns
     -------
@@ -61,7 +60,7 @@ def computation_volume_content(input_dic):
     if input_dic["sc_mass_fraction"] == 0:
         output["sc_volume_fraction"] = 0
     else:
-        mass_sub = 1 * ureg("kg") / (1 + (1 - input_dic["sc_mass_fraction"]) / input_dic["sc_mass_fraction"])
+        mass_sub = input_dic["sc_mass_fraction"] * ureg("kg")
         mass_cem = 1 * ureg("kg") - mass_sub
         vol_sub = mass_sub / input_dic["density_sub"]
         vol_cem = mass_cem / input_dic["density_cem"]

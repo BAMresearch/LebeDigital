@@ -35,7 +35,7 @@ def test_computation_volume_content():
     assert_approx(output1["water_vol_content"], 97.5348929 * ureg("kg/m^3"), rtol=1e-6)
     assert_approx(output1["aggregates_vol_content"], 975.0 * ureg("kg/m^3"), rtol=1e-6)
     assert_approx(output1["density_paste"], 1075.13027 * ureg("kg/m^3"), rtol=1e-6)
-    assert_approx(output1["sc_volume_fraction"], 0.533333333 * ureg(""), rtol=1e-6)  #  !!!?????'
+    assert_approx(output1["sc_volume_fraction"], 0.533333333 * ureg(""), rtol=1e-6)
 
     # TEST No 2, sanity check density paste
     input2 = {}
