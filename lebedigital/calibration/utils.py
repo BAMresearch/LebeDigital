@@ -10,7 +10,7 @@ baseDir1 = Path(__file__).resolve().parents[1]
 baseDir1 = baseDir1 / "knowledgeGraph" / "emodul" / "Data"
 
 
-def read_exp_data_E_mod(path: str, exp_name: str, length: float, diameter: float, vizualize=False) -> dict:
+def read_exp_data_E_mod(path: str, exp_name: str, length: float, diameter: float) -> dict:
     """
     Reads in the experiment data for a specified experiment and stores the extracted results in the dict.
     The arguments to the provided by the Knowledge Graph.
@@ -31,7 +31,7 @@ def read_exp_data_E_mod(path: str, exp_name: str, length: float, diameter: float
     results = {}
     results["length"] = length
     results["diameter"] = diameter
-    df = extract_third_load_cycle(data_path=file_path, vizualize=vizualize)
+    df = extract_third_load_cycle(data_path=file_path)
     df["displacement"] = (df["Transducer 1[mm]"] + df["Transducer 2[mm]"] + df["Transducer 3[mm]"]) / 3
     # df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
 
@@ -131,3 +131,5 @@ def extract_third_load_cycle(data_path: str, threshold=1) -> pd.DataFrame:
         change_indices_filtered[-3],
     ]  # skipping the last two change in slopes
     data_third_loading = data.loc[idx[0] : idx[1]]
+
+    return data_third_loading
