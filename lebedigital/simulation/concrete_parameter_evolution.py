@@ -51,10 +51,10 @@ def concrete_parameter_evolution(time, dt, parameters, pv_output=True, pv_name="
     parameters["log_level"] = "WARNING"
     parameters["dim"] = 3
     parameters["bc_setting"] = "full"  # default boundary setting
-    parameters['width'] = 0.1  # length
-    parameters['height'] = 0.1  # width (square crossection)
-    parameters['T_0'] = 20  # inital concrete temperature
-    parameters['T_bc1'] = 20  # temperature boundary value 1
+    parameters["width"] = 0.1  # length
+    parameters["height"] = 0.1  # width (square crossection)
+    parameters["T_0"] = 20  # inital concrete temperature
+    parameters["T_bc1"] = 20  # temperature boundary value 1
 
     experiment = fenics_concrete.ConcreteCubeExperiment(parameters)
     problem = fenics_concrete.ConcreteThermoMechanical(experiment, parameters, pv_name=pv_name)
@@ -92,7 +92,3 @@ def concrete_parameter_evolution(time, dt, parameters, pv_output=True, pv_name="
     )
 
     return pint_df
-
-
-# start simulation with parameters
-if __name__ == "__main__":

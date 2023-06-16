@@ -4,6 +4,20 @@ from lebedigital.unit_registry import ureg
 
 
 def computation_sc_volume_fraction(input_dic):
+    """
+    Compute the volume fraction of the substitute (slag/mix2),
+    based on the mass fraction of the substitute (slag/mix2) and the densities of the substitute and cement
+
+    Args:
+        input_dic: dictionary with the following keys:
+            sc_mass_fraction: mass fraction of the substitute (slag/mix2)
+            density_sub: density of the substitute (slag/mix2)
+            density_cem: density of the cement
+
+    Returns:
+        sc_volume_fraction: volume fraction of the substitute (slag/mix2)
+    """
+
     # initialize output dictionary
     output = {}
 
@@ -19,17 +33,3 @@ def computation_sc_volume_fraction(input_dic):
         sc_volume_fraction = vol_sub / (vol_sub + vol_cem)
 
         return sc_volume_fraction
-
-
-# run when script is call
-if __name__ == "__main__":
-    # input dictionary
-    input_dic = {
-        "sc_mass_fraction": 0.7,
-        "density_sub": 100 * ureg("kg/m^3"),
-        "density_cem": 600 * ureg("kg/m^3"),
-    }
-
-    # compute the volume fraction of the substitute
-    sc_volume_fraction = computation_sc_volume_fraction(input_dic)
-    print(f"sc_volume_fraction = {sc_volume_fraction}")
