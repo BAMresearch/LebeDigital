@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 from loguru import logger
 import uuid
+import argparse
 from lebedigital.mapping.unit_conversion import unit_conversion
 
 
@@ -40,11 +41,7 @@ def generate_placeholder(key):
     return placeholder
 
 
-def placeholderreplacement(
-        kgPath,
-        metadataPath,
-        outputPath=None
-        ):
+def placeholderreplacement(kgPath, metadataPath):
     '''
         Maps the values of one given metadata file (for one specimen or
         experiment) to a given knowledge graph (KG) template, by searching through
@@ -57,14 +54,10 @@ def placeholderreplacement(
             complete path to KG template with placeholders (ttl-format)
         metadataPath : string
             complete path to metadata (yaml-format)
-        outputPath : string
-            complete path for output
 
         Output:
         ---
-        If no output path is given (f.e. for unittesting), the lines will be
-        returned. If the "kgPath" is given for output, the KG template will
-        be overwritten. To avoid this, give a new name to create a new ttl-file.
+        Returns list of lines that consist of the template with mapped metadata.
 
     '''
 
@@ -157,12 +150,60 @@ def placeholderreplacement(
     else:
         logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template received metadata.')
 
-    ############################ O U T P U T #############################
-    if outputPath == None:
-        return lines
+    return lines
 
-    else:
-        # saving the list again to the file
-        with open(outputPath, 'w') as file:
-            for line in lines:
-                file.write(line)
+
+def mapping(KGtemplatePath, metadataPath, outputPath):
+    """Returns a ttl-file based on a KG template, where placeholders have been replaced with data from a given metadata file
+
+    Parameters
+    ----------
+    metadataPath : string
+        Path to the metadata file
+    KGtemplatePath : string
+        Path to the KG template (ttl-file)
+    outputPath : string
+        Path to where the mapped KG template should be stored
+    """
+
+    # mapping
+    mappedKG = placeholderreplacement(KGtemplatePath, metadataPath)
+
+    # writing to ttl file
+    with open(outputPath, 'w') as file:
+        for line in mappedKG:
+            file.write(line)
+
+def main():
+    # create parser
+    parser = argparse.ArgumentParser(description='Script for mapping metadata to a Knowledge graph template.')
+    # input file for raw data
+    parser.add_argument('-i', '--input', help='Paths to knowledge graph template and to metadata')
+    # output file for metadata yaml
+    parser.add_argument('-o', '--output', help='Path to the mapped graph.')
+    args = parser.parse_args()
+
+    # default values for testing of my script
+    if args.input == None:
+        args.input = ['../../lebedigital/ConcreteOntology/EModuleOntology_KG_Template.ttl',
+                     '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml',
+                      '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
+                      '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testSpecimenData.yaml',
+                      '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/2014_08_05 Rezeptur_MI.yaml'
+                      ]
+    if args.output == None:
+        args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/testEmoduleMapped.ttl',
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/testSpecimenMapped.ttl',
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/testMixMapped.ttl']
+
+    # run extraction and write metadata file
+    #emodule
+    mapping(args.input[0], args.input[1], args.output[0])
+    #specimen
+    mapping(args.input[2], args.input[3], args.output[1])
+    #mix
+    mapping(args.input[4], args.input[5], args.output[2])
+
+if __name__ == "__main__":
+    main()
