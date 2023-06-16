@@ -34,10 +34,10 @@ def computation_volume_content(input_dic):
              - 'water_vol_fraction'
              - 'sub_vol_fraction'
              - 'cem_vol_fraction'
-             - 'cem_vol_content'
-             - 'sub_vol_content'
-             - 'water_vol_content'
-             - 'aggregates_vol_content'
+             - 'cem_mass_per_cubic_meter_concrete'
+             - 'sub_mass_per_cubic_meter_concrete'
+             - 'water_mass_per_cubic_meter_concrete'
+             - 'aggregates_mass_per_cubic_meter_concrete'
              - 'density_paste'
     """
 
@@ -104,28 +104,30 @@ def computation_volume_content(input_dic):
         ).magnitude
     )
 
-    # computation of volume contents
-    output["cem_vol_content"] = output["cem_vol_fraction"] * input_dic["density_cem"]
-    output["sub_vol_content"] = output["sub_vol_fraction"] * input_dic["density_sub"]
-    output["water_vol_content"] = output["water_vol_fraction"] * input_dic["density_water"]
-    output["aggregates_vol_content"] = input_dic["aggregates_volume_fraction"] * input_dic["density_aggregates"]
+    # computation of mass per cubic meter concrete
+    output["cem_mass_per_cubic_meter_concrete"] = output["cem_vol_fraction"] * input_dic["density_cem"]
+    output["sub_mass_per_cubic_meter_concrete"] = output["sub_vol_fraction"] * input_dic["density_sub"]
+    output["water_mass_per_cubic_meter_concrete"] = output["water_vol_fraction"] * input_dic["density_water"]
+    output["aggregates_mass_per_cubic_meter_concrete"] = (
+        input_dic["aggregates_volume_fraction"] * input_dic["density_aggregates"]
+    )
 
     # sanity check, the total volume adds up to 1
     assert 1 == pytest.approx(
         (
             input_dic["plasticizer_volume_content"] / input_dic["density_plasticizer"]
-            + output["water_vol_content"] / input_dic["density_water"]
-            + output["sub_vol_content"] / input_dic["density_sub"]
-            + output["cem_vol_content"] / input_dic["density_cem"]
-            + output["aggregates_vol_content"] / input_dic["density_aggregates"]
+            + output["water_mass_per_cubic_meter_concrete"] / input_dic["density_water"]
+            + output["sub_mass_per_cubic_meter_concrete"] / input_dic["density_sub"]
+            + output["cem_mass_per_cubic_meter_concrete"] / input_dic["density_cem"]
+            + output["aggregates_mass_per_cubic_meter_concrete"] / input_dic["density_aggregates"]
         ).magnitude
     )
 
     # paste density
     output["density_paste"] = (
-        output["cem_vol_content"]
-        + output["sub_vol_content"]
-        + output["water_vol_content"]
+        output["cem_mass_per_cubic_meter_concrete"]
+        + output["sub_mass_per_cubic_meter_concrete"]
+        + output["water_mass_per_cubic_meter_concrete"]
         + input_dic["plasticizer_volume_content"]
     ) / (1 - input_dic["aggregates_volume_fraction"])
 
@@ -144,14 +146,14 @@ def computation_ratios(input_dic):
     ----------
     input : dic / pint units required converted to matching units
         required:
-            - 'water_vol_content'
+            - 'water_mass_per_cubic_meter_concrete'
             - 'density_water'
             - 'density_cem'
-            - 'cem_vol_content'
+            - 'cem_mass_per_cubic_meter_concrete'
         optional (otherwise assumed to be zero)
-            - 'sub_vol_content'
+            - 'sub_mass_per_cubic_meter_concrete'
             - 'density_sub' : density of the substitute (slag or cemII)
-            - 'aggregates_vol_content'
+            - 'aggregates_mass_per_cubic_meter_concrete'
             - 'density_aggregates'
             - 'plasticizer_volume_content'
             - 'density_plasticizer'
@@ -169,12 +171,12 @@ def computation_ratios(input_dic):
         input_dic["plasticizer_volume_content"] = 0 * ureg("kg/m^3")
         input_dic["density_plasticizer"] = 42 * ureg("kg/m^3")
     # substitute
-    if "sub_vol_content" not in input_dic.keys():
-        input_dic["sub_vol_content"] = 0 * ureg("kg/m^3")
+    if "sub_mass_per_cubic_meter_concrete" not in input_dic.keys():
+        input_dic["sub_mass_per_cubic_meter_concrete"] = 0 * ureg("kg/m^3")
         input_dic["density_sub"] = 42 * ureg("kg/m^3")  # dummy value
     # aggregates
-    if "aggregates_vol_content" not in input_dic.keys():
-        input_dic["aggregates_vol_content"] = 0 * ureg("kg/m^3")
+    if "aggregates_mass_per_cubic_meter_concrete" not in input_dic.keys():
+        input_dic["aggregates_mass_per_cubic_meter_concrete"] = 0 * ureg("kg/m^3")
         input_dic["density_aggregates"] = 42 * ureg("kg/m^3")  # dummy value
 
     # set correct units
@@ -185,10 +187,10 @@ def computation_ratios(input_dic):
     input_dic["density_aggregates"].ito("kg/m^3")
 
     input_dic["plasticizer_volume_content"].ito("kg/m^3")
-    input_dic["cem_vol_content"].ito("kg/m^3")
-    input_dic["sub_vol_content"].ito("kg/m^3")
-    input_dic["water_vol_content"].ito("kg/m^3")
-    input_dic["aggregates_vol_content"].ito("kg/m^3")
+    input_dic["cem_mass_per_cubic_meter_concrete"].ito("kg/m^3")
+    input_dic["sub_mass_per_cubic_meter_concrete"].ito("kg/m^3")
+    input_dic["water_mass_per_cubic_meter_concrete"].ito("kg/m^3")
+    input_dic["aggregates_mass_per_cubic_meter_concrete"].ito("kg/m^3")
 
     output = {}
 
@@ -200,16 +202,18 @@ def computation_ratios(input_dic):
         input_dic["plasticizer_volume_content"] / input_dic["density_plasticizer"] * input_dic["density_water"]
     )
 
-    output["wb_mass_ratio"] = (input_dic["water_vol_content"] + pl_as_water_content) / (
-        input_dic["cem_vol_content"] + input_dic["sub_vol_content"]
+    output["wb_mass_ratio"] = (input_dic["water_mass_per_cubic_meter_concrete"] + pl_as_water_content) / (
+        input_dic["cem_mass_per_cubic_meter_concrete"] + input_dic["sub_mass_per_cubic_meter_concrete"]
     )
 
     # compute substitute to base cement volume fraction
-    sub_vol = input_dic["sub_vol_content"] / input_dic["density_sub"]
-    cem_vol = input_dic["cem_vol_content"] / input_dic["density_cem"]
+    sub_vol = input_dic["sub_mass_per_cubic_meter_concrete"] / input_dic["density_sub"]
+    cem_vol = input_dic["cem_mass_per_cubic_meter_concrete"] / input_dic["density_cem"]
 
     # aggregate volume fraction
-    output["aggregates_volume_fraction"] = input_dic["aggregates_vol_content"] / input_dic["density_aggregates"]
+    output["aggregates_volume_fraction"] = (
+        input_dic["aggregates_mass_per_cubic_meter_concrete"] / input_dic["density_aggregates"]
+    )
 
     # compute substitute to base cement ratio
     output["sc_volume_fraction"] = sub_vol / (sub_vol + cem_vol)

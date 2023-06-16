@@ -287,10 +287,10 @@ rule gwp_mix:
 
         p = read_pint_dicts(input)
 
-        constituents = {'cement' : {'content': p['cem_vol_content'], 'GWP': p['gwp_cement']},
-                        'slag' : {'content': p['sub_vol_content'], 'GWP': p['gwp_slag']},
-                        'water' : {'content': p['water_vol_content'], 'GWP': p['gwp_water']},
-                        'aggregates' : {'content': p['aggregates_vol_content'], 'GWP': p['gwp_aggregates']}
+        constituents = {'cement' : {'content': p['cem_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_cement']},
+                        'slag' : {'content': p['sub_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_slag']},
+                        'water' : {'content': p['water_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_water']},
+                        'aggregates' : {'content': p['aggregates_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_aggregates']}
                         }
 
         results = {}

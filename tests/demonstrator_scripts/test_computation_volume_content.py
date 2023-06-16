@@ -30,10 +30,10 @@ def test_computation_volume_content():
     assert_approx(output1["water_vol_fraction"], 0.09983100608664518 * ureg("dimensionless"), rtol=1e-6)
     assert_approx(output1["sub_vol_fraction"], 0.127981287 * ureg("dimensionless"), rtol=1e-6)
     assert_approx(output1["cem_vol_fraction"], 0.111983626 * ureg("dimensionless"), rtol=1e-6)
-    assert_approx(output1["cem_vol_content"], 161.256421 * ureg("kg/m^3"), rtol=1e-6)
-    assert_approx(output1["sub_vol_content"], 107.504281 * ureg("kg/m^3"), rtol=1e-6)
-    assert_approx(output1["water_vol_content"], 97.5348929 * ureg("kg/m^3"), rtol=1e-6)
-    assert_approx(output1["aggregates_vol_content"], 975.0 * ureg("kg/m^3"), rtol=1e-6)
+    assert_approx(output1["cem_mass_per_cubic_meter_concrete"], 161.256421 * ureg("kg/m^3"), rtol=1e-6)
+    assert_approx(output1["sub_mass_per_cubic_meter_concrete"], 107.504281 * ureg("kg/m^3"), rtol=1e-6)
+    assert_approx(output1["water_mass_per_cubic_meter_concrete"], 97.5348929 * ureg("kg/m^3"), rtol=1e-6)
+    assert_approx(output1["aggregates_mass_per_cubic_meter_concrete"], 975.0 * ureg("kg/m^3"), rtol=1e-6)
     assert_approx(output1["density_paste"], 1075.13027 * ureg("kg/m^3"), rtol=1e-6)
     assert_approx(output1["sc_volume_fraction"], 0.533333333 * ureg(""), rtol=1e-6)
 
@@ -129,8 +129,8 @@ def test_computation_ratio():
     input1["density_cem"] = 1543 * ureg("kg/m^3")
     input1["density_water"] = 988 * ureg("kg/m^3")
 
-    input1["cem_vol_content"] = 1 * ureg("kg/m^3")
-    input1["water_vol_content"] = 1 * ureg("kg/m^3")
+    input1["cem_mass_per_cubic_meter_concrete"] = 1 * ureg("kg/m^3")
+    input1["water_mass_per_cubic_meter_concrete"] = 1 * ureg("kg/m^3")
 
     output1 = computation_ratios(input1)
 
@@ -170,10 +170,10 @@ def test_computation_ratio_based_on_computation_volume_content():
     input2["density_aggregates"] = input1["density_aggregates"]
 
     input2["plasticizer_content"] = input1["plasticizer_content"]
-    input2["cem_vol_content"] = output1["cem_vol_content"]
-    input2["sub_vol_content"] = output1["sub_vol_content"]
-    input2["water_vol_content"] = output1["water_vol_content"]
-    input2["aggregates_vol_content"] = output1["aggregates_vol_content"]
+    input2["cem_mass_per_cubic_meter_concrete"] = output1["cem_mass_per_cubic_meter_concrete"]
+    input2["sub_mass_per_cubic_meter_concrete"] = output1["sub_mass_per_cubic_meter_concrete"]
+    input2["water_mass_per_cubic_meter_concrete"] = output1["water_mass_per_cubic_meter_concrete"]
+    input2["aggregates_mass_per_cubic_meter_concrete"] = output1["aggregates_mass_per_cubic_meter_concrete"]
 
     output2 = computation_ratios(input2)
 
