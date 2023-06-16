@@ -8,7 +8,7 @@ from pathlib import Path
 import argparse
 import warnings
 import uuid
-import  datetime
+import datetime
 
 
 # the function read each line and return metadata as key and value
@@ -96,7 +96,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         date = serviceInformation[10][4] #datetime.datetime.strptime(,'%d.%m.%y')
         date_only = datetime.datetime.strptime(date.split(" ")[0], '%d.%m.%Y')
         date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + date.split(" ")[1]
-        metadata_emodule['ExperimentDateTime'] = str(date_protegeformat)
+        metadata_emodule['ExperimentDate'] = str(date_protegeformat)
 
         # operator name - This data has no placeholder yet.
         metadata_emodule['tester_name'] = serviceInformation[2][1] 
@@ -151,8 +151,8 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_emodule['SpecimenAge_Unit'] = 'day'
 
         # weight 
-        metadata_specimen['SpecimenWeight'] = float(replace_comma(serviceInformation[5][1]))
-        metadata_specimen['SpecimenWeight_Unit'] = 'g'
+        metadata_specimen['SpecimenMass'] = float(replace_comma(serviceInformation[5][1]))
+        metadata_specimen['SpecimenMass_Unit'] = 'g'
 
         # set size of specimen
         metadata_specimen['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1])) #diameter
