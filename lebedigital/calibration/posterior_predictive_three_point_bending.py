@@ -41,9 +41,7 @@ def wrapper_three_point_bending(parameter, known_input):
     return y.magnitude
 
 
-def perform_prediction(
-    forward_solver: callable, parameter: list, nu: float = 0.2, no_sample: int = 50, mode="cheap", viz=False
-):
+def perform_prediction(forward_solver: callable, parameter: list, nu: float = 0.2, no_sample: int = 50, mode="cheap"):
     """
 
     Parameters
@@ -82,17 +80,5 @@ def perform_prediction(
         mean, sd = pos_pred.get_stats(samples=no_sample)  # mean : ~365 N/mm2, sd = 30
     # ---- visualize posterior predictive
     posterior_pred_samples = pos_pred._samples
-    # np.save('./post_pred.npy', posterior_pred_samples)
-    if viz:
-        plt.figure()
-        sns.kdeplot(posterior_pred_samples)
-        plt.xlabel("stress in x-direction")
 
     return posterior_pred_samples
-
-
-if __name__ == "__main__":
-    E_samples = [30.1, 30.2, 30.53, 30.8, 29.6]
-    random.shuffle(E_samples)
-    pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending, parameter=E_samples)
-    print(pos_pred)
