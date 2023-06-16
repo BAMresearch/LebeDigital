@@ -394,7 +394,10 @@ rule specific_heat_capacity_paste:
                                                                       p['water_vol_fraction'],
                                                                       p['cement_C'],
                                                                       p['sub_c'],
-                                                                      p['water_C'])
+                                                                      p['water_C'],
+                                                                      p['density_cem'],
+                                                                      p['density_sub'],
+                                                                      p['density_water'])
 
         write_pint_dict(results,output.results)
 

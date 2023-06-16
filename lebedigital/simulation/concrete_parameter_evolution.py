@@ -7,6 +7,18 @@ from lebedigital.unit_registry import ureg
 
 # setting up the problem
 def concrete_parameter_evolution(time, dt, parameters, pv_output=True, pv_name="concrete_evolution"):
+    """
+    This function computes the evolution of the concrete parameters over time.
+    The mesh is a small cube, approximating material behavior at the material point with a constant temperature.
+
+    Args:
+        time: time of the simulation
+        dt: time step of the simulation
+        parameters: dictionary
+    Returns:
+        df: pandas dataframe with the evolution of the concrete parameters over time
+    """
+
     # check/convert units...
     # TODO this needs to be moved to fenics concrete but for now this is ok.
     parameters["density"].ito("kg/m^3")
