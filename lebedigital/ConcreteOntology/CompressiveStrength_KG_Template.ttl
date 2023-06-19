@@ -73,12 +73,14 @@ ns1:DINEN12390-3:2019 a ns1:DINStandard,
 
 ns1:DINStandard a owl:Class .
 
+ns1:DeterminationOfCompressiveStrength a owl:Class .
+
 ns1:ExperimentDate_ a owl:NamedIndividual,
         co:Date ;
     prov:startedAtTime "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
 
-ns1:ExperimentInfo_ a owl:NamedIndividual,
-        co:CompressionTest ;
+ns1:ExperimentInfo_ a ns1:DeterminationOfCompressiveStrength,
+        owl:NamedIndividual ;
     co:output ns1:CompressionForce_,
         ns1:ExperimentDate_,
         ns1:Lab_,
@@ -124,8 +126,6 @@ ns1:Transducer_ a owl:NamedIndividual,
 ns1:humanreadableID_ a owl:NamedIndividual,
         co:ProvidedIdentifier ;
     co:value "$$humanreadableID_Value$$"^^xsd:string .
-
-co:CompressionTest a owl:Class .
 
 co:Date a owl:Class .
 
