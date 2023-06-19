@@ -57,7 +57,7 @@ def read_pint_df(path):
 
 # this rule collects all overall targets.
 # an output must be an input to be computed
-# the alternative is to define them in the console cmmand, which is suboptimal
+# the alternative is to define them in the console command, which is suboptimal
 rule workflow_targets:
     input:
         "Results/gwp_beam.json",
@@ -91,12 +91,13 @@ rule fem_model:
     input:
         script = PATH_TO_SCRIPTS + 'simulation/precast_column.py',
         geometry = "Inputs/geometry.json",
-        steel_yield = 'Inputs/steel_yield.json',
+        steel_yield = 'Inputs/steel_properties.json',
         fem_control = "Inputs/fem_control.json",
         fem_parameters = "Inputs/fem_parameters.json",
         results_homogenization = "Results/homogenization.json",
         results_approx_max_doh = "Results/approx_max_doh.json",
-        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json'
+        results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json',
+        results_alpha_t28d = 'Results/alpha_t28d.json'
 
     output:
         pint_results = "Results/fem_model.csv",
@@ -109,6 +110,7 @@ rule fem_model:
         p = read_pint_dicts(input)
 
         # fixing name discrepancies from other rules or inputs
+        p['alpha_tx'] = p.pop('alpha_t28d')
         p['vol_heat_cap'] = p.pop('C')
         p['density'] = p.pop('rho')
         p['themal_cond'] = p.pop('kappa')
@@ -146,6 +148,51 @@ rule approx_max_doh:
 
         write_pint_dict(results,output.results)
 
+rule interpolate_alpha_t28d:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/interpolate_alpha_t28d.py',
+        sc_fraction = 'Results/mix_volume_contents.json',
+        alpha_t28d = 'Inputs/alpha_t28d.json'
+
+    output:
+        results = "Results/alpha_t28d.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.interpolate_alpha_t28d import interpolate_alpha_t28d
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["alpha_t28d"] =  interpolate_alpha_t28d(p['alpha_mix1'], p['alpha_mix2'], p['sc_volume_fraction'])
+
+        write_pint_dict(results,output.results)
+
+
+rule compute_loads:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_loads_with_safety.py',
+        loads = 'Inputs/loads.json'
+
+    output:
+        results = "Results/loads_safe.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_loads_with_safety import computation_loads_with_safety
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["distributed_load"], results["point_load"] =  computation_loads_with_safety(p['safety_factor_permanent'],
+            p['safety_factor_variable'], p['distributed_load_permanent'], p['distributed_load_variable'],
+            p['point_load_permanent'],p['point_load_variable'])
+
+        write_pint_dict(results,output.results)
+
+
 
 rule approx_tensile_strength:
     input:
@@ -172,9 +219,9 @@ rule beam_design:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/beam_design.py',
         geometry = "Inputs/geometry.json",
-        steel_yield = 'Inputs/steel_yield.json',
+        steel_yield = 'Inputs/steel_properties.json',
         beam_design = "Inputs/beam_design.json",
-        loads = "Inputs/loads.json",
+        loads = "Results/loads_safe.json",
         results_homogenization = "Results/homogenization.json",
 
     output:
@@ -204,12 +251,31 @@ rule beam_design:
 
         write_pint_dict(results,output.results)
 
+rule gwp_steel_per_volume:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_steel_per_volume.py',
+        steel_properties = "Inputs/steel_properties.json"
+
+    output:
+        results = "Results/steel_gwp_per_volume.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_GWP_steel_per_volume import computation_GWP_steel_per_volume
+         #merging contents of both dictionaries and individual variable inputs
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["steel_gwp_per_volume"] = computation_GWP_steel_per_volume(p['gwp_steel'], p['density_steel'])
+
+        write_pint_dict(results,output.results)
+
 
 rule gwp_beam:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_GWP_per_part.py',
         geometry = "Inputs/geometry.json",
-        steel_gwp = "Inputs/steel_gwp.json",
+        steel_gwp = "Results/steel_gwp_per_volume.json",
         results_gwp_mix = "Results/gwp_mix.json",
         results_beam_design = "Results/beam_design.json",
 
@@ -224,7 +290,7 @@ rule gwp_beam:
 
         results = {}
         # run script
-        results["gwp_beam"] = computation_GWP_per_part(p['gwp_mix'], p['gwp_steel'],
+        results["gwp_beam"] = computation_GWP_per_part(p['gwp_mix'], p['steel_gwp_per_volume'],
                                                        p['width'], p['height'], p['length'],
                                                        p['n_reinforcement'],p['reinforcement_diameter'])
 
@@ -246,9 +312,10 @@ rule gwp_mix:
 
         p = read_pint_dicts(input)
 
-        constituents = {'cement' : {'content': p['cem_vol_content'], 'GWP': p['gwp_cement']},
-                        'slag' : {'content': p['sub_vol_content'], 'GWP': p['gwp_slag']},
-                        'aggregates' : {'content': p['aggregates_vol_content'], 'GWP': p['gwp_aggregates']}
+        constituents = {'cement' : {'content': p['cem_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_cement']},
+                        'slag' : {'content': p['sub_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_slag']},
+                        'water' : {'content': p['water_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_water']},
+                        'aggregates' : {'content': p['aggregates_mass_per_cubic_meter_concrete'], 'GWP': p['gwp_aggregates']}
                         }
 
         results = {}
@@ -262,7 +329,7 @@ rule approx_paste_properties:
     # the stiffness and strength of the cement paste is estimated and interpolated
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
-        sc_fraction = "Inputs/sc_fraction.json",
+        sc_fraction = 'Results/mix_volume_contents.json',
         phi_paste = "Inputs/phi_paste.json"
 
     output:
@@ -285,7 +352,7 @@ rule approx_hydration_parameters:
     # the hydration parameters are approximated based on slag content
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
-        sc_fraction = "Inputs/sc_fraction.json",
+        sc_fraction = 'Results/mix_volume_contents.json',
         phi_hydration = 'Inputs/phi_hydration.json'
 
     output:
@@ -331,10 +398,42 @@ rule mix_volume_contents:
         write_pint_dict(results,output.results)
 
 
+rule specific_heat_capacity_paste:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_specific_heat_capacity_paste.py',
+        volume_contents = "Results/mix_volume_contents.json",
+        material_properties = "Inputs/material_properties.json"
+
+    output:
+        results = "Results/specific_heat_capacity_paste.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_specific_heat_capacity_paste import computation_specific_heat_capacity_paste
+         #merging contents of both dictionaries and individual variable inputs
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["paste_C"] = computation_specific_heat_capacity_paste(p['cem_vol_fraction'],
+                                                                      p['sub_vol_fraction'],
+                                                                      p['water_vol_fraction'],
+                                                                      p['cement_C'],
+                                                                      p['sub_c'],
+                                                                      p['water_C'],
+                                                                      p['density_cem'],
+                                                                      p['density_sub'],
+                                                                      p['density_water'])
+
+        write_pint_dict(results,output.results)
+
+
+
+
 rule homogenization:
     input:
         script = PATH_TO_SCRIPTS + 'simulation/concrete_homogenization.py',
         material_properties = "Inputs/material_properties.json",
+        specific_heat_capacity_paste = "Results/specific_heat_capacity_paste.json",
         results_mix_volume_contents = 'Results/mix_volume_contents.json',
         aggregates_volume_fraction = 'Inputs/aggregates_volume_fraction.json',
         results_approx_hydration_parameters = 'Results/approx_hydration_parameters.json',

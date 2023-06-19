@@ -201,9 +201,9 @@ def check_beam_design(
     height: float / pint length unit
         beam depth in mm.
     point_load: float / pint force unit
-        point load in center of beam
+        point load in center of beam, this includes the safety factors
     distributed_load: float / pint force/length unit
-        constant load along the beam
+        constant load along the beam, this includes the safety factors
     compr_str_concrete : float / pint stress unit
         charateristic compressive strength of concrete in N/mm2.
     yield_str_steel : float / pint stress unit
