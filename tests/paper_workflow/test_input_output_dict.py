@@ -9,7 +9,16 @@ def test_input_output_dict():
     this is especially important for the workflow and for the tex macros
     the test only makes sense once the snakemake workflow has been run once
     """
-    path_to_workflow = Path("../../usecases/optimization_paper/optimization_workflow/")
+
+    # assuming the tests are started in the tests folder
+    # path to current working directory
+    path_to_cwd = Path(os.getcwd())
+    path_to_base = path_to_cwd
+
+    while path_to_base.name != "LebeDigital":
+        path_to_base = path_to_base.parent
+
+    path_to_workflow = path_to_base / Path("usecases/optimization_paper/optimization_workflow/")
     path_to_input = path_to_workflow / "Inputs"
     path_to_output = path_to_workflow / "Results"
 
