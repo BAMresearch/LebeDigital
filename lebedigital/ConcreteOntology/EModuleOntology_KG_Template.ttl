@@ -110,7 +110,8 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
-    ns4:hasIdentifier ns1:ID_ ;
+    ns4:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
     co:input ns1:OpenBisDataFile_,
         ns1:RawDataFile_ ;
     co:output ns1:ExperimentInfo_ ;
@@ -135,6 +136,10 @@ ns1:Transducer_ a owl:NamedIndividual,
     co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> .
 
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
+
 co:ComputingNode a owl:Class .
 
 co:Date a owl:Class .
@@ -151,9 +156,9 @@ co:ModulusOfElasticity a owl:Class .
 
 co:Specimen a owl:Class .
 
-co:ProvidedIdentifier a owl:Class .
-
 co:Dataset a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
 
 ns3:Unit a owl:Class .
 
