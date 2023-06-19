@@ -4,7 +4,11 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from lebedigital.calibration.calibrationWorkflow import estimate_youngs_modulus
+from lebedigital.calibration.calibrationWorkflow import (
+    _check_E_mod_calibration_metadata,
+    _check_E_mod_experimental_data,
+    estimate_youngs_modulus,
+)
 from lebedigital.calibration.utils import read_exp_data_E_mod
 
 
@@ -35,3 +39,30 @@ def test_emodulus_calibration():
     # checking for the mean of the calibrated E modulus
     # Note : Somehow the seed in EMCEE deosnt seed to work.
     assert np.mean(E_samples) == pytest.approx(31, rel=0.3)
+
+
+def test_check_E_mod_calibration_metadata():
+    calibration_metadata = {"E_loc": 30, "E_scale": 10}
+    assert _check_E_mod_calibration_metadata(calibration_metadata) == True
+
+    calibration_metadata = {"E_loc": 30}
+    assert _check_E_mod_calibration_metadata(calibration_metadata) == False
+
+
+def test_check_E_mod_experimental_data():
+    experimental_data = {
+        "exp_name": "Wolf 8.2 Probe 1.csv",
+        "force": [1, 2, 3],
+        "displacement": [1, 2, 3],
+        "height": 300.2,
+        "diameter": 98.6,
+    }
+    assert _check_E_mod_experimental_data(experimental_data) == True
+
+    experimental_data = {
+        "exp_name": "Wolf 8.2 Probe 1.csv",
+        "force": [1, 2, 3],
+        "displacement": [1, 2, 3],
+        "height": 300.2,
+    }
+    assert _check_E_mod_experimental_data(experimental_data) == False

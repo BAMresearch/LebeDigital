@@ -1,22 +1,16 @@
 ## -- TUM PKM --- atul.agrawal@tum.de--- ##
-import matplotlib.pyplot as plt
-import rdflib
-import pandas as pd
-import numpy as np
 import os
 from pathlib import Path
-import sys
+
 import fenics_concrete
+import numpy as np
+import pandas as pd
 
 baseDir1 = Path(__file__).resolve().parents[1]
-#sys.path.append(os.path.join(os.path.join(baseDir1, "knowledgeGraph"), "emodul"))
-#sys.path.append(os.path.join(baseDir1, "Data"))
-baseDir1 = baseDir1 /"knowledgeGraph"/"emodul"/"Data"
+baseDir1 = baseDir1 / "knowledgeGraph" / "emodul" / "Data"
 
 
-# import emodul_query
-
-def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float,vizualize=False) -> dict:
+def read_exp_data_E_mod(path: str, exp_name: str, length: float, diameter: float) -> dict:
     """
     Reads in the experiment data for a specified experiment and stores the extracted results in the dict.
     The arguments to the provided by the Knowledge Graph.
@@ -37,10 +31,8 @@ def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float,viz
     results = {}
     results["length"] = length
     results["diameter"] = diameter
-    df = extract_third_load_cycle(data_path=file_path,vizualize=vizualize)
-    df["displacement"] = (
-        df["Transducer 1[mm]"] + df["Transducer 2[mm]"] + df["Transducer 3[mm]"]
-    ) / 3
+    df = extract_third_load_cycle(data_path=file_path)
+    df["displacement"] = (df["Transducer 1[mm]"] + df["Transducer 2[mm]"] + df["Transducer 3[mm]"]) / 3
     # df['stress'] = df['Force [kN]'] / (np.pi * (float(results['diameter']) / 2) ** 2)
 
     output = {
@@ -54,10 +46,7 @@ def read_exp_data_E_mod(path: str, exp_name: str,length:float,diameter:float,viz
 
 
 class PosteriorPredictive:
-    def __init__(
-        self, forward_solver, known_input_solver, parameter=None
-    ):
-
+    def __init__(self, forward_solver, known_input_solver, parameter=None):
         """
 
         Parameters
@@ -108,13 +97,8 @@ class PosteriorPredictive:
         self._samples = output
         return mean, sd
 
-    def plot_posterior_predictive(self):
-        raise NotImplementedError("...")
 
-
-def extract_third_load_cycle(
-    data_path: str, threshold=1, vizualize=False
-) -> pd.DataFrame:
+def extract_third_load_cycle(data_path: str, threshold=1) -> pd.DataFrame:
     """
     Script to extract third loading cycle of the load-displacement curve for a given experiment data as a .csv file
 
@@ -131,9 +115,7 @@ def extract_third_load_cycle(
     data = pd.read_csv(data_path, skipfooter=5)
 
     # Extract indices where there is a change in slope
-    slope_2 = np.diff(
-        data["Force [kN]"], n=2
-    )  # double diff to identify the sharp points
+    slope_2 = np.diff(data["Force [kN]"], n=2)  # double diff to identify the sharp points
     change_indices = np.where(np.abs(slope_2) > threshold)[0] + 2  # Finding the indices
 
     ## drop the indices which are close together.
@@ -150,11 +132,4 @@ def extract_third_load_cycle(
     ]  # skipping the last two change in slopes
     data_third_loading = data.loc[idx[0] : idx[1]]
 
-    # Plot and see the data
-    if vizualize:
-        # plot original data
-        plt.plot(data["Force [kN]"], "r", label="Original Data")
-        plt.plot(data_third_loading["Force [kN]"], "g", label="Third load cycle")
-        plt.legend()
-        plt.show()
     return data_third_loading

@@ -1,0 +1,14 @@
+{
+   "gwp_steel": {
+     "value" : 1.42,
+     "unit" : "kg_CO2_eq/kg"
+   },
+   "density_steel": {
+     "value" : 7850,
+     "unit" : "kg/m^3"
+   },
+   "steel_yield": {
+     "value" : 300.0,
+     "unit" : "MPa"
+   }
+ }
