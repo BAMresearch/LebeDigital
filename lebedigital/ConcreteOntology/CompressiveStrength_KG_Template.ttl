@@ -1,36 +1,19 @@
-@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
-@prefix con: <http://w3id.org/concrete/> .
-@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix co: <https://w3id.org/pmd/co/> .
+@prefix ns1: <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/> .
+@prefix ns2: <http://purl.org/spar/datacite/> .
+@prefix ns8: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-con:StrengthTestSpecimen_ a owl:NamedIndividual,
-        mid:Specimen ;
-    con:has_age con:SpecimenAge_ ;
-    cco:designated_by con:SpecimenID_ ;
-    cco:is_input_of con:CompressiveStrength_ .
+ns2:hasIdentifier a owl:ObjectProperty .
 
-con:has_age a owl:ObjectProperty .
-
-cco:described_by a owl:ObjectProperty .
-
-cco:designated_by a owl:ObjectProperty .
-
-cco:has_URI_value a owl:DatatypeProperty .
-
-cco:has_datetime_value a owl:DatatypeProperty .
-
-cco:has_decimal_value a owl:DatatypeProperty .
-
-cco:has_output a owl:ObjectProperty .
-
-cco:has_text_value a owl:DatatypeProperty .
-
-cco:is_input_of a owl:ObjectProperty .
-
-xsd:anyURI a rdfs:Datatype .
+ns1:TestSpecimen_ a owl:NamedIndividual,
+        co:Specimen ;
+    ns2:hasIdentifier ns1:SpecimenID_ ;
+    co:characteristic ns1:SpecimenAge_ ;
+    co:input ns1:CompressiveStrength_ .
 
 xsd:dateTimeStamp a rdfs:Datatype .
 
@@ -38,115 +21,125 @@ xsd:decimal a rdfs:Datatype .
 
 xsd:string a rdfs:Datatype .
 
-pmd: a owl:Ontology .
+prov:startedAtTime a owl:DatatypeProperty .
 
-pmd:hasPmdUnit a owl:ObjectProperty .
+co: a owl:Ontology .
 
-mid:in_accordance_with a owl:ObjectProperty .
+co:characteristic a owl:ObjectProperty .
 
-<http://w3id.org/concrete/##CompressionForce_Unit##> a owl:NamedIndividual,
-        pmd:PmdSiUnit .
+co:input a owl:ObjectProperty .
 
-<http://w3id.org/concrete/##CompressiveStrength_Unit##> a owl:NamedIndividual,
-        pmd:PmdSiUnit .
+co:jsonPath a owl:DatatypeProperty .
 
-<http://w3id.org/concrete/##SpecimenAge_Unit##> a owl:NamedIndividual .
+co:output a owl:ObjectProperty .
 
-<http://w3id.org/concrete/##Tranducer_Unit##> a owl:NamedIndividual,
-        pmd:PmdSiUnit .
+co:resource a owl:ObjectProperty .
 
-con:Age a owl:Class .
+co:unit a owl:ObjectProperty .
 
-con:AppliedLoad a owl:Class .
+co:value a owl:DatatypeProperty .
 
-con:CompressionForce_ a con:AppliedLoad,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$CompressionColumn_Value$$"^^xsd:string ;
-    pmd:hasPmdUnit <http://w3id.org/concrete/##CompressionForce_Unit##> .
-
-con:CompressiveStrength a owl:Class .
-
-con:CompressiveStrength_ a con:CompressiveStrength,
-        owl:NamedIndividual ;
-    cco:described_by con:OpenBisRawDataFile_,
-        con:RawDataFile_ ;
-    cco:designated_by con:ID_,
-        con:humanreadableID_ ;
-    cco:has_decimal_value "$$CompressiveStregth_Value$$"^^xsd:decimal ;
-    cco:has_output con:ExperimentInfo_ ;
-    pmd:hasPmdUnit <http://w3id.org/concrete/##CompressiveStrength_Unit##> ;
-    mid:in_accordance_with con:DINEN12390-3:2019 .
-
-con:DINEN12390-3:2019 a cco:Document,
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> a ns8:Unit,
         owl:NamedIndividual .
 
-con:ExperimentDateTime_ a cco:Day,
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressiveStrength_Unit##> a ns8:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> a ns8:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> a owl:NamedIndividual .
+
+ns1:CompressionForce_ a owl:NamedIndividual,
+        co:MaximumForce ;
+    co:jsonPath "$$CompressionColumn_Value$$"^^xsd:string ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> .
+
+ns1:CompressiveStrength_ a ns1:ConcreteCompressiveStrength,
         owl:NamedIndividual ;
-    cco:has_datetime_value "$$ExperimentDateTime_Value$$"^^xsd:dateTimeStamp .
+    ns2:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
+    co:input ns1:OpenBisRawDataFile_,
+        ns1:RawDataFile_ ;
+    co:output ns1:ExperimentInfo_ ;
+    co:resource ns1:DINEN12390-3:2019 ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressiveStrength_Unit##> ;
+    co:value "$$CompressiveStregth_Value$$"^^xsd:decimal .
 
-con:ExperimentInfo a owl:Class .
+ns1:ConcreteCompressiveStrength a owl:Class .
 
-con:ExperimentInfo_ a con:ExperimentInfo,
+ns1:DINEN12390-3:2019 a ns1:DINStandard,
+        owl:NamedIndividual .
+
+ns1:DINStandard a owl:Class .
+
+ns1:ExperimentDate_ a owl:NamedIndividual,
+        co:Date ;
+    prov:startedAtTime "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+
+ns1:ExperimentInfo_ a owl:NamedIndividual,
+        co:CompressionTest ;
+    co:output ns1:CompressionForce_,
+        ns1:ExperimentDate_,
+        ns1:Lab_,
+        ns1:ProcessedFile_,
+        ns1:Transducer_ .
+
+ns1:ID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$ID_Value$$"^^xsd:string .
+
+ns1:Lab_ a owl:NamedIndividual,
+        co:Laboratory ;
+    co:value "$$Lab_Value$$"^^xsd:string .
+
+ns1:OpenBisRawDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+ns1:ProcessedFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$ProcessedFile_Value$$"^^xsd:string .
+
+ns1:RawDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$RawDataFile_Value$$"^^xsd:string .
+
+ns1:SpecimenAge a owl:Class .
+
+ns1:SpecimenAge_ a ns1:SpecimenAge,
         owl:NamedIndividual ;
-    cco:has_output con:CompressionForce_,
-        con:ExperimentDateTime_,
-        con:Lab_,
-        con:ProcessedFile_,
-        con:Transducer_ .
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> ;
+    co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
-con:ID_ a cco:NonNameIdentifier,
-        owl:NamedIndividual ;
-    cco:has_text_value "$$ID_Value$$"^^xsd:string .
+ns1:SpecimenID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$SpecimenID_Value$$"^^xsd:string .
 
-con:Lab_ a con:Location,
-        owl:NamedIndividual ;
-    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+ns1:Transducer_ a owl:NamedIndividual,
+        co:Extension ;
+    co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> .
 
-con:Location a owl:Class .
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
-con:MeasuringGauge a owl:Class .
+co:CompressionTest a owl:Class .
 
-con:OpenBisRawDataFile_ a owl:NamedIndividual,
-        mid:RawDataSet ;
-    cco:has_URI_value "$$OpenBisRawDataFile_Value$$"^^xsd:anyURI .
+co:Date a owl:Class .
 
-con:ProcessedFile_ a owl:NamedIndividual,
-        mid:ProcessDataSet ;
-    cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
+co:Extension a owl:Class .
 
-con:RawDataFile_ a owl:NamedIndividual,
-        mid:RawDataSet ;
-    cco:has_URI_value "$$RawDataFile_Value$$"^^xsd:anyURI .
+co:Laboratory a owl:Class .
 
-con:SpecimenAge_ a con:Age,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$SpecimenAge_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit <http://w3id.org/concrete/##SpecimenAge_Unit##> .
+co:MaximumForce a owl:Class .
 
-con:SpecimenID_ a cco:NonNameIdentifier,
-        owl:NamedIndividual ;
-    cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
+co:Specimen a owl:Class .
 
-con:Transducer_ a con:MeasuringGauge,
-        owl:NamedIndividual ;
-    cco:has_decimal_value "$$TransducerColumn_Value$$"^^xsd:string ;
-    pmd:hasPmdUnit <http://w3id.org/concrete/##Tranducer_Unit##> .
+ns8:Unit a owl:Class .
 
-con:humanreadableID_ a cco:NonNameIdentifier,
-        owl:NamedIndividual ;
-    cco:has_text_value "$$humanreadableID_Value$$"^^xsd:string .
+co:Dataset a owl:Class .
 
-cco:Day a owl:Class .
-
-cco:Document a owl:Class .
-
-mid:ProcessDataSet a owl:Class .
-
-mid:Specimen a owl:Class .
-
-mid:RawDataSet a owl:Class .
-
-cco:NonNameIdentifier a owl:Class .
-
-pmd:PmdSiUnit a owl:Class .
+co:ProvidedIdentifier a owl:Class .
 
