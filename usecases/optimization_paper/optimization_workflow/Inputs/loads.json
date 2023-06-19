@@ -1,10 +1,26 @@
 {
-   "point_load": {
+   "safety_factor_permanent": {
+     "value" : 1.35,
+     "unit" : ""
+   },
+   "safety_factor_variable": {
+     "value" : 1.5,
+     "unit" : ""
+   },
+   "point_load_permanent": {
      "value" : 0.0,
      "unit" : "N"
    },
-   "distributed_load": {
-     "value" : 55.0,
+   "point_load_variable": {
+     "value" : 0.0,
+     "unit" : "N"
+   },
+   "distributed_load_permanent": {
+     "value" : 15.0,
+     "unit" : "kN/m"
+   },
+   "distributed_load_variable": {
+     "value" : 20.0,
      "unit" : "kN/m"
    }
 }

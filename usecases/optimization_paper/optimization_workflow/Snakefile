@@ -169,6 +169,31 @@ rule interpolate_alpha_t28d:
 
         write_pint_dict(results,output.results)
 
+
+rule compute_loads:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_loads_with_safety.py',
+        loads = 'Inputs/loads.json'
+
+    output:
+        results = "Results/loads_safe.json"
+
+    run:
+        from lebedigital.demonstrator_scripts.computation_loads_with_safety import computation_loads_with_safety
+         #merging contents of both dictionaries and individual variable inputs
+
+        p = read_pint_dicts(input)
+
+        results = {}
+        # run script
+        results["distributed_load"], results["point_load"] =  computation_loads_with_safety(p['safety_factor_permanent'],
+            p['safety_factor_variable'], p['distributed_load_permanent'], p['distributed_load_variable'],
+            p['point_load_permanent'],p['point_load_variable'])
+
+        write_pint_dict(results,output.results)
+
+
+
 rule approx_tensile_strength:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/approximate_tensile_strength.py',
@@ -196,7 +221,7 @@ rule beam_design:
         geometry = "Inputs/geometry.json",
         steel_yield = 'Inputs/steel_properties.json',
         beam_design = "Inputs/beam_design.json",
-        loads = "Inputs/loads.json",
+        loads = "Results/loads_safe.json",
         results_homogenization = "Results/homogenization.json",
 
     output:
