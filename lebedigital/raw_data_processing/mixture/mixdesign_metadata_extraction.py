@@ -135,10 +135,10 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Cement data ('Zement') 
         if 'Zement' not in missing_labels:
             idx = labelidx['Zement']
-            metadata['CEMIQtyInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['CEMIQtyInMix_Unit'] = 'kg/m^3'
-            metadata['CEMIDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['CEMIDensity_Unit'] = 'kg/dm^3'
+            metadata['CEMI_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['CEMI_Content_Unit'] = 'kg/m^3'
+            metadata['CEMI_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['CEMI_Density_Unit'] = 'kg/dm^3'
         else:
             logger.error('cement not included in yaml-file')
 
@@ -146,40 +146,29 @@ def extract_metadata_mixdesign(locationOfRawData):
         # total water data ('Wasser (gesamt)') 
         if 'Wasser (gesamt)' not in missing_labels:
             idx = labelidx['Wasser (gesamt)']
-            metadata['MixingWaterQtyInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['MixingWaterQtyInMix_Unit'] = 'kg/m^3'
-            metadata['WaterDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['WaterDensity_Unit'] = 'kg/dm^3'
+            metadata['Water_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Water_Content_Unit'] = 'kg/m^3'
+            metadata['Water_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Water_Density_Unit'] = 'kg/dm^3'
         else:
             logger.error('Water not included in yaml-file')
 
 
         # water cement ratio ('Wasserzementwert')
         if 'Zement' not in missing_labels and 'Wasser (gesamt)' not in missing_labels:
-            metadata['WaterCementRatio'] = float(metadata['MixingWaterQtyInMix'] 
-                                                    / metadata['CEMIQtyInMix'])
+            metadata['WaterCementRatio'] = float(metadata['Water_Content']
+                                                    / metadata['CEMI_Content'])
         else:
             logger.error('WaterCementRatio not included in yaml-file')
-
-
-        # air content ('Luftgehalt') 
-        if 'Luftgehalt' not in missing_labels:
-            idx = labelidx['Luftgehalt']
-            metadata['AirContent'] = float(0) # Quantity
-            metadata['AirContent_Unit'] = 'kg/m^3'
-            metadata['AirDensity'] = float(0)
-            metadata['AirDensity_Unit'] = 'kg/dm^3'
-        else:
-            logger.error('AirContent not included in yaml-file')
 
 
         # Admixture/Plasticizer ('Zusatzmittel') 
         if 'Zusatzmittel' not in missing_labels:
             idx = labelidx['Zusatzmittel']
-            metadata['PlasticizerQtyInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['PlasticizerQtyInMix_Unit'] = 'kg/m^3'
-            metadata['PlasticizerDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['PlasticizerDensity_Unit'] = 'kg/dm^3'
+            metadata['Admixture_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Admixture_Content_Unit'] = 'kg/m^3'
+            metadata['Admixture_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Admixture_Density_Unit'] = 'kg/dm^3'
         else:
             logger.error('Plasticizer/Admixture not included in yaml-file')
 
@@ -187,12 +176,23 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Aggregate ('Zuschlag (gesamt)')
         if 'Zuschlag (gesamt)' not in missing_labels:
             idx = labelidx['Zuschlag (gesamt)']
-            metadata['OkrillaQtyInMix'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['OkrillaQtyInMix_Unit'] = 'kg/m^3'
-            metadata['OkrillaDensity'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['OkrillaDensity_Unit'] = 'kg/dm^3'
+            metadata['Aggregate_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Aggregate_Content_Unit'] = 'kg/m^3'
+            metadata['Aggregate_Size'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Aggregate_Size_Unit'] = 'kg/dm^3'
         else:
             logger.error('Okrilla/aggregate not included in yaml-file')
+
+
+        # # Addition data ('Zusatzstoff') 1
+        # if 'Zusatzstoff1' not in missing_labels:
+        #     idx = labelidx['Zusatzstoff1']
+        #     metadata['addition1--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+        #     metadata['addition1--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+        #     metadata['addition1--Volume'] = float(replace_comma(str(exceltodf.iat[idx, 6])))
+        #     no_empty_annotation('addition1')
+        # else:
+        #     logger.error('addition1 not included in yaml-file')
 
 
         return metadata
