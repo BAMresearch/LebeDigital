@@ -29,15 +29,20 @@ def load_metadata(dataPath):
             logger.error("Path error: " + str(e))
 
 
-def generate_placeholder(key):
+def generate_placeholder(key, type="Value"):
     '''
-        Generates a placeholder (str) in the format $$key_Value$$ for a given key.
+        Generates a placeholder (str), standard (type="Value") in the format $$key_Value$$ for a given key.
+        If type="Unit", then the placeholder has the format ##key_Unit##.
         This function should allow to easily change the structure of the placeholder
         given in the template without having to rewrite the function placeholderreplacement.
         Just change the structure here.
     '''
 
-    placeholder = '$$' + str(key) + '_Value$$'
+    if type == "Value":
+        placeholder = '$$' + str(key) + '_Value$$'
+    else:
+        placeholder = '##' + str(key) + '##'
+
     return placeholder
 
 
@@ -64,7 +69,8 @@ def placeholderreplacement(kgPath, metadataPath):
     # load metadata, convert the units through module and get the keys
     metadata = load_metadata(metadataPath)
     metadata = unit_conversion(metadata)
-    keys = list(metadata.keys())  
+    keys = list(metadata.keys())
+    keys_unit = [i for i in keys if "_Unit" in i]
 
     # import ID from metadata to append to all instances
     metadataID = metadata["ID"]
@@ -87,6 +93,9 @@ def placeholderreplacement(kgPath, metadataPath):
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
                 kgPHcounter.append(ph)
+            if '_Unit##' in lines[i]:
+                ph = lines[i].split("##")[1]
+                kgPHcounter.append(ph)
 
             # iterate through list of metadata-keys
             for key in keys:
@@ -100,11 +109,26 @@ def placeholderreplacement(kgPath, metadataPath):
                     lines[i] = lines[i].replace(placeholder, str(metadata[key]))
                     usedKeys.append(key)
 
-                # append the specimen-ID name to "key"_ , works for most keys, except 
+                # append the specimen-ID name to "key"_ , works for most keys, except
                 # some keys below
                 key_ = key + "_ "
                 if key_ in lines[i]:
                     lines[i] = lines[i].replace(key_, key + "_" + str(metadataID) + " ")
+
+            # iterate through list of unit-keys
+            for key in keys_unit:
+
+                # if unit is in line, replace unit-placeholder with proper unit
+                placeholder_unit = generate_placeholder(key, "Unit")
+
+                # if placeholder is in line, replace it with unit
+                if placeholder_unit in lines[i]:
+                    logger.debug('Found placeholder "' + placeholder_unit + '" for key "' \
+                                 + key + '" with value "' + str(metadata[key]) + '".')
+                    replace = lines[i].replace(">", "<")
+                    replace = replace.split("<")[1]
+                    lines[i] = lines[i].replace(replace, str(metadata[key]))
+                    usedKeys.append(key)
 
 
             # append the specimen-ID name to the exceptions 
@@ -124,11 +148,15 @@ def placeholderreplacement(kgPath, metadataPath):
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
                 remainingPH.append(ph)
+            elif '_Unit##' in lines[i]:
+                ph = lines[i].split("##")[1]
+                remainingPH.append(ph)
 
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
     if len(unusedKeys) > 0:
         logger.warning('Mapped only ' + str(len(usedKeys)) + ' keys to the KG template.')
+        logger.warning(usedKeys)
         logger.warning('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
                      + ' metadata keys have not been mapped: ')
         logger.warning(unusedKeys)
