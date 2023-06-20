@@ -109,15 +109,15 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # set Compression and Transducer Column
         metadata_emodule['CompressionColumn'] = 0
-        metadata_emodule['AppliedLoad_Unit'] = "kN"
+        metadata_emodule['CompressionForce_Unit'] = "kN"
         metadata_emodule['TransducerColumn'] = [1,2,3]
-        metadata_emodule['MeasuringGauge_Unit'] = "mm"  # Transducer messen eine Verschiebung.
+        metadata_emodule['Extensometer_Unit'] = "mm"  # Transducer messen eine Verschiebung.
 
         # set extensometer gauge length
         metadata_emodule['ExtensometerLength'] = 100
         metadata_emodule['ExtensometerLength_Unit'] = "mm"
 
-        metadata_emodule['EModule_Value_Unit'] = None
+        metadata_emodule['EModule_Unit'] = "GPa"  # laut Norm, mit einer Nachkommastelle; oft auch MPa oder N/mm²
 
         # set paths
         metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
