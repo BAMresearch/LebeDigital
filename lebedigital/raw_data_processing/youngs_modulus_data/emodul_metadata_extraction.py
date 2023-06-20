@@ -64,11 +64,11 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         lines = data.readlines()
 
         # set software header - This data has no placeholder yet.
-        metadata_emodule['software_specification'] = get_metadata_in_one_line(lines[0])[0] 
+        software_header = get_metadata_in_one_line(lines[0])[0]
 
         # specific testing machine and software version this script is optimized for
         # - This data has no placeholder yet.
-        assert metadata_emodule['software_specification'] == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A' 
+        assert software_header == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A'
 
         # get empty lines (where start and end the header)
         emptyLineIndex = []
@@ -99,10 +99,10 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_emodule['ExperimentDate'] = str(date_protegeformat)
 
         # operator name - This data has no placeholder yet.
-        metadata_emodule['tester_name'] = serviceInformation[2][1] 
+        #metadata_emodule['tester_name'] = serviceInformation[2][1]
 
         # remarks - This data has no placeholder yet.
-        metadata_emodule['remark'] = serviceInformation[4][1]
+        #metadata_emodule['remark'] = serviceInformation[4][1]
 
         # set experiment lab location to BAM
         metadata_emodule['Lab'] = 'BAM'
@@ -126,16 +126,17 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
             with open(str(rawDataPath)+'/'+ str(mix_file), encoding="utf8", errors='ignore') as mix_data:
                 lines = mix_data.readlines()
                 lines = lines[0].strip()
-                dataPath = Path(rawDataPath).parents[1]
-                metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
+                #dataPath = Path(rawDataPath).parents[1]
+                #metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
         except:
-            metadata_emodule['MixDataFile'] = None
+            #metadata_emodule['MixDataFile'] = None
+            raise Exception("No mixdesign yaml-file found!")
 
 
         ###########  D A T A   A B O U T    S P E C I M E N #######
 
         # name of specimen (human readable)
-        metadata_emodule['SpecimenName'] = metadata_specimen['humanreadableID'] = serviceInformation[3][1] 
+        metadata_specimen['humanreadableID'] = serviceInformation[3][1]
 
         # ID of this specimen, save to specimen metadata and to emodule metadata
         specimenID = str(uuid.uuid4())
@@ -166,6 +167,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         if metadata_specimen['SpecimenDiameter'] > metadata_specimen['SpecimenLength']:
             dir_name = metadata_emodule['ExperimentName']
             raise Exception(f'Diameter is larger then length, please fix the mistake in {dir_name}')
+
 
     return metadata_emodule, metadata_specimen
 
