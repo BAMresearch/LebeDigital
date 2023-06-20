@@ -1,3 +1,36 @@
 \subsection{Finite Element Concrete Model}
+The focus of the concrete model is on the evolution of the mechanical properties over time.
+When concrete is mixed it is basically liquid.
+Due to a  chemical reaction of the binder with water, called hydration, crystals develop that give concrete its strength and stiffness.
+The reaction is both exothermal and temperature dependent.
+Therefore, the primary model computes the temperature field $\temp$ and the degree of hydration $\DOH$, details given in Appendix \ref{appendix:fem}.
+Based on the degree of hydration, the Young's modulus $\eMod$ of a linear-elastic material model
+is approximated \eqref{eq:EwrtDOH}.
+In addition, a compressive strength in terms of the degree of hydration is computed \eqref{eq:fcwrtDOH}, which is then used to determine, a failure criterion based on the computed local stress.
+The simulation is used to compute two practical constraints relevant to the precast concrete industry.
+The first limits the maximum allowed temperature to $\tempLimit = \inputtemperaturelimit$\textdegree C.
+Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
+The constraint is computed as the normalized difference between the maximum temperature reached $\tempMax$ and the temperature limit $\tempLimit$ 
+\begin{align}
+\FEMConstraintT = \frac{\tempMax - \tempLimit}{\tempLimit}
+\end{align}
+
+
+The second is the estimated time of demolding.
+This is critical, as the manufacturer has a limited number of forms.
+The faster the part can be demolded, the faster is can be reused, increasing the output capacity.
+On the other hand, the part must not be demolded too early, as it might get damaged while being moved.
+To approximate the minimal time of demolding, a constraint is formulated, comparing the von Mises stress to the compressive strength of the concrete and a Rankine criterion with the yield strength of steel for the tension region. 
+This aims to approximate the effect of reinforcement steel under tension.
+As boundary conditions a simply supported beam under it own weight has been chosen, to approximate possible loading condition while the part is moved.
+
+
+
+
+
+to be continued....
+
+
+
 Things to explain and visualize concrete model etc.
 further details in \ref{appendix:fem}

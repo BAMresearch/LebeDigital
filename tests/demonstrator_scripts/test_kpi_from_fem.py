@@ -25,7 +25,7 @@ def test_kpi_from_fem():
 
     assert results["max_reached_temperature"].magnitude == 80
     assert results["time_max_reached_temperature"].magnitude == 20
-    assert results["check_reached_temperature"].magnitude == -10
+    assert results["check_reached_temperature"].magnitude == -0.14285714285714285
     assert results["time_of_demolding"].magnitude == 15
 
 
@@ -46,5 +46,5 @@ def test_kpi_from_fem_extrapolate():
 
     assert results["max_reached_temperature"].magnitude == pytest.approx(130)
     assert results["time_max_reached_temperature"].magnitude == pytest.approx(30)
-    assert results["check_reached_temperature"].magnitude == pytest.approx(-60)
+    assert results["check_reached_temperature"].magnitude == pytest.approx(-0.8571428571428571)
     assert results["time_of_demolding"].magnitude == pytest.approx(30)

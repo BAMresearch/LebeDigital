@@ -1,24 +1,32 @@
 % This file is generated automatically by py_macros.py
 \newcommand{\inputhydrationphi}{1}
 \newcommand{\inputhydrationphiunit}{dimensionless}
-\newcommand{\inputsteelyield}{500.0}
-\newcommand{\inputsteelyieldunit}{N/mm^2}
-\newcommand{\inputaggregatesvolumefraction}{0.5}
+\newcommand{\inputaggregatesvolumefraction}{0.7}
 \newcommand{\inputaggregatesvolumefractionunit}{dimensionless}
-\newcommand{\inputgwpsteel}{1000}
-\newcommand{\inputgwpsteelunit}{kg_CO2_eq/m**3}
 \newcommand{\inputwbmassratio}{0.5}
 \newcommand{\inputwbmassratiounit}{dimensionless}
-\newcommand{\inputheight}{500.0}
+\newcommand{\inputheight}{700.0}
 \newcommand{\inputheightunit}{mm}
 \newcommand{\inputlength}{10.0}
 \newcommand{\inputlengthunit}{m}
-\newcommand{\inputwidth}{0.5}
-\newcommand{\inputwidthunit}{m}
-\newcommand{\inputdistributedload}{0.0}
-\newcommand{\inputdistributedloadunit}{N/mm}
-\newcommand{\inputpointload}{36000.0}
-\newcommand{\inputpointloadunit}{N}
+\newcommand{\inputwidth}{35}
+\newcommand{\inputwidthunit}{cm}
+\newcommand{\inputsafetyfactorpermanent}{1.35}
+\newcommand{\inputsafetyfactorpermanentunit}{}
+\newcommand{\inputsafetyfactorvariable}{1.5}
+\newcommand{\inputsafetyfactorvariableunit}{}
+\newcommand{\inputpointloadpermanent}{0.0}
+\newcommand{\inputpointloadpermanentunit}{N}
+\newcommand{\inputpointloadvariable}{0.0}
+\newcommand{\inputpointloadvariableunit}{N}
+\newcommand{\inputdistributedloadpermanent}{15.0}
+\newcommand{\inputdistributedloadpermanentunit}{kN/m}
+\newcommand{\inputdistributedloadvariable}{20.0}
+\newcommand{\inputdistributedloadvariableunit}{kN/m}
+\newcommand{\inputalphamixone}{0.74}
+\newcommand{\inputalphamixoneunit}{dimensionless}
+\newcommand{\inputalphamixtwo}{0.54}
+\newcommand{\inputalphamixtwounit}{dimensionless}
 \newcommand{\inputfulltime}{6}
 \newcommand{\inputfulltimeunit}{h}
 \newcommand{\inputtimestep}{20}
@@ -39,46 +47,58 @@
 \newcommand{\inputafcunit}{dimensionless}
 \newcommand{\inputaft}{1.2}
 \newcommand{\inputaftunit}{dimensionless}
-\newcommand{\inputTzero}{10}
+\newcommand{\inputTzero}{20}
 \newcommand{\inputTzerounit}{degree_Celsius}
-\newcommand{\inputTbcone}{15}
+\newcommand{\inputTbcone}{20}
 \newcommand{\inputTbconeunit}{degree_Celsius}
+\newcommand{\inputgwpsteel}{1.42}
+\newcommand{\inputgwpsteelunit}{kg_CO2_eq/kg}
+\newcommand{\inputdensitysteel}{7850}
+\newcommand{\inputdensitysteelunit}{kg/m^3}
+\newcommand{\inputsteelyield}{300.0}
+\newcommand{\inputsteelyieldunit}{MPa}
 \newcommand{\inputconcretecover}{2.5}
 \newcommand{\inputconcretecoverunit}{cm}
 \newcommand{\inputstirrupsdiameter}{10.0}
 \newcommand{\inputstirrupsdiameterunit}{mm}
-\newcommand{\inputscmassfraction}{0.8}
+\newcommand{\inputscmassfraction}{0.5}
 \newcommand{\inputscmassfractionunit}{dimensionless}
-\newcommand{\inputtemperaturelimit}{70}
+\newcommand{\inputtemperaturelimit}{60}
 \newcommand{\inputtemperaturelimitunit}{degree_Celsius}
-\newcommand{\inputgwpslag}{3}
+\newcommand{\inputgwpslag}{0.18}
 \newcommand{\inputgwpslagunit}{kg_CO2_eq/kg}
-\newcommand{\inputdensitysub}{840}
+\newcommand{\inputdensitysub}{2850}
 \newcommand{\inputdensitysubunit}{kg/m^3}
-\newcommand{\inputgwpcement}{10}
+\newcommand{\inputsubc}{780}
+\newcommand{\inputsubcunit}{J/kg/K}
+\newcommand{\inputgwpcement}{0.95}
 \newcommand{\inputgwpcementunit}{kg_CO2_eq/kg}
-\newcommand{\inputdensitycem}{1.44}
-\newcommand{\inputdensitycemunit}{g/cm^3}
-\newcommand{\inputpastenu}{0.2}
+\newcommand{\inputdensitycem}{3100}
+\newcommand{\inputdensitycemunit}{kg/m^3}
+\newcommand{\inputpastenu}{0.26}
 \newcommand{\inputpastenuunit}{dimensionless}
-\newcommand{\inputpasteC}{870}
-\newcommand{\inputpasteCunit}{J/kg/K}
-\newcommand{\inputpastekappa}{1.8}
+\newcommand{\inputcementC}{800}
+\newcommand{\inputcementCunit}{J/kg/K}
+\newcommand{\inputpastekappa}{1.15}
 \newcommand{\inputpastekappaunit}{W/m/K}
-\newcommand{\inputgwpaggregates}{1}
+\newcommand{\inputgwpaggregates}{0.025}
 \newcommand{\inputgwpaggregatesunit}{kg_CO2_eq/kg}
-\newcommand{\inputdensityaggregates}{1.5}
-\newcommand{\inputdensityaggregatesunit}{kg/m^3}
-\newcommand{\inputaggregatesE}{25e9}
-\newcommand{\inputaggregatesEunit}{Pa}
-\newcommand{\inputaggregatesnu}{0.3}
+\newcommand{\inputdensityaggregates}{2.7}
+\newcommand{\inputdensityaggregatesunit}{kg/dm^3}
+\newcommand{\inputaggregatesE}{65}
+\newcommand{\inputaggregatesEunit}{GPa}
+\newcommand{\inputaggregatesnu}{0.25}
 \newcommand{\inputaggregatesnuunit}{dimensionless}
-\newcommand{\inputaggregatesC}{840}
+\newcommand{\inputaggregatesC}{800}
 \newcommand{\inputaggregatesCunit}{J/kg/K}
-\newcommand{\inputaggregateskappa}{0.8}
+\newcommand{\inputaggregateskappa}{3.1}
 \newcommand{\inputaggregateskappaunit}{W/m/K}
-\newcommand{\inputdensitywater}{977}
+\newcommand{\inputdensitywater}{998}
 \newcommand{\inputdensitywaterunit}{kilogram / meter ** 3}
+\newcommand{\inputwaterC}{3800}
+\newcommand{\inputwaterCunit}{J/kg/K}
+\newcommand{\inputgwpwater}{0.000133}
+\newcommand{\inputgwpwaterunit}{kg_CO2_eq/kg}
 \newcommand{\resultsgwpmix}{249.60608514577171}
 \newcommand{\resultsgwpmixunit}{GWP / meter ** 3}
 \newcommand{\resultsscvolumefraction}{0.5210084033613446}
@@ -91,14 +111,14 @@
 \newcommand{\resultssubvolfractionunit}{dimensionless}
 \newcommand{\resultscemvolfraction}{0.05775971190880723}
 \newcommand{\resultscemvolfractionunit}{dimensionless}
-\newcommand{\resultscemvolcontent}{179.05510691730242}
-\newcommand{\resultscemvolcontentunit}{kilogram / meter ** 3}
-\newcommand{\resultssubvolcontent}{179.05510691730242}
-\newcommand{\resultssubvolcontentunit}{kilogram / meter ** 3}
-\newcommand{\resultswatervolcontent}{179.05510691730242}
-\newcommand{\resultswatervolcontentunit}{kilogram / meter ** 3}
-\newcommand{\resultsaggregatesvolcontent}{1889.9999999999998}
-\newcommand{\resultsaggregatesvolcontentunit}{kilogram / meter ** 3}
+\newcommand{\resultscemmasspercubicmeterconcrete}{179.05510691730242}
+\newcommand{\resultscemmasspercubicmeterconcreteunit}{kilogram / meter ** 3}
+\newcommand{\resultssubmasspercubicmeterconcrete}{179.05510691730242}
+\newcommand{\resultssubmasspercubicmeterconcreteunit}{kilogram / meter ** 3}
+\newcommand{\resultswatermasspercubicmeterconcrete}{179.05510691730242}
+\newcommand{\resultswatermasspercubicmeterconcreteunit}{kilogram / meter ** 3}
+\newcommand{\resultsaggregatesmasspercubicmeterconcrete}{1889.9999999999998}
+\newcommand{\resultsaggregatesmasspercubicmeterconcreteunit}{kilogram / meter ** 3}
 \newcommand{\resultsdensitypaste}{1790.5510691730242}
 \newcommand{\resultsdensitypasteunit}{kilogram / meter ** 3}
 \newcommand{\resultsE}{58430217002.64642}
@@ -107,7 +127,7 @@
 \newcommand{\resultsnuunit}{dimensionless}
 \newcommand{\resultsfc}{37057200.717571355}
 \newcommand{\resultsfcunit}{pascal}
-\newcommand{\resultsC}{2903231.8189914413}
+\newcommand{\resultsC}{2475316.475215087}
 \newcommand{\resultsCunit}{joule / kelvin / meter ** 3}
 \newcommand{\resultsrho}{2427.165320751907}
 \newcommand{\resultsrhounit}{kilogram / meter ** 3}
@@ -117,7 +137,7 @@
 \newcommand{\resultsQunit}{joule / meter ** 3}
 \newcommand{\resultsmaxdegreeofhydration}{0.7427953890489913}
 \newcommand{\resultsmaxdegreeofhydrationunit}{dimensionless}
-\newcommand{\resultsgwpbeam}{1151.524396536704}
+\newcommand{\resultsgwpbeam}{1031.766908321926}
 \newcommand{\resultsgwpbeamunit}{GWP}
 \newcommand{\resultsalphattwentyeightd}{0.6357983193277311}
 \newcommand{\resultsalphattwentyeightdunit}{dimensionless}
@@ -135,21 +155,25 @@
 \newcommand{\resultsQpotunit}{joule / kilogram}
 \newcommand{\resultsTref}{25}
 \newcommand{\resultsTrefunit}{degree_Celsius}
-\newcommand{\resultsnreinforcement}{2}
+\newcommand{\resultsnreinforcement}{3.0}
 \newcommand{\resultsnreinforcementunit}{dimensionless}
-\newcommand{\resultsreinforcementdiameter}{55.533329660736946}
+\newcommand{\resultsreinforcementdiameter}{40.0}
 \newcommand{\resultsreinforcementdiameterunit}{millimeter}
-\newcommand{\resultsconstraintbeamdesign}{-0.07532568521879687}
+\newcommand{\resultsconstraintbeamdesign}{-0.04430083780876914}
 \newcommand{\resultsconstraintbeamdesignunit}{dimensionless}
-\newcommand{\resultspasteC}{2589.9509243151406}
+\newcommand{\resultspasteC}{1793.333333333333}
 \newcommand{\resultspasteCunit}{joule / kelvin / kilogram}
+\newcommand{\resultsdistributedload}{50.25}
+\newcommand{\resultsdistributedloadunit}{kilonewton / meter}
+\newcommand{\resultspointload}{0.0}
+\newcommand{\resultspointloadunit}{newton}
 \newcommand{\resultstimeofdemolding}{6.333333342193561}
 \newcommand{\resultstimeofdemoldingunit}{hour}
-\newcommand{\resultsmaxreachedtemperature}{22.477013097639055}
+\newcommand{\resultsmaxreachedtemperature}{22.7102813466161}
 \newcommand{\resultsmaxreachedtemperatureunit}{degree_Celsius}
 \newcommand{\resultstimemaxreachedtemperature}{6.333333342193561}
 \newcommand{\resultstimemaxreachedtemperatureunit}{hour}
-\newcommand{\resultscheckreachedtemperature}{37.52298690236094}
+\newcommand{\resultscheckreachedtemperature}{37.2897186533839}
 \newcommand{\resultscheckreachedtemperatureunit}{delta_degree_Celsius}
 \newcommand{\resultspasteE}{45.63025210084034}
 \newcommand{\resultspasteEunit}{gigapascal}

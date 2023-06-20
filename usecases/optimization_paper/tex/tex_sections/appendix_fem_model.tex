@@ -121,8 +121,7 @@ For now we will assume $\strengthXInf$ to be a fitting parameter as well.
 Hopefully a functional relation of the standardized $\strengthX_{28}$ values and the ultimate value can be approximated.
 To write \eqref{eq:mechanics-hydration} in terms of the compressive strength $\fc$ and the tensile strength $\ft$
 \begin{align}
-	\fc(\DOH) = \DOH(\zeit)^{\strengthCExp} \fcInf\\
-	\ft(\DOH) = \DOH(\zeit)^{\strengthTExp} \ftInf\\
+	\fc(\DOH) = \DOH(\zeit)^{\strengthCExp} \fcInf \label{eq:fcwrtDOH}
 \end{align}
 The publication assumes for their "C1" mix values of  $\fcInf = 62.1$ MPa , $\strengthCExp = 1.2$,$\ftInf = 4.67$ MPa , $\strengthTExp = 1.0$.
 
@@ -136,7 +135,7 @@ Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assum
 		& \text{for $\DOH < \DOHt$}\\
 		\eModInf  \left( \frac{\DOH(t)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
 		& \text{for $\DOH \ge \DOHt$}
-	\end{cases}
+	\end{cases}\label{eq:EwrtDOH}
 \end{align}
 Values of $\DOHt$ are assumed to be between 0.1 and 0.2.
 For the mix "C1" $\DOHt = 0.09$, $\DOHZero = 0.06$, $\eModInf = 54.2$ MPa, $\stiffExp = 0.4$.
