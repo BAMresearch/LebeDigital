@@ -66,8 +66,8 @@ def placeholderreplacement(kgPath, metadataPath):
     metadata = unit_conversion(metadata)
     keys = list(metadata.keys())  
 
-    # generate ID
-    specimenID = str(uuid.uuid4())
+    # import ID from metadata to append to all instances
+    metadataID = metadata["ID"]
 
     # read in the KG template as text linewise, creating a list of lines
     with open(kgPath, 'r') as file:
@@ -104,24 +104,18 @@ def placeholderreplacement(kgPath, metadataPath):
                 # some keys below
                 key_ = key + "_ "
                 if key_ in lines[i]:
-                    lines[i] = lines[i].replace(key_, key + "_" + str(specimenID) + " ")
+                    lines[i] = lines[i].replace(key_, key + "_" + str(metadataID) + " ")
 
 
             # append the specimen-ID name to the exceptions 
             if "_," in lines[i]:
                 #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
                 #             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')    
-                lines[i] = lines[i].replace("_,", "_" + str(specimenID) + ",")
+                lines[i] = lines[i].replace("_,", "_" + str(metadataID) + ",")
             if "_ " in lines[i]:
                 #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
                 #             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
-                lines[i] = lines[i].replace("_ ", "_" + str(specimenID) + " ")
-
-
-            # ID-key is not given by metadata but created in this script, so map it now:
-            if generate_placeholder("SpecimenID") in lines[i]:
-                    logger.debug('Found placeholder "' + generate_placeholder("SpecimenID")+ '".')
-                    lines[i] = lines[i].replace(generate_placeholder("SpecimenID"), str(specimenID))
+                lines[i] = lines[i].replace("_ ", "_" + str(metadataID) + " ")
 
 
     ############################ L O G G I N G #############################        
