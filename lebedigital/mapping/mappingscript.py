@@ -71,6 +71,7 @@ def placeholderreplacement(kgPath, metadataPath):
     metadata = unit_conversion(metadata)
     keys = list(metadata.keys())
     keys_unit = [i for i in keys if "_Unit" in i]
+    keys_value = [i for i in keys if i not in keys_unit]
 
     # import ID from metadata to append to all instances
     metadataID = metadata["ID"]
@@ -98,13 +99,13 @@ def placeholderreplacement(kgPath, metadataPath):
                 kgPHcounter.append(ph)
 
             # iterate through list of metadata-keys
-            for key in keys:
+            for key in keys_value:
 
                 placeholder = generate_placeholder(key)
 
                 # if placeholder is in line, replace it with metadata
                 if placeholder in lines[i]:
-                    logger.debug('Found placeholder "' + placeholder + '" for key "' \
+                    logger.debug('Found value placeholder "' + placeholder + '" for key "' \
                                  + key + '" with value "' + str(metadata[key]) + '".')
                     lines[i] = lines[i].replace(placeholder, str(metadata[key]))
                     usedKeys.append(key)
@@ -123,7 +124,7 @@ def placeholderreplacement(kgPath, metadataPath):
 
                 # if placeholder is in line, replace it with unit
                 if placeholder_unit in lines[i]:
-                    logger.debug('Found placeholder "' + placeholder_unit + '" for key "' \
+                    logger.debug('Found unit placeholder "' + placeholder_unit + '" for key "' \
                                  + key + '" with value "' + str(metadata[key]) + '".')
                     replace = lines[i].replace(">", "<")
                     replace = replace.split("<")[1]
@@ -155,7 +156,7 @@ def placeholderreplacement(kgPath, metadataPath):
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
     if len(unusedKeys) > 0:
-        logger.warning('Mapped only ' + str(len(usedKeys)) + ' keys to the KG template.')
+        logger.warning('Mapped ' + str(len(usedKeys)) + ' keys to the KG template.')
         logger.warning(usedKeys)
         logger.warning('The following ' + str(len(unusedKeys)) + ' of ' + str(len(keys)) \
                      + ' metadata keys have not been mapped: ')
@@ -166,9 +167,9 @@ def placeholderreplacement(kgPath, metadataPath):
     # for placeholders
     if len(remainingPH) > 0:
         logger.warning('File has ' + str(len(kgPHcounter)) + ' placeholders.')
-        logger.warning('The following ' + str(len(remainingPH)) + ' of ' + str(len(kgPHcounter)) \
+        logger.warning('The following ' + str(len(list(set(remainingPH)))) + ' of ' + str(len(kgPHcounter)) \
                     + ' placeholders did not receive a metadata value: ')
-        logger.warning(remainingPH)
+        logger.warning(list(set(remainingPH)))
     else:
         logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template received metadata.')
 
