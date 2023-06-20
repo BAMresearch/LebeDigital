@@ -113,6 +113,10 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_emodule['TransducerColumn'] = [1,2,3]
         metadata_emodule['MeasuringGauge_Unit'] = "mm"  # Transducer messen eine Verschiebung.
 
+        # set extensometer gauge length
+        metadata_emodule['ExtensometerLength'] = 100
+        metadata_emodule['ExtensometerLength_Unit'] = "mm"
+
         metadata_emodule['EModule_Value_Unit'] = None
 
         # set paths
