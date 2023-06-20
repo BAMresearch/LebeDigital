@@ -133,6 +133,10 @@
 \newcommand{\activE}{E_{\text{a}}}
 \newcommand{\gasConst}{R}
 \newcommand{\wc}{r_{\text{wc}}}
+\newcommand{\stressInvariant}{I}
+\newcommand{\firstStressInvariant}{\stressInvariant_{1}}
+\newcommand{\secondStressInvariant}{\stressInvariant_{2}}
+\newcommand{\principalStressTension}{\bsigma_{\text{t}}'}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % beam design vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,8 +148,10 @@
 \newcommand{\beamHeight}{h}
 \newcommand{\beamWidth}{b}
 \newcommand{\beamHeightEff}{\beamHeight_{\text{eff}}}
+\newcommand{\beamWidthEff}{\beamWidth_{\text{eff}}}
 \newcommand{\beamCover}{c}
 \newcommand{\beamSteelDiameter}{d}
+\newcommand{\beamSteelDiameterMax}{d_{\text{max}}}
 \newcommand{\beamSteelDiameterStirrups}{d_{\text{st}}}
 \newcommand{\beamConcreteSF}{\gamma_{\text{c}}}
 \newcommand{\beamSteelSF}{\gamma_{\text{s}}}
@@ -157,7 +163,9 @@
 \newcommand{\beamK}{\mu}
 \newcommand{\beamSteelReq}{A_{\text{s,req}}}
 \newcommand{\beamSteelProv}{A_{\text{s,prov}}}
+\newcommand{\beamSteelMax}{A_{\text{s,max}}}
 \newcommand{\beamNSteel}{n_{\text{s}}}
+\newcommand{\beamNSteelMax}{n_{\text{s,max}}}
 \newcommand{\beamForceConcrete}{F_{\text{cd}}}
 \newcommand{\constraint}{\mathcal{C}}
 \newcommand{\beamConstraintFc}{\constraint_{\text{fc}}}
@@ -165,6 +173,8 @@
 \newcommand{\beamMinSpacing}{s_{\text{min}}}
 \newcommand{\FEMConstraintT}{\constraint_{\text{T}}}
 \newcommand{\FEMConstraintStress}{\constraint_{\stress}}
+\newcommand{\FEMConstraintDP}{\constraint_{\text{DP}}}
+\newcommand{\FEMConstraintRK}{\constraint_{\text{RK}}}
 
 
 

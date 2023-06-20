@@ -43,8 +43,8 @@ def test_beam_design_constraint():
         cover_min=5 * ureg("cm"),
     )
 
-    assert results["constraint_min_fc"].magnitude < 0.0
-    assert results["constraint_max_steel_area"].magnitude < 0.0
+    assert results["constraint_min_fc"].magnitude > 0.0
+    assert results["constraint_max_steel_area"].magnitude > 0.0
 
 
 def test_beam_design_cover():

@@ -123,7 +123,7 @@ def kpi_from_fem(df, limit_temp):
 
     # difference between limit temp and reached maximum
     results["check_reached_temperature"] = (
-        (limit_temp.magnitude - results["max_reached_temperature"].magnitude) / limit_temp.magnitude
+        (results["max_reached_temperature"].magnitude - limit_temp.magnitude) / limit_temp.magnitude
     ) * ureg("dimensionless")
 
     return results

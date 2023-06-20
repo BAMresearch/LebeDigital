@@ -127,7 +127,7 @@ def beam_required_steel(
     else:
         mued_eff = mued
 
-    fc_constraint = 0.5 - mued
+    fc_constraint = mued - 0.5
 
     xi = 0.5 * (1 + math.sqrt(1 - 2 * mued_eff))
     req_steel = 1 / fywd * max_moment / (xi * deff)
@@ -245,16 +245,16 @@ def check_beam_design(
 
         # set constraints
         discrete_reinforcement["constraint_min_fc"] = fc_error
-        discrete_reinforcement["constraint_max_steel_area"] = (max_reinforcement - required_area) / max_reinforcement
+        discrete_reinforcement["constraint_max_steel_area"] = (required_area - max_reinforcement) / max_reinforcement
 
         # combined constraint
         if (
-            discrete_reinforcement["constraint_min_fc"] < 0.0
-            or discrete_reinforcement["constraint_max_steel_area"] < 0.0
+            discrete_reinforcement["constraint_min_fc"] > 0.0
+            or discrete_reinforcement["constraint_max_steel_area"] > 0.0
         ):
-            sign = -1
-        else:
             sign = 1
+        else:
+            sign = -1
 
         discrete_reinforcement["constraint_beam_design"] = (
             sign

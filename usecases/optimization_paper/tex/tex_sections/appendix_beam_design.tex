@@ -35,16 +35,57 @@ The minimum required steel $\beamSteelReq$ is then computed based on the lever a
 \subsubsection{Compressive strength constraint}
 Based on Eq. \ref{eq:compr_str_constr}, we define the compressive strength constraint as
 \begin{align}
-	\beamConstraintFc = 0.5 - \beamK, 
+	\beamConstraintFc = \beamK - 0.5, 
 \end{align}
-where $\beamConstraintFc < 0$ is not admissible, as there is no solution for \ref{eq:compr_str_constr}.
+where $\beamConstraintFc > 0$ is not admissible, as there is no solution for \ref{eq:compr_str_constr}.
 \subsubsection{Geometrical constraint}
 For our simplified example, we assume the steel reinforcement is only arrange in one layer.
 According to \citeauthor{DIN1992-1-1}, the minimum spacing between two bars $\beamMinSpacing$ is given by
 \begin{equation}
-	\beamMinSpacing = \min
+	\beamMinSpacing = \max
 	\begin{cases}
 		\inputconcretecover \,\text{\inputconcretecoverunit}\\
 		$\beamSteelDiameter$
 	\end{cases}       
 \end{equation}
+Effective width
+\begin{equation}
+	\beamWidthEff = \beamWidth - 2 \beamMinSpacing - 2 \beamSteelDiameterStirrups
+\end{equation}
+Find max number for steel bars $\beamNSteelMax$ and maximal diameter $\beamSteelDiameterMax$ for a given list of admissible diameters that fulfill
+\begin{equation}
+	s \ge \beamMinSpacing,\quad\text{with}\quad s = \frac{\beamWidthEff - \beamNSteelMax \beamSteelDiameterMax}{\beamNSteelMax - 1} \quad\text{and}\quad \beamNSteelMax \ge 2
+\end{equation}
+The maximum possible reinforcement is given by
+\begin{equation}
+	\beamSteelMax = \beamNSteel \pi \left( \frac{\beamSteelDiameter}{2}\right)^{2}
+\end{equation}
+The geometry constraint is computed as
+\begin{equation}
+	\beamConstraintGeometry = \frac{\beamSteelReq - \beamSteelMax}{\beamSteelMax}
+\end{equation}
+where $\beamConstraintGeometry > 0$ is not admissible, as the required steel area exceeds the available space.
+To simplify the optimization procedure, the two constraints are combined into one
+
+\begin{equation}
+	\beamConstraintBeam = \beamConstraintGeometry * \beamConstraintFc
+\end{equation}
+
+
+
+
+-....%\beamSteelReq
+
+
+....
+
+The maximum ....
+
+
+required area  - max steel area / max area (reinforcement)
+
+
+FINISH THIS!!!!!
+
+
+
