@@ -515,6 +515,13 @@
                                                                                                                                                            "nan"@en .
 
 
+###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/DeterminationOfHeatOfHydration
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/DeterminationOfHeatOfHydration> rdf:type owl:Class ;
+                                                                                                            rdfs:subClassOf <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/MeasuringNode> ;
+                                                                                                            rdfs:label "Determination of Compressive Strength"@en ,
+                                                                                                                       "Druckfestigkeitspruefung"@de .
+
+
 ###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/DeterminationOfSecantModulusOfElasticity
 <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/DeterminationOfSecantModulusOfElasticity> rdf:type owl:Class ;
                                                                                                                       rdfs:subClassOf <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/MeasuringNode> ;
@@ -766,6 +773,21 @@ vgl: environmental actions"""@en ;
                                                                                                                                      "Concrete which is in a solid state and which has developed a certain strength."@en ;
                                                                                               <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
                                                                                                                                          "DIN EN 206"@en .
+
+
+###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/Heat
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/Heat> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> .
+
+
+###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/HeatFlow
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/HeatFlow> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/Heat> .
+
+
+###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/HeatOfHydration
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/HeatOfHydration> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> .
 
 
 ###  http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/HeavyWeightAggregate

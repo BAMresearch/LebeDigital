@@ -29,8 +29,6 @@ co:characteristic a owl:ObjectProperty .
 
 co:input a owl:ObjectProperty .
 
-co:jsonPath a owl:DatatypeProperty .
-
 co:output a owl:ObjectProperty .
 
 co:process a owl:ObjectProperty .
@@ -57,8 +55,8 @@ co:value a owl:DatatypeProperty .
 
 ns1:CompressionForce_ a owl:NamedIndividual,
         co:MaximumForce ;
-    co:jsonPath "$$CompressionColumn_Value$$"^^xsd:string ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> .
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> ;
+    co:value "$$CompressionColumn_Value$$"^^xsd:string .
 
 ns1:Computation_ a owl:NamedIndividual,
         co:ComputingNode .
@@ -76,6 +74,8 @@ ns1:ExperimentDate_ a owl:NamedIndividual,
 
 ns1:ExperimentInfo_ a ns1:DeterminationOfSecantModulusOfElasticity,
         owl:NamedIndividual ;
+    co:input ns1:OpenBisDataFile_,
+        ns1:RawDataFile_ ;
     co:output ns1:CompressionForce_,
         ns1:ExperimentDate_,
         ns1:ExtensometerGaugeLength_,
@@ -110,9 +110,8 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
-    ns4:hasIdentifier ns1:ID_ ;
-    co:input ns1:OpenBisDataFile_,
-        ns1:RawDataFile_ ;
+    ns4:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
     co:output ns1:ExperimentInfo_ ;
     co:process ns1:Computation_ ;
     co:resource ns1:DINEN12390-13:2021 ;
@@ -132,8 +131,12 @@ ns1:SpecimenID_ a owl:NamedIndividual,
 
 ns1:Transducer_ a owl:NamedIndividual,
         co:Extension ;
-    co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> .
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> ;
+    co:value "$$TransducerColumn_Value$$"^^xsd:string .
+
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 co:ComputingNode a owl:Class .
 
@@ -151,6 +154,7 @@ co:ModulusOfElasticity a owl:Class .
 
 co:Specimen a owl:Class .
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 con:SpecimenAge_ a con:Age,
         owl:NamedIndividual ;
@@ -204,6 +208,13 @@ cco:NonNameIdentifier a owl:Class .
 
 ns3:PmdSiUnit a owl:Class .
 =======
+ns3:Unit a owl:Class .
+>>>>>>> Knowledge_Graphs_Update
+=======
+co:Dataset a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
+
 ns3:Unit a owl:Class .
 >>>>>>> Knowledge_Graphs_Update
 
