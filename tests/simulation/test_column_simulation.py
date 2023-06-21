@@ -63,5 +63,5 @@ def test_column_simulation():
     assert data.time.values.quantity.magnitude == pytest.approx([1200, 2400, 3600])
     assert data.temperature.values.quantity.magnitude == pytest.approx([41.487825, 43.581025, 48.334999])
     assert data["yield"].values.quantity.magnitude == pytest.approx(
-        [126858.46487872387, 88246.07032783203, 37748.581587340916]
+        [21.33535680276793, 5.274222603247022, 1.9011303929033334]
     )

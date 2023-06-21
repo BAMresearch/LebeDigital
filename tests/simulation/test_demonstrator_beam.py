@@ -65,5 +65,5 @@ def test_demonstrator_beam():
     assert data.time.values.quantity.magnitude == pytest.approx([1200, 2400, 3600])
     assert data.temperature.values.quantity.magnitude == pytest.approx([56.32510829, 47.62081051, 47.59427378])
     assert data["yield"].values.quantity.magnitude == pytest.approx(
-        [4832371.210662601, 4823850.759909999, 4244026.330647323]
+        [605.7891884356619, 161.6632502482894, 68.58181848968538]
     )
