@@ -102,7 +102,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Check for missing labels; the following labels should exist (except 
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
         default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
-                        'Luftgehalt', 'Zusatzmittel', 'Zuschlag (gesamt)'] 
+                        'Luftgehalt', 'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff']
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
             logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
@@ -184,15 +184,15 @@ def extract_metadata_mixdesign(locationOfRawData):
             logger.error('Okrilla/aggregate not included in yaml-file')
 
 
-        # # Addition data ('Zusatzstoff') 1
-        # if 'Zusatzstoff1' not in missing_labels:
-        #     idx = labelidx['Zusatzstoff1']
-        #     metadata['addition1--QuantityInMix'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-        #     metadata['addition1--BulkDensity'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-        #     metadata['addition1--Volume'] = float(replace_comma(str(exceltodf.iat[idx, 6])))
-        #     no_empty_annotation('addition1')
-        # else:
-        #     logger.error('addition1 not included in yaml-file')
+        # Addition data ('Zusatzstoff')
+        if 'Zusatzstoff' not in missing_labels:
+            idx = labelidx['Zusatzstoff']
+            metadata['Addition_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Addition_Content_Unit'] = 'kg/m^3'
+            metadata['Addition_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Addition_Density_Unit'] = 'kg/dm^3'
+        else:
+            logger.error('addition not included in yaml-file')
 
 
         return metadata
