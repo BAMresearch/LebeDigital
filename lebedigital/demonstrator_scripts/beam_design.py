@@ -247,19 +247,8 @@ def check_beam_design(
         discrete_reinforcement["constraint_min_fc"] = fc_error
         discrete_reinforcement["constraint_max_steel_area"] = (required_area - max_reinforcement) / max_reinforcement
 
-        # combined constraint
-        if (
-            discrete_reinforcement["constraint_min_fc"] > 0.0
-            or discrete_reinforcement["constraint_max_steel_area"] > 0.0
-        ):
-            sign = 1
-        else:
-            sign = -1
-
-        discrete_reinforcement["constraint_beam_design"] = (
-            sign
-            * abs(discrete_reinforcement["constraint_min_fc"])
-            * abs(discrete_reinforcement["constraint_max_steel_area"])
+        discrete_reinforcement["constraint_beam_design"] = max(
+            discrete_reinforcement["constraint_min_fc"], discrete_reinforcement["constraint_max_steel_area"]
         )
 
         if beam_check_spacing(diameter, nsteel, steel_dia_bu, width, cover):
