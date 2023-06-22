@@ -75,7 +75,7 @@ phi_paste_path = Input_path + 'phi_paste.json'
 X = {'agg_ratio': 0.6, 'slag_ratio': 0.4}
 seed = 5
 
-
+# The below is not in use, and can be safely removed.
 def function(X: dict, seed: int) -> dict:
     """
     Runs the snakemake workflow and the returns the KPIs for objective and constraints for a given value of the design
@@ -415,9 +415,12 @@ if optimization:
             x_1 = q_x_1.sample()
 
             # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y))
-            x_1_scaled = th.special.expit(x_1)
+            #x_1_scaled = th.special.expit(x_1)
+            # TODO: ugly hardcoded, improve it
+            x_1_scaled_back = x_1.item()*(350.0 - 160.0) + 160.0 # = x_scaled*(x_max-x_min) +x_min
             x_2_scaled = th.special.expit(x_2)
-            X_tmp[i,0] = x_1_scaled.item()
+            #X_tmp[i,0] = x_1_scaled.item()
+            X_tmp[i, 0] = x_1_scaled_back  # since height need not be scaled.
             X_tmp[i,1] = x_2_scaled.item()
         # save the seed and the design varuables
         np.save('./seed_tmp.npy', np.array(seed_tmp))
@@ -458,8 +461,8 @@ if optimization:
             # demoulding time
             G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
             # TODO: X_tmp[i,0] below is temp for aggregate ratio.
-            G_x_4 = th.max(th.as_tensor(X_tmp[i,0]) - max_agg_ratio, th.tensor(0))
-            constraints = G_x_1 + G_x_2 + G_x_3 + G_x_4
+            #G_x_4 = th.max(th.as_tensor(X_tmp[i,0]) - max_agg_ratio, th.tensor(0))
+            constraints = G_x_1 + G_x_2 + G_x_3 #+ G_x_4
 
             # with constraints
             c_o = 0.0001  # objective scaling
@@ -488,12 +491,6 @@ if optimization:
             C_3_mean = np.sum(np.stack(C_3_holder)) / num_samples
         assert U_theta.requires_grad == True
         return U_theta, U_theta_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, np.std(X_tmp,axis=0)
-
-
-
-
-
-
 
     # check
     # sigma = th.tensor([1.])
@@ -593,15 +590,16 @@ if optimization:
 if __name__ == '__main__':
     # x = 1/(1+e^(-y)), where y is the gaussian. so y = ln(x/(1-x)). So y mean and sd needs to be init by this.
 
-    x1_init = th.special.logit(th.tensor([0.25]))
-    x2_init = th.special.logit(th.tensor([0.35]))
+    #x1_init = th.special.logit(th.tensor([0.25]))
+    x1_scaled_init = (280.0 - 160.0)/(350.0 - 160.0) # (x - x-min) / (x_max - x_min)
+    x2_init = th.special.logit(th.tensor([0.60]))
 
-    design_variables = {'x_1': {'mean': [x1_init.item()] ,'s.d': [0.5]},
-                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.5]}}
+    design_variables = {'x_1': {'mean': [x1_scaled_init] ,'s.d': [0.4]},
+                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.4]}}
 
     #design_variables = {'x_1': {'mean': [0.25] ,'s.d': [0.5]},
     #                    'x_2': {'mean': [0.35] ,'s.d': [0.5]}}
-    df = optimize(design_variables,lr =0.1,number_steps=120,number_samples=125)
+    df = optimize(design_variables,lr =0.1,number_steps=120,number_samples=100) # 120 step, 125 sample,
     df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 
     # mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])

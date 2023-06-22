@@ -2,8 +2,8 @@
 #SBATCH --job-name=LBD_optimization
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=2
-#SBATCH --partition=batch_SNB,batch_SKL
+#SBATCH --cpus-per-task=3
+#SBATCH --partition=batch_SKL,batch_SNB
 #SBATCH --array=1-100
 #SBATCH --output=slurm-%A_%a.out
 

@@ -19,7 +19,9 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
     # The design variables, aggregate ratio and the slag ratio needs to be updated.
 
     #TODO: the below is hardcoded. fixit
-    design_var_paths = {'aggregates_volume_fraction': workflow_path +'/Inputs/aggregates_volume_fraction.json',
+    #design_var_paths = {'aggregates_volume_fraction': workflow_path +'/Inputs/aggregates_volume_fraction.json',
+    #                    'sc_volume_fraction': workflow_path + '/Inputs/sc_fraction.json'}
+    design_var_paths = {'height': workflow_path + '/Inputs/geometry.json',
                         'sc_volume_fraction': workflow_path + '/Inputs/sc_fraction.json'}
 
     for key, value in X.items():
@@ -51,8 +53,9 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
     # return the KPIs
     #TODO: this is specific to the constraints and objective choosen. careful
     kpi = {
-        "gwp_mix": y["gwp_mix"]["value"],
-        "check_steel_area": y["check_steel_area"]["value"],
+        "gwp_beam": y["gwp_beam"]["value"],
+       # "check_steel_area": y["check_steel_area"]["value"],
+        "constraint_beam_design": y["constraint_beam_design"]["value"],
         "max_reached_temperature": y["max_reached_temperature"]["value"],
         "time_of_demoulding": y["time_of_demolding"]["value"]
     }
@@ -60,7 +63,7 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
 
 if __name__ == '__main__':
     path = '../../usecases/optimization_paper/1'
-    design_var = {'aggregates_volume_fraction': 0.4,
+    design_var = {'height': 260,
                         'sc_volume_fraction': 0.35}
     seed = 66
     design_var_to_kpi(workflow_path=path,X=design_var,seed=seed)

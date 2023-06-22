@@ -78,8 +78,8 @@ def read_kpis(kpi_path:str):
     data = load_json(kpi_path)
     #TODO: the below is specific to the problem
     # print("!!! Attention the KPIs are specific and can change. Careful.")
-    obj = data["gwp_mix"]
-    C_1 = data["check_steel_area"]
+    obj = data["gwp_beam"]
+    C_1 = data["constraint_beam_design"]
     C_2 = data["max_reached_temperature"]
     C_3 = data["time_of_demoulding"]
 
