@@ -29,13 +29,13 @@ To compute the force applied in the compression zone, the lever arm of the appli
 \end{align}
 The minimum required steel $\beamSteelReq$ is then computed based on the lever arm, the design yield strength of steel and the maximum bending moment, as
 \begin{align}
-	\beamSteelReq = \frac{\beamMaxMoment}{\beamfsd \beamLeverMoment}.
+	\beamSteelReq = \frac{\beamMaxMoment}{\beamfsd \beamLeverMoment}.\label{eq:Areq}
 \end{align}
 \subsection{Optimization constraints}
 \subsubsection{Compressive strength constraint}
 Based on Eq. \ref{eq:compr_str_constr}, we define the compressive strength constraint as
 \begin{align}
-	\beamConstraintFc = \beamK - 0.5, 
+	\beamConstraintFc = \beamK - 0.5, \label{eq:constraintfc}
 \end{align}
 where $\beamConstraintFc > 0$ is not admissible, as there is no solution for \ref{eq:compr_str_constr}.
 \subsubsection{Geometrical constraint}
@@ -60,7 +60,7 @@ The maximum possible reinforcement is given by
 \end{equation}
 The geometry constraint is computed as
 \begin{equation}
-	\beamConstraintGeometry = \frac{\beamSteelReq - \beamSteelMax}{\beamSteelMax}
+	\beamConstraintGeometry = \frac{\beamSteelReq - \beamSteelMax}{\beamSteelMax} \label{eq:constraintGeo}
 \end{equation}
 where $\beamConstraintGeometry > 0$ is not admissible, as the required steel area exceeds the available space.
 \subsubsection{Combined beam constraint}

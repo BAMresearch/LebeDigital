@@ -68,7 +68,7 @@ rule workflow_targets:
 rule kpi_from_fem:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/kpi_from_fem.py',
-        temperature_limit = "Inputs/temperature_limit.json",
+        temperature_limit = "Inputs/fem_limits.json",
         fem_model = "Results/fem_model.csv",
 
     output:
@@ -81,7 +81,7 @@ rule kpi_from_fem:
 
 
         # run script
-        results = kpi_from_fem(df,p['temperature_limit'])
+        results = kpi_from_fem(df,p['temperature_limit'],p['time_limit'])
 
         write_pint_dict(results,output.results)
 

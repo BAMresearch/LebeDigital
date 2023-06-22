@@ -21,7 +21,7 @@ For now we assume the density, the thermal conductivity and the volumetric heat 
 \subsubsection{Degree of hydration\texorpdfstring{ $\DOH$}{}}
 The degree of hydration $\DOH$ is defined as the ratio between the cumulative heat $\heat$ at time $\zeit$ and the total theoretical volumetric heat by complete hydration $\heatInf$,
 \begin{align}
-	\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf},
+	\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf}, \label{eq:doh}
 \end{align}
 by assuming a linear relation between the degree of hydration and the heat development.
 Therefore the time derivative of the heat source $\dot{\heat}$ can be rewritten in terms of $\DOH$, 
@@ -139,3 +139,37 @@ Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assum
 \end{align}
 Values of $\DOHt$ are assumed to be between 0.1 and 0.2.
 For the mix "C1" $\DOHt = 0.09$, $\DOHZero = 0.06$, $\eModInf = 54.2$ MPa, $\stiffExp = 0.4$.
+
+\subsection{Constraints}
+The FEM simulation is used to compute two practical constraints relevant to the precast concrete industry.
+At each time step, the worst point is chosen to represent the part, therefore ensuring that the criterion is fulfilled in the whole domain.
+The first constraint limits the maximum allowed temperature.
+The constraint is computed as the normalized difference between the maximum temperature reached $\tempMax$ and the temperature limit $\tempLimit$ 
+\begin{align}
+	\FEMConstraintT = \frac{\tempMax - \tempLimit}{\tempLimit}, \label{eq:concstraintT}
+\end{align}
+where $\FEMConstraintT > 0$ is not admissible, as the temperature limit has been exceeded.
+....
+
+
+The second constraint is the estimated time of demolding.
+This is critical, as the manufacturer has a limited number of forms.
+The faster the part can be demolded, the faster is can be reused, increasing the output capacity.
+On the other hand, the part must not be demolded too early, as it might get damaged while being moved.
+To approximate the minimal time of demolding, a constraint is formulated based on the local stresses $\FEMConstraintStress$.
+It evaluates the Rankine criterion for the principal tensile stresses, using the yield strength of steel $\beamfs$ and a simplified Drucker-Prager criterion, based on the evolving compressive strength of the concrete $\fc$,
+\begin{align}
+	\FEMConstraintStress =  \max
+	\begin{cases}
+		\FEMConstraintRK = \frac{\|\principalStressTension\| - \beamfs}{\beamfs} \\
+		\FEMConstraintDP =  \frac{\sqrt{\frac{1}{3} \firstStressInvariant^2 - \secondStressInvariant} - \frac{\fc^3}{\sqrt{3}}}{\fc}
+	\end{cases},\label{eq:constraintStress}
+\end{align}
+where $\FEMConstraintStress > 0$ is not admissible.
+In contrast to standard yield surfaces, the value is normalized, to be unit less.
+This constraint aims to approximate the compressive failure often simulated with plasticity and the tensile effect of reinforcement steel.
+As boundary conditions a simply supported beam under it own weight has been chosen, to approximate possible loading condition while the part is moved.
+This constraint is evaluated for each time step in the simulation.
+Then the critical point in time is approximated where $\FEMConstraintStress(t_crit) = 0$.
+This is now compared and normalized with the ...
+% for a multiobjective optimization the time could also be mimizied instead of constrained, using the critical time as KPI

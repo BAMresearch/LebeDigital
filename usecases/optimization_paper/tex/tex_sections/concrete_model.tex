@@ -1,35 +1,32 @@
 \subsection{Finite Element Concrete Model}
-The focus of the concrete model is on the evolution of the mechanical properties over time.
+The main feature of the concrete model is the evolution of the mechanical properties over time.
 When concrete is mixed it is basically liquid.
 Due to a  chemical reaction of the binder with water, called hydration, crystals develop that give concrete its strength and stiffness.
 The reaction is both exothermal and temperature dependent.
-Therefore, the primary model computes the temperature field $\temp$ and the degree of hydration $\DOH$, details given in Appendix \ref{appendix:fem}.
+Therefore, the primary model computes the temperature field $\temp$ \eqref{eq:heat1} and the degree of hydration $\DOH$ \eqref{eq:doh}.
+The temperature model depends on three material properties, the effective thermal conductivity $\thermCondEff$, the specific heat capacity $C$ and the $\dQdt$ heat release.
+The $\dQdt$ in turn is governed by the hydration model, characterized by 
+$\hydParBone,\hydParBtwo,\hydParEta  \DOHmax \activE \tempRef$
+...
+FIGURE SHOWING Q over DOH???
+CONTINUE HERE!!!!
+
+The release heat is computed by the hydration model, ... characterized by 4 parameters....
+
+For a detailed model description see in Appendix \ref{appendix:fem}.
+In addition to influencing the reaction speed, the computed temperature is used to verify that the maximum temperature during hydration does not exceed a limit of $\tempLimit = \inputtemperaturelimit$\textdegree C.
+Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
+This is implemented as a constraint for the optimization problem \eqref{eq:concstraintT}.
 Based on the degree of hydration, the Young's modulus $\eMod$ of a linear-elastic material model
 is approximated \eqref{eq:EwrtDOH}.
-In addition, a compressive strength in terms of the degree of hydration is computed \eqref{eq:fcwrtDOH}, which is then used to determine, a failure criterion based on the computed local stress.
-The simulation is used to compute two practical constraints relevant to the precast concrete industry.
-At each time step, the worse point is chosen to represent the part, therefore ensuring that the criterion is fulfilled in the whole domain.
-The first constraint limits the maximum allowed temperature to $\tempLimit = \inputtemperaturelimit$\textdegree C.
-Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
-The constraint is computed as the normalized difference between the maximum temperature reached $\tempMax$ and the temperature limit $\tempLimit$ 
-\begin{align}
-\FEMConstraintT = \frac{\tempMax - \tempLimit}{\tempLimit},
-\end{align}
-where $\FEMConstraintT > 0$ is not admissible, as the temperature limit has been exceeded.
-The second constraint is the estimated time of demolding.
-This is critical, as the manufacturer has a limited number of forms.
-The faster the part can be demolded, the faster is can be reused, increasing the output capacity.
-On the other hand, the part must not be demolded too early, as it might get damaged while being moved.
-To approximate the minimal time of demolding, a constraint is formulated based on the local stresses $\FEMConstraintStress$.
-It evaluates the Rankine criterion for the principal tensile stresses, using the yield strength of steel $\beamfs$ and a simplified Drucker-Prager criterion, based on the evolving compressive strength of the concrete $\fc$,
-\begin{align}
-	\FEMConstraintStress =  \max
-	\begin{cases}
-		\FEMConstraintRK = \frac{\|\principalStressTension\| - \beamfs}{\beamfs} \\
-		\FEMConstraintDP =  \frac{\sqrt{\frac{1}{3} \firstStressInvariant^2 - \secondStressInvariant} - \frac{\fc^3}{\sqrt{3}}}{\fc}
-	\end{cases},
-\end{align}
-where $\FEMConstraintStress > 0$ is not admissible.
-In contrast to standard yield surfaces, the value is normalized, to be unit less.
-This constraint aims to approximate the compressive failure often simulated with plasticity and the tensile effect of reinforcement steel.
-As boundary conditions a simply supported beam under it own weight has been chosen, to approximate possible loading condition while the part is moved.
+Further, a compressive strength in terms of the degree of hydration is computed \eqref{eq:fcwrtDOH}, which is utilized to determine a failure criterion based on the computed local stresses \eqref{eq:constraintStress}.
+In the "origianl" model, REFERENCE, the models input requires a Young's modulus and compressive strength for the fully hydrated concrete, $\DOH = 1$.
+As the maximum degree of hydration is assumed to depend on the water cement ratio $\wc$, RFERENCE to equation!!!, and .. it will.
+..  
+
+
+....
+Figure xy shows the time evaolution of DOH, E and fc for the set of paramters given in Table XY, with some variations relevant to the respective models, as presented in the figure..
+
+
+
