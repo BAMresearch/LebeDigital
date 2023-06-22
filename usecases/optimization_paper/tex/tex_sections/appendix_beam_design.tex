@@ -1,8 +1,7 @@
-\subsection{Beam design}
 Following design code \citeauthor{DIN1992-1-1} for a singly reinforced beam, meaning a reinforced concrete beam with only reinforcement at the bottom.
 The assumed cross section is rectangular
 
-\subsubsection{Maximum bending moment}
+\subsection{Maximum bending moment}
 Assuming a simply supported beam with a given length $\beamLength$ in mm, a distributed load $\beamDistrLoad$ in N/mm and a point load $\beamPointLoad$ in N/mm
 the maximum bending moment $\beamMaxMoment$ in N/mm$^2$ is computed as
 % see Schneider (20. Auflage) 4.2
@@ -10,7 +9,7 @@ the maximum bending moment $\beamMaxMoment$ in N/mm$^2$ is computed as
 	\beamMaxMoment= \beamDistrLoad \frac{\beamLength^2}{8} + \beamPointLoad \frac{\beamLength}{4}.
 \end{align}
 The applied loads already incorporate any required safety factors.
-\subsubsection{Computing the minimal required steel reinforcement}
+\subsection{Computing the minimal required steel reinforcement}
 Given a beam with the height $\beamHeight$ in mm, a concrete cover of $\beamCover$ in mm, a steel reinforcement diameter of $\beamSteelDiameter$ in mm for the longitudinal bars and a bar diameter of $\beamSteelDiameter$ in mm for the transversal reinforcement also called stirrups,
 \begin{align}
 	\beamHeightEff = \beamHeight - \beamCover - \beamSteelDiameterStirrups - \frac{1}{2} \beamSteelDiameter.
@@ -32,6 +31,7 @@ The minimum required steel $\beamSteelReq$ is then computed based on the lever a
 \begin{align}
 	\beamSteelReq = \frac{\beamMaxMoment}{\beamfsd \beamLeverMoment}.
 \end{align}
+\subsection{Optimization constraints}
 \subsubsection{Compressive strength constraint}
 Based on Eq. \ref{eq:compr_str_constr}, we define the compressive strength constraint as
 \begin{align}
@@ -39,7 +39,13 @@ Based on Eq. \ref{eq:compr_str_constr}, we define the compressive strength const
 \end{align}
 where $\beamConstraintFc > 0$ is not admissible, as there is no solution for \ref{eq:compr_str_constr}.
 \subsubsection{Geometrical constraint}
-For our simplified example, we assume the steel reinforcement is only arrange in one layer.
+The geometrical constraint checks that the required steel area $\beamSteelReq$ does not exceed the maximum steel area $\beamSteelMax$ that fits inside the design space.
+For our example, we assume the steel reinforcement is only arranged in a single layer.
+This limits the available space for rebars in two ways, by the required minimal spacing $\beamMinSpacing$ between the bars, to allow concrete to pass, and by the required space on the outside, the concrete cover $\beamCover$ and stirrups diameter $\beamSteelDiameterStirrups$.
+To compute $\beamSteelMax$ the max number for steel bars $\beamNSteelMax$ and maximum diameter $\beamSteelDiameterMax$ from a given list of admissible diameters, are determined, that fulfill
+\begin{equation}
+	s \ge \beamMinSpacing,\quad\text{with}\quad s = \frac{\beamWidth - 2 \beamCover - 2 \beamSteelDiameterStirrups - \beamNSteelMax \beamSteelDiameterMax}{\beamNSteelMax - 1} \quad\text{and}\quad \beamNSteelMax \ge 2.
+\end{equation}
 According to \citeauthor{DIN1992-1-1}, the minimum spacing between two bars $\beamMinSpacing$ is given by
 \begin{equation}
 	\beamMinSpacing = \max
@@ -48,44 +54,18 @@ According to \citeauthor{DIN1992-1-1}, the minimum spacing between two bars $\be
 		$\beamSteelDiameter$
 	\end{cases}       
 \end{equation}
-Effective width
-\begin{equation}
-	\beamWidthEff = \beamWidth - 2 \beamMinSpacing - 2 \beamSteelDiameterStirrups
-\end{equation}
-Find max number for steel bars $\beamNSteelMax$ and maximal diameter $\beamSteelDiameterMax$ for a given list of admissible diameters that fulfill
-\begin{equation}
-	s \ge \beamMinSpacing,\quad\text{with}\quad s = \frac{\beamWidthEff - \beamNSteelMax \beamSteelDiameterMax}{\beamNSteelMax - 1} \quad\text{and}\quad \beamNSteelMax \ge 2
-\end{equation}
 The maximum possible reinforcement is given by
 \begin{equation}
-	\beamSteelMax = \beamNSteel \pi \left( \frac{\beamSteelDiameter}{2}\right)^{2}
+	\beamSteelMax = \beamNSteel \pi \left( \frac{\beamSteelDiameter}{2}\right)^{2}.
 \end{equation}
 The geometry constraint is computed as
 \begin{equation}
 	\beamConstraintGeometry = \frac{\beamSteelReq - \beamSteelMax}{\beamSteelMax}
 \end{equation}
 where $\beamConstraintGeometry > 0$ is not admissible, as the required steel area exceeds the available space.
-To simplify the optimization procedure, the two constraints are combined into one
-
+\subsubsection{Combined beam constraint}
+To simplify the optimization procedure, the two constraints are combined into by using the maximum value,
 \begin{equation}
-	\beamConstraintBeam = \beamConstraintGeometry * \beamConstraintFc
+	\beamConstraintBeam = \max ( \beamConstraintGeometry, \beamConstraintFc).
 \end{equation}
-
-
-
-
--....%\beamSteelReq
-
-
-....
-
-The maximum ....
-
-
-required area  - max steel area / max area (reinforcement)
-
-
-FINISH THIS!!!!!
-
-
-
+Evidently, this constraint is also defined as: $\beamConstraintBeam > 0$ is not admissible.
