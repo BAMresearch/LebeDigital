@@ -1,12 +1,20 @@
 \subsection{Finite Element Concrete Model}
 The main feature of the concrete model is the evolution of the mechanical properties over time.
-When concrete is mixed it is basically liquid.
+When concrete is mixed it is close to liquid.
 Due to a  chemical reaction of the binder with water, called hydration, crystals develop that give concrete its strength and stiffness.
 The reaction is both exothermal and temperature dependent.
 Therefore, the primary model computes the temperature field $\temp$ \eqref{eq:heat1} and the degree of hydration $\DOH$ \eqref{eq:doh}.
-The temperature model depends on three material properties, the effective thermal conductivity $\thermCondEff$, the specific heat capacity $C$ and the $\dQdt$ heat release.
-The $\dQdt$ in turn is governed by the hydration model, characterized by 
-$\hydParBone,\hydParBtwo,\hydParEta  \DOHmax \activE \tempRef$
+The temperature model depends on three material properties, the effective thermal conductivity $\thermCondEff$, the specific heat capacity $C$ and the heat release $\dQdt$.
+The $\dQdt$ in turn is governed by the hydration model, characterized by six parameters:
+$\hydParBone, \hydParBtwo, \hydParEta, \tempRef, \activE$ and $\DOHmax$.
+The first three $\hydParBone, \hydParBtwo$ and $\hydParEta$ are phenomenological, numerical parameters describing the function of the heat release.
+$\tempRef$ does not need to be identified.
+It is the reference temperature for which the first three parameters are calibrated.
+$\activE$ is the activation energy, defining how the model will react to temperature changes, relative the the reference. 
+$\DOHmax$ is the maximum degree of hydration that can be reached.
+We follow REFERENCE, and compute this value based on WATER BINDER RATIO:::
+
+
 ...
 FIGURE SHOWING Q over DOH???
 CONTINUE HERE!!!!
