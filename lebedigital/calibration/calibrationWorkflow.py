@@ -117,9 +117,6 @@ def estimate_youngs_modulus(
     low_sigma = 0
     high_sigma = 0.005
 
-    # for reproducible results
-    seed =1
-    np.random.seed(seed)
 
     # =========================================
     #       Define the Inference Problem
