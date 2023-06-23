@@ -1,10 +1,11 @@
 # third party imports
 import os
 from pathlib import Path
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
 from matplotlib import rc
 
 mpl.rcParams["font.size"] = 16
@@ -13,15 +14,14 @@ rc("text", usetex=True)
 # local imports (probeye)
 from probeye.definition.inverse_problem import InverseProblem
 from probeye.definition.likelihood_model import GaussianLikelihoodModel
-from probeye.ontology.knowledge_graph_export import export_knowledge_graph
-from probeye.ontology.knowledge_graph_import import import_parameter_samples
-from probeye.ontology.knowledge_graph_export import export_results_to_knowledge_graph
 from probeye.inference.emcee.solver import EmceeSolver
+from probeye.ontology.knowledge_graph_export import (
+    export_knowledge_graph, export_results_to_knowledge_graph)
+from probeye.ontology.knowledge_graph_import import import_parameter_samples
 
 # local imports (others)
-from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import (
-    LinearElasticityCylinder,
-)
+from lebedigital.calibration.forwardmodel_linear_elastic_cylinder import \
+    LinearElasticityCylinder
 
 
 def _check_E_mod_calibration_metadata(calibration_metadata: dict):
@@ -60,7 +60,7 @@ def _check_E_mod_experimental_data(experimental_data: dict):
 
 
 def estimate_youngs_modulus(
-        experimental_data: dict, calibration_metadata: dict, calibrated_data_path: str, mode="full"
+    experimental_data: dict, calibration_metadata: dict, calibrated_data_path: str, mode="full"
 ):
     """
     Function to solve an inverse problem using Bayesian inference to infer Young's Modulus (E), with experimental
@@ -98,7 +98,7 @@ def estimate_youngs_modulus(
     # =========================================
     # perform check of the experimental data keys
     assert (
-            _check_E_mod_experimental_data(experimental_data) == True
+        _check_E_mod_experimental_data(experimental_data) == True
     ), "Some values are missing in the experimental data"
     exp_output = experimental_data  #
 
@@ -107,7 +107,7 @@ def estimate_youngs_modulus(
     # ========================================
     # performing check of calibration metadata
     assert (
-            _check_E_mod_calibration_metadata(calibration_metadata) == True
+        _check_E_mod_calibration_metadata(calibration_metadata) == True
     ), "Some values are missing in the calibration metadata"
     # "uninformed" Normal prior for the E modulus
     loc_E = calibration_metadata["E_loc"]  # 100  kN/mm2
@@ -118,7 +118,7 @@ def estimate_youngs_modulus(
     high_sigma = 0.005
 
     # for reproducible results
-    seed =1
+    seed = 1
     np.random.seed(seed)
 
     # =========================================
@@ -152,7 +152,7 @@ def estimate_youngs_modulus(
     # ============================================
     #     Add experimental data to the Inverse Problem
     # ============================================
-    experiment_name = os.path.splitext(exp_output['exp_name'])[0]
+    experiment_name = os.path.splitext(exp_output["exp_name"])[0]
     y_test = exp_output["force"]  # in kN
     # add the experimental data
     problem.add_experiment(
@@ -209,6 +209,12 @@ def estimate_youngs_modulus(
             n_walkers=4,
             n_steps=6,
             n_initial_steps=2,
+        )
+    elif mode == "test":
+        inference_data = emcee_solver.run_mcmc(
+            n_walkers=4,
+            n_steps=1,
+            n_initial_steps=1,
         )
     else:
         inference_data = emcee_solver.run_mcmc(
