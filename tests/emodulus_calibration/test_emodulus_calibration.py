@@ -9,6 +9,9 @@ from lebedigital.calibration.calibrationWorkflow import (
     estimate_youngs_modulus)
 from lebedigital.calibration.utils import read_exp_data_E_mod
 
+# for reproducible results
+seed =1
+np.random.seed(seed)
 
 def test_emodulus_calibration():
     # defining paths and directories
