@@ -63,8 +63,9 @@ def dummy_hydration_parameters(slag_ratio, phi_mean: list, phi_cov: list, seed: 
     assert len(phi_mean) == no_of_parameter
     assert np.array(phi_mean).ndim == 2
 
+    # TODO: move the below to methods. Custom here for the time being.
     mean = np.matmul(np.array(phi_mean)[:, :-1], np.atleast_1d(slag_ratio)) + np.array(phi_mean)[:,
-                                                                              -1]  # assuming linear
+-1]  # assuming linear
     dist = th.distributions.MultivariateNormal(loc=th.as_tensor(mean), covariance_matrix=th.tensor(phi_cov))
     B1, B2, eta, E_act, Q_pot, T_ref = dist.sample()
 

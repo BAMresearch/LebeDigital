@@ -38,6 +38,7 @@ def dummy_paste_strength_stiffness(slag_ratio, phi_mean, phi_cov, seed):
     paste_strength = paste_strength_max - (paste_strength_max - paste_strength_min) * slag_ratio
 
     # ATUL : temporary q(b|x)~N(mu,cov), b=(sigma_paste,E_paste), x = slag ratio
+    # TODO: move the below to methods. Custom here for the time being.
     th.manual_seed(seed=seed)
     mean = [float(paste_youngs_modulus.magnitude), float(paste_strength.magnitude)]
     dist = th.distributions.MultivariateNormal(loc=th.as_tensor(mean), covariance_matrix=th.tensor(phi_cov))
