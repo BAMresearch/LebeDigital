@@ -19,7 +19,7 @@ def test_demonstrator_beam():
     parameters["vol_heat_cap"] = 2.4e6 * ureg("J/m^3/K")  # volumetric heat cap J/m3
 
     # parameters for mechanics problem
-    parameters["E_28"] = 25e9 * ureg("N/m^2")  # Youngs Modulus in Pa
+    parameters["E"] = 25e9 * ureg("N/m^2")  # Youngs Modulus in Pa
     parameters["nu"] = 0.2 * ureg("")  # Poissons Ratio
 
     # required parameters for alpha to E mapping
@@ -28,9 +28,9 @@ def test_demonstrator_beam():
     parameters["a_E"] = 0.6 * ureg("")
 
     # required parameters for alpha to tensile and compressive stiffness mapping
-    parameters["fc_inf"] = 30e6 * ureg("N/m^2")  # in Pa
+    parameters["fc"] = 30e6 * ureg("N/m^2")  # in Pa
     parameters["a_fc"] = 1.5 * ureg("")
-    parameters["ft_inf"] = 760 * ureg("MPa")  # in Pa
+    parameters["ft"] = 760 * ureg("MPa")  # in Pa
     parameters["a_ft"] = 1.2 * ureg("")
 
     # temperature setings:
@@ -65,5 +65,5 @@ def test_demonstrator_beam():
     assert data.time.values.quantity.magnitude == pytest.approx([1200, 2400, 3600])
     assert data.temperature.values.quantity.magnitude == pytest.approx([56.32510829, 47.62081051, 47.59427378])
     assert data["yield"].values.quantity.magnitude == pytest.approx(
-        [4848208.97118585, 4886348.03379563, 4375388.69808266]
+        [605.7891884356619, 161.6632502482894, 68.58181848968538]
     )

@@ -1,0 +1,586 @@
+@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix con: <http://w3id.org/concrete/> .
+@prefix mid: <https://purl.matolab.org/mseo/mid/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmd: <https://material-digital.de/pmdco/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:RO_0000086 a owl:ObjectProperty .
+
+con:CementPaste_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:PasteHeatOfHydration_,
+        con:SampleMass_,
+        con:WaterCementRatio_ ;
+    cco:designated_by con:PasteID_ ;
+    cco:has_input con:PasteRawMaterials_ .
+
+con:ConcreteMixture_ a con:Mixture,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:WaterCementRatio_ ;
+    con:has_property con:CompressiveStrength_,
+        con:FlowClass_,
+        con:PasteHeatOfHydration_,
+        con:SecantModulusOfElasticty_ ;
+    cco:described_by con:RawDataFile_ ;
+    cco:designated_by con:MixtureID_ ;
+    cco:has_input con:ConcreteRawMaterials_ ;
+    cco:has_output con:CMix_ExperimentInfo_,
+        con:Concrete_ .
+
+con:StorageConditions_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_input con:Hardening_ ;
+    cco:has_output cco:DayMeasurementUnit,
+        cco:DegreeCelsiusMeasurementUnit .
+
+con:has_age a owl:ObjectProperty .
+
+con:has_property a owl:ObjectProperty .
+
+con:has_state a owl:ObjectProperty .
+
+cco:described_by a owl:ObjectProperty .
+
+cco:designated_by a owl:ObjectProperty .
+
+cco:has_datetime_value a owl:DatatypeProperty .
+
+cco:has_decimal_value a owl:DatatypeProperty .
+
+cco:has_input a owl:ObjectProperty .
+
+cco:has_output a owl:ObjectProperty .
+
+cco:has_process_part a owl:ObjectProperty .
+
+cco:has_text_value a owl:DatatypeProperty .
+
+cco:is_input_of a owl:ObjectProperty .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:dateTimeStamp a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+pmd: a owl:Ontology .
+
+pmd:composedBy a owl:ObjectProperty .
+
+pmd:hasPmdUnit a owl:ObjectProperty .
+
+mid:has_column_index a owl:DatatypeProperty .
+
+mid:in_accordance_with a owl:ObjectProperty .
+
+obo:BFO_0000038 a owl:Class .
+
+con:Age a owl:Class .
+
+con:Aggregates a owl:Class .
+
+con:AirContent a owl:Class .
+
+con:AirDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$AirDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:AppliedLoad a owl:Class .
+
+con:CEMIDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$CEMIDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:CEMIIDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$CEMIIDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:CEMIIQtyInMix_ a con:Cement,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CEMIIDensity_ ;
+    cco:has_decimal_value "$$CEMIIQtyInMix_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
+
+con:CEMII_ a con:Cement,
+        owl:NamedIndividual .
+
+con:CEMIQtyInMix_ a con:Cement,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CEMIDensity_ ;
+    cco:has_decimal_value "$$CEMIQtyInMix_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
+
+con:CEMI_ a con:Cement,
+        owl:NamedIndividual .
+
+con:CMix_ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:Lab_,
+        con:MixingDate_ .
+
+con:CompressionForce_ a con:AppliedLoad,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$CompressionColumn_Value$$"^^xsd:string ;
+    pmd:hasPmdUnit pmd:Q56402798 ;
+    mid:has_column_index "$$CompressionColumn_Value$$"^^xsd:string .
+
+con:CompressiveStrength a owl:Class .
+
+con:Computation a owl:NamedIndividual,
+        mid:RawDataSet .
+
+con:ConcreteMixer_ a con:Mixer,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$ConcreteMixer_Value$$"^^xsd:string .
+
+con:ConcreteRawMaterials_ a con:RawMaterials,
+        owl:NamedIndividual ;
+    pmd:composedBy con:AirContent_,
+        con:CEMIIQtyInMix_,
+        con:CEMIQtyInMix_,
+        con:MixingWaterQtyInMix_,
+        con:OkrillaQtyInMix_,
+        con:PlasticizerQtyInMix_ .
+
+con:Concrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    con:has_state con:FreshConcrete_,
+        con:HardenedConcrete_ ;
+    cco:has_process_part con:Mixing_ .
+
+con:DINEN12390-13:2021 a cco:Document,
+        owl:NamedIndividual .
+
+con:DINEN12390-3:2019 a cco:Document,
+        owl:NamedIndividual .
+
+con:DINEN196-8:2010 a cco:Document,
+        owl:NamedIndividual .
+
+con:Duration a owl:Class .
+
+con:E-ModuleTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenDiameter_,
+        con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenWidth_ ;
+    con:has_age con:SpecimenAge_ ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
+    cco:is_input_of con:SecantModulusOfElasticty_ .
+
+con:Energy a owl:Class .
+
+con:ExperimentDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "$$ExperimentDate_Value$$"^^xsd:dateTime,
+        "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+
+con:ExperimentTime_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "$$ExperimentTime_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q11574 .
+
+con:FlowClass a owl:Class .
+
+con:FlowSpread a owl:Class .
+
+con:FlowSpread_ a con:FlowSpread,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$FlowSpread_Value$$"^^xsd:decimal ;
+    cco:has_output con:FlowClass_ ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:FreshConcrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:FlowSpread_ ;
+    cco:has_process_part con:Hardening_ .
+
+con:HeatOfHydration a owl:Class .
+
+con:Intensity a owl:Class .
+
+con:Intensity_ a con:Intensity,
+        owl:NamedIndividual .
+
+con:Location a owl:Class .
+
+con:MeasurementDuration_ a con:Duration,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$MeasurementDuration_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit,
+        pmd:Q11574 .
+
+con:MeasurementEnergy_ a con:Energy,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$MeasurementEnergy_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q106611903 .
+
+con:MeasurementPower_ a cco:Power,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$MeasurementPower_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit con:MilliwattPerGramOfMaterial .
+
+con:MeasurementTime_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "$$MeasurementTime_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+con:MeasurementVoltage_ a owl:NamedIndividual,
+        mid:Voltage ;
+    cco:has_decimal_value "$$MeasurementVoltage_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2448803 .
+
+con:MeasuringGauge a owl:Class .
+
+con:MilliwattPerGramOfMaterial a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:Mixer a owl:Class .
+
+con:MixingTime_ a con:Time,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$MixingTime_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+con:MixingWaterQtyInMix_ a con:Water,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:WaterDensity_ ;
+    cco:has_decimal_value "$$MixingWaterQtyInMix_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
+
+con:MixingWater_ a con:Water,
+        owl:NamedIndividual .
+
+con:Mixing_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_output con:ConcreteMixer_,
+        con:Intensity_,
+        con:Lab_,
+        con:MixingDate_,
+        con:MixingTime_,
+        con:RawDataFile_,
+        con:Weight_ .
+
+con:Mixture a owl:Class .
+
+con:MixtureID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$MixtureID_Value$$"^^xsd:string .
+
+con:OkrillaDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$OkrillaDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:OkrillaQtyInMix_ a con:Aggregates,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:OkrillaDensity_ ;
+    cco:has_decimal_value "$$OkrillaQtyInMix_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
+
+con:OpenBisRawDataFile a con:RawDataFile,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+con:OpenBisRawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_text_value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+con:PasteID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$PasteID_Value$$"^^xsd:string .
+
+con:PasteRawMaterials_ a con:RawMaterials,
+        owl:NamedIndividual ;
+    pmd:composedBy con:AirContent_,
+        con:CEMII_,
+        con:CEMI_,
+        con:MixingWater_,
+        con:Plasticizer_ .
+
+con:PlasticizerDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$PlasticizerDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:PlasticizerQtyInMix_ a con:Admixture,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:PlasticizerDensity_ ;
+    cco:has_decimal_value "$$PlasticizerQtyInMix_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q844211 .
+
+con:Plasticizer_ a con:Admixture,
+        owl:NamedIndividual .
+
+con:ProcessedFile_ a owl:NamedIndividual,
+        mid:ProcessDataSet ;
+    cco:has_text_value "$$ProcessedFile_Value$$"^^xsd:string .
+
+con:RawDataFile a owl:Class .
+
+con:SampleMass_ a cco:Mass,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SampleMass_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q41803 .
+
+con:SecantModulusOfElasticty a owl:Class .
+
+con:StrengthTestSpecimen_ a owl:NamedIndividual,
+        mid:Specimen ;
+    obo:RO_0000086 con:SpecimenDiameter_,
+        con:SpecimenHeight_,
+        con:SpecimenLength_,
+        con:SpecimenWidth_ ;
+    con:has_age con:SpecimenAge_ ;
+    cco:designated_by con:SpecimenID_ ;
+    cco:has_text_value "$$SpecimenName_Value$$"^^xsd:string ;
+    cco:is_input_of con:CompressiveStrength_ .
+
+con:Time a owl:Class .
+
+con:Time_ a owl:NamedIndividual,
+        mid:ExperimentTime ;
+    cco:has_decimal_value "$$Time_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q11574 .
+
+con:Transducer_ a con:MeasuringGauge,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$TransducerColumn_Value$$"^^xsd:string ;
+    pmd:hasPmdUnit pmd:Q174789,
+        pmd:Q56402798 ;
+    mid:has_column_index "$$TransducerColumn_Value$$"^^xsd:string .
+
+con:WaterDensity_ a cco:Density,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$WaterDensity_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q2175964 .
+
+con:Weight_ a cco:Weight,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$Weight_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q11570 .
+
+cco:DegreeCelsiusMeasurementUnit a cco:Temperature,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$Humidity_Value$$"^^xsd:decimal,
+        "$$Temperature_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit con:PercentByVolume,
+        pmd:Q25267 .
+
+cco:Diameter a owl:Class .
+
+cco:Height a owl:Class .
+
+cco:KilogramMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+cco:Length a owl:Class .
+
+cco:Mass a owl:Class .
+
+cco:Power a owl:Class .
+
+cco:Temperature a owl:Class .
+
+cco:Weight a owl:Class .
+
+cco:Width a owl:Class .
+
+pmd:Q106611903 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q11570 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q2448803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q25267 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q41803 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+mid:ProcessDataSet a owl:Class .
+
+mid:Voltage a owl:Class .
+
+mid:WeightRatio a owl:Class .
+
+con:Admixture a owl:Class .
+
+con:AirContent_ a con:AirContent,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:AirDensity_ ;
+    cco:has_decimal_value "$$AirContent_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit con:PercentByVolume .
+
+con:ExperimentInfo a owl:Class .
+
+con:FlowClass_ a con:FlowClass,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$FlowClass_Value$$"^^xsd:string .
+
+con:HardenedConcrete_ a cco:Artifact,
+        owl:NamedIndividual ;
+    obo:RO_0000086 con:CompressiveStrength_,
+        con:SecantModulusOfElasticty_ ;
+    cco:has_output con:E-ModuleTestSpecimen_,
+        con:StrengthTestSpecimen_ .
+
+con:Hardening_ a cco:Artifact,
+        owl:NamedIndividual ;
+    cco:has_output con:HardenedConcrete_ .
+
+con:MixingDate_ a cco:Day,
+        owl:NamedIndividual ;
+    cco:has_datetime_value "$$MixingDate_Value$$"^^xsd:dateTime,
+        "$$MixingDate_Value$$"^^xsd:dateTimeStamp .
+
+con:PasteHeatOfHydration_ a con:HeatOfHydration,
+        owl:NamedIndividual ;
+    cco:described_by con:RawDataFile_ ;
+    cco:has_decimal_value "$$HeatOfHydration_Value$$"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    pmd:hasPmdUnit cco:KilogramMeasurementUnit ;
+    mid:in_accordance_with con:DINEN196-8:2010 .
+
+con:PercentByVolume a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:RawMaterials a owl:Class .
+
+con:SpecimenAge_ a con:Age,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenAge_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:DayMeasurementUnit .
+
+con:SpecimenDiameter_ a cco:Diameter,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenDiameter_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:SpecimenHeight_ a cco:Height,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenHeight_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:SpecimenID_ a cco:NonNameIdentifier,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$SpecimenID_Value$$"^^xsd:string .
+
+con:SpecimenLength_ a cco:Length,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenLength_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:SpecimenWidth_ a cco:Width,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$SpecimenWidth_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit pmd:Q174789 .
+
+con:Water a owl:Class .
+
+con:WaterCementRatio_ a owl:NamedIndividual,
+        mid:WeightRatio ;
+    cco:has_decimal_value "$$WaterCementRatio_Value$$"^^xsd:decimal .
+
+cco:Day a owl:Class .
+
+cco:DayMeasurementUnit a obo:BFO_0000038,
+        owl:NamedIndividual ;
+    cco:has_decimal_value "$$StorageTime_Value$$"^^xsd:decimal ;
+    pmd:hasPmdUnit cco:HourMeasurementUnit .
+
+pmd:Q107378499 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q56402798 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+mid:Specimen a owl:Class .
+
+con:CompressiveStrength_ a con:CompressiveStrength,
+        owl:NamedIndividual ;
+    cco:described_by con:OpenBisRawDataFile_,
+        con:RawDataFile_ ;
+    cco:has_decimal_value "$$CompressiveStregth_Value$$"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    pmd:hasPmdUnit pmd:Q107378499 ;
+    mid:in_accordance_with con:DINEN12390-3:2019 .
+
+con:ExperimentInfo_ a con:ExperimentInfo,
+        owl:NamedIndividual ;
+    cco:has_output con:CompressionForce_,
+        con:ExperimentDate_,
+        con:ExperimentTime_,
+        con:Lab_,
+        con:MeasurementDuration_,
+        con:MeasurementEnergy_,
+        con:MeasurementPower_,
+        con:MeasurementTime_,
+        con:MeasurementVoltage_,
+        con:ProcessedFile_,
+        con:Time_,
+        con:Transducer_ .
+
+con:Lab_ a con:Location,
+        owl:NamedIndividual ;
+    cco:has_text_value "$$Lab_Value$$"^^xsd:string .
+
+con:SecantModulusOfElasticty_ a con:SecantModulusOfElasticty,
+        owl:NamedIndividual ;
+    cco:described_by con:OpenBisRawDataFile,
+        con:RawDataFile_ ;
+    cco:has_decimal_value "$$EModule_Value$$"^^xsd:decimal ;
+    cco:has_output con:ExperimentInfo_ ;
+    cco:has_process_part con:Computation ;
+    pmd:hasPmdUnit pmd:Q107378499 ;
+    mid:in_accordance_with con:DINEN12390-13:2021 .
+
+cco:Document a owl:Class .
+
+cco:NonNameIdentifier a owl:Class .
+
+pmd:Q11574 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+mid:ExperimentTime a owl:Class .
+
+mid:RawDataSet a owl:Class .
+
+con:Cement a owl:Class .
+
+cco:HourMeasurementUnit a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+con:RawDataFile_ a owl:NamedIndividual,
+        mid:RawDataSet ;
+    cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string,
+        "$$RawDataFile_Value§§"^^xsd:string .
+
+pmd:Q844211 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+cco:Density a owl:Class .
+
+pmd:Q174789 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+pmd:Q2175964 a owl:NamedIndividual,
+        pmd:PmdSiUnit .
+
+cco:Artifact a owl:Class .
+
+pmd:PmdSiUnit a owl:Class .
+
