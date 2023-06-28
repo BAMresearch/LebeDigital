@@ -474,6 +474,8 @@ def _mixture_upload(
     mixture_model_return = MixtureModel(**mixture_metadata_dict)
     mixture_metadata_dict = mixture_model_return.dict(exclude_unset=True)
 
+    logger.debug(mixture_metadata_dict)
+
     # Setting the props from metadata and adding '$name' for better readability in the web view
     mixture_sample.set_props(mixture_metadata_dict)
 
@@ -517,8 +519,6 @@ def _mixture_upload(
     logger.debug(f"Sample uploaded: {mixture_sample.identifier}")
     logger.debug("Starting Mixture Dataset upload")
 
-    # Dataset upload not possible with the available instance (matolab/openbis) - in the moment - so the following code is not tested
-    # Dataset upload possible to docker workflow container
     ######
     if dataset_upload:
         mixture_dataset_name = mixture_sample_name + '_raw'
