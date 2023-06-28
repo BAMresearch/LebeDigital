@@ -47,7 +47,7 @@ openbis_config = {
     'user': get_var("user", 'admin'),
     'pw': get_var("pw", "changeit"),
     'space': get_var("space", 'EMODUL'),
-    'project': 'LEBEDIGITAL',
+    'project': get_var("project", 'LEBEDIGITAL'),
     'emodul_collection': 'LEBEDIGITAL_EMODUL_COLLECTION',
     'mixture_collection': 'LEBEDIGITAL_MIXTURE_COLLECTION',
     'emodul_prefix': 'EMODUL',
@@ -59,8 +59,8 @@ openbis_config = {
                              "EMODUL_INGREDIENT.bulkdensity": ["REAL", "Bulk Density", "Bulk Density"],
                              "EMODUL_INGREDIENT.annotation": ["VARCHAR", "source", "source"]},
         'ingredient_keywords': ["cement", "water_total", "addition", "admixture", "aggregate"],
-        'ingredient_space': get_var("space", 'EMODUL'),
-        'ingredient_project': 'LEBEDIGITAL',
+        # 'ingredient_space': get_var("space", 'EMODUL'),
+        # 'ingredient_project': 'LEBEDIGITAL',
         'ingredient_collection': 'LEBEDIGITAL_INGREDIENT_COLLECTION',
         'ingredient_hint_props': {
             'emodul.quantity_in_mix': ['REAL', 'quantity_in_mix', 'quantity_in_mix'],
@@ -68,7 +68,7 @@ openbis_config = {
         }
 
     },
-    'verbose': False,
+    'verbose': True,
     # if actions is specified the task will be completed but the openbis connection will be skipped
     # we need to skip the openbis functions on GitHub actions as they need a password to run
     'runson': get_var('runson', 'nodb'),
@@ -77,6 +77,9 @@ openbis_config = {
     'force_upload': get_var("force", "yes"),
     'dataset_upload': get_var('dataset_upload', 'no')
 }
+
+openbis_config['ingredient_metadata']['ingredient_space'] = openbis_config['space']
+openbis_config['ingredient_metadata']['ingredient_project'] = openbis_config['project']
 
 # default properties for openbis
 defaults_dict = {"operator_date": ["TIMESTAMP", "operator_date", "operator_date"],
@@ -110,7 +113,7 @@ openbis_sample_types_directory = Path(
     openbis_directory, 'openbis_sample_types')
 # folder with calibrated data and the predictions for a provided case
 calibrated_data_directory = Path(emodul_output_directory, 'calibrated_data')
-predicted_data_directory = Path(emodul_output_directory,'predicted_data')
+predicted_data_directory = Path(emodul_output_directory, 'predicted_data')
 
 Path(openbis_directory).mkdir(parents=True, exist_ok=True)
 Path(openbis_samples_directory).mkdir(parents=True, exist_ok=True)
@@ -387,6 +390,7 @@ def task_upload_to_openbis():
             'clean': [clean_targets],
         }
 
+
 @create_after(executed='extract_metadata_emodul')
 def task_perform_calibration():
     """Loop over the experiments and store the calibrated E in csv file. Each iteration generates four files
@@ -407,19 +411,19 @@ def task_perform_calibration():
             processed_data_emodulus_directory)
         list_exp_name = [os.path.splitext(f)[0] for f in list_exp_name]  # split extension
     for f in list_exp_name:
-        calibrated_data_expwise = os.path.join(calibrated_data_directory,f) # create new folder for each exp
+        calibrated_data_expwise = os.path.join(calibrated_data_directory, f)  # create new folder for each exp
         # create the folder if its not there
-        Path(calibrated_data_expwise).mkdir(parents=True,exist_ok=True)
+        Path(calibrated_data_expwise).mkdir(parents=True, exist_ok=True)
 
         # read in the metadata for each exp
         exp_metadata_path = os.path.join(metadata_emodulus_directory, f + '.yaml')
         with open(exp_metadata_path) as file:
             data = yaml.safe_load(file)
         diameter = float(data['diameter'])
-        #length = float(data['length'])
-        length = 100 # as suggested here :https://github.com/BAMresearch/LebeDigital/pull/152#discussion_r1187107430
+        # length = float(data['length'])
+        length = 100  # as suggested here :https://github.com/BAMresearch/LebeDigital/pull/152#discussion_r1187107430
 
-        def calibrate_it(path_exp_data=processed_data_emodulus_directory,path_calibrated_data=calibrated_data_directory,
+        def calibrate_it(path_exp_data=processed_data_emodulus_directory, path_calibrated_data=calibrated_data_directory,
                          exp_name=f):
             output = read_exp_data_E_mod(path=path_exp_data, exp_name=exp_name + '.csv',
                                          length=length, diameter=diameter)
@@ -429,21 +433,23 @@ def task_perform_calibration():
             # store samples as csv
             np.savetxt(os.path.join(calibrated_data_expwise, f + '_calibrated_samples.csv'), E_samples, delimiter=',')
         # current outputs
-        ## -- output from probeye. dont really need it but for the time being
+        # -- output from probeye. dont really need it but for the time being
         owl_file = Path(calibrated_data_expwise, 'calibrationWorkflow' + f)
         displ_list = Path(calibrated_data_expwise, 'displacement_list_' + f + '.dat')
         force_list = Path(calibrated_data_expwise, 'force_list_' + f + '.dat')
-        #another_file = Path(calibrated_data_directory, 'joint_samples_compression_test_calibration.dat')
-        ## -- created by the calibration script
-        calibrated_data_file = Path(calibrated_data_expwise,f + '_calibrated_samples.csv')
+        # another_file = Path(calibrated_data_directory, 'joint_samples_compression_test_calibration.dat')
+        # -- created by the calibration script
+        calibrated_data_file = Path(calibrated_data_expwise, f + '_calibrated_samples.csv')
 
         yield {
             'name': f'calibrate {f}',
-            'actions': [(calibrate_it,[processed_data_emodulus_directory,calibrated_data_expwise,f])],
-            'file_dep': [exp_metadata_path,Path(processed_data_emodulus_directory,f+'.csv')], # the file dependancies, the metadata and exp files.
-            'targets': [owl_file,displ_list,force_list,calibrated_data_file], # the files which are output for each calibration
+            'actions': [(calibrate_it, [processed_data_emodulus_directory, calibrated_data_expwise, f])],
+            'file_dep': [exp_metadata_path, Path(processed_data_emodulus_directory, f + '.csv')],  # the file dependancies, the metadata and exp files.
+            'targets': [owl_file, displ_list, force_list, calibrated_data_file],  # the files which are output for each calibration
             'clean': [clean_targets]
         }
+
+
 @create_after(executed='perform_calibration')
 def task_perform_prediction():
     # create folder, if it is not there
@@ -459,11 +465,11 @@ def task_perform_prediction():
 
     for f in list_exp_name:
         # choose calibrated data to be used for prediction
-        #calibrated_data = single_example_name
-        calibrated_data =f
-        calibrated_data_path = os.path.join(calibrated_data_directory,calibrated_data + '/' + calibrated_data+'_calibrated_samples.csv')
+        # calibrated_data = single_example_name
+        calibrated_data = f
+        calibrated_data_path = os.path.join(calibrated_data_directory, calibrated_data + '/' + calibrated_data + '_calibrated_samples.csv')
         df = pd.read_csv(calibrated_data_path, header=None)
-        samples = df.iloc[:,0].tolist()
+        samples = df.iloc[:, 0].tolist()
         random.shuffle(samples)
 
         # output of this step
@@ -471,15 +477,15 @@ def task_perform_prediction():
 
         def do_prediction(samples):
             # perform prediction
-            pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending,parameter=samples,mode=config['mode'])
+            pos_pred = perform_prediction(forward_solver=wrapper_three_point_bending, parameter=samples, mode=config['mode'])
 
             # store prediction in csv
 
-            np.savetxt(predicted_data_path,pos_pred,delimiter=',')
+            np.savetxt(predicted_data_path, pos_pred, delimiter=',')
 
-        yield{
+        yield {
             'name': f'predict using {calibrated_data}',
-            'actions': [(do_prediction,[samples])],
+            'actions': [(do_prediction, [samples])],
             'file_dep': [calibrated_data_path],
             'targets': [predicted_data_path],
             'clean': [clean_targets]

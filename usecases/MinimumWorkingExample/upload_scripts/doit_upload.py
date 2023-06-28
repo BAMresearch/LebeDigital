@@ -120,7 +120,7 @@ def upload_to_openbis_doit(
     ingredient_sample_type = o.get_sample_type(
         config['ingredient_metadata']['ingredient_code'])
 
-    logger.debug("Samples created")
+    logger.debug("Sample types created")
 
     """
     PARSING DATASET UPLOAD FLAG
