@@ -1,6 +1,6 @@
 {
-   "sc_volume_fraction":{
-     "value" : 0.3,
-     "unit" : "dimensionless"
-   }
+    "sc_mass_fraction": {
+        "unit": "dimensionless",
+        "value": 0.5
+    }
 }
