@@ -45,7 +45,7 @@ def isNaN(num):
 
 
 
-# decorater in case you want to catch errors so that the script won't break 
+# decorater in case you want to catch errors so that the script won't break
 # but just pass without output:
 # @logger.catch
 
@@ -102,11 +102,39 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Check for missing labels; the following labels should exist (except 
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
         default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
-                        'Luftgehalt', 'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff']
+                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff']
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
             logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
             raise KeyError('Check raw data, there are labels missing', missing_labels)
+
+
+        # Some files don't have the type of addition/Zusatzstoff only labeled
+        # in a cell that will be neglected during the extraction, so this saves
+        # the type of Addition inside the annotation - but only in case it isn't
+        # mentioned there already
+        addition_finder = [True if i == 'Zusatzstoff' else False for i in labelcolumn]
+        idx_addition = [i for i in range(len(addition_finder)) if addition_finder[i] == True]
+        logger.debug('Number of additions in raw data: ' + str(len(idx_addition)))
+        for i in idx_addition:
+            # add the name in the annotation if not written there already
+            if str(exceltodf.iloc[i,1]) in str(exceltodf.iloc[i,8]):
+                pass
+            elif isNaN(exceltodf.iloc[i,8]):
+                exceltodf.iloc[i,8] =  str(exceltodf.iloc[i,1])
+            else:
+                exceltodf.iloc[i,8] =  str(exceltodf.iloc[i,8]) +' ' + str(exceltodf.iloc[i,1])
+
+
+        # This function will ensure that no empty annotation-information will
+        # be passed to the json-file (check annotation-cell for nan)
+        def no_empty_annotation(name):
+            if isNaN(exceltodf.iat[idx,8]):
+                logger.debug('Empty annotation in ' + str(name))
+                pass
+            else:
+                dic_label = str(name + '_Type')
+                metadata[dic_label] = replace_comma(str(exceltodf.iat[idx,8]), format='str')
 
 
         ############### E X T R A C T I O N #############
@@ -135,10 +163,11 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Cement data ('Zement') 
         if 'Zement' not in missing_labels:
             idx = labelidx['Zement']
-            metadata['CEMI_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['CEMI_Content_Unit'] = 'kg/m^3'
-            metadata['CEMI_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['CEMI_Density_Unit'] = 'kg/dm^3'
+            metadata['Cement1_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Cement1_Content_Unit'] = 'kg/m^3'
+            metadata['Cement1_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Cement1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Cement1')
         else:
             logger.error('cement not included in json-file')
 
@@ -150,25 +179,27 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Water_Content_Unit'] = 'kg/m^3'
             metadata['Water_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['Water_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Water')
         else:
             logger.error('Water not included in json-file')
 
 
         # water cement ratio ('Wasserzementwert')
-        if 'Zement' not in missing_labels and 'Wasser (gesamt)' not in missing_labels:
+        try:
             metadata['WaterCementRatio'] = float(metadata['Water_Content']
-                                                    / metadata['CEMI_Content'])
-        else:
-            logger.error('WaterCementRatio not included in json-file')
+                                                    / metadata['Cement1_Content'])
+        except:
+            raise Exception("Can not calculate water-cement-ratio! No values found!")
 
 
         # Admixture/Plasticizer ('Zusatzmittel') 
         if 'Zusatzmittel' not in missing_labels:
             idx = labelidx['Zusatzmittel']
-            metadata['Admixture_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['Admixture_Content_Unit'] = 'kg/m^3'
-            metadata['Admixture_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['Admixture_Density_Unit'] = 'kg/dm^3'
+            metadata['Admixture1_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Admixture1_Content_Unit'] = 'kg/m^3'
+            metadata['Admixture1_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Admixture1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Admixture1')
         else:
             logger.error('Plasticizer/Admixture not included in json-file')
 
@@ -176,10 +207,13 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Aggregate ('Zuschlag (gesamt)')
         if 'Zuschlag (gesamt)' not in missing_labels:
             idx = labelidx['Zuschlag (gesamt)']
-            metadata['Aggregate_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
-            metadata['Aggregate_Content_Unit'] = 'kg/m^3'
-            metadata['Aggregate_Size'] = float(replace_comma(str(exceltodf.iat[idx,4])))
-            metadata['Aggregate_Size_Unit'] = 'kg/dm^3'
+            metadata['Aggregate1_Content'] = float(replace_comma(str(exceltodf.iat[idx,2])))
+            metadata['Aggregate1_Content_Unit'] = 'kg/m^3'
+            metadata['Aggregate1_Size'] = float(replace_comma(str(exceltodf.iat[idx,4])))
+            metadata['Aggregate1_Size_Unit'] = nan
+            metadata['Aggregate1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Aggregate1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Aggregate1')
         else:
             logger.error('Okrilla/aggregate not included in json-file')
 
@@ -187,10 +221,11 @@ def extract_metadata_mixdesign(locationOfRawData):
         # Addition data ('Zusatzstoff')
         if 'Zusatzstoff' not in missing_labels:
             idx = labelidx['Zusatzstoff']
-            metadata['Addition_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Addition_Content_Unit'] = 'kg/m^3'
-            metadata['Addition_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Addition_Density_Unit'] = 'kg/dm^3'
+            metadata['Addition1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Addition1_Content_Unit'] = 'kg/m^3'
+            metadata['Addition1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Addition1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Addition1')
         else:
             logger.error('addition not included in json-file')
 
