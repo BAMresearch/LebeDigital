@@ -1,10 +1,6 @@
 import re
 import json
 import os
-import sys
-import pandas as pd
-import yaml
-from pathlib import Path
 import argparse
 import warnings
 import uuid
@@ -130,7 +126,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
                 #metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
         except:
             #metadata_emodule['MixDataFile'] = None
-            raise Exception("No mixdesign yaml-file found!")
+            raise Exception("No mixdesign json-file found!")
 
 
         ###########  D A T A   A B O U T    S P E C I M E N #######
@@ -144,12 +140,12 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/" + lines[:-5] + ".yaml", "r") as mixyaml: #change location of where 
-                mixdesign = yaml.safe_load(mixyaml)
+            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-5] + ".json", "r") as mixjson: #change location of where
+                mixdesign = json.load(mixjson)
                 mixtureID = mixdesign['ID']
                 metadata_specimen['MixtureID'] = mixtureID
         except:
-            raise Exception("No mixdesign yaml-file found! Can't import the ID and save it to the output!")
+            raise Exception("No mixdesign json-file found! Can't import the ID and save it to the output!")
 
         # set specimen age to 28 days
         metadata_emodule['SpecimenAge'] = 28.0
@@ -173,7 +169,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
 
 def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
-    """Creates two yaml files with extracted metadata, one for emodule and one
+    """Creates two json files with extracted metadata, one for emodule and one
     for the specimen
 
     Parameters
@@ -194,11 +190,10 @@ def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
     # extracting the metadata
     metadata, specimen = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file)
     
-    # writing the metadata to yaml file
-    with open(metaDataFile, 'w') as yamlFile:
-        yaml.dump(metadata, yamlFile)
-    with open(specimenDataFile, 'w') as yamlFile:
-        yaml.dump(specimen, yamlFile)
+    with open(metaDataFile, 'w') as jsonFile:
+        json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
+    with open(specimenDataFile, 'w') as jsonFile:
+        json.dump(specimen, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
 
 
 def main():
@@ -206,15 +201,15 @@ def main():
     parser = argparse.ArgumentParser(description='Script to extract metadata from BAM e-module experiment')
     # input file for raw data
     parser.add_argument('-i', '--input', help='Path to raw data file')
-    # output file for metadata yaml
-    parser.add_argument('-o', '--output', help='Path to extracted yaml files, one for emodule and one for specimen')
+    # output file for metadata json
+    parser.add_argument('-o', '--output', help='Path to extracted json files, one for emodule and one for specimen')
     args = parser.parse_args()
 
     # default values for testing of my script
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
     if args.output == None:
-        args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml','../../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testSpecimenData.yaml']
+        args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json','../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
 
     # run extraction and write metadata file
     emodul_metadata(args.input, args.output[0],args.output[1])

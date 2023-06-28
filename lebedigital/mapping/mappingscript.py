@@ -4,7 +4,7 @@
 # everything has been mapped.
 
 # import libraries
-import yaml
+import json
 import os
 from pathlib import Path
 from loguru import logger
@@ -17,13 +17,13 @@ def load_metadata(dataPath):
     '''
         Load metadata from a given path and return it as dictionary.
         dataPath : string
-            Path to the metadata yaml-file.
+            Path to the metadata json-file.
 
     '''
 
     with open(dataPath, 'r') as file:
         try:
-            metadata = yaml.safe_load(file)
+            metadata = json.load(file)
             return metadata
         except Exception as e:
             logger.error("Path error: " + str(e))
@@ -58,7 +58,7 @@ def placeholderreplacement(kgPath, metadataPath):
         kgPath : string
             complete path to KG template with placeholders (ttl-format)
         metadataPath : string
-            complete path to metadata (yaml-format)
+            complete path to metadata (json-format)
 
         Output:
         ---
@@ -200,20 +200,20 @@ def mapping(KGtemplatePath, metadataPath, outputPath):
 def main():
     # create parser
     parser = argparse.ArgumentParser(description='Script for mapping metadata to a Knowledge graph template.')
-    # input file for raw data
+    # input file for KGs and metadata
     parser.add_argument('-i', '--input', help='Paths to knowledge graph template and to metadata')
-    # output file for metadata yaml
+    # output for mapped KGs
     parser.add_argument('-o', '--output', help='Path to the mapped graph.')
     args = parser.parse_args()
 
     # default values for testing of my script
     if args.input == None:
         args.input = ['../../lebedigital/ConcreteOntology/EModuleOntology_KG_Template.ttl',
-                     '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testMetaData.yaml',
+                     '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json',
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/emodul/metadata_yaml_files/testSpecimenData.yaml',
+                      '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/2014_08_05 Rezeptur_MI.yaml'
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
                       ]
     if args.output == None:
         args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/testEmoduleMapped.ttl',

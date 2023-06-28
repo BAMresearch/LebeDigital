@@ -1,5 +1,5 @@
-# Script for metadata-extraction for mixes with CEM I and CEM II. Output yaml
-# should work with the MixDesign ontology for mapping.
+# Script for metadata-extraction for mixes with CEM I and CEM II. Output json.
+# Works with the MixDesign ontology for mapping.
 
 
 #------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
 import os
-import yaml
+import json
 from loguru import logger 
 from pathlib import Path
 import argparse
@@ -81,7 +81,7 @@ def extract_metadata_mixdesign(locationOfRawData):
     else:
         sheet = listofkeys[0]
 
-        # name of yaml-file will be experiment-name 
+        # name of json-file will be experiment-name
         name = os.path.basename(excelsheet).split('.xl')[0]
         
         # save data from excelsheet into pandas dataframe
@@ -140,7 +140,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['CEMI_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['CEMI_Density_Unit'] = 'kg/dm^3'
         else:
-            logger.error('cement not included in yaml-file')
+            logger.error('cement not included in json-file')
 
 
         # total water data ('Wasser (gesamt)') 
@@ -151,7 +151,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Water_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['Water_Density_Unit'] = 'kg/dm^3'
         else:
-            logger.error('Water not included in yaml-file')
+            logger.error('Water not included in json-file')
 
 
         # water cement ratio ('Wasserzementwert')
@@ -159,7 +159,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['WaterCementRatio'] = float(metadata['Water_Content']
                                                     / metadata['CEMI_Content'])
         else:
-            logger.error('WaterCementRatio not included in yaml-file')
+            logger.error('WaterCementRatio not included in json-file')
 
 
         # Admixture/Plasticizer ('Zusatzmittel') 
@@ -170,7 +170,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Admixture_Density'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['Admixture_Density_Unit'] = 'kg/dm^3'
         else:
-            logger.error('Plasticizer/Admixture not included in yaml-file')
+            logger.error('Plasticizer/Admixture not included in json-file')
 
 
         # Aggregate ('Zuschlag (gesamt)')
@@ -181,7 +181,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Aggregate_Size'] = float(replace_comma(str(exceltodf.iat[idx,4])))
             metadata['Aggregate_Size_Unit'] = 'kg/dm^3'
         else:
-            logger.error('Okrilla/aggregate not included in yaml-file')
+            logger.error('Okrilla/aggregate not included in json-file')
 
 
         # Addition data ('Zusatzstoff')
@@ -192,7 +192,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Addition_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Addition_Density_Unit'] = 'kg/dm^3'
         else:
-            logger.error('addition not included in yaml-file')
+            logger.error('addition not included in json-file')
 
 
         return metadata
@@ -200,7 +200,7 @@ def extract_metadata_mixdesign(locationOfRawData):
 
 
 def mix_metadata(rawDataPath, metaDataFile):
-    """Creates a yaml file with extracted metadata for the mixDesign.
+    """Creates a json file with extracted metadata for the mixDesign.
 
     Parameters
     ----------
@@ -213,9 +213,9 @@ def mix_metadata(rawDataPath, metaDataFile):
     # extracting the metadata
     metadata = extract_metadata_mixdesign(rawDataPath)
 
-    # writing the metadata to yaml file
-    with open(metaDataFile, 'w') as yamlFile:
-        yaml.dump(metadata, yamlFile, sort_keys=False, allow_unicode=True)
+    # writing the metadata to json file
+    with open(metaDataFile, 'w') as jsonFile:
+        json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
 
 
 def main():
@@ -223,15 +223,15 @@ def main():
     parser = argparse.ArgumentParser(description='Script to extract metadata from MixDesign.')
     # input file for raw data
     parser.add_argument('-i', '--input', help='Path to raw data file')
-    # output file for metadata yaml
-    parser.add_argument('-o', '--output', help='Path to extracted yaml files.')
+    # output file for metadata json
+    parser.add_argument('-o', '--output', help='Path to extracted json files.')
     args = parser.parse_args()
 
     # default values for testing of my script
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_yaml_files/2014_08_05 Rezeptur_MI.yaml'
+        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
 
     # run extraction and write metadata file
     mix_metadata(args.input, args.output)
