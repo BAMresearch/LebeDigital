@@ -5,12 +5,13 @@ import numpy as np
 import pytest
 
 from lebedigital.calibration.calibrationWorkflow import (
-    _check_E_mod_calibration_metadata,
-    _check_E_mod_experimental_data,
-    estimate_youngs_modulus,
-)
+    _check_E_mod_calibration_metadata, _check_E_mod_experimental_data,
+    estimate_youngs_modulus)
 from lebedigital.calibration.utils import read_exp_data_E_mod
 
+# for reproducible results
+seed =1
+np.random.seed(seed)
 
 def test_emodulus_calibration():
     # defining paths and directories
@@ -30,15 +31,14 @@ def test_emodulus_calibration():
         experimental_data=output,
         calibration_metadata={"E_loc": E_loc, "E_scale": E_scale},
         calibrated_data_path=data_path,
-        mode="cheap",
+        mode="test",
     )
 
     # checking if the KG file for the calibration is created
     assert (data_path / f"calibrationWorkflow{os.path.splitext(input_file)[0]}").is_file()
 
     # checking for the mean of the calibrated E modulus
-    # Note : Somehow the seed in EMCEE deosnt seed to work.
-    assert np.mean(E_samples) == pytest.approx(31, rel=0.3)
+    assert np.mean(E_samples) == pytest.approx(31.334306458960317)
 
 
 def test_check_E_mod_calibration_metadata():
