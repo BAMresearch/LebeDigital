@@ -1,38 +1,67 @@
+Precast concrete elements play a critical role in achieving efficient and sustainable structures. 
+In the standard design approach, engineers or architects select a structure, estimate the loads, choose a compressive strength, and design the element accordingly. 
+If the results are not satisfactory, the compressive strength requirement is iteratively adjusted, aiming to improve the design.
+% reference!!! is that so???
+In recent years, there has been an increasing recognition of the need to incorporate concrete mixture optimization into the structural design process. 
+This integration enables engineers to achieve not only structurally efficient elements but also those with reduced global warming potential (GWP). 
+The cement industry, a major contributor to GWP, accounts for approximately 8\% of the total anthropogenic GWP. 
+Reducing the environmental impact of cement production becomes crucial in the pursuit of sustainable construction practices.
+The conventional method of design and optimization does not adequately address GWP reduction.
+The optimization of the structural design and the concrete mix are decoupled.
+The lack of coordination between the designer and the concrete manufacturer therefore often leads to suboptimal solutions, as neither party possesses all the relevant information.\\
 
-General introduction.
-Giving background, motivation and state of the art.
-I would focus on example with reduction of GWP, as this is a good example where the optimum is difficult to find by local optimization.
-Improving GWP usually reduces material properties.
-Reduced properties usually increases GWP, as mor ematerial is required, therefore this is an insteresting problem.
+A first step, to address these limitations, is the incorporation of compressive strength during the design phase as a means to optimize for GWP reduction, as higher compressive strength is usually associated with higher values of GWP. 
+This approach has shown promising results in achieving improved structural efficiency while considering environmental impact. 
+However, there is still a need for a comprehensive optimization procedure that can seamlessly integrate concrete mixture optimization and structural simulations, ensuring structurally sound and buildable elements with minimized environmental impact.\\
 
-The main cause of GWP is connected to the cement.
-Some explanation and citation...
-There are three obvious ways to reduce the amount of cement.
-First, replace the cement with a substitute, as for example ground granulated slag.
-This can change mechanical properties, but does not necessarily mean a reduction in strength.
-Second, increase the amount of aggregates.
-This is certainly only possible op to a limit, as the matrix is required to glue the inclusions together.
-In addition, the workability can suffer when the amount and size of the aggregates is exagerated.
-Third, use less volume of concrete.
-This must be optimized on a structural level.
-Reducing cross sections of parts, will usually require imporved material properties, liked to an increase in cement in the mix design.
-Finding the optimum within these three methods is not trivial.
-This publication will focus, as a first step in the first two options (?????????).
-However evaluating constrains at the structural level, making th extension to topology optimization possible without a change in procedure.
+In this paper, we present a holistic optimization procedure that combines concrete mixture optimization with the structural response of precast concrete elements, using structural simulations as constraints to ensure structural integrity, limit the maximum temperature and ensure an adequate time of demolding.
+The primary goal of this optimization procedure is to reduce the GWP of precast concrete elements. 
+By integrating the concrete mixture optimization and structural design processes, engineers can tailor the concrete properties to meet specific requirements of the customer and manufacturer.\\
 
+To achieve the desired optimization, various parameters related to the concrete mixture and structural design need to be considered. 
+These parameters include aggregate type, water amount, cement type, admixtures, additives, temperature, and geometric dimensions. 
+However, running a fully data-driven optimization scheme would require an impractical amount of experimental data, given the interdependencies among these parameters. 
+Therefore, established modeling assumptions are applied to reduce the number of required experiments to a manageable level.\\
 
-For the specific application, an extension to coated inclusions has been used, based on \cite{her_1993_nlib}.
+The value of this manuscript lies in two main contributions. 
+Firstly, it presents a method that can automatically compute relevant Key Performance Indicators (KPIs) at the structural level, based on input values that incorporate parameters relevant to the concrete mix design. 
+This allows for a comprehensive evaluation of both structural performance and environmental impact. 
+Secondly, the paper details the numerical methods employed to conduct a robust optimization process, taking into account uncertainties based on raw experimental data.\\
+
+In summary, this paper introduces a holistic optimization procedure that integrates concrete mixture optimization with the structural design of precast concrete elements, aiming to achieve structurally efficient elements with minimized environmental impact. 
+The following sections will present the methodology, numerical simulations, and experimental investigations to demonstrate the effectiveness and practicality of the proposed approach. 
+By considering the broader implications of concrete mixture optimization and GWP reduction, this research contributes to the advancement of sustainable construction practices.
 
 
 
-The focus of this paper is not on the model applied, these are not newly developed on their own.
-The added value of this manuscript is on the one hand showing a method that is able to automatically compute relevant KPI on the structural level, based on input values, including parameters relevant for the concrete mix design.
-On the other hand this paper gives details on numerical methods to run a robust (?) optimization method which takes into account uncertainties based on the raw experimental data.
 
-There are many parameters affecting the effective properties of concrete, as aggregate type, water amount, cement type, admixtures, additives or temperature.
-To run a completely data driven optimization scheme would require a vast amount of data as most parameters are interdependent.
-This means, that the number of required data point increases exponetially with the number of paramters.
-Therefore we apply established modeling assumptions to reduce the amount of required experiments, to a realistic level.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%There are three obvious ways to reduce the amount of cement.
+%First, replace the cement with a substitute, as for example ground granulated slag.
+%This can change mechanical properties, but does not necessarily mean a reduction in strength.
+%Second, increase the amount of aggregates.
+%This is certainly only possible op to a limit, as the matrix is required to glue the inclusions together.
+%Third, use less volume of concrete.
+%This must be optimized on a structural level.
+%Reducing cross sections of parts, will usually require improved material properties, liked to an increase in cement in the mix design.
+%Finding the optimum within these three methods is not trivial.
+%This publication will focus, as a first step on the ratio of cement to slag and the height of the beam.
+%The amount of aggregates and the with of the beam will be kept constant.
+
 
 
 
