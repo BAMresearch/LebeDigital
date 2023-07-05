@@ -32,13 +32,13 @@ dependencies:
   - pint=0.20
   - pint-pandas
   - snakemake
-  - pybis
+  - pybis=1.35.5
   - xlsxwriter
   - termcolor
   - sphinx
   - pytest-cov
   - codecov
-  - pydantic
+  - pydantic<2.0
   - seaborn
   - pytorch==2.0.0
   - pip:
