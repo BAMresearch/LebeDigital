@@ -14,7 +14,7 @@ dependencies:
   - docker-compose
   - cython
   - numpy
-  - pandas=2.0.1
+  - pandas
   - pyyaml
   - owlready2
   - rdflib
@@ -32,7 +32,7 @@ dependencies:
   - pint=0.20
   - pint-pandas
   - snakemake
-  - pybis
+  - pybis=1.35.5
   - xlsxwriter
   - termcolor
   - sphinx
