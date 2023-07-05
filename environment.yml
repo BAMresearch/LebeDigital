@@ -38,7 +38,7 @@ dependencies:
   - sphinx
   - pytest-cov
   - codecov
-  - pydantic
+  - pydantic<2.0
   - seaborn
   - pip:
     - probeye==2.3.0
