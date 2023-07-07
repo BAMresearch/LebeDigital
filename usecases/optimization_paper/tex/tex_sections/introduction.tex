@@ -1,7 +1,42 @@
-Precast concrete elements play a critical role in achieving efficient and sustainable structures. 
-In the standard design approach, engineers or architects select a structure, estimate the loads, choose a compressive strength, and design the element accordingly. 
-If the results are not satisfactory, the compressive strength requirement is iteratively adjusted, aiming to improve the design.
-% reference!!! is that so???
+Precast concrete elements play a critical role in achieving efficient, low cost and sustainable structures.
+The controlled production environment allows for higher quality products and enables the mass production of elements.
+In the standard design approach, engineers or architects select a structure, estimate the loads, choose mechanical properties, and design the element accordingly. 
+If the results are not satisfactory, the required mechanical properties are iteratively adjusted, aiming to improve the design.
+This approach is fine, when the choice of mixtures limited and the expected concrete properties are well known.
+There are various published methods to automate this process and optimize the beam design at this level.
+Computer aided beam design optimization dates back  at least 50 year, e.g. \cite{Haung1967}.
+Generally the objective is reducing costs, with the design variables being the beam geometry, the amount and location of the reinforcement and sometimes the compressive strength of the concrete.
+Most publications focus on analytical functions based on norms and well known rules of thumb.
+In recent years the use of alternative binders in the concrete mix design has increased, mainly to reduce the environmental impact and cost of concrete but also to improve and modify specific properties.
+This is a challenge as the concrete mix is no longer a constant and is itself subjected to optimization.
+Known heuristics might no longer apply to the new materials and old design approaches might fail to produce optimal results.
+In addition it is not reasonable to choose from a predetermined set of possible mixes, as this would either lead to an exaggerated number of required experiments or a limiting subset of the possible design space.
+As for the beam design optimization literature looking into the optimization of specific concrete properties based on the concrete mix does exists.
+The objective in that literature is normally to either improve some mechanical property like durability within constraints, or minimizing e.g. the amount of concrete while keeping other properties above a threshold.
+When designing elements subjected to various requirements, both on the material and structural level, including workability of the fresh concrete, durability of the structure, maximum acceptable temperature, minimal cost and global warming potential, the optimal solution is not apparent.
+The conventional method of design and optimization does not allow for an optimization of structural measures while including the concrete mix composition as design variables, as the structural design and simulation and the concrete mix are decoupled, c.f. Figure 1.
+To the best of our knowledge there are no published works that combine the material and structural level in one flexible optimization framework.
+In addition the proposed framework allows to directly integrate experimental data and propagate the identified uncertainties.
+This allows a straight forward integration of new data and an quantification of uncertainties regarding the predictions.
+The proposed framework consists of three main parts.
+First, an automated and reproducible parameter identification method to calibrate the models.
+Second, a gradient-free optimization method, including constraints.
+Third, a flexible workflow combining the models and functions required for the respective problem. 
+For this publication a well known example of a simply supported, reinforced, rectangular beam  has been chosen.
+The design problem was originally published in \cite{everard1966reinforced}.
+It has been used to showcase different optimization schemes, e.g. \cite{Chakrabarty_1992}, \cite{Coello_1997}, \cite{Pierott_2021}.
+The experimental data used in the parameter identification step is mainly sourced from \cite{gruyaert2011}.
+To showcase the methods capability, two design variables have been chosen, the height of the beam and the ratio of ordinary Portland cement (OPC) to its replacement binder ground granulated blast furnace slack.
+The objective is to reduce the overall global warming potential of the part.
+It should be noted that the same method can be adapted to optimize cost, in addition it has been found that both objectives are highly correlated and result in similar optimal designs.
+This is not surprising as cement is usually the constituent with the highest cost as well as the highest environmental impact.
+As the chosen cost function is different to the ones used in other publications, a direct comparison of the optimum will not be of value, however it allows to give an idea of what might be a reasonable solution.
+
+
+
+....
+....
+
 In recent years, there has been an increasing recognition of the need to incorporate concrete mixture optimization into the structural design process. 
 This integration enables engineers to achieve not only structurally efficient elements but also those with reduced global warming potential (GWP). 
 The cement industry, a major contributor to GWP, accounts for approximately 8\% of the total anthropogenic GWP. 
@@ -13,6 +48,8 @@ Second, increase the amount of aggregates.
 This also changes effective properties and needs to be balanced with the workability and the limits due to the applications
 Third, decrease the overall volume of concrete.
 This must be optimized on a structural level.
+Fourth, improve durability, therefore making the structure more sustainable.
+
 The conventional method of design and optimization does not adequately address GWP reduction, as the optimization of the structural design and the concrete mix are decoupled.
 The lack of coordination between the designer and the concrete manufacturer therefore often leads to suboptimal solutions, as neither party possesses all the relevant information.\\\\
 %
@@ -61,5 +98,26 @@ The second figure \ref{fig:snakemake_workflow} is the directed acyclic graph fro
 \includegraphics[width=1.0\textwidth]{../figures/\snakemakeGraph}
 \caption{Further testing doit workflow combined with snakemake. t}\label{fig:snakemake_workflow}
 \end{figure}
+
+Beam optimization has been around at least since the 60s, e.g. \cite{Haung1967}.
+
+\cite{Chakrabarty_1992} original optimization example, cross section for cost and reinforcement.
+problem taken from book \cite{everard1966reinforced}.
+
+\cite{Coello_1997} , , cross section optimization, fixed fc, genetic algorithm, cost optimization.
+\cite{Pierott_2021} more optimization, focusing on reinforcement and also varying fc, optimizing cost.
+\cite{Paya_Zaforteza_2009} CO2 optimization and cost!!! they are correlated and optimum is similar.
+\cite{dos_Santos_2023} multi objective optimization, CO2 reduction, various fc.
+
+....
+Mix optimization
+\cite{Lisienkova_2021} optimizing mix for cement properties
+\cite{Kondapally_2022} more mix optimization for cement properties
+\cite{Shobeiri_2023} data driven, mix optimization
+
+
+
+Earlier optimization examples mainly focus on analytical models described in norms.
+By applying modern, complex FEM simulations and data driven methods, more complex constraints and functions can be incorporated, improving on coarse rules of thumb.
 
 
