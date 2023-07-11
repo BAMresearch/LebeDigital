@@ -1,0 +1,19 @@
+{
+    "Lab": "KIT",
+    "ID": "5295ed9a-6eff-4451-874b-8ab4ae7234eb",
+    "RawDataFile": "../../../usecases/MinimumWorkingExample/Data/HeatOfHydration/calo_example.csv",
+    "OpenBisRawDataFile": null,
+    "ExperimentStartDate": "2020-10-13T09:37:00",
+    "ExperimentEndDate": "2020-10-22T14:52:00",
+    "mix_name": "Sample - Ch 1",
+    "humanreadableID": "Sample - Ch 1",
+    "sample_mass": 5.946,
+    "headers": [
+        "Time",
+        "Temperature [Temperature]",
+        "Heat flow [Signal, Ch 1]",
+        "Heat [Signal, Ch 1]",
+        "Normalized heat flow [Signal, Ch 1]",
+        "Normalized heat [Signal, Ch 1]"
+    ]
+}
