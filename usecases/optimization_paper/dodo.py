@@ -135,19 +135,19 @@ def task_build_homogenization_figure():
 beam_design_plot_name = data["file_names"]["beamDesignPlot"]  # name of output pdf file as defined in macros yaml
 beam_design_plot_script = ROOT / bam_plot_dir / "beam_design_plot.py"
 beam_design_plot_output_file = ROOT / figures_dir / beam_design_plot_name
-#
-# WORK IN PROGRESS, will be finished in next PR!
-# def task_build_beam_design_figure():
-#     """build beam design figure"""
-#     target = paper_plot_target(beam_design_plot_name)
-#     n = 10  # number of points for figure, 150 should be good for final paper, but takes too long for development
-#
-#     return {
-#         "file_dep": [beam_design_plot_script],
-#         "actions": [(beam_design_plot,[data['beam_design_example_parameters'], n, beam_design_plot_output_file])],
-#         "targets": [target],
-#         "clean": True,
-#     }
+
+
+def task_build_beam_design_figure():
+    """build beam design figure"""
+    target = paper_plot_target(beam_design_plot_name)
+    n = 10  # number of points for figure, 150 should be good for final paper, but takes too long for development
+
+    return {
+        "file_dep": [beam_design_plot_script],
+        "actions": [(beam_design_plot, [data["beam_design_example_parameters"], n, beam_design_plot_output_file])],
+        "targets": [target],
+        "clean": True,
+    }
 
 
 def task_build_tex_macros():
