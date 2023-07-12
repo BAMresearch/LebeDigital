@@ -113,20 +113,21 @@ def task_build_snakemake_dag():
     }
 
 
-def task_build_design_figures():
-    """build design approach graph"""
-    output_file_name_1 = data["file_names"]["designStandard"]  # name of output pdf file as defined in macros yaml
-    output_file_name_2 = data["file_names"]["designProposed"]  # name of output pdf file as defined in macros yaml
-
-    target1 = paper_plot_target(output_file_name_1)
-    target2 = paper_plot_target(output_file_name_2)
-
-    return {
-        "file_dep": [...],
-        "actions": [...],
-        "targets": [target1, target2],
-        "clean": True,
-    }
+# WORK IN PRGORESS, will be finished in the next PR
+# def task_build_design_figures():
+#     """build design approach graph"""
+#     output_file_name_1 = data["file_names"]["designStandard"]  # name of output pdf file as defined in macros yaml
+#     output_file_name_2 = data["file_names"]["designProposed"]  # name of output pdf file as defined in macros yaml
+#
+#     target1 = paper_plot_target(output_file_name_1)
+#     target2 = paper_plot_target(output_file_name_2)
+#
+#     return {
+#         "file_dep": [...],
+#         "actions": [...],
+#         "targets": [target1, target2],
+#         "clean": True,
+#     }
 
 
 # homogenization figure
