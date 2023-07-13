@@ -20,6 +20,11 @@ def from_dict_2_pint_object(dictionary):
         new_dict_pint[key] = dictionary[key]['value'] * ureg(dictionary[key]['unit'])
     return new_dict_pint
 
+def load_json(path:str)->dict:
+    if path[-5:] == '.json':
+        with open(path) as f:
+            data = json.load(f)
+    return data
 
 def read_pint_dicts(input):
     dict = {}
@@ -340,10 +345,11 @@ rule approx_paste_properties:
          #merging contents of both dictionaries and individual variable inputs
 
         p = read_pint_dicts(input)
-
+        q = load_json(input.phi_paste)
         results = {}
         # run script
-        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['sc_volume_fraction'],p['paste_phi'])
+        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['sc_volume_fraction'],
+        q['phi_mean']['value'], q['phi_cov']['value'],q['seed']['value'])
 
         write_pint_dict(results,output.results)
 
@@ -362,13 +368,15 @@ rule approx_hydration_parameters:
         from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
          #merging contents of both dictionaries and individual variable inputs
 
+        # had to bypass this pint thing as it was not letting me use numpy.
         p = read_pint_dicts(input)
-
+        q = load_json(input.phi_hydration)
+        s = load_json(input.sc_fraction)
         results = {}
 
         # run script
         results['B1'], results['B2'], results['eta'], results['E_act'], results['Q_pot'], results['T_ref'] = \
-            dummy_hydration_parameters(p['sc_volume_fraction'], p['hydration_phi'])
+            dummy_hydration_parameters(s['sc_volume_fraction']['value'],q['phi_mean']['value'],q['phi_cov']['value'],q['seed']['value'])
 
         write_pint_dict(results,output.results)
 
