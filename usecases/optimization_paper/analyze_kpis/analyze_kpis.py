@@ -42,7 +42,7 @@ def get_kpis(input: dict, path: Path) -> dict:
     # Pass the parameter to X to the input to forward. Meaning overwrite the input.
     # The design variables, aggregate ratio and the slag ratio needs to be updated.
     update_json(input_path / "geometry.json", "height", input["height"])
-    update_json(input_path / "sc_fraction.json", "sc_volume_fraction", input["slag_ratio"])
+    update_json(input_path / "sc_fraction.json", "sc_mass_fraction", input["slag_ratio"])
 
     # # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
     # # Updating the phi's which are input to the script.

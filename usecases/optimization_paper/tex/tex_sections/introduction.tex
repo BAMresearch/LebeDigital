@@ -14,31 +14,51 @@ In addition it is not reasonable to choose from a predetermined set of possible 
 There exist literature studying the optimization of specific concrete properties on the concrete mix.
 The objective in that literature is normally to either improve some mechanical property like durability within constraints, or minimizing e.g. the amount of concrete while keeping other properties above a threshold.
 When designing elements subjected to various requirements, both on the material and structural level, including workability of the fresh concrete, durability of the structure, maximum acceptable temperature, minimal cost and global warming potential, the optimal solution is not apparent.
-The conventional method of design does not allow for an concurrent optimization of structural measures and concrete mix composition, as the structural  design and the concrete mix design are decoupled, c.f. Figure 1.
+The conventional method of design does not allow for an concurrent optimization of structural measures and concrete mix composition, as the structural  design and the concrete mix design are decoupled, c.f. Figure \ref{fig:standard_design}.
+The lack of coordination between the designer and the concrete manufacturer therefore often leads to suboptimal solutions, as neither party possesses all the relevant information.
+
+A first step to address these limitations is the incorporation of compressive strength during a optimization in the beam design phase.
+Higher compressive strength usually correlates with lager amount of cement and therefore higher cost as well as global warming potential.
+This approach has shown promising results in achieving improved structural efficiency while considering environmental impact.
+To be able to find a part specific optimum, individual data of the manufacturer and specific mix options must be integrated.
+Therefore, there is still a need for a comprehensive optimization procedure that can seamlessly integrate concrete mixture optimization and structural simulations, ensuring structurally sound and buildable elements with minimized environmental impact for part specific data.
+\\\\
+\begin{figure}[ht]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\designStandard}
+	\caption{Classical design approach, where the required material properties are defined before the mix is defined.}\label{fig:standard_design}
+\end{figure}
+\begin{figure}[ht]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\designProposed}
+	\caption{Presented design approach that allows for a holistic optimization.}\label{fig:proposed_workflow}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%
+This work inverts the classical design pipeline.
+As a first step a concrete mix is defined. 
+Based on the output, the beam design is created, see Figure \ref{fig:proposed_workflow}.
+
+In this paper, we present a holistic optimization procedure that combines concrete mixture optimization with the structural response of precast concrete elements, using structural simulations as constraints to ensure structural integrity, limit the maximum temperature and ensure an adequate time of demolding.
+The primary goal of this optimization procedure is to reduce the GWP of precast concrete elements. 
+By integrating the concrete mixture optimization and structural design processes, engineers can tailor the concrete properties to meet specific requirements of the customer and manufacturer.
+This approach will open up possibilities for performance prediction and optimization for new mixture that fall outside the standard range of well-known concrete.
+
+
+
 To the best of our knowledge there are no published works that combine the material and structural level in one flexible optimization framework.
-In addition the proposed framework allows to directly integrate experimental data and propagate the identified uncertainties.
+In addition to changing the order of the design steps, the proposed framework allows to directly integrate experimental data and propagate the identified uncertainties.
 This allows a straight forward integration of new data and an quantification of uncertainties regarding the predictions.
 The proposed framework consists of three main parts.
 First, an automated and reproducible parameter identification method to calibrate the models.
-Second, a gradient-free optimization method, including constraints.
+Second, a gradient-based optimization method for non-differentiable functions, including constraints.
 Third, a flexible workflow combining the models and functions required for the respective problem. 
 For this publication a well known example of a simply supported, reinforced, rectangular beam  has been chosen.
 The design problem was originally published in \cite{everard1966reinforced}.
 It has been used to showcase different optimization schemes, e.g. \cite{Chakrabarty_1992}, \cite{Coello_1997}, \cite{Pierott_2021}.
 The experimental data used in the parameter identification step is mainly sourced from \cite{gruyaert2011}.
-To showcase the methods capability, two design variables have been chosen, the height of the beam and the ratio of ordinary Portland cement (OPC) to its replacement binder ground granulated blast furnace slack.
 The objective is to reduce the overall global warming potential of the part.
-It should be noted that the same method can be adapted to optimize cost, in addition it has been found that both objectives are highly correlated and result in similar optimal designs.
-This is not surprising as cement is usually the constituent with the highest cost as well as the highest environmental impact.
-As the chosen cost function is different to the ones used in other publications, a direct comparison of the optimum will not be of value, however it allows to give an idea of what might be a reasonable solution.
 
 
-
-....
-....
-
-In recent years, there has been an increasing recognition of the need to incorporate concrete mixture optimization into the structural design process. 
-This integration enables engineers to achieve not only structurally efficient elements but also those with reduced global warming potential (GWP). 
 The cement industry, a major contributor to GWP, accounts for approximately 8\% of the total anthropogenic GWP. 
 Reducing the environmental impact of cement production becomes crucial in the pursuit of sustainable construction practices.
 There are three direct ways to reduce the amount of cement.
@@ -50,44 +70,20 @@ Third, decrease the overall volume of concrete.
 This must be optimized on a structural level.
 Fourth, improve durability, therefore making the structure more sustainable.
 
-The conventional method of design and optimization does not adequately address GWP reduction, as the optimization of the structural design and the concrete mix are decoupled.
-The lack of coordination between the designer and the concrete manufacturer therefore often leads to suboptimal solutions, as neither party possesses all the relevant information.\\\\
-%
 
-\begin{figure}[ht]%
-	\centering
-	\includegraphics[width=1.0\textwidth]{../figures/\designStandard}
-	\caption{Classical design approach, where the required material properties are defined before the mix is defined.}\label{fig:standard_design}
-\end{figure}
-\begin{figure}[ht]%
-\centering
-\includegraphics[width=1.0\textwidth]{../figures/\designProposed}
-\caption{Presented design approach that allows for a holistic optimization.}\label{fig:proposed_workflow}
-\end{figure}
-A first step to address these limitations is the incorporation of compressive strength during the design phase as a means to optimize for GWP reduction, as higher compressive strength is usually associated with higher values of GWP. 
-This approach has shown promising results in achieving improved structural efficiency while considering environmental impact.
-To be able to find a part specific optimum, individual data of the manufacturer and specific mix options must be integrated.
-Therefore, there is still a need for a comprehensive optimization procedure that can seamlessly integrate concrete mixture optimization and structural simulations, ensuring structurally sound and buildable elements with minimized environmental impact for part specific data.\\\\
-%
-In this paper, we present a holistic optimization procedure that combines concrete mixture optimization with the structural response of precast concrete elements, using structural simulations as constraints to ensure structural integrity, limit the maximum temperature and ensure an adequate time of demolding.
-The primary goal of this optimization procedure is to reduce the GWP of precast concrete elements. 
-By integrating the concrete mixture optimization and structural design processes, engineers can tailor the concrete properties to meet specific requirements of the customer and manufacturer.
-This approach will open up possibilities for performance prediction and optimization for new mixture that fall outside the standard range of well-known concrete.\\\\
-The framework is demonstrated, using an established example of a simply supported reinforced beam, first used in an cost-optimization method in REFERENCE 1990.
-Other authors expanded ....this...
-This example is used to shows the applicability of the method by producing results within the expected range.\\\\
-%
-To achieve the desired optimization, various parameters related to the concrete mixture and structural design need to be considered.
-These parameters include for example aggregate properties, water amount, cement type, beam geometry and temperature. 
-However, running a fully data-driven optimization scheme would require an impractical amount of experimental data, given the interdependencies among these parameters. 
-Therefore, established modeling assumptions are applied to reduce the number of required experiments to a manageable level.
-The authors choose to include different types of models, as analytical models, finite element simulations and learned functional relations, to showcase the versatility of the framework.
-\\\\
+To showcase the methods capability, two design variables have been chosen, the height of the beam and the ratio of ordinary Portland cement (OPC) to its replacement binder ground granulated blast furnace slack.
+
+
+
+As the chosen cost function is different to the ones used in other publications, a direct comparison of the optimum will not be of value, however it allows to give an idea of what might be a reasonable solution.
+
+
 %
 The value of this manuscript lies in two main contributions. 
 Firstly, it presents the possibility to automatically compute relevant Key Performance Indicators (KPIs) at the structural level, based on input values that incorporate parameters relevant to the concrete mix design. 
 This allows for a comprehensive evaluation of both structural performance and environmental impact. 
-Secondly, the paper details the numerical methods employed to conduct a robust optimization process without derivatives, taking into account uncertainties based on raw experimental data.\\\\
+Secondly, the paper details the numerical methods employed to conduct a robust optimization process without derivatives, taking into account uncertainties based on raw experimental data.
+\\\\
 % this might change and needs to be adapted
 In summary, this paper introduces a holistic optimization procedure that integrates concrete mixture optimization with the structural design of precast concrete elements, aiming to achieve structurally efficient elements with minimized environmental impact. 
 The paper starts  with the theoretical background of the parameter identification method in Section \ref{sec:calibration} and is followed by the optimization method in Section \ref{sec:optimization} and some numerical experiments showcasing the method in \ref{sec:numericalexperiments}.
@@ -97,15 +93,9 @@ In Section \ref{sec:results} all parts parts, the experimental data, the calibra
 The publication finishes with a conclusion and outlook in Section \ref{sec:conclusion}.
 \\\\
 % this is just for testing purposes, this can be deleted or moved to a different location
-In Figure \ref{fig:workflow} an overview of the workflow is given which is used to compute the KPIs and is the heart of the optimization scheme.
-The second figure \ref{fig:snakemake_workflow} is the directed acyclic graph from the snakemake workflow, just located here as another example
-\begin{figure}[ht]%
-\centering
-\includegraphics[width=1.0\textwidth]{../figures/\snakemakeGraph}
-\caption{Further testing doit workflow combined with snakemake. t}\label{fig:snakemake_workflow}
-\end{figure}
 
-Beam optimization has been around at least since the 60s, e.g. \cite{Haung1967}.
+
+....
 
 \cite{Chakrabarty_1992} original optimization example, cross section for cost and reinforcement.
 problem taken from book \cite{everard1966reinforced}.
