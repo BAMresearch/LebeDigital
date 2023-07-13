@@ -4,6 +4,7 @@ import pathlib
 import yaml
 from bam_figures.beam_design_plot import beam_design_plot
 from bam_figures.create_homogenization_figure import create_homogenization_figure
+from bam_figures.design_approach import design_approach_graph
 from doit import get_var
 from doit.action import CmdAction
 from tex.macros.py_macros import input_optimization_macros, py_macros
@@ -37,6 +38,8 @@ config = {"mode": get_var("mode", "default")}
 # general
 ROOT = pathlib.Path(__file__).parent
 figures_dir = "figures"
+
+BAM_PLOT_DIR = "bam_figures"
 
 # initialize a list of file dependencies for the paper
 PAPER_PLOTS = []
@@ -113,29 +116,35 @@ def task_build_snakemake_dag():
     }
 
 
-# WORK IN PRGORESS, will be finished in the next PR
-# def task_build_design_figures():
-#     """build design approach graph"""
-#     output_file_name_1 = data["file_names"]["designStandard"]  # name of output pdf file as defined in macros yaml
-#     output_file_name_2 = data["file_names"]["designProposed"]  # name of output pdf file as defined in macros yaml
-#
-#     target1 = paper_plot_target(output_file_name_1)
-#     target2 = paper_plot_target(output_file_name_2)
-#
-#     return {
-#         "file_dep": [...],
-#         "actions": [...],
-#         "targets": [target1, target2],
-#         "clean": True,
-#     }
+def task_build_design_figures():
+    """build design approach graph"""
+
+    design_apporach_plot_script = ROOT / BAM_PLOT_DIR / "design_approach.py"
+
+    output_file_name_1 = data["file_names"]["designStandard"]  # name of output pdf file as defined in macros yaml
+    output_file_name_2 = data["file_names"]["designProposed"]  # name of output pdf file as defined in macros yaml
+
+    target1 = paper_plot_target(output_file_name_1)
+    target2 = paper_plot_target(output_file_name_2)
+
+    return {
+        "file_dep": [design_apporach_plot_script],
+        "actions": [
+            (
+                design_approach_graph,
+                [target1.with_suffix("").with_suffix(""), target2.with_suffix("").with_suffix("")],
+            )
+        ],
+        "targets": [target1, target2],
+        "clean": True,
+    }
 
 
 # homogenization figure
-bam_plot_dir = "bam_figures"
 homogenization_plot_name = data["file_names"][
     "homogenizationPlot"
 ]  # name of output pdf file as defined in macros yaml
-homogenization_plot_script = ROOT / bam_plot_dir / "create_homogenization_figure.py"
+homogenization_plot_script = ROOT / BAM_PLOT_DIR / "create_homogenization_figure.py"
 homogenization_plot_output_file = ROOT / figures_dir / homogenization_plot_name
 
 
@@ -158,7 +167,7 @@ def task_build_homogenization_figure():
 
 # homogenization figure
 beam_design_plot_name = data["file_names"]["beamDesignPlot"]  # name of output pdf file as defined in macros yaml
-beam_design_plot_script = ROOT / bam_plot_dir / "beam_design_plot.py"
+beam_design_plot_script = ROOT / BAM_PLOT_DIR / "beam_design_plot.py"
 beam_design_plot_output_file = ROOT / figures_dir / beam_design_plot_name
 
 

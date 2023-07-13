@@ -1,4 +1,5 @@
 import os
+
 # from pathlib import Path
 import pathlib
 
@@ -15,8 +16,9 @@ pathlib.Path(IMAGE_FOLDER).mkdir(exist_ok=True)
 FONTSIZE = 12
 
 
-def design_approach_graph(file_name="test_design_appoach", view=False):
-    file_name = str(file_name)  # convert pathlib object to useful string
+def design_approach_graph(file_name_1, file_name_2, view=False):
+    file_name_1 = str(file_name_1)  # convert pathlib object to useful string
+    file_name_2 = str(file_name_2)  # convert pathlib object to useful string
 
     process = "blue"
     input = "green"
@@ -40,7 +42,7 @@ def design_approach_graph(file_name="test_design_appoach", view=False):
         dot.node("slag_content", "Slag Content")
         return dot
 
-    dot = create_nodes(file_name + "1", "Standard Design Approach")
+    dot = create_nodes(file_name_1, "Standard Design Approach")
 
     dot.edge("loads", "structural_design")
     dot.edge("structural_constraint", "structural_design")
@@ -52,7 +54,7 @@ def design_approach_graph(file_name="test_design_appoach", view=False):
 
     dot.render(view=view, cleanup=True)
 
-    dot = create_nodes(file_name + "2", "Proposed Workflow")
+    dot = create_nodes(file_name_2, "Proposed Workflow")
 
     dot.edge("loads", "structural_design")
     dot.edge("structural_constraint", "structural_design")
@@ -66,4 +68,4 @@ def design_approach_graph(file_name="test_design_appoach", view=False):
 
 
 if __name__ == "__main__":
-    design_approach_graph(file_name="test_design_approach", view=True)
+    design_approach_graph(file_name_1="test_standard_design", file_name_2="test_proposed_design", view=True)
