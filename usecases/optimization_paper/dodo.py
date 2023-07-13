@@ -48,6 +48,7 @@ ROOT = pathlib.Path(__file__).parent
 FIGURES_DIR = "figures"  # target folder for all figures
 BAM_PLOT_DIR = "bam_figures"  # origin folder for all BAM figure scripts
 PAPER_DIR = "tex"  # folder for the paper code
+OPTIMIZATION_DIR = "optimization_workflow"  # folder for the paper code
 
 
 # initialize a list of file dependencies for the paper
@@ -63,7 +64,7 @@ py_macros_file_TUM = ROOT / PAPER_DIR / "macros" / "py_macros_TUM.tex"
 tex_macros_file_BAM = ROOT / PAPER_DIR / "macros" / "tex_macros_BAM.tex"
 tex_macros_file_TUM = ROOT / PAPER_DIR / "macros" / "tex_macros_TUM.tex"
 py_macros_optimization_file = ROOT / PAPER_DIR / "macros" / "py_macros_optimization_input.tex"
-path_to_optimization_workflows = ROOT / "optimization_workflow"
+path_to_optimization_workflows = ROOT / OPTIMIZATION_DIR
 TEX_MACROS = [
     py_macros_file_BAM,
     py_macros_file_TUM,
@@ -85,7 +86,6 @@ def task_build_graph():
     # workflow graph
     workflow_graph_name = data["file_names"]["workflowGraph"]  # name of output pdf file as defined in macros yaml
     workflow_graph_script = ROOT / BAM_PLOT_DIR / "paper_workflow_graph.py"
-    workflow_output_file = ROOT / FIGURES_DIR / workflow_graph_name
 
     target = paper_plot_target(workflow_graph_name)
 
@@ -100,14 +100,15 @@ def task_build_graph():
 def task_build_snakemake_dag():
     """build snakemake optimization workflow graph"""
     output_file_name = data["file_names"]["snakemakeGraph"]  # name of output pdf file as defined in macros yaml
-    snakemake_dir = "optimization_workflow"
-    snakefile = ROOT / snakemake_dir / "Snakefile"
+    snakefile = ROOT / OPTIMIZATION_DIR / "Snakefile"
 
     target = paper_plot_target(output_file_name)
 
     return {
         "file_dep": [snakefile],
-        "actions": [CmdAction(f"cd {snakemake_dir} && snakemake --forceall --dag | dot -Tpdf > {target}")],
+        "actions": [
+            CmdAction(f"cd {OPTIMIZATION_DIR} && snakemake --forceall --dag 2> log_dag.txt | dot -Tpdf > {target}")
+        ],
         "targets": [target],
         "clean": True,
     }
@@ -204,7 +205,7 @@ def task_paper():
     """compile pdf from latex source"""
     return {
         "file_dep": [paper_file] + TEX_MACROS + PAPER_PLOTS,
-        "actions": [f"tectonic {paper_file} -c 2> tectonic_log.txt"],
+        "actions": [f"tectonic {paper_file} -c minimal 2> log_tectonic.txt"],
         "targets": [paper_file.with_suffix(".pdf")],
         "clean": True,
     }
