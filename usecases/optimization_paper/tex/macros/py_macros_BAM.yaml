@@ -2,7 +2,9 @@ file_names : {
   'workflowGraph': 'paper_workflow_graph.gv.pdf',
   'snakemakeGraph': 'snakemake_optimization_graph.pdf',
   'homogenizationPlot': 'homogenization_figure.pdf',
-  'beamDesignPlot': 'beam_design_figure.pdf'
+  'beamDesignPlot': 'beam_design_figure.pdf',
+  'designStandard': 'approach_standard_design.gv.pdf',
+  'designProposed': 'approach_proposed_design.gv.pdf'
 }
 homogenization_example_parameters : {
     'pasteE' : 30e9,

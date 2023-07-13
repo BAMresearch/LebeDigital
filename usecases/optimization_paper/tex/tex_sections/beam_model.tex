@@ -1,44 +1,16 @@
-\subsubsection{Compute required reinforcement steel}
-To ensure that the chosen mix and beam properties fully fulfill the requirements according to the standards, the computation of the required steel reinforcement is integrated into the workflow.
-The defining characteristic is the applied moment.
-It is mainly governed by the height of the beam and the external force.
-
-... continue this once we have discussed how this new optimization goal con be incorporated.
-
-
-
-\begin{table}[ht]
-	\begin{center}
-		\begin{minipage}{.9\textwidth}
-			\caption{Input for the computation of the steel reinforcement}\label{tab:beamdesigninput}
-			\begin{tabular}{lrl}
-				\toprule
-				Name &  Value&Unit\\
-				\midrule
-				Length & \beamExSpan &$\beamExSpanUnit$\\
-				Width & \beamExWidth &$\beamExWidthUnit$\\
-				Height& \beamExHeightC &$\beamExHeightCUnit$\\
-				Steel yield strength& \beamExYieldStrSteel &$\beamExYieldStrSteelUnit$\\
-				Diameter stirrups& \beamExSteelDiaBu &$\beamExSteelDiaBuUnit$\\
-				Minimal concrete cover& \beamExCoverMin &$\beamExCoverMinUnit$\\
-				Load& \beamExPointLoadC &$\beamExPointLoadCUnit$\\
-				Concrete compressive strength& \beamExComprStrConcreteC &$\beamExComprStrConcreteCUnit$\\
-				\botrule
-			\end{tabular}
-		\end{minipage}
-	\end{center}
-	
-\end{table}
-
-
-
-
-
+\subsubsection{Beam design according to EC2}
+To ensure that the chosen mix and beam properties fulfill the requirements according to the European norm for reinforced concrete, \cite{DIN1992-1-1}, the computation of the required steel reinforcement is integrated into the workflow.
+For a given beam height, load and compressive strength, the minimum required cross section of the steel reinforcement is computed \eqref{eq:Areq}.
+The results for example parameters, given in Table \ref{tab:beamdesigninput}, are visualized in Figure \ref{fig:beamdesign}.
+To ensure that this design is realistic, the continuous cross section is transformed into a discrete number of bars, with a diameter chosen from a list.
+This is visible in Figure \ref{fig:beamdesign} by the step-wise increase in cross sections.
+The admissible results are restricted by two constrains.
+One is coming from a minimal required compressive strength \eqref{eq:constraintfc}, visualized as dashed line.
+The other, based on the available space to place bars with admissible spacing \eqref{eq:constraintGeo}, visualized as the dotted line.
+Further detail on the computation are given in Appendix \ref{appendix:beam}.
 
 \begin{figure}[ht]%
 	\centering
 	\includegraphics[width=1.0\textwidth]{../figures/\beamDesignPlot}
-	\caption{Influence of beam height, concrete compressive strength and load in the center of the beam on the required steel.}\label{fig:beamdesign}
+	\caption{Influence of beam height, concrete compressive strength and load in the center of the beam on the required steel. The dashed lines represent the minimum compressive strength constraint \eqref{eq:constraintfc}, the dotted lines the geometrical constraint from the spacing of the bars \eqref{eq:constraintGeo}.\label{fig:beamdesign}}
 \end{figure}
-
-

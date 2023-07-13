@@ -185,3 +185,13 @@ tests/emodulus_calibration/calibration_data
 usecases/optimization_paper/tex/macros/py_macros_BAM.tex
 usecases/optimization_paper/tex/macros/py_macros_TUM.tex
 
+# calibration
+tests/emodulus_calibration/calibration_data/
+!tests/emodulus_calibration/calibration_data/Wolf 8.2 Probe 1.csv
+
+# log for tectonic paper thingy
+**/log_tectonic.txt
+**/log_dag.txt
+usecases/optimization_paper/bam_figures/graph_tex_nodes/*
+
+
