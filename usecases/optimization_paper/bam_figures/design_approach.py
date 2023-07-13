@@ -32,37 +32,34 @@ def design_approach_graph(file_name_1, file_name_2, view=False):
         if header:
             dot.attr(label=header, labelloc="t", labeljust="c", fontsize=str(FONTSIZE * 1.5))
 
-        dot.node("loads", "Loads")
-        dot.node("structural_constraint", "Structural Constraint")
+        dot.node("structural_constraint", "Structural Constraints")
         dot.node("structural_design", "Structural Design", shape="rectangle", color=process)
         dot.node("height", "Beam Height")
         dot.node("mechanical_properties", "Mechanical Properties")
         dot.node("mix_design", "Concrete Mix Design", shape="rectangle", color=process)
-        dot.node("mix_constraint", "Mix Constraint")
+        dot.node("mix_constraint", "Mix Constraints")
         dot.node("slag_content", "Slag Content")
         return dot
 
     dot = create_nodes(file_name_1, "Standard Design Approach")
 
-    dot.edge("loads", "structural_design")
     dot.edge("structural_constraint", "structural_design")
-    dot.edge("structural_design", "height")
     dot.edge("structural_design", "mechanical_properties")
-    dot.edge("mechanical_properties", "mix_design")
+    dot.edge("structural_design", "height")
     dot.edge("mix_constraint", "mix_design")
+    dot.edge("mechanical_properties", "mix_design")
     dot.edge("mix_design", "slag_content")
 
     dot.render(view=view, cleanup=True)
 
     dot = create_nodes(file_name_2, "Proposed Workflow")
 
-    dot.edge("loads", "structural_design")
-    dot.edge("structural_constraint", "structural_design")
-    dot.edge("height", "structural_design")
     dot.edge("mechanical_properties", "structural_design")
     dot.edge("mix_design", "mechanical_properties")
     dot.edge("mix_constraint", "mix_design")
     dot.edge("slag_content", "mix_design")
+    dot.edge("height", "structural_design")
+    dot.edge("structural_constraint", "structural_design")
 
     dot.render(view=view, cleanup=True)
 

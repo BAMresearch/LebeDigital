@@ -53,6 +53,17 @@ Fourth, improve durability, therefore making the structure more sustainable.
 The conventional method of design and optimization does not adequately address GWP reduction, as the optimization of the structural design and the concrete mix are decoupled.
 The lack of coordination between the designer and the concrete manufacturer therefore often leads to suboptimal solutions, as neither party possesses all the relevant information.\\\\
 %
+
+\begin{figure}[ht]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\designStandard}
+	\caption{Classical design approach, where the required material properties are defined before the mix is defined.}\label{fig:standard_design}
+\end{figure}
+\begin{figure}[ht]%
+\centering
+\includegraphics[width=1.0\textwidth]{../figures/\designProposed}
+\caption{Presented design approach that allows for a holistic optimization.}\label{fig:proposed_workflow}
+\end{figure}
 A first step to address these limitations is the incorporation of compressive strength during the design phase as a means to optimize for GWP reduction, as higher compressive strength is usually associated with higher values of GWP. 
 This approach has shown promising results in achieving improved structural efficiency while considering environmental impact.
 To be able to find a part specific optimum, individual data of the manufacturer and specific mix options must be integrated.
@@ -88,11 +99,6 @@ The publication finishes with a conclusion and outlook in Section \ref{sec:concl
 % this is just for testing purposes, this can be deleted or moved to a different location
 In Figure \ref{fig:workflow} an overview of the workflow is given which is used to compute the KPIs and is the heart of the optimization scheme.
 The second figure \ref{fig:snakemake_workflow} is the directed acyclic graph from the snakemake workflow, just located here as another example
-\begin{figure}[ht]%
-	\centering
-	\includegraphics[width=1.0\textwidth]{../figures/\workflowGraph}
-	\caption{Testing doit workflow. Figure is created by script. Macro for path is created by other script}\label{fig:workflow}
-\end{figure}
 \begin{figure}[ht]%
 \centering
 \includegraphics[width=1.0\textwidth]{../figures/\snakemakeGraph}

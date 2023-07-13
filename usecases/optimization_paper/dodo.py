@@ -5,10 +5,10 @@ import yaml
 from bam_figures.beam_design_plot import beam_design_plot
 from bam_figures.create_homogenization_figure import create_homogenization_figure
 from bam_figures.design_approach import design_approach_graph
+from bam_figures.paper_workflow_graph import paper_workflow_graph
 from doit import get_var
 from doit.action import CmdAction
 from tex.macros.py_macros import input_optimization_macros, py_macros
-from workflow_graph.paper_workflow_graph import paper_workflow_graph
 
 
 def update(d, u):
@@ -24,6 +24,14 @@ def update(d, u):
     return d
 
 
+# function to return target path and append paper dependency list
+def paper_plot_target(name):
+    target = ROOT / FIGURES_DIR / name
+    PAPER_PLOTS.append(target)
+    return target
+
+
+# config doit
 DOIT_CONFIG = {
     "verbosity": 2,
 }
@@ -35,35 +43,26 @@ config = {"mode": get_var("mode", "default")}
 # the mode or other variables can be used via a dictionary
 # config['mode']
 
-# general
+# defining relevant paths and directories
 ROOT = pathlib.Path(__file__).parent
-figures_dir = "figures"
+FIGURES_DIR = "figures"  # target folder for all figures
+BAM_PLOT_DIR = "bam_figures"  # origin folder for all BAM figure scripts
+PAPER_DIR = "tex"  # folder for the paper code
 
-BAM_PLOT_DIR = "bam_figures"
 
 # initialize a list of file dependencies for the paper
 PAPER_PLOTS = []
 
-
-# function to return target path and append paper dependency list
-def paper_plot_target(name):
-    target = ROOT / figures_dir / name
-    PAPER_PLOTS.append(target)
-    return target
-
-
-# paper
-paper_dir = "tex"
 paper_name = "optimization_paper.tex"
-paper_file = ROOT / paper_dir / paper_name
+paper_file = ROOT / PAPER_DIR / paper_name
 
 
 # macros
-py_macros_file_BAM = ROOT / paper_dir / "macros" / "py_macros_BAM.tex"
-py_macros_file_TUM = ROOT / paper_dir / "macros" / "py_macros_TUM.tex"
-tex_macros_file_BAM = ROOT / paper_dir / "macros" / "tex_macros_BAM.tex"
-tex_macros_file_TUM = ROOT / paper_dir / "macros" / "tex_macros_TUM.tex"
-py_macros_optimization_file = ROOT / paper_dir / "macros" / "py_macros_optimization_input.tex"
+py_macros_file_BAM = ROOT / PAPER_DIR / "macros" / "py_macros_BAM.tex"
+py_macros_file_TUM = ROOT / PAPER_DIR / "macros" / "py_macros_TUM.tex"
+tex_macros_file_BAM = ROOT / PAPER_DIR / "macros" / "tex_macros_BAM.tex"
+tex_macros_file_TUM = ROOT / PAPER_DIR / "macros" / "tex_macros_TUM.tex"
+py_macros_optimization_file = ROOT / PAPER_DIR / "macros" / "py_macros_optimization_input.tex"
 path_to_optimization_workflows = ROOT / "optimization_workflow"
 TEX_MACROS = [
     py_macros_file_BAM,
@@ -82,10 +81,9 @@ with open(py_macros_file_BAM.with_suffix(".yaml")) as f:
 
 
 # workflow graph
-workflow_graph_dir = "workflow_graph"
 workflow_graph_name = data["file_names"]["workflowGraph"]  # name of output pdf file as defined in macros yaml
-workflow_graph_script = ROOT / workflow_graph_dir / "paper_workflow_graph.py"
-workflow_output_file = ROOT / figures_dir / workflow_graph_name
+workflow_graph_script = ROOT / BAM_PLOT_DIR / "paper_workflow_graph.py"
+workflow_output_file = ROOT / FIGURES_DIR / workflow_graph_name
 
 
 def task_build_graph():
@@ -145,7 +143,7 @@ homogenization_plot_name = data["file_names"][
     "homogenizationPlot"
 ]  # name of output pdf file as defined in macros yaml
 homogenization_plot_script = ROOT / BAM_PLOT_DIR / "create_homogenization_figure.py"
-homogenization_plot_output_file = ROOT / figures_dir / homogenization_plot_name
+homogenization_plot_output_file = ROOT / FIGURES_DIR / homogenization_plot_name
 
 
 def task_build_homogenization_figure():
@@ -168,7 +166,7 @@ def task_build_homogenization_figure():
 # homogenization figure
 beam_design_plot_name = data["file_names"]["beamDesignPlot"]  # name of output pdf file as defined in macros yaml
 beam_design_plot_script = ROOT / BAM_PLOT_DIR / "beam_design_plot.py"
-beam_design_plot_output_file = ROOT / figures_dir / beam_design_plot_name
+beam_design_plot_output_file = ROOT / FIGURES_DIR / beam_design_plot_name
 
 
 def task_build_beam_design_figure():
