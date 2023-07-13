@@ -7,7 +7,7 @@ from scipy.optimize import curve_fit
 from lebedigital.unit_registry import ureg
 
 
-def kpi_from_fem(df, limit_temp):
+def kpi_from_fem(df, limit_temp, limit_time):
     """
     compute KPIs from simulation output
 
@@ -107,6 +107,7 @@ def kpi_from_fem(df, limit_temp):
 
     # changing units, because we can
     results["time_of_demolding"].ito("h")
+    limit_time.ito("h")
 
     # requantify the dataframe
     df = df.pint.quantify()
@@ -121,7 +122,11 @@ def kpi_from_fem(df, limit_temp):
     # changing units, because we can
     results["time_max_reached_temperature"].ito("hours")
 
+    results["constraint_time"] = (results["time_of_demolding"] - limit_time) / limit_time
+
     # difference between limit temp and reached maximum
-    results["check_reached_temperature"] = limit_temp - results["max_reached_temperature"]
+    results["constraint_temperature"] = (
+        (results["max_reached_temperature"].magnitude - limit_temp.magnitude) / limit_temp.magnitude
+    ) * ureg("dimensionless")
 
     return results

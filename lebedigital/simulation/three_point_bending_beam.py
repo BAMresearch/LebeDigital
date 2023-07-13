@@ -5,7 +5,7 @@ import numpy as np
 from lebedigital.unit_registry import ureg
 import pint
 
-def three_point_bending_example(parameters, pv_output=False):
+def three_point_bending_beam(parameters, pv_output=False):
     """Example of a linear elastic three point bending test
 
     Parameters
@@ -81,16 +81,3 @@ def three_point_bending_example(parameters, pv_output=False):
     stress_in_x = stress_tensor[0]
 
     return stress_in_x * ureg('N/mm^2')
-
-
-if __name__ == "__main__":
-    # example of how to use this function
-    # defining the material parameters
-    parameters = fenics_concrete.Parameters()  # using the current default values
-
-    # input values for the material
-    parameters['E'] = 30000 * ureg('N/mm^2')
-    parameters['nu'] = 0.2 * ureg('')
-
-    # resulting stress in x direction in the bottom center of the beam
-    print('Stress in x:',three_point_bending_example(parameters))

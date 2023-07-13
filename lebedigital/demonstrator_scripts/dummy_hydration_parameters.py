@@ -1,4 +1,5 @@
 import numpy as np
+
 from lebedigital.unit_registry import ureg
 import torch as th
 import numpy as np
@@ -49,11 +50,11 @@ def dummy_hydration_parameters(slag_ratio, phi_mean: list, phi_cov: list, seed: 
     B1 = 2.916E-4 * ureg('1/s')  # in 1/s
     B2 = 0.0024229 * ureg('')  # -
     eta = 5.554 * ureg('')  # something about diffusion
-    E_act = 3653 * 8.3145 * ureg('J/mol')  # activation energy in Jmol^-1
+    E_act = 5653 * 8.3145 * ureg('J/mol')  # activation energy in Jmol^-1
     Q_ = ureg.Quantity
     T_ref = Q_(25, ureg.degC)
 
-    Q_pot_min = 200000 * ureg('J/kg')
+    Q_pot_min = 100000 * ureg('J/kg')
     Q_pot_max = 300000 * ureg('J/kg')
     Q_pot = Q_pot_max - (Q_pot_max - Q_pot_min) * slag_ratio
 

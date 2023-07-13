@@ -1,19 +1,22 @@
 \subsection{Approximate concrete tensile strength based on compressive strength}
-To reduce the number of required experiments, the tensile strength of concrete is computed using the approximations given in \citeauthor{DIN1992-1-1}.
-They are based on the compressive strength, 
-\begin{align}
-\ft = 
-\begin{cases}
-0.3 \fc^{\frac{2}{3}}  & \text{for $\fc \le 50$ N/mm$^2$}\\
-\ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  \label{eq:tensilstrength}.
-\end{cases}
-\end{align}
-\subsection{\texorpdfstring{$\DOHmax$}{Maxiumum DoH} based on \texorpdfstring{$\wc$}{w/c}}
-Following \cite{Mills1966fico}, the maximum degree of hydration is given by the function
-\begin{align}
-	\DOHmax = \dfrac{1.031\,\wc}{0.194 + \wc}.
-\end{align}
-Contrary to other publications, this function does not assume a fully hydrated cement for a value of $\wc = 0.42$ but assumes that the full potential will usually not be reached.
-It is possible that the maximum value might be underestimated.
-This should not be a problem, as we are identifying our hydration parameter for a given $\wc$ value.
-The relevant aspect is the change relative to the value for which experimental data is given.
+... currently the steel yield strength is used in the models, to determine the constraint...
+its a bit of a mess, as we thought/hoped to include the reinforcements
+
+%To reduce the number of required experiments, the tensile strength of concrete is computed using the approximations given in \citeauthor{DIN1992-1-1}.
+%They are based on the compressive strength, 
+%\begin{align}
+%\ft = 
+%\begin{cases}
+%0.3 \fc^{\frac{2}{3}}  & \text{for $\fc \le 50$ N/mm$^2$}\\
+%\ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  %\label{eq:tensilstrength}.
+%\end{cases}
+%\end{align}
+%\subsection{\texorpdfstring{$\DOHmax$}{Maxiumum DoH} based on \texorpdfstring{$\wc$}{w/c}}
+%Following \cite{Mills1966fico}, the maximum degree of hydration is given by the function
+%\begin{align}
+%	\DOHmax = \dfrac{1.031\,\wc}{0.194 + \wc}.
+%\end{align}
+%Contrary to other publications, this function does not assume a fully hydrated cement for a %value of $\wc = 0.42$ but assumes that the full potential will usually not be reached.
+%%It is possible that the maximum value might be underestimated.
+%This should not be a problem, as we are identifying our hydration parameter for a given $\wc$ value.
+%The relevant aspect is the change relative to the value for which experimental data is given.

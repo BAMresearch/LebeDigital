@@ -1,4 +1,5 @@
 import numpy as np
+
 from lebedigital.unit_registry import ureg
 import torch as th
 th.set_default_dtype(th.float64)
@@ -25,17 +26,17 @@ def dummy_paste_strength_stiffness(slag_ratio, phi_mean, phi_cov, seed):
         approximated compressive strength of paste
     """
 
-    paste_youngs_modulus_min = 10 * ureg('GPa')
-    paste_youngs_modulus_max = 70 * ureg('GPa')
+    paste_youngs_modulus_min = 30 * ureg('GPa')
+    paste_youngs_modulus_max = 60 * ureg('GPa')
     #paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
     # E is "mostly" inversely proportional to the slag
-    paste_youngs_modulus = paste_youngs_modulus_max - (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
+    paste_youngs_modulus = paste_youngs_modulus_min + (paste_youngs_modulus_max - paste_youngs_modulus_min) * slag_ratio
 
-    paste_strength_min = 2 * ureg('MPa')
-    paste_strength_max = 80 * ureg('MPa')
+    paste_strength_min = 25 * ureg('MPa')
+    paste_strength_max = 40 * ureg('MPa')
     #paste_strength = paste_strength_min + (paste_strength_max - paste_strength_min) * slag_ratio
     # E is "mostly" inversely proportional to the slag
-    paste_strength = paste_strength_max - (paste_strength_max - paste_strength_min) * slag_ratio
+    paste_strength = paste_strength_min + (paste_strength_max - paste_strength_min) * slag_ratio
 
     # ATUL : temporary q(b|x)~N(mu,cov), b=(sigma_paste,E_paste), x = slag ratio
     th.manual_seed(seed=seed)
