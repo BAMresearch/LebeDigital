@@ -80,14 +80,13 @@ with open(py_macros_file_BAM.with_suffix(".yaml")) as f:
     data = update(data, yaml.load(f, Loader=yaml.SafeLoader))
 
 
-# workflow graph
-workflow_graph_name = data["file_names"]["workflowGraph"]  # name of output pdf file as defined in macros yaml
-workflow_graph_script = ROOT / BAM_PLOT_DIR / "paper_workflow_graph.py"
-workflow_output_file = ROOT / FIGURES_DIR / workflow_graph_name
-
-
 def task_build_graph():
     """build workflow graph"""
+    # workflow graph
+    workflow_graph_name = data["file_names"]["workflowGraph"]  # name of output pdf file as defined in macros yaml
+    workflow_graph_script = ROOT / BAM_PLOT_DIR / "paper_workflow_graph.py"
+    workflow_output_file = ROOT / FIGURES_DIR / workflow_graph_name
+
     target = paper_plot_target(workflow_graph_name)
 
     return {
@@ -205,7 +204,7 @@ def task_paper():
     """compile pdf from latex source"""
     return {
         "file_dep": [paper_file] + TEX_MACROS + PAPER_PLOTS,
-        "actions": [f"tectonic {paper_file}"],  # AA: I need to add./tectonic
+        "actions": [f"tectonic {paper_file} -c 2> tectonic_log.txt"],
         "targets": [paper_file.with_suffix(".pdf")],
         "clean": True,
     }
