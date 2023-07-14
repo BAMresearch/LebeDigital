@@ -1,9 +1,7 @@
-## News/Info
+## Info
 - The KG's now use the concrete ontology based on the new pmd core ontology (https://github.com/materialdigital/core-ontology/blob/main/pmdco_core.ttl) and the QUDT Ontology for the units (https://github.com/qudt/qudt-public-repo/blob/main/vocab/unit/VOCAB_QUDT-UNITS-ALL-v2.1.ttl)
-- Moved all Base-Ontologies in the BaseOntology folder
-- The Concrete Ontology is still work in progress
 
-## Knowledge Graphs Desciption
+## Knowledge Graphs Description
 
 - CPTO: The Concrete Production and Testing Ontology (CPTO) is created in the project LeBeDigital.
         It consists of the: Heat of Hydration Ontology, Mixture Design Ontology, Mixing Process Ontology,
@@ -30,6 +28,5 @@ show when opening go to Extra -> Plugins -> Add... then add importOnto and ontop
 ### The Concrete Ontology (Base-Ontology for all Knowledge Graphs)
 
 - The Concrete Ontology is found in the folder "BaseOntology"
-- The Ontology includes all taxonomie described in the excel file "Taxo.xlsx"
-- The tool tax2ont was used for developing the Ontology and could be useful in the future, further information is in the readme there.
-- The Concrete Ontology is using the current pmd core ontology and the QUDT Ontology for the Units, a "dictionary" for the mapping of the units can be found on (https://www.qudt.org/doc/DOC_VOCAB-UNITS.html)
+- The Ontology includes all Taxonomie described in the excel file "Taxonomie.xlsx"
+- The Concrete Ontology is using the current PMD-Core ontology and the QUDT Ontology for the Units, a "dictionary" for the mapping of the units can be found on (https://www.qudt.org/doc/DOC_VOCAB-UNITS.html)
