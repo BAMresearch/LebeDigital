@@ -139,6 +139,7 @@ dmypy.json
 # results of minimum working example
 usecases/MinimumWorkingExample/emodul/*
 usecases/MinimumWorkingExample/mixture/*
+usecases/MinimumWorkingExample/Mapping_Example/*
 
 # graphviz
 *.gv
