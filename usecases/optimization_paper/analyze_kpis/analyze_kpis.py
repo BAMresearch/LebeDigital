@@ -76,8 +76,8 @@ if __name__ == "__main__":
     output_path = path_to_workflow / "Results"
 
     # input lists
-    height_list = [700, 1200]
-    slag_ratio_list = [0.0, 1.0]
+    height_list = [1200]
+    slag_ratio_list = [0.5]
 
     df = pd.DataFrame()
 
