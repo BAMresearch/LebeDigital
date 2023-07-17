@@ -31,9 +31,9 @@ class App(QMainWindow):
         layout.addWidget(self.label2)
 
         self.comboBox = QComboBox(self)
-        self.comboBox.addItem("Module")
-        self.comboBox.addItem("Compressive")
-        self.comboBox.addItem("Mixture")
+        self.comboBox.addItem("E-Module")
+        self.comboBox.addItem("Compressive Strength")
+        self.comboBox.addItem("Mixture Design")
         layout.addWidget(self.comboBox)
 
         self.btn = QPushButton('Datei auswählen', self)
@@ -52,7 +52,7 @@ class App(QMainWindow):
     def openFileNameDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+        fileName, _ = QFileDialog.getOpenFileName(self, "Datei auswählen", "",
                                                   "Excel Files (*.xlsx *.csv *.dat)", options=options)
         if fileName:
             dataset = self.comboBox.currentText()
