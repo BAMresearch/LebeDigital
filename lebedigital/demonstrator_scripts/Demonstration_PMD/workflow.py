@@ -23,7 +23,7 @@ mix_metadata(rawPaths['Mixture'], metadataPaths['Mixture'])
 # run metadata extraction script for e-module (simultaneously creating KG for specimen)
 emodul_metadata(rawPaths['Module'], metadataPaths['Module'], metadataPaths['Specimen'])
 
-# run the mapping script for each extracted metadata
+# run the mapping script for each extracted metadata to generate three KGs
 mapping(metadataPaths['Mixture'], KGtemplatePaths['Mixture'])
 mapping(metadataPaths['Module'], KGtemplatePaths['Module'])
 mapping(metadataPaths['Specimen'], KGtemplatePaths['Specimen'])
