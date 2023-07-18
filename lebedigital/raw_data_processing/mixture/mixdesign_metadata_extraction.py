@@ -8,7 +8,6 @@ from cmath import nan
 import pandas as pd
 # removing 'SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame'
 pd.options.mode.chained_assignment = None  # default='warn'
-
 import os
 import json
 from loguru import logger 
@@ -97,16 +96,33 @@ def extract_metadata_mixdesign(locationOfRawData):
         labelcolumn = exceltodf.iloc[:,0]  # select first column (containing labels)
         for i in range(len(labelcolumn)):
             labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
-            labelidx[labelcolumn[i]] = i
+
+            # fill dictionary with labels and corresponding indices, unless the
+            # label is "addition". Then differ between 1st and 2nd addition
+            if labelcolumn[i] != 'Zusatzstoff':
+                labelidx[labelcolumn[i]] = i
+            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' not in labelidx.keys():
+                labelidx['Zusatzstoff1'] = i
+            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' in labelidx.keys() \
+                    and 'Zusatzstoff2' not in labelidx.keys():
+                labelidx['Zusatzstoff2'] = i
+                logger.debug('Second addition found in raw data.')
+            else:
+                logger.error('More than two additions found in raw data.')
+                raise Exception('More than two additions found in raw data.')
+
 
         # Check for missing labels; the following labels should exist (except 
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
         default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
-                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff']
+                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
         missing_labels =  [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
-            logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
-            raise KeyError('Check raw data, there are labels missing', missing_labels)
+            if missing_labels == ['Zusatzstoff2']:
+                logger.warning('No addition2 in raw data.')
+            else:
+                logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
+                raise KeyError('Check raw data, there are labels missing', missing_labels)
 
 
         # Some files don't have the type of addition/Zusatzstoff only labeled
@@ -219,8 +235,8 @@ def extract_metadata_mixdesign(locationOfRawData):
 
 
         # Addition data ('Zusatzstoff')
-        if 'Zusatzstoff' not in missing_labels:
-            idx = labelidx['Zusatzstoff']
+        if 'Zusatzstoff1' not in missing_labels:
+            idx = labelidx['Zusatzstoff1']
             metadata['Addition1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
             metadata['Addition1_Content_Unit'] = 'kg/m^3'
             metadata['Addition1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
@@ -228,6 +244,18 @@ def extract_metadata_mixdesign(locationOfRawData):
             no_empty_annotation('Addition1')
         else:
             logger.error('addition not included in json-file')
+
+        # Addition data ('Zusatzstoff')
+        if 'Zusatzstoff2' not in missing_labels:
+            idx = labelidx['Zusatzstoff2']
+            metadata['Addition2_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Addition2_Content_Unit'] = 'kg/m^3'
+            metadata['Addition2_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Addition2_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Addition2')
+        else:
+            logger.error('addition2 not included in yaml-file')
+
 
 
         return metadata
