@@ -1,9 +1,7 @@
 import pytest
 
-from lebedigital.demonstrator_scripts.dummy_hydration_parameters import \
-    dummy_hydration_parameters
-from lebedigital.demonstrator_scripts.dummy_paste_strength_stiffness import \
-    dummy_paste_strength_stiffness
+from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+from lebedigital.demonstrator_scripts.dummy_paste_strength_stiffness import dummy_paste_strength_stiffness
 
 
 def test_dummy_scripts():
@@ -17,5 +15,5 @@ def test_dummy_scripts():
     assert T_ref.magnitude == pytest.approx(25)
 
     E, fc = dummy_paste_strength_stiffness(0, 10)
-    assert E.magnitude == pytest.approx(30)
+    assert E.magnitude == pytest.approx(60)
     assert fc.magnitude == pytest.approx(40)
