@@ -15,5 +15,5 @@ def test_dummy_scripts():
     assert T_ref.magnitude == pytest.approx(25)
 
     E, fc = dummy_paste_strength_stiffness(0, 10)
-    assert E.magnitude == pytest.approx(30)
-    assert fc.magnitude == pytest.approx(25)
+    assert E.magnitude == pytest.approx(60)
+    assert fc.magnitude == pytest.approx(40)

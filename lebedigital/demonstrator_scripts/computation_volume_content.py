@@ -57,8 +57,8 @@ def computation_volume_content(input_dic):
     input_dic["density_aggregates"].ito("kg/m^3")
 
     # compute volume fraction of substitute to cement
-    if input_dic["sc_mass_fraction"] == 0:
-        output["sc_volume_fraction"] = 0
+    if input_dic["sc_mass_fraction"] == 0.0 * ureg("dimensionless"):
+        output["sc_volume_fraction"] = 0.0 * ureg("dimensionless")
     else:
         mass_sub = input_dic["sc_mass_fraction"] * ureg("kg")
         mass_cem = 1 * ureg("kg") - mass_sub
