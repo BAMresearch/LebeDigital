@@ -44,11 +44,6 @@ def get_kpis(input: dict, path: Path) -> dict:
     update_json(input_path / "geometry.json", "height", input["height"])
     update_json(input_path / "sc_fraction.json", "sc_mass_fraction", input["slag_ratio"])
 
-    # # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
-    # # Updating the phi's which are input to the script.
-    # update_json(phi_hydration_path, 'seed', seed)
-    # update_json(phi_paste_path, 'seed', seed)
-
     # Run the workflow using snakemake
     # add the path to the workflow file and the path to the directory
     # workflow_file_path = Optimization_workflow_path + '/Snakefile'
@@ -66,6 +61,10 @@ def get_kpis(input: dict, path: Path) -> dict:
     kpis.update(gwp_beam)
     beam_design = load_json(results_path / "beam_design.json")
     kpis.update(beam_design)
+    mix_gwp = load_json(results_path / "gwp_mix.json")
+    kpis.update(mix_gwp)
+    gwp_steel = load_json(results_path / "steel_gwp_per_volume.json")
+    kpis.update(gwp_steel)
 
     # return the KPIs
     return kpis
@@ -74,15 +73,20 @@ def get_kpis(input: dict, path: Path) -> dict:
 if __name__ == "__main__":
     path_to_workflow = Path("../optimization_workflow")
     input_path = path_to_workflow / "Inputs"
+    output_path = path_to_workflow / "Results"
 
     # input lists
-    height_list = [700.0]
+    height_list = [1200]
     slag_ratio_list = [0.5]
 
     df = pd.DataFrame()
 
     for i, height in enumerate(height_list):
         for j, slag_ratio in enumerate(slag_ratio_list):
+            # remove all files from the directory output_path
+            for file in os.listdir(output_path):
+                os.remove(output_path / file)
+
             total = len(height_list) * len(slag_ratio_list)
             current = i * len(slag_ratio_list) + j + 1
             print("___________________________________________________________")

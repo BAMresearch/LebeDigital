@@ -10,6 +10,8 @@ con:Concrete_ a cco:Artifact,
         owl:NamedIndividual ;
     cco:has_process_part con:Mixing_ .
 
+cco:has_URI_value a owl:DatatypeProperty .
+
 cco:has_datetime_value a owl:DatatypeProperty .
 
 cco:has_decimal_value a owl:DatatypeProperty .
@@ -20,6 +22,8 @@ cco:has_process_part a owl:ObjectProperty .
 
 cco:has_text_value a owl:DatatypeProperty .
 
+xsd:anyURI a rdfs:Datatype .
+
 xsd:dateTime a rdfs:Datatype .
 
 xsd:decimal a rdfs:Datatype .
@@ -29,6 +33,9 @@ xsd:string a rdfs:Datatype .
 pmd: a owl:Ontology .
 
 pmd:hasPmdUnit a owl:ObjectProperty .
+
+<http://w3id.org/concrete/##Weight_Unit##> a owl:NamedIndividual,
+        pmd:PmdSiUnit .
 
 con:ConcreteMixer_ a con:Mixer,
         owl:NamedIndividual ;
@@ -68,14 +75,14 @@ con:Mixing_ a cco:Artifact,
 
 con:RawDataFile_ a owl:NamedIndividual,
         mid:RawDataSet ;
-    cco:has_text_value "$$RawDataFile_Value$$"^^xsd:string .
+    cco:has_URI_value "$$RawDataFile_Value$$"^^xsd:anyURI .
 
 con:Time a owl:Class .
 
 con:Weight_ a cco:Weight,
         owl:NamedIndividual ;
     cco:has_decimal_value "$$Weight_Value$$"^^xsd:decimal ;
-    pmd:hasPmdUnit pmd:Q11570 .
+    pmd:hasPmdUnit <http://w3id.org/concrete/##Weight_Unit##> .
 
 cco:Day a owl:Class .
 
@@ -83,9 +90,6 @@ cco:HourMeasurementUnit a owl:NamedIndividual,
         pmd:PmdSiUnit .
 
 cco:Weight a owl:Class .
-
-pmd:Q11570 a owl:NamedIndividual,
-        pmd:PmdSiUnit .
 
 mid:RawDataSet a owl:Class .
 
