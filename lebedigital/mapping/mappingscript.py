@@ -51,7 +51,7 @@ def placeholderreplacement(kgPath, metadataPath):
         Maps the values of one given metadata file (for one specimen or
         experiment) to a given knowledge graph (KG) template, by searching through
         it linewise for all metadata keys and replacing placeholders with values 
-        from the metadata. Also creates and appends an ID for the specimen.
+        from the metadata. Also appends an ID for the specimen.
 
         Parameter:
         -----
@@ -72,6 +72,10 @@ def placeholderreplacement(kgPath, metadataPath):
     keys = list(metadata.keys())
     keys_unit = [i for i in keys if "_Unit" in i]
     keys_value = [i for i in keys if i not in keys_unit]
+
+    # search metadata for duplicates ...
+
+    # duplicate template part regarding the key
 
     # import ID from metadata to append to all instances
     metadataID = metadata["ID"]
