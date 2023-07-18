@@ -2,12 +2,16 @@
 Experimental data generally provided for concrete material research includes measurements both on concrete and on cement specimens.
 For the data regarded within this work, the measurements of compressive strength are performed on concrete, the calorimetry on cement samples.
 Properties of the aggregates are available regardless of the cement.\\
-
+\begin{figure}[b]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\homogenizationPlot}
+	\caption{Influence of aggregate ratio on effective concrete properties}\label{fig:homogenization}
+\end{figure}
 To be able to take concrete as well as cement data into account, an analytical homogenization procedure is used.
 The homogenized effective concrete properties are the Young's modulus $\eMod$, the Poisson's ratio $\poission$, the compressive strength $\fc$, the density $\density$, the thermal conductivity $\thermCond$, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
 Depending on the physical meaning, these properties need slightly different methods to estimate the effective concrete properties.
-To visualize the qualitative effect of the amount of aggregates within the concrete, effective properties are plotted for aggregate values from 0 to 1, respectively pure cement to only aggregates.
-Note that both extremes are purely numerical results, not useful optimization results.
+To visualize the qualitative effect of the amount of aggregates within the concrete, effective properties are plotted for aggregate values from 0 to 1, respectively pure cement to only aggregates, see Figure \ref{fig:homogenization}.
+Note that both extremes are purely numerical examples.
 \mbox{Table \ref{tab:homogenizationproperties}} gives an overview of the material properties of the constituents used in the subsequent simple examples.
 For the considered example properties, the relations are close to linear, this can change, when more complex micro mechanical mechanisms are incorporated, as air pores or the interfacial transition zone.
 These can be considered within the chosen homogenization scheme by adding further phases, c.f. \cite{nee_2012_ammf}.
@@ -42,8 +46,3 @@ Homogenization of the thermal conductivity is also generally based on the Mori-T
 The remaining quantities can be directly computed based on their volume average.
 This is the case for density $\density$, the heat capacity $\heatCapSpecific$ and the total heat release $\heatInf$.
 As example the heat release is shown in Figure \ref{fig:homogenization} as it exemplifies the expected linear relation of the volume average as well as the zero heat output of a theoretical pure aggregate..
-\begin{figure}[ht]%
-	\centering
-	\includegraphics[width=1.0\textwidth]{../figures/\homogenizationPlot}
-	\caption{Influence of aggregate ratio on effective concrete properties}\label{fig:homogenization}
-\end{figure}
