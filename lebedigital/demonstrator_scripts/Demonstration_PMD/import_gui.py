@@ -70,7 +70,11 @@ def main():
     ex = App()
     ex.show()
     app.exec_()
-    return ex.dataDict
+    new_dict = {}
+    for key, value in ex.dataDict.items():
+        new_dict[key] = value.rpartition('/')[0]
+
+    return new_dict
 
 
 if __name__ == '__main__':
