@@ -21,5 +21,5 @@ def start_webserver():
         httpd.serve_forever()
 
 if __name__ == "__main__":
-    #start_fuseki()
+    start_fuseki()
     start_webserver()
