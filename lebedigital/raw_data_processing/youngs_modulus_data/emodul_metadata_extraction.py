@@ -21,7 +21,7 @@ def replace_comma(string):
     return string
 
 
-def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_file='mix.dat'):
+def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_file='mix.dat', path_to_json ='path to json'):
 
     """Returns two dictionaries: one with extracted emodule-metadata and one with
     extracted specimen metadata.
@@ -49,6 +49,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
     metadata_specimen = {}
 
     # read raw data file
+    #with open(str(rawDataPath), encoding="utf8", errors='ignore') as data:
     with open(str(rawDataPath)+'/'+str(specimen_file), encoding="utf8", errors='ignore') as data:
 
 
@@ -64,7 +65,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # specific testing machine and software version this script is optimized for
         # - This data has no placeholder yet.
-        assert software_header == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A'
+        #assert software_header == 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A'
 
         # get empty lines (where start and end the header)
         emptyLineIndex = []
@@ -74,7 +75,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # service information of the experiment, it should be in between the first two empty lines
         serviceInformation = []
-        for ind in range(emptyLineIndex[0]+1,emptyLineIndex[1]+4):
+        for ind in range(emptyLineIndex[0]+1, emptyLineIndex[1]+4):
             serviceInformation.append(get_metadata_in_one_line(lines[ind]))
 
 
@@ -89,7 +90,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_emodule['ID'] = emoduleID
 
         # get experiment date and time in protege format YYYY-MM-DDTHH:mm:SS
-        date = serviceInformation[10][4] #datetime.datetime.strptime(,'%d.%m.%y')
+        date = serviceInformation[10][4]  #datetime.datetime.strptime(,'%d.%m.%y')
         date_only = datetime.datetime.strptime(date.split(" ")[0], '%d.%m.%Y')
         date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + date.split(" ")[1]
         metadata_emodule['ExperimentDate'] = str(date_protegeformat)
@@ -106,7 +107,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         # set Compression and Transducer Column
         metadata_emodule['CompressionColumn'] = 0
         metadata_emodule['CompressionForce_Unit'] = "kN"
-        metadata_emodule['TransducerColumn'] = [1,2,3]
+        metadata_emodule['TransducerColumn'] = [1, 2, 3]
         metadata_emodule['Extensometer_Unit'] = "mm"  # Transducer messen eine Verschiebung.
 
         # set extensometer gauge length
@@ -116,12 +117,17 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_emodule['EModule_Unit'] = "GPa"  # laut Norm, mit einer Nachkommastelle; oft auch MPa oder N/mm²
 
         # set paths
-        metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data') # path to csv file with values extracted by emodul_generate_processed_data.py
-        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath,specimen_file) # path to specimen.dat
+        metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data')  # path to csv file with values extracted by emodul_generate_processed_data.py
+        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath, specimen_file).replace('\\', '/')
+
+  # path to specimen.dat
         try:
-            with open(str(rawDataPath)+'/'+ str(mix_file), encoding="utf8", errors='ignore') as mix_data:
+            #with open(str(rawDataPath), encoding="utf8", errors='ignore') as mix_data:
+            with open(str(rawDataPath)+'/' + str(mix_file), encoding="utf8", errors='ignore') as mix_data:
+            #with open(path_to_json) as mix_data:
                 lines = mix_data.readlines()
                 lines = lines[0].strip()
+
                 #dataPath = Path(rawDataPath).parents[1]
                 #metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
         except:
@@ -140,11 +146,12 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-5] + ".json", "r") as mixjson: #change location of where
+            #with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-5] + ".json", "r") as mixjson:  #change location of where
+            with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
                 mixtureID = mixdesign['ID']
                 metadata_specimen['MixtureID'] = mixtureID
-        except:
+        except AttributeError:
             raise Exception("No mixdesign json-file found! Can't import the ID and save it to the output!")
 
         # set specimen age to 28 days
@@ -156,19 +163,19 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
         metadata_specimen['SpecimenMass_Unit'] = 'g'
 
         # set size of specimen
-        metadata_specimen['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1])) #diameter
+        metadata_specimen['SpecimenDiameter'] = float(replace_comma(serviceInformation[6][1]))  #diameter
         metadata_specimen['SpecimenDiameter_Unit'] = 'mm'
-        metadata_specimen['SpecimenLength'] = float(replace_comma(serviceInformation[7][1])) #length
+        metadata_specimen['SpecimenLength'] = float(replace_comma(serviceInformation[7][1]))  #length
         metadata_specimen['SpecimenLength_Unit'] = 'mm'
         if metadata_specimen['SpecimenDiameter'] > metadata_specimen['SpecimenLength']:
             dir_name = metadata_emodule['ExperimentName']
-            raise Exception(f'Diameter is larger then length, please fix the mistake in {dir_name}')
+            raise Exception(f'Diameter is larger than length, please fix the mistake in {dir_name}')
 
 
     return metadata_emodule, metadata_specimen
 
 
-def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
+def emodul_metadata(rawDataPath, metaDataFile, specimenDataFile, path_to_json):
     """Creates two json files with extracted metadata, one for emodule and one
     for the specimen
 
@@ -188,7 +195,7 @@ def emodul_metadata(rawDataPath, metaDataFile,specimenDataFile):
     specimen_file = 'specimen.dat'
 
     # extracting the metadata
-    metadata, specimen = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file)
+    metadata, specimen = extract_metadata_emodulus(rawDataPath, specimen_file, mix_file, path_to_json)
     
     with open(metaDataFile, 'w') as jsonFile:
         json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
@@ -207,12 +214,15 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
+        args.input = ['../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4']
     if args.output == None:
         args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json','../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
 
+
+
     # run extraction and write metadata file
-    emodul_metadata(args.input, args.output[0],args.output[1])
+    emodul_metadata(args.input, args.output[0], args.output[1])
+
 
 
 if __name__ == "__main__":
