@@ -1,0 +1,168 @@
+@prefix co: <https://w3id.org/pmd/co/> .
+@prefix ns1: <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/> .
+@prefix ns5: <http://qudt.org/schema/qudt/> .
+@prefix ns6: <http://purl.org/spar/datacite/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns6:hasIdentifier a owl:ObjectProperty .
+
+ns1:SlumpClass_ a ns1:SlumpClass,
+        owl:NamedIndividual ;
+    ns6:hasIdentifier ns1:ID_,
+        ns1:MixtureID_,
+        ns1:humanreadableID_ ;
+    co:input ns1:OpenBisRawDataFile_,
+        ns1:RawDataFile_ ;
+    co:output ns1:ExperimentInfo_,
+        ns1:ProcessedFile_,
+        ns1:SlumpFlow_ ;
+    co:resource ns1:DIN12350-5 ;
+    co:value "$$SlumpClass_Value$$"^^xsd:decimal .
+
+xsd:dateTimeStamp a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+prov:startedAtTime a owl:DatatypeProperty .
+
+co: a owl:Ontology .
+
+co:input a owl:ObjectProperty .
+
+co:output a owl:ObjectProperty .
+
+co:resource a owl:ObjectProperty .
+
+co:unit a owl:ObjectProperty .
+
+co:value a owl:DatatypeProperty .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Diameter_X_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Diameter_Y_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Duration-Water-Test_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SlumpFlow_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Temperature_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Time-Last-Cycle_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Time-Swipe-Test_Unit##> a ns5:Unit,
+        owl:NamedIndividual .
+
+ns1:DIN12350-5 a ns1:DINStandard,
+        owl:NamedIndividual .
+
+ns1:DINStandard a owl:Class .
+
+ns1:Diameter_X_ a ns1:SlumpClass,
+        owl:NamedIndividual ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Diameter_X_Unit##> ;
+    co:value "$$Diameter_X_Value$$"^^xsd:decimal .
+
+ns1:Diameter_Y_ a ns1:SlumpClass,
+        owl:NamedIndividual ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Diameter_Y_Unit##> ;
+    co:value "$$Diameter_Y_Value$$"^^xsd:decimal .
+
+ns1:Duration-Water-Test_ a owl:NamedIndividual,
+        co:Time ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Duration-Water-Test_Unit##> ;
+    co:value "$$Duration-Water-Test_Value$$"^^xsd:decimal .
+
+ns1:ExperimentDate_ a owl:NamedIndividual,
+        co:Date ;
+    prov:startedAtTime "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+
+ns1:ExperimentInfo_ a ns1:FlowTableTest,
+        owl:NamedIndividual ;
+    co:output ns1:Diameter_X_,
+        ns1:Diameter_Y_,
+        ns1:Duration-Water-Test_,
+        ns1:ExperimentDate_,
+        ns1:Lab_,
+        ns1:Temperature_,
+        ns1:Time-Last-Cycle_,
+        ns1:Time-Swipe-Test_ .
+
+ns1:FlowTableTest a owl:Class .
+
+ns1:ID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$ID_Value$$"^^xsd:string .
+
+ns1:Lab_ a owl:NamedIndividual,
+        co:Laboratory ;
+    co:value "$$Lab_Value$$"^^xsd:string .
+
+ns1:MixtureID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$MixtureID_Value$$"^^xsd:string .
+
+ns1:OpenBisRawDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+ns1:ProcessedFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$ProcessedFile_Value$$"^^xsd:string .
+
+ns1:RawDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$RawDataFile_Value$$"^^xsd:string .
+
+ns1:SlumpFlow a owl:Class .
+
+ns1:SlumpFlow_ a ns1:SlumpFlow,
+        owl:NamedIndividual ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SlumpFlow_Unit##> ;
+    co:value "$$SlumpClass_Value$$"^^xsd:decimal .
+
+ns1:Temperature_ a owl:NamedIndividual,
+        co:Temperature ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Temperature_Unit##> ;
+    co:value "$$Temperature_Value$$"^^xsd:decimal .
+
+ns1:Time-Last-Cycle_ a owl:NamedIndividual,
+        co:Time ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Time-Last-Cycle_Unit##> ;
+    co:value "$$Time-Last-Cycle_Value$$"^^xsd:decimal .
+
+ns1:Time-Swipe-Test_ a owl:NamedIndividual,
+        co:Time ;
+    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Time-Swipe-Test_Unit##> ;
+    co:value "$$Time-Swipe-Test_Value$$"^^xsd:decimal .
+
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
+
+co:Date a owl:Class .
+
+co:Laboratory a owl:Class .
+
+co:Temperature a owl:Class .
+
+ns1:SlumpClass a owl:Class .
+
+co:Dataset a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
+
+co:Time a owl:Class .
+
+ns5:Unit a owl:Class .
+
