@@ -17,7 +17,7 @@ dependencies:
   - pandas
   - pyyaml
   - owlready2
-  - rdflib
+  - rdflib=6
   - sparqlwrapper
   - requests
   - gitpython
