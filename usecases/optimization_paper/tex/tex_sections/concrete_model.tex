@@ -1,5 +1,5 @@
 \subsection{Finite Element Concrete Model}
-The main feature of the concrete model is the evolution of the mechanical properties over time.
+The notable feature of the concrete model is the evolution of the mechanical properties over time.
 When concrete is mixed its consistency is close to liquid.
 Due to a chemical reaction of the binder with water, called hydration, crystals develop that give concrete its strength and stiffness.
 The reaction is both exothermal and temperature dependent.
@@ -7,24 +7,25 @@ Therefore, the primary model computes the temperature field $\temp$ \eqref{eq:he
 The temperature model depends on three material properties, the effective thermal conductivity $\thermCondEff$, the specific heat capacity $C$ and the heat release $\dQdt$.
 The $\dQdt$ in turn is governed by the hydration model, characterized by six parameters:
 $\hydParBone, \hydParBtwo, \hydParEta, \tempRef, \activE$ and $\DOHmax$.
-The first three $\hydParBone, \hydParBtwo$ and $\hydParEta$ are phenomenological, numerical parameters characterizing the function of the heat release.
+The first three $\hydParBone, \hydParBtwo$ and $\hydParEta$ are phenomenological, numerical parameters characterizing the shape of the function of the heat release.
 $\tempRef$ does not need to be identified.
 It is the reference temperature for which the first three parameters are calibrated.
 $\activE$ is the activation energy, defining how the model will react to temperature changes, relative the the reference. 
 $\DOHmax$ is the maximum degree of hydration that can be reached.
 Following \cite{Mills1966fico}, the maximum degree of hydration is estimated, based on the water to binder ratio $\wc$, as $\DOHmax = \frac{1.031\,\wc}{0.194 + \wc}$.
-Figure XY shows the influence of the three numerical parameter on the heat release, wrt DOH??, ... the parameters are given in function ....
-
-
-
-
-...
-FIGURE SHOWING Q over DOH???
-CONTINUE HERE!!!!
-
-The release heat is computed by the hydration model, ... characterized by 4 parameters....
-
+As the degree of hydration if difficult to quantify experimentally, the heat release is used as a proxy.
+By assuming the DOH is the fraction of the currently released heat with respect to it theoretical potential $\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf}$, the one can be substituted for the other.
+As the potential heat release is also difficult to measure, as it takes a long time to fully hydrate and will only do so under perfect conditions, we obtain this value along side the other using the parameter identification method.
+Figure \ref{fig:heatrelease} shows the influence of the three numerical parameter and the potential heat release on the heat release rate as well as the cumulative heat release.
+\begin{figure}[h]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\heatReleasePlot}
+	\caption{Influence of the hydration parameters on the heat release rate and the cumulative heat release.}\label{fig:heatrelease}
+\end{figure}
 For a detailed model description see in Appendix \ref{appendix:fem}.
+
+CONTINUE HERE...
+
 In addition to influencing the reaction speed, the computed temperature is used to verify that the maximum temperature during hydration does not exceed a limit of $\tempLimit = \inputtemperaturelimit$\textdegree C.
 Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
 This is implemented as a constraint for the optimization problem \eqref{eq:concstraintT}.
