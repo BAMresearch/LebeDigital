@@ -5,13 +5,13 @@ If the results are not satisfactory, the required mechanical properties are iter
 This approach is fine, when the choice of mixtures is limited and the expected concrete properties are well known.
 There are various published methods to automate this process and optimize the beam design at this level.
 Computer aided beam design optimization dates back at least 50 year, e.g. \cite{Haung1967}.
-Generally the objective is reducing costs, with the design variables being the beam geometry, the amount and location of the reinforcement and sometimes the compressive strength of the concrete \cite{Chakrabarty_1992, Coello_1997, Pierott_2021, Shobeiri_2023} .
+Generally the objective is to reduce costs, with the design variables being the beam geometry, the amount and location of the reinforcement and sometimes the compressive strength of the concrete, \cite{Chakrabarty_1992, Coello_1997, Pierott_2021, Shobeiri_2023} .
 Most publications focus on analytical functions based on norms and well known rules of thumb.
 In recent years the use of alternative binders in the concrete mix design has increased, mainly to reduce the environmental impact and cost of concrete but also to improve and modify specific properties.
 This is a challenge as the concrete mix is no longer a constant and is itself subjected to optimization.
 Known heuristics might no longer apply to the new materials and old design approaches might fail to produce optimal results.
-In addition it is not favorable to choose from a predetermined set of possible mixes, as this would either lead to an exaggerated number of required experiments or a limiting subset of the possible design space.
-There exist literature studying the optimization of specific concrete properties on the concrete mix \cite{Lisienkova_2021, Kondapally_2022}.
+In addition, it is not desirable to choose from a predetermined set of possible mixes, as this would either lead to an exaggerated number of required experiments or a limiting subset of the possible design space.
+There exist literature studying the optimization of the concrete mix for specific concrete properties \cite{Lisienkova_2021, Kondapally_2022}.
 \begin{figure}[b]%
 	\centering
 	\includegraphics[width=1.0\textwidth]{../figures/\designStandard}
@@ -52,22 +52,22 @@ The design problem was originally published in \cite{everard1966reinforced}.
 It has been used to showcase different optimization schemes, e.g. \cite{Chakrabarty_1992}, \cite{Coello_1997}, \cite{Pierott_2021}.
 The experimental data used in the parameter identification step is mainly sourced from \cite{gruyaert2011}.
 The objective is to reduce the overall global warming potential of the part.
-This objective is a particularly meaningful as the cement industry, a major contributor to GWP, accounts for approximately 8\% of the total anthropogenic GWP. 
+This objective is particularly meaningful as the cement industry, a major contributor to GWP, accounts for approximately 8\% of the total anthropogenic GWP, REFERENCE!!!!
 Reducing the environmental impact of cement production becomes crucial in the pursuit of sustainable construction practices.
 In addition, the reduction of cement is also correlated to the reduction of cost, as cement is generally the most expensive component of the concrete mix \cite{Paya_Zaforteza_2009}.
-There are three direct ways to reduce the amount of cement.
+There are three direct ways to reduce the amount GWP of a given concrete part.
 First, replace the cement with a substitute with a lower carbon footprint.
 This can change mechanical properties, but does not necessarily mean a reduction in strength.
-Second, increase the amount of aggregates.
+Second, increase the amount of aggregates, therefore reducing the cement per volume.
 This also changes effective properties and needs to be balanced with the workability and the limits due to the applications.
-Third, decrease the overall volume of concrete.
-In addition, when analyzing the whole life-cycle of concrete, both cost and GWP can be reduced by increasing the durability and therefore extending the lifetime of the object.
-To showcase the methods capability, two design variables have been chosen, the height of the beam and the ratio of ordinary Portland cement (OPC) to its replacement binder ground granulated blast furnace slack, a by-product of iron industry.\\
+Third, decrease the overall volume of concrete, by improving the topology of the part.
+In addition, when analyzing the whole life-cycle of a structure, both cost and GWP can be reduced by increasing the durability and therefore extending it's lifetime.
+To showcase the methods capability, two design variables have been chosen; the height of the beam and the ratio of ordinary Portland cement (OPC) to its replacement binder ground granulated blast furnace slack, a by-product of the iron industry.\\
 %
 The value of this manuscript lies in two main contributions. 
-Firstly, it presents the possibility to automatically compute relevant Key Performance Indicators (KPIs) at the structural level, based on input values that incorporate parameters relevant to the concrete mix design, inverting the classical design pipeline.
+First, it presents the possibility to automatically compute relevant Key Performance Indicators (KPIs) at the structural level, based on input values that incorporate parameters relevant to the concrete mix design, inverting the classical design pipeline.
 This allows for a comprehensive evaluation of both structural performance and environmental impact. 
-Secondly, the paper details the numerical methods employed to conduct a robust optimization process without derivatives, taking into account uncertainties based on raw experimental data.
+Second, the paper details the numerical methods employed to conduct a robust optimization process without derivatives, taking into account uncertainties based on raw experimental data.
 \\
 % this might change and needs to be adapted
 The paper starts  with the theoretical background of the parameter identification method in Section \ref{sec:calibration}.
