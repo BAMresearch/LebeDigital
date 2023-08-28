@@ -109,36 +109,42 @@ Therefore the sensitivity of $\Delta\DOH$ with respect to the temperature $\temp
 \end{align}
 
 \subsection{Coupling Material Properties to Degree of Hydration}
-\subsubsection{Compressive and tensile strength}
-Both compressive and tensile strength can be approximated using an generalized exponential function,
-\begin{align}
-	\strengthX(\DOH) = \DOH(\zeit)^{\strengthXExp} \strengthXInf. \label{eq:mechanics-hydration}
-\end{align}
-This model has two parameter, $\strengthXInf$, the value of the parameter at full hydration, $\DOH = 1$ and $\strengthXExp$ the exponent, which is a purely numerical parameter, difficult to estimate directly from a mix design, as the mechanisms are quite complex.
-The first parameter could theoretically be obtained through experiments.
-However the total hydration can take years, therefore usually only the value after 28 days is obtained.
-For now we will assume $\strengthXInf$ to be a fitting parameter as well.
-Hopefully a functional relation of the standardized $\strengthX_{28}$ values and the ultimate value can be approximated.
-To write \eqref{eq:mechanics-hydration} in terms of the compressive strength $\fc$ and the tensile strength $\ft$
+\subsubsection{Compressive strength}
+The compressive strength in terms of the degree of hydration can be approximated using an exponential function,
 \begin{align}
 	\fc(\DOH) = \DOH(\zeit)^{\strengthCExp} \fcInf \label{eq:fcwrtDOH}
 \end{align}
-The publication assumes for their "C1" mix values of  $\fcInf = 62.1$ MPa , $\strengthCExp = 1.2$,$\ftInf = 4.67$ MPa , $\strengthTExp = 1.0$.
-
+This model has two parameter, $\fcInf$, the compressive strength of the parameter at full hydration, $\DOH = 1$ and $\strengthCExp$ the exponent, which is a purely numerical parameter.
+The first parameter could theoretically be obtained through experiments.
+However the total hydration can take years, therefore usually only the value after 28 days is obtained.
+Therefore instead of somehow estimating $\fcInf$, we can approximate is using the 28 days values of the compressive strength and the degree of hydration
+\begin{align}
+\fcInf = 	\dfrac{\fcTwentyEight}{{\DOHTwentyEight}^{\strengthCExp}}.
+\end{align}
 \subsubsection{Young's Modulus}
 The publication proposes a new model for the evolution of the Young's modulus.
 Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assumes an initial linear increase of the Young's modulus up to a degree of hydration $\DOHt$.
 \begin{align}
 	\eMod(\DOH) = 
 	\begin{cases}
-		E_\infty  \frac{\DOH(\zeit)}{\DOHt}\left( \frac{\DOHt-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}   
+		\eModInf \frac{\DOH(\zeit)}{\DOHt}\left( \frac{\DOHt-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}   
 		& \text{for $\DOH < \DOHt$}\\
-		\eModInf  \left( \frac{\DOH(t)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
+		\eModInf \left( \frac{\DOH(\zeit)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
 		& \text{for $\DOH \ge \DOHt$}
 	\end{cases}\label{eq:EwrtDOH}
 \end{align}
 Values of $\DOHt$ are assumed to be between 0.1 and 0.2.
-For the mix "C1" $\DOHt = 0.09$, $\DOHZero = 0.06$, $\eModInf = 54.2$ MPa, $\stiffExp = 0.4$.
+A challenge with this formulation, is that $\eModInf$ is difficult to obtain.
+Standardized testing of the Young's modulus is done after 28 day, $\eModTwentyEight$.
+To effectively use these experimental values, $\eModInf$ is approximated as
+\begin{align}
+	\eModInf = \dfrac{\eModTwentyEight}{\left(
+	\dfrac{\DOHTwentyEight - \DOHZero}
+	  {1- \DOHZero}
+	  \right)^{\stiffExp}}.
+\end{align}
+To use this formulation, the experimental value of the Young's modulus after 28 days $\eModTwentyEight$ is required, as well as the approximated degree of hydration at that time $\DOHTwentyEight$ which can be approximated using a calibrated hydration simulation.
+
 
 \subsection{Constraints}
 The FEM simulation is used to compute two practical constraints relevant to the precast concrete industry.

@@ -11,112 +11,85 @@ from lebedigital.simulation.concrete_homogenization import concrete_homogenizati
 from lebedigital.unit_registry import ureg
 
 
-def create_mechanics_evolution_figure(parameter: dict, fig_path: str = "test_mechanics_evolution_plot.pdf"):
+def create_mechanics_evolution_figure(input_parameter: dict, fig_path: str = "test_mechanics_evolution_plot.pdf"):
     #      add figure to tex file and snakemake workflow
-
-    # parameter["B1"] = parameter["heatExBOne"]
-    # parameter["B2"] = parameter["heatExBTwo"]
-    # parameter["eta"] = parameter["heatExEta"]
-    # parameter["alpha_max"] = parameter["heatExAlphaMax"]
-    # parameter["E_act"] = parameter["heatExEAct"]
-    # parameter["T_ref"] = parameter["heatExTRef"]
-    # parameter["Q_pot"] = parameter["heatExQPot"]
-    #
-    # T = parameter["heatExT"]  # temperature...
-    # dt = parameter["heatExDt"]  # dt
-    # time_total = parameter["heatExTimeTotal"]
-    # what does T and dt do???
-
-    # time_list = np.arange(0, time_total, dt)
-
-    # variation_dict = {
-    #     "B1": [parameter["B1"], 2.0e-4, 3.7e-4],
-    #     "B2": [parameter["B2"], 0.0001, 0.01],
-    #     "eta": [parameter["eta"], 9, 4.5],
-    #     "Q_pot": [parameter["Q_pot"], 350e3, 650e3],
-    # }
 
     material_problem = fenics_concrete.ConcreteThermoMechanical()
     e_fkt = material_problem.mechanics_problem.E_fkt
     fc_fkt = material_problem.mechanics_problem.general_hydration_fkt
 
-    parameter = {"alpha_t": 0.2, "alpha_tx": 0.7, "alpha_0": 0.05, "a_E": 0.6, "a_fc": 0.4, "E_inf": 30, "E": 50}
+    # general parameters
+    parameter = {
+        "alpha_t": input_parameter["evoExAlphaT"],
+        "alpha_tx": input_parameter["evoExAlphaTx"],
+        "alpha_0": 0.0,
+        "a_E": input_parameter["evoExaE"],
+        "a_X": input_parameter["evoExafc"],
+        "E": input_parameter["evoExE"],
+        "X": input_parameter["evoExfc"],
+    }
 
-    alpah_list = np.arange(0, 1, 0.1)
-    e_list = []
-    for alpha in alpah_list:
-        e_list.append(e_fkt(alpha, parameter))
-        # fc_list = fc_fkt(alpha, parameter)
+    alpha_list = np.arange(0, 1, 0.005)
 
-    plt.plot(alpah_list, e_list)
+    variation_dict = {
+        "alpha_t": {
+            "params": [parameter["alpha_t"], 0.0, 0.6],
+            "fkt": e_fkt,
+            "ylabel": "Elastic modulus $E$ [GPa ???]",
+            "ylim": 60,
+        },
+        "a_E": {
+            "params": [parameter["a_E"], 0.2, 1.3],
+            "fkt": e_fkt,
+            "ylabel": "Elastic modulus $E$ [GPa ???]",
+            "ylim": 60,
+        },
+        "a_X": {
+            "params": [parameter["a_X"], 0.2, 1.3],
+            "fkt": fc_fkt,
+            "ylabel": "Compressive strength $f_c$ [MPa ???]",
+            "ylim": 40,
+        },
+    }
 
-    #
-    # fig, axs = plt.subplots(2, len(variation_dict), figsize=(20, 7))
-    # ureg.setup_matplotlib()
-    #
-    # i = 0
-    # for key in variation_dict.keys():
-    #     p = copy.deepcopy(parameter)
-    #     for value in variation_dict[key]:
-    #         p[key] = value
-    #         heat_list, doh_list = hydration_fkt(T, time_list, dt, p)
-    #
-    #         delta_heat = np.diff(heat_list) / dt
-    #         plot_time = time_list[:-1]
-    #         # add pint units to plot_time and delta_heat
-    #         plot_time = plot_time * ureg.second
-    #         # time_list = time_list * ureg.second
-    #         delta_heat = delta_heat * ureg.watt / ureg.kg
-    #         heat_list = heat_list * ureg.joule / ureg.kg
-    #
-    #         # convert plot_time to hours
-    #         plot_time = plot_time.to(ureg.hour)
-    #         # time_list = time_list.to(ureg.hour)
-    #         # convert delta_heat to mW/kg
-    #         delta_heat = delta_heat.to(ureg.mW / ureg.kg)
-    #         # heat_list = heat_list.to(ureg.mW / ureg.kg)
-    #
-    #         axs[0][i].set_ylim([0, 6])
-    #         axs[0][i].set_xlim([0, 24])
-    #         # plot delta heat over time with a legend
-    #         axs[0][i].plot(plot_time, delta_heat, label=key + " = " + str(value))
-    #
-    #         # cummulative heat release
-    #         axs[1][i].set_ylim([0, 400])
-    #         axs[1][i].set_xlim([0, 24 * 4])
-    #         axs[1][i].plot(plot_time, heat_list[:-1], label=key + " = " + str(value))
-    #
-    #         # plt.plot(time_list, heat_list, label=parameter + " = " + str(value))
-    #     axs[0][i].legend()
-    #     # set legend to lower right corner
-    #     axs[1][i].legend()
-    #     axs[1][i].legend(loc="lower right")
-    #
-    #     axs[0][i].set_ylabel(f"Heat release rate in {delta_heat.units}")
-    #     axs[0][i].set_xlabel(f"time in {plot_time.units}")
-    #     axs[1][i].set_ylabel(f"Cumulated heat release in {heat_list.units}")
-    #     axs[1][i].set_xlabel(f"time in {plot_time.units}")
-    #
-    #     i += 1
-    #
-    # fig.tight_layout()
-    plt.show()
-    #
-    # fig.savefig(fig_path)
+    # setup plot
+    fig, axs = plt.subplots(1, len(variation_dict), figsize=(5 * len(variation_dict), 6))
+    ureg.setup_matplotlib()
+
+    i = 0
+    for key in variation_dict.keys():
+        p = copy.deepcopy(parameter)
+        var_par_list = variation_dict[key]["params"]
+        fkt = variation_dict[key]["fkt"]
+
+        for value in var_par_list:
+            p[key] = value
+            y_list = []
+            for alpha in alpha_list:
+                y_list.append(fkt(alpha, p))
+            axs[i].plot(alpha_list, y_list, label=key + " = " + str(value))
+
+            axs[i].legend()
+            axs[i].set_xlabel(f"Degree of hydration $\\alpha$")
+            axs[i].set_ylabel(variation_dict[key]["ylabel"])
+            axs[i].set_xlim([0, 1])
+            axs[i].set_ylim([0, variation_dict[key]["ylim"]])
+
+        i += 1
+
+    fig.tight_layout()
+    # plt.show()
+    fig.savefig(fig_path)
 
 
 if __name__ == "__main__":
     parameter = {
-        "heatExBOne": 3e-4,
-        "heatExBTwo": 0.001,
-        "heatExEta": 6,
-        "heatExAlphaMax": 0.875,
-        "heatExEAct": 47002,
-        "heatExTRef": 25,
-        "heatExQPot": 500e3,
-        "heatExT": 20,
-        "heatExDt": 60,
-        "heatExTimeTotal": 60 * 60 * 24 * 4,
+        "evoExAlphaT": 0.2,
+        "evoExAlphaTx": 0.8,
+        "evoExaE": 0.5,
+        "evoExafc": 0.5,
+        "evoExE": 50,
+        "evoExfc": 30,
     }
 
     create_mechanics_evolution_figure(parameter)
