@@ -27,6 +27,7 @@ def extract_metadata_heat(locationOfRawData, outputDirPath):
 
     # create empty dictionary for metadata
     metadata_HoH = {}
+    metadata_specimen_HoH = {}
 
     # predefined metadata
     metadata_HoH["Lab"] = "KIT"
@@ -89,12 +90,15 @@ def extract_metadata_heat(locationOfRawData, outputDirPath):
 
         # write metadata to json
         metadata_HoH["mix_name"] = metadata_HoH["humanreadableID"] = mix
-        metadata_HoH["sample_mass"] = sample_mass[i]
+        metadata_specimen_HoH["sample_mass"] = sample_mass[i]
+        metadata_specimen_HoH['SpecimenMass_Unit'] = 'g'
         mix_headers = headers[:2]
         mix_headers.extend(headers[2+(4*i):(2+4*i)+4])
         metadata_HoH["headers"] = mix_headers
         with open(os.path.join(outputDirPath, mix+"_calo"+".json"), "w") as jsonFile:
             js.dump(metadata_HoH, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
+        with open(os.path.join(outputDirPath, mix+"_calo"+"_specimen"+".json"), "w") as jsonFile:
+            js.dump(metadata_specimen_HoH, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
 
         # write processed numerical data to csv
         colids = [0, 1]
