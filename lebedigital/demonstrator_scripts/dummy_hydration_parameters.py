@@ -32,9 +32,10 @@ def dummy_hydration_parameters(slag_ratio, phi_hydration):
         maximum potential hydration parameter
     """
 
-    B1_min = 1.5-4  * ureg("J/kg")
-    B1_max = 2.916e-4  * ureg("J/kg")
-    B1 = B1_max - (B1_max - B1_min) * slag_ratio
+    B1_min = 1.5e-4
+    B1_max = 2.916e-4
+    #B1 = (B1_max - (B1_max - B1_min) * slag_ratio) * ureg("1/s")
+    B1 = (B1_max - (B1_max - B1_min) * slag_ratio) * ureg("1/s")
     B2 = 0.0024229 * ureg("")  # -
     eta = 5.554 * ureg("")  # something about diffusion
     E_act = 5653 * 8.3145 * ureg("J/mol")  # activation energy in Jmol^-1
