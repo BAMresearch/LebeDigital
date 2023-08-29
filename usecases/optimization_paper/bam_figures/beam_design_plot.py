@@ -92,7 +92,7 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
                 A_errors[i][j] = out["constraint_max_steel_area"]
                 constraint[i][j] = out["constraint_beam_design"]
 
-                if constraint[i][j] >= 0:
+                if constraint[i][j] <= 0:
                     if max_admissable_area < crosssections[i][j]:
                         max_admissable_area = crosssections[i][j]
 
@@ -118,7 +118,7 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
     def plot_contour_filled_white(ax, x, y, Z):
         max = np.nanmax(Z)
         min = np.nanmin(Z)
-        levels = [min - 1, 0.0]
+        levels = [0.0, max]
 
         X, Y = np.meshgrid(y, x)
         ax.contourf(X.magnitude, Y.magnitude, Z, colors="white", levels=levels)
@@ -173,6 +173,8 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
     constraint_plots = [0] * len(chosen_plots)
     plot_values = {}
     max_plot_area = 0.0
+
+    # loop over all three plots
     for i, plot in enumerate(chosen_plots):
         (
             crosssection_plots[i],

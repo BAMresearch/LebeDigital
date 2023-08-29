@@ -2,7 +2,8 @@ import pandas as pd
 import pint
 import pint_pandas
 import pytest
-from pint.testsuite.helpers import assert_quantity_almost_equal as assert_approx
+from pint.testsuite.helpers import \
+    assert_quantity_almost_equal as assert_approx
 
 from lebedigital.demonstrator_scripts.kpi_from_fem import kpi_from_fem
 from lebedigital.unit_registry import ureg
