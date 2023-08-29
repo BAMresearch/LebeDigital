@@ -1,8 +1,8 @@
 from import_gui import main
-from Lebedigital.lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import mix_metadata
-from Lebedigital.lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import emodul_metadata
-from Lebedigital.lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import processed_data_from_rawdata
-from Lebedigital.lebedigital.mapping.mappingscript import mapping
+from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import mix_metadata
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import emodul_metadata
+from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import processed_data_from_rawdata
+from lebedigital.mapping.mappingscript import mapping
 from Merge_KGs import merge_graphs
 from fuseki_upload import upload_ttl_file
 
@@ -26,7 +26,7 @@ KGtemplatePaths = {'Mixture_KG': '../../../lebedigital/ConcreteOntology/MixtureD
                    'Specimen_KG': '../../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl'}
 
 fuseki_url = "https://mechanics:7fewqg2nDWtZb5HC@fuseki.matolab.org"
-dataset_name = "MergedKG"
+dataset_name = "LeBeDigital"
 
 # start GUI to retrieve paths for raw data as dictionary, one file for each mixture and for e-module
 rawPaths = main()
