@@ -53,7 +53,7 @@ def create_mechanics_evolution_figure(input_parameter: dict, fig_path: str = "te
     }
 
     # setup plot
-    fig, axs = plt.subplots(1, len(variation_dict), figsize=(5 * len(variation_dict), 6))
+    fig, axs = plt.subplots(1, len(variation_dict), figsize=(5 * len(variation_dict), 4))
     ureg.setup_matplotlib()
 
     i = 0

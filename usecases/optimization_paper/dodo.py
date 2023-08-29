@@ -5,6 +5,7 @@ import yaml
 from bam_figures.beam_design_plot import beam_design_plot
 from bam_figures.create_heat_release_figure import create_heat_release_figure
 from bam_figures.create_homogenization_figure import create_homogenization_figure
+from bam_figures.create_mechanics_evolution_figure import create_mechanics_evolution_figure
 from bam_figures.design_approach import design_approach_graph
 from bam_figures.paper_workflow_graph import paper_workflow_graph
 from doit import get_var
@@ -170,6 +171,28 @@ def task_build_heat_release_figure():
             (
                 create_heat_release_figure,
                 [data["heat_release_example_parameters"], heat_release_plot_output_file],
+            )
+        ],
+        "targets": [target],
+        "clean": True,
+    }
+
+
+def task_build_evolution_figure():
+    """build evolution figure"""
+    # evolution figure
+    evolution_plot_name = data["file_names"]["evolutionPlot"]  # name of pdf file defined in macros yaml
+    evolution_plot_script = ROOT / BAM_PLOT_DIR / "create_mechanics_evolution_figure.py"
+    evolution_plot_output_file = ROOT / FIGURES_DIR / evolution_plot_name
+
+    target = paper_plot_target(evolution_plot_name)
+
+    return {
+        "file_dep": [evolution_plot_script, py_macros_file_BAM.with_suffix(".yaml")],
+        "actions": [
+            (
+                create_mechanics_evolution_figure,
+                [data["evolution_example_parameters"], evolution_plot_output_file],
             )
         ],
         "targets": [target],

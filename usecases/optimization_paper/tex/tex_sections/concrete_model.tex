@@ -23,22 +23,17 @@ Figure \ref{fig:heatrelease} shows the influence of the three numerical paramete
 	\caption{Influence of the hydration parameters on the heat release rate and the cumulative heat release.}\label{fig:heatrelease}
 \end{figure}
 For a detailed model description see in Appendix \ref{appendix:fem}.
-
-CONTINUE HERE...
-
 In addition to influencing the reaction speed, the computed temperature is used to verify that the maximum temperature during hydration does not exceed a limit of $\tempLimit = \inputtemperaturelimit$\textdegree C.
 Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
 This is implemented as a constraint for the optimization problem \eqref{eq:concstraintT}.
 Based on the degree of hydration, the Young's modulus $\eMod$ of a linear-elastic material model
 is approximated \eqref{eq:EwrtDOH}.
 Further, a compressive strength in terms of the degree of hydration is computed \eqref{eq:fcwrtDOH}, which is utilized to determine a failure criterion based on the computed local stresses \eqref{eq:constraintStress}.
-In the "origianl" model, REFERENCE, the models input requires a Young's modulus and compressive strength for the fully hydrated concrete, $\DOH = 1$.
-As the maximum degree of hydration is assumed to depend on the water cement ratio $\wc$, RFERENCE to equation!!!, and .. it will.
-..  
-
-
-....
-Figure xy shows the time evaolution of DOH, E and fc for the set of paramters given in Table XY, with some variations relevant to the respective models, as presented in the figure..
-
-
-
+For a detailed description of the parameters evolution with respect to the degree of hydration see in Appendix \ref{appendix:fem_evolution}.
+Figure \ref{fig:parameterEvolution} shows the influence of the different parameters.
+In addition to the presented formulations in \cite{car_2016_mamt} which depend a theoretical value of parameters for fully hydrated concrete at $\DOH = 1$, this work reformulates the equations, to depend on the 28 day values $\eModTwentyEight$ and $\fcTwentyEight$ as well as the corresponding $\DOHTwentyEight$ which is obtained via a simulation.
+\begin{figure}[h]%
+	\centering
+	\includegraphics[width=1.0\textwidth]{../figures/\evolutionPlot}
+	\caption{Influence of parameters $\DOHt, \stiffExp$ and $\strengthCExp$ on evolution the Young's modulus and the compressive strength with respect to the degree of hydration $\DOH$. }\label{fig:parameterEvolution}
+\end{figure}

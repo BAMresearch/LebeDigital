@@ -5,7 +5,8 @@ file_names : {
   'beamDesignPlot': 'beam_design_figure.pdf',
   'designStandard': 'approach_standard_design.gv.pdf',
   'designProposed': 'approach_proposed_design.gv.pdf',
-  'heatReleasePlot': 'heat_release_figure.pdf'
+  'heatReleasePlot': 'heat_release_figure.pdf',
+  'evolutionPlot': 'parameter_evolution_figure.pdf'
 }
 homogenization_example_parameters : {
     'pasteE' : 30e9,
@@ -51,7 +52,6 @@ beam_design_example_parameters : {
         'beamExComprStrConcreteC': 40,
         'beamExComprStrConcreteCUnit': 'N/mm^2',
     }
-
 heat_release_example_parameters : {
         'heatExBOne': 0.0003,
         'heatExBTwo': 0.001,
@@ -63,4 +63,12 @@ heat_release_example_parameters : {
         'heatExT': 20,
         'heatExDt': 60,
         'heatExTimeTotal': 345600,
+    }
+evolution_example_parameters : {
+        "evoExAlphaT": 0.2,
+        "evoExAlphaTx": 0.8,
+        "evoExaE": 0.5,
+        "evoExafc": 0.5,
+        "evoExE": 50,
+        "evoExfc": 30,
     }

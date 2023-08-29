@@ -108,9 +108,9 @@ Therefore the sensitivity of $\Delta\DOH$ with respect to the temperature $\temp
 	\dfrac{\partial \affinityScale(\temp)}{\partial \temp} = \affinityScale(\temp) \frac{\activE}{\gasConst\temp^2}
 \end{align}
 
-\subsection{Coupling Material Properties to Degree of Hydration}
+\subsection{Coupling Material Properties to Degree of Hydration} \label{appendix:fem_evolution}
 \subsubsection{Compressive strength}
-The compressive strength in terms of the degree of hydration can be approximated using an exponential function,
+The compressive strength in terms of the degree of hydration can be approximated using an exponential function, c.f. \cite{car_2016_mamt},
 \begin{align}
 	\fc(\DOH) = \DOH(\zeit)^{\strengthCExp} \fcInf \label{eq:fcwrtDOH}
 \end{align}
@@ -122,26 +122,23 @@ Therefore instead of somehow estimating $\fcInf$, we can approximate is using th
 \fcInf = 	\dfrac{\fcTwentyEight}{{\DOHTwentyEight}^{\strengthCExp}}.
 \end{align}
 \subsubsection{Young's Modulus}
-The publication proposes a new model for the evolution of the Young's modulus.
-Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assumes an initial linear increase of the Young's modulus up to a degree of hydration $\DOHt$.
+The publication \cite{car_2016_mamt} proposes a new model for the evolution of the Young's modulus.
+Instead of the generalized model \eqref{eq:mechanics-hydration}, the model assumes an initial linear increase of the Young's modulus up to a degree of hydration $\DOHt$,
 \begin{align}
 	\eMod(\DOH) = 
 	\begin{cases}
-		\eModInf \frac{\DOH(\zeit)}{\DOHt}\left( \frac{\DOHt-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}   
+		\eModInf \frac{\DOH(\zeit)}{\DOHt}{\DOHt}^{\stiffExp}   
 		& \text{for $\DOH < \DOHt$}\\
-		\eModInf \left( \frac{\DOH(\zeit)-\DOHZero}{1-\DOHZero}\right)^{\stiffExp}  
+		\eModInf {\DOH(\zeit)}^{\stiffExp}  
 		& \text{for $\DOH \ge \DOHt$}
-	\end{cases}\label{eq:EwrtDOH}
+	\end{cases}\label{eq:EwrtDOH}.
 \end{align}
-Values of $\DOHt$ are assumed to be between 0.1 and 0.2.
+Contrary to other publications, no dormant period is assumed.
 A challenge with this formulation, is that $\eModInf$ is difficult to obtain.
 Standardized testing of the Young's modulus is done after 28 day, $\eModTwentyEight$.
 To effectively use these experimental values, $\eModInf$ is approximated as
 \begin{align}
-	\eModInf = \dfrac{\eModTwentyEight}{\left(
-	\dfrac{\DOHTwentyEight - \DOHZero}
-	  {1- \DOHZero}
-	  \right)^{\stiffExp}}.
+	\eModInf = \dfrac{\eModTwentyEight}{{\DOHTwentyEight}^{\stiffExp}}.
 \end{align}
 To use this formulation, the experimental value of the Young's modulus after 28 days $\eModTwentyEight$ is required, as well as the approximated degree of hydration at that time $\DOHTwentyEight$ which can be approximated using a calibrated hydration simulation.
 
