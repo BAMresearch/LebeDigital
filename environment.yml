@@ -5,7 +5,7 @@ channels:
   - bam77
   - defaults
 dependencies:
-  - python=3.9.7
+  - python>=3.10
   - pip
   - matplotlib
   - mamba
@@ -23,7 +23,7 @@ dependencies:
   - gitpython
   - pyshacl
   - conda-ecosystem-user-package-isolation
-  - fenics_concrete
+  - fenicsxconcrete
   - python-graphviz
   - pytest
   - xlrd
