@@ -4,6 +4,8 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import time
+datetime = time.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 def update_json(file_path: Path, key: str, value):
@@ -58,6 +60,7 @@ def get_kpis(input: dict, path: Path) -> dict:
     os.system(f'snakemake --cores 4 --snakefile {path / "Snakefile"} ' f"--directory {path}")
 
     # get kpis
+    # IMP - ATUL , beam design. negative is failing design. temp constraints. positve is failing, negatoive is good. same for time I think
     kpis = {}
     results_path = path / "Results"
     kpi_from_fem = load_json(results_path / "kpi_from_fem.json")
@@ -76,8 +79,8 @@ if __name__ == "__main__":
     input_path = path_to_workflow / "Inputs"
 
     # input lists
-    height_list = [700.0]
-    slag_ratio_list = [0.5]
+    height_list = [500.0,700.0,900.0,1100.0]
+    slag_ratio_list = [0.1,0.35,0.60,0.85]
 
     df = pd.DataFrame()
 
@@ -106,6 +109,6 @@ if __name__ == "__main__":
             df = pd.concat([df, new_df], ignore_index=True)
 
     # df.to_csv(f"kpis_{inputs['agg_ratio']}_{inputs['slag_ratio']}.csv",index=False)
-    df.to_csv(f"kpis.csv", index=False)
+    df.to_csv(f"kpis_"+datetime+".csv", index=False)
 
 print("Done")

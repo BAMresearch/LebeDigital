@@ -30,10 +30,11 @@ datetime = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
 
 
 # TODO: general script to plot data in .csv file
-path_csv = 'Results/optimization_results_26_05_2023-04_27_31_PM.csv'
+#path_csv = 'Results/optimization_results_26_05_2023-04_27_31_PM.csv'
+path_csv = 'Results/Optimization_results_tmp.csv'
 
 data = pd.read_csv(path_csv)
-idx = [0,1,2,3,4,5,6,7,8,9]
+idx = [0,2,3,4,5,6,8]
 
 def plot_from_csv(data,idx : list, labels: list, savefig=False):
     # getting column names
@@ -41,24 +42,40 @@ def plot_from_csv(data,idx : list, labels: list, savefig=False):
     # choosing columns=
     column_new = [columns[i] for i in idx]
 
-    fig, axs = plt.subplots(5, 2, figsize=(10, 22))
+    fig, axs = plt.subplots(4, 2, figsize=(10, 48))
+    
+    # loop over all the axs, except the last one
 
     for i, ax in enumerate(axs.flat):
         #ax.ylabel(labels[i])
+        if i == 7:
+            break
         column = column_new[i]
-        if i == 6 or i == 8:
+        if i == 6:
             data_tmp = th.special.expit(th.from_numpy(np.array(data[column])))  # getting back the transformed values
             ax.plot(data_tmp)
             ax.set_title(column)
+        elif i == 5:
+            data_tmp = th.exp(th.from_numpy(np.array(data[column])))  # getting back the transformed values
+            #ax.plot(data_tmp)
+            ax.plot(data_tmp)
+            ax.set_title(column)
         elif i == 0:
-            ax.plot(-data[column])
+            ax.plot(data[column])
             ax.set_title(column)
         else:
             ax.plot(data[column])
             ax.set_title(column)
-    axs[1, 1].axhline(0, color='red')
-    axs[2, 0].axhline(70, color='red')
-    axs[2, 1].axhline(3, color='red')
+        ax.grid()
+        ax.set_xlabel('iterations')
+    # make the plots tight layout, now the labels are overlapping
+    #plt.tight_layout(pad=3.0)
+    # add vertical padding to the plots
+    fig.subplots_adjust(hspace=1.0)
+
+    #axs[1, 1].axhline(0, color='red')
+    #axs[2, 0].axhline(70, color='red')
+    #axs[2, 1].axhline(3, color='red')
     if savefig:
         plt.savefig('Results/optimizationResults' + datetime + '.pdf')
     plt.show()

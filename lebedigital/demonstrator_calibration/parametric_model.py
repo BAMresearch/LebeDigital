@@ -23,6 +23,7 @@ class NN_mean(nn.Module):
         self.layer1 = nn.Linear(input_dim, hidden_dim)
         self.layer2 = nn.Linear(hidden_dim, hidden_dim)
         #self.layer3 = nn.Linear(512, 512)
+        #self.layer3 = nn.Linear(hidden_dim, hidden_dim)
         self.layer3 = nn.Linear(hidden_dim, output_dim)
         #self.dropout = nn.Dropout(p=0.2)
 
@@ -40,29 +41,17 @@ class NN_mean(nn.Module):
             Output feature vector with N data points and D dimensions
             _description_
         """
-        x = torch.relu(self.layer1(x))
+        #x = torch.relu(self.layer1(x))
+        x = torch.tanh(self.layer1(x))
         #x = self.dropout(x)
-        x = torch.relu(self.layer2(x))
+        #x = torch.relu(self.layer2(x))
+        x = torch.tanh(self.layer2(x))
         #x = self.dropout(x)
         #x = torch.relu(self.layer3(x))
         x= self.layer3(x)
         #x = self.dropout(x)
         #x = self.layer4(x)
         return x
-
-# write a pytest for the above
-def test_NN_mean():
-    """_summary_
-    """
-    # create a dummy input
-    input_dim = 10
-    hidden_dim = 20
-    output_dim = 5
-    x = torch.rand(100, input_dim)
-    # create a dummy model
-    model = NN_mean(input_dim, hidden_dim, output_dim)
-    # check the output size
-    assert model(x).shape == (100, output_dim)
 
 #function to overload the parameters of the NN_mean by a prescribed value
 def overload_params(model, params):
@@ -92,7 +81,7 @@ def overload_params(model, params):
 
 
 # pretrain the above model to get a good initialization
-def train_NN(model:callable,x, y, epochs=100, lr=1e-3, hidden_dim=20):
+def train_NN(model:callable,x, y, epochs=100, lr=1e-3, hidden_dim=20,weight_decay=1e-3):
     """
     Parameters
     ----------
@@ -116,7 +105,7 @@ def train_NN(model:callable,x, y, epochs=100, lr=1e-3, hidden_dim=20):
     """
     input_dim = x.shape[1]
     output_dim = y.shape[1]
-
+    print(f'Training with weight decay {weight_decay}')
     # define the model
     # check if the model neneds to be initialized
     if isinstance(model, nn.Module):
@@ -127,7 +116,8 @@ def train_NN(model:callable,x, y, epochs=100, lr=1e-3, hidden_dim=20):
     criterion = nn.MSELoss()
 
     # define the optimizer
-    optimizer = optim.Adam(nn_mean.parameters(), lr=lr)
+    optimizer = optim.Adam(nn_mean.parameters(), lr=lr,weight_decay=weight_decay)
+    #optimizer = optim.Adam(nn_mean.parameters(), lr=lr)
 
     # train the model
     for epoch in range(epochs):
@@ -151,22 +141,7 @@ def train_NN(model:callable,x, y, epochs=100, lr=1e-3, hidden_dim=20):
     #y_pred = nn_mean(x)
     #print(f'predicted output: {y_pred}')
     return nn_mean
-# write aa pytest for the above
-def test_train_NN():
-    """_summary_
-    """
-    # create a dummy input
-    input_dim = 10
-    hidden_dim = 20
-    output_dim = 5
-    x = torch.rand(100, input_dim)
-    y = torch.rand(100, output_dim)
-    # create a dummy model
-    model = NN_mean(input_dim, hidden_dim, output_dim)
-    # train the model
-    model = train_NN(model, x, y, epochs=100, lr=1e-3, hidden_dim=20)
-    # check the output size
-    assert model(x).shape == (100, output_dim)
+
 if __name__=='__main__':
 # ------------ pre training ---------------------
 

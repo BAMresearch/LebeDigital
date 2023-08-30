@@ -22,17 +22,20 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
     #design_var_paths = {'aggregates_volume_fraction': workflow_path +'/Inputs/aggregates_volume_fraction.json',
     #                    'sc_volume_fraction': workflow_path + '/Inputs/sc_fraction.json'}
     design_var_paths = {'height': workflow_path + '/Inputs/geometry.json',
-                        'sc_volume_fraction': workflow_path + '/Inputs/sc_fraction.json'}
+                        'sc_mass_fraction': workflow_path + '/Inputs/sc_fraction.json'}
 
     for key, value in X.items():
         update_json(design_var_paths[key],key,value)
 
     # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
     # Updating the phi's which are input to the script.
-    phi_hydration_path = workflow_path + '/Inputs/phi_hydration.json'
-    phi_paste_path = workflow_path + '/Inputs/phi_paste.json'
-    update_json(phi_hydration_path, 'seed', seed)
-    update_json(phi_paste_path, 'seed', seed)
+    # phi_hydration_path = workflow_path + '/Inputs/phi_hydration.json'
+    # phi_paste_path = workflow_path + '/Inputs/phi_paste.json'
+    # update_json(phi_hydration_path, 'seed', seed)
+    # update_json(phi_paste_path, 'seed', seed)
+
+    seed_path = workflow_path + '/Inputs/seed_learnt_models.json'
+    update_json(seed_path, 'seed', seed)
 
     # Run the workflow using snakemake
     # add the path to the workflow file and the path to the directory
@@ -55,15 +58,15 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
     kpi = {
         "gwp_beam": y["gwp_beam"]["value"],
        # "check_steel_area": y["check_steel_area"]["value"],
-        "constraint_beam_design": y["constraint_beam_design"]["value"],
-        "max_reached_temperature": y["max_reached_temperature"]["value"],
-        "time_of_demoulding": y["time_of_demolding"]["value"]
+        "constraint_beam_design": y["constraint_beam_design"]["value"], 
+        "constraint_temperature": y["constraint_temperature"]["value"],
+        "constraint_time": y["constraint_time"]["value"]
     }
     return kpi
 
 if __name__ == '__main__':
     path = '../../usecases/optimization_paper/1'
     design_var = {'height': 260,
-                        'sc_volume_fraction': 0.35}
+                        'sc_mass_fraction': 0.35}
     seed = 66
     design_var_to_kpi(workflow_path=path,X=design_var,seed=seed)

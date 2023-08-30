@@ -38,87 +38,42 @@ datetime = datetime.now().strftime("%d_%m_%Y-%I_%M_%S_%p")
 from usecases.demonstrator.Calibration.utils.viz import plot_constraints_and_objective
 from lebedigital.demonstrator_optimization_scripts.utils import python_fn_run_jobs, read_kpis
 
-# %%
-def load_json(path: str) -> dict:
-    if path[-5:] == '.json':
-        with open(path) as f:
-            data = json.load(f)
-    return data
+# # %%
+# def load_json(path: str) -> dict:
+#     if path[-5:] == '.json':
+#         with open(path) as f:
+#             data = json.load(f)
+#     return data
 
 
-# %%
-def update_json(file_path: str, key: str, value):
-    # Read the JSON file
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    # TODO:will work only when 'value' key is present
-    # Update the value of the specified key
-    data[key]['value'] = value
+# # %%
+# def update_json(file_path: str, key: str, value):
+#     # Read the JSON file
+#     with open(file_path, 'r') as f:
+#         data = json.load(f)
+#     # TODO:will work only when 'value' key is present
+#     # Update the value of the specified key
+#     data[key]['value'] = value
 
-    # Write the updated data back to the JSON file
-    with open(file_path, 'w') as f:
-        json.dump(data, f, indent=4, sort_keys=True)
-
-
-Optimization_workflow_path = '../../optimization_paper/optimization_workflow'
-Results_path = Optimization_workflow_path + '/Results/'
-# FEM_KPI = Results_path + 'kpi_from_fem.json'
-# gwp_KPI = Results_path + 'gwp_beam.json'
-# beam_design_KPI = Results_path + 'beam_design.json'
-
-Input_path = Optimization_workflow_path + '/Inputs/'
-aggregate_ratio_path = Input_path + 'aggregates_volume_fraction.json'
-slag_ratio_path = Input_path + 'sc_fraction.json'  # sc slag/cement ratio. Instead of slag, it can be some type of cem too
-phi_hydration_path = Input_path + 'phi_hydration.json'
-phi_paste_path = Input_path + 'phi_paste.json'
-
-X = {'agg_ratio': 0.6, 'slag_ratio': 0.4}
-seed = 5
-
-# The below is not in use, and can be safely removed.
-def function(X: dict, seed: int) -> dict:
-    """
-    Runs the snakemake workflow and the returns the KPIs for objective and constraints for a given value of the design
-    variables. The Random variables (b) x->b->KPIs are also sampled for a given value of seed.
-    Args:
-     X: (dict) with keys 'agg_ratio' (volume ratio of the aggregates) and 'slag_ratio'
-     seed: the seed parameter. This ensures that the sampled Random variable here is the same as the one passed in the
-     forward call
-
-    Returns:
-        y : dict with all the KPIs
-
-    """
-    # Pass the parameter to X to the input to forward. Meaning overwrrite the input.
-    # The design variables, aggregate ratio and the slag ratio needs to be updated.
-    update_json(aggregate_ratio_path, 'aggregates_volume_fraction', X['agg_ratio'])
-    update_json(slag_ratio_path, 'sc_volume_fraction', X['slag_ratio'])
-
-    # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
-    # Updating the phi's which are input to the script.
-    update_json(phi_hydration_path, 'seed', seed)
-    update_json(phi_paste_path, 'seed', seed)
-
-    # Run the workflow using snakemake
-    # add the path to the workflow file and the path to the directory
-    workflow_file_path = Optimization_workflow_path + '/Snakefile'
-    directory_path = Optimization_workflow_path
-    os.system(f'snakemake --cores 7 --snakefile {workflow_file_path} '
-              f'--directory {directory_path}  workflow_targets --use-conda')
-
-    # Read in the KPIs in a dict
-    FEM_KPI = Results_path + 'kpi_from_fem.json'
-    gwp_KPI = Results_path + 'gwp_beam.json'
-    beam_design_KPI = Results_path + 'beam_design.json'
-    y = {}
-    for i, path in enumerate([FEM_KPI, gwp_KPI, beam_design_KPI]):
-        tmp = load_json(path)
-        y.update(tmp)
-
-    # return the KPIs
-    return y
+#     # Write the updated data back to the JSON file
+#     with open(file_path, 'w') as f:
+#         json.dump(data, f, indent=4, sort_keys=True)
 
 
+# Optimization_workflow_path = '../../optimization_paper/optimization_workflow'
+# Results_path = Optimization_workflow_path + '/Results/'
+# # FEM_KPI = Results_path + 'kpi_from_fem.json'
+# # gwp_KPI = Results_path + 'gwp_beam.json'
+# # beam_design_KPI = Results_path + 'beam_design.json'
+
+# Input_path = Optimization_workflow_path + '/Inputs/'
+# aggregate_ratio_path = Input_path + 'aggregates_volume_fraction.json'
+# slag_ratio_path = Input_path + 'sc_fraction.json'  # sc slag/cement ratio. Instead of slag, it can be some type of cem too
+# phi_hydration_path = Input_path + 'phi_hydration.json'
+# phi_paste_path = Input_path + 'phi_paste.json'
+
+# X = {'agg_ratio': 0.6, 'slag_ratio': 0.4}
+# seed = 5
 # tmp = function(X,seed)
 
 class objective_constraints_demonstrator:
@@ -207,8 +162,8 @@ if optimization:
 
     # load \phi into dict
 
-    phi_hydration = load_json(phi_hydration_path)
-    phi_paste = load_json(phi_paste_path)
+    #phi_hydration = load_json(phi_hydration_path)
+    #phi_paste = load_json(phi_paste_path)
 
     def _translate_design_variable_to_stochastic(x:dict):
         """
@@ -249,7 +204,7 @@ if optimization:
         return q_b
 
 
-    def objective(x_1, x_2, **kwargs):
+    # def objective(x_1, x_2, **kwargs):
         """
         # TODO: add a separate variational dist function
         Args:
@@ -417,10 +372,12 @@ if optimization:
             # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y))
             #x_1_scaled = th.special.expit(x_1)
             # TODO: ugly hardcoded, improve it
-            x_1_scaled_back = x_1.item()*(350.0 - 160.0) + 160.0 # = x_scaled*(x_max-x_min) +x_min
+            #x_1_scaled_back = x_1.item()*(1100.0 - 700.0) + 700.0 # = x_scaled*(x_max-x_min) +x_min
             x_2_scaled = th.special.expit(x_2)
+
+            x_1_scaled_back = th.exp(x_1)
             #X_tmp[i,0] = x_1_scaled.item()
-            X_tmp[i, 0] = x_1_scaled_back  # since height need not be scaled.
+            X_tmp[i, 0] = x_1_scaled_back.item()  # since height need not be scaled.
             X_tmp[i,1] = x_2_scaled.item()
         # save the seed and the design varuables
         np.save('./seed_tmp.npy', np.array(seed_tmp))
@@ -446,26 +403,29 @@ if optimization:
 
             # define constraints
             # --- Set inputs for the constraints
-            time_max = th.tensor(3)
-            temp_max = th.tensor(70)
-            max_agg_ratio = th.tensor(0.7)
-            # workability constraint. Now temp that agg ratio < 0.6
-            c_1 = 1e03
-            c_2 = 0.1
-            c_3 = 1
-            c_4 = 1
-            # design criterion
-            G_x_1 = c_1 * th.max(-th.as_tensor(C_x_1), th.tensor(0))
-            # temp
-            G_x_2 = c_2 * th.max(th.as_tensor(C_x_2) - temp_max, th.tensor(0))
-            # demoulding time
-            G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
-            # TODO: X_tmp[i,0] below is temp for aggregate ratio.
-            #G_x_4 = th.max(th.as_tensor(X_tmp[i,0]) - max_agg_ratio, th.tensor(0))
-            constraints = G_x_1 + G_x_2 + G_x_3 #+ G_x_4
+            # time_max = th.tensor(3)
+            # temp_max = th.tensor(70)
+            # max_agg_ratio = th.tensor(0.7)
+            # # workability constraint. Now temp that agg ratio < 0.6
+            # c_1 = 1e03
+            # c_2 = 0.1
+            # c_3 = 1
+            # c_4 = 1
+            # # design criterion
+            # G_x_1 = c_1 * th.max(-th.as_tensor(C_x_1), th.tensor(0))
+            # # temp
+            # G_x_2 = c_2 * th.max(th.as_tensor(C_x_2) - temp_max, th.tensor(0))
+            # # demoulding time
+            # G_x_3 = c_3 * th.max(th.as_tensor(C_x_3) - time_max, th.tensor(0))
+            # # TODO: X_tmp[i,0] below is temp for aggregate ratio.
+            # #G_x_4 = th.max(th.as_tensor(X_tmp[i,0]) - max_agg_ratio, th.tensor(0))
+            # constraints = G_x_1 + G_x_2 + G_x_3 #+ G_x_4
+
+            #TODO : include the third constraint too
+            constraints = th.max(th.as_tensor(C_x_1),th.tensor(0)) + th.max(th.as_tensor(C_x_2),th.tensor(0))# + th.max(th.as_tensor(C_x_3),th.tensor(0))
 
             # with constraints
-            c_o = 0.0001  # objective scaling
+            c_o = 0.001  # objective scaling
             grad_est_obj = (c_o * obj) * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
             grad_est_cons = constraints * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
             U_theta_holder.append(grad_est_obj + grad_est_cons)
@@ -591,66 +551,16 @@ if __name__ == '__main__':
     # x = 1/(1+e^(-y)), where y is the gaussian. so y = ln(x/(1-x)). So y mean and sd needs to be init by this.
 
     #x1_init = th.special.logit(th.tensor([0.25]))
-    x1_scaled_init = (280.0 - 160.0)/(350.0 - 160.0) # (x - x-min) / (x_max - x_min)
-    x2_init = th.special.logit(th.tensor([0.60]))
+    #x1_scaled_init = (1050.0 - 700.0)/(1100.0 - 700.0) # (x - x-min) / (x_max - x_min)
+    x1_scaled_init = th.log(th.tensor([500.0])) # starting from height 900 mm
+    x2_init = th.special.logit(th.tensor([0.25])) # sigmoid transformed values are passed, then later transformed back to normal.
 
-    design_variables = {'x_1': {'mean': [x1_scaled_init] ,'s.d': [0.4]},
-                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.4]}}
+    # beam height is directly proporstional to GWP, and slag ratio is inversely proportional to GWP.
+    design_variables = {'x_1': {'mean': [x1_scaled_init.item()] ,'s.d': [0.1]},
+                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.1]}}
 
     #design_variables = {'x_1': {'mean': [0.25] ,'s.d': [0.5]},
     #                    'x_2': {'mean': [0.35] ,'s.d': [0.5]}}
-    df = optimize(design_variables,lr =0.1,number_steps=120,number_samples=100) # 120 step, 125 sample,
+    df = optimize(design_variables,lr =0.05,number_steps=120,number_samples=80) # 120 step, 125 sample,
     df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 
-    # mu_evolution_1, sigma_evolution_1 = optimize(mu_init=[4., -4.])
-    # mu_evolution_2, sigma_evolution_2 = optimize(
-    #     mu_init=[-4., 0.])  # starting from constraint violation and crossing the optima
-    #
-    # x = np.arange(-5.0, 5.0, 0.1)
-    # y = np.arange(-5.0, 5.0, 0.1)
-    # X, Y = np.meshgrid(x, y)  # grid of point
-    # Z = function(X, Y)  # evaluation of the function on the grid
-    #
-    # fig, ax = plt.subplots(1, 2, figsize=(10, 5), constrained_layout=True)
-    #
-    #
-    # def plot_evolution(mu, sigma, color, fig, ax):
-    #     ax[0].contourf(X, Y, Z, levels=20)
-    #     ax[0].plot(mu[:, 0], mu[:, 1], 'x', color=color)
-    #     ax[0].set_xlabel('$x_1$')
-    #     ax[0].set_ylabel('$x_2$')
-    #     ax[1].plot(sigma)
-    #     ax[1].set_ylabel('$\sigma$')
-    #     ax[1].set_xlabel('iterations')
-    #     # plt.savefig('./Figs/theta_evolution_VO_' + datetime + '.pdf')
-    #     plt.show()
-    #     return fig
-    #
-    #
-    # ax[0].contourf(X, Y, Z, levels=20)
-    # ax[0].plot(mu_evolution_1[:, 0], mu_evolution_1[:, 1], 'x', color='r')
-    # ax[0].plot(mu_evolution_2[:, 0], mu_evolution_2[:, 1], 'x', color='y')
-    # ax[0].set_xlabel('$x_1$')
-    # ax[0].set_ylabel('$x_2$')
-    # ax[1].plot(sigma_evolution_1, 'r')
-    # ax[1].plot(sigma_evolution_2, 'y')
-    # ax[1].set_ylabel('$\sigma$')
-    # ax[1].set_xlabel('iterations')
-    # plt.savefig('./Figs/theta_evolution_VO_constraints_' + datetime + '.pdf')
-    # plt.show()
-    #
-    # plot_evolution(mu_evolution_1, sigma_evolution_1, 'r', fig, ax)
-    # plot_evolution(mu_evolution_2, sigma_evolution_2, 'g', fig, ax)
-
-# class VO:
-#     def __init__(self):
-#
-#     def objective:
-#
-#     def var_dist:
-#
-#
-#     def run(self):
-
-
-# --

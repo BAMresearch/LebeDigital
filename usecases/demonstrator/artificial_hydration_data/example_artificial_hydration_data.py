@@ -62,3 +62,16 @@ heat_list, doh_list= hydration_fkt(T, time_list, dt, parameter)
 
 # the results!!!
 print(heat_list)
+
+# x = np.array([0.3])
+# b = np.array([2.916,2.4229,5.554,5])
+# # convert the above to run the pretraining
+# x = torch.tensor(x).reshape(1,-1)
+# b = torch.tensor(b).reshape(1,-1)
+# # convert the above to a 1x4 array
+
+# # reshape the above to 2d tensor
+# #b = torch.tensor(b).reshape(1,-1)
+# #x = torch.tensor(x).reshape(1,-1)
+
+# nn_pretrained = pretrain_nn_mean(x, b, epochs=100, lr=1e-3, hidden_dim=10)

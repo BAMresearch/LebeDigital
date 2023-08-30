@@ -24,7 +24,7 @@ def parallel_workflow(array_id,design_var:np.ndarray, seed:list):
     # design_var = {'aggregates_volume_fraction':design_var[idx,0], #0.4
     #               'sc_volume_fraction': design_var[idx,1]} #0.35
     design_var = {'height': design_var[idx, 0],  # 0.4
-                  'sc_volume_fraction': design_var[idx, 1]}  # 0.35
+                  'sc_mass_fraction': design_var[idx, 1]}  # 0.35
     kpi = design_var_to_kpi(workflow_path=path, X=design_var, seed=seed[idx])
     kpi_path = path + '/kpi.json'
     with open(kpi_path, 'w') as f:

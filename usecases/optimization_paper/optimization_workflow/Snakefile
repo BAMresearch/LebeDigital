@@ -330,53 +330,105 @@ rule gwp_mix:
         write_pint_dict(results,output.results)
 
 
+# rule approx_paste_properties:
+#     # the stiffness and strength of the cement paste is estimated and interpolated
+#     input:
+#         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_paste_strength_stiffness.py',
+#         sc_fraction = 'Results/mix_volume_contents.json',
+#         phi_paste = "Inputs/phi_paste.json"
+
+#     output:
+#         results = "Results/approx_paste_properties.json"
+
+#     run:
+#         from lebedigital.demonstrator_scripts.computation_paste_strength_stiffness import computation_paste_strength_stiffness
+#          #merging contents of both dictionaries and individual variable inputs
+
+#         p = read_pint_dicts(input)
+#         q = load_json(input.phi_paste)
+#         results = {}
+#         # run script
+#         results["paste_E"], results["paste_fc"] = computation_paste_strength_stiffness(p['sc_volume_fraction'],
+#         q['phi_mean']['value'], q['phi_cov']['value'],q['seed']['value'])
+
+#         write_pint_dict(results,output.results)
+
 rule approx_paste_properties:
     # the stiffness and strength of the cement paste is estimated and interpolated
+    # to just check this, run : snakemake --core 1 approx_paste_properties --use-conda
     input:
-        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_paste_strength_stiffness.py',
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_paste_strength_stiffness.py',
         sc_fraction = 'Results/mix_volume_contents.json',
-        phi_paste = "Inputs/phi_paste.json"
-
+        mean_NN = "Inputs/NN_model_homogenization_final.pt",
+        cov_params = "Inputs/cov_parameters_homogenization_final.csv",
+        seed = "Inputs/seed_learnt_models.json"
     output:
         results = "Results/approx_paste_properties.json"
 
     run:
-        from lebedigital.demonstrator_scripts.dummy_paste_strength_stiffness import dummy_paste_strength_stiffness
+        from lebedigital.demonstrator_scripts.computation_paste_strength_stiffness import computation_paste_strength_stiffness
          #merging contents of both dictionaries and individual variable inputs
 
-        p = read_pint_dicts(input)
-        q = load_json(input.phi_paste)
+        p = load_json(input.sc_fraction)
+        q = load_json(input.seed)
         results = {}
         # run script
-        results["paste_E"], results["paste_fc"] = dummy_paste_strength_stiffness(p['sc_volume_fraction'],
-        q['phi_mean']['value'], q['phi_cov']['value'],q['seed']['value'])
-
+        results["paste_E"], results["paste_fc"] = computation_paste_strength_stiffness(p['sc_volume_fraction']['value'],
+        input.mean_NN, input.cov_params,q['seed']['value'])
+        print(results)
         write_pint_dict(results,output.results)
 
+
+# rule approx_hydration_parameters:
+#     # the hydration parameters are approximated based on slag content
+#     input:
+#         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
+#         sc_fraction = 'Results/mix_volume_contents.json',
+#         phi_hydration = 'Inputs/phi_hydration.json'
+
+#     output:
+#         results = 'Results/approx_hydration_parameters.json'
+
+#     run:
+#         from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+#          #merging contents of both dictionaries and individual variable inputs
+
+#         # had to bypass this pint thing as it was not letting me use numpy.
+#         p = read_pint_dicts(input)
+#         q = load_json(input.phi_hydration)
+#         s = load_json(input.sc_fraction)
+#         results = {}
+
+#         # run script
+#         results['B1'], results['B2'], results['eta'], results['E_act'], results['Q_pot'], results['T_ref'] = \
+#             dummy_hydration_parameters(s['sc_volume_fraction']['value'],q['phi_mean']['value'],q['phi_cov']['value'],q['seed']['value'])
+
+#         write_pint_dict(results,output.results)
 
 rule approx_hydration_parameters:
     # the hydration parameters are approximated based on slag content
     input:
-        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py',
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_hydration_parameters.py',
         sc_fraction = 'Results/mix_volume_contents.json',
-        phi_hydration = 'Inputs/phi_hydration.json'
+        mean_NN = "Inputs/NN_model_hydration_final.pt",
+        cov_params = "Inputs/cov_parameters_hydration_final.csv",
+        seed = "Inputs/seed_learnt_models.json"
 
     output:
         results = 'Results/approx_hydration_parameters.json'
 
     run:
-        from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+        from lebedigital.demonstrator_scripts.computation_hydration_parameters import computation_hydration_parameters
          #merging contents of both dictionaries and individual variable inputs
 
-        # had to bypass this pint thing as it was not letting me use numpy.
-        p = read_pint_dicts(input)
-        q = load_json(input.phi_hydration)
-        s = load_json(input.sc_fraction)
+        p = load_json(input.sc_fraction)
+        q = load_json(input.seed)
         results = {}
 
         # run script
         results['B1'], results['B2'], results['eta'], results['E_act'], results['Q_pot'], results['T_ref'] = \
-            dummy_hydration_parameters(s['sc_volume_fraction']['value'],q['phi_mean']['value'],q['phi_cov']['value'],q['seed']['value'])
+            computation_hydration_parameters(p['sc_volume_fraction']['value'],input.mean_NN, input.cov_params,q['seed']['value'])
+        print(results)
 
         write_pint_dict(results,output.results)
 

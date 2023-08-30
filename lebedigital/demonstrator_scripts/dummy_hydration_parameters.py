@@ -52,7 +52,9 @@ def dummy_hydration_parameters(slag_ratio, phi_mean: list, phi_cov: list, seed: 
     eta = 5.554 * ureg('')  # something about diffusion
     E_act = 5653 * 8.3145 * ureg('J/mol')  # activation energy in Jmol^-1
     Q_ = ureg.Quantity
-    T_ref = Q_(25, ureg.degC)
+    T_ref = Q_(25, ureg.degC) #TODO: this needs to be the temp. at which the exp is done,
+    #20 in this case. This would ignore the effect of E_act.
+
 
     Q_pot_min = 100000 * ureg('J/kg')
     Q_pot_max = 300000 * ureg('J/kg')
@@ -80,7 +82,57 @@ if __name__ == "__main__":
     # also guessing 5% noise. sigma^2 = (5/100)^2 = 0.0025
 
     phi_mean = [[0.01 * 2.916E-4, 2.916E-4], [0.01 * 0.0024229, 0.0024229], [0.01 * 5.554, 5.554],
-                [0.01 * 5653 * 8.3145, 5653 * 8.3145], [-200000, 300000], [0.01 * 25, 25]]
-    phi_cov = np.diag(0.0025 * np.array(phi_mean)[:, 1]).tolist()
-    seed = 7
+                [0.01 * 5653 * 8.3145, 5653 * 8.3145], [-100000, 300000], [0.01 * 25, 25]]
+    #phi_cov = np.diag(0.0025 * np.array(phi_mean)[:, 1]).tolist()
+    phi_cov = [
+            [
+                7.29e-10,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                6.05725e-08,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.013885000000000002,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0,
+                117.50467125000002,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                750.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0625
+            ]
+        ]
+    seed = 10
     print(dummy_hydration_parameters(0.5, phi_mean=phi_mean, phi_cov=phi_cov, seed=seed))

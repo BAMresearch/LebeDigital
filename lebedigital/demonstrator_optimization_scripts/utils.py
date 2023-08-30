@@ -80,8 +80,8 @@ def read_kpis(kpi_path:str):
     # print("!!! Attention the KPIs are specific and can change. Careful.")
     obj = data["gwp_beam"]
     C_1 = data["constraint_beam_design"]
-    C_2 = data["max_reached_temperature"]
-    C_3 = data["time_of_demoulding"]
+    C_2 = data["constraint_temperature"]
+    C_3 = data["constraint_time"]
 
     return obj, C_1, C_2, C_3
 
