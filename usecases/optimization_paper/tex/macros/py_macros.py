@@ -62,6 +62,11 @@ def input_optimization_macros(path_to_workflow, path_to_tex_file):
 
     result_path = Path(path_to_workflow) / "Results"
 
+    # check if results directory exists
+    if not result_path.exists():
+        # create directory
+        os.mkdir(result_path)
+
     # get a list with all json files in result_path directory
     result_files = [f for f in os.listdir(result_path) if f.endswith(".json")]
 
