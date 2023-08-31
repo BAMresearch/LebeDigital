@@ -1,22 +1,23 @@
-\subsection{Approximate concrete tensile strength based on compressive strength}
-... currently the steel yield strength is used in the models, to determine the constraint...
-its a bit of a mess, as we thought/hoped to include the reinforcements
+\subsection{Consideration of reinforcement in FEM model}
+The integration of discrete steel reinforcement within FE models is complex and beyond the scope of this publication's focus.
+As an approximation, we account for its influence by considering the tensile strength within the stress constraint \ref{eq:constraintStress} to be equal to the yield stress of the steel reinforcement.
+Moreover, the FEM simulation is simplifies by disregarding the impact of the reinforcement bars on the elastic modulus of the beam.\\
 
-%To reduce the number of required experiments, the tensile strength of concrete is computed using the approximations given in \citeauthor{DIN1992-1-1}.
-%They are based on the compressive strength, 
-%\begin{align}
-%\ft = 
-%\begin{cases}
-%0.3 \fc^{\frac{2}{3}}  & \text{for $\fc \le 50$ N/mm$^2$}\\
-%\ft =2.12 \ln \left( 1 \left( \frac{\fc + 8}{10}\right) \right)& \text{for $\fc > 50$ N/mm$^2$}  %\label{eq:tensilstrength}.
-%\end{cases}
-%\end{align}
-%\subsection{\texorpdfstring{$\DOHmax$}{Maxiumum DoH} based on \texorpdfstring{$\wc$}{w/c}}
-%Following \cite{Mills1966fico}, the maximum degree of hydration is given by the function
-%\begin{align}
-%	\DOHmax = \dfrac{1.031\,\wc}{0.194 + \wc}.
-%\end{align}
-%Contrary to other publications, this function does not assume a fully hydrated cement for a %value of $\wc = 0.42$ but assumes that the full potential will usually not be reached.
-%%It is possible that the maximum value might be underestimated.
-%This should not be a problem, as we are identifying our hydration parameter for a given $\wc$ value.
-%The relevant aspect is the change relative to the value for which experimental data is given.
+\ET{I am not sure if this needs such a prominent section, but it should be mentioned somewhere.
+	A possible alternative could be in the appendix where the constraints are given in more detail.}
+
+\subsection{Computation of GWP}
+\ET{So far the topic of how to compute GWP is not addressed.
+	The computation is so basic (values multiplied by volume or weight and aggregated) that is does not really needs explaining.
+	However we still need to describe how the final value is reached.
+	The value includes GWP for the constituents of the concrete.
+	This is then multiplied by the volume of the beam.
+	The GWP of the rebars is then added.
+	Some points that might need to be discussed:
+	1: the general problem of what to include in a relevant analysis of GWP: only the materials? the transport? the whole life cycle?
+	2: what is a "fair" GWP value for slack. Slack is a "by-product" of steel manufacturing, so some publications consider it as "trash" so it has zero GWP itself, only what is used as energy on postprocessing.
+	This is controversial, as once it is applied in industry it is not only a by-product anymore.}
+
+
+
+

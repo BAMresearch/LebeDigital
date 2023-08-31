@@ -14,8 +14,8 @@ $\activE$ is the activation energy, defining how the model will react to tempera
 $\DOHmax$ is the maximum degree of hydration that can be reached.
 Following \cite{Mills1966fico}, the maximum degree of hydration is estimated, based on the water to binder ratio $\wc$, as $\DOHmax = \frac{1.031\,\wc}{0.194 + \wc}$.
 As the degree of hydration if difficult to quantify experimentally, the heat release is used as a proxy.
-By assuming the DOH is the fraction of the currently released heat with respect to its theoretical potential $\heatInf$, the current degree of hydration is estimated as $\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf}$.
-As the potential heat release is also difficult to measure, as it takes a long time to fully hydrate and will only do so under perfect conditions, we obtain this value along side the other using the parameter identification method.
+By assuming the DOH to be the fraction of the currently released heat with respect to its theoretical potential $\heatInf$, the current degree of hydration is estimated as $\DOH(\zeit) = \frac{\heat(\zeit)}{\heatInf}$.
+As the potential heat release is also difficult to measure, as it takes a long time to fully hydrate and will only do so under perfect conditions, we obtain this value along side the others using the parameter identification method.
 Figure \ref{fig:heatrelease} shows the influence of the three numerical parameter and the potential heat release on the heat release rate as well as the cumulative heat release.
 \begin{figure}[h]%
 	\centering
@@ -25,16 +25,20 @@ Figure \ref{fig:heatrelease} shows the influence of the three numerical paramete
 For a detailed model description see in Appendix \ref{appendix:fem}.
 In addition to influencing the reaction speed, the computed temperature is used to verify that the maximum temperature during hydration does not exceed a limit of $\tempLimit = \inputtemperaturelimit$\textdegree C.
 Above this temperature, certain crystals start to revert back to a different state, expanding in volume and leading to cracks in the concrete.
-This is implemented as a constraint for the optimization problem \eqref{eq:concstraintT}.
-Based on the degree of hydration, the Young's modulus $\eMod$ of a linear-elastic material model
+This is implemented as a constraint for the optimization problem \eqref{eq:concstraintT}.\\
+Based on the degree of hydration, the evolution of the Young's modulus $\eMod$ of a linear-elastic material model
 is approximated \eqref{eq:EwrtDOH}.
 Further, a compressive strength in terms of the degree of hydration is computed \eqref{eq:fcwrtDOH}, which is utilized to determine a failure criterion based on the computed local stresses \eqref{eq:constraintStress}.
 For a detailed description of the parameters evolution with respect to the degree of hydration see in Appendix \ref{appendix:fem_evolution}.
 Figure \ref{fig:parameterEvolution} shows the influence of the different parameters.
-In addition to the presented formulations in \cite{car_2016_mamt} which depend on a theoretical value of parameters for fully hydrated concrete at $\DOH = 1$, this work reformulates the equations, to depend on the 28 day values $\eModTwentyEight$ and $\fcTwentyEight$ as well as the corresponding $\DOHTwentyEight$ which is obtained via a simulation.
-
+In addition to the formulations given in \cite{car_2016_mamt} which depend on a theoretical value of parameters for fully hydrated concrete at $\DOH = 1$, this work reformulates the equations, to depend on the 28 day values $\eModTwentyEight$ and $\fcTwentyEight$ as well as the corresponding $\DOHTwentyEight$ which is obtained via a simulation.
+This allows to directly use the experimental values as input.
+In Figure \ref{fig:parameterEvolution} $\DOHTwentyEight$ is set to $\evoExAlphaTx$.\\
 \begin{figure}[h]%
 	\centering
 	\includegraphics[width=1.0\textwidth]{../figures/\evolutionPlot}
-	\caption{Influence of parameters $\DOHt, \stiffExp$ and $\strengthCExp$ on evolution the Young's modulus and the compressive strength with respect to the degree of hydration $\DOH$. }\label{fig:parameterEvolution}
+	\caption{Influence of parameters $\DOHt, \stiffExp$ and $\strengthCExp$ on evolution the Young's modulus and the compressive strength with respect to the degree of hydration $\DOH$.
+	Parameters: $\eModTwentyEight = \evoExE$, $\stiffExp = \evoExaE$, $\DOHt = \evoExAlphaT$, $\strengthCExp = \evoExafc$,  $\fcTwentyEight = \evoExfc$, $\DOHTwentyEight = \evoExAlphaTx$. \\
+	\ET{Some of the parameters still need appropriate units, in the description as well as in the graph.}}\label{fig:parameterEvolution} 
 \end{figure}
+\ET{Graphs similar to the beam design graph, showing the constraint for different quantities might be a good way do visualize some of the more complex dependencies. E.g. Stress constraint w.r.t height, fc, E and the temperature constraint w.r.t. maybe Q max and K? These could either be analyzed like in the beam design, for a set point in time, or show the evolution over time for different values.}

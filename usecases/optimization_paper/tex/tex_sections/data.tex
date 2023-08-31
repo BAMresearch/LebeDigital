@@ -1,15 +1,21 @@
 Description and overview of experimental data used.
-
+\ET{This section still needs to be written.
+	I think all relevant infos should be found in the PhD thesis that provided the data.
+	It should just give an overview of what data was available and was used.}
 \subsection{Young's modulus \texorpdfstring{$\eMod$}{E} based on \texorpdfstring{$fc$}{fc}}
-give formula for E mod approximation.
-Literature and reasoning.
+The dataset does not encompass information about Young's modulus. 
+Given its significance for  the FEM simulation, we resort to a phenomenological approximation derived from \cite{ACI363}. 
+This approximation relies on the compressive strength $\fc$ and the density $\density$ to estimate the Young's modulus
+\begin{align}
+	\eMod = 3320 \sqrt{\fc} + 6895 \left( \dfrac{\density}{2320}\right)^{1.5}.
+\end{align}
+We opt to approximate $\eMod$ prior to the identification and learning phases. 
+Often, both Young's modulus and compressive strength data are available. 
+Our intention is to demonstrate the feasibility of considering these parameters separately as a proof of concept.\\
 
-
-
-
-Figure \ref{fig:snakemake_workflow} shows the directed acyclic graph from the snakemake workflow, just located here as another example
 \begin{figure}[ht]%
 	\centering
 	\includegraphics[width=1.0\textwidth]{../figures/\snakemakeGraph}
-	\caption{Further testing doit workflow combined with snakemake. t}\label{fig:snakemake_workflow}
+	\caption{snakemake workflow \ET{This pic should/could be included in the paper somewhere. I assume this need to be moved to the place where the actual optimization workflow is described.}}\label{fig:snakemake_workflow}
 \end{figure}
+Figure \ref{fig:snakemake_workflow} shows the directed acyclic graph from the snakemake workflow, just located here as another example
