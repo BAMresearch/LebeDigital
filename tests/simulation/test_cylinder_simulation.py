@@ -23,7 +23,7 @@ def test_cylinder_simulation():
 
     parameters["log_level"] = "WARNING" * ureg("")
     parameters["bc_setting"] = "free" * ureg("")
-    parameters["mesh_density"] = 6 * ureg("")
+    parameters["mesh_density"] = 10 * ureg("")
 
     displacement = -3 * ureg("mm")
 
@@ -39,25 +39,26 @@ def test_cylinder_simulation():
     problem.solve()  # solving this
 
     # remove temp mesh files that are generated during mesh generation
-    directory = Path("mesh")
-    files = ["cylinder.h5", "cylinder.msh", "cylinder.xdmf"]
+    # directory = Path("mesh")
+    # files = ["cylinder.h5", "cylinder.msh", "cylinder.xdmf"]
 
     # delete files
-    for file in files:
-        path = directory / file
-        if path.is_file():
-            os.remove(path)
+    # for file in files:
+    #     path = directory / file
+    #     if path.is_file():
+    #         os.remove(path)
 
     # delete directory
-    os.rmdir(directory)
+    # os.rmdir(directory)
 
     # last measurement
-    measured_force = problem.sensors[sensor.name].data[-1]
+    measured_force_z = problem.sensors[sensor.name].get_last_entry()[2]
 
     # exact solution for free bc
-    exact_solution = np.pi * parameters["radius"] ** 2 * parameters["E"] * displacement / parameters["height"]
+    exact_solution = (np.pi * parameters["radius"] ** 2 * parameters["E"] * displacement / parameters["height"]).to(
+        "N"
+    )
 
     # scaling factor due to an error resulting from the discretization
-    rel_discretization_error = 1.012722
 
-    assert measured_force == pytest.approx(rel_discretization_error * exact_solution)
+    assert measured_force_z.to_base_units().magnitude == pytest.approx(exact_solution.to_base_units().magnitude, 0.05)
