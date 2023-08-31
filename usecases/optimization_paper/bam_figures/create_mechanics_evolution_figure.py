@@ -1,6 +1,7 @@
 import copy
 
 import fenics_concrete
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pint
@@ -8,7 +9,6 @@ import pytest
 from pint.testsuite.helpers import assert_quantity_almost_equal as assert_approx
 
 from lebedigital.simulation.concrete_homogenization import concrete_homogenization
-from lebedigital.unit_registry import ureg
 
 
 def create_mechanics_evolution_figure(input_parameter: dict, fig_path: str = "test_mechanics_evolution_plot.pdf"):
@@ -54,7 +54,7 @@ def create_mechanics_evolution_figure(input_parameter: dict, fig_path: str = "te
 
     # setup plot
     fig, axs = plt.subplots(1, len(variation_dict), figsize=(5 * len(variation_dict), 4))
-    ureg.setup_matplotlib()
+    # ureg.setup_matplotlib()
 
     i = 0
     for key in variation_dict.keys():
@@ -67,7 +67,10 @@ def create_mechanics_evolution_figure(input_parameter: dict, fig_path: str = "te
             y_list = []
             for alpha in alpha_list:
                 y_list.append(fkt(alpha, p))
-            axs[i].plot(alpha_list, y_list, label=key + " = " + str(value))
+
+            # use viridis color map, equally spaced in the 0 to 256 range, depending on the number of plot in the var_par_list
+            color = matplotlib.cm.viridis(int(256 / (len(var_par_list) - 1)) * var_par_list.index(value))
+            axs[i].plot(alpha_list, y_list, label=key + " = " + str(value), color=color)
 
             axs[i].legend()
             axs[i].set_xlabel(f"Degree of hydration $\\alpha$")

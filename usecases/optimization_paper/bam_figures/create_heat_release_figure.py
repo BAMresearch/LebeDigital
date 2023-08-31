@@ -1,6 +1,7 @@
 import copy
 
 import fenics_concrete
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pint
@@ -67,12 +68,15 @@ def create_heat_release_figure(parameter: dict, fig_path: str = "test_heat_reale
             axs[0][i].set_ylim([0, 6])
             axs[0][i].set_xlim([0, 24])
             # plot delta heat over time with a legend
-            axs[0][i].plot(plot_time, delta_heat, label=key + " = " + str(value))
+
+            color = matplotlib.cm.viridis(int(256 / (len(variation_dict[key]) - 1)) * variation_dict[key].index(value))
+
+            axs[0][i].plot(plot_time, delta_heat, label=key + " = " + str(value), color=color)
 
             # cummulative heat release
             axs[1][i].set_ylim([0, 400])
             axs[1][i].set_xlim([0, 24 * 4])
-            axs[1][i].plot(plot_time, heat_list[:-1], label=key + " = " + str(value))
+            axs[1][i].plot(plot_time, heat_list[:-1], label=key + " = " + str(value), color=color)
 
             # plt.plot(time_list, heat_list, label=parameter + " = " + str(value))
         axs[0][i].legend()
