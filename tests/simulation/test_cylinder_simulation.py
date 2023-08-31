@@ -4,12 +4,10 @@ from pathlib import Path
 import fenicsxconcrete
 import numpy as np
 import pytest
-
 from fenicsxconcrete.experimental_setup.compression_cylinder import CompressionCylinder
 from fenicsxconcrete.finite_element_problem.linear_elasticity import LinearElasticity
-from fenicsxconcrete.helper import Parameters
 from fenicsxconcrete.sensor_definition.reaction_force_sensor import ReactionForceSensor
-from fenicsxconcrete.unit_registry import ureg
+from fenicsxconcrete.util.unit_registry import ureg
 
 
 def test_cylinder_simulation():
@@ -17,17 +15,17 @@ def test_cylinder_simulation():
     This test is checking if the conda package is correctly installed"""
     parameters = {}  # using the current default values
 
-    parameters["E"] = 3000
-    parameters["nu"] = 0.2
-    parameters["radius"] = 75
-    parameters["height"] = 300
-    parameters["dim"] = 3
+    parameters["E"] = 3000 * ureg("MPa")
+    parameters["nu"] = 0.2 * ureg("")
+    parameters["radius"] = 75 * ureg("mm")
+    parameters["height"] = 300 * ureg("mm")
+    parameters["dim"] = 3 * ureg("")
 
-    parameters["log_level"] = "WARNING"
-    parameters["bc_setting"] = "free"
-    parameters["mesh_density"] = 6
+    parameters["log_level"] = "WARNING" * ureg("")
+    parameters["bc_setting"] = "free" * ureg("")
+    parameters["mesh_density"] = 6 * ureg("")
 
-    displacement = -3
+    displacement = -3 * ureg("mm")
 
     experiment = CompressionCylinder(parameters)
 
