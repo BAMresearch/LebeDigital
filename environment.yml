@@ -14,7 +14,7 @@ dependencies:
   - docker-compose
   - cython
   - numpy
-  - pandas
+  - pandas=2.0.3
   - pyyaml
   - owlready2
   - rdflib=6
