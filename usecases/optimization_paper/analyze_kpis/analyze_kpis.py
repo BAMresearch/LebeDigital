@@ -57,10 +57,10 @@ def get_kpis(input: dict, path: Path) -> dict:
     # directory_path = Optimization_workflow_path
 
     # run workflow
-    os.system(f'snakemake --cores 4 --snakefile {path / "Snakefile"} ' f"--directory {path}")
+    os.system(f'snakemake --cores 7 --snakefile {path / "Snakefile"} ' f"--directory {path}")
 
     # get kpis
-    # IMP - ATUL , beam design. negative is failing design. temp constraints. positve is failing, negatoive is good. same for time I think
+    # negative values of constraints are good and positve are failing
     kpis = {}
     results_path = path / "Results"
     kpi_from_fem = load_json(results_path / "kpi_from_fem.json")
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     input_path = path_to_workflow / "Inputs"
 
     # input lists
-    height_list = [500.0,700.0,900.0,1100.0]
+    height_list = [600.0,750.0,1000.0,1250.0]
     slag_ratio_list = [0.1,0.35,0.60,0.85]
 
     df = pd.DataFrame()
