@@ -23,7 +23,7 @@ dependencies:
   - gitpython
   - pyshacl
   - conda-ecosystem-user-package-isolation
-  - fenics_concrete=0.9.0
+  - fenics_concrete=0.9.3
   - python-graphviz
   - pytest
   - xlrd
