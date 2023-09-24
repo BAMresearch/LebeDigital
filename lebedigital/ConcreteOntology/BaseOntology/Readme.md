@@ -19,4 +19,7 @@ Follow the installation instructions, download the qudt and then use the command
 ```bash
  ./owl-x86_64-linux-snapshot  write -o rdfxml SCHEMA_QUDT-v2.1.ttl >& qudt.rdf
 ```
-
+This can then also be used to convert the created CPTO from the RDF/XML format to turtle or other formats.
+```bash
+./owl-x86_64-linux-snapshot write -i rdfxml -o turtle CPTO.rdf &> CPTO.ttl
+```

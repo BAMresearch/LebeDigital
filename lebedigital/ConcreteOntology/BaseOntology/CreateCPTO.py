@@ -15,21 +15,22 @@ qudt = get_ontology(qudt_path).load()
 with cpto:
     class ModulusOfElasticity(pmdcore.ProcessingNode):
         pass
+    ModulusOfElasticity.comment = ""
+    ModulusOfElasticity.label = [locstr("Bestimmung des Elastizitaetsmoduls (Sekantenmodul)", lang="de"),
+                                 locstr("Determination of Secant Modulus of Elasticity", lang="en")]
     class Specimen(pmdcore.TestPieceInfo):
         pass
+    Specimen.comment = ""
+    Specimen.label = ['"Probenalter"@de', '"specimen age"@en']
 
 
-ModulusOfElasticity.comment = ""
-ModulusOfElasticity.label = ['"Bestimmung des Elastizitaetsmoduls (Sekantenmodul)"@de', '"Determination of Secant Modulus of Elasticity"@en']
-
-Specimen.comment = ""
-Specimen.label = ['"Probenalter"@de', '"specimen age"@en']
 
 
-myE = ModulusOfElasticity("myURI_E")
-mySpecimen = Specimen("myURI_Specimen")
-pmdcore.input.python_name = "input"
-myE.input = [mySpecimen]
+
+#myE = ModulusOfElasticity("myURI_E")
+#mySpecimen = Specimen("myURI_Specimen")
+#pmdcore.input.python_name = "input"
+#myE.input = [mySpecimen]
 
 cpto.save("CPTO.rdf", format="rdfxml")
 
