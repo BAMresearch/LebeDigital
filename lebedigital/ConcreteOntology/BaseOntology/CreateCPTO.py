@@ -1,14 +1,13 @@
 from owlready2 import *
+from pathlib import Path
 
 cpto = get_ontology("https://w3id.org/cpto/co#")
 
-pmdcore = get_ontology(
-    "file:///home/junger/github/LebeDigital/lebedigital/ConcreteOntology/BaseOntology/co.rdf"
-).load()
+pmdcore_path = "file://" + Path(Path(__file__).parent.resolve() / "co.rdf").as_posix()
+pmdcore = get_ontology(pmdcore_path).load()
 
-# converted using https://atextor.de/owl-cli/
-# ./owl-x86_64-linux-snapshot  write -o rdfxml SCHEMA_QUDT-v2.1.ttl >& SCHEMA_QUDT-v2.1.rdf
-qudt = get_ontology("file:///home/junger/github/LebeDigital/lebedigital/ConcreteOntology/BaseOntology/qudt.rdf").load()
+qudt_path = "file://" + Path(Path(__file__).parent.resolve() / "qudt.rdf").as_posix()
+qudt = get_ontology(qudt_path).load()
 
 #cpto.imported_ontologies.append(pmdcore)
 #cpto.imported_ontologies.append(qudt)
