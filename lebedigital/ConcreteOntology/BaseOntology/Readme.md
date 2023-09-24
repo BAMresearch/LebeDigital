@@ -1,13 +1,13 @@
-#This is a test for creation an ontology using owlready
+# This is a test for creation an ontology using owlready
 [Owlready](https://owlready2.readthedocs.io) is a tool for generating ontologies and also knowledge bases. 
 
-##Installationg
+## Installationg
 Owlready2 is a python library that can be installed using pip or conda and could be just added to the environment by either 
 adding it to the environment.yml, or in conda using the command:
 ```bash
 conda install -c conda-forge owlready2
 ``` 
-##Using external ontologies (pmdco, qudt)
+## Using external ontologies (pmdco, qudt)
 Owlready only works with a limited number of formats (RDF/XML, OWL/XML, NTriples), thus some ontologies have to be
 converted. The (PMDcore ontology)[https://github.com/materialdigital/core-ontology] can be accessed via its w3id
 (https://w3id.org/pmd/co)[https://w3id.org/pmd/co], which directly provides a 
