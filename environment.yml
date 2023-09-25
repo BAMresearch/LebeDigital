@@ -28,6 +28,7 @@ dependencies:
   - pytest
   - xlrd
   - openpyxl
+  - owlready2
   - tectonic=0.8
   - pint=0.20
   - pint-pandas

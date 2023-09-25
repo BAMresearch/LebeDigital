@@ -1,7 +1,7 @@
 # This is a test for creation an ontology using owlready
 [Owlready](https://owlready2.readthedocs.io) is a tool for generating ontologies and also knowledge bases. 
 
-## Installationg
+## Installation
 Owlready2 is a python library that can be installed using pip or conda and could be just added to the environment by either 
 adding it to the environment.yml, or in conda using the command:
 ```bash
