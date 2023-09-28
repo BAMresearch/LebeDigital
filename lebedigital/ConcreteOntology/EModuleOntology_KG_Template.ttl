@@ -13,7 +13,7 @@ ns1: a owl:Ontology .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,
         co:Specimen ;
-    ns4:hasIdentifier ns1:SpecimenID_ ;
+    ns4:hasIdentifier ns1:humanreadableID_ ;
     co:characteristic ns1:SpecimenAge_ ;
     co:input ns1:SecantModulusOfElasticty_ .
 
@@ -88,10 +88,6 @@ ns1:ExtensometerGaugeLength_ a owl:NamedIndividual,
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##ExtensometerLength_Unit##> ;
     co:value "$$ExtensometerLength_Value$$"^^xsd:string .
 
-ns1:ID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$ID_Value$$"^^xsd:string .
-
 ns1:Lab_ a owl:NamedIndividual,
         co:Laboratory ;
     co:value "$$Lab_Value$$"^^xsd:string .
@@ -110,8 +106,7 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
-    ns4:hasIdentifier ns1:ID_,
-        ns1:humanreadableID_ ;
+    ns4:hasIdentifier ns1:humanreadableID_ ;
     co:output ns1:ExperimentInfo_ ;
     co:process ns1:Computation_ ;
     co:resource ns1:DINEN12390-13:2021 ;
@@ -125,18 +120,10 @@ ns1:SpecimenAge_ a ns1:SpecimenAge,
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
-ns1:SpecimenID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$SpecimenID_Value$$"^^xsd:string .
-
 ns1:Transducer_ a owl:NamedIndividual,
         co:Extension ;
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> ;
     co:value "$$TransducerColumn_Value$$"^^xsd:string .
-
-ns1:humanreadableID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 co:ComputingNode a owl:Class .
 
@@ -152,11 +139,15 @@ co:MaximumForce a owl:Class .
 
 co:ModulusOfElasticity a owl:Class .
 
+co:ProvidedIdentifier a owl:Class .
+
 co:Specimen a owl:Class .
 
-co:Dataset a owl:Class .
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
-co:ProvidedIdentifier a owl:Class .
+co:Dataset a owl:Class .
 
 ns3:Unit a owl:Class .
 

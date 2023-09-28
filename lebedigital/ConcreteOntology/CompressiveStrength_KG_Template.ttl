@@ -11,7 +11,7 @@ ns2:hasIdentifier a owl:ObjectProperty .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,
         co:Specimen ;
-    ns2:hasIdentifier ns1:SpecimenID_ ;
+    ns2:hasIdentifier ns1:humanreadableID_ ;
     co:characteristic ns1:SpecimenAge_ ;
     co:input ns1:CompressiveStrength_ .
 
@@ -57,8 +57,7 @@ ns1:CompressionForce_ a owl:NamedIndividual,
 
 ns1:CompressiveStrength_ a ns1:ConcreteCompressiveStrength,
         owl:NamedIndividual ;
-    ns2:hasIdentifier ns1:ID_,
-        ns1:humanreadableID_ ;
+    ns2:hasIdentifier ns1:humanreadableID_ ;
     co:input ns1:OpenBisRawDataFile_,
         ns1:RawDataFile_ ;
     co:output ns1:ExperimentInfo_ ;
@@ -87,10 +86,6 @@ ns1:ExperimentInfo_ a ns1:DeterminationOfCompressiveStrength,
         ns1:ProcessedFile_,
         ns1:Transducer_ .
 
-ns1:ID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$ID_Value$$"^^xsd:string .
-
 ns1:Lab_ a owl:NamedIndividual,
         co:Laboratory ;
     co:value "$$Lab_Value$$"^^xsd:string .
@@ -114,18 +109,10 @@ ns1:SpecimenAge_ a ns1:SpecimenAge,
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
-ns1:SpecimenID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$SpecimenID_Value$$"^^xsd:string .
-
 ns1:Transducer_ a owl:NamedIndividual,
         co:Extension ;
     co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
     co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> .
-
-ns1:humanreadableID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 co:Date a owl:Class .
 
@@ -135,11 +122,15 @@ co:Laboratory a owl:Class .
 
 co:MaximumForce a owl:Class .
 
+co:ProvidedIdentifier a owl:Class .
+
 co:Specimen a owl:Class .
+
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 ns8:Unit a owl:Class .
 
 co:Dataset a owl:Class .
-
-co:ProvidedIdentifier a owl:Class .
 
