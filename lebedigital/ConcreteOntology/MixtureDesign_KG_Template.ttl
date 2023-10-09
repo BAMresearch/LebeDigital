@@ -1,5 +1,5 @@
 @prefix co: <https://w3id.org/pmd/co/> .
-@prefix ns1: <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/> .
+@prefix ns1: <https://w3id.org/cpto/> .
 @prefix ns3: <http://qudt.org/schema/qudt/> .
 @prefix ns4: <http://purl.org/spar/datacite/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -7,17 +7,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ns4:hasIdentifier a owl:ObjectProperty .
-
-ns1: a owl:Ontology .
-
-ns1:ConcreteMixture_ a ns1:MaterialComposition,
-        owl:NamedIndividual ;
-    ns4:hasIdentifier ns1:ID_,
-        ns1:humanreadableID_ ;
-    co:characteristic ns1:ExperimentInfo_,
-        ns1:MaterialComposition_,
-        ns1:WaterCementRatio_ ;
-    co:input ns1:RawDataFile_ .
 
 xsd:anyURI a rdfs:Datatype .
 
@@ -29,6 +18,17 @@ xsd:float a rdfs:Datatype .
 
 xsd:string a rdfs:Datatype .
 
+ns1: a owl:Ontology .
+
+ns1:ConcreteMixture_ a owl:NamedIndividual,
+        ns1:MaterialComposition ;
+    ns4:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
+    co:characteristic ns1:ExperimentInfo_,
+        ns1:MaterialComposition_,
+        ns1:WaterCementRatio_ ;
+    co:input ns1:RawDataFile_ .
+
 co:characteristic a owl:ObjectProperty .
 
 co:composedOf a owl:ObjectProperty .
@@ -39,37 +39,37 @@ co:unit a owl:ObjectProperty .
 
 co:value a owl:DatatypeProperty .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Addition1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Addition1_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Addition1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Addition1_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Admixture1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Admixture1_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Admixture1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Admixture1_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate1_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate1_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Size_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate1_Size_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Cement1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Cement1_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Cement1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Cement1_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Water_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Water_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Water_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Water_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
 ns1:Addition a owl:Class .
@@ -80,21 +80,19 @@ ns1:Addition1_ a owl:NamedIndividual,
         ns1:Addition1_Density_ ;
     co:composedOf ns1:Addition1_Type_ .
 
-ns1:Addition1_Content_ a ns1:AdditionContent,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Addition1_Content_Unit##> ;
+ns1:Addition1_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Addition1_Content_Unit##> ;
     co:value "$$Addition1_Content_Value$$"^^xsd:float .
 
-ns1:Addition1_Density_ a ns1:RelativeDensity,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Addition1_Density_Unit##> ;
+ns1:Addition1_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Addition1_Density_Unit##> ;
     co:value "$$Addition1_Density_Value$$"^^xsd:float .
 
-ns1:Addition1_Type_ a ns1:Addition,
-        owl:NamedIndividual ;
+ns1:Addition1_Type_ a owl:NamedIndividual,
+        ns1:Addition ;
     co:value "$$Addition1_Type_Value$$"^^xsd:string .
-
-ns1:AdditionContent a owl:Class .
 
 ns1:Admixture a owl:Class .
 
@@ -104,21 +102,19 @@ ns1:Admixture1_ a owl:NamedIndividual,
         ns1:Admixture1_Density_ ;
     co:composedOf ns1:Admixture1_Type_ .
 
-ns1:Admixture1_Content_ a ns1:AdmixtureContent,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Admixture1_Content_Unit##> ;
+ns1:Admixture1_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Admixture1_Content_Unit##> ;
     co:value "$$Admixture1_Content_Value$$"^^xsd:float .
 
-ns1:Admixture1_Density_ a ns1:RelativeDensity,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Admixture1_Density_Unit##> ;
+ns1:Admixture1_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Admixture1_Density_Unit##> ;
     co:value "$$Admixture1_Density_Value$$"^^xsd:float .
 
-ns1:Admixture1_Type_ a ns1:Admixture,
-        owl:NamedIndividual ;
+ns1:Admixture1_Type_ a owl:NamedIndividual,
+        ns1:Admixture ;
     co:value "$$Admixture1_Type_Value$$"^^xsd:string .
-
-ns1:AdmixtureContent a owl:Class .
 
 ns1:Aggregate a owl:Class .
 
@@ -129,26 +125,24 @@ ns1:Aggregate1_ a owl:NamedIndividual,
         ns1:Aggregate1_Size_ ;
     co:composedOf ns1:Aggregate1_Type_ .
 
-ns1:Aggregate1_Content_ a ns1:AggregateContent,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Content_Unit##> ;
+ns1:Aggregate1_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Aggregate1_Content_Unit##> ;
     co:value "$$Aggregate1_Content_Value$$"^^xsd:float .
 
-ns1:Aggregate1_Density_ a ns1:RelativeDensity,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Density_Unit##> ;
+ns1:Aggregate1_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Aggregate1_Density_Unit##> ;
     co:value "$$Aggregate1_Density_Value$$"^^xsd:float .
 
-ns1:Aggregate1_Size_ a ns1:AggregateSize,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Aggregate1_Size_Unit##> ;
+ns1:Aggregate1_Size_ a owl:NamedIndividual,
+        ns1:AggregateSize ;
+    co:unit <https://w3id.org/cpto/##Aggregate1_Size_Unit##> ;
     co:value "$$Aggregate1_Size_Value$$"^^xsd:float .
 
-ns1:Aggregate1_Type_ a ns1:Aggregate,
-        owl:NamedIndividual ;
+ns1:Aggregate1_Type_ a owl:NamedIndividual,
+        ns1:Aggregate ;
     co:value "$$Aggregate1_Type_Value$$"^^xsd:string .
-
-ns1:AggregateContent a owl:Class .
 
 ns1:AggregateSize a owl:Class .
 
@@ -160,21 +154,19 @@ ns1:Cement1_ a owl:NamedIndividual,
         ns1:Cement1_Density_ ;
     co:composedOf ns1:Cement1_Type_ .
 
-ns1:Cement1_Content_ a ns1:CementContent,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Cement1_Content_Unit##> ;
+ns1:Cement1_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Cement1_Content_Unit##> ;
     co:value "$$Cement1_Content_Value$$"^^xsd:float .
 
-ns1:Cement1_Density_ a ns1:RelativeDensity,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Cement1_Density_Unit##> ;
+ns1:Cement1_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Cement1_Density_Unit##> ;
     co:value "$$Cement1_Density_Value$$"^^xsd:float .
 
-ns1:Cement1_Type_ a ns1:Cement,
-        owl:NamedIndividual ;
+ns1:Cement1_Type_ a owl:NamedIndividual,
+        ns1:Cement ;
     co:value "$$Cement1_Type_Value$$"^^xsd:string .
-
-ns1:CementContent a owl:Class .
 
 ns1:ExperimentInfo_ a owl:NamedIndividual,
         co:NodeInfo ;
@@ -189,8 +181,8 @@ ns1:Laboratory_ a owl:NamedIndividual,
         co:Laboratory ;
     co:value "$$Lab_Value$$"^^xsd:string .
 
-ns1:MaterialComposition_ a ns1:MaterialComposition,
-        owl:NamedIndividual ;
+ns1:MaterialComposition_ a owl:NamedIndividual,
+        ns1:MaterialComposition ;
     co:composedOf ns1:Addition1_,
         ns1:Admixture1_,
         ns1:Aggregate1_,
@@ -209,11 +201,9 @@ ns1:Water a owl:Class .
 
 ns1:WaterCementRatio a owl:Class .
 
-ns1:WaterCementRatio_ a ns1:WaterCementRatio,
-        owl:NamedIndividual ;
+ns1:WaterCementRatio_ a owl:NamedIndividual,
+        ns1:WaterCementRatio ;
     co:value "$$WaterCementRatio_Value$$"^^xsd:decimal .
-
-ns1:WaterContent a owl:Class .
 
 ns1:Water_ a owl:NamedIndividual,
         co:BaseMaterial ;
@@ -221,18 +211,18 @@ ns1:Water_ a owl:NamedIndividual,
         ns1:Water_Density_ ;
     co:composedOf ns1:Water_Type_ .
 
-ns1:Water_Content_ a ns1:WaterContent,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Water_Content_Unit##> ;
+ns1:Water_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Water_Content_Unit##> ;
     co:value "$$Water_Content_Value$$"^^xsd:float .
 
-ns1:Water_Density_ a ns1:RelativeDensity,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Water_Density_Unit##> ;
+ns1:Water_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Water_Density_Unit##> ;
     co:value "$$Water_Density_Value$$"^^xsd:float .
 
-ns1:Water_Type_ a ns1:Water,
-        owl:NamedIndividual ;
+ns1:Water_Type_ a owl:NamedIndividual,
+        ns1:Water ;
     co:value "$$Water_Type_Value$$"^^xsd:string .
 
 ns1:humanreadableID_ a owl:NamedIndividual,
@@ -250,6 +240,8 @@ co:Time a owl:Class .
 ns1:MaterialComposition a owl:Class .
 
 co:ProvidedIdentifier a owl:Class .
+
+ns1:Content a owl:Class .
 
 ns1:RelativeDensity a owl:Class .
 
