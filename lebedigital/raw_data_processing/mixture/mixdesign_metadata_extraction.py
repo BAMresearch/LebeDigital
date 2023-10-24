@@ -71,7 +71,7 @@ def extract_metadata_mixdesign(locationOfRawData):
     excelsheet = os.path.basename(locationOfRawData)
     excelfile = pd.read_excel(locationOfRawData, sheet_name=None)
     listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i] 
-    logger.debug('Working on file: '+ excelsheet)
+    logger.debug('Working on file: ' + excelsheet)
     logger.debug('Following sheet(s) contain mixture metadata in this file: ' + str(listofkeys))
 
     if len(listofkeys) != 1:
@@ -89,7 +89,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         # create empty dictionary for metadata
         metadata = {}
 
-        # the layout of the excel table can vary, the indices of labels are not 
+        # the layout of the Excel table can vary, the indices of labels are not
         # always the same; that's why: find now the indices of the labels and 
         # store it in a dictionary
         labelidx = {}
@@ -168,7 +168,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         MixID = str(uuid.uuid4())
         metadata['ID'] = MixID
 
-        # human readable ID of this mix - is the name of the file without format
+        # humanreadable ID of this mix - is the name of the file without format
         metadata['humanreadableID'] = name
 
         #----------------------------------------------------------------------
@@ -254,7 +254,7 @@ def extract_metadata_mixdesign(locationOfRawData):
             metadata['Addition2_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Addition2')
         else:
-            logger.error('addition2 not included in yaml-file')
+            logger.error('addition2 not included in json-file')
 
 
 
@@ -297,12 +297,13 @@ def main():
     if args.input == None:
         args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
     if args.output == None:
-        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
+        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 
     # run extraction and write metadata file
-    path_to_json = mix_metadata(args.input, args.output)
+    #path_to_json = mix_metadata(args.input, args.output)
+    mix_metadata(args.input, args.output)
 
-    return path_to_json
+    #return path_to_json
 if __name__ == "__main__":
     main()
 
