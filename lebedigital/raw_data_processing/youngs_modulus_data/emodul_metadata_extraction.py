@@ -119,7 +119,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # set paths
         metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data')  # path to csv file with values extracted by emodul_generate_processed_data.py
-        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath, specimen_file).replace('\\', '/')
+        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath, specimen_file)
         metadata_emodule['EModule'] = 33.06
 
   # path to specimen.dat
