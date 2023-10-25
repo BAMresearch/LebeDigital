@@ -153,6 +153,8 @@ def placeholderreplacement(kgPath, metadataPath):
             if '_Value$$' in lines[i]:
                 ph = lines[i].split("$$")[1]
                 remainingPH.append(ph)
+                lines[i] = ''
+                lines[i - 1] = lines[i - 1].replace(';', '.')
             elif '_Unit##' in lines[i]:
                 ph = lines[i].split("##")[1]
                 remainingPH.append(ph)
