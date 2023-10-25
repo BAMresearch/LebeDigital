@@ -1,5 +1,5 @@
 @prefix co: <https://w3id.org/pmd/co/> .
-@prefix ns1: <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/> .
+@prefix ns1: <https://w3id.org/cpto/> .
 @prefix ns6: <http://purl.org/spar/datacite/> .
 @prefix ns7: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -8,14 +8,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ns6:hasIdentifier a owl:ObjectProperty .
-
-ns1:PasteHeatOfHydration_ a ns1:HeatOfHydration,
-        owl:NamedIndividual ;
-    ns6:hasIdentifier ns1:ID_,
-        ns1:humanreadableID_ ;
-    co:input ns1:TestSpecimen_ ;
-    co:output ns1:ExperimentInfo_ ;
-    co:resource ns1:DINEN196-8:2010 .
 
 xsd:dateTime a rdfs:Datatype .
 
@@ -26,6 +18,14 @@ xsd:string a rdfs:Datatype .
 prov:endedAtTime a owl:DatatypeProperty .
 
 prov:startedAtTime a owl:DatatypeProperty .
+
+ns1:PasteHeatOfHydration_ a owl:NamedIndividual,
+        ns1:HeatOfHydration ;
+    ns6:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
+    co:input ns1:TestSpecimen_ ;
+    co:output ns1:ExperimentInfo_ ;
+    co:resource ns1:DINEN196-8:2010 .
 
 co: a owl:Ontology .
 
@@ -39,23 +39,23 @@ co:unit a owl:ObjectProperty .
 
 co:value a owl:DatatypeProperty .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##HeatFlow_Unit##> a ns7:Unit,
+<https://w3id.org/cpto/##HeatFlow_Unit##> a ns7:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Heat_Unit##> a ns7:Unit,
+<https://w3id.org/cpto/##Heat_Unit##> a ns7:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##NormalizedHeatFlow_Unit##> a ns7:Unit,
+<https://w3id.org/cpto/##NormalizedHeatFlow_Unit##> a ns7:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##NormalizedHeat_Unit##> a ns7:Unit,
+<https://w3id.org/cpto/##NormalizedHeat_Unit##> a ns7:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Temperature_Unit##> a ns7:Unit,
+<https://w3id.org/cpto/##Temperature_Unit##> a ns7:Unit,
         owl:NamedIndividual .
 
-ns1:DINEN196-8:2010 a ns1:DINStandard,
-        owl:NamedIndividual .
+ns1:DINEN196-8:2010 a owl:NamedIndividual,
+        ns1:DINStandard .
 
 ns1:DINStandard a owl:Class .
 
@@ -65,8 +65,8 @@ ns1:ExperimentEndDate_ a owl:NamedIndividual,
         co:Date ;
     prov:endedAtTime "$$ExperimentEndDate_Value$$"^^xsd:dateTime .
 
-ns1:ExperimentInfo_ a ns1:DeterminationOfHeatOfHydration,
-        owl:NamedIndividual ;
+ns1:ExperimentInfo_ a owl:NamedIndividual,
+        ns1:DeterminationOfHeatOfHydration ;
     co:input ns1:OpenBisDataFile_,
         ns1:RawDataFile_ ;
     co:output ns1:ExperimentEndDate_,
@@ -83,16 +83,16 @@ ns1:ExperimentStartDate_ a owl:NamedIndividual,
         co:Date ;
     prov:startedAtTime "$$ExperimentStartDate_Value$$"^^xsd:dateTime .
 
-ns1:HeatFlow_ a ns1:HeatFlow,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##HeatFlow_Unit##> ;
+ns1:HeatFlow_ a owl:NamedIndividual,
+        ns1:HeatFlow ;
+    co:unit <https://w3id.org/cpto/##HeatFlow_Unit##> ;
     co:value "$$HeatFlow_Value$$"^^xsd:string .
 
 ns1:HeatOfHydration a owl:Class .
 
-ns1:Heat_ a ns1:Heat,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Heat_Unit##> ;
+ns1:Heat_ a owl:NamedIndividual,
+        ns1:Heat ;
+    co:unit <https://w3id.org/cpto/##Heat_Unit##> ;
     co:value "$$Heat_Value$$"^^xsd:string .
 
 ns1:ID_ a owl:NamedIndividual,
@@ -103,14 +103,14 @@ ns1:Lab_ a owl:NamedIndividual,
         co:Laboratory ;
     co:value "$$Lab_Value$$"^^xsd:string .
 
-ns1:NormalizedHeatFlow_ a ns1:HeatFlow,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##NormalizedHeatFlow_Unit##> ;
+ns1:NormalizedHeatFlow_ a owl:NamedIndividual,
+        ns1:HeatFlow ;
+    co:unit <https://w3id.org/cpto/##NormalizedHeatFlow_Unit##> ;
     co:value "$$NormalizedHeatFlow_Value$$"^^xsd:string .
 
-ns1:NormalizedHeat_ a ns1:Heat,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##NormalizedHeat_Unit##> ;
+ns1:NormalizedHeat_ a owl:NamedIndividual,
+        ns1:Heat ;
+    co:unit <https://w3id.org/cpto/##NormalizedHeat_Unit##> ;
     co:value "$$NormalizedHeat_Value$$"^^xsd:string .
 
 ns1:OpenBisDataFile_ a owl:NamedIndividual,
@@ -131,7 +131,7 @@ ns1:SpecimenID_ a owl:NamedIndividual,
 
 ns1:Temperature_ a owl:NamedIndividual,
         co:Temperature ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Temperature_Unit##> ;
+    co:unit <https://w3id.org/cpto/##Temperature_Unit##> ;
     co:value "$$Temperature_Value$$"^^xsd:decimal .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,

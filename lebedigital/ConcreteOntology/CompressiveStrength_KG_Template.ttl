@@ -1,5 +1,5 @@
 @prefix co: <https://w3id.org/pmd/co/> .
-@prefix ns1: <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/> .
+@prefix ns1: <https://w3id.org/cpto/> .
 @prefix ns2: <http://purl.org/spar/datacite/> .
 @prefix ns8: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -9,12 +9,6 @@
 
 ns2:hasIdentifier a owl:ObjectProperty .
 
-ns1:TestSpecimen_ a owl:NamedIndividual,
-        co:Specimen ;
-    ns2:hasIdentifier ns1:humanreadableID_ ;
-    co:characteristic ns1:SpecimenAge_ ;
-    co:input ns1:CompressiveStrength_ .
-
 xsd:dateTimeStamp a rdfs:Datatype .
 
 xsd:decimal a rdfs:Datatype .
@@ -22,6 +16,12 @@ xsd:decimal a rdfs:Datatype .
 xsd:string a rdfs:Datatype .
 
 prov:startedAtTime a owl:DatatypeProperty .
+
+ns1:TestSpecimen_ a owl:NamedIndividual,
+        co:Specimen ;
+    ns2:hasIdentifier ns1:humanreadableID_ ;
+    co:characteristic ns1:SpecimenAge_ ;
+    co:input ns1:CompressiveStrength_ .
 
 co: a owl:Ontology .
 
@@ -39,36 +39,36 @@ co:unit a owl:ObjectProperty .
 
 co:value a owl:DatatypeProperty .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> a ns8:Unit,
+<https://w3id.org/cpto/##CompressionForce_Unit##> a ns8:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressiveStrength_Unit##> a ns8:Unit,
+<https://w3id.org/cpto/##CompressiveStrength_Unit##> a ns8:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> a ns8:Unit,
+<https://w3id.org/cpto/##Extensometer_Unit##> a ns8:Unit,
         owl:NamedIndividual .
 
-<http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> a owl:NamedIndividual .
+<https://w3id.org/cpto/##SpecimenAge_Unit##> a owl:NamedIndividual .
 
 ns1:CompressionForce_ a owl:NamedIndividual,
         co:MaximumForce ;
     co:jsonPath "$$CompressionColumn_Value$$"^^xsd:string ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressionForce_Unit##> .
+    co:unit <https://w3id.org/cpto/##CompressionForce_Unit##> .
 
-ns1:CompressiveStrength_ a ns1:ConcreteCompressiveStrength,
-        owl:NamedIndividual ;
+ns1:CompressiveStrength_ a owl:NamedIndividual,
+        ns1:ConcreteCompressiveStrength ;
     ns2:hasIdentifier ns1:humanreadableID_ ;
     co:input ns1:OpenBisRawDataFile_,
         ns1:RawDataFile_ ;
     co:output ns1:ExperimentInfo_ ;
     co:resource ns1:DINEN12390-3:2019 ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##CompressiveStrength_Unit##> ;
+    co:unit <https://w3id.org/cpto/##CompressiveStrength_Unit##> ;
     co:value "$$CompressiveStregth_Value$$"^^xsd:decimal .
 
 ns1:ConcreteCompressiveStrength a owl:Class .
 
-ns1:DINEN12390-3:2019 a ns1:DINStandard,
-        owl:NamedIndividual .
+ns1:DINEN12390-3:2019 a owl:NamedIndividual,
+        ns1:DINStandard .
 
 ns1:DINStandard a owl:Class .
 
@@ -78,8 +78,8 @@ ns1:ExperimentDate_ a owl:NamedIndividual,
         co:Date ;
     prov:startedAtTime "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
 
-ns1:ExperimentInfo_ a ns1:DeterminationOfCompressiveStrength,
-        owl:NamedIndividual ;
+ns1:ExperimentInfo_ a owl:NamedIndividual,
+        ns1:DeterminationOfCompressiveStrength ;
     co:output ns1:CompressionForce_,
         ns1:ExperimentDate_,
         ns1:Lab_,
@@ -104,15 +104,15 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SpecimenAge a owl:Class .
 
-ns1:SpecimenAge_ a ns1:SpecimenAge,
-        owl:NamedIndividual ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##SpecimenAge_Unit##> ;
+ns1:SpecimenAge_ a owl:NamedIndividual,
+        ns1:SpecimenAge ;
+    co:unit <https://w3id.org/cpto/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
 ns1:Transducer_ a owl:NamedIndividual,
         co:Extension ;
     co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
-    co:unit <http://www.semanticweb.org/mkrueger/ontologies/2023/4/untitled-ontology-47/##Extensometer_Unit##> .
+    co:unit <https://w3id.org/cpto/##Extensometer_Unit##> .
 
 co:Date a owl:Class .
 
