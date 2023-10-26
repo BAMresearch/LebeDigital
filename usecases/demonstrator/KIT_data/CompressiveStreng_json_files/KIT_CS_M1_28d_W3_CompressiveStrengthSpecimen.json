@@ -1,0 +1,17 @@
+
+    {
+        "ID_Value":12,
+        "humanreadableID_Value":"KIT_CS_M1_28d_W3",
+        "MixtureID_Value":"Mix0",
+        "SpecimenShape":"Cube",
+        "SpecimenMass_Value":7776.0,
+        "SpecimenMass_Unit":"g",
+        "SpecimenDiameter_Value":null,
+        "SpecimenDiameter_Unit":null,
+        "SpecimenHeight_Value":150,
+        "SpecimenHeight_Unit":"mm",
+        "SpecimenLength_Value":150,
+        "SpecimenLength_Unit":"mm",
+        "SpecimenWidth_Value":150,
+        "SpecimenWidth_Unit":"mm"
+    }

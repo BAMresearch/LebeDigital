@@ -1,0 +1,14 @@
+
+    {
+        "ID_Value":6,
+        "humanreadableID_Value":"KIT_21-1605_M1_2d_W3",
+        "ExperimentDate_Value":"2023-07-21T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "CompressiveStregth_Value":54.31,
+        "CompressiveStrength_Unit":"MPa",
+        "SpecimenID_Value":"KIT_CS_M1_2d_W3",
+        "SpecimenAge_Value":2,
+        "SpecimenAge_Unit":"day",
+        " CompressionForce_Value":1222,
+        "CompressionForce_Unit":"N"
+    }

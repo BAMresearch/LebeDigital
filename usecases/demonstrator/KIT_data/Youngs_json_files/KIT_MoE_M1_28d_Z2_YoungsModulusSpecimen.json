@@ -1,0 +1,17 @@
+
+    {
+        "ID_Value":2,
+        "humanreadableID_Value":"KIT_MoE_M1_28d_Z2",
+        "MixtureID_Value":"Mix0",
+        "SpecimenShape":"Cylinder",
+        "SpecimenMass_Value":"g",
+        "SpecimenMass_Unit":150.1833333333,
+        "SpecimenDiameter_Value":null,
+        "SpecimenDiameter_Unit":"mm",
+        "SpecimenHeight_Value":"mm",
+        "SpecimenHeight_Unit":null,
+        "SpecimenLength_Value":null,
+        "SpecimenLength_Unit":null,
+        "SpecimenWidth_Value":null,
+        "SpecimenWidth_Unit":null
+    }

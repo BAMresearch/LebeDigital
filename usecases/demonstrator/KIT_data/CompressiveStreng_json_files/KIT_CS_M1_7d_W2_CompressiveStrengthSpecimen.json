@@ -1,0 +1,17 @@
+
+    {
+        "ID_Value":8,
+        "humanreadableID_Value":"KIT_CS_M1_7d_W2",
+        "MixtureID_Value":"Mix0",
+        "SpecimenShape":"Cube",
+        "SpecimenMass_Value":7768.5,
+        "SpecimenMass_Unit":"g",
+        "SpecimenDiameter_Value":null,
+        "SpecimenDiameter_Unit":null,
+        "SpecimenHeight_Value":150,
+        "SpecimenHeight_Unit":"mm",
+        "SpecimenLength_Value":150,
+        "SpecimenLength_Unit":"mm",
+        "SpecimenWidth_Value":150,
+        "SpecimenWidth_Unit":"mm"
+    }
