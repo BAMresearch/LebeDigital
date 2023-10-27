@@ -1,0 +1,30 @@
+[
+    {
+        "ID_Value":1,
+        "humanreadableID_Value":"KIT_21-1605_M3",
+        "MixtureID_Value":"Mix0.5_sp_0 ",
+        "ExperimentDate_Value":"2023-07-19T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "SlumpClass_Value":"failed",
+        " Diameter_X_Value":null,
+        "Diameter_X_Unit":null,
+        "Diameter_Y_Value":null,
+        "Diameter_Y_Unit":null,
+        "Temperature_Value":null,
+        "Temperature_Unit":null
+    },
+    {
+        "ID_Value":2,
+        "humanreadableID_Value":"KIT_21-1605_M3",
+        "MixtureID_Value":"Mix0.5",
+        "ExperimentDate_Value":"2023-07-19T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "SlumpClass_Value":"F4",
+        " Diameter_X_Value":510.0,
+        "Diameter_X_Unit":"mm",
+        "Diameter_Y_Value":510.0,
+        "Diameter_Y_Unit":"mm",
+        "Temperature_Value":null,
+        "Temperature_Unit":null
+    }
+]

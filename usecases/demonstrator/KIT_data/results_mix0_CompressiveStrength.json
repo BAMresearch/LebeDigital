@@ -10,7 +10,7 @@
         "SpecimenAge_Value":1,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1078,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":2,
@@ -23,7 +23,7 @@
         "SpecimenAge_Value":1,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1055,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":3,
@@ -36,7 +36,7 @@
         "SpecimenAge_Value":1,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1084,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":4,
@@ -49,7 +49,7 @@
         "SpecimenAge_Value":2,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1260,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":5,
@@ -62,7 +62,7 @@
         "SpecimenAge_Value":2,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1261,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":6,
@@ -75,7 +75,7 @@
         "SpecimenAge_Value":2,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1222,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":7,
@@ -88,7 +88,7 @@
         "SpecimenAge_Value":7,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1540,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":8,
@@ -101,7 +101,7 @@
         "SpecimenAge_Value":7,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1459,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":9,
@@ -114,7 +114,7 @@
         "SpecimenAge_Value":7,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1466,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":10,
@@ -127,7 +127,7 @@
         "SpecimenAge_Value":28,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1747,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":11,
@@ -140,7 +140,7 @@
         "SpecimenAge_Value":28,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1726,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
     },
     {
         "ID_Value":12,
@@ -153,6 +153,45 @@
         "SpecimenAge_Value":28,
         "SpecimenAge_Unit":"day",
         " CompressionForce_Value":1753,
-        "CompressionForce_Unit":"N"
+        "CompressionForce_Unit":"kN"
+    },
+    {
+        "ID_Value":13,
+        "humanreadableID_Value":"KIT_21-1605_M1_28d_Z1",
+        "ExperimentDate_Value":"2023-08-16T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "CompressiveStregth_Value":70.62,
+        "CompressiveStrength_Unit":"MPa",
+        "SpecimenID_Value":"KIT_CS_M1_28d_Z1",
+        "SpecimenAge_Value":28,
+        "SpecimenAge_Unit":"day",
+        " CompressionForce_Value":1248,
+        "CompressionForce_Unit":"kN"
+    },
+    {
+        "ID_Value":14,
+        "humanreadableID_Value":"KIT_21-1605_M1_28d_Z2",
+        "ExperimentDate_Value":"2023-08-16T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "CompressiveStregth_Value":70.62,
+        "CompressiveStrength_Unit":"MPa",
+        "SpecimenID_Value":"KIT_CS_M1_28d_Z2",
+        "SpecimenAge_Value":28,
+        "SpecimenAge_Unit":"day",
+        " CompressionForce_Value":1248,
+        "CompressionForce_Unit":"kN"
+    },
+    {
+        "ID_Value":15,
+        "humanreadableID_Value":"KIT_21-1605_M1_28d_Z3",
+        "ExperimentDate_Value":"2023-08-16T00:00:00.000Z",
+        "Lab_Value":"MPA",
+        "CompressiveStregth_Value":71.08,
+        "CompressiveStrength_Unit":"MPa",
+        "SpecimenID_Value":"KIT_CS_M1_28d_Z3",
+        "SpecimenAge_Value":28,
+        "SpecimenAge_Unit":"day",
+        " CompressionForce_Value":1256,
+        "CompressionForce_Unit":"kN"
     }
 ]
