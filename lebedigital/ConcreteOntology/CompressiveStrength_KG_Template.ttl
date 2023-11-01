@@ -63,7 +63,7 @@ ns1:CompressiveStrength_ a owl:NamedIndividual,
     co:output ns1:ExperimentInfo_ ;
     co:resource ns1:DINEN12390-3:2019 ;
     co:unit <https://w3id.org/cpto/##CompressiveStrength_Unit##> ;
-    co:value "$$CompressiveStregth_Value$$"^^xsd:decimal .
+    co:value "$$CompressiveStrength_Value$$"^^xsd:decimal .
 
 ns1:ConcreteCompressiveStrength a owl:Class .
 
