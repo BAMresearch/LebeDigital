@@ -40,7 +40,7 @@
 
 ###  https://w3id.org/cpto/Additives
 <https://w3id.org/cpto/Additives> rdf:type owl:Class ;
-                                  rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                   rdfs:comment "DIN EN 206"@en ;
                                   rdfs:label "Additives"@en ,
                                              "Betonzusaetze"@de ;
@@ -64,7 +64,7 @@
 
 ###  https://w3id.org/cpto/Aggregate
 <https://w3id.org/cpto/Aggregate> rdf:type owl:Class ;
-                                  rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                   rdfs:comment "nan"@en ;
                                   rdfs:label "Aggregate"@en ,
                                              "Gesteinskoernung"@de ;
@@ -455,18 +455,6 @@
                                                                               "nan"@en .
 
 
-###  https://w3id.org/cpto/EngineeringMaterial
-<https://w3id.org/cpto/EngineeringMaterial> rdf:type owl:Class ;
-                                            rdfs:subClassOf <https://w3id.org/pmd/co/Object> ;
-                                            rdfs:comment "nan"@en ;
-                                            rdfs:label "Engineering Material"@en ,
-                                                       "Werkstoff"@de ;
-                                            <http://www.w3.org/ns/prov#definition> "Materialien, die in Produktionsprozessen verarbeitet werden."@de ,
-                                                                                   "Materials that are processed in production processes."@en ;
-                                            <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
-                                                                                       "nan"@en .
-
-
 ###  https://w3id.org/cpto/EntrainedAir
 <https://w3id.org/cpto/EntrainedAir> rdf:type owl:Class ;
                                      rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
@@ -542,7 +530,7 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/Fibres
 <https://w3id.org/cpto/Fibres> rdf:type owl:Class ;
-                               rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                               rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                rdfs:comment "nan"@en ;
                                rdfs:label "Fasern"@de ,
                                           "Fibres"@en ;
@@ -713,7 +701,7 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/InorganicMaterial
 <https://w3id.org/cpto/InorganicMaterial> rdf:type owl:Class ;
-                                          rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                          rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                           rdfs:comment "nan"@en ;
                                           rdfs:label "Anorganische Stoffe"@de ,
                                                      "Inorganic Material"@en ;
@@ -778,12 +766,12 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/MeasuringNode
 <https://w3id.org/cpto/MeasuringNode> rdf:type owl:Class ;
-                                      rdfs:subClassOf <https://w3id.org/pmd/co/ProcessingNode> .
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/Process> .
 
 
 ###  https://w3id.org/cpto/MetallicMaterial
 <https://w3id.org/cpto/MetallicMaterial> rdf:type owl:Class ;
-                                         rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                         rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                          rdfs:comment "nan"@en ;
                                          rdfs:label "Metallic Material"@en ,
                                                     "metallisches Material"@de ;
@@ -831,7 +819,7 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/NonMetalicMaterial
 <https://w3id.org/cpto/NonMetalicMaterial> rdf:type owl:Class ;
-                                           rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                           rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                            rdfs:comment "nan"@en ;
                                            rdfs:label "NonMetalic Material"@en ,
                                                       "nichtmetallisches Material"@de ;
@@ -867,7 +855,7 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/OrganicMaterial
 <https://w3id.org/cpto/OrganicMaterial> rdf:type owl:Class ;
-                                        rdfs:subClassOf <https://w3id.org/cpto/EngineeringMaterial> ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
                                         rdfs:comment "nan"@en ;
                                         rdfs:label "Organic Material"@en ,
                                                    "organisches Material"@de ;
