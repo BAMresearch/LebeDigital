@@ -188,7 +188,7 @@
                                           rdfs:comment "nan"@en ;
                                           rdfs:label "Composite Material"@en ,
                                                      "Verbundwerkstoff"@de ;
-                                          <http://www.w3.org/ns/prov#definition> "Eengineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually."@en ,
+                                          <http://www.w3.org/ns/prov#definition> "Engineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually."@en ,
                                                                                  "Technische Werkstoffe, die aus zwei oder mehr Bestandteilen bestehen, die getrennt bleiben, sich aber zu Materialien mit Eigenschaften verbinden, die keiner der Bestandteile einzeln besitzt."@de ;
                                           <https://w3id.org/pmd/co/definitionSource> "ACI"@de ,
                                                                                      "ACI"@en .
@@ -325,7 +325,8 @@
 
 ###  https://w3id.org/cpto/Content
 <https://w3id.org/cpto/Content> rdf:type owl:Class ;
-                                rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> .
+                                rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                <http://www.w3.org/ns/prov#definition> "Die Menge an Material im Beton bezogen auf 1 Kubikmeter"@de .
 
 
 ###  https://w3id.org/cpto/Customer
@@ -914,18 +915,6 @@ vgl: environmental actions"""@en ;
                                                                                   "DIN EN 206"@en .
 
 
-###  https://w3id.org/cpto/PrecastProduct
-<https://w3id.org/cpto/PrecastProduct> rdf:type owl:Class ;
-                                       rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
-                                       rdfs:comment "nan"@en ;
-                                       rdfs:label "Fertigteil (Bauprodukt)"@de ,
-                                                  "precast product"@en ;
-                                       <http://www.w3.org/ns/prov#definition> "Nach der relevanten europaeischen Produktnorm hergestelltes Fertigteil."@de ,
-                                                                              "Precast element manufactured in compliance with the relevant European product standard."@en ;
-                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
-                                                                                  "DIN EN 206"@en .
-
-
 ###  https://w3id.org/cpto/PrescribedConcrete
 <https://w3id.org/cpto/PrescribedConcrete> rdf:type owl:Class ;
                                            rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
@@ -1084,7 +1073,7 @@ vgl: environmental actions"""@en ;
 
 ###  https://w3id.org/cpto/SlagCement
 <https://w3id.org/cpto/SlagCement> rdf:type owl:Class ;
-                                   rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
+                                   rdfs:subClassOf <https://w3id.org/cpto/Cement> ;
                                    rdfs:comment "Syn.: Huettenzement"@en ;
                                    rdfs:label "Hochofenzement"@de ,
                                               "Slag Cement"@en ;
