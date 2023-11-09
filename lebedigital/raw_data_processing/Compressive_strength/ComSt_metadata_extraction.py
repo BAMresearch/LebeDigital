@@ -22,7 +22,7 @@ def replace_comma(string):
     return string
 
 
-def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='mix.dat'):
+def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='mix.dat', path_to_json='path to json'):
     """Returns two dictionaries: one with extracted emodule-metadata and one with
     extracted specimen metadata.
 
@@ -49,7 +49,7 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
     metadata_specimen_ComSt = {}
 
     # read raw data file
-    # with open(str(rawDataPath), encoding="utf8", errors='ignore') as data:
+    #with open(str(rawDataPath), encoding="utf8", errors='ignore') as data:
     with open(str(rawDataPath) + '/' + str(specimen_file), encoding="utf8", errors='ignore') as data:
 
         # get metadata from file and location
@@ -86,7 +86,7 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
         ComStID = str(uuid.uuid4())
         metadata_ComSt['ID'] = ComStID
 
-        # get experiment date and time in Protege format YYYY-MM-DDTHH:mm:SS
+        # get experiment date and time in protege format YYYY-MM-DDTHH:mm:SS
         date = serviceInformation[10][4]  # datetime.datetime.strptime(,'%d.%m.%y')
         date_only = datetime.datetime.strptime(date.split(" ")[0], '%d.%m.%Y')
         date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + date.split(" ")[1]
@@ -127,14 +127,12 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
 
         # path to specimen.dat
         try:
-            # with open(str(rawDataPath), encoding="utf8", errors='ignore') as mix_data:
-            with open(str(rawDataPath) + '/' + str(mix_file), encoding="utf8", errors='ignore') as mix_data:
-                # with open(path_to_json) as mix_data:
+            #with open(str(rawDataPath), encoding="utf8", errors='ignore') as mix_data:
+            #with open(str(rawDataPath) + '/' + str(mix_file), encoding="utf8", errors='ignore') as mix_data:
+            with open(path_to_json) as mix_data:
                 lines = mix_data.readlines()
                 lines = lines[0].strip()
 
-                # dataPath = Path(rawDataPath).parents[1]
-                # metadata_emodule['MixDataFile']= os.path.join(dataPath, "Mischungen", lines)
         except:
             # metadata_emodule['MixDataFile'] = None
             raise Exception("No mixdesign json-file found!")
@@ -144,18 +142,16 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
         metadata_ComSt['specimenID'] = metadata_specimen_ComSt['ID'] = ComStID
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4], "r") as mixjson:  # change location of where
-                # with open(path_to_json, "r") as mixjson:
+            #with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4], "r") as mixjson:  # change location of where
+            with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
-                # mixtureHumID = mixdesign['humanreadableID']
-                # metadata_specimen['MixtureHumID'] = mixtureHumID
                 mixtureID = mixdesign['ID']
                 metadata_specimen_ComSt['MixtureID'] = mixtureID
         except AttributeError:
             raise Exception("No mixdesign json-file found! Can't import the ID and save it to the output!")
 
         # set paths
-        metadata_ComSt['ProcessedFile'] = os.path.join('../../../usecases/MinimumWorkingExample/Druckfestigkeit/processed_data/processeddata')  # path to csv file with values extracted by ComSt_generate_processed_data.py
+        metadata_ComSt['ProcessedFile'] = os.path.join('../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')  # path to csv file with values extracted by ComSt_generate_processed_data.py
         metadata_ComSt['RawDataFile'] = os.path.join(rawDataPath, specimen_file).replace('\\', '/')
 
         try:
@@ -164,7 +160,7 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
             min_force = my_data['Force [kN]'].min()
             #diameter = 100.0
             #height = 100.3
-            area = metadata_specimen_ComSt['SpecimenDiameter'] * metadata_specimen_ComSt['SpecimenHeight']
+            area = metadata_specimen_ComSt['SpecimenDiameter'] * metadata_specimen_ComSt['SpecimenDiameter']
             normalValue = (min_force * -1)
             CompressiveStrength = (normalValue / area) * 1000
             metadata_ComSt['CompressiveStrength'] = CompressiveStrength
@@ -175,7 +171,7 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
     return metadata_ComSt, metadata_specimen_ComSt
 
 
-def ComSt_metadata(rawDataPath, metaDataFile, specimenDataFile):
+def ComSt_metadata(rawDataPath, metaDataFile, specimenDataFile, path_to_json):
     """Creates two json files with extracted metadata, one for ComSt and one
     for the specimen
 
@@ -195,7 +191,7 @@ def ComSt_metadata(rawDataPath, metaDataFile, specimenDataFile):
     specimen_file = 'specimen.dat'
 
     # extracting the metadata
-    metadata, specimen = extract_metadata_ComSt(rawDataPath, specimen_file, mix_file)
+    metadata, specimen = extract_metadata_ComSt(rawDataPath, specimen_file, mix_file, path_to_json)
 
     with open(metaDataFile, 'w') as jsonFile:
         json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
@@ -214,7 +210,7 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 2'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 3'
     if args.output == None:
         args.output = ['../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/testComStMetaData.json',
                        '../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/testSpecimenData.json']
