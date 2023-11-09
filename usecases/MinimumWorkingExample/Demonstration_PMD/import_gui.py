@@ -55,7 +55,7 @@ class App(QMainWindow):
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
-                                                  "Excel Files (*.xlsx *.csv *.dat)", options=options)
+                                                  "Excel Files (*.xlsx *.xls *.csv *.dat)", options=options)
         if fileName:
             dataset = self.comboBox.currentText()
             self.dataDict[dataset] = fileName
@@ -74,12 +74,13 @@ def main():
     app.exec_()
 
     # Specify the key for the conditional check
-    key_to_check = 'E-Module'
+    keys_to_check = ['Compressive', 'E-Module']
 
     # Check if the key matches the desired condition
-    if key_to_check in ex.dataDict and key_to_check == 'E-Module':
-        # Expression to execute if the condition is true
-        ex.dataDict[key_to_check] = ex.dataDict[key_to_check].rpartition('/')[0]
+    for key_to_check in keys_to_check:
+        if key_to_check in ex.dataDict:
+            # Expression to execute if the condition is true
+            ex.dataDict[key_to_check] = ex.dataDict[key_to_check].rpartition('/')[0]
 
 
 
