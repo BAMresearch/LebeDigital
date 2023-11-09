@@ -11,7 +11,7 @@ def convert_string_to_number(listStrings):
     return listNumbers
 
 
-def processed_data_from_rawdata(locationOfRawData, locationOfProcessedData):
+def processed_rawdata(locationOfRawData, locationOfProcessedData):
     """
     Extracts relevant information from the raw data files and stores as a csv file
     Args:
@@ -73,11 +73,11 @@ def processed_data_from_rawdata(locationOfRawData, locationOfProcessedData):
                                           data=rawDataDataFrame[['5']].values
                                           )
     processedDataDataFrame.to_csv(locationOfProcessedData, index=False)
-    return lines
 
 
 
-processed_data_from_rawdata('C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 6', 'C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Druckfestigkeit/processed_data/processeddata')
+
+#processed_rawdata('C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 6', 'C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')
 
 
 
