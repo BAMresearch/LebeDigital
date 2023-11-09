@@ -3,7 +3,7 @@ from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction impor
 from pathlib import Path
 
 
-def test_mixture_metadata_extraction():
+def test_mixdesign_metadata_extraction():
     """Testing the mixture metadata extraction on a single example"""
 
     # setup paths and directories
