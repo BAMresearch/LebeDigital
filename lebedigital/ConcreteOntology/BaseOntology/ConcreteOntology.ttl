@@ -1357,8 +1357,906 @@ vgl: environmental actions"""@en ;
 #    Individuals
 #################################################################
 
-###  https://w3id.org/cpto/Test
-<https://w3id.org/cpto/Test> rdf:type owl:NamedIndividual .
+###  https://w3id.org/cpto/CEM_I_32,5_N
+<https://w3id.org/cpto/CEM_I_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_32,5_R
+<https://w3id.org/cpto/CEM_I_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_42,5_N
+<https://w3id.org/cpto/CEM_I_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_42,5_R
+<https://w3id.org/cpto/CEM_I_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_52,5_N
+<https://w3id.org/cpto/CEM_I_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_52,5_R
+<https://w3id.org/cpto/CEM_I_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_32,5_N
+<https://w3id.org/cpto/CEM_II_A-S_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_32,5_R
+<https://w3id.org/cpto/CEM_II_A-S_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_42,5_N
+<https://w3id.org/cpto/CEM_II_A-S_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_42,5_R
+<https://w3id.org/cpto/CEM_II_A-S_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_52,5_N
+<https://w3id.org/cpto/CEM_II_A-S_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_52,5_R
+<https://w3id.org/cpto/CEM_II_A-S_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_32,5_N
+<https://w3id.org/cpto/CEM_II_B-S_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_32,5_R
+<https://w3id.org/cpto/CEM_II_B-S_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_42,5_N
+<https://w3id.org/cpto/CEM_II_B-S_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_42,5_R
+<https://w3id.org/cpto/CEM_II_B-S_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_52,5_N
+<https://w3id.org/cpto/CEM_II_B-S_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_52,5_R
+<https://w3id.org/cpto/CEM_II_B-S_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_32,5_N
+<https://w3id.org/cpto/CEM_II_A-D_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_32,5_R
+<https://w3id.org/cpto/CEM_II_A-D_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_42,5_N
+<https://w3id.org/cpto/CEM_II_A-D_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_42,5_R
+<https://w3id.org/cpto/CEM_II_A-D_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_52,5_N
+<https://w3id.org/cpto/CEM_II_A-D_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_52,5_R
+<https://w3id.org/cpto/CEM_II_A-D_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_32,5_N
+<https://w3id.org/cpto/CEM_II_B-P_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_32,5_R
+<https://w3id.org/cpto/CEM_II_B-P_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_42,5_N
+<https://w3id.org/cpto/CEM_II_B-P_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_42,5_R
+<https://w3id.org/cpto/CEM_II_B-P_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_52,5_N
+<https://w3id.org/cpto/CEM_II_B-P_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_52,5_R
+<https://w3id.org/cpto/CEM_II_B-P_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_32,5_N
+<https://w3id.org/cpto/CEM_II_A-P_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_32,5_R
+<https://w3id.org/cpto/CEM_II_A-P_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_42,5_N
+<https://w3id.org/cpto/CEM_II_A-P_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_42,5_R
+<https://w3id.org/cpto/CEM_II_A-P_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_52,5_N
+<https://w3id.org/cpto/CEM_II_A-P_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_52,5_R
+<https://w3id.org/cpto/CEM_II_A-P_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_32,5_N
+<https://w3id.org/cpto/CEM_II_A-V_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_32,5_R
+<https://w3id.org/cpto/CEM_II_A-V_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_42,5_N
+<https://w3id.org/cpto/CEM_II_A-V_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_42,5_R
+<https://w3id.org/cpto/CEM_II_A-V_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_52,5_N
+<https://w3id.org/cpto/CEM_II_A-V_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_52,5_R
+<https://w3id.org/cpto/CEM_II_A-V_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_32,5_N
+<https://w3id.org/cpto/CEM_II_B-V_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_32,5_R
+<https://w3id.org/cpto/CEM_II_B-V_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_42,5_N
+<https://w3id.org/cpto/CEM_II_B-V_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_42,5_R
+<https://w3id.org/cpto/CEM_II_B-V_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_52,5_N
+<https://w3id.org/cpto/CEM_II_B-V_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_52,5_R
+<https://w3id.org/cpto/CEM_II_B-V_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_32,5_N
+<https://w3id.org/cpto/CEM_II_A-W_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_32,5_R
+<https://w3id.org/cpto/CEM_II_A-W_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_42,5_N
+<https://w3id.org/cpto/CEM_II_A-W_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_42,5_R
+<https://w3id.org/cpto/CEM_II_A-W_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_52,5_N
+<https://w3id.org/cpto/CEM_II_A-W_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_52,5_R
+<https://w3id.org/cpto/CEM_II_A-W_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_32,5_N
+<https://w3id.org/cpto/CEM_II_B-W_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_32,5_R
+<https://w3id.org/cpto/CEM_II_B-W_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_42,5_N
+<https://w3id.org/cpto/CEM_II_B-W_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_42,5_R
+<https://w3id.org/cpto/CEM_II_B-W_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_52,5_N
+<https://w3id.org/cpto/CEM_II_B-W_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_52,5_R
+<https://w3id.org/cpto/CEM_II_B-W_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_32,5_N
+<https://w3id.org/cpto/CEM_II_A-T_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_32,5_R
+<https://w3id.org/cpto/CEM_II_A-T_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_42,5_N
+<https://w3id.org/cpto/CEM_II_A-T_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_42,5_R
+<https://w3id.org/cpto/CEM_II_A-T_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_52,5_N
+<https://w3id.org/cpto/CEM_II_A-T_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_52,5_R
+<https://w3id.org/cpto/CEM_II_A-T_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_32,5_N
+<https://w3id.org/cpto/CEM_II_B-T_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_32,5_R
+<https://w3id.org/cpto/CEM_II_B-T_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_42,5_N
+<https://w3id.org/cpto/CEM_II_B-T_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_42,5_R
+<https://w3id.org/cpto/CEM_II_B-T_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_52,5_N
+<https://w3id.org/cpto/CEM_II_B-T_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_52,5_R
+<https://w3id.org/cpto/CEM_II_B-T_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_32,5_N
+<https://w3id.org/cpto/CEM_II_A-L_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_32,5_R
+<https://w3id.org/cpto/CEM_II_A-L_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_42,5_N
+<https://w3id.org/cpto/CEM_II_A-L_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_42,5_R
+<https://w3id.org/cpto/CEM_II_A-L_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_52,5_N
+<https://w3id.org/cpto/CEM_II_A-L_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_52,5_R
+<https://w3id.org/cpto/CEM_II_A-L_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_32,5_N
+<https://w3id.org/cpto/CEM_II_B-L_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_32,5_R
+<https://w3id.org/cpto/CEM_II_B-L_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_42,5_N
+<https://w3id.org/cpto/CEM_II_B-L_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_42,5_R
+<https://w3id.org/cpto/CEM_II_B-L_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_52,5_N
+<https://w3id.org/cpto/CEM_II_B-L_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_52,5_R
+<https://w3id.org/cpto/CEM_II_B-L_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_32,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_32,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_42,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_42,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_52,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_52,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_32,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_32,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_42,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_42,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_52,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_52,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_32,5_N
+<https://w3id.org/cpto/CEM_II_A-M_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_32,5_R
+<https://w3id.org/cpto/CEM_II_A-M_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_42,5_N
+<https://w3id.org/cpto/CEM_II_A-M_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_42,5_R
+<https://w3id.org/cpto/CEM_II_A-M_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_52,5_N
+<https://w3id.org/cpto/CEM_II_A-M_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_52,5_R
+<https://w3id.org/cpto/CEM_II_A-M_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_32,5_N
+<https://w3id.org/cpto/CEM_II_B-M_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_32,5_R
+<https://w3id.org/cpto/CEM_II_B-M_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_42,5_N
+<https://w3id.org/cpto/CEM_II_B-M_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_42,5_R
+<https://w3id.org/cpto/CEM_II_B-M_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_52,5_N
+<https://w3id.org/cpto/CEM_II_B-M_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_52,5_R
+<https://w3id.org/cpto/CEM_II_B-M_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_N
+<https://w3id.org/cpto/CEM_III_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_R
+<https://w3id.org/cpto/CEM_III_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_N
+<https://w3id.org/cpto/CEM_III_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_R
+<https://w3id.org/cpto/CEM_III_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_N
+<https://w3id.org/cpto/CEM_III_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_R
+<https://w3id.org/cpto/CEM_III_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_N
+<https://w3id.org/cpto/CEM_III_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_R
+<https://w3id.org/cpto/CEM_III_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_N
+<https://w3id.org/cpto/CEM_III_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_R
+<https://w3id.org/cpto/CEM_III_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_N
+<https://w3id.org/cpto/CEM_III_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_R
+<https://w3id.org/cpto/CEM_III_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_N
+<https://w3id.org/cpto/CEM_III_C_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_R
+<https://w3id.org/cpto/CEM_III_C_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_N
+<https://w3id.org/cpto/CEM_III_C_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_R
+<https://w3id.org/cpto/CEM_III_C_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_N
+<https://w3id.org/cpto/CEM_III_C_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_R
+<https://w3id.org/cpto/CEM_III_C_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_32,5_N
+<https://w3id.org/cpto/CEM_IV_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_32,5_R
+<https://w3id.org/cpto/CEM_IV_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_42,5_N
+<https://w3id.org/cpto/CEM_IV_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_42,5_R
+<https://w3id.org/cpto/CEM_IV_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_52,5_N
+<https://w3id.org/cpto/CEM_IV_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_52,5_R
+<https://w3id.org/cpto/CEM_IV_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_32,5_N
+<https://w3id.org/cpto/CEM_IV_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_32,5_R
+<https://w3id.org/cpto/CEM_IV_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_42,5_N
+<https://w3id.org/cpto/CEM_IV_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_42,5_R
+<https://w3id.org/cpto/CEM_IV_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_52,5_N
+<https://w3id.org/cpto/CEM_IV_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_52,5_R
+<https://w3id.org/cpto/CEM_IV_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_32,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_32,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_42,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_42,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_52,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_52,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_32,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_32,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_42,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_42,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_52,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_52,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_32,5_N
+<https://w3id.org/cpto/CEM_V_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_32,5_R
+<https://w3id.org/cpto/CEM_V_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_42,5_N
+<https://w3id.org/cpto/CEM_V_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_42,5_R
+<https://w3id.org/cpto/CEM_V_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_52,5_N
+<https://w3id.org/cpto/CEM_V_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_52,5_R
+<https://w3id.org/cpto/CEM_V_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_32,5_N
+<https://w3id.org/cpto/CEM_V_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_32,5_R
+<https://w3id.org/cpto/CEM_V_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_42,5_N
+<https://w3id.org/cpto/CEM_V_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_42,5_R
+<https://w3id.org/cpto/CEM_V_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_52,5_N
+<https://w3id.org/cpto/CEM_V_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_52,5_R
+<https://w3id.org/cpto/CEM_V_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_L
+<https://w3id.org/cpto/CEM_III_A_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_L
+<https://w3id.org/cpto/CEM_III_A_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_L
+<https://w3id.org/cpto/CEM_III_A_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_L
+<https://w3id.org/cpto/CEM_III_B_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_L
+<https://w3id.org/cpto/CEM_III_B_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_L
+<https://w3id.org/cpto/CEM_III_B_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_L
+<https://w3id.org/cpto/CEM_III_C_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_L
+<https://w3id.org/cpto/CEM_III_C_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_L
+<https://w3id.org/cpto/CEM_III_C_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
