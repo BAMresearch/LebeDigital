@@ -39,31 +39,31 @@ co:unit a owl:ObjectProperty .
 
 co:value a owl:DatatypeProperty .
 
-<https://w3id.org/cpto/##Addition1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Addition_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Addition1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Addition_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Admixture1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Admixture_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Admixture1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Admixture_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Aggregate1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Aggregate1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Aggregate1_Size_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Aggregate_Size_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Cement1_Content_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Cement_Content_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##Cement1_Density_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Cement_Density_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
 <https://w3id.org/cpto/##Water_Content_Unit##> a ns3:Unit,
@@ -74,99 +74,97 @@ co:value a owl:DatatypeProperty .
 
 ns1:Addition a owl:Class .
 
-ns1:Addition1_ a owl:NamedIndividual,
+ns1:Addition_ a owl:NamedIndividual,
         co:BaseMaterial ;
-    co:characteristic ns1:Addition1_Content_,
-        ns1:Addition1_Density_ ;
-    co:composedOf ns1:Addition1_Type_ .
+    co:characteristic ns1:Addition_Content_,
+        ns1:Addition_Density_ ;
+    co:composedOf ns1:Addition_Type_ .
 
-ns1:Addition1_Content_ a owl:NamedIndividual,
+ns1:Addition_Content_ a owl:NamedIndividual,
         ns1:Content ;
-    co:unit <https://w3id.org/cpto/##Addition1_Content_Unit##> ;
-    co:value "$$Addition1_Content_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Addition_Content_Unit##> ;
+    co:value "$$Addition_Content_Value$$"^^xsd:float .
 
-ns1:Addition1_Density_ a owl:NamedIndividual,
+ns1:Addition_Density_ a owl:NamedIndividual,
         ns1:RelativeDensity ;
-    co:unit <https://w3id.org/cpto/##Addition1_Density_Unit##> ;
-    co:value "$$Addition1_Density_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Addition_Density_Unit##> ;
+    co:value "$$Addition_Density_Value$$"^^xsd:float .
 
-ns1:Addition1_Type_ a owl:NamedIndividual,
+ns1:Addition_Type_ a owl:NamedIndividual,
         ns1:Addition ;
-    co:value "$$Addition1_Type_Value$$"^^xsd:string .
+    co:value "$$Addition_Type_Value$$"^^xsd:string .
 
 ns1:Admixture a owl:Class .
 
-ns1:Admixture1_ a owl:NamedIndividual,
+ns1:Admixture_ a owl:NamedIndividual,
         co:BaseMaterial ;
-    co:characteristic ns1:Admixture1_Content_,
-        ns1:Admixture1_Density_ ;
-    co:composedOf ns1:Admixture1_Type_ .
+    co:characteristic ns1:Admixture_Content_,
+        ns1:Admixture_Density_ ;
+    co:composedOf ns1:Admixture_Type_ .
 
-ns1:Admixture1_Content_ a owl:NamedIndividual,
+ns1:Admixture_Content_ a owl:NamedIndividual,
         ns1:Content ;
-    co:unit <https://w3id.org/cpto/##Admixture1_Content_Unit##> ;
-    co:value "$$Admixture1_Content_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Admixture_Content_Unit##> ;
+    co:value "$$Admixture_Content_Value$$"^^xsd:float .
 
-ns1:Admixture1_Density_ a owl:NamedIndividual,
+ns1:Admixture_Density_ a owl:NamedIndividual,
         ns1:RelativeDensity ;
-    co:unit <https://w3id.org/cpto/##Admixture1_Density_Unit##> ;
-    co:value "$$Admixture1_Density_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Admixture_Density_Unit##> ;
+    co:value "$$Admixture_Density_Value$$"^^xsd:float .
 
-ns1:Admixture1_Type_ a owl:NamedIndividual,
+ns1:Admixture_Type_ a owl:NamedIndividual,
         ns1:Admixture ;
-    co:value "$$Admixture1_Type_Value$$"^^xsd:string .
-
-ns1:Aggregate a owl:Class .
-
-ns1:Aggregate1_ a owl:NamedIndividual,
-        co:BaseMaterial ;
-    co:characteristic ns1:Aggregate1_Content_,
-        ns1:Aggregate1_Density_,
-        ns1:Aggregate1_Size_ ;
-    co:composedOf ns1:Aggregate1_Type_ .
-
-ns1:Aggregate1_Content_ a owl:NamedIndividual,
-        ns1:Content ;
-    co:unit <https://w3id.org/cpto/##Aggregate1_Content_Unit##> ;
-    co:value "$$Aggregate1_Content_Value$$"^^xsd:float .
-
-ns1:Aggregate1_Density_ a owl:NamedIndividual,
-        ns1:RelativeDensity ;
-    co:unit <https://w3id.org/cpto/##Aggregate1_Density_Unit##> ;
-    co:value "$$Aggregate1_Density_Value$$"^^xsd:float .
-
-ns1:Aggregate1_Size_ a owl:NamedIndividual,
-        ns1:AggregateSize ;
-    co:unit <https://w3id.org/cpto/##Aggregate1_Size_Unit##> ;
-    co:value "$$Aggregate1_Size_Value$$"^^xsd:float .
-
-ns1:Aggregate1_Type_ a owl:NamedIndividual,
-        ns1:Aggregate ;
-    co:value "$$Aggregate1_Type_Value$$"^^xsd:string .
+    co:value "$$Admixture_Type_Value$$"^^xsd:string .
 
 ns1:AggregateSize a owl:Class .
 
+ns1:Aggregate_ a owl:NamedIndividual,
+        ns1:Aggregate ;
+    co:characteristic ns1:Aggregate_Content_,
+        ns1:Aggregate_Density_,
+        ns1:Aggregate_Size_ ;
+    co:composedOf ns1:Aggregate_Type_ .
+
+ns1:Aggregate_Content_ a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <https://w3id.org/cpto/##Aggregate_Content_Unit##> ;
+    co:value "$$Aggregate_Content_Value$$"^^xsd:float .
+
+ns1:Aggregate_Density_ a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <https://w3id.org/cpto/##Aggregate_Density_Unit##> ;
+    co:value "$$Aggregate_Density_Value$$"^^xsd:float .
+
+ns1:Aggregate_Size_ a owl:NamedIndividual,
+        ns1:AggregateSize ;
+    co:unit <https://w3id.org/cpto/##Aggregate_Size_Unit##> ;
+    co:value "$$Aggregate_Size_Value$$"^^xsd:float .
+
+ns1:Aggregate_Type_ a owl:NamedIndividual,
+        ns1:Aggregate ;
+    co:value "$$Aggregate_Type_Value$$"^^xsd:string .
+
 ns1:Cement a owl:Class .
 
-ns1:Cement1_ a owl:NamedIndividual,
+ns1:Cement_ a owl:NamedIndividual,
         co:BaseMaterial ;
-    co:characteristic ns1:Cement1_Content_,
-        ns1:Cement1_Density_ ;
-    co:composedOf ns1:Cement1_Type_ .
+    co:characteristic ns1:Cement_Content_,
+        ns1:Cement_Density_ ;
+    co:composedOf ns1:Cement_Type_ .
 
-ns1:Cement1_Content_ a owl:NamedIndividual,
+ns1:Cement_Content_ a owl:NamedIndividual,
         ns1:Content ;
-    co:unit <https://w3id.org/cpto/##Cement1_Content_Unit##> ;
-    co:value "$$Cement1_Content_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Cement_Content_Unit##> ;
+    co:value "$$Cement_Content_Value$$"^^xsd:float .
 
-ns1:Cement1_Density_ a owl:NamedIndividual,
+ns1:Cement_Density_ a owl:NamedIndividual,
         ns1:RelativeDensity ;
-    co:unit <https://w3id.org/cpto/##Cement1_Density_Unit##> ;
-    co:value "$$Cement1_Density_Value$$"^^xsd:float .
+    co:unit <https://w3id.org/cpto/##Cement_Density_Unit##> ;
+    co:value "$$Cement_Density_Value$$"^^xsd:float .
 
-ns1:Cement1_Type_ a owl:NamedIndividual,
+ns1:Cement_Type_ a owl:NamedIndividual,
         ns1:Cement ;
-    co:value "$$Cement1_Type_Value$$"^^xsd:string .
+    co:value "$$Cement_Type_Value$$"^^xsd:string .
 
 ns1:ExperimentInfo_ a owl:NamedIndividual,
         co:NodeInfo ;
@@ -183,10 +181,10 @@ ns1:Laboratory_ a owl:NamedIndividual,
 
 ns1:MaterialComposition_ a owl:NamedIndividual,
         ns1:MaterialComposition ;
-    co:composedOf ns1:Addition1_,
-        ns1:Admixture1_,
-        ns1:Aggregate1_,
-        ns1:Cement1_,
+    co:composedOf ns1:Addition_,
+        ns1:Admixture_,
+        ns1:Aggregate_,
+        ns1:Cement_,
         ns1:Water_ .
 
 ns1:MixingDate_ a owl:NamedIndividual,
@@ -237,15 +235,17 @@ co:NodeInfo a owl:Class .
 
 co:Time a owl:Class .
 
+ns1:Aggregate a owl:Class .
+
 ns1:MaterialComposition a owl:Class .
 
 co:ProvidedIdentifier a owl:Class .
 
+co:BaseMaterial a owl:Class .
+
 ns1:Content a owl:Class .
 
 ns1:RelativeDensity a owl:Class .
-
-co:BaseMaterial a owl:Class .
 
 ns3:Unit a owl:Class .
 
