@@ -49,7 +49,7 @@ def test_mixdesign_metadata_extraction():
     "Addition1_Type": "Medenbach Kalksteinmehl"}
 
     # run extraction and getting a dictionary with metadata
-    test_data = extract_metadata_mixdesign(input_path, None)
+    test_data = extract_metadata_mixdesign(input_path)
 
     # test each value
     # conversion to string is required as float.nan != float.nan
