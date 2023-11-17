@@ -37,6 +37,7 @@ dependencies:
   - codecov
   - seaborn
   - extpybis
+  - openpyxl
   - pip:
     - probeye==2.3.0
     - -e .
