@@ -12,9 +12,3 @@ Model calibration (or model updating) is a task most scientists are facing when 
    :caption: Contents:
 
    docs/motivation.rst
-
-.. autoclass:: lebedigital.openbis.expstep.ExpStep
-   :members:
-
-.. autoclass:: lebedigital.openbis.interbis.Interbis
-   :members:

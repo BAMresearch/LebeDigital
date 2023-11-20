@@ -1,1 +1,0 @@
-from lebedigital.openbis.interbis import Interbis
