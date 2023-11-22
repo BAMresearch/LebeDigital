@@ -1,1 +1,367 @@
-<mxfile host="yuechenbam.github.io" modified="2023-05-31T09:20:59.896Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="w7P_pxqoKxySJCU-yqOu" version="15.8.2" type="device"><diagram id="UXIPkQefFEDrWGH3IdC5" name="MiWoEx_neu">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</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2023-11-08T11:23:50.880Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76" etag="RCTboq48gLBBcefEE2Lc" version="22.0.8" type="device">
+  <diagram id="UXIPkQefFEDrWGH3IdC5" name="MiWoEx_neu">
+    <mxGraphModel dx="4380" dy="3133" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="97505-SNcamct329gDO7-0" />
+        <mxCell id="97505-SNcamct329gDO7-1" parent="97505-SNcamct329gDO7-0" />
+        <object label="con:FreshConcrete" Type="Class" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact" id="4S3OoNcXCZUGaDcpZlmq-12">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=#97D077;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1840" y="-1440" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:&lt;/u&gt;&lt;u&gt;FreshConcrete_&lt;/u&gt;" Type="Individual" IRI="Null" id="4S3OoNcXCZUGaDcpZlmq-13">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fillColor=#97D077;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1840" y="-1410" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 12px&quot;&gt;con:FlowSpread&lt;/font&gt;" Type="Class" IRI="Null" id="4S3OoNcXCZUGaDcpZlmq-19">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fontSize=11;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1501" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u style=&quot;font-size: 12px&quot;&gt;con:&lt;/u&gt;&lt;u&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;FlowSpread_&lt;/font&gt;&lt;/u&gt;" Type="Individual" IRI="Null" id="4S3OoNcXCZUGaDcpZlmq-20">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fontSize=11;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1471" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="obo:RO_0000086" Type="ObjectProperty" IRI="http://purl.obolibrary.org/obo/RO_0000086" id="4S3OoNcXCZUGaDcpZlmq-21">
+          <mxCell style="endArrow=classic;html=1;endSize=8;arcSize=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" source="4S3OoNcXCZUGaDcpZlmq-13" target="4S3OoNcXCZUGaDcpZlmq-20" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1128" y="-1077" as="sourcePoint" />
+              <mxPoint x="-1028" y="-1495" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="-1640" y="-1395" />
+                <mxPoint x="-1640" y="-1456" />
+              </Array>
+              <mxPoint x="20" y="-30" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 11px&quot;&gt;cco:has_decimal_value&lt;/font&gt;" Type="DatatypeProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value" id="4S3OoNcXCZUGaDcpZlmq-22">
+          <mxCell style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="97505-SNcamct329gDO7-1" target="4S3OoNcXCZUGaDcpZlmq-23" edge="1" source="4S3OoNcXCZUGaDcpZlmq-20">
+            <mxGeometry as="geometry">
+              <mxPoint x="-1310" y="-1470" as="sourcePoint" />
+              <mxPoint x="-1261.74" y="-1335" as="targetPoint" />
+              <mxPoint x="18" y="-22" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1456" />
+                <mxPoint x="-1280" y="-1500" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&quot;$$FlowSpread_Value$$&quot;^^xsd:decimal" Type="DataValue" IRI_DT="http://www.w3.org/2001/XMLSchema#decimal" id="4S3OoNcXCZUGaDcpZlmq-23">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;shadow=0;glass=0;sketch=0;strokeColor=default;fontSize=12;fillColor=#FF8C00;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1510" width="280" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:PmdSiUnit" Type="Class" IRI="https://material-digital.de/pmdco/PmdSiUnit" id="dzM1LntGsSAcp5HvhDIG-6">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1470" width="160" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:##FlowSpread_Unit##&lt;/u&gt;" Type="Individual" id="dzM1LntGsSAcp5HvhDIG-7">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1444" width="160" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:hasPmdUnit" Type="ObjectProperty" IRI="https://material-digital.de/pmdco/hasPmdUnit" id="dzM1LntGsSAcp5HvhDIG-8">
+          <mxCell style="endArrow=classic;html=1;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF6666;" parent="97505-SNcamct329gDO7-1" source="4S3OoNcXCZUGaDcpZlmq-20" target="dzM1LntGsSAcp5HvhDIG-7" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1290.74" y="-1415.5" as="sourcePoint" />
+              <mxPoint x="-1192" y="-1460" as="targetPoint" />
+              <mxPoint x="18" y="14" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1456" />
+                <mxPoint x="-1280" y="-1431" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 12px&quot;&gt;con:FlowClass&lt;/font&gt;" Type="Class" IRI="Null" id="dzM1LntGsSAcp5HvhDIG-10">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fontSize=11;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1590" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u style=&quot;font-size: 12px&quot;&gt;con:&lt;/u&gt;&lt;u&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;FlowClass_&lt;/font&gt;&lt;/u&gt;" Type="Individual" IRI="Null" id="dzM1LntGsSAcp5HvhDIG-11">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fontSize=11;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1560" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="cco:has_output" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_output" id="dzM1LntGsSAcp5HvhDIG-12">
+          <mxCell style="endArrow=classic;html=1;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFB570;" parent="97505-SNcamct329gDO7-1" source="4S3OoNcXCZUGaDcpZlmq-20" target="dzM1LntGsSAcp5HvhDIG-11" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1339.74" y="-1350.5" as="sourcePoint" />
+              <mxPoint x="-932" y="-1440" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1456" />
+                <mxPoint x="-1280" y="-1545" />
+              </Array>
+              <mxPoint x="18" y="-44" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 11px&quot;&gt;cco:has_text_value&lt;/font&gt;" Type="DatatypeProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_text_value" id="dzM1LntGsSAcp5HvhDIG-14">
+          <mxCell style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" source="dzM1LntGsSAcp5HvhDIG-11" target="dzM1LntGsSAcp5HvhDIG-15" edge="1">
+            <mxGeometry as="geometry">
+              <mxPoint x="-985" y="-1580" as="sourcePoint" />
+              <mxPoint x="-969" y="-1507" as="targetPoint" />
+              <mxPoint x="5" as="offset" />
+              <Array as="points">
+                <mxPoint x="-960" y="-1545" />
+                <mxPoint x="-960" y="-1545" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&quot;$$FlowClass_Value$$&quot;^^xsd:string" Type="DataValue" IRI_DT="http://www.w3.org/2001/XMLSchema#string" id="dzM1LntGsSAcp5HvhDIG-15">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;shadow=0;glass=0;sketch=0;strokeColor=default;fontSize=12;fillColor=#FF8C00;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1555" width="274.26" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:https://material-digital.de/pmdco/&lt;br/&gt;ns1:http://wikiba.se/ontology#&lt;br/&gt;ns2:http://wikiba.se/ontology/&lt;br/&gt;rdfs:http://www.w3.org/2000/01/rdf-schema#&lt;br/&gt;owl:http://www.w3.org/2002/07/owl#&lt;br/&gt;" Type="Namespace" id="ruoCuIgoFp16ZF_0LyHv-2">
+          <mxCell style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1919" y="-1749.93" width="280" height="77.93" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="base:https://purl.matolab.org/mseo/methods/example/&lt;br&gt;mid:https://purl.matolab.org/mseo/mid/&lt;br&gt;cco:http://www.ontologyrepository.com/CommonCoreOntologies/&lt;br&gt;obo:http://purl.obolibrary.org/obo/&lt;br&gt;pt:http://www.daml.org/2003/01/periodictable/PeriodicTable#&lt;br&gt;geo:http://www.opengis.net/ont/geosparql#&lt;br&gt;con:&lt;span style=&quot;text-align: left&quot;&gt;http://w3id.org/concrete/&lt;/span&gt;" Type="Namespace" id="ruoCuIgoFp16ZF_0LyHv-3">
+          <mxCell style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1918" y="-1879.93" width="390" height="116" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="con:Hardening" Type="Class" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact" id="37UOdtx9yiyN65UCFOAC-5">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1400" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:Hardening&lt;/u&gt;&lt;u&gt;_&lt;/u&gt;" Type="Individual" IRI="Null" id="37UOdtx9yiyN65UCFOAC-6">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1370" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="cco:has_process_part" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_process_part" id="37UOdtx9yiyN65UCFOAC-7">
+          <mxCell style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;" parent="97505-SNcamct329gDO7-1" source="4S3OoNcXCZUGaDcpZlmq-13" target="37UOdtx9yiyN65UCFOAC-6" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1529" y="-1193" as="sourcePoint" />
+              <mxPoint x="-1555" y="-987.9999999999995" as="targetPoint" />
+              <mxPoint x="20" y="16" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1640" y="-1395" />
+                <mxPoint x="-1640" y="-1362" />
+                <mxPoint x="-1480" y="-1362" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:StorageConditions&lt;/u&gt;&lt;u&gt;_&lt;/u&gt;" Type="Individual" IRI="Null" id="37UOdtx9yiyN65UCFOAC-14">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1250" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="cco:has_input" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_input" id="37UOdtx9yiyN65UCFOAC-15">
+          <mxCell style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;fillColor=#E6E6E6;entryX=0;entryY=0.75;entryDx=0;entryDy=0;strokeColor=#3D51FF;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-14" target="37UOdtx9yiyN65UCFOAC-6" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1259" y="-1410" as="sourcePoint" />
+              <mxPoint x="-1530" y="-1310" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="-1580" y="-1235" />
+                <mxPoint x="-1580" y="-1347" />
+              </Array>
+              <mxPoint x="-50" y="-59" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="cco:has_output" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_output" id="37UOdtx9yiyN65UCFOAC-16">
+          <mxCell style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;fillColor=#E6E6E6;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFB570;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-14" target="37UOdtx9yiyN65UCFOAC-18" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1374" y="-1310" as="sourcePoint" />
+              <mxPoint x="-1377" y="-1348" as="targetPoint" />
+              <mxPoint x="15" y="-14" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1235" />
+                <mxPoint x="-1280" y="-1263" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="obo:BFO_0000038" Type="Class" IRI="http://purl.obolibrary.org/obo/BFO_0000038" id="37UOdtx9yiyN65UCFOAC-17">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1308" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;cco:StorageTime_&lt;/u&gt;" Type="Individual" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/DayMeasurementUnit" id="37UOdtx9yiyN65UCFOAC-18">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1fillColor=#FFFFFF;fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1278" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="cco:has_output" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_output" id="37UOdtx9yiyN65UCFOAC-19">
+          <mxCell style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;fillColor=#E6E6E6;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFB570;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-14" target="37UOdtx9yiyN65UCFOAC-21" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1436.9999999999995" y="-1278.5" as="sourcePoint" />
+              <mxPoint x="-1337.0000000000005" y="-1332" as="targetPoint" />
+              <mxPoint x="15" y="41" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1235" />
+                <mxPoint x="-1280" y="-1154" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="cco:Temperature" Type="Class" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Temperature" id="37UOdtx9yiyN65UCFOAC-20">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1199" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:Temperature_&lt;/u&gt;" Type="Individual" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/DegreeCelsiusMeasurementUnit" id="37UOdtx9yiyN65UCFOAC-21">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1169" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="cco:has_output" Type="ObjectProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_output" id="37UOdtx9yiyN65UCFOAC-22">
+          <mxCell style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;fillColor=#E6E6E6;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFB570;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-14" target="37UOdtx9yiyN65UCFOAC-24" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-1587" y="-1205.5" as="sourcePoint" />
+              <mxPoint x="-1477.0000000000005" y="-1264" as="targetPoint" />
+              <mxPoint x="15" y="90" as="offset" />
+              <Array as="points">
+                <mxPoint x="-1280" y="-1235" />
+                <mxPoint x="-1280" y="-1056" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="con:Humidity" Type="Class" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Temperature" id="37UOdtx9yiyN65UCFOAC-23">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1101" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:Humidity_&lt;/u&gt;" Type="Individual" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/DegreeCelsiusMeasurementUnit" id="37UOdtx9yiyN65UCFOAC-24">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1120" y="-1071" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 11px&quot;&gt;cco:has_decimal_value&lt;/font&gt;" Type="DatatypeProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value" id="bk2kTeLw0D9dxrtDLXrW-1">
+          <mxCell style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;fontSize=12;fillColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-18" target="bk2kTeLw0D9dxrtDLXrW-5" edge="1">
+            <mxGeometry as="geometry">
+              <mxPoint x="-754.2599999999995" y="-1305.5" as="sourcePoint" />
+              <mxPoint x="-820" y="-1332" as="targetPoint" />
+              <mxPoint x="-5" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="con:StorageConditions" Type="Class" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/Artifact" id="bk2kTeLw0D9dxrtDLXrW-4">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=default;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-1480" y="-1280" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&quot;$$StorageTime_Value$$&quot;^^xsd:decimal" Type="DataValue" IRI_DT="http://www.w3.org/2001/XMLSchema#decimal" id="bk2kTeLw0D9dxrtDLXrW-5">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;shadow=0;glass=0;sketch=0;strokeColor=default;fontSize=12;fillColor=#FF8C00;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-799" y="-1266" width="279" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 11px&quot;&gt;cco:has_decimal_value&lt;/font&gt;" Type="DatatypeProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value" id="bk2kTeLw0D9dxrtDLXrW-6">
+          <mxCell style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;fontSize=12;fillColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-21" target="bk2kTeLw0D9dxrtDLXrW-7" edge="1">
+            <mxGeometry as="geometry">
+              <mxPoint x="-1000" y="-1156.5" as="sourcePoint" />
+              <mxPoint x="-810" y="-1121" as="targetPoint" />
+              <mxPoint as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&quot;$$Temperature_Value$$&quot;^^xsd:decimal" Type="DataValue" IRI_DT="http://www.w3.org/2001/XMLSchema#decimal" id="bk2kTeLw0D9dxrtDLXrW-7">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;shadow=0;glass=0;sketch=0;strokeColor=default;fontSize=12;fillColor=#FF8C00;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1157" width="280" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 11px&quot;&gt;cco:has_decimal_value&lt;/font&gt;" Type="DatatypeProperty" IRI="http://www.ontologyrepository.com/CommonCoreOntologies/has_decimal_value" id="bk2kTeLw0D9dxrtDLXrW-8">
+          <mxCell style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.8;exitDx=0;exitDy=0;fontSize=12;fillColor=#FFFFFF;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-24" target="bk2kTeLw0D9dxrtDLXrW-9" edge="1">
+            <mxGeometry x="-1328" y="332" as="geometry">
+              <mxPoint x="-1000" y="-1056.5" as="sourcePoint" />
+              <mxPoint x="-810" y="-1021" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&quot;$$Humidity_Value$$&quot;^^xsd:decimal" Type="DataValue" IRI_DT="http://www.w3.org/2001/XMLSchema#decimal" id="bk2kTeLw0D9dxrtDLXrW-9">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;shadow=0;glass=0;sketch=0;strokeColor=default;fontSize=12;fillColor=#FF8C00;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-799" y="-1057" width="279" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:PmdSiUnit" Type="Class" IRI="https://material-digital.de/pmdco/PmdSiUnit" id="bk2kTeLw0D9dxrtDLXrW-10">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-799" y="-1330" width="159" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:##StorageTime_Unit##&lt;/u&gt;" Type="Individual" id="bk2kTeLw0D9dxrtDLXrW-11">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-799" y="-1304" width="159" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:hasPmdUnit" Type="ObjectProperty" IRI="https://material-digital.de/pmdco/hasPmdUnit" id="bk2kTeLw0D9dxrtDLXrW-12">
+          <mxCell style="endArrow=classic;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.25;exitDx=0;exitDy=0;fillColor=#FFFFFF;strokeColor=#FF6666;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-18" target="bk2kTeLw0D9dxrtDLXrW-11" edge="1">
+            <mxGeometry x="-1338" y="198" width="90" height="26" as="geometry">
+              <mxPoint x="-900" y="-1441.5" as="sourcePoint" />
+              <mxPoint x="-729.5" y="-1560" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="pmd:PmdSiUnit" Type="Class" IRI="https://material-digital.de/pmdco/PmdSiUnit" id="bk2kTeLw0D9dxrtDLXrW-14">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;points=[[0.1,0],[0.2,0],[0.3,0],[0.4,0],[0.5,0],[0.6,0],[0.7,0],[0.8,0],[0.9,0],[0,0.1],[0,0.3],[0,0.5],[0,0.7],[0,0.9],[0.1,1],[0.2,1],[0.3,1],[0.4,1],[0.5,1],[0.6,1],[0.7,1],[0.8,1],[0.9,1],[1,0.1],[1,0.3],[1,0.5],[1,0.7],[1,0.9]];fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1230" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:##Temperature_Unit##&lt;/u&gt;" Type="Individual" id="bk2kTeLw0D9dxrtDLXrW-15">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;snapToPoint=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1200" width="160" height="30" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:hasPmdUnit" Type="ObjectProperty" IRI="https://material-digital.de/pmdco/hasPmdUnit" id="bk2kTeLw0D9dxrtDLXrW-16">
+          <mxCell style="endArrow=classic;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.25;exitDx=0;exitDy=0;fillColor=#FFFFFF;strokeColor=#FF6666;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-21" target="bk2kTeLw0D9dxrtDLXrW-15" edge="1">
+            <mxGeometry x="-1328" y="208" width="90" height="26" as="geometry">
+              <mxPoint x="-1000" y="-1219.5" as="sourcePoint" />
+              <mxPoint x="-890" y="-1240" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="pmd:PmdSiUnit" Type="Class" IRI="https://material-digital.de/pmdco/PmdSiUnit" id="bk2kTeLw0D9dxrtDLXrW-17">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1117" width="160" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;u&gt;con:##Humidity_Unit##&lt;/u&gt;" Type="Individual" IRI="Null" id="bk2kTeLw0D9dxrtDLXrW-18">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="97505-SNcamct329gDO7-1" vertex="1">
+            <mxGeometry x="-800" y="-1091" width="160" height="26" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="pmd:hasPmdUnit" Type="ObjectProperty" IRI="https://material-digital.de/pmdco/hasPmdUnit" id="bk2kTeLw0D9dxrtDLXrW-19">
+          <mxCell style="endArrow=classic;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endSize=8;arcSize=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.25;exitDx=0;exitDy=0;fillColor=#FFFFFF;strokeColor=#FF6666;" parent="97505-SNcamct329gDO7-1" source="37UOdtx9yiyN65UCFOAC-24" target="bk2kTeLw0D9dxrtDLXrW-18" edge="1">
+            <mxGeometry width="90" height="26" as="geometry">
+              <mxPoint x="-980" y="-1063.5" as="sourcePoint" />
+              <mxPoint x="-800" y="-1128" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="-920" y="-1063" />
+                <mxPoint x="-920" y="-1084" />
+                <mxPoint x="-840" y="-1084" />
+              </Array>
+              <mxPoint as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 48px;&quot;&gt;Beschreibung&lt;/font&gt;" Type="Namespace" id="y0sDQEQfcDeFF6LFXRae-0">
+          <mxCell style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="97505-SNcamct329gDO7-1">
+            <mxGeometry x="-480" y="-1590" width="640" height="150" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 48px;&quot;&gt;Beschreibung&lt;/font&gt;" Type="Namespace" id="y0sDQEQfcDeFF6LFXRae-1">
+          <mxCell style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="97505-SNcamct329gDO7-1">
+            <mxGeometry x="-480" y="-1410" width="640" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;font style=&quot;font-size: 48px;&quot;&gt;Beschreibung&lt;/font&gt;" Type="Namespace" id="y0sDQEQfcDeFF6LFXRae-2">
+          <mxCell style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="97505-SNcamct329gDO7-1">
+            <mxGeometry x="-480" y="-1330" width="640" height="290" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
