@@ -1,6 +1,6 @@
 {
     "humanreadableID": "BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4",
-    "ID": "8dde4557-73a5-4ce2-8e59-a6547b592bf0",
+    "ID": "d8ce15fe-bd5c-446b-baff-cb44d970e16a",
     "ExperimentDate": "2014-09-01T13:30:25",
     "Lab": "BAM",
     "CompressionColumn": 0,
@@ -15,8 +15,9 @@
     "ExtensometerLength_Unit": "mm",
     "EModule_Unit": "GPa",
     "ProcessedFile": "../usecases/MinimumWorkingExample/emodul/processed_data",
-    "RawDataFile": "C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4/specimen.dat",
-    "SpecimenID": "90a7fcbf-d178-4c98-8a24-f31738401966",
+    "RawDataFile": "C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Demo_Workshop/Data/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4/specimen.dat",
+    "EModule": 33.77,
+    "SpecimenID": "d8ce15fe-bd5c-446b-baff-cb44d970e16a",
     "SpecimenAge": 28.0,
     "SpecimenAge_Unit": "day"
 }
