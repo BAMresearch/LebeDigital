@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 # Fügen Sie das Root-Verzeichnis zum Python-Suchpfad hinzu
-root_path = Path(__file__).parent.parent.parent
-sys.path.append(str(root_path))
+root_directory = Path(__file__).resolve().parents[2]
+sys.path.append(str(root_directory))
 
 from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import mix_metadata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import emodul_metadata
