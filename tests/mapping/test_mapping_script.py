@@ -4,7 +4,7 @@ import os
 import yaml
 from pathlib import Path
 
-from lebedigital.mapping.emodul_mapping import generate_knowledge_graph, get_date_time_value
+from lebedigital.mapping.mappingscript import mapping
 
 
 def query_and_test_result(typeOfQuery, predicate, prop, g):
@@ -28,7 +28,7 @@ def query_and_test_result(typeOfQuery, predicate, prop, g):
 #     print("###################First Query####################################")
 
 #
-# def test_generate_knowledge_graph():
+# def test_mapping():
 #     metadataPath = 'testMetaData.yaml'
 #     filename = "knowledgeGraph.ttl"
 #     print("Start testing:")
