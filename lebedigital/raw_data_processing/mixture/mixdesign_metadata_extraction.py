@@ -202,8 +202,8 @@ def extract_metadata_mixdesign(locationOfRawData):
 
         # water cement ratio ('Wasserzementwert')
         try:
-            metadata['WaterCementRatio'] = float(metadata['Water_Content']
-                                                    / metadata['Cement1_Content'])
+             water_cement_ratio = float(metadata['Water_Content'] / metadata['Cement1_Content'])
+             metadata['WaterCementRatio'] = round(water_cement_ratio, 1)
         except:
             raise Exception("Can not calculate water-cement-ratio! No values found!")
 
@@ -295,15 +295,15 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_12_10 Wolf.xls'
     if args.output == None:
         args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 
     # run extraction and write metadata file
-    #path_to_json = mix_metadata(args.input, args.output)
-    mix_metadata(args.input, args.output)
+    path_to_json = mix_metadata(args.input, args.output)
+    #mix_metadata(args.input, args.output)
 
-    #return path_to_json
+    return path_to_json
 if __name__ == "__main__":
     main()
 
