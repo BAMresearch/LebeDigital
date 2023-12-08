@@ -6,6 +6,7 @@ on:
       - Rawdata-Upload
     paths:
       - 'usecases/UploadWorkflow/files/**'
+      
   workflow_dispatch:
 
 jobs:
