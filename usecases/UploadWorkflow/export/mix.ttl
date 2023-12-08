@@ -1,0 +1,249 @@
+@prefix co: <https://w3id.org/pmd/co/> .
+@prefix ns1: <https://w3id.org/cpto/> .
+@prefix ns3: <http://qudt.org/schema/qudt/> .
+@prefix ns4: <http://purl.org/spar/datacite/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns4:hasIdentifier a owl:ObjectProperty .
+
+xsd:anyURI a rdfs:Datatype .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:float a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+ns1: a owl:Ontology .
+
+ns1:ConcreteMixture_test a owl:NamedIndividual,
+        ns1:MaterialComposition ;
+    ns4:hasIdentifier ns1:ID_test,
+        ns1:humanreadableID_test ;
+    co:characteristic ns1:ExperimentInfo_test,
+        ns1:MaterialComposition_test,
+        ns1:WaterCementRatio_test ;
+    co:input ns1:RawDataFile_test .
+
+co:characteristic a owl:ObjectProperty .
+
+co:composedOf a owl:ObjectProperty .
+
+co:input a owl:ObjectProperty .
+
+co:unit a owl:ObjectProperty .
+
+co:value a owl:DatatypeProperty .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+<test> a ns3:Unit,
+        owl:NamedIndividual .
+
+ns1:Addition a owl:Class .
+
+ns1:Addition1_test a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Addition1_Content_test,
+        ns1:Addition1_Density_test ;
+    co:composedOf ns1:Addition1_Type_test .
+
+ns1:Addition1_Content_test a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Addition1_Density_test a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Addition1_Type_test a owl:NamedIndividual,
+        ns1:Addition ;
+    co:value "test"^^xsd:string .
+
+ns1:Admixture a owl:Class .
+
+ns1:Admixture1_test a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Admixture1_Content_test,
+        ns1:Admixture1_Density_test ;
+    co:composedOf ns1:Admixture1_Type_test .
+
+ns1:Admixture1_Content_test a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Admixture1_Density_test a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Admixture1_Type_test a owl:NamedIndividual,
+        ns1:Admixture ;
+    co:value "test"^^xsd:string .
+
+ns1:Aggregate a owl:Class .
+
+ns1:Aggregate1_test a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Aggregate1_Content_test,
+        ns1:Aggregate1_Density_test,
+        ns1:Aggregate1_Size_test ;
+    co:composedOf ns1:Aggregate1_Type_test .
+
+ns1:Aggregate1_Content_test a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Aggregate1_Density_test a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Aggregate1_Size_test a owl:NamedIndividual,
+        ns1:AggregateSize ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Aggregate1_Type_test a owl:NamedIndividual,
+        ns1:Aggregate .
+
+ns1:AggregateSize a owl:Class .
+
+ns1:Cement a owl:Class .
+
+ns1:Cement1_test a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Cement1_Content_test,
+        ns1:Cement1_Density_test ;
+    co:composedOf ns1:Cement1_Type_test .
+
+ns1:Cement1_Content_test a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Cement1_Density_test a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Cement1_Type_test a owl:NamedIndividual,
+        ns1:Cement ;
+    co:value "test"^^xsd:string .
+
+ns1:ExperimentInfo_test a owl:NamedIndividual,
+        co:NodeInfo ;
+    co:input ns1:Laboratory_test,
+        ns1:MixingDate_test .
+
+ns1:ID_test a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "test"^^xsd:string .
+
+ns1:Laboratory_test a owl:NamedIndividual,
+        co:Laboratory ;
+    co:value "BAM"^^xsd:string .
+
+ns1:MaterialComposition_test a owl:NamedIndividual,
+        ns1:MaterialComposition ;
+    co:composedOf ns1:Addition1_test,
+        ns1:Admixture1_test,
+        ns1:Aggregate1_test,
+        ns1:Cement1_test,
+        ns1:Water_test .
+
+ns1:MixingDate_test a owl:NamedIndividual,
+        co:Time ;
+    co:value "1686614400.0"^^xsd:dateTime .
+
+ns1:RawDataFile_test a owl:NamedIndividual,
+        co:Dataset ;
+    co:value ""^^xsd:anyURI .
+
+ns1:Water a owl:Class .
+
+ns1:WaterCementRatio a owl:Class .
+
+ns1:WaterCementRatio_test a owl:NamedIndividual,
+        ns1:WaterCementRatio ;
+    co:value "test"^^xsd:decimal .
+
+ns1:Water_test a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Water_Content_test,
+        ns1:Water_Density_test ;
+    co:composedOf ns1:Water_Type_test .
+
+ns1:Water_Content_test a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Water_Density_test a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <test> ;
+    co:value "test"^^xsd:float .
+
+ns1:Water_Type_test a owl:NamedIndividual,
+        ns1:Water .
+
+ns1:humanreadableID_test a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "test"^^xsd:string .
+
+co:Dataset a owl:Class .
+
+co:Laboratory a owl:Class .
+
+co:NodeInfo a owl:Class .
+
+co:Time a owl:Class .
+
+ns1:MaterialComposition a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
+
+ns1:Content a owl:Class .
+
+ns1:RelativeDensity a owl:Class .
+
+co:BaseMaterial a owl:Class .
+
+ns3:Unit a owl:Class .
+
