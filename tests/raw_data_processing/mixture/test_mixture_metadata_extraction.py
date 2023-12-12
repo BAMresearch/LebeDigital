@@ -31,7 +31,7 @@ def test_mixdesign_metadata_extraction():
         "Water_Content_Unit": "kg/m^3",
         "Water_Density": 1.0,
         "Water_Density_Unit": "kg/dm^3",
-        "WaterCementRatio": 0.5303030303030303,
+        "WaterCementRatio": 0.5,
         "Admixture1_Content": 5.61,
         "Admixture1_Content_Unit": "kg/m^3",
         "Admixture1_Density": 1.05,
