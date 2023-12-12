@@ -1,9 +1,9 @@
 import os
-from lebedigital.raw_data_processing.mixture.mixture_metadata_extraction import extract_metadata_mixture
+from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import extract_metadata_mixdesign
 from pathlib import Path
 
 
-def test_mixture_metadata_extraction():
+def test_mixdesign_metadata_extraction():
     """Testing the mixture metadata extraction on a single example"""
 
     # setup paths and directories
@@ -16,37 +16,41 @@ def test_mixture_metadata_extraction():
     # make sure that the path exists
     assert(os.path.exists(input_path))
 
-    target_data = {'operator_date': '2014-06-30',
-                   'tester_name': 'Werner',
-                   'specimen_name': 'BA-Losert MI',
-                   'cement--QuantityInMix': 330.0,
-                   'cement--BulkDensity': 3.123,
-                   'cement--Volume': 105.7,
-                   'cement--Annotation': 'CEM I 42.5 R',
-                   'water_total--QuantityInMix': 175.0,
-                   'water_total--BulkDensity': 1.0,
-                   'water_total--Volume': 175.0,
-                   'water_cement_ratio': 0.5303030303030303,
-                   'water_effective--QuantityInMix': float('nan'),
-                   'water_effective--BulkDensity': float('nan'),
-                   'water_effective--Volume': float('nan'),
-                   'air_content--QuantityInMix': 0.0,
-                   'air_content--BulkDensity': 0.0,
-                   'air_content--Volume': 20.0,
-                   'addition1--QuantityInMix': 273.0,
-                   'addition1--BulkDensity': 2.74,
-                   'addition1--Volume': 99.6,
-                   'addition1--Annotation': 'Medenbach - Kalksteinmehl',
-                   'admixture--QuantityInMix': 5.61,
-                   'admixture--BulkDensity': 1.05,
-                   'admixture--Volume': 5.3,
-                   'admixture--Annotation': 'FM 595 BASF',
-                   'aggregate--QuantityInMix': 1564.0,
-                   'aggregate--BulkDensity': float('nan'),
-                   'aggregate--Volume': 594.4000000000001}
-
+    target_data = {
+    "RawDataFile": "../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx",
+    "MixingDate": "2014-06-30T12:00:00",
+    "Lab": "BAM",
+    "ID": "1aac35cf-6bb1-426f-87f7-ef609aadcd05",
+    "humanreadableID": "2014_08_05 Rezeptur_MI",
+    "Cement1_Content": 330.0,
+    "Cement1_Content_Unit": "kg/m^3",
+    "Cement1_Density": 3.123,
+    "Cement1_Density_Unit": "kg/dm^3",
+    "Cement1_Type": "CEM I 42.5 R",
+    "Water_Content": 175.0,
+    "Water_Content_Unit": "kg/m^3",
+    "Water_Density": 1.0,
+    "Water_Density_Unit": "kg/dm^3",
+    "WaterCementRatio": 0.5303030303030303,
+    "Admixture1_Content": 5.61,
+    "Admixture1_Content_Unit": "kg/m^3",
+    "Admixture1_Density": 1.05,
+    "Admixture1_Density_Unit": "kg/dm^3",
+    "Admixture1_Type": "FM 595 BASF",
+    "Aggregate1_Content": 1564.0,
+    "Aggregate1_Content_Unit": "kg/m^3",
+    "Aggregate1_Size": float('nan'),
+    "Aggregate1_Size_Unit": float('nan'),
+    "Aggregate1_Density": float('nan'),
+    "Aggregate1_Density_Unit": "kg/dm^3",
+    "Addition1_Content": 273.0,
+    "Addition1_Content_Unit": "kg/m^3",
+    "Addition1_Density": 2.74,
+    "Addition1_Density_Unit": "kg/dm^3",
+    "Addition1_Type": "Medenbach Kalksteinmehl"
+}
     # run extraction and getting a dictionary with metadata
-    test_data = extract_metadata_mixture(input_path, None)
+    test_data = extract_metadata_mixdesign(input_path, None)
 
     # test each value
     # conversion to string is required as float.nan != float.nan
