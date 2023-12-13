@@ -1,0 +1,249 @@
+@prefix co: <https://w3id.org/pmd/co/> .
+@prefix ns1: <https://w3id.org/cpto/> .
+@prefix ns3: <http://qudt.org/schema/qudt/> .
+@prefix ns4: <http://purl.org/spar/datacite/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns4:hasIdentifier a owl:ObjectProperty .
+
+xsd:anyURI a rdfs:Datatype .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:float a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+ns1: a owl:Ontology .
+
+ns1:ConcreteMixture_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:MaterialComposition ;
+    ns4:hasIdentifier ns1:ID_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:humanreadableID_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:characteristic ns1:ExperimentInfo_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:MaterialComposition_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:WaterCementRatio_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:input ns1:RawDataFile_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+co:characteristic a owl:ObjectProperty .
+
+co:composedOf a owl:ObjectProperty .
+
+co:input a owl:ObjectProperty .
+
+co:unit a owl:ObjectProperty .
+
+co:value a owl:DatatypeProperty .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-M3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-M3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-M3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<nan> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-M3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-M3> a ns3:Unit,
+        owl:NamedIndividual .
+
+<http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> a ns3:Unit,
+        owl:NamedIndividual .
+
+ns1:Addition a owl:Class .
+
+ns1:Addition1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Addition1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Addition1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:composedOf ns1:Addition1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:Addition1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-M3> ;
+    co:value "0.0"^^xsd:float .
+
+ns1:Addition1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> ;
+    co:value "2.32"^^xsd:float .
+
+ns1:Addition1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Addition ;
+    co:value "Flugasche EFA-Füller HP  nan"^^xsd:string .
+
+ns1:Admixture a owl:Class .
+
+ns1:Admixture1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Admixture1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Admixture1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:composedOf ns1:Admixture1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:Admixture1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-M3> ;
+    co:value "0.0"^^xsd:float .
+
+ns1:Admixture1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> ;
+    co:value "1.05"^^xsd:float .
+
+ns1:Admixture1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Admixture ;
+    co:value "ISOFLOW 6250"^^xsd:string .
+
+ns1:Aggregate a owl:Class .
+
+ns1:Aggregate1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Aggregate1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Aggregate1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Aggregate1_Size_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:composedOf ns1:Aggregate1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:Aggregate1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-M3> ;
+    co:value "1685.0"^^xsd:float .
+
+ns1:Aggregate1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> ;
+    co:value "nan"^^xsd:float .
+
+ns1:Aggregate1_Size_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:AggregateSize ;
+    co:unit <nan> ;
+    co:value "nan"^^xsd:float .
+
+ns1:Aggregate1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Aggregate .
+
+ns1:AggregateSize a owl:Class .
+
+ns1:Cement a owl:Class .
+
+ns1:Cement1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Cement1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Cement1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:composedOf ns1:Cement1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:Cement1_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-M3> ;
+    co:value "420.0"^^xsd:float .
+
+ns1:Cement1_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> ;
+    co:value "3.0"^^xsd:float .
+
+ns1:Cement1_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Cement ;
+    co:value "CEM II/A-LL 42.5 N Bernburg"^^xsd:string .
+
+ns1:ExperimentInfo_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:NodeInfo ;
+    co:input ns1:Laboratory_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:MixingDate_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:ID_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "cfc45ea9-8a04-4c8c-a3cd-41af74ae0310"^^xsd:string .
+
+ns1:Laboratory_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:Laboratory ;
+    co:value "BAM"^^xsd:string .
+
+ns1:MaterialComposition_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:MaterialComposition ;
+    co:composedOf ns1:Addition1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Admixture1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Aggregate1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Cement1_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Water_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:MixingDate_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:Time ;
+    co:value "2023-06-13T12:00:00"^^xsd:dateTime .
+
+ns1:RawDataFile_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "usecases/UploadWorkflow/files/mix.xls"^^xsd:anyURI .
+
+ns1:Water a owl:Class .
+
+ns1:WaterCementRatio a owl:Class .
+
+ns1:WaterCementRatio_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:WaterCementRatio ;
+    co:value "0.5"^^xsd:decimal .
+
+ns1:Water_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:BaseMaterial ;
+    co:characteristic ns1:Water_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310,
+        ns1:Water_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 ;
+    co:composedOf ns1:Water_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 .
+
+ns1:Water_Content_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Content ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-M3> ;
+    co:value "197.0"^^xsd:float .
+
+ns1:Water_Density_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:RelativeDensity ;
+    co:unit <http://qudt.org/vocab/unit/KiloGM-PER-DeciM3> ;
+    co:value "1.0"^^xsd:float .
+
+ns1:Water_Type_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        ns1:Water .
+
+ns1:humanreadableID_cfc45ea9-8a04-4c8c-a3cd-41af74ae0310 a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "mix"^^xsd:string .
+
+co:Dataset a owl:Class .
+
+co:Laboratory a owl:Class .
+
+co:NodeInfo a owl:Class .
+
+co:Time a owl:Class .
+
+ns1:MaterialComposition a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
+
+ns1:Content a owl:Class .
+
+ns1:RelativeDensity a owl:Class .
+
+co:BaseMaterial a owl:Class .
+
+ns3:Unit a owl:Class .
+
