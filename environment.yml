@@ -27,19 +27,17 @@ dependencies:
   - python-graphviz
   - pytest
   - xlrd
-  - openpyxl
   - tectonic=0.8
   - pint=0.20
   - pint-pandas
   - snakemake
-  - pybis=1.35.5
-  - xlsxwriter
   - termcolor
   - sphinx
   - pytest-cov
   - codecov
-  - pydantic<2.0
   - seaborn
+  - extpybis
+  - openpyxl
   - pip:
     - probeye==2.3.0
     - -e .

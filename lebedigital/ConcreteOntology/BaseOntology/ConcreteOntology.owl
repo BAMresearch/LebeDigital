@@ -766,7 +766,7 @@ vgl: environmental actions"""@en ;
 
 
 ###  https://w3id.org/cpto/MeasuringNode
-<https://w3id.org/cpto/MeasuringNode> rdf:type owl:Class ;
+<https://w3id.org/cpto/MeasuringNode> rdf:type owl:Class ;e
                                       rdfs:subClassOf <https://w3id.org/pmd/co/Process> .
 
 

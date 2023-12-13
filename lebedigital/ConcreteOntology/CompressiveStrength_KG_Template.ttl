@@ -19,8 +19,6 @@ prov:startedAtTime a owl:DatatypeProperty .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,
         co:Specimen ;
-    ns2:hasIdentifier ns1:humanreadableID_ ;
-    co:characteristic ns1:SpecimenAge_ ;
     co:input ns1:CompressiveStrength_ .
 
 co: a owl:Ontology .
@@ -58,12 +56,13 @@ ns1:CompressionForce_ a owl:NamedIndividual,
 ns1:CompressiveStrength_ a owl:NamedIndividual,
         ns1:ConcreteCompressiveStrength ;
     ns2:hasIdentifier ns1:humanreadableID_ ;
+    co:characteristic ns1:SpecimenAge_ ;
     co:input ns1:OpenBisRawDataFile_,
         ns1:RawDataFile_ ;
     co:output ns1:ExperimentInfo_ ;
     co:resource ns1:DINEN12390-3:2019 ;
     co:unit <https://w3id.org/cpto/##CompressiveStrength_Unit##> ;
-    co:value "$$CompressiveStregth_Value$$"^^xsd:decimal .
+    co:value "$$CompressiveStrength_Value$$"^^xsd:decimal .
 
 ns1:ConcreteCompressiveStrength a owl:Class .
 
@@ -114,6 +113,10 @@ ns1:Transducer_ a owl:NamedIndividual,
     co:jsonPath "$$TransducerColumn_Value$$"^^xsd:string ;
     co:unit <https://w3id.org/cpto/##Extensometer_Unit##> .
 
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
+
 co:Date a owl:Class .
 
 co:Extension a owl:Class .
@@ -125,10 +128,6 @@ co:MaximumForce a owl:Class .
 co:ProvidedIdentifier a owl:Class .
 
 co:Specimen a owl:Class .
-
-ns1:humanreadableID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 ns8:Unit a owl:Class .
 

@@ -1,13 +1,10 @@
 @prefix co: <https://w3id.org/pmd/co/> .
 @prefix ns1: <https://w3id.org/cpto/> .
 @prefix ns3: <http://qudt.org/schema/qudt/> .
-@prefix ns4: <http://purl.org/spar/datacite/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-ns4:hasIdentifier a owl:ObjectProperty .
 
 xsd:dateTimeStamp a rdfs:Datatype .
 
@@ -21,7 +18,6 @@ ns1: a owl:Ontology .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,
         co:Specimen ;
-    ns4:hasIdentifier ns1:humanreadableID_ ;
     co:input ns1:SecantModulusOfElasticty_ .
 
 co:characteristic a owl:ObjectProperty .
@@ -105,7 +101,6 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
-    ns4:hasIdentifier ns1:humanreadableID_ ;
     co:characteristic ns1:SpecimenAge_ ;
     co:output ns1:ExperimentInfo_ ;
     co:process ns1:Computation_ ;
@@ -139,13 +134,7 @@ co:MaximumForce a owl:Class .
 
 co:ModulusOfElasticity a owl:Class .
 
-co:ProvidedIdentifier a owl:Class .
-
 co:Specimen a owl:Class .
-
-ns1:humanreadableID_ a owl:NamedIndividual,
-        co:ProvidedIdentifier ;
-    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 co:Dataset a owl:Class .
 
