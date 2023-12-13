@@ -5,7 +5,7 @@ import json
 from loguru import logger
 
 
-def unit_conversion(input_metadata, UnitURIpath = "../../lebedigital/mapping/unit_URI.json"):
+def unit_conversion(input_metadata, UnitURIpath = "lebedigital/mapping/unit_URI.json"):
 
     """
 
