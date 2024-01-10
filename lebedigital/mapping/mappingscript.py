@@ -11,7 +11,7 @@ from loguru import logger
 import uuid
 import argparse
 from lebedigital.mapping.unit_conversion import unit_conversion
-
+from lebedigital.mapping.check_duplicate import check_mix_metadata
 
 def load_metadata(dataPath):
     '''
@@ -219,12 +219,15 @@ def main():
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
                       '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json'
                       ]
     if args.output == None:
         args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/testEmoduleMapped.ttl',
                        '../../usecases/MinimumWorkingExample/Mapping_Example/testSpecimenMapped.ttl',
                        '../../usecases/MinimumWorkingExample/Mapping_Example/testMixMapped.ttl']
+
+    # Check mix metadata and generate additional placeholders
+    check_mix_metadata(args.input[5], args.input[4])
 
     # run extraction and write metadata file
     #emodule
