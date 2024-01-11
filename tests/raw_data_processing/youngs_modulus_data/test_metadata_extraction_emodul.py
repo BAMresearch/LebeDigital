@@ -11,21 +11,20 @@ def test_metadata_extraction_emodul():
         mix_file = 'mix.dat'
         specimen_file = 'specimen.dat'
 
-        target_data = {'experimentName': 'test_data',
-                                         'software_specification': 'MTS793|MPT|DEU|1|2|,|.|:|49|1|1|A',
-                                         'operator_timestamp': '13:25:39',
-                                         'operator_date': '01.09.2014',
-                                         'tester_name': 'Kh',
-                                         'specimen_name': 'BA-Losert E-Modul 28d v. 04.08.14 Probe 4',
-                                         'remark': 'Kraftgeregelt 3,9 kN/s',
-                                         'weight': 5342.0,
-                                         'diameter': 98.6,
-                                         'weight_unit': 'g',
-                                         'length': 300.3,
-                                         'length_unit': 'mm',
-                                         'mix_file': '2014_08_05 Rezeptur_MI.xlsx'}
+        target_data = {
+                         "humanreadableID": "BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4",
+                         "ID": "d8ce15fe-bd5c-446b-baff-cb44d970e16a",
+                         "MixtureID": "6fea0bac-e04b-458d-b7b5-f8e2712c5efa",
+                         "SpecimenMass": 5342.0,
+                         "SpecimenMass_Unit": "g",
+                         "SpecimenDiameter": 98.6,
+                         "SpecimenDiameter_Unit": "mm",
+                         "SpecimenLength": 300.3,
+                         "SpecimenLength_Unit": "mm"
+                      }
+                      
 
         # run extraction and getting a dictionary with metadata
-        test_data = extract_metadata_emodulus(data_path, specimen_file, mix_file)
+        test_metadata_emodule, test_metadata_specimen = extract_metadata_emodulus(data_path, specimen_file, mix_file)
 
-        assert test_data == target_data
+        assert test_metadata_specimen == target_data
