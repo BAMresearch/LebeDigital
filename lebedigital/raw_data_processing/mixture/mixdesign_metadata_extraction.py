@@ -295,7 +295,7 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_12_10 Wolf.xls'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
     if args.output == None:
         args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 
