@@ -2,32 +2,31 @@
 # Works with the MixDesign ontology for mapping.
 
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 from cmath import nan
 import pandas as pd
+import numpy as np
 # removing 'SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame'
 pd.options.mode.chained_assignment = None  # default='warn'
 import os
 import json
-from loguru import logger 
+from loguru import logger
 from pathlib import Path
 import argparse
 import uuid
 
-
 # Set up logger
 baseDir = Path(__file__).parents[0]
 logPath = os.path.join(baseDir, "logs", "file_{time}.log")
-#logger.add(logPath, level="DEBUG")  # this also displays the log in the console
+# logger.add(logPath, level="DEBUG")  # this also displays the log in the console
 logger.configure(handlers=[{"sink": logPath, "level": "DEBUG"}])
 
 
-
 # function to convert german formatting to english
-def replace_comma(string, format = 'float'):
+def replace_comma(string, format='float'):
     if '---' in string:
-        string = nan  # maybe None? But this will cause errors when float(string)
+        string = np.nan  # maybe None? But this will cause errors when float(string)
         return string
     elif format == 'float':
         string = string.replace(',', '.')
@@ -37,11 +36,9 @@ def replace_comma(string, format = 'float'):
         return string
 
 
-
 # function to check for nan-values independently of the format (str/float)
 def isNaN(num):
-    return num != num
-
+    return num is None or num != num
 
 
 # decorater in case you want to catch errors so that the script won't break
@@ -64,13 +61,12 @@ def extract_metadata_mixdesign(locationOfRawData):
         -------
         The dict containing the metadata will be returned.
     """
-    
 
     # Find sheets in the file containing the mixture (keyword: "Rezeptur"), allow
     # only one sheet per file
     excelsheet = os.path.basename(locationOfRawData)
     excelfile = pd.read_excel(locationOfRawData, sheet_name=None)
-    listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i] 
+    listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i]
     logger.debug('Working on file: ' + excelsheet)
     logger.debug('Following sheet(s) contain mixture metadata in this file: ' + str(listofkeys))
 
@@ -82,15 +78,15 @@ def extract_metadata_mixdesign(locationOfRawData):
 
         # name of json-file will be experiment-name
         name = os.path.basename(excelsheet).split('.xl')[0]
-        
+
         # save data from excelsheet into pandas dataframe
         exceltodf = excelfile[sheet]
-     
+
         # create empty dictionary for metadata
         metadata = {}
 
         # the layout of the Excel table can vary, the indices of labels are not
-        # always the same; that's why: find now the indices of the labels and 
+        # always the same; that's why: find now the indices of the labels and
         # store it in a dictionary
         labelidx = {}
         labelcolumn = exceltodf.iloc[:, 0]  # select first column (containing labels)
@@ -111,11 +107,10 @@ def extract_metadata_mixdesign(locationOfRawData):
                 logger.error('More than two additions found in raw data.')
                 raise Exception('More than two additions found in raw data.')
 
-
-        # Check for missing labels; the following labels should exist (except 
+        # Check for missing labels; the following labels should exist (except
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
-        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)', 
-                        'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
+        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)',
+                          'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
         missing_labels = [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
             if missing_labels == ['Zusatzstoff2']:
@@ -123,7 +118,6 @@ def extract_metadata_mixdesign(locationOfRawData):
             else:
                 logger.error('Check raw data, there are labels missing: ' + str(missing_labels))
                 raise KeyError('Check raw data, there are labels missing', missing_labels)
-
 
         # Some files don't have the type of addition/Zusatzstoff only labeled
         # in a cell that will be neglected during the extraction, so this saves
@@ -141,7 +135,6 @@ def extract_metadata_mixdesign(locationOfRawData):
             else:
                 exceltodf.iloc[i, 8] = str(exceltodf.iloc[i, 8]) + ' ' + str(exceltodf.iloc[i, 1])
 
-
         # This function will ensure that no empty annotation-information will
         # be passed to the json-file (check annotation-cell for nan)
         def no_empty_annotation(name):
@@ -151,7 +144,6 @@ def extract_metadata_mixdesign(locationOfRawData):
             else:
                 dic_label = str(name + '_Type')
                 metadata[dic_label] = replace_comma(str(exceltodf.iat[idx, 8]), format='str')
-
 
         ############### E X T R A C T I O N #############
 
@@ -171,12 +163,12 @@ def extract_metadata_mixdesign(locationOfRawData):
         # humanreadable ID of this mix - is the name of the file without format
         metadata['humanreadableID'] = name
 
-        #----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
 
-        # Extraction of the columns 'Stoffmenge' (QuantityInMix), 'Dichte bzw. 
+        # Extraction of the columns 'Stoffmenge' (QuantityInMix), 'Dichte bzw.
         # Rohdichte' (Density).
 
-        # Cement data ('Zement') 
+        # Cement data ('Zement')
         if 'Zement' not in missing_labels:
             idx = labelidx['Zement']
             metadata['Cement1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
@@ -187,8 +179,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('cement not included in json-file')
 
-
-        # total water data ('Wasser (gesamt)') 
+        # total water data ('Wasser (gesamt)')
         if 'Wasser (gesamt)' not in missing_labels:
             idx = labelidx['Wasser (gesamt)']
             metadata['Water_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
@@ -199,16 +190,14 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('Water not included in json-file')
 
-
         # water cement ratio ('Wasserzementwert')
         try:
-             water_cement_ratio = float(metadata['Water_Content'] / metadata['Cement1_Content'])
-             metadata['WaterCementRatio'] = round(water_cement_ratio, 1)
+            metadata['WaterCementRatio'] = float(metadata['Water_Content']
+                                                 / metadata['Cement1_Content'])
         except:
             raise Exception("Can not calculate water-cement-ratio! No values found!")
 
-
-        # Admixture/Plasticizer ('Zusatzmittel') 
+        # Admixture/Plasticizer ('Zusatzmittel')
         if 'Zusatzmittel' not in missing_labels:
             idx = labelidx['Zusatzmittel']
             metadata['Admixture1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
@@ -219,20 +208,18 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('Plasticizer/Admixture not included in json-file')
 
-
         # Aggregate ('Zuschlag (gesamt)')
         if 'Zuschlag (gesamt)' not in missing_labels:
             idx = labelidx['Zuschlag (gesamt)']
             metadata['Aggregate1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
             metadata['Aggregate1_Content_Unit'] = 'kg/m^3'
             metadata['Aggregate1_Size'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Aggregate1_Size_Unit'] = nan
+            metadata['Aggregate1_Size_Unit'] = float('nan')
             metadata['Aggregate1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Aggregate1_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Aggregate1')
         else:
             logger.error('Okrilla/aggregate not included in json-file')
-
 
         # Addition data ('Zusatzstoff')
         if 'Zusatzstoff1' not in missing_labels:
@@ -256,10 +243,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('addition2 not included in json-file')
 
-
-
         return metadata
-
 
 
 def mix_metadata(rawDataPath, metaDataFile):
@@ -275,15 +259,19 @@ def mix_metadata(rawDataPath, metaDataFile):
 
     # extracting the metadata
     metadata = extract_metadata_mixdesign(rawDataPath)
+    # Replace occurrences of NaN with None in the metadata dictionary
+    metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
+
     json_name = rawDataPath.split('/')[-1].split('.')[0]
     metaDataFile = metaDataFile + json_name
-    #print(rawDataPath.split('/')[-1].split('.')[0])
+    # print(rawDataPath.split('/')[-1].split('.')[0])
     # writing the metadata to json file
-    with open(metaDataFile, 'w') as jsonFile:
-
+    with open(metaDataFile + ".json", 'w') as jsonFile:
         json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
 
     return metaDataFile
+
+
 def main():
     # create parser
     parser = argparse.ArgumentParser(description='Script to extract metadata from MixDesign.')
@@ -300,12 +288,11 @@ def main():
         args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 
     # run extraction and write metadata file
-    path_to_json = mix_metadata(args.input, args.output)
-    #mix_metadata(args.input, args.output)
+    # path_to_json = mix_metadata(args.input, args.output)
+    mix_metadata(args.input, args.output)
 
-    return path_to_json
+    # return path_to_json
+
+
 if __name__ == "__main__":
     main()
-
-
-
