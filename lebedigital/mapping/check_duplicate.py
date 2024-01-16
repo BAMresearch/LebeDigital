@@ -8,8 +8,9 @@ import os
 
 #json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 #json_files = os.listdir(json_files_directory)
-json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
+json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json'
 kg_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
+output_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
 
 def check_duplicate_keys(data, key_prefix):
     # Define the pattern for the given key prefix
@@ -40,7 +41,7 @@ def extract_common_prefix(keys):
     return list(common_prefixes)
 
 # Load the JSON data from your file
-def check_mix_metadata(json_file_path, kg_template_path):
+def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
     #json_files = os.listdir(json_files_directory)
     with open(json_file_path, 'r') as file:
         data = json.load(file)
@@ -127,10 +128,14 @@ def check_mix_metadata(json_file_path, kg_template_path):
         #print(modified_turtle_data)
 
 # Open the new TTL file in write mode and write the modified data
-    with open(kg_template_path, 'w') as new_file:
+    with open(output_template_path, 'w') as new_file:
         new_file.write(modified_turtle_data)
 
+
+# Call the function with the appropriate file paths
+check_mix_metadata(json_file_path, kg_template_path, output_template_path)
+
 # Print a message indicating the successful modification and the path to the new TTL file
-#logger.info(f'Turtle data has been successfully modified and saved to {turtle_file_path}')
+logger.info(f'Turtle data has been successfully modified and saved to {output_template_path}')
 
 
