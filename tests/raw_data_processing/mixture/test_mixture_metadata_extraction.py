@@ -17,7 +17,7 @@ def test_mixdesign_metadata_extraction():
     assert(os.path.exists(input_path))
 
     target_data = {
-        "RawDataFile": "../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx",
+        "RawDataFile": "test_data/2014_08_05 Rezeptur_MI.xlsx",
         "MixingDate": "2014-06-30T12:00:00",
         "Lab": "BAM",
         "ID": "1aac35cf-6bb1-426f-87f7-ef609aadcd05",
