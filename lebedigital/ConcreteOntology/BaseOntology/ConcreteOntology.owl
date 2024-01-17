@@ -1,0 +1,2262 @@
+@prefix : <https://w3id.org/cpto#> .
+@prefix con: <https://w3id.org/cpto#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://w3id.org/cpto> .
+
+<https://w3id.org/cpto> rdf:type owl:Ontology ;
+                         owl:imports <https://w3id.org/pmd/co> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  https://w3id.org/cpto/definition
+<https://w3id.org/cpto/definition> rdf:type owl:AnnotationProperty .
+
+
+###  https://w3id.org/cpto/source
+<https://w3id.org/cpto/source> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/cpto/Addition
+<https://w3id.org/cpto/Addition> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://w3id.org/cpto/Additives> ;
+                                 rdfs:comment "nan"@en ;
+                                 rdfs:label "Addition"@en ,
+                                            "Betonzusatzstoff"@de ;
+                                 <http://www.w3.org/ns/prov#definition> "Fein verteilter anorganischer Stoff, der im Beton verwendet wird, um bestimmte Eigenschaften zu verbessern oder um bestimmte Eigenschaften zu erreichen."@de ,
+                                                                        "Finely divided material used in concrete in order to improve certain properties or to achieve special properties."@en ;
+                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                            "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Additives
+<https://w3id.org/cpto/Additives> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                  rdfs:comment "DIN EN 206"@en ;
+                                  rdfs:label "Additives"@en ,
+                                             "Betonzusaetze"@de ;
+                                  <http://www.w3.org/ns/prov#definition> "Stoffe, die dem Beton zur Beeinflussung bestimmter Frisch- und/oder Festbetoneigenschaften zugegeben werden. Nach Art und Zugabemenge unterscheidet man Betonzusatzmittel und Betonzusatzstoffe."@de ,
+                                                                         "a substance added to another in relatively small amounts to impart or improve desirable properties or suppress undesirable properties."@en ;
+                                  <https://w3id.org/pmd/co/definitionSource> "ACI"@en ,
+                                                                             "Zement-Merkblatt B3"@de .
+
+
+###  https://w3id.org/cpto/Admixture
+<https://w3id.org/cpto/Admixture> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/cpto/Additives> ;
+                                  rdfs:comment "nan"@en ;
+                                  rdfs:label "Admixture"@en ,
+                                             "Betonzusatzmittel"@de ;
+                                  <http://www.w3.org/ns/prov#definition> "Material added during the mixing process of concrete in small quantities related to the mass of cement to modify the properties of fresh or hardened concrete."@en ,
+                                                                         "Stoff, der waehrend des Mischvorgangs des Betons in kleinen Mengen, bezogen auf den Zementgehalt, zugegeben wird, um die Eigenschaften des Frischbetons oder Festbetons zu veraendern"@de ;
+                                  <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                             "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Aggregate
+<https://w3id.org/cpto/Aggregate> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                  rdfs:comment "nan"@en ;
+                                  rdfs:label "Aggregate"@en ,
+                                             "Gesteinskoernung"@de ;
+                                  <http://www.w3.org/ns/prov#definition> "Fuer die Verwendung in Beton geeigneter gekoernter, mineralischer Stoff, der natuerlich, kuenstlich, wiedergewonnen oder rezykliert sein kann."@de ,
+                                                                         "Natural, artificial, reclaimed or recycled granular mineral constituent suitable for use in concrete."@en ;
+                                  <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                             "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/AggregateSize
+<https://w3id.org/cpto/AggregateSize> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/MaterialProperty> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Korngroesse"@de ,
+                                                 "aggregate size"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "Bezeichnung einer Gesteinskoernung mittels unterer (d) und oberer (D) Siebgroesse, angegeben als d/D."@de ,
+                                                                             "Designation of aggregate in terms of lower (d) and upper (D) sieve sizes expressed as d/D."@en ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Air
+<https://w3id.org/cpto/Air> rdf:type owl:Class ;
+                            rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                            rdfs:comment "nan"@en ;
+                            rdfs:label "Air"@en ,
+                                       "Luft"@de ;
+                            <http://www.w3.org/ns/prov#definition> "Stoffgemisch aus verschiedenen Gasen"@de ,
+                                                                   "nan"@en ;
+                            <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                       "nan"@en .
+
+
+###  https://w3id.org/cpto/AllInAggregate
+<https://w3id.org/cpto/AllInAggregate> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                       rdfs:comment "nan"@en ;
+                                       rdfs:label "Gesteinskoernungsgemisch"@de ,
+                                                  "all-in aggregate"@en ;
+                                       <http://www.w3.org/ns/prov#definition> "Aggregate consisting of a mixture of coarse and fine aggregates with D greater than 4 mm and d = 0."@en ,
+                                                                              "Gesteinskoernung, bestehend aus einem Gemisch grober und feiner Gesteinskoernungen mit D groesser als 4 mm und mit d = 0."@de ;
+                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                  "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Batch
+<https://w3id.org/cpto/Batch> rdf:type owl:Class ;
+                              rdfs:subClassOf <https://w3id.org/pmd/co/ManufacturingNode> ;
+                              rdfs:comment "nan"@en ;
+                              rdfs:label "Charge"@de ,
+                                         "batch"@en ;
+                              <http://www.w3.org/ns/prov#definition> "Menge Frischbeton, die entweder in einem Arbeitsspiel eines Mischers hergestellt wird oder die waehrend 1 min von einem Durchlaufmischer ausgestossen wird."@de ,
+                                                                     "The quantity of fresh concrete produced in one cycle of operations of a mixer or the quantity discharged during 1 min from a continous mixer."@en ;
+                              <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                         "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/BlastFurnaceSlag
+<https://w3id.org/cpto/BlastFurnaceSlag> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Hochofenschlacke"@de ,
+                                                    "blast furnace slag"@en ;
+                                         <http://www.w3.org/ns/prov#definition> "Blast furnace slag is a by-product of pig iron production through thermochemical reduction processes at around 1500C in a blast furnace."@en ,
+                                                                                "Hochofenschlacke entsteht als Nebenprodukt bei der Roheisengewinnung durch thermochemische Reduktionsprozesse bei ca. 1500C im Hochofen."@de ;
+                                         <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                    "nan"@en .
+
+
+###  https://w3id.org/cpto/Calorimeter
+<https://w3id.org/cpto/Calorimeter> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/pmd/co/MeasuringDevice> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Calorimeter"@en ,
+                                               "Kalorimeter"@de ;
+                                    <http://www.w3.org/ns/prov#definition> "Instrument for measuring heat exchange during a chemical reaction, such as the quantity of heat liberated by the combustion of a fuel or hydration of a cement."@en ,
+                                                                           "Instrument zur Messung des Waermeaustauschs waehrend einer chemischen Reaktion, wie z. B. der Waermemenge, die durch die Verbrennung eines Brennstoffs oder die Hydratation eines Zements freigesetzt wird."@de ;
+                                    <https://w3id.org/pmd/co/definitionSource> "ACI CT-21: ACI Concrete Terminology"@de ,
+                                                                               "ACI CT-21: ACI Concrete Terminology"@en .
+
+
+###  https://w3id.org/cpto/CastingDevice
+<https://w3id.org/cpto/CastingDevice> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/ProcessingNode> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Betoniervorrichtung"@de ,
+                                                 "Casting Device"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "Device or tool used to cast concrete."@en ,
+                                                                             "Geraete oder Hilfsmittel zur Verwendung bei einer Betonage."@de ;
+                                      <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                 "nan"@en .
+
+
+###  https://w3id.org/cpto/Cement
+<https://w3id.org/cpto/Cement> rdf:type owl:Class ;
+                               rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                               rdfs:comment "nan"@en ;
+                               rdfs:label "Cement"@en ,
+                                          "Zement"@de ;
+                               <http://www.w3.org/ns/prov#definition> "A finely ground inorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water."@en ,
+                                                                      "Fein gemahlener anorganischer Stoff, der, mit Wasser gemischt, Zementleim ergibt, welcher durch Hydratation erstarrt und erhaertet und nach dem Erhaerten auch unter Wasser stabil und raumbestaendig bleibt."@de ;
+                               <https://w3id.org/pmd/co/definitionSource> "EN 197-1"@de ,
+                                                                          "EN 197-1"@en .
+
+
+###  https://w3id.org/cpto/CharacteristicStrength
+<https://w3id.org/cpto/CharacteristicStrength> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                                               rdfs:comment "nan"@en ;
+                                               rdfs:label "characteristic strength"@en ,
+                                                          "charakteristische Festigkeit"@de ;
+                                               <http://www.w3.org/ns/prov#definition> "Festigkeitswert, unter dem erwartungsgemaess 5 % der Grundgesamtheit aller moeglichen Festigkeitswerte des betrachteten Betonvolumens liegen."@de ,
+                                                                                      "Value of strength below which 5 % of the population of all possible strength determinations of the volume of concrete under consideration, are expected to fall."@en ;
+                                               <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                          "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/CompositeMaterial
+<https://w3id.org/cpto/CompositeMaterial> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
+                                          rdfs:comment "nan"@en ;
+                                          rdfs:label "Composite Material"@en ,
+                                                     "Verbundwerkstoff"@de ;
+                                          <http://www.w3.org/ns/prov#definition> "Engineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually."@en ,
+                                                                                 "Technische Werkstoffe, die aus zwei oder mehr Bestandteilen bestehen, die getrennt bleiben, sich aber zu Materialien mit Eigenschaften verbinden, die keiner der Bestandteile einzeln besitzt."@de ;
+                                          <https://w3id.org/pmd/co/definitionSource> "ACI"@de ,
+                                                                                     "ACI"@en .
+
+
+###  https://w3id.org/cpto/CompressiveStregthClass
+<https://w3id.org/cpto/CompressiveStregthClass> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                                                rdfs:comment "nan"@en ;
+                                                rdfs:label "Druckfestigkeitsklasse"@de ,
+                                                           "compressive strength class"@en ;
+                                                <http://www.w3.org/ns/prov#definition> "Classification comprising the type of concrete (normal-weight and heavy-weight or lightweight), the minimum characteristic cylinder strength (150 mm diameter by 300 mm length) and the minimum characteristic cube strength (150 mm edge length)."@en ,
+                                                                                       "Klassifizierung bestehend aus der Betonart (Normal-, Schwer- oder Leichtbeton), dem Mindestwert der charakteristischen Zylinderfestigkeit (bei Zylindern von 150 mm Durchmesser und 300 mm Laenge) und dem Mindestwert der charakteristischen Wuerfelfestigkeit (bei einer Kantenlaenge des Wuerfels von 150 mm)."@de ;
+                                                <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                           "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/CompressiveStrengthCube
+<https://w3id.org/cpto/CompressiveStrengthCube> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                                                rdfs:comment "nan"@en ;
+                                                rdfs:label "Compressive Cube Strength"@en ,
+                                                           "Wuerfeldruckfestigkeit"@de ;
+                                                <http://www.w3.org/ns/prov#definition> "Druckfestigkeit von Beton in MPa (N/mm^2), die bei der Druckfestigkeitspruefung an Probewuerfeln ermittelt wird. "@de ,
+                                                                                       "The compressive strength of concrete in MPa (N/mm^2) determind using cube specimens."@en ;
+                                                <https://w3id.org/pmd/co/definitionSource> "DIN EN 12390-3"@de ,
+                                                                                           "nan"@en .
+
+
+###  https://w3id.org/cpto/CompressiveStrengthCylinder
+<https://w3id.org/cpto/CompressiveStrengthCylinder> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                                                    rdfs:comment "nan"@en ;
+                                                    rdfs:label "Compressive Cylinder Strength "@en ,
+                                                               "Zylinderdruckfestigkeit"@de ;
+                                                    <http://www.w3.org/ns/prov#definition> "Druckfestigkeit von Beton in MPa (N/mm^2), die  bei der Druckfestigkeitspruefung an einem zylinderfoermigen Probekoerper (Probezylinder) ermittelt wird."@de ,
+                                                                                           "The compressive strength of concrete in MPa (N/mm^2) determind using cylinder specimens."@en ;
+                                                    <https://w3id.org/pmd/co/definitionSource> "DIN EN 12390-3"@de ,
+                                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/CompressiveTestingMachine
+<https://w3id.org/cpto/CompressiveTestingMachine> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://w3id.org/pmd/co/TestingMachine> ;
+                                                  <http://www.w3.org/ns/prov#definition> "Maschine zur Durchführung eines Druckversuches; die Regelung und Überwachung des Versuches, die Messungen und die Datenverarbeitung werden üblicherweise mithilfe eines Computers durchgeführt."@de ,
+                                                                                         "machine to conduct a compressive strength test; the control and monitoring of the test, the measurements, and the data processing are usually undertaken by computer"@en ;
+                                                  <https://w3id.org/pmd/co/definitionSource> "DIN EN 12390-4"@de ,
+                                                                                             "DIN EN 12390-4"@en .
+
+
+###  https://w3id.org/cpto/Concrete
+<https://w3id.org/cpto/Concrete> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
+                                 rdfs:comment "nan"@en ;
+                                 rdfs:label "Beton"@de ,
+                                            "Concrete"@en ;
+                                 <http://www.w3.org/ns/prov#definition> "Baustoff, der durch Mischen von Zement, grober und feiner Gesteinskoernung und Wasser, mit oder ohne Zugabe von Zusatzmitteln und Zusatzstoffen oder Fasern, hergestellt wird und seine Eigenschaften durch Hydratation des Zements erhaelt."@de ,
+                                                                        "Material formed by mixing cement, coarse and fine aggregate and water, with or without the incorporation of admixtures and additions, which develops ist properties by hydration of the cement."@en ;
+                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                            "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ConcreteCompressiveStrength
+<https://w3id.org/cpto/ConcreteCompressiveStrength> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> ;
+                                                    rdfs:comment "nan"@en ;
+                                                    rdfs:label "Betondruckfestigkeit"@de ,
+                                                               "Concrete Compressive Strength"@en ;
+                                                    <http://www.w3.org/ns/prov#definition> "Der Quotient aus Bruchlast und Flaeche des Probenquerschnitts eines einachsig beanspruchten Betonprobekoerpers."@de ,
+                                                                                           "The measured maximum resistance of a concrete specimen to axial compressive loading."@en ;
+                                                    <https://w3id.org/pmd/co/definitionSource> "ACI"@en ,
+                                                                                               "DIN EN 12390-3"@de .
+
+
+###  https://w3id.org/cpto/ConcreteManufacturer
+<https://w3id.org/cpto/ConcreteManufacturer> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.w3.org/ns/prov#Organization> ;
+                                             rdfs:comment "nan"@en ;
+                                             rdfs:label "Betonhersteller"@de ,
+                                                        "Concrete Manufacturer"@en ;
+                                             <http://www.w3.org/ns/prov#definition> "Person oder Stelle, die den Frischbeton herstellt."@de ,
+                                                                                    "Person or body producing fresh concrete."@en ;
+                                             <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                        "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ConcreteMixer
+<https://w3id.org/cpto/ConcreteMixer> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/ProcessingNode> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Betonmischer"@de ,
+                                                 "Concrete Mixer"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "A machine used for blending the raw materials of concrete, grout, mortar, cement paste, or other mixture."@en ,
+                                                                             "Baustoffmaschine zur Herstellung von Beton, Moertel oder Zementleim durch Mischen der Ausgangsstoffe."@de ;
+                                      <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                 "nan"@en .
+
+
+###  https://w3id.org/cpto/ConfirmityTest
+<https://w3id.org/cpto/ConfirmityTest> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                       rdfs:comment "nan"@en ;
+                                       rdfs:label "Konfirmitaetspruefung"@de ,
+                                                  "conformity test"@en ;
+                                       <http://www.w3.org/ns/prov#definition> "Pruefung, die vom Hersteller durchgefuehrt wird, um die Konformitaet des Betons nachzuweisen."@de ,
+                                                                              "Test performed by the producer to assess conformity of the concrete."@en ;
+                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                  "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Consistency
+<https://w3id.org/cpto/Consistency> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Konsistenz"@de ,
+                                               "consistency"@en ;
+                                    <http://www.w3.org/ns/prov#definition> "Mass fuer die Steifheit und Verarbeitbarkeit von Frischbeton."@de ,
+                                                                           "Measure of the stiffness and workability of fresh concrete."@en ;
+                                    <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/ConsistencyClass
+<https://w3id.org/cpto/ConsistencyClass> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Konsistenzklasse"@de ,
+                                                    "consistency class"@en ;
+                                         <http://www.w3.org/ns/prov#definition> "Classification of the consistency of fresh concrete."@en ,
+                                                                                "Einteilung der Konsistenz von Frischbeton."@de ;
+                                         <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                    "nan"@en .
+
+
+###  https://w3id.org/cpto/Content
+<https://w3id.org/cpto/Content> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                <http://www.w3.org/ns/prov#definition> "Die Menge an Material im Beton bezogen auf 1 Kubikmeter"@de .
+
+
+###  https://w3id.org/cpto/Customer
+<https://w3id.org/cpto/Customer> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://www.w3.org/ns/prov#Organization> ;
+                                 rdfs:comment "nan"@en ;
+                                 rdfs:label "Abnehmer/Kunde"@de ,
+                                            "Customer"@en ;
+                                 <http://www.w3.org/ns/prov#definition> "Person oder Stelle, die Frischbeton zur Herstellung eines Bauwerks oder eines Bauteils verwendet."@de ,
+                                                                        "Person or body using fresh concrete in the execution of a construction or an element."@en ;
+                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                            "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/DINStandard
+<https://w3id.org/cpto/DINStandard> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/pmd/co/Norm> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "DIN Norm"@de ,
+                                               "DIN Standard"@en ;
+                                    <http://www.w3.org/ns/prov#definition> "Unter Leitung des Deutschen Instituts fuer Normung (DIN) erarbeiteter freiwilliger Standard, in dem materielle und immaterielle Gegenstaende vereinheitlicht sind."@de ,
+                                                                           "Voluntary standard developed under the direction of the German Institute for Standardization (DIN) in which tangible and intangible objects are standardized."@en ;
+                                    <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/DegreeOfCompactability
+<https://w3id.org/cpto/DegreeOfCompactability> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                               rdfs:comment "nan"@en ;
+                                               rdfs:label "Verdichtungsmass"@de ,
+                                                          "degree of compactability"@en ;
+                                               <http://www.w3.org/ns/prov#definition> "nan"@de ,
+                                                                                      "nan"@en ;
+                                               <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                          "nan"@en .
+
+
+###  https://w3id.org/cpto/DegreeOfCompactabilityClass
+<https://w3id.org/cpto/DegreeOfCompactabilityClass> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                                    rdfs:comment "nan"@en ;
+                                                    rdfs:label "Verdichtungsmassklasse"@de ,
+                                                               "degree of compactability class"@en ;
+                                                    <http://www.w3.org/ns/prov#definition> "Classification of consistency by determining the degree of compaction."@en ,
+                                                                                           "Einteilung der Konsistenz durch die Bestimmung des Verdichtungsmasses."@de ;
+                                                    <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/Delivery
+<https://w3id.org/cpto/Delivery> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://w3id.org/pmd/co/ManufacturingNode> ;
+                                 rdfs:comment "nan"@en ;
+                                 rdfs:label "Lieferung"@de ,
+                                            "delivery"@en ;
+                                 <http://www.w3.org/ns/prov#definition> "The process of handing over the fresh concrete by the producer."@en ,
+                                                                        "Vorgang der uebergabe des Frischbetons durch den Hersteller."@de ;
+                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                            "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/DesignedConcrete
+<https://w3id.org/cpto/DesignedConcrete> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Beton nach Eigenschaften"@de ,
+                                                    "designed concrete"@en ;
+                                         <http://www.w3.org/ns/prov#definition> "Beton, fuer den die geforderten Eigenschaften und zusaetzliche Anforderungen, sofern erforderlich, gegenueber dem Hersteller festgelegt sind, der fuer die Bereitstellung eines Betons, der den geforderten Eigenschaften und den zusaetzlichen Anforderungen entspricht, verantwortlich ist."@de ,
+                                                                                "Concrete for which the required properties and additional characteristics are specified to the producer who is responsible for providing a concrete confirming to the required properties and additional characteristics."@en ;
+                                         <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                    "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/DestructiveTesting
+<https://w3id.org/cpto/DestructiveTesting> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                           rdfs:comment "nan"@en ;
+                                           rdfs:label "Destructive Testing"@en ,
+                                                      "Zerstoerende Pruefung"@de ;
+                                           <http://www.w3.org/ns/prov#definition> "Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei zerstoert oder veraendert werden."@de ,
+                                                                                  "Testing for chemical and/or physical properties where materials were destroyed or changed in the process."@en ;
+                                           <https://w3id.org/pmd/co/definitionSource> "Krankenhagen & Laube (1983)"@de ,
+                                                                                      "nan"@en .
+
+
+###  https://w3id.org/cpto/DeterminationOfCompressiveStrength
+<https://w3id.org/cpto/DeterminationOfCompressiveStrength> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                                           rdfs:comment "nan"@en ;
+                                                           rdfs:label "Determination of Compressive Strength"@en ,
+                                                                      "Druckfestigkeitspruefung"@de ;
+                                                           <http://www.w3.org/ns/prov#definition> "Pruefung der Druckfestigkeit an Probewuerfeln oder -zylindern, die in einer Druckpruefmaschine mit vorgegebener Belastungsgeschwindigkeit bis zum Bruch auf Druck belastet werden. "@de ,
+                                                                                                  "Testing of the compressive strength on test cubes or cylinders, which are subjected to compression in a compression testing machine at a specified loading rate until fracture."@en ;
+                                                           <https://w3id.org/pmd/co/definitionSource> "DIN EN 12390-3"@de ,
+                                                                                                      "nan"@en .
+
+
+###  https://w3id.org/cpto/DeterminationOfHeatOfHydration
+<https://w3id.org/cpto/DeterminationOfHeatOfHydration> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                                       rdfs:label "Determination of Compressive Strength"@en ,
+                                                                  "Druckfestigkeitspruefung"@de .
+
+
+###  https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity
+<https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                                                 rdfs:comment "nan"@en ;
+                                                                 rdfs:label "Bestimmung des Elastizitaetsmoduls (Sekantenmodul)"@de ,
+                                                                            "Determination of Secant Modulus of Elasticity"@en ;
+                                                                 <http://www.w3.org/ns/prov#definition> "Bestimmung des Elastizitaetsmoduls an zylindrischen oder prismatischen Probekoerpern, die in einer Druckpruefmaschine unter axialer Druckbelastung beansprucht und die auftretenden Spannungen und Dehnungen aufgezeichnet werden. Aus dem Anstieg der Spannungs-Dehnungs-Kurve wird der Sekantenmodul bei der ersten Belastung (nur bei Verfahren A) und nach drei Belastungszyklen (Verfahren A und B) ermittelt."@de ,
+                                                                                                        "Determination of the modulus of elasticity on cylinder or prismatic specimens loaded under axial compression in a compression testing machine. The stresses and strains are recorded. The slope of the secant to the stress-strain curve is determined at first loading (Method A only) and after three loading cycles (Methods A and B)."@en ;
+                                                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 12390-13"@de ,
+                                                                                                            "DIN EN 12390-13"@en .
+
+
+###  https://w3id.org/cpto/ENStandard
+<https://w3id.org/cpto/ENStandard> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/pmd/co/Norm> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "EN Norm"@de ,
+                                              "EN Standard"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "Norm, die von einer der folgenden Institutionen veroeffentlicht wird: CEN (Comite Europeen de Normalisation) CENELEC (Europaeisches Komitee fuer Elektronische Normen) ETSI (Europaeisches Institut fuer Telekommunikationsnormen)."@de ,
+                                                                          "Standard published by one of the following Institutions: CEN (Comite Europeen de Normalisation) CENELEC (European Committee for Electronical Standards) ETSI (European Telecommunications Standard Institute)."@en ;
+                                   <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/EntrainedAir
+<https://w3id.org/cpto/EntrainedAir> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                     rdfs:comment "nan"@en ;
+                                     rdfs:label "entrained air"@en ,
+                                                "kuenstliche Luftporen"@de ;
+                                     <http://www.w3.org/ns/prov#definition> "Microscopic air bubbles intentionally incorporated in concrete during mixing, usually by use of a surface active agent; typically between 10 micrometer and 300 micrometer in diameter and spherical or nearly so."@en ,
+                                                                            "mikroskopisch kleine Luftporen, die waehrend des Mischens - im Allgemeinen unter Verwendung eines oberflaechenaktiven Stoffes - absichtlich im Beton erzeugt werden; typischerweise kugelfoermig oder nahezu kugelfoermig sowie mit einem Durchmesser von 10 micrometer bis 300 micrometer."@de ;
+                                     <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/EntrappedAir
+<https://w3id.org/cpto/EntrappedAir> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                     rdfs:comment "nan"@en ;
+                                     rdfs:label "Lufteinschluesse"@de ,
+                                                "entrapped air"@en ;
+                                     <http://www.w3.org/ns/prov#definition> "Air voids in concrete which are not purposely entrained."@en ,
+                                                                            "Luftporen, die unbeabsichtigt in den Beton gelangen."@de ;
+                                     <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/EquivalentWaterCementRatio
+<https://w3id.org/cpto/EquivalentWaterCementRatio> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                                   rdfs:comment "nan"@en ;
+                                                   rdfs:label "Equivalent Water Cement Ratio"@en ,
+                                                              "aequivalenter Wasserzementwert"@de ;
+                                                   <http://www.w3.org/ns/prov#definition> "Masseverhaeltnis des wirksamen Wassergehaltes zur Summe aus Zementgehalt und k-fach anrechenbaren Anteilen von Zusatzstoffen (w/z)eq."@de ,
+                                                                                          "Ratio by mass of the effective water content to the combined cement content and the k-value to take into account additions."@en ;
+                                                   <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                                              "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/EvaluationOfConfirmity
+<https://w3id.org/cpto/EvaluationOfConfirmity> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                               rdfs:comment "nan"@en ;
+                                               rdfs:label "Konfirmitaetsbewertung"@de ,
+                                                          "evaluation of conformity"@en ;
+                                               <http://www.w3.org/ns/prov#definition> "Systematic examination of the extent to which a product fulfils specified requirements."@en ,
+                                                                                      "Systematische ueberpruefung, in welchem Umfang ein Produkt festgelegte Anforderungen erfuellt."@de ;
+                                               <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                          "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ExposureClass
+<https://w3id.org/cpto/ExposureClass> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                      rdfs:comment """vgl: Umwelteinfluesse/Einwirkungen aus der Umgebung
+vgl: environmental actions"""@en ;
+                                      rdfs:label "Expositionsklasse"@de ,
+                                                 "Exposure Class"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "Classification of those chemical and physical actions to which the concrete is exposed and which result in effects on the concrete or reinforcement or embedded metal that are not considered as loads in structural design."@en ,
+                                                                             "Klassifizierung derjenigen chemischen und physikalischen Umgebungsbedingungen, denen der Beton ausgesetzt ist und die zu Auswirkungen auf den Beton oder die Bewehrung oder das eingebettete Metall fuehren, die nicht als Lasten bei der konstruktiven Bemessung beruecksichtigt sind."@de ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Extensometer
+<https://w3id.org/cpto/Extensometer> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://w3id.org/pmd/co/MeasuringDevice> ;
+                                     rdfs:comment "E-Modul Norm bzgl. engl. Bezeichnung"@en ;
+                                     rdfs:label "Extensometer"@en ,
+                                                "Wegaufnehmer / Wegsensor"@de ;
+                                     <http://www.w3.org/ns/prov#definition> "Dient zur Messung des Abstandes zwischen einem Objekt und einem Bezugspunkt oder von Laengenaenderungen."@de ,
+                                                                            "Used to measure the distance between an object and a reference point or changes in length."@en ;
+                                     <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                "nan"@en .
+
+
+###  https://w3id.org/cpto/Fibres
+<https://w3id.org/cpto/Fibres> rdf:type owl:Class ;
+                               rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                               rdfs:comment "nan"@en ;
+                               rdfs:label "Fasern"@de ,
+                                          "Fibres"@en ;
+                               <http://www.w3.org/ns/prov#definition> "nan"@de ,
+                                                                      "nan"@en ;
+                               <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                          "nan"@en .
+
+
+###  https://w3id.org/cpto/FinesInConcrete
+<https://w3id.org/cpto/FinesInConcrete> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/MaterialProperty> ;
+                                        rdfs:comment "nan"@en ;
+                                        rdfs:label "Mehlkorn"@de ,
+                                                   "fines in concrete"@en ;
+                                        <http://www.w3.org/ns/prov#definition> "Sum of solid materials in fresh concrete with particle sizes less than or equal to 0,125 mm."@en ,
+                                                                               "Summe der festen Partikel im Frischbeton mit einer Korngroesse =< 0,125 mm."@de ;
+                                        <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                   "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/FlowClass
+<https://w3id.org/cpto/FlowClass> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                  rdfs:comment "nan"@en ;
+                                  rdfs:label "Ausbreitmassklasse"@de ,
+                                             "Flow Class"@en ;
+                                  <http://www.w3.org/ns/prov#definition> "Classification of consistency by determining the flow spread."@en ,
+                                                                         "Einteilung der Konsistenz durch die Bestimmung des Ausbreitmasses."@de ;
+                                  <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                             "nan"@en .
+
+
+###  https://w3id.org/cpto/FlowSpread
+<https://w3id.org/cpto/FlowSpread> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "Ausbreitmass"@de ,
+                                              "Flow Spread"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "Mean diameter of the spread of fresh concrete from a standardized slump cone."@en ,
+                                                                          "Mittlerer Ausbreitdurchmesser von Frischbeton, der im Ausbreitversuch bestimmt wird."@de ;
+                                   <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/FlowTableTest
+<https://w3id.org/cpto/FlowTableTest> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Bestimmung des Ausbreitmasses"@de ,
+                                                 "Flow Table Test"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "Mit dieser Pruefung wird die Konsistenz von Frischbeton durch Messung der Ausbreitung von Beton auf einer flachen Platte bestimmt, die auf einen Rahmen fallengelassen wird."@de ,
+                                                                             "This test determines the consistency of fresh concrete by measuring the spread of concrete on a flat slab dropped onto a frame."@en ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 12350-5"@de ,
+                                                                                 "EN 12350-5"@en .
+
+
+###  https://w3id.org/cpto/FlyAsh
+<https://w3id.org/cpto/FlyAsh> rdf:type owl:Class ;
+                               rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                               rdfs:comment "nan"@en ;
+                               rdfs:label "Flugasche"@de ,
+                                          "Fly Ash"@en ;
+                               <http://www.w3.org/ns/prov#definition> "Feines graues Pulver, das hauptsaechlich aus kugelfoermigen, glasartigen Partikeln besteht und als Nebenprodukt in Kohlekraftwerken anfaellt. "@de ,
+                                                                      "Fine gray powder consisting mostly of spherical, glassy particles that are produced as a byproduct in coal-fired power stations. "@en ;
+                               <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                          "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/FreshConcrete
+<https://w3id.org/cpto/FreshConcrete> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Fresh Concrete"@en ,
+                                                 "Frischbeton"@de ;
+                                      <http://www.w3.org/ns/prov#definition> "Beton, der fertig gemischt ist, sich noch in einem verarbeitbaren Zustand befindet und durch das gewaehlte Verfahren verdichtet werden kann."@de ,
+                                                                             "Concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method."@en ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/HardenedConcrete
+<https://w3id.org/cpto/HardenedConcrete> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Festbeton"@de ,
+                                                    "Hardened Concrete"@en ;
+                                         <http://www.w3.org/ns/prov#definition> "Beton, der sich in einem festen Zustand befindet und eine gewisse Festigkeit entwickelt hat."@de ,
+                                                                                "Concrete which is in a solid state and which has developed a certain strength."@en ;
+                                         <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                    "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Heat
+<https://w3id.org/cpto/Heat> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> .
+
+
+###  https://w3id.org/cpto/HeatFlow
+<https://w3id.org/cpto/HeatFlow> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://w3id.org/cpto/Heat> .
+
+
+###  https://w3id.org/cpto/HeatOfHydration
+<https://w3id.org/cpto/HeatOfHydration> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> .
+
+
+###  https://w3id.org/cpto/HeavyWeightAggregate
+<https://w3id.org/cpto/HeavyWeightAggregate> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                             rdfs:comment "nan"@en ;
+                                             rdfs:label "heavy-weight aggregate"@en ,
+                                                        "schwere Gesteinskoernung"@de ;
+                                             <http://www.w3.org/ns/prov#definition> "Aggregate with an oven-dry particle density >= 3000 kg/dm3 when determined according to EN 1097-6."@en ,
+                                                                                    "Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte >= 3 000 kg/m3 bei Bestimmung nach EN 1097-6."@de ;
+                                             <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                        "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/HeavyWeightConcrete
+<https://w3id.org/cpto/HeavyWeightConcrete> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                            rdfs:comment "nan"@en ;
+                                            rdfs:label "Schwerbeton"@de ,
+                                                       "heavy-weight concrete"@en ;
+                                            <http://www.w3.org/ns/prov#definition> "Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2600 kg/m3."@de ,
+                                                                                   "Concrete having an oven-dry density greater than 2600 kg/m3."@en ;
+                                            <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                       "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/IdentityTest
+<https://w3id.org/cpto/IdentityTest> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                     rdfs:comment "nan"@en ;
+                                     rdfs:label "Identitaetspruefung"@de ,
+                                                "identity test"@en ;
+                                     <http://www.w3.org/ns/prov#definition> "Pruefung, um zu bestimmen, ob eine gewaehlte Charge oder Ladung einer konformen Grundgesamtheit entstammt."@de ,
+                                                                            "Test to determine whether selected batches or loads come from a conforming population."@en ;
+                                     <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/InSituConcrete
+<https://w3id.org/cpto/InSituConcrete> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                       rdfs:comment "nan"@en ;
+                                       rdfs:label "Ortbeton"@de ,
+                                                  "in-situ concrete"@en ;
+                                       <http://www.w3.org/ns/prov#definition> "Beton, der an dem Ort erhaertet, an dem er verbaut wird. Ortbeton wird als Transportbeton mit Mischfahrzeugen auf die Baustelle gebracht oder vor Ort als Baustellenbeton gemischt."@de ,
+                                                                              "Concrete that hardens on the site where it is used. In-situ concrete is delivered to the construction site as ready-mixed concrete by truck mixers or mixed on site as site-mixed concrete."@en ;
+                                       <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                  "nan"@en .
+
+
+###  https://w3id.org/cpto/InitialTest
+<https://w3id.org/cpto/InitialTest> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Erstpruefung"@de ,
+                                               "initial test"@en ;
+                                    <http://www.w3.org/ns/prov#definition> "Pruefung oder Pruefungen vor Herstellungsbeginn, um zu ermitteln, wie ein neuer Beton oder eine neue Betonfamilie zusammengesetzt sein muss, um alle festgelegten Anforderungen im frischen und erhaerteten Zustand zu erfuellen."@de ,
+                                                                           "Test or tests to check before the production starts how a new concrete or concrete family shall be composed in order to meet all the specified requirements in the fresh and hardened states."@en ;
+                                    <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                               "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/InorganicMaterial
+<https://w3id.org/cpto/InorganicMaterial> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                          rdfs:comment "nan"@en ;
+                                          rdfs:label "Anorganische Stoffe"@de ,
+                                                     "Inorganic Material"@en ;
+                                          <http://www.w3.org/ns/prov#definition> "Chemical compounds that usually don't contain carbon"@en ,
+                                                                                 "Chemische Verbindungen, die in der Regel keinen Kohlenstoff enthalten."@de ;
+                                          <https://w3id.org/pmd/co/definitionSource> "Holleman et.al. (2007)"@de ,
+                                                                                     "nan"@en .
+
+
+###  https://w3id.org/cpto/LightWeightAggregate
+<https://w3id.org/cpto/LightWeightAggregate> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                             rdfs:comment "nan"@en ;
+                                             rdfs:label "leichte Gesteinskoernung"@de ,
+                                                        "lightweight aggregate"@en ;
+                                             <http://www.w3.org/ns/prov#definition> "Aggregate of mineral origin having an oven-dry particle density =< 2000 kg/dm3  when determined according to EN 1097-6 or a loose buld-density =< 1200 kg/dm3  when determined according to EN 1097-3."@en ,
+                                                                                    "Gesteinskoernung mineralischen Ursprungs im ofentrockenen Zustand mit einer Kornrohdichte =< 2 000 kg/m3, bestimmt nach EN 1097-6, oder einer Schuettdichte =< 1 200 kg/m3, bestimmt nach EN 1097-3."@de ;
+                                             <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                        "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/LightweightConcrete
+<https://w3id.org/cpto/LightweightConcrete> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                            rdfs:comment "nan"@en ;
+                                            rdfs:label "Leichtbeton"@de ,
+                                                       "lightweight concrete"@en ;
+                                            <http://www.w3.org/ns/prov#definition> "Beton im ofentrockenen Zustand mit einer Rohdichte von mindestens 800 kg/m3 und hoechstens 2000 kg/m3."@de ,
+                                                                                   "Concrete having an oven-dry density of not less than 800 kg/m3 and not more than 2000 kg/m3."@en ;
+                                            <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                       "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/LimestonePowder
+<https://w3id.org/cpto/LimestonePowder> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                                        rdfs:comment "nan"@en ;
+                                        rdfs:label "Kalksteinmehl"@de ,
+                                                   "Limestone powder"@en ;
+                                        <http://www.w3.org/ns/prov#definition> " Finely ground limestone that can be used as an addition to cover a deficit in the amount of fines in concrete."@en ,
+                                                                               "Feingemahlener Kalkstein, der als Betonzusatzstoff verwendet werden kann, um eine fehlende Menge an Mehlkorn im Beton zu decken."@de ;
+                                        <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                   "nan"@en .
+
+
+###  https://w3id.org/cpto/MaterialComposition
+<https://w3id.org/cpto/MaterialComposition> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> .
+
+
+###  https://w3id.org/cpto/MeasurementInstrumentPreparation
+<https://w3id.org/cpto/MeasurementInstrumentPreparation> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                                         rdfs:comment "nan"@en ;
+                                                         rdfs:label "Measurement Instrument Preparation"@en ,
+                                                                    "Messinstrumentvorbereitung"@de ;
+                                                         <http://www.w3.org/ns/prov#definition> "Preparation of a Measuring isntrument to be used for measuring, e.g. dampening or placement of forms."@en ,
+                                                                                                "Vorbereitung eines Messintrumentes zur Durchfuehrung einer Messung, z. B. anfeuchten oder platzieren einer Form"@de ;
+                                                         <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                                    "nan"@en .
+
+
+###  https://w3id.org/cpto/MeasuringNode
+<https://w3id.org/cpto/MeasuringNode> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/pmd/co/Process> .
+
+
+###  https://w3id.org/cpto/MetallicMaterial
+<https://w3id.org/cpto/MetallicMaterial> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Metallic Material"@en ,
+                                                    "metallisches Material"@de ;
+                                         <http://www.w3.org/ns/prov#definition> "Zu den chemischen Elementen gehoerender, nicht durchsichtiger, Waerme und Elektrizitaet gut leitender, fester, dehn- und schmelzbarer Stoff."@de ,
+                                                                                "nan"@en ;
+                                         <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                    "nan"@en .
+
+
+###  https://w3id.org/cpto/Mortar
+<https://w3id.org/cpto/Mortar> rdf:type owl:Class ;
+                               rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
+                               rdfs:comment "nan"@en ;
+                               rdfs:label "Moertel"@de ,
+                                          "Mortar"@en ;
+                               <http://www.w3.org/ns/prov#definition> "Gemisch aus Bindemittel, Wasser und Gesteinskoernung mit einem Groesstkorn von maximal 4 mm, das nach einer bestimmten Zeit durch Hydratation erstarrt und erhaertet. "@de ,
+                                                                      "Mixture of binder, water and aggregate with a maximum grain size of 4 mm, which solidifies and hardens after a certain time due to hydration. "@en ;
+                               <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                          "nan"@en .
+
+
+###  https://w3id.org/cpto/NonAgitatingEquipment
+<https://w3id.org/cpto/NonAgitatingEquipment> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://w3id.org/pmd/co/ProcessingNode> ;
+                                              rdfs:comment "nan"@en ;
+                                              rdfs:label "Ausruestung ohne Ruehrwerk"@de ,
+                                                         "non-agitating equipment"@en ;
+                                              <http://www.w3.org/ns/prov#definition> "Ausruestung fuer den Betontransport ohne Ruehren."@de ,
+                                                                                     "Equipment used for transporting concrete without agitation."@en ;
+                                              <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                         "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/NonDestructiveTesting
+<https://w3id.org/cpto/NonDestructiveTesting> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                              rdfs:comment "nan"@en ;
+                                              rdfs:label "NonDestructive Testing"@en ,
+                                                         "Zerstoerungsfreie Pruefung"@de ;
+                                              <http://www.w3.org/ns/prov#definition> "Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei nicht beschaedigt werden."@de ,
+                                                                                     "Testing for chemical and/or physical properties where materials were not destroyed or changed in the process."@en ;
+                                              <https://w3id.org/pmd/co/definitionSource> "Krankenhagen & Laube (1983)"@de ,
+                                                                                         "nan"@en .
+
+
+###  https://w3id.org/cpto/NonMetalicMaterial
+<https://w3id.org/cpto/NonMetalicMaterial> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                           rdfs:comment "nan"@en ;
+                                           rdfs:label "NonMetalic Material"@en ,
+                                                      "nichtmetallisches Material"@de ;
+                                           <http://www.w3.org/ns/prov#definition> "Zu den chemischen Elementen gehoerender Stoff, der leicht Elektronen aufnimmt; als Gas, Fluessigkeit oder in kristalliner Form vorliegt und elektrischen Strom und Waerme im allgemeinen schlecht leitet."@de ,
+                                                                                  "nan"@en ;
+                                           <https://w3id.org/pmd/co/definitionSource> "Steffen (1889)"@de ,
+                                                                                      "nan"@en .
+
+
+###  https://w3id.org/cpto/NormalWeightAggregate
+<https://w3id.org/cpto/NormalWeightAggregate> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                              rdfs:comment "nan"@en ;
+                                              rdfs:label "normal-weight aggregate"@en ,
+                                                         "normale Gesteinskoernung"@de ;
+                                              <http://www.w3.org/ns/prov#definition> "Aggregate with an oven-dry particle density > 2000 kg/dm3 and < 3000 kg/dm3 when determined according to EN 1097-6."@en ,
+                                                                                     "Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte > 2 000 kg/m3 und < 3 000 kg/m3, bestimmt nach EN 1097-6."@de ;
+                                              <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                         "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/NormalWeightConcrete
+<https://w3id.org/cpto/NormalWeightConcrete> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                             rdfs:comment "nan"@en ;
+                                             rdfs:label "Normalbeton"@de ,
+                                                        "normal-weight concrete"@en ;
+                                             <http://www.w3.org/ns/prov#definition> "Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2000 kg/m3 und hoechstens 2600 kg/m3."@de ,
+                                                                                    "Concrete having an oven-dry density greater than 2000 kg/m3 but not exceeding 2600 kg/m3."@en ;
+                                             <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                        "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/OrganicMaterial
+<https://w3id.org/cpto/OrganicMaterial> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/BaseMaterial> ;
+                                        rdfs:comment "nan"@en ;
+                                        rdfs:label "Organic Material"@en ,
+                                                   "organisches Material"@de ;
+                                        <http://www.w3.org/ns/prov#definition> "Chemical compounds that usually contain carbon."@en ,
+                                                                               "Chemische Verbindungen, die Kohlenstoff enthalten."@de ;
+                                        <https://w3id.org/pmd/co/definitionSource> "Hart et. al. (2007)"@de ,
+                                                                                   "nan"@en .
+
+
+###  https://w3id.org/cpto/PassingAbility
+<https://w3id.org/cpto/PassingAbility> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                       rdfs:comment "nan"@en ;
+                                       rdfs:label "Blockierneigung"@de ,
+                                                  "passing ability"@en ;
+                                       <http://www.w3.org/ns/prov#definition> "Ability of fresh concrete to flow through tight openings such as spaces between steel reinforcing bars without segregation or blocking."@en ,
+                                                                              "Neigung von Frischbeton, bei engen oeffnungen wie z. B. zwischen Bewehrungsstaeben, durch Entmischen das weitere Fliessen zu blockieren oder enge oeffnungen zu verstopfen."@de ;
+                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                  "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Pigments
+<https://w3id.org/cpto/Pigments> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                                 rdfs:comment "nan"@en ;
+                                 rdfs:label "Pigmente"@de ,
+                                            "Pigments"@en ;
+                                 <http://www.w3.org/ns/prov#definition> "Feinkoernige anorganische oder organische Feststoffteilchen mit einem Durchmesser von etwa 0,1 bis 1,0 �m, die zur Farbgebung von Beton, Moertel oder eines transparenten Bindemittels dienen. Farbpigmente fuer Beton sind inerte Betonzusatzstoffe Typ I im Sinne der DIN 1045-2."@de ,
+                                                                        "Fine-grained inorganic or organic solid particles with a diameter of about 0.1 to 1.0 �m used for coloring concrete, mortar or a transparent binder. Color pigments for concrete are inert concrete type I additions according to DIN 1045-2."@en ;
+                                 <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                            "nan"@en .
+
+
+###  https://w3id.org/cpto/PolymerFibres
+<https://w3id.org/cpto/PolymerFibres> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/Fibres> ,
+                                                      <https://w3id.org/cpto/OrganicMaterial> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Polymerfasern"@de ,
+                                                 "polymer fibres"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "Straight or deformed pieces of extruded, orientated and cut material, which are suitable to be homogenously mixed into concrete."@en ,
+                                                                             "gerade oder verformte Fasern aus extrudiertem, orientiertem oder geschnittenem Material, die fuer eine gleichmaessige Verteilung in Betonmischungen geeignet sind"@de ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/PrecastElement
+<https://w3id.org/cpto/PrecastElement> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://w3id.org/pmd/co/EngineeredMaterial> ;
+                                       rdfs:comment "nan"@en ;
+                                       rdfs:label "Fertigteil"@de ,
+                                                  "precast element"@en ;
+                                       <http://www.w3.org/ns/prov#definition> "Betonbauteil, dass an einem anderen Ort als dem endgueltigen Ort der Verwendung (im Werk oder auf der Baustelle) hergestellt und nachbehandelt wird"@de ,
+                                                                              "concrete product cast and cured in a place other than the final location of use"@en ;
+                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                  "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/PrescribedConcrete
+<https://w3id.org/cpto/PrescribedConcrete> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                           rdfs:comment "nan"@en ;
+                                           rdfs:label "Beton nach Zusammensetzung"@de ,
+                                                      "prescribed concrete"@en ;
+                                           <http://www.w3.org/ns/prov#definition> "Beton, fuer den die Zusammensetzung und die Ausgangsstoffe, die verwendet werden muessen, dem Hersteller, der fuer die Lieferung eines Betons mit der festgelegten Zusammensetzung verantwortlich ist, vorgegeben werden."@de ,
+                                                                                  "Concrete for which the composition of the concrete and the constituent materials to be used are specified to the producer who is responsible for providing a concrete with the specified composition."@en ;
+                                           <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                      "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/QuantityInMix
+<https://w3id.org/cpto/QuantityInMix> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Quantity in mix"@en ,
+                                                 "Stoffmenge"@de ;
+                                      <http://www.w3.org/ns/prov#definition> "Quantitative Mengenangabe fuer Stoffe in der Chemie"@de ,
+                                                                             "Quantitative quantity specification for substances in chemistry."@en ;
+                                      <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                 "nan"@en .
+
+
+###  https://w3id.org/cpto/QuartzFlour
+<https://w3id.org/cpto/QuartzFlour> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Quartz flour"@en ,
+                                               "Quarzmehl"@de ;
+                                    <http://www.w3.org/ns/prov#definition> " Finely ground quartz with a grain size =< 0.25 mm. "@en ,
+                                                                           "Feingemahlener Quarz mit einer Korngroesse =< 0,25 mm. "@de ;
+                                    <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/ReadyMixedConcrete
+<https://w3id.org/cpto/ReadyMixedConcrete> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                           rdfs:comment "nan"@en ;
+                                           rdfs:label "Transportbeton"@de ,
+                                                      "ready-mixed concrete"@en ;
+                                           <http://www.w3.org/ns/prov#definition> "Beton, der in frischem Zustand durch eine Person oder Stelle geliefert wird, die nicht der Verwender ist. Transportbeton im Sinne von DIN EN 206 ist auch vom Verwender ausserhalb der Baustelle hergestellter Beton oder auf der Baustelle nicht vom Verwender hergestellter Beton."@de ,
+                                                                                  "Concrete delivered in a fresh state by a person or body who is not the user. Ready-mixed concrete in the sense of DIN EN 206 is also concrete produced off site by the user or produced on site. But not by the user."@en ;
+                                           <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                      "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ReclaimedCrushedAggregate
+<https://w3id.org/cpto/ReclaimedCrushedAggregate> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                                  rdfs:comment "nan"@en ;
+                                                  rdfs:label "reclaimed crushed aggregate"@en ,
+                                                             "wiedergewonnene gebrochene Gesteinskoernung"@de ;
+                                                  <http://www.w3.org/ns/prov#definition> "Aggregate gained by crushing hardened concrete that has not been previously used in construction."@en ,
+                                                                                         "Gesteinskoernung, die durch Brechen von Festbeton, der noch nicht beim Bauen verwendet wurde, gewonnen wird."@de ;
+                                                  <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                             "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ReclaimedWashedAggregate
+<https://w3id.org/cpto/ReclaimedWashedAggregate> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                                 rdfs:comment "nan"@en ;
+                                                 rdfs:label "reclaimed washed aggregate"@en ,
+                                                            "wiedergewonnene gewaschene Gesteinskoernung"@de ;
+                                                 <http://www.w3.org/ns/prov#definition> "Aggregates gained by washing fresh concrete."@en ,
+                                                                                        "Gesteinskoernung, die durch Waschen von Frischbeton gewonnen wird."@de ;
+                                                 <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                            "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/RecycledAggregate
+<https://w3id.org/cpto/RecycledAggregate> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://w3id.org/cpto/Aggregate> ;
+                                          rdfs:comment "nan"@en ;
+                                          rdfs:label "recycled aggregate"@en ,
+                                                     "rezyklierte Gesteinskoernung"@de ;
+                                          <http://www.w3.org/ns/prov#definition> "Aggregate resulting from the processing of inorganic material previously used in construction."@en ,
+                                                                                 "Gesteinskoernung, die durch Aufbereitung von vorher beim Bauen verwendeten anorganischen Stoffen gewonnen wird"@de ;
+                                          <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                     "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/RelativeDensity
+<https://w3id.org/cpto/RelativeDensity> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/MaterialProperty> ;
+                                        rdfs:comment "nan"@en ;
+                                        rdfs:label "Relative Dichte"@de ,
+                                                   "RelativeDensity"@en ;
+                                        <http://www.w3.org/ns/prov#definition> "Verhaeltnis der Dichte eines Stoffes oder einer Mischung zur Bezugsdichte eines Bezugsstoffes [-]"@de ,
+                                                                               "nan"@en ;
+                                        <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                   "nan"@en .
+
+
+###  https://w3id.org/cpto/SegregationResistance
+<https://w3id.org/cpto/SegregationResistance> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                              rdfs:comment "nan"@en ;
+                                              rdfs:label "Sedimentationsstabilitaet"@de ,
+                                                         "segregation resistance"@en ;
+                                              <http://www.w3.org/ns/prov#definition> "Ability of fresh concrete to remain homogeneous in composition while in its fresh state."@en ,
+                                                                                     "Eigenschaft von Frischbeton, hinsichtlich der Zusammensetzung homogen zu bleiben."@de ;
+                                              <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                         "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SelfcompactingConcrete
+<https://w3id.org/cpto/SelfcompactingConcrete> rdf:type owl:Class ;
+                                               rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                               rdfs:comment "nan"@en ;
+                                               rdfs:label "Selbstverdichtender Beton (SVB)"@de ,
+                                                          "self-compacting concrete"@en ;
+                                               <http://www.w3.org/ns/prov#definition> "Beton, der aufgrund seines eigenen Gewichts fliesst und sich selbst verdichtet sowie die Schalung mit Bewehrung, Kanaelen, Aussparungskaesten usw. ausfuellt und dabei seine Homogenitaet beibehaelt."@de ,
+                                                                                      "Concrete that is able to flow and compact under its own weight, fill the formwork with its reinforcement, ducts, boxouts etc., whilst maintaining homogeneity."@en ;
+                                               <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                          "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SilicaFume
+<https://w3id.org/cpto/SilicaFume> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "Silica Fume"@en ,
+                                              "Silikastaub"@de ;
+                                   <http://www.w3.org/ns/prov#definition> "Sehr feines, nicht kristallines Siliziumdioxid, das in Lichtbogenoefen als Nebenprodukt bei der Herstellung von elementarem Silizium oder siliziumhaltigen Legierungen entsteht."@de ,
+                                                                          "Very fine non-crystalline silica produced in electric arc furnaces as a by-product of the production of elemental silicon or alloys containing silicon."@en ;
+                                   <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                              "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/Site
+<https://w3id.org/cpto/Site> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://w3id.org/pmd/co/Location> ;
+                             rdfs:comment "Syn: construction site"@en ;
+                             rdfs:label "Baustelle"@de ,
+                                        "site"@en ;
+                             <http://www.w3.org/ns/prov#definition> "Area where the construction work is undertaken."@en ,
+                                                                    "Gebiet, in dem die Bauarbeiten durchgefuehrt werden"@de ;
+                             <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                        "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SiteMixedConcrete
+<https://w3id.org/cpto/SiteMixedConcrete> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                          rdfs:comment "nan"@en ;
+                                          rdfs:label "Baustellenbeton"@de ,
+                                                     "site-mixed concrete"@en ;
+                                          <http://www.w3.org/ns/prov#definition> "Beton, der auf der Baustelle vom Verwender des Betons fuer seine eigene Verwendung hergestellt wird."@de ,
+                                                                                 "Concrete produced on the construction site by the user of the concrete for his own use."@en ;
+                                          <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                     "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SlagCement
+<https://w3id.org/cpto/SlagCement> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/cpto/Cement> ;
+                                   rdfs:comment "Syn.: Huettenzement"@en ;
+                                   rdfs:label "Hochofenzement"@de ,
+                                              "Slag Cement"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "Normal cement containing between 36 and 95 percent ground granulated blast furnace slag instead of Portland cement clinker."@en ,
+                                                                          "Normalzement, der zwischen 36 und 95 Prozent Huettensand anstelle von Portlandzementklinker enthaelt."@de ;
+                                   <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/SlumpClass
+<https://w3id.org/cpto/SlumpClass> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "Setzmassklasse"@de ,
+                                              "Slump Class"@en ;
+                                   <http://www.w3.org/ns/prov#definition> " "@en ,
+                                                                          "Einteilung der Konsistenz durch die Bestimmung des Setzfliessmasses."@de ;
+                                   <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/SlumpFlow
+<https://w3id.org/cpto/SlumpFlow> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                  rdfs:comment "nan"@en ;
+                                  rdfs:label "Setzfliessmass"@de ,
+                                             "slump-flow"@en ;
+                                  <http://www.w3.org/ns/prov#definition> "Mean diameter of the spread of fresh concrete from a standardized slump cone."@en ,
+                                                                         "Mittlerer Ausbreitdurchmesser von Frischbeton, der im Setzfliessversuch bestimmt wird."@de ;
+                                  <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                             "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SpecificGravity
+<https://w3id.org/cpto/SpecificGravity> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> ;
+                                        rdfs:comment "nan"@en ;
+                                        rdfs:label "Specific Gravity"@en ,
+                                                   "spezifisches Gewicht"@de ;
+                                        <http://www.w3.org/ns/prov#definition> "Gewicht eines Koerpers im Verhaeltnis zu seinem Volumen."@de ,
+                                                                               "Weight of a body in relation to its volume."@en ;
+                                        <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                                   "nan"@en .
+
+
+###  https://w3id.org/cpto/SpecimenAge
+<https://w3id.org/cpto/SpecimenAge> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/pmd/co/TestPieceInfo> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Probenalter"@de ,
+                                               "specimen age"@en ;
+                                    <http://www.w3.org/ns/prov#definition> "nan"@de ,
+                                                                           "nan"@en ;
+                                    <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                               "nan"@en .
+
+
+###  https://w3id.org/cpto/StandardizedPrescribedConcrete
+<https://w3id.org/cpto/StandardizedPrescribedConcrete> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <https://w3id.org/cpto/Concrete> ;
+                                                       rdfs:comment "nan"@en ;
+                                                       rdfs:label "Standardbeton"@de ,
+                                                                  "standardized prescribed concrete"@en ;
+                                                       <http://www.w3.org/ns/prov#definition> "Beton nach Zusammensetzung, dessen Zusammensetzung in einer am Ort der Verwendung des Betons gueltigen Norm vorgegeben ist."@de ,
+                                                                                              "Prescribed concrete for which the composition is given in a standard valid in the place of use of the concrete."@en ;
+                                                       <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                                  "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/SteelFibres
+<https://w3id.org/cpto/SteelFibres> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://w3id.org/cpto/Fibres> ,
+                                                    <https://w3id.org/cpto/InorganicMaterial> ,
+                                                    <https://w3id.org/cpto/MetallicMaterial> ;
+                                    rdfs:comment "nan"@en ;
+                                    rdfs:label "Stahlfasern"@de ,
+                                               "steel fibres"@en ;
+                                    <http://www.w3.org/ns/prov#definition> "Gerade oder verformte Fasern aus kalt gezogenem Stahldraht, gerade oder verformte zugeschnittene Einzelfasern, aus Schmelzgut hergestellte Fasern, von kalt gezogenem Draht gespante Fasern oder aus Stahlbloecken gehobelte Fasern, die fuer eine gleichmaessige Verteilung in Beton geeignet sind."@de ,
+                                                                           "Straight or deformed pieces of cold-drawn steel wire, straight or deformed cut sheet fibres, melt extracted fibres, shaved cold drawn wire fibres or fibres milled from steel blocks, which are suitable to be homogeneously mixed into concrete."@en ;
+                                    <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                               "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/StressRate
+<https://w3id.org/cpto/StressRate> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "Spannungsrate"@de ,
+                                              "Stress Rate"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "nan"@de ,
+                                                                          "nan"@en ;
+                                   <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/TensileSplittingStrength
+<https://w3id.org/cpto/TensileSplittingStrength> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <https://w3id.org/pmd/co/TensileStrength> ;
+                                                 rdfs:comment "nan"@en ;
+                                                 rdfs:label "Spaltzugfestigkeit"@de ,
+                                                            "Tensile Splitting Strength"@en ;
+                                                 <http://www.w3.org/ns/prov#definition> "A cylindrical specimen is exposed to a compressive load applied in a narrow strip along the longitudinal axis of the specimen. The resulting orthogonal tensile force causes the specimen to fracture under tensile stress."@en ,
+                                                                                        "Ein zylindrischer Probekoerper wird einer Druckkraft ausgesetzt, die in einem schmalen Streifen entlang der Laengsachse des Probekoerpers aufgebracht wird. Die sich ergebende orthogonale Zugkraft verursacht den Bruch des Probekoerpers unter Zugspannung."@de ;
+                                                 <https://w3id.org/pmd/co/definitionSource> " DIN EN 12390-6"@de ,
+                                                                                            "nan"@en .
+
+
+###  https://w3id.org/cpto/TruckMixer
+<https://w3id.org/cpto/TruckMixer> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/pmd/co/ProcessingNode> ;
+                                   rdfs:comment "nan"@en ;
+                                   rdfs:label "Fahrmischer"@de ,
+                                              "truck mixer"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "Betonmischer, der auf einem Fahrgestell mit Eigenantrieb montiert und in der Lage ist, einen gleichmaessig gemischten Beton herzustellen und auszuliefern."@de ,
+                                                                          "Concrete mixer mounted on a self-propelled chassis capable of mixing and delivering a homogeneous concrete."@en ;
+                                   <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                              "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/TypeIAddition
+<https://w3id.org/cpto/TypeIAddition> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/Addition> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Typ-I-Zusatzstoff"@de ,
+                                                 "type I addition"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "nahezu inaktiver Zusatzstoff"@de ,
+                                                                             "nearly inert additions"@en ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/TypeIIAdition
+<https://w3id.org/cpto/TypeIIAdition> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://w3id.org/cpto/Addition> ;
+                                      rdfs:comment "nan"@en ;
+                                      rdfs:label "Typ-II-Zusatzstoff"@de ,
+                                                 "type II addition"@en ;
+                                      <http://www.w3.org/ns/prov#definition> "pozzolanic or latent hydraulic additions"@en ,
+                                                                             "puzzolanischer oder latenthydraulischer Zusatzstoff"@de ;
+                                      <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                 "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/VebeClass
+<https://w3id.org/cpto/VebeClass> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                  rdfs:comment "nan"@en ;
+                                  rdfs:label "Setzzeit-Klasse (Vebe)"@de ,
+                                             "Vebe Class"@en ;
+                                  <http://www.w3.org/ns/prov#definition> "nan"@de ,
+                                                                         "nan"@en ;
+                                  <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                             "nan"@en .
+
+
+###  https://w3id.org/cpto/Verification
+<https://w3id.org/cpto/Verification> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://w3id.org/cpto/MeasuringNode> ;
+                                     rdfs:comment "nan"@en ;
+                                     rdfs:label "Nachweise"@de ,
+                                                "verification"@en ;
+                                     <http://www.w3.org/ns/prov#definition> "Bestaetigung durch ueberpruefung objektiver Erkenntnisse, dass die festgelegten Anforderungen erfuellt worden sind."@de ,
+                                                                            "Confirmation by examination of objective evidence that specified requirements have been fulfilled."@en ;
+                                     <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/ViscosityOfConcrete
+<https://w3id.org/cpto/ViscosityOfConcrete> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://w3id.org/pmd/co/MaterialProperty> ;
+                                            rdfs:comment "nan"@en ;
+                                            rdfs:label "Viskositaet"@de ,
+                                                       "viscosity of concrete"@en ;
+                                            <http://www.w3.org/ns/prov#definition> "Fliesswiderstand von Frischbeton nach Beginn des Fliessens."@de ,
+                                                                                   "Resistance to flow of fresh concrete once flow has started."@en ;
+                                            <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                       "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/Volume
+<https://w3id.org/cpto/Volume> rdf:type owl:Class ;
+                               rdfs:subClassOf <https://w3id.org/pmd/co/ValueObject> ;
+                               rdfs:comment "nan"@en ;
+                               rdfs:label "Volume"@en ,
+                                          "Volumen"@de ;
+                               <http://www.w3.org/ns/prov#definition> "nan"@en ,
+                                                                      "raeumlicher Inhalt eines geometrischen Koerpers"@de ;
+                               <https://w3id.org/pmd/co/definitionSource> "nan"@de ,
+                                                                          "nan"@en .
+
+
+###  https://w3id.org/cpto/Water
+<https://w3id.org/cpto/Water> rdf:type owl:Class ;
+                              rdfs:subClassOf <https://w3id.org/cpto/InorganicMaterial> ;
+                              rdfs:comment "nan"@en ;
+                              rdfs:label "Wasser"@de ,
+                                         "Water"@en ;
+                              <http://www.w3.org/ns/prov#definition> "Chemical compound of oxygen (O) and hydrogen (H) in the liquid state of aggregation"@en ,
+                                                                     "Chemische Verbindung von Sauerstoff (O) und Wasserstoff (H) im fluessigen Aggregatzustand"@de ;
+                              <https://w3id.org/pmd/co/definitionSource> "Chemie.de"@de ,
+                                                                         "nan"@en .
+
+
+###  https://w3id.org/cpto/WaterCementRatio
+<https://w3id.org/cpto/WaterCementRatio> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://w3id.org/cpto/MaterialComposition> ;
+                                         rdfs:comment "nan"@en ;
+                                         rdfs:label "Wasserzementwert"@de ,
+                                                    "Water Cement Ratio"@en ;
+                                         <http://www.w3.org/ns/prov#definition> "Masseverhaeltnis des wirksamen Wassergehaltes zum Zementgehalt im Frischbeton."@de ,
+                                                                                "ratio of the effective water content to cement content by mass in the fresh concrete"@en ;
+                                         <https://w3id.org/pmd/co/definitionSource> "DIN EN 206"@de ,
+                                                                                    "DIN EN 206"@en .
+
+
+###  https://w3id.org/cpto/kValueAccountingForFlyAsh
+<https://w3id.org/cpto/kValueAccountingForFlyAsh> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                                  rdfs:comment "nan"@en ;
+                                                  rdfs:label "k Value Accounting for Fly Ash"@en ,
+                                                             "k-Wert fuer Flugasche"@de ;
+                                                  <http://www.w3.org/ns/prov#definition> "Anrechenbarkeit von Flugasche auf den Zementgehalt und den Wasserzementwert."@de ,
+                                                                                         "Eligibility of fly ash on the cement content and the water-cement ratio."@en ;
+                                                  <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                                             "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/kValueAccountingForSilicaFume
+<https://w3id.org/cpto/kValueAccountingForSilicaFume> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                                      rdfs:comment "nan"@en ;
+                                                      rdfs:label "k Value Accounting for Silica Fume"@en ,
+                                                                 "k-Wert fuer Silikastaub"@de ;
+                                                      <http://www.w3.org/ns/prov#definition> "Anrechenbarkeit von Silikastaub auf den Zementgehalt und den Wasserzementwert."@de ,
+                                                                                             "Eligibility of silica fume on the cement content and the water-cement ratio."@en ;
+                                                      <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                                                 "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/kValueAccountingForTypeIIAdditons
+<https://w3id.org/cpto/kValueAccountingForTypeIIAdditons> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                                          rdfs:comment "nan"@en ;
+                                                          rdfs:label "k Value Accounting for type II additions"@en ,
+                                                                     "k-Wert fuer Zusatzstoffe Typ II"@de ;
+                                                          <http://www.w3.org/ns/prov#definition> "Anrechenbarkeit von Zusatzstoffen des Typs II auf den Zementgehalt und den Wasserzementwert."@de ,
+                                                                                                 "Eligibility of Type II additives on the cement content and the water-cement ratio."@en ;
+                                                          <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                                                     "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/cpto/GGBS/GGBFS
+<https://w3id.org/cpto/GGBS/GGBFS> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://w3id.org/cpto/BlastFurnaceSlag> ;
+                                   rdfs:comment "Syn.: granulierte Hochofenschlacke"@en ;
+                                   rdfs:label "Huettensand"@de ,
+                                              "ground granulated blast furnace slag"@en ;
+                                   <http://www.w3.org/ns/prov#definition> "Ground granulated blast furnace slag is produced by rapid cooling of a molten slag formed during pig iron production. "@en ,
+                                                                          "Huettensand entsteht durch schnelles Abkuehlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. "@de ;
+                                   <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                              "nan"@en .
+
+
+###  https://w3id.org/cpto/kValueAccountingForFlyAsh+SilicaFume
+<https://w3id.org/cpto/kValueAccountingForFlyAsh+SilicaFume> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <https://w3id.org/pmd/co/MaterialRelated> ;
+                                                             rdfs:comment "nan"@en ;
+                                                             rdfs:label "k Value Accounting for Fly Ash + Silica Fume"@en ,
+                                                                        "k-Wert fuer Flugasche + Silikastaub"@de ;
+                                                             <http://www.w3.org/ns/prov#definition> "Anrechenbarkeit von Flugasche + Silikastaub auf den Zementgehalt und den Wasserzementwert."@de ,
+                                                                                                    "Eligibility of fly ash + silica fume on the cement content and the water-cement ratio."@en ;
+                                                             <https://w3id.org/pmd/co/definitionSource> "Betontechnische Daten"@de ,
+                                                                                                        "translated from Betontechnische Daten"@en .
+
+
+###  https://w3id.org/pmd/co/TensileStrength
+<https://w3id.org/pmd/co/TensileStrength> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://w3id.org/cpto/CEM_I_32,5_N
+<https://w3id.org/cpto/CEM_I_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_32,5_R
+<https://w3id.org/cpto/CEM_I_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_42,5_N
+<https://w3id.org/cpto/CEM_I_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_42,5_R
+<https://w3id.org/cpto/CEM_I_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_52,5_N
+<https://w3id.org/cpto/CEM_I_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_52,5_R
+<https://w3id.org/cpto/CEM_I_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_0_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_0_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_0_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_3_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_3_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_3_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_32,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_32,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_42,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_42,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_52,5_N
+<https://w3id.org/cpto/CEM_I_SR_5_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_I_SR_5_52,5_R
+<https://w3id.org/cpto/CEM_I_SR_5_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_32,5_N
+<https://w3id.org/cpto/CEM_II_A-S_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_32,5_R
+<https://w3id.org/cpto/CEM_II_A-S_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_42,5_N
+<https://w3id.org/cpto/CEM_II_A-S_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_42,5_R
+<https://w3id.org/cpto/CEM_II_A-S_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_52,5_N
+<https://w3id.org/cpto/CEM_II_A-S_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-S_52,5_R
+<https://w3id.org/cpto/CEM_II_A-S_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_32,5_N
+<https://w3id.org/cpto/CEM_II_B-S_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_32,5_R
+<https://w3id.org/cpto/CEM_II_B-S_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_42,5_N
+<https://w3id.org/cpto/CEM_II_B-S_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_42,5_R
+<https://w3id.org/cpto/CEM_II_B-S_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_52,5_N
+<https://w3id.org/cpto/CEM_II_B-S_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-S_52,5_R
+<https://w3id.org/cpto/CEM_II_B-S_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_32,5_N
+<https://w3id.org/cpto/CEM_II_A-D_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_32,5_R
+<https://w3id.org/cpto/CEM_II_A-D_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_42,5_N
+<https://w3id.org/cpto/CEM_II_A-D_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_42,5_R
+<https://w3id.org/cpto/CEM_II_A-D_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_52,5_N
+<https://w3id.org/cpto/CEM_II_A-D_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-D_52,5_R
+<https://w3id.org/cpto/CEM_II_A-D_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_32,5_N
+<https://w3id.org/cpto/CEM_II_B-P_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_32,5_R
+<https://w3id.org/cpto/CEM_II_B-P_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_42,5_N
+<https://w3id.org/cpto/CEM_II_B-P_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_42,5_R
+<https://w3id.org/cpto/CEM_II_B-P_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_52,5_N
+<https://w3id.org/cpto/CEM_II_B-P_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-P_52,5_R
+<https://w3id.org/cpto/CEM_II_B-P_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_32,5_N
+<https://w3id.org/cpto/CEM_II_A-P_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_32,5_R
+<https://w3id.org/cpto/CEM_II_A-P_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_42,5_N
+<https://w3id.org/cpto/CEM_II_A-P_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_42,5_R
+<https://w3id.org/cpto/CEM_II_A-P_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_52,5_N
+<https://w3id.org/cpto/CEM_II_A-P_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-P_52,5_R
+<https://w3id.org/cpto/CEM_II_A-P_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_A-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_A-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_32,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_42,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_N
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-Q_52,5_R
+<https://w3id.org/cpto/CEM_II_B-Q_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_32,5_N
+<https://w3id.org/cpto/CEM_II_A-V_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_32,5_R
+<https://w3id.org/cpto/CEM_II_A-V_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_42,5_N
+<https://w3id.org/cpto/CEM_II_A-V_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_42,5_R
+<https://w3id.org/cpto/CEM_II_A-V_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_52,5_N
+<https://w3id.org/cpto/CEM_II_A-V_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-V_52,5_R
+<https://w3id.org/cpto/CEM_II_A-V_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_32,5_N
+<https://w3id.org/cpto/CEM_II_B-V_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_32,5_R
+<https://w3id.org/cpto/CEM_II_B-V_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_42,5_N
+<https://w3id.org/cpto/CEM_II_B-V_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_42,5_R
+<https://w3id.org/cpto/CEM_II_B-V_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_52,5_N
+<https://w3id.org/cpto/CEM_II_B-V_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-V_52,5_R
+<https://w3id.org/cpto/CEM_II_B-V_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_32,5_N
+<https://w3id.org/cpto/CEM_II_A-W_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_32,5_R
+<https://w3id.org/cpto/CEM_II_A-W_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_42,5_N
+<https://w3id.org/cpto/CEM_II_A-W_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_42,5_R
+<https://w3id.org/cpto/CEM_II_A-W_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_52,5_N
+<https://w3id.org/cpto/CEM_II_A-W_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-W_52,5_R
+<https://w3id.org/cpto/CEM_II_A-W_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_32,5_N
+<https://w3id.org/cpto/CEM_II_B-W_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_32,5_R
+<https://w3id.org/cpto/CEM_II_B-W_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_42,5_N
+<https://w3id.org/cpto/CEM_II_B-W_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_42,5_R
+<https://w3id.org/cpto/CEM_II_B-W_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_52,5_N
+<https://w3id.org/cpto/CEM_II_B-W_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-W_52,5_R
+<https://w3id.org/cpto/CEM_II_B-W_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_32,5_N
+<https://w3id.org/cpto/CEM_II_A-T_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_32,5_R
+<https://w3id.org/cpto/CEM_II_A-T_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_42,5_N
+<https://w3id.org/cpto/CEM_II_A-T_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_42,5_R
+<https://w3id.org/cpto/CEM_II_A-T_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_52,5_N
+<https://w3id.org/cpto/CEM_II_A-T_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-T_52,5_R
+<https://w3id.org/cpto/CEM_II_A-T_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_32,5_N
+<https://w3id.org/cpto/CEM_II_B-T_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_32,5_R
+<https://w3id.org/cpto/CEM_II_B-T_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_42,5_N
+<https://w3id.org/cpto/CEM_II_B-T_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_42,5_R
+<https://w3id.org/cpto/CEM_II_B-T_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_52,5_N
+<https://w3id.org/cpto/CEM_II_B-T_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-T_52,5_R
+<https://w3id.org/cpto/CEM_II_B-T_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_32,5_N
+<https://w3id.org/cpto/CEM_II_A-L_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_32,5_R
+<https://w3id.org/cpto/CEM_II_A-L_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_42,5_N
+<https://w3id.org/cpto/CEM_II_A-L_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_42,5_R
+<https://w3id.org/cpto/CEM_II_A-L_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_52,5_N
+<https://w3id.org/cpto/CEM_II_A-L_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-L_52,5_R
+<https://w3id.org/cpto/CEM_II_A-L_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_32,5_N
+<https://w3id.org/cpto/CEM_II_B-L_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_32,5_R
+<https://w3id.org/cpto/CEM_II_B-L_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_42,5_N
+<https://w3id.org/cpto/CEM_II_B-L_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_42,5_R
+<https://w3id.org/cpto/CEM_II_B-L_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_52,5_N
+<https://w3id.org/cpto/CEM_II_B-L_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-L_52,5_R
+<https://w3id.org/cpto/CEM_II_B-L_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_32,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_32,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_42,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_42,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_52,5_N
+<https://w3id.org/cpto/CEM_II_A-LL_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-LL_52,5_R
+<https://w3id.org/cpto/CEM_II_A-LL_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_32,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_32,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_42,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_42,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_52,5_N
+<https://w3id.org/cpto/CEM_II_B-LL_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-LL_52,5_R
+<https://w3id.org/cpto/CEM_II_B-LL_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_32,5_N
+<https://w3id.org/cpto/CEM_II_A-M_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_32,5_R
+<https://w3id.org/cpto/CEM_II_A-M_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_42,5_N
+<https://w3id.org/cpto/CEM_II_A-M_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_42,5_R
+<https://w3id.org/cpto/CEM_II_A-M_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_52,5_N
+<https://w3id.org/cpto/CEM_II_A-M_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_A-M_52,5_R
+<https://w3id.org/cpto/CEM_II_A-M_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_32,5_N
+<https://w3id.org/cpto/CEM_II_B-M_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_32,5_R
+<https://w3id.org/cpto/CEM_II_B-M_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_42,5_N
+<https://w3id.org/cpto/CEM_II_B-M_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_42,5_R
+<https://w3id.org/cpto/CEM_II_B-M_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_52,5_N
+<https://w3id.org/cpto/CEM_II_B-M_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_II_B-M_52,5_R
+<https://w3id.org/cpto/CEM_II_B-M_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_N
+<https://w3id.org/cpto/CEM_III_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_R
+<https://w3id.org/cpto/CEM_III_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_N
+<https://w3id.org/cpto/CEM_III_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_R
+<https://w3id.org/cpto/CEM_III_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_N
+<https://w3id.org/cpto/CEM_III_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_R
+<https://w3id.org/cpto/CEM_III_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_N
+<https://w3id.org/cpto/CEM_III_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_R
+<https://w3id.org/cpto/CEM_III_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_N
+<https://w3id.org/cpto/CEM_III_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_R
+<https://w3id.org/cpto/CEM_III_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_N
+<https://w3id.org/cpto/CEM_III_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_R
+<https://w3id.org/cpto/CEM_III_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_N
+<https://w3id.org/cpto/CEM_III_C_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_R
+<https://w3id.org/cpto/CEM_III_C_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_N
+<https://w3id.org/cpto/CEM_III_C_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_R
+<https://w3id.org/cpto/CEM_III_C_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_N
+<https://w3id.org/cpto/CEM_III_C_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_R
+<https://w3id.org/cpto/CEM_III_C_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_N
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_R
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_N
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_R
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_32,5_N
+<https://w3id.org/cpto/CEM_IV_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_32,5_R
+<https://w3id.org/cpto/CEM_IV_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_42,5_N
+<https://w3id.org/cpto/CEM_IV_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_42,5_R
+<https://w3id.org/cpto/CEM_IV_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_52,5_N
+<https://w3id.org/cpto/CEM_IV_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A_52,5_R
+<https://w3id.org/cpto/CEM_IV_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_32,5_N
+<https://w3id.org/cpto/CEM_IV_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_32,5_R
+<https://w3id.org/cpto/CEM_IV_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_42,5_N
+<https://w3id.org/cpto/CEM_IV_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_42,5_R
+<https://w3id.org/cpto/CEM_IV_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_52,5_N
+<https://w3id.org/cpto/CEM_IV_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B_52,5_R
+<https://w3id.org/cpto/CEM_IV_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_32,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_32,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_42,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_42,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_52,5_N
+<https://w3id.org/cpto/CEM_IV_A-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_A-SR_52,5_R
+<https://w3id.org/cpto/CEM_IV_A-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_32,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_32,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_42,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_42,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_52,5_N
+<https://w3id.org/cpto/CEM_IV_B-SR_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_IV_B-SR_52,5_R
+<https://w3id.org/cpto/CEM_IV_B-SR_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_32,5_N
+<https://w3id.org/cpto/CEM_V_A_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_32,5_R
+<https://w3id.org/cpto/CEM_V_A_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_42,5_N
+<https://w3id.org/cpto/CEM_V_A_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_42,5_R
+<https://w3id.org/cpto/CEM_V_A_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_52,5_N
+<https://w3id.org/cpto/CEM_V_A_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_A_52,5_R
+<https://w3id.org/cpto/CEM_V_A_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_32,5_N
+<https://w3id.org/cpto/CEM_V_B_32,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_32,5_R
+<https://w3id.org/cpto/CEM_V_B_32,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_42,5_N
+<https://w3id.org/cpto/CEM_V_B_42,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_42,5_R
+<https://w3id.org/cpto/CEM_V_B_42,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_52,5_N
+<https://w3id.org/cpto/CEM_V_B_52,5_N> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_V_B_52,5_R
+<https://w3id.org/cpto/CEM_V_B_52,5_R> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_32,5_L
+<https://w3id.org/cpto/CEM_III_A_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_42,5_L
+<https://w3id.org/cpto/CEM_III_A_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_A_52,5_L
+<https://w3id.org/cpto/CEM_III_A_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_32,5_L
+<https://w3id.org/cpto/CEM_III_B_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_42,5_L
+<https://w3id.org/cpto/CEM_III_B_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B_52,5_L
+<https://w3id.org/cpto/CEM_III_B_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_32,5_L
+<https://w3id.org/cpto/CEM_III_C_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_42,5_L
+<https://w3id.org/cpto/CEM_III_C_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C_52,5_L
+<https://w3id.org/cpto/CEM_III_C_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_32,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_42,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_B-SR_52,5_L
+<https://w3id.org/cpto/CEM_III_B-SR_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_32,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_32,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_42,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_42,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+###  https://w3id.org/cpto/CEM_III_C-SR_52,5_L
+<https://w3id.org/cpto/CEM_III_C-SR_52,5_L> rdf:type owl:NamedIndividual ,
+                               <https://w3id.org/cpto/Cement> . 
+
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
