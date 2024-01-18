@@ -283,7 +283,7 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2014_08_05 Rezeptur_MI.xlsx'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2019_06_26 Klimek Geschossdecke_Quarzkies.xls'
     if args.output == None:
         args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 
