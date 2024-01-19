@@ -9,10 +9,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Runs the workflow once per day at 3:15am
-  schedule:
-    - cron: '3 15 * * *'
-
 env:
   CACHE_NUMBER: 2  # increase to reset cache manually
 

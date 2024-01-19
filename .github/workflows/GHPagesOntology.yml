@@ -1,0 +1,43 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      ontology_path:
+        description: 'Relative path to the ontology file'
+        required: true
+        default: 'lebedigital/ConcreteOntology/BaseOntology/ConcreteProductionAndTestingOntology.owl'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: repo
+
+    - name: Install dependencies
+      run: |
+           pip install rdflib
+           wget -O widoco.jar https://github.com/dgarijo/Widoco/releases/download/v1.4.17/java-11-widoco-1.4.17-jar-with-dependencies.jar
+
+    - name: Get ontology version
+      run: |
+           echo "ONTOLOGY_FILE_PATH=${{ github.event.inputs.ontology_path }}"
+           echo "ONTO_VERSION=$(python repo/.github/workflows/get_ontoversion.py $ONTOLOGY_FILE_PATH)" >> "$GITHUB_ENV"
+
+    - name: Build HTML for ontology
+      run: | 
+           mkdir -p public/v$ONTO_VERSION
+           java -jar widoco.jar -ontFile $ONTOLOGY_FILE_PATH -outFolder public/v$ONTO_VERSION -htaccess -uniteSections -includeAnnotationProperties -lang en-de -getOntologyMetadata -noPlaceHolderText -rewriteAll -webVowl
+           cp public/v$ONTO_VERSION/index-en.html public/v$ONTO_VERSION/index.html
+
+    - name: Deploy to GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        target_branch: gh-pages
+        build_dir: public
+        keep_history: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
