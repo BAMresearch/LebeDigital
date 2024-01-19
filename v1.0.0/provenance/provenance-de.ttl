@@ -1,0 +1,21 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix : <> .
+<https://w3id.org/cpto> a prov:Entity;
+	 dc:title "Concrete Production and Testing Ontology";
+	 prov:wasAttributedTo <https://orcid.org/0000-0003-0626-5002>;
+	 dc:creator <https://orcid.org/0000-0003-0626-5002>;
+	 prov:wasAttributedTo <https://orcid.org/0000-0003-2445-6734>;
+	 dc:creator <https://orcid.org/0000-0003-2445-6734>;
+	 prov:wasAttributedTo <https://orcid.org/0009-0003-7121-0283>;
+	 dc:creator <https://orcid.org/0009-0003-7121-0283>;
+	 prov:wasAttributedTo <https://orcid.org/0009-0004-9700-2439>;
+	 dc:creator <https://orcid.org/0009-0004-9700-2439>;
+	 prov:wasAttributedTo <https://orcid.org/0009-0006-4524-9143>;
+	 dc:creator <https://orcid.org/0009-0006-4524-9143>;
+	 prov:wasAttributedTo :agent0;
+	 prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;
+	 prov:wasGeneratedAt "2024-01-17";
+.
+:agent0 a prov:Agent; foaf:name "Mattheo Krüger, Melissa Telong Donfack, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz".

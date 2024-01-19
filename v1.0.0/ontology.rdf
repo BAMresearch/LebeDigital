@@ -1,0 +1,3857 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://w3id.org/cpto#"
+     xml:base="https://w3id.org/cpto"
+     xmlns:co="https://w3id.org/pmd/co/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:cpto="https://w3id.org/cpto/"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="https://w3id.org/cpto">
+        <owl:versionIRI rdf:resource="https://w3id.org/cpto"/>
+        <owl:imports rdf:resource="https://w3id.org/pmd/co"/>
+        <terms:bibliographicCitation>Meng, B., et al. 2023: Wissensbasierte Digitalisierung von betontechnologischen Materialdaten, ce/papers, DOI 10.1002/cepa.2955</terms:bibliographicCitation>
+        <terms:created>2024-01-17</terms:created>
+        <terms:creator rdf:resource="https://orcid.org/0000-0003-0626-5002"/>
+        <terms:creator rdf:resource="https://orcid.org/0000-0003-2445-6734"/>
+        <terms:creator rdf:resource="https://orcid.org/0009-0003-7121-0283"/>
+        <terms:creator rdf:resource="https://orcid.org/0009-0004-9700-2439"/>
+        <terms:creator rdf:resource="https://orcid.org/0009-0006-4524-9143"/>
+        <terms:creator>Mattheo Krüger, Melissa Telong Donfack, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz</terms:creator>
+        <terms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <terms:title xml:lang="en">Concrete Production and Testing Ontology</terms:title>
+        <rdfs:comment xml:lang="en">The Concrete Production and Testing Ontology (CPTO) is created in the project LeBeDigital.
+					 It describes the production chain of concrete, starting with the mix design through curing
+					 and testing. It consist of the domain specific ontology CPTO as a basis for a set of knowledge
+					 graph templates to describe process steps like mixing process,  hardening and storage or
+					 compressive strength testing. The CPTO is based on PMDco 2.0.</rdfs:comment>
+        <owl:versionInfo>1.0.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/creator"/>
+    
+
+
+    <!-- https://w3id.org/cpto/definition -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/cpto/definition"/>
+    
+
+
+    <!-- https://w3id.org/cpto/source -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/cpto/source"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://w3id.org/cpto/Addition -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Addition">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Additives"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Addition</rdfs:label>
+        <rdfs:label xml:lang="de">Betonzusatzstoff</rdfs:label>
+        <prov:definition xml:lang="de">Fein verteilter anorganischer Stoff, der im Beton verwendet wird, um bestimmte Eigenschaften zu verbessern oder um bestimmte Eigenschaften zu erreichen.</prov:definition>
+        <prov:definition xml:lang="en">Finely divided material used in concrete in order to improve certain properties or to achieve special properties.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Additives -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Additives">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">DIN EN 206</rdfs:comment>
+        <rdfs:label xml:lang="en">Additives</rdfs:label>
+        <rdfs:label xml:lang="de">Betonzusaetze</rdfs:label>
+        <prov:definition xml:lang="de">Stoffe, die dem Beton zur Beeinflussung bestimmter Frisch- und/oder Festbetoneigenschaften zugegeben werden. Nach Art und Zugabemenge unterscheidet man Betonzusatzmittel und Betonzusatzstoffe.</prov:definition>
+        <prov:definition xml:lang="en">a substance added to another in relatively small amounts to impart or improve desirable properties or suppress undesirable properties.</prov:definition>
+        <co:definitionSource xml:lang="en">ACI</co:definitionSource>
+        <co:definitionSource xml:lang="de">Zement-Merkblatt B3</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Admixture -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Admixture">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Additives"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Admixture</rdfs:label>
+        <rdfs:label xml:lang="de">Betonzusatzmittel</rdfs:label>
+        <prov:definition xml:lang="en">Material added during the mixing process of concrete in small quantities related to the mass of cement to modify the properties of fresh or hardened concrete.</prov:definition>
+        <prov:definition xml:lang="de">Stoff, der waehrend des Mischvorgangs des Betons in kleinen Mengen, bezogen auf den Zementgehalt, zugegeben wird, um die Eigenschaften des Frischbetons oder Festbetons zu veraendern</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Aggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Aggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="de">Fuer die Verwendung in Beton geeigneter gekoernter, mineralischer Stoff, der natuerlich, kuenstlich, wiedergewonnen oder rezykliert sein kann.</prov:definition>
+        <prov:definition xml:lang="en">Natural, artificial, reclaimed or recycled granular mineral constituent suitable for use in concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/AggregateSize -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/AggregateSize">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialProperty"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Korngroesse</rdfs:label>
+        <rdfs:label xml:lang="en">aggregate size</rdfs:label>
+        <prov:definition xml:lang="de">Bezeichnung einer Gesteinskoernung mittels unterer (d) und oberer (D) Siebgroesse, angegeben als d/D.</prov:definition>
+        <prov:definition xml:lang="en">Designation of aggregate in terms of lower (d) and upper (D) sieve sizes expressed as d/D.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Air -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Air">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Air</rdfs:label>
+        <rdfs:label xml:lang="de">Luft</rdfs:label>
+        <prov:definition xml:lang="de">Stoffgemisch aus verschiedenen Gasen</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/AllInAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/AllInAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Gesteinskoernungsgemisch</rdfs:label>
+        <rdfs:label xml:lang="en">all-in aggregate</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate consisting of a mixture of coarse and fine aggregates with D greater than 4 mm and d = 0.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung, bestehend aus einem Gemisch grober und feiner Gesteinskoernungen mit D groesser als 4 mm und mit d = 0.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Batch -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Batch">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ManufacturingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Charge</rdfs:label>
+        <rdfs:label xml:lang="en">batch</rdfs:label>
+        <prov:definition xml:lang="de">Menge Frischbeton, die entweder in einem Arbeitsspiel eines Mischers hergestellt wird oder die waehrend 1 min von einem Durchlaufmischer ausgestossen wird.</prov:definition>
+        <prov:definition xml:lang="en">The quantity of fresh concrete produced in one cycle of operations of a mixer or the quantity discharged during 1 min from a continous mixer.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/BlastFurnaceSlag -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/BlastFurnaceSlag">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Hochofenschlacke</rdfs:label>
+        <rdfs:label xml:lang="en">blast furnace slag</rdfs:label>
+        <prov:definition xml:lang="en">Blast furnace slag is a by-product of pig iron production through thermochemical reduction processes at around 1500C in a blast furnace.</prov:definition>
+        <prov:definition xml:lang="de">Hochofenschlacke entsteht als Nebenprodukt bei der Roheisengewinnung durch thermochemische Reduktionsprozesse bei ca. 1500C im Hochofen.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Calorimeter -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Calorimeter">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MeasuringDevice"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Calorimeter</rdfs:label>
+        <rdfs:label xml:lang="de">Kalorimeter</rdfs:label>
+        <prov:definition xml:lang="en">Instrument for measuring heat exchange during a chemical reaction, such as the quantity of heat liberated by the combustion of a fuel or hydration of a cement.</prov:definition>
+        <prov:definition xml:lang="de">Instrument zur Messung des Waermeaustauschs waehrend einer chemischen Reaktion, wie z. B. der Waermemenge, die durch die Verbrennung eines Brennstoffs oder die Hydratation eines Zements freigesetzt wird.</prov:definition>
+        <co:definitionSource xml:lang="de">ACI CT-21: ACI Concrete Terminology</co:definitionSource>
+        <co:definitionSource xml:lang="en">ACI CT-21: ACI Concrete Terminology</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CastingDevice -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CastingDevice">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ProcessingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Betoniervorrichtung</rdfs:label>
+        <rdfs:label xml:lang="en">Casting Device</rdfs:label>
+        <prov:definition xml:lang="en">Device or tool used to cast concrete.</prov:definition>
+        <prov:definition xml:lang="de">Geraete oder Hilfsmittel zur Verwendung bei einer Betonage.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Cement -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Cement">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Cement</rdfs:label>
+        <rdfs:label xml:lang="de">Zement</rdfs:label>
+        <prov:definition xml:lang="en">A finely ground inorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water.</prov:definition>
+        <prov:definition xml:lang="de">Fein gemahlener anorganischer Stoff, der, mit Wasser gemischt, Zementleim ergibt, welcher durch Hydratation erstarrt und erhaertet und nach dem Erhaerten auch unter Wasser stabil und raumbestaendig bleibt.</prov:definition>
+        <co:definitionSource xml:lang="de">EN 197-1</co:definitionSource>
+        <co:definitionSource xml:lang="en">EN 197-1</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CharacteristicStrength -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CharacteristicStrength">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/ConcreteCompressiveStrength"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">characteristic strength</rdfs:label>
+        <rdfs:label xml:lang="de">charakteristische Festigkeit</rdfs:label>
+        <prov:definition xml:lang="de">Festigkeitswert, unter dem erwartungsgemaess 5 % der Grundgesamtheit aller moeglichen Festigkeitswerte des betrachteten Betonvolumens liegen.</prov:definition>
+        <prov:definition xml:lang="en">Value of strength below which 5 % of the population of all possible strength determinations of the volume of concrete under consideration, are expected to fall.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CompositeMaterial -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CompositeMaterial">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/EngineeredMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Composite Material</rdfs:label>
+        <rdfs:label xml:lang="de">Verbundwerkstoff</rdfs:label>
+        <prov:definition xml:lang="en">Engineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually.</prov:definition>
+        <prov:definition xml:lang="de">Technische Werkstoffe, die aus zwei oder mehr Bestandteilen bestehen, die getrennt bleiben, sich aber zu Materialien mit Eigenschaften verbinden, die keiner der Bestandteile einzeln besitzt.</prov:definition>
+        <co:definitionSource xml:lang="de">ACI</co:definitionSource>
+        <co:definitionSource xml:lang="en">ACI</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CompressiveStregthClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CompressiveStregthClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/ConcreteCompressiveStrength"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Druckfestigkeitsklasse</rdfs:label>
+        <rdfs:label xml:lang="en">compressive strength class</rdfs:label>
+        <prov:definition xml:lang="en">Classification comprising the type of concrete (normal-weight and heavy-weight or lightweight), the minimum characteristic cylinder strength (150 mm diameter by 300 mm length) and the minimum characteristic cube strength (150 mm edge length).</prov:definition>
+        <prov:definition xml:lang="de">Klassifizierung bestehend aus der Betonart (Normal-, Schwer- oder Leichtbeton), dem Mindestwert der charakteristischen Zylinderfestigkeit (bei Zylindern von 150 mm Durchmesser und 300 mm Laenge) und dem Mindestwert der charakteristischen Wuerfelfestigkeit (bei einer Kantenlaenge des Wuerfels von 150 mm).</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CompressiveStrengthCube -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CompressiveStrengthCube">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/ConcreteCompressiveStrength"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Compressive Cube Strength</rdfs:label>
+        <rdfs:label xml:lang="de">Wuerfeldruckfestigkeit</rdfs:label>
+        <prov:definition xml:lang="de">Druckfestigkeit von Beton in MPa (N/mm^2), die bei der Druckfestigkeitspruefung an Probewuerfeln ermittelt wird. </prov:definition>
+        <prov:definition xml:lang="en">The compressive strength of concrete in MPa (N/mm^2) determind using cube specimens.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12390-3</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CompressiveStrengthCylinder -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CompressiveStrengthCylinder">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/ConcreteCompressiveStrength"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Compressive Cylinder Strength </rdfs:label>
+        <rdfs:label xml:lang="de">Zylinderdruckfestigkeit</rdfs:label>
+        <prov:definition xml:lang="de">Druckfestigkeit von Beton in MPa (N/mm^2), die  bei der Druckfestigkeitspruefung an einem zylinderfoermigen Probekoerper (Probezylinder) ermittelt wird.</prov:definition>
+        <prov:definition xml:lang="en">The compressive strength of concrete in MPa (N/mm^2) determind using cylinder specimens.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12390-3</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/CompressiveTestingMachine -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/CompressiveTestingMachine">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/TestingMachine"/>
+        <prov:definition xml:lang="de">Maschine zur Durchführung eines Druckversuches; die Regelung und Überwachung des Versuches, die Messungen und die Datenverarbeitung werden üblicherweise mithilfe eines Computers durchgeführt.</prov:definition>
+        <prov:definition xml:lang="en">machine to conduct a compressive strength test; the control and monitoring of the test, the measurements, and the data processing are usually undertaken by computer</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12390-4</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 12390-4</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Concrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Concrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/EngineeredMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Beton</rdfs:label>
+        <rdfs:label xml:lang="en">Concrete</rdfs:label>
+        <prov:definition xml:lang="de">Baustoff, der durch Mischen von Zement, grober und feiner Gesteinskoernung und Wasser, mit oder ohne Zugabe von Zusatzmitteln und Zusatzstoffen oder Fasern, hergestellt wird und seine Eigenschaften durch Hydratation des Zements erhaelt.</prov:definition>
+        <prov:definition xml:lang="en">Material formed by mixing cement, coarse and fine aggregate and water, with or without the incorporation of admixtures and additions, which develops ist properties by hydration of the cement.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ConcreteCompressiveStrength -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ConcreteCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Betondruckfestigkeit</rdfs:label>
+        <rdfs:label xml:lang="en">Concrete Compressive Strength</rdfs:label>
+        <prov:definition xml:lang="de">Der Quotient aus Bruchlast und Flaeche des Probenquerschnitts eines einachsig beanspruchten Betonprobekoerpers.</prov:definition>
+        <prov:definition xml:lang="en">The measured maximum resistance of a concrete specimen to axial compressive loading.</prov:definition>
+        <co:definitionSource xml:lang="en">ACI</co:definitionSource>
+        <co:definitionSource xml:lang="de">DIN EN 12390-3</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ConcreteManufacturer -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ConcreteManufacturer">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Organization"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Betonhersteller</rdfs:label>
+        <rdfs:label xml:lang="en">Concrete Manufacturer</rdfs:label>
+        <prov:definition xml:lang="de">Person oder Stelle, die den Frischbeton herstellt.</prov:definition>
+        <prov:definition xml:lang="en">Person or body producing fresh concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ConcreteMixer -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ConcreteMixer">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ProcessingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Betonmischer</rdfs:label>
+        <rdfs:label xml:lang="en">Concrete Mixer</rdfs:label>
+        <prov:definition xml:lang="en">A machine used for blending the raw materials of concrete, grout, mortar, cement paste, or other mixture.</prov:definition>
+        <prov:definition xml:lang="de">Baustoffmaschine zur Herstellung von Beton, Moertel oder Zementleim durch Mischen der Ausgangsstoffe.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ConfirmityTest -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ConfirmityTest">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Konfirmitaetspruefung</rdfs:label>
+        <rdfs:label xml:lang="en">conformity test</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung, die vom Hersteller durchgefuehrt wird, um die Konformitaet des Betons nachzuweisen.</prov:definition>
+        <prov:definition xml:lang="en">Test performed by the producer to assess conformity of the concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Consistency -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Consistency">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Konsistenz</rdfs:label>
+        <rdfs:label xml:lang="en">consistency</rdfs:label>
+        <prov:definition xml:lang="de">Mass fuer die Steifheit und Verarbeitbarkeit von Frischbeton.</prov:definition>
+        <prov:definition xml:lang="en">Measure of the stiffness and workability of fresh concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ConsistencyClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ConsistencyClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Konsistenzklasse</rdfs:label>
+        <rdfs:label xml:lang="en">consistency class</rdfs:label>
+        <prov:definition xml:lang="en">Classification of the consistency of fresh concrete.</prov:definition>
+        <prov:definition xml:lang="de">Einteilung der Konsistenz von Frischbeton.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Content -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Content">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <prov:definition xml:lang="de">Die Menge an Material im Beton bezogen auf 1 Kubikmeter</prov:definition>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Customer -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Customer">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Organization"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Abnehmer/Kunde</rdfs:label>
+        <rdfs:label xml:lang="en">Customer</rdfs:label>
+        <prov:definition xml:lang="de">Person oder Stelle, die Frischbeton zur Herstellung eines Bauwerks oder eines Bauteils verwendet.</prov:definition>
+        <prov:definition xml:lang="en">Person or body using fresh concrete in the execution of a construction or an element.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DINStandard -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DINStandard">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/Norm"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">DIN Norm</rdfs:label>
+        <rdfs:label xml:lang="en">DIN Standard</rdfs:label>
+        <prov:definition xml:lang="de">Unter Leitung des Deutschen Instituts fuer Normung (DIN) erarbeiteter freiwilliger Standard, in dem materielle und immaterielle Gegenstaende vereinheitlicht sind.</prov:definition>
+        <prov:definition xml:lang="en">Voluntary standard developed under the direction of the German Institute for Standardization (DIN) in which tangible and intangible objects are standardized.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DegreeOfCompactability -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DegreeOfCompactability">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Verdichtungsmass</rdfs:label>
+        <rdfs:label xml:lang="en">degree of compactability</rdfs:label>
+        <prov:definition xml:lang="de">nan</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DegreeOfCompactabilityClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DegreeOfCompactabilityClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Verdichtungsmassklasse</rdfs:label>
+        <rdfs:label xml:lang="en">degree of compactability class</rdfs:label>
+        <prov:definition xml:lang="en">Classification of consistency by determining the degree of compaction.</prov:definition>
+        <prov:definition xml:lang="de">Einteilung der Konsistenz durch die Bestimmung des Verdichtungsmasses.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Delivery -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Delivery">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ManufacturingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Lieferung</rdfs:label>
+        <rdfs:label xml:lang="en">delivery</rdfs:label>
+        <prov:definition xml:lang="en">The process of handing over the fresh concrete by the producer.</prov:definition>
+        <prov:definition xml:lang="de">Vorgang der uebergabe des Frischbetons durch den Hersteller.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DesignedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DesignedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Beton nach Eigenschaften</rdfs:label>
+        <rdfs:label xml:lang="en">designed concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, fuer den die geforderten Eigenschaften und zusaetzliche Anforderungen, sofern erforderlich, gegenueber dem Hersteller festgelegt sind, der fuer die Bereitstellung eines Betons, der den geforderten Eigenschaften und den zusaetzlichen Anforderungen entspricht, verantwortlich ist.</prov:definition>
+        <prov:definition xml:lang="en">Concrete for which the required properties and additional characteristics are specified to the producer who is responsible for providing a concrete confirming to the required properties and additional characteristics.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DestructiveTesting -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DestructiveTesting">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Destructive Testing</rdfs:label>
+        <rdfs:label xml:lang="de">Zerstoerende Pruefung</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei zerstoert oder veraendert werden.</prov:definition>
+        <prov:definition xml:lang="en">Testing for chemical and/or physical properties where materials were destroyed or changed in the process.</prov:definition>
+        <co:definitionSource xml:lang="de">Krankenhagen &amp; Laube (1983)</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DeterminationOfCompressiveStrength -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DeterminationOfCompressiveStrength">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Determination of Compressive Strength</rdfs:label>
+        <rdfs:label xml:lang="de">Druckfestigkeitspruefung</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung der Druckfestigkeit an Probewuerfeln oder -zylindern, die in einer Druckpruefmaschine mit vorgegebener Belastungsgeschwindigkeit bis zum Bruch auf Druck belastet werden. </prov:definition>
+        <prov:definition xml:lang="en">Testing of the compressive strength on test cubes or cylinders, which are subjected to compression in a compression testing machine at a specified loading rate until fracture.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12390-3</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DeterminationOfHeatOfHydration -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DeterminationOfHeatOfHydration">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:label xml:lang="en">Determination of Compressive Strength</rdfs:label>
+        <rdfs:label xml:lang="de">Druckfestigkeitspruefung</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Bestimmung des Elastizitaetsmoduls (Sekantenmodul)</rdfs:label>
+        <rdfs:label xml:lang="en">Determination of Secant Modulus of Elasticity</rdfs:label>
+        <prov:definition xml:lang="de">Bestimmung des Elastizitaetsmoduls an zylindrischen oder prismatischen Probekoerpern, die in einer Druckpruefmaschine unter axialer Druckbelastung beansprucht und die auftretenden Spannungen und Dehnungen aufgezeichnet werden. Aus dem Anstieg der Spannungs-Dehnungs-Kurve wird der Sekantenmodul bei der ersten Belastung (nur bei Verfahren A) und nach drei Belastungszyklen (Verfahren A und B) ermittelt.</prov:definition>
+        <prov:definition xml:lang="en">Determination of the modulus of elasticity on cylinder or prismatic specimens loaded under axial compression in a compression testing machine. The stresses and strains are recorded. The slope of the secant to the stress-strain curve is determined at first loading (Method A only) and after three loading cycles (Methods A and B).</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12390-13</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 12390-13</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ENStandard -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ENStandard">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/Norm"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">EN Norm</rdfs:label>
+        <rdfs:label xml:lang="en">EN Standard</rdfs:label>
+        <prov:definition xml:lang="de">Norm, die von einer der folgenden Institutionen veroeffentlicht wird: CEN (Comite Europeen de Normalisation) CENELEC (Europaeisches Komitee fuer Elektronische Normen) ETSI (Europaeisches Institut fuer Telekommunikationsnormen).</prov:definition>
+        <prov:definition xml:lang="en">Standard published by one of the following Institutions: CEN (Comite Europeen de Normalisation) CENELEC (European Committee for Electronical Standards) ETSI (European Telecommunications Standard Institute).</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/EntrainedAir -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/EntrainedAir">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">entrained air</rdfs:label>
+        <rdfs:label xml:lang="de">kuenstliche Luftporen</rdfs:label>
+        <prov:definition xml:lang="en">Microscopic air bubbles intentionally incorporated in concrete during mixing, usually by use of a surface active agent; typically between 10 micrometer and 300 micrometer in diameter and spherical or nearly so.</prov:definition>
+        <prov:definition xml:lang="de">mikroskopisch kleine Luftporen, die waehrend des Mischens - im Allgemeinen unter Verwendung eines oberflaechenaktiven Stoffes - absichtlich im Beton erzeugt werden; typischerweise kugelfoermig oder nahezu kugelfoermig sowie mit einem Durchmesser von 10 micrometer bis 300 micrometer.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/EntrappedAir -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/EntrappedAir">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Lufteinschluesse</rdfs:label>
+        <rdfs:label xml:lang="en">entrapped air</rdfs:label>
+        <prov:definition xml:lang="en">Air voids in concrete which are not purposely entrained.</prov:definition>
+        <prov:definition xml:lang="de">Luftporen, die unbeabsichtigt in den Beton gelangen.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/EquivalentWaterCementRatio -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/EquivalentWaterCementRatio">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Equivalent Water Cement Ratio</rdfs:label>
+        <rdfs:label xml:lang="de">aequivalenter Wasserzementwert</rdfs:label>
+        <prov:definition xml:lang="de">Masseverhaeltnis des wirksamen Wassergehaltes zur Summe aus Zementgehalt und k-fach anrechenbaren Anteilen von Zusatzstoffen (w/z)eq.</prov:definition>
+        <prov:definition xml:lang="en">Ratio by mass of the effective water content to the combined cement content and the k-value to take into account additions.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/EvaluationOfConfirmity -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/EvaluationOfConfirmity">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Konfirmitaetsbewertung</rdfs:label>
+        <rdfs:label xml:lang="en">evaluation of conformity</rdfs:label>
+        <prov:definition xml:lang="en">Systematic examination of the extent to which a product fulfils specified requirements.</prov:definition>
+        <prov:definition xml:lang="de">Systematische ueberpruefung, in welchem Umfang ein Produkt festgelegte Anforderungen erfuellt.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ExposureClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ExposureClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">vgl: Umwelteinfluesse/Einwirkungen aus der Umgebung
+vgl: environmental actions</rdfs:comment>
+        <rdfs:label xml:lang="de">Expositionsklasse</rdfs:label>
+        <rdfs:label xml:lang="en">Exposure Class</rdfs:label>
+        <prov:definition xml:lang="en">Classification of those chemical and physical actions to which the concrete is exposed and which result in effects on the concrete or reinforcement or embedded metal that are not considered as loads in structural design.</prov:definition>
+        <prov:definition xml:lang="de">Klassifizierung derjenigen chemischen und physikalischen Umgebungsbedingungen, denen der Beton ausgesetzt ist und die zu Auswirkungen auf den Beton oder die Bewehrung oder das eingebettete Metall fuehren, die nicht als Lasten bei der konstruktiven Bemessung beruecksichtigt sind.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Extensometer -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Extensometer">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MeasuringDevice"/>
+        <rdfs:comment xml:lang="en">E-Modul Norm bzgl. engl. Bezeichnung</rdfs:comment>
+        <rdfs:label xml:lang="en">Extensometer</rdfs:label>
+        <rdfs:label xml:lang="de">Wegaufnehmer / Wegsensor</rdfs:label>
+        <prov:definition xml:lang="de">Dient zur Messung des Abstandes zwischen einem Objekt und einem Bezugspunkt oder von Laengenaenderungen.</prov:definition>
+        <prov:definition xml:lang="en">Used to measure the distance between an object and a reference point or changes in length.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Fibres -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Fibres">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Fasern</rdfs:label>
+        <rdfs:label xml:lang="en">Fibres</rdfs:label>
+        <prov:definition xml:lang="de">nan</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FinesInConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FinesInConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialProperty"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Mehlkorn</rdfs:label>
+        <rdfs:label xml:lang="en">fines in concrete</rdfs:label>
+        <prov:definition xml:lang="en">Sum of solid materials in fresh concrete with particle sizes less than or equal to 0,125 mm.</prov:definition>
+        <prov:definition xml:lang="de">Summe der festen Partikel im Frischbeton mit einer Korngroesse =&lt; 0,125 mm.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FlowClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FlowClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Ausbreitmassklasse</rdfs:label>
+        <rdfs:label xml:lang="en">Flow Class</rdfs:label>
+        <prov:definition xml:lang="en">Classification of consistency by determining the flow spread.</prov:definition>
+        <prov:definition xml:lang="de">Einteilung der Konsistenz durch die Bestimmung des Ausbreitmasses.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FlowSpread -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FlowSpread">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Ausbreitmass</rdfs:label>
+        <rdfs:label xml:lang="en">Flow Spread</rdfs:label>
+        <prov:definition xml:lang="en">Mean diameter of the spread of fresh concrete from a standardized slump cone.</prov:definition>
+        <prov:definition xml:lang="de">Mittlerer Ausbreitdurchmesser von Frischbeton, der im Ausbreitversuch bestimmt wird.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FlowTableTest -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FlowTableTest">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Bestimmung des Ausbreitmasses</rdfs:label>
+        <rdfs:label xml:lang="en">Flow Table Test</rdfs:label>
+        <prov:definition xml:lang="de">Mit dieser Pruefung wird die Konsistenz von Frischbeton durch Messung der Ausbreitung von Beton auf einer flachen Platte bestimmt, die auf einen Rahmen fallengelassen wird.</prov:definition>
+        <prov:definition xml:lang="en">This test determines the consistency of fresh concrete by measuring the spread of concrete on a flat slab dropped onto a frame.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 12350-5</co:definitionSource>
+        <co:definitionSource xml:lang="en">EN 12350-5</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FlyAsh -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FlyAsh">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Flugasche</rdfs:label>
+        <rdfs:label xml:lang="en">Fly Ash</rdfs:label>
+        <prov:definition xml:lang="de">Feines graues Pulver, das hauptsaechlich aus kugelfoermigen, glasartigen Partikeln besteht und als Nebenprodukt in Kohlekraftwerken anfaellt. </prov:definition>
+        <prov:definition xml:lang="en">Fine gray powder consisting mostly of spherical, glassy particles that are produced as a byproduct in coal-fired power stations. </prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/FreshConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/FreshConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Fresh Concrete</rdfs:label>
+        <rdfs:label xml:lang="de">Frischbeton</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der fertig gemischt ist, sich noch in einem verarbeitbaren Zustand befindet und durch das gewaehlte Verfahren verdichtet werden kann.</prov:definition>
+        <prov:definition xml:lang="en">Concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/HardenedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/HardenedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Festbeton</rdfs:label>
+        <rdfs:label xml:lang="en">Hardened Concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der sich in einem festen Zustand befindet und eine gewisse Festigkeit entwickelt hat.</prov:definition>
+        <prov:definition xml:lang="en">Concrete which is in a solid state and which has developed a certain strength.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Heat -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Heat">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/HeatFlow -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/HeatFlow">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Heat"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/HeatOfHydration -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/HeatOfHydration">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/HeavyWeightAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/HeavyWeightAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">heavy-weight aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">schwere Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate with an oven-dry particle density &gt;= 3000 kg/dm3 when determined according to EN 1097-6.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte &gt;= 3 000 kg/m3 bei Bestimmung nach EN 1097-6.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/HeavyWeightConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/HeavyWeightConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Schwerbeton</rdfs:label>
+        <rdfs:label xml:lang="en">heavy-weight concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2600 kg/m3.</prov:definition>
+        <prov:definition xml:lang="en">Concrete having an oven-dry density greater than 2600 kg/m3.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/IdentityTest -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/IdentityTest">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Identitaetspruefung</rdfs:label>
+        <rdfs:label xml:lang="en">identity test</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung, um zu bestimmen, ob eine gewaehlte Charge oder Ladung einer konformen Grundgesamtheit entstammt.</prov:definition>
+        <prov:definition xml:lang="en">Test to determine whether selected batches or loads come from a conforming population.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/InSituConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/InSituConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Ortbeton</rdfs:label>
+        <rdfs:label xml:lang="en">in-situ concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der an dem Ort erhaertet, an dem er verbaut wird. Ortbeton wird als Transportbeton mit Mischfahrzeugen auf die Baustelle gebracht oder vor Ort als Baustellenbeton gemischt.</prov:definition>
+        <prov:definition xml:lang="en">Concrete that hardens on the site where it is used. In-situ concrete is delivered to the construction site as ready-mixed concrete by truck mixers or mixed on site as site-mixed concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/InitialTest -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/InitialTest">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Erstpruefung</rdfs:label>
+        <rdfs:label xml:lang="en">initial test</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung oder Pruefungen vor Herstellungsbeginn, um zu ermitteln, wie ein neuer Beton oder eine neue Betonfamilie zusammengesetzt sein muss, um alle festgelegten Anforderungen im frischen und erhaerteten Zustand zu erfuellen.</prov:definition>
+        <prov:definition xml:lang="en">Test or tests to check before the production starts how a new concrete or concrete family shall be composed in order to meet all the specified requirements in the fresh and hardened states.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/InorganicMaterial -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/InorganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Anorganische Stoffe</rdfs:label>
+        <rdfs:label xml:lang="en">Inorganic Material</rdfs:label>
+        <prov:definition xml:lang="en">Chemical compounds that usually don&apos;t contain carbon</prov:definition>
+        <prov:definition xml:lang="de">Chemische Verbindungen, die in der Regel keinen Kohlenstoff enthalten.</prov:definition>
+        <co:definitionSource xml:lang="de">Holleman et.al. (2007)</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/LightWeightAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/LightWeightAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">leichte Gesteinskoernung</rdfs:label>
+        <rdfs:label xml:lang="en">lightweight aggregate</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate of mineral origin having an oven-dry particle density =&lt; 2000 kg/dm3  when determined according to EN 1097-6 or a loose buld-density =&lt; 1200 kg/dm3  when determined according to EN 1097-3.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung mineralischen Ursprungs im ofentrockenen Zustand mit einer Kornrohdichte =&lt; 2 000 kg/m3, bestimmt nach EN 1097-6, oder einer Schuettdichte =&lt; 1 200 kg/m3, bestimmt nach EN 1097-3.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/LightweightConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/LightweightConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Leichtbeton</rdfs:label>
+        <rdfs:label xml:lang="en">lightweight concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte von mindestens 800 kg/m3 und hoechstens 2000 kg/m3.</prov:definition>
+        <prov:definition xml:lang="en">Concrete having an oven-dry density of not less than 800 kg/m3 and not more than 2000 kg/m3.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/LimestonePowder -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/LimestonePowder">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Kalksteinmehl</rdfs:label>
+        <rdfs:label xml:lang="en">Limestone powder</rdfs:label>
+        <prov:definition xml:lang="en"> Finely ground limestone that can be used as an addition to cover a deficit in the amount of fines in concrete.</prov:definition>
+        <prov:definition xml:lang="de">Feingemahlener Kalkstein, der als Betonzusatzstoff verwendet werden kann, um eine fehlende Menge an Mehlkorn im Beton zu decken.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/MaterialComposition -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/MaterialComposition">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/MeasurementInstrumentPreparation -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/MeasurementInstrumentPreparation">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Measurement Instrument Preparation</rdfs:label>
+        <rdfs:label xml:lang="de">Messinstrumentvorbereitung</rdfs:label>
+        <prov:definition xml:lang="en">Preparation of a Measuring isntrument to be used for measuring, e.g. dampening or placement of forms.</prov:definition>
+        <prov:definition xml:lang="de">Vorbereitung eines Messintrumentes zur Durchfuehrung einer Messung, z. B. anfeuchten oder platzieren einer Form</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/MeasuringNode -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/MeasuringNode">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/Process"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/MetallicMaterial -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/MetallicMaterial">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Metallic Material</rdfs:label>
+        <rdfs:label xml:lang="de">metallisches Material</rdfs:label>
+        <prov:definition xml:lang="de">Zu den chemischen Elementen gehoerender, nicht durchsichtiger, Waerme und Elektrizitaet gut leitender, fester, dehn- und schmelzbarer Stoff.</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Mortar -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Mortar">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/EngineeredMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Moertel</rdfs:label>
+        <rdfs:label xml:lang="en">Mortar</rdfs:label>
+        <prov:definition xml:lang="de">Gemisch aus Bindemittel, Wasser und Gesteinskoernung mit einem Groesstkorn von maximal 4 mm, das nach einer bestimmten Zeit durch Hydratation erstarrt und erhaertet. </prov:definition>
+        <prov:definition xml:lang="en">Mixture of binder, water and aggregate with a maximum grain size of 4 mm, which solidifies and hardens after a certain time due to hydration. </prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/NonAgitatingEquipment -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/NonAgitatingEquipment">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ProcessingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Ausruestung ohne Ruehrwerk</rdfs:label>
+        <rdfs:label xml:lang="en">non-agitating equipment</rdfs:label>
+        <prov:definition xml:lang="de">Ausruestung fuer den Betontransport ohne Ruehren.</prov:definition>
+        <prov:definition xml:lang="en">Equipment used for transporting concrete without agitation.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/NonDestructiveTesting -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/NonDestructiveTesting">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">NonDestructive Testing</rdfs:label>
+        <rdfs:label xml:lang="de">Zerstoerungsfreie Pruefung</rdfs:label>
+        <prov:definition xml:lang="de">Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei nicht beschaedigt werden.</prov:definition>
+        <prov:definition xml:lang="en">Testing for chemical and/or physical properties where materials were not destroyed or changed in the process.</prov:definition>
+        <co:definitionSource xml:lang="de">Krankenhagen &amp; Laube (1983)</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/NonMetalicMaterial -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/NonMetalicMaterial">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">NonMetalic Material</rdfs:label>
+        <rdfs:label xml:lang="de">nichtmetallisches Material</rdfs:label>
+        <prov:definition xml:lang="de">Zu den chemischen Elementen gehoerender Stoff, der leicht Elektronen aufnimmt; als Gas, Fluessigkeit oder in kristalliner Form vorliegt und elektrischen Strom und Waerme im allgemeinen schlecht leitet.</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">Steffen (1889)</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/NormalWeightAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/NormalWeightAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">normal-weight aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">normale Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate with an oven-dry particle density &gt; 2000 kg/dm3 and &lt; 3000 kg/dm3 when determined according to EN 1097-6.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte &gt; 2 000 kg/m3 und &lt; 3 000 kg/m3, bestimmt nach EN 1097-6.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/NormalWeightConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/NormalWeightConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Normalbeton</rdfs:label>
+        <rdfs:label xml:lang="en">normal-weight concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2000 kg/m3 und hoechstens 2600 kg/m3.</prov:definition>
+        <prov:definition xml:lang="en">Concrete having an oven-dry density greater than 2000 kg/m3 but not exceeding 2600 kg/m3.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/OrganicMaterial -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/OrganicMaterial">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/BaseMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Organic Material</rdfs:label>
+        <rdfs:label xml:lang="de">organisches Material</rdfs:label>
+        <prov:definition xml:lang="en">Chemical compounds that usually contain carbon.</prov:definition>
+        <prov:definition xml:lang="de">Chemische Verbindungen, die Kohlenstoff enthalten.</prov:definition>
+        <co:definitionSource xml:lang="de">Hart et. al. (2007)</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/PassingAbility -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/PassingAbility">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Blockierneigung</rdfs:label>
+        <rdfs:label xml:lang="en">passing ability</rdfs:label>
+        <prov:definition xml:lang="en">Ability of fresh concrete to flow through tight openings such as spaces between steel reinforcing bars without segregation or blocking.</prov:definition>
+        <prov:definition xml:lang="de">Neigung von Frischbeton, bei engen oeffnungen wie z. B. zwischen Bewehrungsstaeben, durch Entmischen das weitere Fliessen zu blockieren oder enge oeffnungen zu verstopfen.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Pigments -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Pigments">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Pigmente</rdfs:label>
+        <rdfs:label xml:lang="en">Pigments</rdfs:label>
+        <prov:definition xml:lang="de">Feinkoernige anorganische oder organische Feststoffteilchen mit einem Durchmesser von etwa 0,1 bis 1,0 �m, die zur Farbgebung von Beton, Moertel oder eines transparenten Bindemittels dienen. Farbpigmente fuer Beton sind inerte Betonzusatzstoffe Typ I im Sinne der DIN 1045-2.</prov:definition>
+        <prov:definition xml:lang="en">Fine-grained inorganic or organic solid particles with a diameter of about 0.1 to 1.0 �m used for coloring concrete, mortar or a transparent binder. Color pigments for concrete are inert concrete type I additions according to DIN 1045-2.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/PolymerFibres -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/PolymerFibres">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Fibres"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/OrganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Polymerfasern</rdfs:label>
+        <rdfs:label xml:lang="en">polymer fibres</rdfs:label>
+        <prov:definition xml:lang="en">Straight or deformed pieces of extruded, orientated and cut material, which are suitable to be homogenously mixed into concrete.</prov:definition>
+        <prov:definition xml:lang="de">gerade oder verformte Fasern aus extrudiertem, orientiertem oder geschnittenem Material, die fuer eine gleichmaessige Verteilung in Betonmischungen geeignet sind</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/PrecastElement -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/PrecastElement">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/EngineeredMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Fertigteil</rdfs:label>
+        <rdfs:label xml:lang="en">precast element</rdfs:label>
+        <prov:definition xml:lang="de">Betonbauteil, dass an einem anderen Ort als dem endgueltigen Ort der Verwendung (im Werk oder auf der Baustelle) hergestellt und nachbehandelt wird</prov:definition>
+        <prov:definition xml:lang="en">concrete product cast and cured in a place other than the final location of use</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/PrescribedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/PrescribedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Beton nach Zusammensetzung</rdfs:label>
+        <rdfs:label xml:lang="en">prescribed concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, fuer den die Zusammensetzung und die Ausgangsstoffe, die verwendet werden muessen, dem Hersteller, der fuer die Lieferung eines Betons mit der festgelegten Zusammensetzung verantwortlich ist, vorgegeben werden.</prov:definition>
+        <prov:definition xml:lang="en">Concrete for which the composition of the concrete and the constituent materials to be used are specified to the producer who is responsible for providing a concrete with the specified composition.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/QuantityInMix -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/QuantityInMix">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Quantity in mix</rdfs:label>
+        <rdfs:label xml:lang="de">Stoffmenge</rdfs:label>
+        <prov:definition xml:lang="de">Quantitative Mengenangabe fuer Stoffe in der Chemie</prov:definition>
+        <prov:definition xml:lang="en">Quantitative quantity specification for substances in chemistry.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/QuartzFlour -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/QuartzFlour">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Quartz flour</rdfs:label>
+        <rdfs:label xml:lang="de">Quarzmehl</rdfs:label>
+        <prov:definition xml:lang="en"> Finely ground quartz with a grain size =&lt; 0.25 mm. </prov:definition>
+        <prov:definition xml:lang="de">Feingemahlener Quarz mit einer Korngroesse =&lt; 0,25 mm. </prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ReadyMixedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ReadyMixedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Transportbeton</rdfs:label>
+        <rdfs:label xml:lang="en">ready-mixed concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der in frischem Zustand durch eine Person oder Stelle geliefert wird, die nicht der Verwender ist. Transportbeton im Sinne von DIN EN 206 ist auch vom Verwender ausserhalb der Baustelle hergestellter Beton oder auf der Baustelle nicht vom Verwender hergestellter Beton.</prov:definition>
+        <prov:definition xml:lang="en">Concrete delivered in a fresh state by a person or body who is not the user. Ready-mixed concrete in the sense of DIN EN 206 is also concrete produced off site by the user or produced on site. But not by the user.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ReclaimedCrushedAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ReclaimedCrushedAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">reclaimed crushed aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">wiedergewonnene gebrochene Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate gained by crushing hardened concrete that has not been previously used in construction.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung, die durch Brechen von Festbeton, der noch nicht beim Bauen verwendet wurde, gewonnen wird.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ReclaimedWashedAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ReclaimedWashedAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">reclaimed washed aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">wiedergewonnene gewaschene Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="en">Aggregates gained by washing fresh concrete.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung, die durch Waschen von Frischbeton gewonnen wird.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/RecycledAggregate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/RecycledAggregate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Aggregate"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">recycled aggregate</rdfs:label>
+        <rdfs:label xml:lang="de">rezyklierte Gesteinskoernung</rdfs:label>
+        <prov:definition xml:lang="en">Aggregate resulting from the processing of inorganic material previously used in construction.</prov:definition>
+        <prov:definition xml:lang="de">Gesteinskoernung, die durch Aufbereitung von vorher beim Bauen verwendeten anorganischen Stoffen gewonnen wird</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/RelativeDensity -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/RelativeDensity">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialProperty"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Relative Dichte</rdfs:label>
+        <rdfs:label xml:lang="en">RelativeDensity</rdfs:label>
+        <prov:definition xml:lang="de">Verhaeltnis der Dichte eines Stoffes oder einer Mischung zur Bezugsdichte eines Bezugsstoffes [-]</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SegregationResistance -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SegregationResistance">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Sedimentationsstabilitaet</rdfs:label>
+        <rdfs:label xml:lang="en">segregation resistance</rdfs:label>
+        <prov:definition xml:lang="en">Ability of fresh concrete to remain homogeneous in composition while in its fresh state.</prov:definition>
+        <prov:definition xml:lang="de">Eigenschaft von Frischbeton, hinsichtlich der Zusammensetzung homogen zu bleiben.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SelfcompactingConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SelfcompactingConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Selbstverdichtender Beton (SVB)</rdfs:label>
+        <rdfs:label xml:lang="en">self-compacting concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der aufgrund seines eigenen Gewichts fliesst und sich selbst verdichtet sowie die Schalung mit Bewehrung, Kanaelen, Aussparungskaesten usw. ausfuellt und dabei seine Homogenitaet beibehaelt.</prov:definition>
+        <prov:definition xml:lang="en">Concrete that is able to flow and compact under its own weight, fill the formwork with its reinforcement, ducts, boxouts etc., whilst maintaining homogeneity.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SilicaFume -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SilicaFume">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">Silikastaub</rdfs:label>
+        <prov:definition xml:lang="de">Sehr feines, nicht kristallines Siliziumdioxid, das in Lichtbogenoefen als Nebenprodukt bei der Herstellung von elementarem Silizium oder siliziumhaltigen Legierungen entsteht.</prov:definition>
+        <prov:definition xml:lang="en">Very fine non-crystalline silica produced in electric arc furnaces as a by-product of the production of elemental silicon or alloys containing silicon.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Site -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Site">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/Location"/>
+        <rdfs:comment xml:lang="en">Syn: construction site</rdfs:comment>
+        <rdfs:label xml:lang="de">Baustelle</rdfs:label>
+        <rdfs:label xml:lang="en">site</rdfs:label>
+        <prov:definition xml:lang="en">Area where the construction work is undertaken.</prov:definition>
+        <prov:definition xml:lang="de">Gebiet, in dem die Bauarbeiten durchgefuehrt werden</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SiteMixedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SiteMixedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Baustellenbeton</rdfs:label>
+        <rdfs:label xml:lang="en">site-mixed concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton, der auf der Baustelle vom Verwender des Betons fuer seine eigene Verwendung hergestellt wird.</prov:definition>
+        <prov:definition xml:lang="en">Concrete produced on the construction site by the user of the concrete for his own use.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SlagCement -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SlagCement">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Cement"/>
+        <rdfs:comment xml:lang="en">Syn.: Huettenzement</rdfs:comment>
+        <rdfs:label xml:lang="de">Hochofenzement</rdfs:label>
+        <rdfs:label xml:lang="en">Slag Cement</rdfs:label>
+        <prov:definition xml:lang="en">Normal cement containing between 36 and 95 percent ground granulated blast furnace slag instead of Portland cement clinker.</prov:definition>
+        <prov:definition xml:lang="de">Normalzement, der zwischen 36 und 95 Prozent Huettensand anstelle von Portlandzementklinker enthaelt.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SlumpClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SlumpClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Setzmassklasse</rdfs:label>
+        <rdfs:label xml:lang="en">Slump Class</rdfs:label>
+        <prov:definition xml:lang="en"> </prov:definition>
+        <prov:definition xml:lang="de">Einteilung der Konsistenz durch die Bestimmung des Setzfliessmasses.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SlumpFlow -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SlumpFlow">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Setzfliessmass</rdfs:label>
+        <rdfs:label xml:lang="en">slump-flow</rdfs:label>
+        <prov:definition xml:lang="en">Mean diameter of the spread of fresh concrete from a standardized slump cone.</prov:definition>
+        <prov:definition xml:lang="de">Mittlerer Ausbreitdurchmesser von Frischbeton, der im Setzfliessversuch bestimmt wird.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SpecificGravity -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SpecificGravity">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Specific Gravity</rdfs:label>
+        <rdfs:label xml:lang="de">spezifisches Gewicht</rdfs:label>
+        <prov:definition xml:lang="de">Gewicht eines Koerpers im Verhaeltnis zu seinem Volumen.</prov:definition>
+        <prov:definition xml:lang="en">Weight of a body in relation to its volume.</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SpecimenAge -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SpecimenAge">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/TestPieceInfo"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Probenalter</rdfs:label>
+        <rdfs:label xml:lang="en">specimen age</rdfs:label>
+        <prov:definition xml:lang="de">nan</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/StandardizedPrescribedConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/StandardizedPrescribedConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Concrete"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Standardbeton</rdfs:label>
+        <rdfs:label xml:lang="en">standardized prescribed concrete</rdfs:label>
+        <prov:definition xml:lang="de">Beton nach Zusammensetzung, dessen Zusammensetzung in einer am Ort der Verwendung des Betons gueltigen Norm vorgegeben ist.</prov:definition>
+        <prov:definition xml:lang="en">Prescribed concrete for which the composition is given in a standard valid in the place of use of the concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/SteelFibres -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/SteelFibres">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Fibres"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MetallicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Stahlfasern</rdfs:label>
+        <rdfs:label xml:lang="en">steel fibres</rdfs:label>
+        <prov:definition xml:lang="de">Gerade oder verformte Fasern aus kalt gezogenem Stahldraht, gerade oder verformte zugeschnittene Einzelfasern, aus Schmelzgut hergestellte Fasern, von kalt gezogenem Draht gespante Fasern oder aus Stahlbloecken gehobelte Fasern, die fuer eine gleichmaessige Verteilung in Beton geeignet sind.</prov:definition>
+        <prov:definition xml:lang="en">Straight or deformed pieces of cold-drawn steel wire, straight or deformed cut sheet fibres, melt extracted fibres, shaved cold drawn wire fibres or fibres milled from steel blocks, which are suitable to be homogeneously mixed into concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/StressRate -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/StressRate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Spannungsrate</rdfs:label>
+        <rdfs:label xml:lang="en">Stress Rate</rdfs:label>
+        <prov:definition xml:lang="de">nan</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/TensileSplittingStrength -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/TensileSplittingStrength">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/TensileStrength"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Spaltzugfestigkeit</rdfs:label>
+        <rdfs:label xml:lang="en">Tensile Splitting Strength</rdfs:label>
+        <prov:definition xml:lang="en">A cylindrical specimen is exposed to a compressive load applied in a narrow strip along the longitudinal axis of the specimen. The resulting orthogonal tensile force causes the specimen to fracture under tensile stress.</prov:definition>
+        <prov:definition xml:lang="de">Ein zylindrischer Probekoerper wird einer Druckkraft ausgesetzt, die in einem schmalen Streifen entlang der Laengsachse des Probekoerpers aufgebracht wird. Die sich ergebende orthogonale Zugkraft verursacht den Bruch des Probekoerpers unter Zugspannung.</prov:definition>
+        <co:definitionSource xml:lang="de"> DIN EN 12390-6</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/TruckMixer -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/TruckMixer">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ProcessingNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Fahrmischer</rdfs:label>
+        <rdfs:label xml:lang="en">truck mixer</rdfs:label>
+        <prov:definition xml:lang="de">Betonmischer, der auf einem Fahrgestell mit Eigenantrieb montiert und in der Lage ist, einen gleichmaessig gemischten Beton herzustellen und auszuliefern.</prov:definition>
+        <prov:definition xml:lang="en">Concrete mixer mounted on a self-propelled chassis capable of mixing and delivering a homogeneous concrete.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/TypeIAddition -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/TypeIAddition">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Addition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Typ-I-Zusatzstoff</rdfs:label>
+        <rdfs:label xml:lang="en">type I addition</rdfs:label>
+        <prov:definition xml:lang="de">nahezu inaktiver Zusatzstoff</prov:definition>
+        <prov:definition xml:lang="en">nearly inert additions</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/TypeIIAdition -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/TypeIIAdition">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/Addition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Typ-II-Zusatzstoff</rdfs:label>
+        <rdfs:label xml:lang="en">type II addition</rdfs:label>
+        <prov:definition xml:lang="en">pozzolanic or latent hydraulic additions</prov:definition>
+        <prov:definition xml:lang="de">puzzolanischer oder latenthydraulischer Zusatzstoff</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/VebeClass -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/VebeClass">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Setzzeit-Klasse (Vebe)</rdfs:label>
+        <rdfs:label xml:lang="en">Vebe Class</rdfs:label>
+        <prov:definition xml:lang="de">nan</prov:definition>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Verification -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Verification">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MeasuringNode"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Nachweise</rdfs:label>
+        <rdfs:label xml:lang="en">verification</rdfs:label>
+        <prov:definition xml:lang="de">Bestaetigung durch ueberpruefung objektiver Erkenntnisse, dass die festgelegten Anforderungen erfuellt worden sind.</prov:definition>
+        <prov:definition xml:lang="en">Confirmation by examination of objective evidence that specified requirements have been fulfilled.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/ViscosityOfConcrete -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/ViscosityOfConcrete">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialProperty"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Viskositaet</rdfs:label>
+        <rdfs:label xml:lang="en">viscosity of concrete</rdfs:label>
+        <prov:definition xml:lang="de">Fliesswiderstand von Frischbeton nach Beginn des Fliessens.</prov:definition>
+        <prov:definition xml:lang="en">Resistance to flow of fresh concrete once flow has started.</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Volume -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Volume">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/ValueObject"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">Volume</rdfs:label>
+        <rdfs:label xml:lang="de">Volumen</rdfs:label>
+        <prov:definition xml:lang="en">nan</prov:definition>
+        <prov:definition xml:lang="de">raeumlicher Inhalt eines geometrischen Koerpers</prov:definition>
+        <co:definitionSource xml:lang="de">nan</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/Water -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/Water">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/InorganicMaterial"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Wasser</rdfs:label>
+        <rdfs:label xml:lang="en">Water</rdfs:label>
+        <prov:definition xml:lang="en">Chemical compound of oxygen (O) and hydrogen (H) in the liquid state of aggregation</prov:definition>
+        <prov:definition xml:lang="de">Chemische Verbindung von Sauerstoff (O) und Wasserstoff (H) im fluessigen Aggregatzustand</prov:definition>
+        <co:definitionSource xml:lang="de">Chemie.de</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/WaterCementRatio -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/WaterCementRatio">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/MaterialComposition"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="de">Wasserzementwert</rdfs:label>
+        <rdfs:label xml:lang="en">Water Cement Ratio</rdfs:label>
+        <prov:definition xml:lang="de">Masseverhaeltnis des wirksamen Wassergehaltes zum Zementgehalt im Frischbeton.</prov:definition>
+        <prov:definition xml:lang="en">ratio of the effective water content to cement content by mass in the fresh concrete</prov:definition>
+        <co:definitionSource xml:lang="de">DIN EN 206</co:definitionSource>
+        <co:definitionSource xml:lang="en">DIN EN 206</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/kValueAccountingForFlyAsh -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/kValueAccountingForFlyAsh">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">k Value Accounting for Fly Ash</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert fuer Flugasche</rdfs:label>
+        <prov:definition xml:lang="de">Anrechenbarkeit von Flugasche auf den Zementgehalt und den Wasserzementwert.</prov:definition>
+        <prov:definition xml:lang="en">Eligibility of fly ash on the cement content and the water-cement ratio.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/kValueAccountingForSilicaFume -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/kValueAccountingForSilicaFume">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">k Value Accounting for Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert fuer Silikastaub</rdfs:label>
+        <prov:definition xml:lang="de">Anrechenbarkeit von Silikastaub auf den Zementgehalt und den Wasserzementwert.</prov:definition>
+        <prov:definition xml:lang="en">Eligibility of silica fume on the cement content and the water-cement ratio.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/kValueAccountingForTypeIIAdditons -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/kValueAccountingForTypeIIAdditons">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">k Value Accounting for type II additions</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert fuer Zusatzstoffe Typ II</rdfs:label>
+        <prov:definition xml:lang="de">Anrechenbarkeit von Zusatzstoffen des Typs II auf den Zementgehalt und den Wasserzementwert.</prov:definition>
+        <prov:definition xml:lang="en">Eligibility of Type II additives on the cement content and the water-cement ratio.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/GGBS/GGBFS -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/GGBS/GGBFS">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/cpto/BlastFurnaceSlag"/>
+        <rdfs:comment xml:lang="en">Syn.: granulierte Hochofenschlacke</rdfs:comment>
+        <rdfs:label xml:lang="de">Huettensand</rdfs:label>
+        <rdfs:label xml:lang="en">ground granulated blast furnace slag</rdfs:label>
+        <prov:definition xml:lang="en">Ground granulated blast furnace slag is produced by rapid cooling of a molten slag formed during pig iron production. </prov:definition>
+        <prov:definition xml:lang="de">Huettensand entsteht durch schnelles Abkuehlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. </prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">nan</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/cpto/kValueAccountingForFlyAsh+SilicaFume -->
+
+
+    <owl:Class rdf:about="https://w3id.org/cpto/kValueAccountingForFlyAsh+SilicaFume">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/pmd/co/MaterialRelated"/>
+        <rdfs:comment xml:lang="en">nan</rdfs:comment>
+        <rdfs:label xml:lang="en">k Value Accounting for Fly Ash + Silica Fume</rdfs:label>
+        <rdfs:label xml:lang="de">k-Wert fuer Flugasche + Silikastaub</rdfs:label>
+        <prov:definition xml:lang="de">Anrechenbarkeit von Flugasche + Silikastaub auf den Zementgehalt und den Wasserzementwert.</prov:definition>
+        <prov:definition xml:lang="en">Eligibility of fly ash + silica fume on the cement content and the water-cement ratio.</prov:definition>
+        <co:definitionSource xml:lang="de">Betontechnische Daten</co:definitionSource>
+        <co:definitionSource xml:lang="en">translated from Betontechnische Daten</co:definitionSource>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/pmd/co/TensileStrength -->
+
+
+    <owl:Class rdf:about="https://w3id.org/pmd/co/TensileStrength"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_32,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_32,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_42,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_42,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_52,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_52,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_A_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_A_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_32,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_32,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_42,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_42,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_52,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_52,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B-SR_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B-SR_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_32,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_32,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_42,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_42,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_52,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_52,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_B_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_B_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_32,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_32,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_42,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_42,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_52,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_52,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C-SR_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C-SR_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_32,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_32,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_42,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_42,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_52,5_L -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_52,5_L">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_III_C_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_III_C_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-D_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-D_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-LL_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-LL_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-L_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-L_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-M_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-M_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-P_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-P_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-Q_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-Q_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-S_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-S_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-T_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-T_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-V_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-V_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_A-W_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_A-W_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-LL_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-LL_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-L_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-L_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-M_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-M_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-P_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-P_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-Q_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-Q_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-S_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-S_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-T_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-T_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-V_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-V_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_II_B-W_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_II_B-W_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A-SR_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A-SR_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_A_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_A_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B-SR_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B-SR_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_IV_B_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_IV_B_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_0_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_0_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_3_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_3_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_I_SR_5_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_I_SR_5_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_A_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_A_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_32,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_32,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_32,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_32,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_42,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_42,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_42,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_42,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_52,5_N -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_52,5_N">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/cpto/CEM_V_B_52,5_R -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/cpto/CEM_V_B_52,5_R">
+        <rdf:type rdf:resource="https://w3id.org/cpto/Cement"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/ -->
+
+
