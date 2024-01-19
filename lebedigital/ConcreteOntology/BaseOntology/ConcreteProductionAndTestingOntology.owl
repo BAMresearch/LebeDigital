@@ -4,11 +4,29 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://w3id.org/cpto> .
 
 <https://w3id.org/cpto> rdf:type owl:Ontology ;
-                         owl:imports <https://w3id.org/pmd/co> .
+                         owl:imports <https://w3id.org/pmd/co> ;
+                         dcterms:title "Concrete Production and Testing Ontology"@en ;
+                         dcterms:creator "Mattheo Krüger, Melissa Telong Donfack, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz" ,
+						<https://orcid.org/0009-0003-7121-0283> ,
+						<https://orcid.org/0000-0000-0000-0000> ,
+						<https://orcid.org/0009-0004-9700-2439> ,
+						<https://orcid.org/0000-0003-2445-6734> ,
+						<https://orcid.org/0000-0003-0626-5002> ;
+                         dcterms:created "2024-01-17" ;
+                         owl:versionInfo "1.0.0" ;
+                         owl:versionIRI <https://w3id.org/cpto> ;
+                         rdfs:comment """The Concrete Production and Testing Ontology (CPTO) is created in the project LeBeDigital.
+					 It describes the production chain of concrete, starting with the mix design through curing
+					 and testing. It consist of the domain specific ontology CPTO as a basis for a set of knowledge
+					 graph templates to describe process steps like mixing process,  hardening and storage or
+					 compressive strength testing. The CPTO is based on PMDco 2.0."""@en ;
+                         dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+                         dcterms:bibliographicCitation """Meng, B., et al. 2023: Wissensbasierte Digitalisierung von betontechnologischen Materialdaten, ce/papers, DOI 10.1002/cepa.2955""" .
 
 #################################################################
 #    Annotation properties
