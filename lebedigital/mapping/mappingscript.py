@@ -219,15 +219,17 @@ def main():
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
                       '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json'
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json',
+                      '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
                       ]
     if args.output == None:
         args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/testEmoduleMapped.ttl',
                        '../../usecases/MinimumWorkingExample/Mapping_Example/testSpecimenMapped.ttl',
-                       '../../usecases/MinimumWorkingExample/Mapping_Example/testMixMapped.ttl']
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/testMixMapped.ttl',
+                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl']
 
     # Check mix metadata and generate additional placeholders
-    check_mix_metadata(args.input[5], args.input[4])
+    check_mix_metadata(args.input[5], args.input[4], args.output[3])
 
     # run extraction and write metadata file
     #emodule
@@ -235,7 +237,7 @@ def main():
     #specimen
     mapping(args.input[2], args.input[3], args.output[1])
     #mix
-    mapping(args.input[4], args.input[5], args.output[2])
+    mapping(args.input[6], args.input[5], args.output[2])
 
 if __name__ == "__main__":
     main()
