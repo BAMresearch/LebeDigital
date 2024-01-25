@@ -119,7 +119,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # set paths
         metadata_emodule['ProcessedFile'] = os.path.join('../usecases/MinimumWorkingExample/emodul/processed_data')  # path to csv file with values extracted by emodul_generate_processed_data.py
-        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath, specimen_file)
+        metadata_emodule['RawDataFile'] = os.path.join(rawDataPath, specimen_file).replace('\\', '/')
         metadata_emodule['EModule'] = 33.06
 
   # path to specimen.dat
@@ -149,7 +149,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-5], "r") as mixjson:  #change location of where
+            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4] + ".json", "r") as mixjson:  #change location of where
             #with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
                 #mixtureHumID = mixdesign['humanreadableID']
@@ -219,7 +219,7 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/BA-Losert MI E-Modul 28d v. 04.08.14 Probe 4'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1'
     if args.output == None:
         args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json', '../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
 
