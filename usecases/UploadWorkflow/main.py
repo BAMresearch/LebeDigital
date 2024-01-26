@@ -41,7 +41,7 @@ rawPaths = {'Mixture-Design': 'usecases/UploadWorkflow/files/mix.xls',
             'E-Module': 'usecases/UploadWorkflow/files/emodule.dat'
 }
 
-fuseki_url = "https://mechanics:7fewqg2nDWtZb5HC@fuseki.matolab.org"
+fuseki_url = ""
 dataset_name = "LeBeDigital"
 
 def mix_extraction(institute):
