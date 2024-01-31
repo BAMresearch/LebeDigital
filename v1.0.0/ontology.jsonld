@@ -1,0 +1,4734 @@
+[ {
+  "@id" : "http://purl.org/dc/terms/creator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://w3id.org/cpto",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ],
+  "http://purl.org/dc/terms/bibliographicCitation" : [ {
+    "@value" : "Meng, B., et al. 2023: Wissensbasierte Digitalisierung von betontechnologischen Materialdaten, ce/papers, DOI 10.1002/cepa.2955"
+  } ],
+  "http://purl.org/dc/terms/created" : [ {
+    "@value" : "2024-01-17"
+  } ],
+  "http://purl.org/dc/terms/creator" : [ {
+    "@id" : "https://orcid.org/0000-0003-0626-5002"
+  }, {
+    "@id" : "https://orcid.org/0000-0003-2445-6734"
+  }, {
+    "@id" : "https://orcid.org/0009-0003-7121-0283"
+  }, {
+    "@id" : "https://orcid.org/0009-0004-9700-2439"
+  }, {
+    "@id" : "https://orcid.org/0009-0006-4524-9143"
+  }, {
+    "@value" : "Mattheo Krüger, Melissa Telong, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz"
+  } ],
+  "http://purl.org/dc/terms/license" : [ {
+    "@id" : "http://creativecommons.org/licenses/by/4.0/"
+  } ],
+  "http://purl.org/dc/terms/title" : [ {
+    "@language" : "en",
+    "@value" : "Concrete Production and Testing Ontology"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "The Concrete Production and Testing Ontology (CPTO) is created in the project LeBeDigital.\n\t\t\t\t\t It describes the production chain of concrete, starting with the mix design through curing\n\t\t\t\t\t and testing. It consist of the domain specific ontology CPTO as a basis for a set of knowledge\n\t\t\t\t\t graph templates to describe process steps like mixing process,  hardening and storage or\n\t\t\t\t\t compressive strength testing. The CPTO is based on PMDco 2.0."
+  } ],
+  "http://www.w3.org/2002/07/owl#imports" : [ {
+    "@id" : "https://w3id.org/pmd/co"
+  } ],
+  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
+    "@id" : "https://w3id.org/cpto"
+  } ],
+  "http://www.w3.org/2002/07/owl#versionInfo" : [ {
+    "@value" : "1.0.0"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Addition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Addition"
+  }, {
+    "@language" : "de",
+    "@value" : "Betonzusatzstoff"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Additives"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Fein verteilter anorganischer Stoff, der im Beton verwendet wird, um bestimmte Eigenschaften zu verbessern oder um bestimmte Eigenschaften zu erreichen."
+  }, {
+    "@language" : "en",
+    "@value" : "Finely divided material used in concrete in order to improve certain properties or to achieve special properties."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Additives",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Additives"
+  }, {
+    "@language" : "de",
+    "@value" : "Betonzusaetze"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Stoffe, die dem Beton zur Beeinflussung bestimmter Frisch- und/oder Festbetoneigenschaften zugegeben werden. Nach Art und Zugabemenge unterscheidet man Betonzusatzmittel und Betonzusatzstoffe."
+  }, {
+    "@language" : "en",
+    "@value" : "a substance added to another in relatively small amounts to impart or improve desirable properties or suppress undesirable properties."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "en",
+    "@value" : "ACI"
+  }, {
+    "@language" : "de",
+    "@value" : "Zement-Merkblatt B3"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Admixture",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Admixture"
+  }, {
+    "@language" : "de",
+    "@value" : "Betonzusatzmittel"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Additives"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Material added during the mixing process of concrete in small quantities related to the mass of cement to modify the properties of fresh or hardened concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "Stoff, der waehrend des Mischvorgangs des Betons in kleinen Mengen, bezogen auf den Zementgehalt, zugegeben wird, um die Eigenschaften des Frischbetons oder Festbetons zu veraendern"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Aggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Fuer die Verwendung in Beton geeigneter gekoernter, mineralischer Stoff, der natuerlich, kuenstlich, wiedergewonnen oder rezykliert sein kann."
+  }, {
+    "@language" : "en",
+    "@value" : "Natural, artificial, reclaimed or recycled granular mineral constituent suitable for use in concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/AggregateSize",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Korngroesse"
+  }, {
+    "@language" : "en",
+    "@value" : "aggregate size"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialProperty"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Bezeichnung einer Gesteinskoernung mittels unterer (d) und oberer (D) Siebgroesse, angegeben als d/D."
+  }, {
+    "@language" : "en",
+    "@value" : "Designation of aggregate in terms of lower (d) and upper (D) sieve sizes expressed as d/D."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Air",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Air"
+  }, {
+    "@language" : "de",
+    "@value" : "Luft"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Stoffgemisch aus verschiedenen Gasen"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/AllInAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Gesteinskoernungsgemisch"
+  }, {
+    "@language" : "en",
+    "@value" : "all-in aggregate"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate consisting of a mixture of coarse and fine aggregates with D greater than 4 mm and d = 0."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung, bestehend aus einem Gemisch grober und feiner Gesteinskoernungen mit D groesser als 4 mm und mit d = 0."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Batch",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Charge"
+  }, {
+    "@language" : "en",
+    "@value" : "batch"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ManufacturingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Menge Frischbeton, die entweder in einem Arbeitsspiel eines Mischers hergestellt wird oder die waehrend 1 min von einem Durchlaufmischer ausgestossen wird."
+  }, {
+    "@language" : "en",
+    "@value" : "The quantity of fresh concrete produced in one cycle of operations of a mixer or the quantity discharged during 1 min from a continous mixer."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/BlastFurnaceSlag",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Hochofenschlacke"
+  }, {
+    "@language" : "en",
+    "@value" : "blast furnace slag"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Blast furnace slag is a by-product of pig iron production through thermochemical reduction processes at around 1500C in a blast furnace."
+  }, {
+    "@language" : "de",
+    "@value" : "Hochofenschlacke entsteht als Nebenprodukt bei der Roheisengewinnung durch thermochemische Reduktionsprozesse bei ca. 1500C im Hochofen."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_32,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_42,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_52,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_A_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_32,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_42,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_52,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B-SR_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_32,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_42,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_52,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_B_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_32,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_42,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_52,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C-SR_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_32,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_42,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_52,5_L",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_III_C_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-D_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-LL_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-L_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-M_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-P_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-Q_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-S_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-T_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-V_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_A-W_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-LL_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-L_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-M_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-P_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-Q_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-S_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-T_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-V_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_II_B-W_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A-SR_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_A_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B-SR_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_IV_B_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_0_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_3_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_I_SR_5_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_A_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_32,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_32,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_42,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_42,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_52,5_N",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CEM_V_B_52,5_R",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Calorimeter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Calorimeter"
+  }, {
+    "@language" : "de",
+    "@value" : "Kalorimeter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MeasuringDevice"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Instrument for measuring heat exchange during a chemical reaction, such as the quantity of heat liberated by the combustion of a fuel or hydration of a cement."
+  }, {
+    "@language" : "de",
+    "@value" : "Instrument zur Messung des Waermeaustauschs waehrend einer chemischen Reaktion, wie z. B. der Waermemenge, die durch die Verbrennung eines Brennstoffs oder die Hydratation eines Zements freigesetzt wird."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "ACI CT-21: ACI Concrete Terminology"
+  }, {
+    "@language" : "en",
+    "@value" : "ACI CT-21: ACI Concrete Terminology"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CastingDevice",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Betoniervorrichtung"
+  }, {
+    "@language" : "en",
+    "@value" : "Casting Device"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ProcessingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Device or tool used to cast concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "Geraete oder Hilfsmittel zur Verwendung bei einer Betonage."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Cement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Cement"
+  }, {
+    "@language" : "de",
+    "@value" : "Zement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "A finely ground inorganic material which, when mixed with water, forms a paste that sets and hardens by means of hydration reactions and proesses and which, after hardening, retains its strength and stability even under water."
+  }, {
+    "@language" : "de",
+    "@value" : "Fein gemahlener anorganischer Stoff, der, mit Wasser gemischt, Zementleim ergibt, welcher durch Hydratation erstarrt und erhaertet und nach dem Erhaerten auch unter Wasser stabil und raumbestaendig bleibt."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "EN 197-1"
+  }, {
+    "@language" : "en",
+    "@value" : "EN 197-1"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CharacteristicStrength",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "characteristic strength"
+  }, {
+    "@language" : "de",
+    "@value" : "charakteristische Festigkeit"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/ConcreteCompressiveStrength"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Festigkeitswert, unter dem erwartungsgemaess 5 % der Grundgesamtheit aller moeglichen Festigkeitswerte des betrachteten Betonvolumens liegen."
+  }, {
+    "@language" : "en",
+    "@value" : "Value of strength below which 5 % of the population of all possible strength determinations of the volume of concrete under consideration, are expected to fall."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CompositeMaterial",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Composite Material"
+  }, {
+    "@language" : "de",
+    "@value" : "Verbundwerkstoff"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/EngineeredMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Engineering materials made from two or more constituent materials that remain distinct but combine to form materials with properties not possessed by any of the constituent materials individually."
+  }, {
+    "@language" : "de",
+    "@value" : "Technische Werkstoffe, die aus zwei oder mehr Bestandteilen bestehen, die getrennt bleiben, sich aber zu Materialien mit Eigenschaften verbinden, die keiner der Bestandteile einzeln besitzt."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "ACI"
+  }, {
+    "@language" : "en",
+    "@value" : "ACI"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CompressiveStregthClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Druckfestigkeitsklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "compressive strength class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/ConcreteCompressiveStrength"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Classification comprising the type of concrete (normal-weight and heavy-weight or lightweight), the minimum characteristic cylinder strength (150 mm diameter by 300 mm length) and the minimum characteristic cube strength (150 mm edge length)."
+  }, {
+    "@language" : "de",
+    "@value" : "Klassifizierung bestehend aus der Betonart (Normal-, Schwer- oder Leichtbeton), dem Mindestwert der charakteristischen Zylinderfestigkeit (bei Zylindern von 150 mm Durchmesser und 300 mm Laenge) und dem Mindestwert der charakteristischen Wuerfelfestigkeit (bei einer Kantenlaenge des Wuerfels von 150 mm)."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CompressiveStrengthCube",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Compressive Cube Strength"
+  }, {
+    "@language" : "de",
+    "@value" : "Wuerfeldruckfestigkeit"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/ConcreteCompressiveStrength"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Druckfestigkeit von Beton in MPa (N/mm^2), die bei der Druckfestigkeitspruefung an Probewuerfeln ermittelt wird. "
+  }, {
+    "@language" : "en",
+    "@value" : "The compressive strength of concrete in MPa (N/mm^2) determind using cube specimens."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-3"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CompressiveStrengthCylinder",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Compressive Cylinder Strength "
+  }, {
+    "@language" : "de",
+    "@value" : "Zylinderdruckfestigkeit"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/ConcreteCompressiveStrength"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Druckfestigkeit von Beton in MPa (N/mm^2), die  bei der Druckfestigkeitspruefung an einem zylinderfoermigen Probekoerper (Probezylinder) ermittelt wird."
+  }, {
+    "@language" : "en",
+    "@value" : "The compressive strength of concrete in MPa (N/mm^2) determind using cylinder specimens."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-3"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/CompressiveTestingMachine",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/TestingMachine"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Maschine zur Durchführung eines Druckversuches; die Regelung und Überwachung des Versuches, die Messungen und die Datenverarbeitung werden üblicherweise mithilfe eines Computers durchgeführt."
+  }, {
+    "@language" : "en",
+    "@value" : "machine to conduct a compressive strength test; the control and monitoring of the test, the measurements, and the data processing are usually undertaken by computer"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-4"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 12390-4"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Concrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Beton"
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/EngineeredMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Baustoff, der durch Mischen von Zement, grober und feiner Gesteinskoernung und Wasser, mit oder ohne Zugabe von Zusatzmitteln und Zusatzstoffen oder Fasern, hergestellt wird und seine Eigenschaften durch Hydratation des Zements erhaelt."
+  }, {
+    "@language" : "en",
+    "@value" : "Material formed by mixing cement, coarse and fine aggregate and water, with or without the incorporation of admixtures and additions, which develops ist properties by hydration of the cement."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ConcreteCompressiveStrength",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Betondruckfestigkeit"
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete Compressive Strength"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Der Quotient aus Bruchlast und Flaeche des Probenquerschnitts eines einachsig beanspruchten Betonprobekoerpers."
+  }, {
+    "@language" : "en",
+    "@value" : "The measured maximum resistance of a concrete specimen to axial compressive loading."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "en",
+    "@value" : "ACI"
+  }, {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-3"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ConcreteManufacturer",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Betonhersteller"
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete Manufacturer"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#Organization"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Person oder Stelle, die den Frischbeton herstellt."
+  }, {
+    "@language" : "en",
+    "@value" : "Person or body producing fresh concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ConcreteMixer",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Betonmischer"
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete Mixer"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ProcessingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "A machine used for blending the raw materials of concrete, grout, mortar, cement paste, or other mixture."
+  }, {
+    "@language" : "de",
+    "@value" : "Baustoffmaschine zur Herstellung von Beton, Moertel oder Zementleim durch Mischen der Ausgangsstoffe."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ConfirmityTest",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Konfirmitaetspruefung"
+  }, {
+    "@language" : "en",
+    "@value" : "conformity test"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung, die vom Hersteller durchgefuehrt wird, um die Konformitaet des Betons nachzuweisen."
+  }, {
+    "@language" : "en",
+    "@value" : "Test performed by the producer to assess conformity of the concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Consistency",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Konsistenz"
+  }, {
+    "@language" : "en",
+    "@value" : "consistency"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Mass fuer die Steifheit und Verarbeitbarkeit von Frischbeton."
+  }, {
+    "@language" : "en",
+    "@value" : "Measure of the stiffness and workability of fresh concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ConsistencyClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Konsistenzklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "consistency class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Classification of the consistency of fresh concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "Einteilung der Konsistenz von Frischbeton."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Content",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Die Menge an Material im Beton bezogen auf 1 Kubikmeter"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Customer",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Abnehmer/Kunde"
+  }, {
+    "@language" : "en",
+    "@value" : "Customer"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#Organization"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Person oder Stelle, die Frischbeton zur Herstellung eines Bauwerks oder eines Bauteils verwendet."
+  }, {
+    "@language" : "en",
+    "@value" : "Person or body using fresh concrete in the execution of a construction or an element."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DINStandard",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "DIN Norm"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN Standard"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/Norm"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Unter Leitung des Deutschen Instituts fuer Normung (DIN) erarbeiteter freiwilliger Standard, in dem materielle und immaterielle Gegenstaende vereinheitlicht sind."
+  }, {
+    "@language" : "en",
+    "@value" : "Voluntary standard developed under the direction of the German Institute for Standardization (DIN) in which tangible and intangible objects are standardized."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DegreeOfCompactability",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Verdichtungsmass"
+  }, {
+    "@language" : "en",
+    "@value" : "degree of compactability"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DegreeOfCompactabilityClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Verdichtungsmassklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "degree of compactability class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Classification of consistency by determining the degree of compaction."
+  }, {
+    "@language" : "de",
+    "@value" : "Einteilung der Konsistenz durch die Bestimmung des Verdichtungsmasses."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Delivery",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Lieferung"
+  }, {
+    "@language" : "en",
+    "@value" : "delivery"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ManufacturingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "The process of handing over the fresh concrete by the producer."
+  }, {
+    "@language" : "de",
+    "@value" : "Vorgang der uebergabe des Frischbetons durch den Hersteller."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DesignedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Beton nach Eigenschaften"
+  }, {
+    "@language" : "en",
+    "@value" : "designed concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, fuer den die geforderten Eigenschaften und zusaetzliche Anforderungen, sofern erforderlich, gegenueber dem Hersteller festgelegt sind, der fuer die Bereitstellung eines Betons, der den geforderten Eigenschaften und den zusaetzlichen Anforderungen entspricht, verantwortlich ist."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete for which the required properties and additional characteristics are specified to the producer who is responsible for providing a concrete confirming to the required properties and additional characteristics."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DestructiveTesting",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Destructive Testing"
+  }, {
+    "@language" : "de",
+    "@value" : "Zerstoerende Pruefung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei zerstoert oder veraendert werden."
+  }, {
+    "@language" : "en",
+    "@value" : "Testing for chemical and/or physical properties where materials were destroyed or changed in the process."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Krankenhagen & Laube (1983)"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DeterminationOfCompressiveStrength",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Determination of Compressive Strength"
+  }, {
+    "@language" : "de",
+    "@value" : "Druckfestigkeitspruefung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung der Druckfestigkeit an Probewuerfeln oder -zylindern, die in einer Druckpruefmaschine mit vorgegebener Belastungsgeschwindigkeit bis zum Bruch auf Druck belastet werden. "
+  }, {
+    "@language" : "en",
+    "@value" : "Testing of the compressive strength on test cubes or cylinders, which are subjected to compression in a compression testing machine at a specified loading rate until fracture."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-3"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DeterminationOfHeatOfHydration",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Determination of Compressive Strength"
+  }, {
+    "@language" : "de",
+    "@value" : "Druckfestigkeitspruefung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Bestimmung des Elastizitaetsmoduls (Sekantenmodul)"
+  }, {
+    "@language" : "en",
+    "@value" : "Determination of Secant Modulus of Elasticity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Bestimmung des Elastizitaetsmoduls an zylindrischen oder prismatischen Probekoerpern, die in einer Druckpruefmaschine unter axialer Druckbelastung beansprucht und die auftretenden Spannungen und Dehnungen aufgezeichnet werden. Aus dem Anstieg der Spannungs-Dehnungs-Kurve wird der Sekantenmodul bei der ersten Belastung (nur bei Verfahren A) und nach drei Belastungszyklen (Verfahren A und B) ermittelt."
+  }, {
+    "@language" : "en",
+    "@value" : "Determination of the modulus of elasticity on cylinder or prismatic specimens loaded under axial compression in a compression testing machine. The stresses and strains are recorded. The slope of the secant to the stress-strain curve is determined at first loading (Method A only) and after three loading cycles (Methods A and B)."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12390-13"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 12390-13"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ENStandard",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "EN Norm"
+  }, {
+    "@language" : "en",
+    "@value" : "EN Standard"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/Norm"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Norm, die von einer der folgenden Institutionen veroeffentlicht wird: CEN (Comite Europeen de Normalisation) CENELEC (Europaeisches Komitee fuer Elektronische Normen) ETSI (Europaeisches Institut fuer Telekommunikationsnormen)."
+  }, {
+    "@language" : "en",
+    "@value" : "Standard published by one of the following Institutions: CEN (Comite Europeen de Normalisation) CENELEC (European Committee for Electronical Standards) ETSI (European Telecommunications Standard Institute)."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/EntrainedAir",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "entrained air"
+  }, {
+    "@language" : "de",
+    "@value" : "kuenstliche Luftporen"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Microscopic air bubbles intentionally incorporated in concrete during mixing, usually by use of a surface active agent; typically between 10 micrometer and 300 micrometer in diameter and spherical or nearly so."
+  }, {
+    "@language" : "de",
+    "@value" : "mikroskopisch kleine Luftporen, die waehrend des Mischens - im Allgemeinen unter Verwendung eines oberflaechenaktiven Stoffes - absichtlich im Beton erzeugt werden; typischerweise kugelfoermig oder nahezu kugelfoermig sowie mit einem Durchmesser von 10 micrometer bis 300 micrometer."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/EntrappedAir",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Lufteinschluesse"
+  }, {
+    "@language" : "en",
+    "@value" : "entrapped air"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Air voids in concrete which are not purposely entrained."
+  }, {
+    "@language" : "de",
+    "@value" : "Luftporen, die unbeabsichtigt in den Beton gelangen."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/EquivalentWaterCementRatio",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Equivalent Water Cement Ratio"
+  }, {
+    "@language" : "de",
+    "@value" : "aequivalenter Wasserzementwert"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Masseverhaeltnis des wirksamen Wassergehaltes zur Summe aus Zementgehalt und k-fach anrechenbaren Anteilen von Zusatzstoffen (w/z)eq."
+  }, {
+    "@language" : "en",
+    "@value" : "Ratio by mass of the effective water content to the combined cement content and the k-value to take into account additions."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/EvaluationOfConfirmity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Konfirmitaetsbewertung"
+  }, {
+    "@language" : "en",
+    "@value" : "evaluation of conformity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Systematic examination of the extent to which a product fulfils specified requirements."
+  }, {
+    "@language" : "de",
+    "@value" : "Systematische ueberpruefung, in welchem Umfang ein Produkt festgelegte Anforderungen erfuellt."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ExposureClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "vgl: Umwelteinfluesse/Einwirkungen aus der Umgebung\nvgl: environmental actions"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Expositionsklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "Exposure Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Classification of those chemical and physical actions to which the concrete is exposed and which result in effects on the concrete or reinforcement or embedded metal that are not considered as loads in structural design."
+  }, {
+    "@language" : "de",
+    "@value" : "Klassifizierung derjenigen chemischen und physikalischen Umgebungsbedingungen, denen der Beton ausgesetzt ist und die zu Auswirkungen auf den Beton oder die Bewehrung oder das eingebettete Metall fuehren, die nicht als Lasten bei der konstruktiven Bemessung beruecksichtigt sind."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Extensometer",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "E-Modul Norm bzgl. engl. Bezeichnung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Extensometer"
+  }, {
+    "@language" : "de",
+    "@value" : "Wegaufnehmer / Wegsensor"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MeasuringDevice"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Dient zur Messung des Abstandes zwischen einem Objekt und einem Bezugspunkt oder von Laengenaenderungen."
+  }, {
+    "@language" : "en",
+    "@value" : "Used to measure the distance between an object and a reference point or changes in length."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Fibres",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Fasern"
+  }, {
+    "@language" : "en",
+    "@value" : "Fibres"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FinesInConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Mehlkorn"
+  }, {
+    "@language" : "en",
+    "@value" : "fines in concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialProperty"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Sum of solid materials in fresh concrete with particle sizes less than or equal to 0,125 mm."
+  }, {
+    "@language" : "de",
+    "@value" : "Summe der festen Partikel im Frischbeton mit einer Korngroesse =< 0,125 mm."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FlowClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Ausbreitmassklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "Flow Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Classification of consistency by determining the flow spread."
+  }, {
+    "@language" : "de",
+    "@value" : "Einteilung der Konsistenz durch die Bestimmung des Ausbreitmasses."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FlowSpread",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Ausbreitmass"
+  }, {
+    "@language" : "en",
+    "@value" : "Flow Spread"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Mean diameter of the spread of fresh concrete from a standardized slump cone."
+  }, {
+    "@language" : "de",
+    "@value" : "Mittlerer Ausbreitdurchmesser von Frischbeton, der im Ausbreitversuch bestimmt wird."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FlowTableTest",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Bestimmung des Ausbreitmasses"
+  }, {
+    "@language" : "en",
+    "@value" : "Flow Table Test"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Mit dieser Pruefung wird die Konsistenz von Frischbeton durch Messung der Ausbreitung von Beton auf einer flachen Platte bestimmt, die auf einen Rahmen fallengelassen wird."
+  }, {
+    "@language" : "en",
+    "@value" : "This test determines the consistency of fresh concrete by measuring the spread of concrete on a flat slab dropped onto a frame."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 12350-5"
+  }, {
+    "@language" : "en",
+    "@value" : "EN 12350-5"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FlyAsh",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Flugasche"
+  }, {
+    "@language" : "en",
+    "@value" : "Fly Ash"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Feines graues Pulver, das hauptsaechlich aus kugelfoermigen, glasartigen Partikeln besteht und als Nebenprodukt in Kohlekraftwerken anfaellt. "
+  }, {
+    "@language" : "en",
+    "@value" : "Fine gray powder consisting mostly of spherical, glassy particles that are produced as a byproduct in coal-fired power stations. "
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/FreshConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Fresh Concrete"
+  }, {
+    "@language" : "de",
+    "@value" : "Frischbeton"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der fertig gemischt ist, sich noch in einem verarbeitbaren Zustand befindet und durch das gewaehlte Verfahren verdichtet werden kann."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete which is fully mixed and still in a condition that is capable of being compacted by the chosen method."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/GGBS/GGBFS",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Syn.: granulierte Hochofenschlacke"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Huettensand"
+  }, {
+    "@language" : "en",
+    "@value" : "ground granulated blast furnace slag"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/BlastFurnaceSlag"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Ground granulated blast furnace slag is produced by rapid cooling of a molten slag formed during pig iron production. "
+  }, {
+    "@language" : "de",
+    "@value" : "Huettensand entsteht durch schnelles Abkuehlen einer bei der Roheisenherstellung gebildeten Schlackenschmelze. "
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/HardenedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Festbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "Hardened Concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der sich in einem festen Zustand befindet und eine gewisse Festigkeit entwickelt hat."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete which is in a solid state and which has developed a certain strength."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Heat",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/HeatFlow",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Heat"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/HeatOfHydration",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/HeavyWeightAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "heavy-weight aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "schwere Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate with an oven-dry particle density >= 3000 kg/dm3 when determined according to EN 1097-6."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte >= 3 000 kg/m3 bei Bestimmung nach EN 1097-6."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/HeavyWeightConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Schwerbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "heavy-weight concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2600 kg/m3."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete having an oven-dry density greater than 2600 kg/m3."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/IdentityTest",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Identitaetspruefung"
+  }, {
+    "@language" : "en",
+    "@value" : "identity test"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung, um zu bestimmen, ob eine gewaehlte Charge oder Ladung einer konformen Grundgesamtheit entstammt."
+  }, {
+    "@language" : "en",
+    "@value" : "Test to determine whether selected batches or loads come from a conforming population."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/InSituConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Ortbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "in-situ concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der an dem Ort erhaertet, an dem er verbaut wird. Ortbeton wird als Transportbeton mit Mischfahrzeugen auf die Baustelle gebracht oder vor Ort als Baustellenbeton gemischt."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete that hardens on the site where it is used. In-situ concrete is delivered to the construction site as ready-mixed concrete by truck mixers or mixed on site as site-mixed concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/InitialTest",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Erstpruefung"
+  }, {
+    "@language" : "en",
+    "@value" : "initial test"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung oder Pruefungen vor Herstellungsbeginn, um zu ermitteln, wie ein neuer Beton oder eine neue Betonfamilie zusammengesetzt sein muss, um alle festgelegten Anforderungen im frischen und erhaerteten Zustand zu erfuellen."
+  }, {
+    "@language" : "en",
+    "@value" : "Test or tests to check before the production starts how a new concrete or concrete family shall be composed in order to meet all the specified requirements in the fresh and hardened states."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/InorganicMaterial",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Anorganische Stoffe"
+  }, {
+    "@language" : "en",
+    "@value" : "Inorganic Material"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Chemical compounds that usually don't contain carbon"
+  }, {
+    "@language" : "de",
+    "@value" : "Chemische Verbindungen, die in der Regel keinen Kohlenstoff enthalten."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Holleman et.al. (2007)"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/LightWeightAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "leichte Gesteinskoernung"
+  }, {
+    "@language" : "en",
+    "@value" : "lightweight aggregate"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate of mineral origin having an oven-dry particle density =< 2000 kg/dm3  when determined according to EN 1097-6 or a loose buld-density =< 1200 kg/dm3  when determined according to EN 1097-3."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung mineralischen Ursprungs im ofentrockenen Zustand mit einer Kornrohdichte =< 2 000 kg/m3, bestimmt nach EN 1097-6, oder einer Schuettdichte =< 1 200 kg/m3, bestimmt nach EN 1097-3."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/LightweightConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Leichtbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "lightweight concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton im ofentrockenen Zustand mit einer Rohdichte von mindestens 800 kg/m3 und hoechstens 2000 kg/m3."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete having an oven-dry density of not less than 800 kg/m3 and not more than 2000 kg/m3."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/LimestonePowder",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Kalksteinmehl"
+  }, {
+    "@language" : "en",
+    "@value" : "Limestone powder"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : " Finely ground limestone that can be used as an addition to cover a deficit in the amount of fines in concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "Feingemahlener Kalkstein, der als Betonzusatzstoff verwendet werden kann, um eine fehlende Menge an Mehlkorn im Beton zu decken."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/MaterialComposition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/MeasurementInstrumentPreparation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Measurement Instrument Preparation"
+  }, {
+    "@language" : "de",
+    "@value" : "Messinstrumentvorbereitung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Preparation of a Measuring isntrument to be used for measuring, e.g. dampening or placement of forms."
+  }, {
+    "@language" : "de",
+    "@value" : "Vorbereitung eines Messintrumentes zur Durchfuehrung einer Messung, z. B. anfeuchten oder platzieren einer Form"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/MeasuringNode",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/Process"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/MetallicMaterial",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Metallic Material"
+  }, {
+    "@language" : "de",
+    "@value" : "metallisches Material"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Zu den chemischen Elementen gehoerender, nicht durchsichtiger, Waerme und Elektrizitaet gut leitender, fester, dehn- und schmelzbarer Stoff."
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Mortar",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Moertel"
+  }, {
+    "@language" : "en",
+    "@value" : "Mortar"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/EngineeredMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Gemisch aus Bindemittel, Wasser und Gesteinskoernung mit einem Groesstkorn von maximal 4 mm, das nach einer bestimmten Zeit durch Hydratation erstarrt und erhaertet. "
+  }, {
+    "@language" : "en",
+    "@value" : "Mixture of binder, water and aggregate with a maximum grain size of 4 mm, which solidifies and hardens after a certain time due to hydration. "
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/NonAgitatingEquipment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Ausruestung ohne Ruehrwerk"
+  }, {
+    "@language" : "en",
+    "@value" : "non-agitating equipment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ProcessingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Ausruestung fuer den Betontransport ohne Ruehren."
+  }, {
+    "@language" : "en",
+    "@value" : "Equipment used for transporting concrete without agitation."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/NonDestructiveTesting",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "NonDestructive Testing"
+  }, {
+    "@language" : "de",
+    "@value" : "Zerstoerungsfreie Pruefung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Pruefung, bei der Materialien auf chemische und/oder physikalische Eigenschaften geprueft und dabei nicht beschaedigt werden."
+  }, {
+    "@language" : "en",
+    "@value" : "Testing for chemical and/or physical properties where materials were not destroyed or changed in the process."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Krankenhagen & Laube (1983)"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/NonMetalicMaterial",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "NonMetalic Material"
+  }, {
+    "@language" : "de",
+    "@value" : "nichtmetallisches Material"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Zu den chemischen Elementen gehoerender Stoff, der leicht Elektronen aufnimmt; als Gas, Fluessigkeit oder in kristalliner Form vorliegt und elektrischen Strom und Waerme im allgemeinen schlecht leitet."
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Steffen (1889)"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/NormalWeightAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "normal-weight aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "normale Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate with an oven-dry particle density > 2000 kg/dm3 and < 3000 kg/dm3 when determined according to EN 1097-6."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung im ofentrockenen Zustand mit einer Kornrohdichte > 2 000 kg/m3 und < 3 000 kg/m3, bestimmt nach EN 1097-6."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/NormalWeightConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Normalbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "normal-weight concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton im ofentrockenen Zustand mit einer Rohdichte ueber 2000 kg/m3 und hoechstens 2600 kg/m3."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete having an oven-dry density greater than 2000 kg/m3 but not exceeding 2600 kg/m3."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/OrganicMaterial",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Organic Material"
+  }, {
+    "@language" : "de",
+    "@value" : "organisches Material"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/BaseMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Chemical compounds that usually contain carbon."
+  }, {
+    "@language" : "de",
+    "@value" : "Chemische Verbindungen, die Kohlenstoff enthalten."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Hart et. al. (2007)"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/PassingAbility",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Blockierneigung"
+  }, {
+    "@language" : "en",
+    "@value" : "passing ability"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Ability of fresh concrete to flow through tight openings such as spaces between steel reinforcing bars without segregation or blocking."
+  }, {
+    "@language" : "de",
+    "@value" : "Neigung von Frischbeton, bei engen oeffnungen wie z. B. zwischen Bewehrungsstaeben, durch Entmischen das weitere Fliessen zu blockieren oder enge oeffnungen zu verstopfen."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Pigments",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Pigmente"
+  }, {
+    "@language" : "en",
+    "@value" : "Pigments"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Feinkoernige anorganische oder organische Feststoffteilchen mit einem Durchmesser von etwa 0,1 bis 1,0 �m, die zur Farbgebung von Beton, Moertel oder eines transparenten Bindemittels dienen. Farbpigmente fuer Beton sind inerte Betonzusatzstoffe Typ I im Sinne der DIN 1045-2."
+  }, {
+    "@language" : "en",
+    "@value" : "Fine-grained inorganic or organic solid particles with a diameter of about 0.1 to 1.0 �m used for coloring concrete, mortar or a transparent binder. Color pigments for concrete are inert concrete type I additions according to DIN 1045-2."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/PolymerFibres",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Polymerfasern"
+  }, {
+    "@language" : "en",
+    "@value" : "polymer fibres"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Fibres"
+  }, {
+    "@id" : "https://w3id.org/cpto/OrganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Straight or deformed pieces of extruded, orientated and cut material, which are suitable to be homogenously mixed into concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "gerade oder verformte Fasern aus extrudiertem, orientiertem oder geschnittenem Material, die fuer eine gleichmaessige Verteilung in Betonmischungen geeignet sind"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/PrecastElement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Fertigteil"
+  }, {
+    "@language" : "en",
+    "@value" : "precast element"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/EngineeredMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Betonbauteil, dass an einem anderen Ort als dem endgueltigen Ort der Verwendung (im Werk oder auf der Baustelle) hergestellt und nachbehandelt wird"
+  }, {
+    "@language" : "en",
+    "@value" : "concrete product cast and cured in a place other than the final location of use"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/PrescribedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Beton nach Zusammensetzung"
+  }, {
+    "@language" : "en",
+    "@value" : "prescribed concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, fuer den die Zusammensetzung und die Ausgangsstoffe, die verwendet werden muessen, dem Hersteller, der fuer die Lieferung eines Betons mit der festgelegten Zusammensetzung verantwortlich ist, vorgegeben werden."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete for which the composition of the concrete and the constituent materials to be used are specified to the producer who is responsible for providing a concrete with the specified composition."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/QuantityInMix",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Quantity in mix"
+  }, {
+    "@language" : "de",
+    "@value" : "Stoffmenge"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Quantitative Mengenangabe fuer Stoffe in der Chemie"
+  }, {
+    "@language" : "en",
+    "@value" : "Quantitative quantity specification for substances in chemistry."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/QuartzFlour",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Quartz flour"
+  }, {
+    "@language" : "de",
+    "@value" : "Quarzmehl"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : " Finely ground quartz with a grain size =< 0.25 mm. "
+  }, {
+    "@language" : "de",
+    "@value" : "Feingemahlener Quarz mit einer Korngroesse =< 0,25 mm. "
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ReadyMixedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Transportbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "ready-mixed concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der in frischem Zustand durch eine Person oder Stelle geliefert wird, die nicht der Verwender ist. Transportbeton im Sinne von DIN EN 206 ist auch vom Verwender ausserhalb der Baustelle hergestellter Beton oder auf der Baustelle nicht vom Verwender hergestellter Beton."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete delivered in a fresh state by a person or body who is not the user. Ready-mixed concrete in the sense of DIN EN 206 is also concrete produced off site by the user or produced on site. But not by the user."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ReclaimedCrushedAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "reclaimed crushed aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "wiedergewonnene gebrochene Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate gained by crushing hardened concrete that has not been previously used in construction."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung, die durch Brechen von Festbeton, der noch nicht beim Bauen verwendet wurde, gewonnen wird."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ReclaimedWashedAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "reclaimed washed aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "wiedergewonnene gewaschene Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregates gained by washing fresh concrete."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung, die durch Waschen von Frischbeton gewonnen wird."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/RecycledAggregate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "recycled aggregate"
+  }, {
+    "@language" : "de",
+    "@value" : "rezyklierte Gesteinskoernung"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Aggregate"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Aggregate resulting from the processing of inorganic material previously used in construction."
+  }, {
+    "@language" : "de",
+    "@value" : "Gesteinskoernung, die durch Aufbereitung von vorher beim Bauen verwendeten anorganischen Stoffen gewonnen wird"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/RelativeDensity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Relative Dichte"
+  }, {
+    "@language" : "en",
+    "@value" : "RelativeDensity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialProperty"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Verhaeltnis der Dichte eines Stoffes oder einer Mischung zur Bezugsdichte eines Bezugsstoffes [-]"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SegregationResistance",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Sedimentationsstabilitaet"
+  }, {
+    "@language" : "en",
+    "@value" : "segregation resistance"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Ability of fresh concrete to remain homogeneous in composition while in its fresh state."
+  }, {
+    "@language" : "de",
+    "@value" : "Eigenschaft von Frischbeton, hinsichtlich der Zusammensetzung homogen zu bleiben."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SelfcompactingConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Selbstverdichtender Beton (SVB)"
+  }, {
+    "@language" : "en",
+    "@value" : "self-compacting concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der aufgrund seines eigenen Gewichts fliesst und sich selbst verdichtet sowie die Schalung mit Bewehrung, Kanaelen, Aussparungskaesten usw. ausfuellt und dabei seine Homogenitaet beibehaelt."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete that is able to flow and compact under its own weight, fill the formwork with its reinforcement, ducts, boxouts etc., whilst maintaining homogeneity."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SilicaFume",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Silica Fume"
+  }, {
+    "@language" : "de",
+    "@value" : "Silikastaub"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Sehr feines, nicht kristallines Siliziumdioxid, das in Lichtbogenoefen als Nebenprodukt bei der Herstellung von elementarem Silizium oder siliziumhaltigen Legierungen entsteht."
+  }, {
+    "@language" : "en",
+    "@value" : "Very fine non-crystalline silica produced in electric arc furnaces as a by-product of the production of elemental silicon or alloys containing silicon."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Site",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Syn: construction site"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Baustelle"
+  }, {
+    "@language" : "en",
+    "@value" : "site"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/Location"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Area where the construction work is undertaken."
+  }, {
+    "@language" : "de",
+    "@value" : "Gebiet, in dem die Bauarbeiten durchgefuehrt werden"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SiteMixedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Baustellenbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "site-mixed concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton, der auf der Baustelle vom Verwender des Betons fuer seine eigene Verwendung hergestellt wird."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete produced on the construction site by the user of the concrete for his own use."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SlagCement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Syn.: Huettenzement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Hochofenzement"
+  }, {
+    "@language" : "en",
+    "@value" : "Slag Cement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Cement"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Normal cement containing between 36 and 95 percent ground granulated blast furnace slag instead of Portland cement clinker."
+  }, {
+    "@language" : "de",
+    "@value" : "Normalzement, der zwischen 36 und 95 Prozent Huettensand anstelle von Portlandzementklinker enthaelt."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SlumpClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Setzmassklasse"
+  }, {
+    "@language" : "en",
+    "@value" : "Slump Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : " "
+  }, {
+    "@language" : "de",
+    "@value" : "Einteilung der Konsistenz durch die Bestimmung des Setzfliessmasses."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SlumpFlow",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Setzfliessmass"
+  }, {
+    "@language" : "en",
+    "@value" : "slump-flow"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Mean diameter of the spread of fresh concrete from a standardized slump cone."
+  }, {
+    "@language" : "de",
+    "@value" : "Mittlerer Ausbreitdurchmesser von Frischbeton, der im Setzfliessversuch bestimmt wird."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SpecificGravity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Specific Gravity"
+  }, {
+    "@language" : "de",
+    "@value" : "spezifisches Gewicht"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Gewicht eines Koerpers im Verhaeltnis zu seinem Volumen."
+  }, {
+    "@language" : "en",
+    "@value" : "Weight of a body in relation to its volume."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SpecimenAge",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Probenalter"
+  }, {
+    "@language" : "en",
+    "@value" : "specimen age"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/TestPieceInfo"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/StandardizedPrescribedConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Standardbeton"
+  }, {
+    "@language" : "en",
+    "@value" : "standardized prescribed concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Concrete"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Beton nach Zusammensetzung, dessen Zusammensetzung in einer am Ort der Verwendung des Betons gueltigen Norm vorgegeben ist."
+  }, {
+    "@language" : "en",
+    "@value" : "Prescribed concrete for which the composition is given in a standard valid in the place of use of the concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/SteelFibres",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Stahlfasern"
+  }, {
+    "@language" : "en",
+    "@value" : "steel fibres"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Fibres"
+  }, {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  }, {
+    "@id" : "https://w3id.org/cpto/MetallicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Gerade oder verformte Fasern aus kalt gezogenem Stahldraht, gerade oder verformte zugeschnittene Einzelfasern, aus Schmelzgut hergestellte Fasern, von kalt gezogenem Draht gespante Fasern oder aus Stahlbloecken gehobelte Fasern, die fuer eine gleichmaessige Verteilung in Beton geeignet sind."
+  }, {
+    "@language" : "en",
+    "@value" : "Straight or deformed pieces of cold-drawn steel wire, straight or deformed cut sheet fibres, melt extracted fibres, shaved cold drawn wire fibres or fibres milled from steel blocks, which are suitable to be homogeneously mixed into concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/StressRate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Spannungsrate"
+  }, {
+    "@language" : "en",
+    "@value" : "Stress Rate"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/TensileSplittingStrength",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Spaltzugfestigkeit"
+  }, {
+    "@language" : "en",
+    "@value" : "Tensile Splitting Strength"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/TensileStrength"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "A cylindrical specimen is exposed to a compressive load applied in a narrow strip along the longitudinal axis of the specimen. The resulting orthogonal tensile force causes the specimen to fracture under tensile stress."
+  }, {
+    "@language" : "de",
+    "@value" : "Ein zylindrischer Probekoerper wird einer Druckkraft ausgesetzt, die in einem schmalen Streifen entlang der Laengsachse des Probekoerpers aufgebracht wird. Die sich ergebende orthogonale Zugkraft verursacht den Bruch des Probekoerpers unter Zugspannung."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : " DIN EN 12390-6"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/TruckMixer",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Fahrmischer"
+  }, {
+    "@language" : "en",
+    "@value" : "truck mixer"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ProcessingNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Betonmischer, der auf einem Fahrgestell mit Eigenantrieb montiert und in der Lage ist, einen gleichmaessig gemischten Beton herzustellen und auszuliefern."
+  }, {
+    "@language" : "en",
+    "@value" : "Concrete mixer mounted on a self-propelled chassis capable of mixing and delivering a homogeneous concrete."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/TypeIAddition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Typ-I-Zusatzstoff"
+  }, {
+    "@language" : "en",
+    "@value" : "type I addition"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Addition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nahezu inaktiver Zusatzstoff"
+  }, {
+    "@language" : "en",
+    "@value" : "nearly inert additions"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/TypeIIAdition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Typ-II-Zusatzstoff"
+  }, {
+    "@language" : "en",
+    "@value" : "type II addition"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/Addition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "pozzolanic or latent hydraulic additions"
+  }, {
+    "@language" : "de",
+    "@value" : "puzzolanischer oder latenthydraulischer Zusatzstoff"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/VebeClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Setzzeit-Klasse (Vebe)"
+  }, {
+    "@language" : "en",
+    "@value" : "Vebe Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Verification",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Nachweise"
+  }, {
+    "@language" : "en",
+    "@value" : "verification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MeasuringNode"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Bestaetigung durch ueberpruefung objektiver Erkenntnisse, dass die festgelegten Anforderungen erfuellt worden sind."
+  }, {
+    "@language" : "en",
+    "@value" : "Confirmation by examination of objective evidence that specified requirements have been fulfilled."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/ViscosityOfConcrete",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Viskositaet"
+  }, {
+    "@language" : "en",
+    "@value" : "viscosity of concrete"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialProperty"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Fliesswiderstand von Frischbeton nach Beginn des Fliessens."
+  }, {
+    "@language" : "en",
+    "@value" : "Resistance to flow of fresh concrete once flow has started."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Volume",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Volume"
+  }, {
+    "@language" : "de",
+    "@value" : "Volumen"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/ValueObject"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  }, {
+    "@language" : "de",
+    "@value" : "raeumlicher Inhalt eines geometrischen Koerpers"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "nan"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/Water",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Wasser"
+  }, {
+    "@language" : "en",
+    "@value" : "Water"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/InorganicMaterial"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "en",
+    "@value" : "Chemical compound of oxygen (O) and hydrogen (H) in the liquid state of aggregation"
+  }, {
+    "@language" : "de",
+    "@value" : "Chemische Verbindung von Sauerstoff (O) und Wasserstoff (H) im fluessigen Aggregatzustand"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Chemie.de"
+  }, {
+    "@language" : "en",
+    "@value" : "nan"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/WaterCementRatio",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "de",
+    "@value" : "Wasserzementwert"
+  }, {
+    "@language" : "en",
+    "@value" : "Water Cement Ratio"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/cpto/MaterialComposition"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Masseverhaeltnis des wirksamen Wassergehaltes zum Zementgehalt im Frischbeton."
+  }, {
+    "@language" : "en",
+    "@value" : "ratio of the effective water content to cement content by mass in the fresh concrete"
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "DIN EN 206"
+  }, {
+    "@language" : "en",
+    "@value" : "DIN EN 206"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/definition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://w3id.org/cpto/kValueAccountingForFlyAsh",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "k Value Accounting for Fly Ash"
+  }, {
+    "@language" : "de",
+    "@value" : "k-Wert fuer Flugasche"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Anrechenbarkeit von Flugasche auf den Zementgehalt und den Wasserzementwert."
+  }, {
+    "@language" : "en",
+    "@value" : "Eligibility of fly ash on the cement content and the water-cement ratio."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/kValueAccountingForFlyAsh+SilicaFume",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "k Value Accounting for Fly Ash + Silica Fume"
+  }, {
+    "@language" : "de",
+    "@value" : "k-Wert fuer Flugasche + Silikastaub"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Anrechenbarkeit von Flugasche + Silikastaub auf den Zementgehalt und den Wasserzementwert."
+  }, {
+    "@language" : "en",
+    "@value" : "Eligibility of fly ash + silica fume on the cement content and the water-cement ratio."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/kValueAccountingForSilicaFume",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "k Value Accounting for Silica Fume"
+  }, {
+    "@language" : "de",
+    "@value" : "k-Wert fuer Silikastaub"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Anrechenbarkeit von Silikastaub auf den Zementgehalt und den Wasserzementwert."
+  }, {
+    "@language" : "en",
+    "@value" : "Eligibility of silica fume on the cement content and the water-cement ratio."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/kValueAccountingForTypeIIAdditons",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "nan"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "k Value Accounting for type II additions"
+  }, {
+    "@language" : "de",
+    "@value" : "k-Wert fuer Zusatzstoffe Typ II"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/pmd/co/MaterialRelated"
+  } ],
+  "http://www.w3.org/ns/prov#definition" : [ {
+    "@language" : "de",
+    "@value" : "Anrechenbarkeit von Zusatzstoffen des Typs II auf den Zementgehalt und den Wasserzementwert."
+  }, {
+    "@language" : "en",
+    "@value" : "Eligibility of Type II additives on the cement content and the water-cement ratio."
+  } ],
+  "https://w3id.org/pmd/co/definitionSource" : [ {
+    "@language" : "de",
+    "@value" : "Betontechnische Daten"
+  }, {
+    "@language" : "en",
+    "@value" : "translated from Betontechnische Daten"
+  } ]
+}, {
+  "@id" : "https://w3id.org/cpto/source",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://w3id.org/pmd/co/TensileStrength",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+} ]
