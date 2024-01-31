@@ -32,6 +32,14 @@ jobs:
            mkdir public/v$ONTO_VERSION
            java -jar widoco.jar -ontFile deploy_main/$ONTOLOGY_FILE_NAME -outFolder public/v$ONTO_VERSION -htaccess -uniteSections -includeAnnotationProperties -lang en-de -getOntologyMetadata -noPlaceHolderText -rewriteAll -webVowl
            cp public/v$ONTO_VERSION/index-en.html public/v$ONTO_VERSION/index.html
+    ## copy the current page to the newest folder, so the .htaccess link doesn't
+    ## have to be changed everytime a new version gets published, while still keeping the history
+    ## .htaccess links to .../newest
+    - name: Prepare newest directory
+      run: |
+           mkdir -p public/newest
+           rm -r public/newest/*
+           cp -r public/v$ONTO_VERSION/* public/newest/
     ## Fourth step: Publish HTML docs and ontology serializations to gh pages
     ##              maintaining other versions and
     ##              replacing the current version (if existing)
