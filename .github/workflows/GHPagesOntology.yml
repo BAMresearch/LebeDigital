@@ -38,7 +38,7 @@ jobs:
     - name: Prepare newest directory
       run: |
            mkdir -p public/newest
-           rm -r public/newest/*
+           rm -rf public/newest/*
            cp -r public/v$ONTO_VERSION/* public/newest/
     ## Fourth step: Publish HTML docs and ontology serializations to gh pages
     ##              maintaining other versions and
