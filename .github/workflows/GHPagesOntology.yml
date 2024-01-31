@@ -1,7 +1,7 @@
 name: Deploy
 
 env:
-  ONTOLOGY_FILE_NAME: lebedigital/ConcreteOntology/BaseOntology/ConcreteProductionAndTestingOntology.ttl
+  ONTOLOGY_FILE_NAME: lebedigital/ConcreteOntology/BaseOntology/cpto.ttl
   
 on:
     workflow_dispatch:

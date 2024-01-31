@@ -11,7 +11,7 @@
 <https://w3id.org/cpto> rdf:type owl:Ontology ;
                          owl:imports <https://w3id.org/pmd/co> ;
                          dcterms:title "Concrete Production and Testing Ontology"@en ;
-                         dcterms:creator "Mattheo Krüger, Melissa Telong Donfack, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz" ,
+                         dcterms:creator "Mattheo Krüger, Melissa Telong, Aida Zoriyatkha, Birgit Meng, Stephan Pirskawetz" ,
 						<https://orcid.org/0009-0003-7121-0283> ,
 						<https://orcid.org/0009-0006-4524-9143> ,
 						<https://orcid.org/0009-0004-9700-2439> ,
