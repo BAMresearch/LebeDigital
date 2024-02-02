@@ -9,8 +9,8 @@ import os
 #json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 #json_files = os.listdir(json_files_directory)
 json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json'
-kg_template_path = '../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
-output_template_path = '../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
+kg_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
+output_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
 
 def check_duplicate_keys(data, key_prefix):
     # Define the pattern for the given key prefix
