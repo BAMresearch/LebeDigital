@@ -11,8 +11,8 @@ from upload_scripts.doit_create_types import create_required_sample_types
 from upload_scripts.doit_upload import upload_to_openbis_doit
 
 from lebedigital.mapping.mappingscript import mapping
-from lebedigital.raw_data_processing.mixture.mixture_metadata_extraction import \
-    extract_metadata_mixture
+from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import \
+    mix_metadata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_processed_data import \
     processed_data_from_rawdata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
