@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 import yaml
+import json
 from doit import create_after, get_var
 from doit.task import clean_targets
 from upload_scripts.doit_create_types import create_required_sample_types
@@ -98,7 +99,7 @@ emodul_output_directory = Path(ParentDir, 'emodul')
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')
 # folder with metadata yaml files
 metadata_emodulus_directory = Path(
-    emodul_output_directory, 'metadata_yaml_files')
+    emodul_output_directory, 'metadata_json_files')
 processed_data_emodulus_directory = Path(
     emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_directory = Path(
@@ -125,7 +126,7 @@ Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')
 mixture_output_directory = Path(ParentDir, 'mixture')  # folder with folders
 metadata_mixture_directory = Path(mixture_output_directory,
-                                  'metadata_yaml_files')  # folder with mixture metadata yaml files
+                                  'metadata_json_files')  # folder with mixture metadata yaml files
 mixture_knowledge_graphs_directory = Path(
     mixture_output_directory, 'knowledge_graphs')  # folder with KG ttl files
 
@@ -161,14 +162,14 @@ def task_extract_metadata_mixture():
     for f in list_raw_data_mixture_files:
         if f.is_file():
             raw_data_path = Path(f)
-            yaml_metadata_file = Path(
-                metadata_mixture_directory, f.name.split(".xls")[0] + '.yaml')
+            json_metadata_file = Path(
+                metadata_mixture_directory, f.name.split(".xls")[0] + '.json')
 
             if f.name not in excluded_mix_list:
                 yield {
                     'name': f.name,
                     'actions': [(mix_metadata, [raw_data_path, metadata_mixture_directory])],
-                    'targets': [yaml_metadata_file],
+                    'targets': [json_metadata_file],
                     'clean': [clean_targets]
                 }
 
@@ -189,13 +190,13 @@ def task_extract_metadata_emodul():
         if f.is_dir():
             raw_data_path = Path(f)
             raw_data_file = Path(f, 'specimen.dat')
-            yaml_metadata_file = Path(
-                metadata_emodulus_directory, f.name + '.yaml')
+            json_metadata_file = Path(
+                metadata_emodulus_directory, f.name + '.json')
             yield {
                 'name': f.name,
-                'actions': [(emodul_metadata, [raw_data_path, yaml_metadata_file])],
+                'actions': [(emodul_metadata, [raw_data_path, json_metadata_file])],
                 'file_dep': [raw_data_file],
-                'targets': [yaml_metadata_file],
+                'targets': [json_metadata_file],
                 'clean': [clean_targets]
             }
 
