@@ -263,7 +263,7 @@ def mix_metadata(rawDataPath, metaDataFile):
     metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
 
     json_name = rawDataPath.name.split('.')[0]
-    metaDataFile = metaDataFile + json_name
+    metaDataFile = str(metaDataFile) + json_name
     # print(rawDataPath.split('/')[-1].split('.')[0])
     # writing the metadata to json file
     with open(metaDataFile + ".json", 'w') as jsonFile:
