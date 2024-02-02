@@ -167,7 +167,7 @@ def task_extract_metadata_mixture():
             if f.name not in excluded_mix_list:
                 yield {
                     'name': f.name,
-                    'actions': [(extract_metadata_mixture, [raw_data_path, metadata_mixture_directory])],
+                    'actions': [(mix_metadata, [raw_data_path, metadata_mixture_directory])],
                     'targets': [yaml_metadata_file],
                     'clean': [clean_targets]
                 }
