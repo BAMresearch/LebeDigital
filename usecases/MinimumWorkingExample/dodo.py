@@ -80,6 +80,7 @@ Path(mixture_output_directory).mkdir(parents=True, exist_ok=True)
 # shacl directory where shapes are stored, to be tested against the created KGs
 root_directory = Path(ParentDir).parent.parent
 lebedigital_directory = Path(root_directory, 'lebedigital')
+knowledge_graphs_Template_directory = Path(root_directory, 'lebedigital', 'ConcreteOntology')
 shacl_directory = Path(lebedigital_directory, 'shacl')
 # create folder, if it is not there
 union_output_path = Path(mixture_output_directory, "mixture_union_files")
@@ -191,8 +192,9 @@ def task_export_Mapping():
 
     for f in list_metadata_json_files:
         if f.is_file():
-            # path to metadata yaml
+            # path to metadata json
             metadata_file_path = Path(f)
+            KGtemplatePath = knowledge_graphs_Template_directory
             name_of_ttl = f.name.replace('.json', '.ttl')
             name_of_cvs = f.name.replace('.json', '.csv')
             # path the processed data csv
@@ -202,7 +204,7 @@ def task_export_Mapping():
 
             yield{
                 'name': name_of_cvs,
-                'actions': [(mapping, [metadata_file_path, knowledge_graph_file])],
+                'actions': [(mapping, [KGtemplatePath, metadata_file_path, knowledge_graph_file])],
                 'file_dep': [metadata_file_path, processed_data_file_path],
                 'targets': [knowledge_graph_file],
                 'clean': [clean_targets]
