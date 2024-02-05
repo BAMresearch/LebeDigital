@@ -9,7 +9,7 @@ import json
 from doit import create_after, get_var
 from doit.task import clean_targets
 #from upload_scripts.doit_create_types import create_required_sample_types
-# from upload_scripts.doit_upload import upload_to_openbis_doit
+#from upload_scripts.doit_upload import upload_to_openbis_doit
 
 from lebedigital.mapping.mappingscript import mapping
 from lebedigital.raw_data_processing.mixture.mixdesign_metadata_extraction import \
@@ -194,9 +194,10 @@ def task_export_Mapping():
         if f.is_file():
             # path to metadata json
             metadata_file_path = Path(f)
-            KGtemplatePath = knowledge_graphs_Template_directory
             name_of_ttl = f.name.replace('.json', '.ttl')
             name_of_cvs = f.name.replace('.json', '.csv')
+            # path to input KG template
+            KGtemplatePath = Path(knowledge_graphs_Template_directory)
             # path the processed data csv
             processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
             # path to output file KG
