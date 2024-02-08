@@ -219,9 +219,9 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1'
+        args.input = 'usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1'
     if args.output == None:
-        args.output = ['../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json', '../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
+        args.output = ['usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json', 'usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
 
 
 
