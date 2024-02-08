@@ -283,13 +283,11 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        #args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen/2019_06_26 Klimek Geschossdecke_Quarzkies.xls'
-        args.input = '/Data/Mischungen/2019_06_26 Klimek Geschossdecke_Quarzkies.xls'
-
+        args.input = '../../usecases/MinimumWorkingExample/Data/Mischungen/2019_06_26 Klimek Geschossdecke_Quarzkies.xls'
+        
     if args.output == None:
-        #args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
-        args.output = '/mixture/metadata_json_files/'
-
+        args.output = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
+       
     # run extraction and write metadata file
     # path_to_json = mix_metadata(args.input, args.output)
     mix_metadata(args.input, args.output)
