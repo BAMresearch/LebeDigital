@@ -262,7 +262,7 @@ def mix_metadata(rawDataPath, metaDataFile):
     # Replace occurrences of NaN with None in the metadata dictionary
     metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
 
-    json_name = rawDataPath.name.split('.')[0]
+    json_name = os.path.basename(rawDataPath).split('.')[0]
     metaDataFile = str(metaDataFile) + json_name
     # print(rawDataPath.split('/')[-1].split('.')[0])
     # writing the metadata to json file
