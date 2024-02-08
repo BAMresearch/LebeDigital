@@ -259,10 +259,12 @@ def mix_metadata(rawDataPath, metaDataFile):
 
     # extracting the metadata
     metadata = extract_metadata_mixdesign(rawDataPath)
-    # Replace occurrences of NaN with None in the metadata dictionary
-    #metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
+
     # Convert any non-serializable values to strings
     metadata = {key: str(value) if not isinstance(value, (int, float, bool, dict, list, tuple, set, type(None))) else value for key, value in metadata.items()}
+
+    # Replace occurrences of NaN with None in the metadata dictionary
+    metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
 
     json_name = os.path.basename(rawDataPath).split('.')[0]
     metaDataFile = str(metaDataFile) + json_name
