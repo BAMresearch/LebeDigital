@@ -149,7 +149,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # save Mixdesign ID to specimen metadata
         try:
-            with open("usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4] + "json", "r") as mixjson:  #change location of where
+            with open("../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4] + "json", "r") as mixjson:  #change location of where
             #with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
                 #mixtureHumID = mixdesign['humanreadableID']
@@ -219,9 +219,9 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = 'usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1'
+        args.input = '../usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1'
     if args.output == None:
-        args.output = ['usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json', 'usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
+        args.output = ['../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json', '../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json']
 
 
 
