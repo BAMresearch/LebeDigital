@@ -287,10 +287,15 @@ def main():
         
     if args.output == None:
         args.output = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
-       
+        
+    # Convert input path to string
+    rawDataPath = str(args.input)
+
+    # Run extraction and write metadata file
+    mix_metadata(rawDataPath, args.output)   
     # run extraction and write metadata file
     # path_to_json = mix_metadata(args.input, args.output)
-    mix_metadata(args.input, args.output)
+    #mix_metadata(args.input, args.output)
 
     # return path_to_json
 
