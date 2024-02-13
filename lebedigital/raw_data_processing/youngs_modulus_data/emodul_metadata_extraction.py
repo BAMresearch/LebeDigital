@@ -226,6 +226,7 @@ def main():
 
 
     # run extraction and write metadata file
+    print("3 parameter: ", args.output[1])
     emodul_metadata(args.input, args.output[0], args.output[1])
 
 
