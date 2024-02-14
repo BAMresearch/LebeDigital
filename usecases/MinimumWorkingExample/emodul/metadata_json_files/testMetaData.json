@@ -1,0 +1,24 @@
+{
+    "humanreadableID": "Wolf 8.2 Probe 1",
+    "ID": "7228a73c-d6d0-4944-b065-a3710f730273",
+    "ExperimentDate": "2015-01-28T11:00:49",
+    "Lab": "BAM",
+    "CompressionColumn": 0,
+    "CompressionForce_Unit": "kN",
+    "TransducerColumn": [
+        1,
+        2,
+        3
+    ],
+    "Extensometer_Unit": "mm",
+    "CompressiveStrength": 55.8,
+    "ExtensometerLength": 100,
+    "ExtensometerLength_Unit": "mm",
+    "EModule_Unit": "GPa",
+    "ProcessedFile": "../usecases/MinimumWorkingExample/emodul/processed_data",
+    "RawDataFile": "../../../usecases/MinimumWorkingExample/Data/E-modul/Wolf 8.2 Probe 1/specimen.dat",
+    "EModule": 33.06,
+    "SpecimenID": "7228a73c-d6d0-4944-b065-a3710f730273",
+    "SpecimenAge": 28.0,
+    "SpecimenAge_Unit": "day"
+}
