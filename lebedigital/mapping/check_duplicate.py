@@ -104,7 +104,7 @@ def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
                                     f'    co:value "$${common_prefix}Density_Value$$"^^xsd:float .\n\n' \
                                     f'ns1:{common_prefix}Type_ a owl:NamedIndividual,\n' \
                                     f'        ns1:{prefix} ;\n' \
-                                    f'    co:value "$${common_prefix}Type_Value$$"^^xsd:string .\n\n'
+                                    f'    co:value "$${common_prefix}Type_Value$$"^^xsd:string .'
 
                         # Append the generated block to the modified TTL lines
                         turtle_lines.append(new_block)
@@ -114,7 +114,7 @@ def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
                         if 'co:composedOf' + ' ' + f'ns1:{common_prefix},' in line:
                             # Modify the line to add missing common prefixes
                             new_composed_of = ',\n'.join(
-                                f'        ns1:{common_prefix},\n' for common_prefix in common_prefixes if
+                                f'        ns1:{common_prefix},' for common_prefix in common_prefixes if
                                 common_prefix not in existing_keys)
                             turtle_lines.insert(i + 1, new_composed_of)
                         # Add the new key to existing_keys
@@ -129,7 +129,7 @@ def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
 
 # Open the new TTL file in write mode and write the modified data
     with open(output_template_path, 'w') as new_file:
-        new_file.write(modified_turtle_data)
+        new_file.write(modified_turtle_data.replace(",        n", ",\n\t\tn"))
 
 
 # Call the function with the appropriate file paths
