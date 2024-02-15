@@ -1,0 +1,13 @@
+{
+    "ID": "359acce8-46fc-4c7e-95f4-35903a6c6bfa",
+    "humanreadableID": "KIT_21-1605_M4_7d_W2",
+    "ExperimentDate": "2023-09-25T00:00:00.000Z",
+    "Lab": "MPA",
+    "CompressiveStrength": 46.04,
+    "CompressiveStrength_Unit": "MPa",
+    "SpecimenID": "359acce8-46fc-4c7e-95f4-35903a6c6bfa",
+    "SpecimenAge": 7,
+    "SpecimenAge_Unit": "day",
+    "CompressionForce": 1036,
+    "CompressionForce_Unit": "kN"
+}
