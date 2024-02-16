@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datei-Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Einfacher Stil für das Layout */
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .title-item {
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #d8def0;
+            color: black;
+            border: none;
+            font-family: 'Roboto', sans-serif;
+        }
+                .menu-item {
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #c0c0c0;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        /* Hinzugefügte Stile */
+        .institution-select, .file-type-select {
+            margin-bottom: 60px; /* Abstand zwischen den Abschnitten */
+        }
+        .file-type-select select {
+            margin-bottom: 5px; /* Abstand nach dem Dateityp-Auswahlkästchen */
+        }
+    </style>
+</head>
+<body>
+    <!-- Seitenleiste für das Menü -->
+    <div class="sidebar">
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <!-- Menüpunkte als Buttons -->
+        <a href="/upload" class="menu-item">Upload Data</a>
+        <a href="/query" class="menu-item">Query Data</a>
+        <a href="/logout" style="position: absolute; bottom: 20px; left: 100px; text-decoration: underline; color: blue; cursor: pointer;">Logout</a>
+    </div>
+
+</body>
+</html>

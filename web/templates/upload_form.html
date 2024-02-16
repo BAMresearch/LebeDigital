@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datei-Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Einfacher Stil für das Layout */
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .title-item {
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #d8def0;
+            color: black;
+            border: none;
+            font-family: 'Roboto', sans-serif;
+        }
+                .menu-item {
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #c0c0c0;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        /* Hinzugefügte Stile */
+        .institution-select, .file-type-select {
+            margin-bottom: 60px; /* Abstand zwischen den Abschnitten */
+        }
+        .file-type-select select {
+            margin-bottom: 5px; /* Abstand nach dem Dateityp-Auswahlkästchen */
+        }
+    </style>
+</head>
+<body>
+    <!-- Seitenleiste für das Menü -->
+    <div class="sidebar">
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <!-- Menüpunkte als Buttons -->
+        <a href="/" class="menu-item">Upload Data</a>
+        <a href="/query" class="menu-item">Query Data</a>
+        <a href="/logout" style="position: absolute; bottom: 20px; left: 100px; text-decoration: underline; color: blue; cursor: pointer;">Logout</a>
+    </div>
+
+    <!-- Hauptinhalt -->
+    <div class="content" id="mainContent">
+        <h1 class="title-item">Upload your Data</h1>
+        &emsp;
+        <h3>Which Concrete Mixture did you use?</h3>
+        <!-- Textfeld mit Go-Knopf -->
+        <input type="text" id="textInput" placeholder="Enter mixture Name">
+        <button onclick="submitMixture()">Go</button>
+        <br><br>
+        <!-- Unsichtbarer Text, anfangs ausgeblendet -->
+        <div id="mixresponseText" style="display: none;">
+        </div>
+        <br>
+        <span>or <strong>upload</strong> your own</span>
+        <br><br>
+        <form id="uploadForm" enctype="multipart/form-data" onsubmit="uploadMixture()">
+            <input type="file" name="file" required>
+            <button type="button" id="uploadButton">Hochladen</button>
+        </form>
+
+        <br><br><br><br><br>
+        <button onclick="nextSiteOne(1)">Next</button>
+    </div>
+    
+    <!-- Neuer Inhalt, anfangs ausgeblendet -->
+    <div class="new-content" id="newContent" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+        <h1 class="title-item">Upload your Data</h1>
+        &emsp;
+        <h3>Upload your E-Module</h3>
+        <p>(if you don't have it click next)</p>
+        <br><br>
+        <form id="uploadFormEM" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="button" id="uploadButtonEM">Hochladen</button>
+        </form>
+
+        <br><br><br><br><br>
+        <button onclick="nextSiteOne(2)">Next</button>
+    </div>
+    
+        <!-- Neuer Inhalt, anfangs ausgeblendet -->
+    <div class="new-content" id="newContent2" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+        <h1 class="title-item">Upload your Data</h1>
+        &emsp;
+        <h3>Upload your Compressive Strength</h3>
+        <p>(if you don't have it click next)</p>
+        <br><br>
+        <form id="uploadFormCOM" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="button" id="uploadButtonCOM">Hochladen</button>
+        </form>
+        <br><br><br><br><br>
+        <button onclick="nextSiteOne(3)">Next</button>
+    </div>
+    
+            <!-- Neuer Inhalt, anfangs ausgeblendet -->
+    <div class="new-content" id="last" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+        <h1 class="title-item">Upload your Data</h1>
+        &emsp;
+        <h3>Data Upload complete.</h3>
+        <br><br><br>
+        <button type="button" onclick="uploadFinish()">Finish</button>
+    </div>
+</body>
+</html>
+
+<script>
+    // Globale Variable
+    var mixtureID = null;
+    var institute = 'BAM';
+    
+    // manage upload im Hintergrund MIX
+    document.getElementById('uploadButton').addEventListener('click', function() {
+    var formData = new FormData(document.getElementById('uploadForm'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/uploadMIX', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Erfolgreich hochgeladen
+            alert('Datei erfolgreich hochgeladen');
+        } else {
+            // Fehler beim Hochladen
+            alert('Fehler beim Upload: ' + xhr.status);
+        }
+    };
+
+    xhr.send(formData);
+    });
+    
+    // manage upload im Hintergrund EM
+    document.getElementById('uploadButtonEM').addEventListener('click', function() {
+    var formData = new FormData(document.getElementById('uploadFormEM'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/uploadEM', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Erfolgreich hochgeladen
+            alert('Datei erfolgreich hochgeladen');
+        } else {
+            // Fehler beim Hochladen
+            alert('Fehler beim Upload: ' + xhr.status);
+        }
+    };
+
+    xhr.send(formData);
+    });
+    
+    // manage upload im Hintergrund COM
+    document.getElementById('uploadButtonCOM').addEventListener('click', function() {
+    var formData = new FormData(document.getElementById('uploadFormCOM'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/uploadCOM', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Erfolgreich hochgeladen
+            alert('Datei erfolgreich hochgeladen');
+        } else {
+            // Fehler beim Hochladen
+            alert('Fehler beim Upload: ' + xhr.status);
+        }
+    };
+
+    xhr.send(formData);
+    });
+    
+    // dropdown menu bei institute aktualisieren
+    function handleDropdownChange() {
+            var selectedValue = document.getElementById("instituteDropdown").value;
+            institute = selectedValue
+    }
+    
+    // Wenn die mixture mit dem namen gesucht wird
+    function submitMixture() {
+        var textInput = document.getElementById('textInput').value;
+        // Hier kommt eine suche nach dem Mixture im fuseki server rein
+        var responseDiv = document.getElementById('mixresponseText');
+        responseDiv.style.display = 'block'; // Macht den Text sichtbar
+        responseDiv.innerHTML = textInput; // Ändert den Text
+        mixtureID = textInput;
+    }
+    
+    // Wenn die mixture hochgeladen wird
+    function uploadMixture() {
+        // reset mixtureID if it is uploaded seperatly because it will get a new ID
+        mixtureID = null;
+        return true;
+    }
+    
+    // Nächste Seite
+    function nextSiteOne(page) {
+        // Dictionary für seiten Namen
+        let pageMap = new Map();
+
+        pageMap.set(1, 'mainContent');
+        pageMap.set(2, 'newContent');
+        pageMap.set(3, 'newContent2');
+        pageMap.set(4, 'last');
+        
+        // Verbirgt den aktuellen Hauptinhalt
+        document.getElementById(pageMap.get(page)).style.display = 'none';
+
+        // Zeigt den neuen Inhalt an
+        document.getElementById(pageMap.get(page + 1)).style.display = 'block';
+    }
+    
+    // Metadaten hochladen beim beenden
+    function uploadFinish() {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/uploadFinish", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Weiterleitung nach erfolgreichem Senden der Daten
+                window.location.href = "/query";
+            }
+        };
+
+        var data = JSON.stringify({ "var1": mixtureID, "var2": institute });
+        xhr.send(data);
+    }
+</script>
