@@ -1,0 +1,162 @@
+@prefix co: <https://w3id.org/pmd/co/> .
+@prefix ns1: <https://w3id.org/cpto/> .
+@prefix ns6: <http://purl.org/spar/datacite/> .
+@prefix ns7: <http://qudt.org/schema/qudt/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns6:hasIdentifier a owl:ObjectProperty .
+
+xsd:dateTime a rdfs:Datatype .
+
+xsd:decimal a rdfs:Datatype .
+
+xsd:string a rdfs:Datatype .
+
+prov:endedAtTime a owl:DatatypeProperty .
+
+prov:startedAtTime a owl:DatatypeProperty .
+
+ns1:PasteHeatOfHydration_ a owl:NamedIndividual,
+        ns1:HeatOfHydration ;
+    ns6:hasIdentifier ns1:ID_,
+        ns1:humanreadableID_ ;
+    co:input ns1:TestSpecimen_ ;
+    co:output ns1:ExperimentInfo_ ;
+    co:resource ns1:DINEN196-8:2010 .
+
+co: a owl:Ontology .
+
+co:input a owl:ObjectProperty .
+
+co:output a owl:ObjectProperty .
+
+co:resource a owl:ObjectProperty .
+
+co:unit a owl:ObjectProperty .
+
+co:value a owl:DatatypeProperty .
+
+<https://w3id.org/cpto/##HeatFlow_Unit##> a ns7:Unit,
+        owl:NamedIndividual .
+
+<https://w3id.org/cpto/##Heat_Unit##> a ns7:Unit,
+        owl:NamedIndividual .
+
+<https://w3id.org/cpto/##NormalizedHeatFlow_Unit##> a ns7:Unit,
+        owl:NamedIndividual .
+
+<https://w3id.org/cpto/##NormalizedHeat_Unit##> a ns7:Unit,
+        owl:NamedIndividual .
+
+<https://w3id.org/cpto/##Temperature_Unit##> a ns7:Unit,
+        owl:NamedIndividual .
+
+ns1:DINEN196-8:2010 a owl:NamedIndividual,
+        ns1:DINStandard .
+
+ns1:DINStandard a owl:Class .
+
+ns1:DeterminationOfHeatOfHydration a owl:Class .
+
+ns1:ExperimentEndDate_ a owl:NamedIndividual,
+        co:Date ;
+    prov:endedAtTime "$$ExperimentEndDate_Value$$"^^xsd:dateTime .
+
+ns1:ExperimentInfo_ a owl:NamedIndividual,
+        ns1:DeterminationOfHeatOfHydration ;
+    co:input ns1:OpenBisDataFile_,
+        ns1:RawDataFile_ ;
+    co:output ns1:ExperimentEndDate_,
+        ns1:ExperimentStartDate_,
+        ns1:HeatFlow_,
+        ns1:Heat_,
+        ns1:Lab_,
+        ns1:NormalizedHeatFlow_,
+        ns1:NormalizedHeat_,
+        ns1:ProcessedFile_,
+        ns1:Temperature_ .
+
+ns1:ExperimentStartDate_ a owl:NamedIndividual,
+        co:Date ;
+    prov:startedAtTime "$$ExperimentStartDate_Value$$"^^xsd:dateTime .
+
+ns1:HeatFlow_ a owl:NamedIndividual,
+        ns1:HeatFlow ;
+    co:unit <https://w3id.org/cpto/##HeatFlow_Unit##> ;
+    co:value "$$HeatFlow_Value$$"^^xsd:string .
+
+ns1:HeatOfHydration a owl:Class .
+
+ns1:Heat_ a owl:NamedIndividual,
+        ns1:Heat ;
+    co:unit <https://w3id.org/cpto/##Heat_Unit##> ;
+    co:value "$$Heat_Value$$"^^xsd:string .
+
+ns1:ID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$ID_Value$$"^^xsd:string .
+
+ns1:Lab_ a owl:NamedIndividual,
+        co:Laboratory ;
+    co:value "$$Lab_Value$$"^^xsd:string .
+
+ns1:NormalizedHeatFlow_ a owl:NamedIndividual,
+        ns1:HeatFlow ;
+    co:unit <https://w3id.org/cpto/##NormalizedHeatFlow_Unit##> ;
+    co:value "$$NormalizedHeatFlow_Value$$"^^xsd:string .
+
+ns1:NormalizedHeat_ a owl:NamedIndividual,
+        ns1:Heat ;
+    co:unit <https://w3id.org/cpto/##NormalizedHeat_Unit##> ;
+    co:value "$$NormalizedHeat_Value$$"^^xsd:string .
+
+ns1:OpenBisDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$OpenBisRawDataFile_Value$$"^^xsd:string .
+
+ns1:ProcessedFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$ProcessedFile_Value$$"^^xsd:string .
+
+ns1:RawDataFile_ a owl:NamedIndividual,
+        co:Dataset ;
+    co:value "$$RawDataFile_Value$$"^^xsd:string .
+
+ns1:SpecimenID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$SpecimenID_Value$$"^^xsd:string .
+
+ns1:Temperature_ a owl:NamedIndividual,
+        co:Temperature ;
+    co:unit <https://w3id.org/cpto/##Temperature_Unit##> ;
+    co:value "$$Temperature_Value$$"^^xsd:decimal .
+
+ns1:TestSpecimen_ a owl:NamedIndividual,
+        co:Specimen ;
+    ns6:hasIdentifier ns1:SpecimenID_ .
+
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
+
+co:Laboratory a owl:Class .
+
+co:Specimen a owl:Class .
+
+co:Temperature a owl:Class .
+
+ns1:Heat a owl:Class .
+
+ns1:HeatFlow a owl:Class .
+
+co:Date a owl:Class .
+
+co:Dataset a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
+
+ns7:Unit a owl:Class .
+
