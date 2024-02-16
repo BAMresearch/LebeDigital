@@ -1,4 +1,0 @@
-- Code automation is performed in the dodo file.
-- In your local machine, run doit command to execute the dodo.py file
-  - This will generate the experimental metadata, process the raw data, combine with ontology to generate knowledge graph
-  - if you want to upload the output to your datastore then run doit with the variable runson set to something else than 'actions' ex. doit runson=notactions. 'Actions' is there for the GitHub actions run which can not connect to the datastore. 

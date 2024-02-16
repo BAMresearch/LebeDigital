@@ -1,3 +1,0 @@
-### Concrete Production and Testing Ontology
-
-The Concrete Production and Testing Ontology (CPTO) is a specialized digital framework developed to capture the unique aspects of concrete production and testing. Building upon the PMD-Core structure, it integrates additional classes tailored to the concrete domain. These classes include various components of concrete and a range of testing procedures. The CPTO carefully embeds these classes within the PMD-Core hierarchy, ensuring a logical extension while highlighting specific properties of concrete.
