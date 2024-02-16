@@ -1,0 +1,13 @@
+{
+    "ID": "31e21fae-c81e-4868-938e-3046484f244a",
+    "humanreadableID": "KIT_21-1605_M1_2d_W3",
+    "ExperimentDate": "2023-07-21T00:00:00.000Z",
+    "Lab": "MPA",
+    "CompressiveStrength": 54.31,
+    "CompressiveStrength_Unit": "MPa",
+    "SpecimenID": "31e21fae-c81e-4868-938e-3046484f244a",
+    "SpecimenAge": 2,
+    "SpecimenAge_Unit": "day",
+    "CompressionForce": 1222,
+    "CompressionForce_Unit": "N"
+}

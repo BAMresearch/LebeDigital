@@ -1,0 +1,16 @@
+{
+    "ID": "96553b58-ad22-4199-919f-109ea30d9244",
+    "humanreadableID": "KIT_CS_M4_1d_W2",
+    "MixtureID": "9ab7a3c6-0591-4919-8a9c-55a54699695b",
+    "SpecimenShape": "Cube",
+    "SpecimenMass": 7682.5,
+    "SpecimenMass_Unit": "g",
+    "SpecimenDiameter": null,
+    "SpecimenDiameter_Unit": null,
+    "SpecimenHeight": 150.0,
+    "SpecimenHeight_Unit": "mm",
+    "SpecimenLength": 150.0,
+    "SpecimenLength_Unit": "mm",
+    "SpecimenWidth": 150.0,
+    "SpecimenWidth_Unit": "mm"
+}

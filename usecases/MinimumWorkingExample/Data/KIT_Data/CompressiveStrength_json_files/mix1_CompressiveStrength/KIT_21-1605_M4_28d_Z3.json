@@ -1,0 +1,13 @@
+{
+    "ID": "2200ac9a-0cf6-423f-bada-329bf87243c4",
+    "humanreadableID": "KIT_21-1605_M4_28d_Z3",
+    "ExperimentDate": "2023-10-16T00:00:00.000Z",
+    "Lab": "MPA",
+    "CompressiveStrength": 52.68,
+    "CompressiveStrength_Unit": "MPa",
+    "SpecimenID": "2200ac9a-0cf6-423f-bada-329bf87243c4",
+    "SpecimenAge": 28,
+    "SpecimenAge_Unit": "day",
+    "CompressionForce": 931,
+    "CompressionForce_Unit": "kN"
+}

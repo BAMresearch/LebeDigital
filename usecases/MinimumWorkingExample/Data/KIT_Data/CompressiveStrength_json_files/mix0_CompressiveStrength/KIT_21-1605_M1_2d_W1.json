@@ -1,0 +1,13 @@
+{
+    "ID": "fcbada42-ac32-4ba3-b91d-75d6a0745368",
+    "humanreadableID": "KIT_21-1605_M1_2d_W1",
+    "ExperimentDate": "2023-07-21T00:00:00.000Z",
+    "Lab_Value": "MPA",
+    "CompressiveStrength": 56.0,
+    "CompressiveStrength_Unit": "MPa",
+    "SpecimenID": "fcbada42-ac32-4ba3-b91d-75d6a0745368",
+    "SpecimenAge": 2,
+    "SpecimenAge_Unit": "day",
+    "CompressionForce": 1260,
+    "CompressionForce_Unit": "N"
+}
