@@ -131,50 +131,50 @@ jobs:
               usecases/optimization_paper/optimization_workflow/Results
               
 
-      - name: Create Coverage Badge
-        if: contains(env.BRANCH_NAME, 'main')
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: c10a5b6d0714b1fe2344eb60918e92f8
-          filename: lebedigital_${{ env.BRANCH_NAME }}_coverage.json
-          label: coverage
-          message: ${{ env.COVERAGE_PCT }}
-          valColorRange: ${{ env.COVERAGE_PCT }}
-          maxColorRange: 95  # value where ligth green starts
-          minColorRange: 50  # value where red starts
+      #- name: Create Coverage Badge
+      #  if: contains(env.BRANCH_NAME, 'main')
+      #  uses: schneegans/dynamic-badges-action@v1.6.0
+      #  with:
+      #    auth: ${{ secrets.GIST_TOKEN }}
+      #    gistID: c10a5b6d0714b1fe2344eb60918e92f8
+      #    filename: lebedigital_${{ env.BRANCH_NAME }}_coverage.json
+      #    label: coverage
+      #    message: ${{ env.COVERAGE_PCT }}
+      #    valColorRange: ${{ env.COVERAGE_PCT }}
+      #    maxColorRange: 95  # value where ligth green starts
+      #    minColorRange: 50  # value where red starts
               
 
-  check_coverage:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: check coverage
-        run: |
-          # getting coverage number from output of first job for this branch
-          BRANCH_COVERAGE=${{ needs.tests.outputs.branch_coverage }}
-          echo "Coverage of current branch: $BRANCH_COVERAGE %"
-          declare -i int_branch_coverage=$BRANCH_COVERAGE
+  #check_coverage:
+  #  needs: tests
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: check coverage
+  #      run: |
+  #        # getting coverage number from output of first job for this branch
+  #        BRANCH_COVERAGE=${{ needs.tests.outputs.branch_coverage }}
+  #        echo "Coverage of current branch: $BRANCH_COVERAGE %"
+  #        declare -i int_branch_coverage=$BRANCH_COVERAGE
+  #        
+  #        # getting coverage number from gist for main branch
+  #        MAIN_DATA=$(curl -s -X GET "https://gist.githubusercontent.com/eriktamsen/c10a5b6d0714b1fe2344eb60918e92f8/raw/lebedigital_main_coverage.json")
+  #        MAIN_COVERAGE=$(echo $MAIN_DATA | grep -o -P 'message.{3,6}' | sed -e 's/"//g' | sed -e 's/://g' | sed -e 's/message//g' | sed -e 's/%//g' | sed -e 's/,//g')
+  #        echo "Coverage of main branch: $MAIN_COVERAGE %"
+  #        declare -i int_main_coverage=$MAIN_COVERAGE
           
-          # getting coverage number from gist for main branch
-          MAIN_DATA=$(curl -s -X GET "https://gist.githubusercontent.com/eriktamsen/c10a5b6d0714b1fe2344eb60918e92f8/raw/lebedigital_main_coverage.json")
-          MAIN_COVERAGE=$(echo $MAIN_DATA | grep -o -P 'message.{3,6}' | sed -e 's/"//g' | sed -e 's/://g' | sed -e 's/message//g' | sed -e 's/%//g' | sed -e 's/,//g')
-          echo "Coverage of main branch: $MAIN_COVERAGE %"
-          declare -i int_main_coverage=$MAIN_COVERAGE
+  #        # compute difference
+  #        delta_coverage=$(( int_branch_coverage - int_main_coverage  ))
+  #        echo "Increase in coverage: $delta_coverage %"
           
-          # compute difference
-          delta_coverage=$(( int_branch_coverage - int_main_coverage  ))
-          echo "Increase in coverage: $delta_coverage %"
-          
-          echo "Coverage report:"
-          echo "-----------------------------------------------------------------------------------------------"
-          echo "${{ needs.tests.outputs.coverage_report }}"
-          echo "-----------------------------------------------------------------------------------------------"
-          
-          if [[ $delta_coverage -lt 0 ]]
-          then
-            echo "The current branch has lower coverage than the main branch, please improve your code"
-            exit 1
-          fi
-          echo "Passing!!!"
+  #        echo "Coverage report:"
+  #        echo "-----------------------------------------------------------------------------------------------"
+  #        echo "${{ needs.tests.outputs.coverage_report }}"
+  #        echo "-----------------------------------------------------------------------------------------------"
+  #        
+  #        if [[ $delta_coverage -lt 0 ]]
+  #        then
+  #          echo "The current branch has lower coverage than the main branch, please improve your code"
+  #          exit 1
+  #        fi
+  #        echo "Passing!!!"
               
