@@ -1,6 +1,6 @@
 import json
 import requests
-
+import loguru
 
 def upload_to_docker(token, datasets):
 
@@ -87,3 +87,38 @@ def upload_to_docker(token, datasets):
     #results = sparql.query().convert()
     #for result in results["results"]["bindings"]:
     #   print(result["s"], result["p"], result["o"])
+
+
+def send_sparql_query(query):
+    """
+    Sendet eine SPARQL-Query an einen Jena Fuseki Server und überprüft,
+    ob die Suche erfolgreich war.
+
+    :param endpoint_url: URL des SPARQL-Endpoints
+    :param query: Die SPARQL-Query als String
+    :return: True, wenn die Suche erfolgreich war, sonst False
+    """
+
+    # remove and find a better way
+    token = ''
+    ontodocker_url = 'https://ontodocker-pmd.bam.de'  # replace with url to own ontodocker url.
+    ontodocker_jwt = token
+
+    headers = {
+        "Authorization": f"Bearer {ontodocker_jwt}"
+    }
+
+    data = {
+        'query': query
+    }
+
+    dataset_name = "Test"
+    triplestore = "jena"
+    response = requests.get(f'{ontodocker_url}/api/{triplestore}/{dataset_name}/sparql', headers=headers, params=data)
+
+    if response.status_code == 200:
+        results = response.json()
+        return results
+    else:
+        print(f"Fehler bei der Anfrage: HTTP {response.status_code}, {response.text}")
+        return f"Fehler bei der Anfrage: HTTP {response.status_code}"

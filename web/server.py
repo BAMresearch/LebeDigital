@@ -1,7 +1,9 @@
+import os
 from datetime import timedelta
-from flask import Flask, request, render_template, redirect, url_for, flash, session
+from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from scripts.upload.upload_script import send_sparql_query
 
 app = Flask(__name__)
 
@@ -79,6 +81,60 @@ def logout():
 def index():
     # standard is query (no login required)
     return redirect(url_for('query_page'))
+
+
+# query mixture
+@app.route('/search', methods=['POST'])
+def search():
+    data = request.json
+    mixture_name = data['mixtureName']
+    # Search, if the mixture exists in the database
+    query = f'''
+    SELECT ?s WHERE {{
+        ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
+        ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
+      }}
+    '''
+    print(query)
+    value_of_i = 0
+    results = send_sparql_query(query)
+    if results and results.get("results", {}).get("bindings", []):
+        # If found, find the ID
+        for result in results.get('results', {}).get('bindings', []):
+            # Extrahieren des Wertes für 's'
+            value = result.get('s', {}).get('value', '')
+            # Überprüfen, ob "humanreadableID" im Wert enthalten ist
+            if "humanreadableID" in value:
+                query = f'''
+                    SELECT ?i WHERE {{
+                        ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
+                        ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
+                        ?a <http://purl.org/spar/datacite/hasIdentifier> ?s .
+                        ?a <http://purl.org/spar/datacite/hasIdentifier> ?b .
+                        FILTER(?s != ?b)
+                        ?b <https://w3id.org/pmd/co/value> ?i
+                  }}
+                '''
+                results = send_sparql_query(query)
+                if results and results.get("results", {}).get("bindings", []):
+                    # Extrahieren des Wertes von `?i`
+                    for binding in results['results']['bindings']:
+                        value_of_i = binding['i']['value']
+                    if value_of_i:
+                        return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+
+            else:
+                value_of_i = mixture_name
+        return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+    else:
+        # Keine Ergebnisse, Mischung nicht gefunden
+        return jsonify({'message': 'Mischung nicht gefunden.'})
+
+
+# handle uploaded data
+@app.route('/dataUpload', methods=['POST'])
+def dataUpload():
+    return
 
 
 if __name__ == '__main__':

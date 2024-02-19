@@ -64,7 +64,7 @@
         <!-- Logo -->
         <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
         <!-- Menüpunkte als Buttons -->
-        <a href="/" class="menu-item">Upload Data</a>
+        <a href="/upload" class="menu-item">Upload Data</a>
         <a href="/query" class="menu-item">Query Data</a>
         <a href="/logout" style="position: absolute; bottom: 20px; left: 100px; text-decoration: underline; color: blue; cursor: pointer;">Logout</a>
     </div>
@@ -77,11 +77,9 @@
         <!-- Textfeld mit Go-Knopf -->
         <input type="text" id="textInput" placeholder="Enter mixture Name">
         <button onclick="submitMixture()">Go</button>
-        <br><br>
-        <!-- Unsichtbarer Text, anfangs ausgeblendet -->
-        <div id="mixresponseText" style="display: none;">
-        </div>
         <br>
+        <div id="mixresponseText" style="display: none;"></div>
+        <br><br>
         <span>or <strong>upload</strong> your own</span>
         <br><br>
         <form id="uploadForm" enctype="multipart/form-data" onsubmit="uploadMixture()">
@@ -206,15 +204,44 @@
             institute = selectedValue
     }
     
-    // Wenn die mixture mit dem namen gesucht wird
     function submitMixture() {
         var textInput = document.getElementById('textInput').value;
-        // Hier kommt eine suche nach dem Mixture im fuseki server rein
-        var responseDiv = document.getElementById('mixresponseText');
-        responseDiv.style.display = 'block'; // Macht den Text sichtbar
-        responseDiv.innerHTML = textInput; // Ändert den Text
-        mixtureID = textInput;
+        var apiUrl = '/search'; // Pfad zur Flask-Route, relativ zur Basis-URL der Website
+
+        // Macht den Aufruf an das Backend
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mixtureName: textInput }), // Sendet den Namen der Mischung als JSON
+        })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Erwartet die Antwort des Backends als JSON
+        })
+            .then(data => {
+            // Verarbeitet die Antwort des Backends
+            var responseDiv = document.getElementById('mixresponseText');
+            responseDiv.style.display = 'block'; // Macht den Antwort-Text sichtbar
+            responseDiv.innerHTML = data.message; // Setzt die Antwort des Backends in das Div
+            
+            // Speichert die mixtureID als Variable, ohne sie anzuzeigen
+            if (data.mixtureID) {
+                mixtureID = data.mixtureID; // Speichert den Wert in der Variable
+                console.log('Gespeicherte mixtureID:', mixtureID); // Optional: Zur Überprüfung in der Konsole ausgeben
     }
+        })
+            .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+            var responseDiv = document.getElementById('mixresponseText');
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = 'Fehler beim Abrufen der Daten'; // Zeigt eine Fehlermeldung an
+        });
+    }
+
     
     // Wenn die mixture hochgeladen wird
     function uploadMixture() {
