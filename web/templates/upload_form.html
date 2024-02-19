@@ -82,10 +82,8 @@
         <br><br>
         <span>or <strong>upload</strong> your own</span>
         <br><br>
-        <form id="uploadForm" enctype="multipart/form-data" onsubmit="uploadMixture()">
-            <input type="file" name="file" required>
-            <button type="button" id="uploadButton">Hochladen</button>
-        </form>
+        <input type="file" id="fileInput1">
+        <button onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
 
         <br><br><br><br><br>
         <button onclick="nextSiteOne(1)">Next</button>
@@ -98,28 +96,10 @@
         <h3>Upload your E-Module</h3>
         <p>(if you don't have it click next)</p>
         <br><br>
-        <form id="uploadFormEM" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <button type="button" id="uploadButtonEM">Hochladen</button>
-        </form>
-
+        <input type="file" id="fileInput2">
+        <button onclick="uploadData('EModule', 'fileInput2')">Upload</button>
         <br><br><br><br><br>
         <button onclick="nextSiteOne(2)">Next</button>
-    </div>
-    
-        <!-- Neuer Inhalt, anfangs ausgeblendet -->
-    <div class="new-content" id="newContent2" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
-        <h1 class="title-item">Upload your Data</h1>
-        &emsp;
-        <h3>Upload your Compressive Strength</h3>
-        <p>(if you don't have it click next)</p>
-        <br><br>
-        <form id="uploadFormCOM" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <button type="button" id="uploadButtonCOM">Hochladen</button>
-        </form>
-        <br><br><br><br><br>
-        <button onclick="nextSiteOne(3)">Next</button>
     </div>
     
             <!-- Neuer Inhalt, anfangs ausgeblendet -->
@@ -138,70 +118,29 @@
     var mixtureID = null;
     var institute = 'BAM';
     
-    // manage upload im Hintergrund MIX
-    document.getElementById('uploadButton').addEventListener('click', function() {
-    var formData = new FormData(document.getElementById('uploadForm'));
+    function uploadData(type, buttonID) {
+        var fileInput = document.getElementById(buttonID);
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/uploadMIX', true);
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
+        formData.append('type', type); // Fügt den übergebenen Typ hinzu
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            // Erfolgreich hochgeladen
-            alert('Datei erfolgreich hochgeladen');
-        } else {
-            // Fehler beim Hochladen
-            alert('Fehler beim Upload: ' + xhr.status);
-        }
-    };
-
-    xhr.send(formData);
-    });
-    
-    // manage upload im Hintergrund EM
-    document.getElementById('uploadButtonEM').addEventListener('click', function() {
-    var formData = new FormData(document.getElementById('uploadFormEM'));
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/uploadEM', true);
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            // Erfolgreich hochgeladen
-            alert('Datei erfolgreich hochgeladen');
-        } else {
-            // Fehler beim Hochladen
-            alert('Fehler beim Upload: ' + xhr.status);
-        }
-    };
-
-    xhr.send(formData);
-    });
-    
-    // manage upload im Hintergrund COM
-    document.getElementById('uploadButtonCOM').addEventListener('click', function() {
-    var formData = new FormData(document.getElementById('uploadFormCOM'));
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/uploadCOM', true);
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            // Erfolgreich hochgeladen
-            alert('Datei erfolgreich hochgeladen');
-        } else {
-            // Fehler beim Hochladen
-            alert('Fehler beim Upload: ' + xhr.status);
-        }
-    };
-
-    xhr.send(formData);
-    });
-    
-    // dropdown menu bei institute aktualisieren
-    function handleDropdownChange() {
-            var selectedValue = document.getElementById("instituteDropdown").value;
-            institute = selectedValue
+        fetch('/dataUpload', {
+            method: 'POST',
+            body: formData, // Sendet FormData, das Datei und Typ enthält
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message); // Zeigt eine Nachricht vom Server an
+        })
+        .catch((error) => {
+            console.error('Fehler beim Hochladen:', error);
+        });
     }
     
     function submitMixture() {
@@ -257,8 +196,7 @@
 
         pageMap.set(1, 'mainContent');
         pageMap.set(2, 'newContent');
-        pageMap.set(3, 'newContent2');
-        pageMap.set(4, 'last');
+        pageMap.set(3, 'last');
         
         // Verbirgt den aktuellen Hauptinhalt
         document.getElementById(pageMap.get(page)).style.display = 'none';

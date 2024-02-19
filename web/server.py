@@ -1,4 +1,5 @@
 import os
+import sqlite3
 from datetime import timedelta
 from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,6 +18,9 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
 app.config['SESSION_TYPE'] = "filesystem"
 
 db = SQLAlchemy(app)
+
+# Upload Database
+upload_db = 'upload.db'
 
 main_path = ''
 
@@ -131,10 +135,67 @@ def search():
         return jsonify({'message': 'Mischung nicht gefunden.'})
 
 
+def get_db_connection():
+    conn = sqlite3.connect(upload_db)
+    conn.row_factory = sqlite3.Row  # Ermöglicht den Zugriff auf die Daten per Index und per Name
+    return conn
+
+
+def init_db():
+    with sqlite3.connect(upload_db) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS uploads (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user TEXT NOT NULL,
+                filetype TEXT NOT NULL,
+                type TEXT NOT NULL,
+                blob BLOB NOT NULL
+            );
+        ''')
+        conn.commit()
+
+
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
-def dataUpload():
-    return
+def data_upload():
+    init_db()
+    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt']
+    # Session-Beispiel (stellen Sie sicher, dass Sie den Benutzernamen in der Session setzen)
+    if 'username' not in session:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
+
+    if 'file' not in request.files:
+        return jsonify({'error': 'Keine Datei gefunden'}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'Keine Datei ausgewählt'}), 400
+
+    if 'type' not in request.form:
+        return jsonify({'error': 'Kein Typ angegeben'}), 400
+    type = request.form['type']
+    user = session['username']  # Benutzernamen aus der Session holen
+    # Extrahieren der Dateiendung
+    _, file_extension = os.path.splitext(file.filename)
+
+    filetype = file_extension.lstrip('.')
+
+    if filetype not in file_types:
+        return jsonify({'error': 'Unsupported Type'}), 400
+
+    # Datei als BLOB speichern
+    file_blob = file.read()
+
+    # Verbindung zur Datenbank herstellen und die Daten speichern
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO uploads (user, filetype, type, blob) VALUES (?, ?, ?, ?)',
+                   (user, filetype, type, file_blob))
+    conn.commit()
+    conn.close()
+
+    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!'}), 200
 
 
 if __name__ == '__main__':
