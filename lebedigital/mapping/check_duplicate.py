@@ -8,7 +8,7 @@ import os
 
 #json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 #json_files = os.listdir(json_files_directory)
-json_file_path = '../../usecases/demonstrator/KIT_Data/Mix_json_files/Mix0/Mix0_MixDesign.json'
+json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
 kg_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
 output_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
 
