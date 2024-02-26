@@ -87,9 +87,9 @@ def placeholderreplacement(kgPath, metadataPath):
         # Set up logger
         logger.debug('S T A R T')
         logger.debug('Loaded ttl-File has ' + str(len(lines)) + ' lines.')
-        usedKeys = [] # to count keys that found a placeholder
-        kgPHcounter = [] # to count all placeholders
-        remainingPH = [] # to count the placeholders that recieved no data
+        usedKeys = []  # to count keys that found a placeholder
+        kgPHcounter = []  # to count all placeholders
+        remainingPH = []  # to count the placeholders that recieved no data
 
         # iterating through the list of lines
         for i in range(len(lines)):
@@ -158,6 +158,18 @@ def placeholderreplacement(kgPath, metadataPath):
             elif '_Unit##' in lines[i]:
                 ph = lines[i].split("##")[1]
                 remainingPH.append(ph)
+                lines[i] = ''
+                lines[i + 1] = ''
+                lines[i - 1] = lines[i - 1].replace(';', '.')
+            elif '"None"^^xsd' in lines[i]:
+                lines[i] = ''
+                lines[i - 1] = lines[i - 1].replace(';', '.')
+                #lines[i - 1] = ''
+                #lines[i - 2] = ''
+            elif '<None>' in lines[i]:
+                lines[i] = ''
+                lines[i - 1] = ''
+                lines[i - 2] = ''
 
     # for metadata
     unusedKeys = [i for i in keys if i not in usedKeys]
@@ -214,18 +226,18 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = ['../../lebedigital/ConcreteOntology/EModuleOntology_KG_Template.ttl',
-                     '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testMetaData.json',
+        args.input = ['../../lebedigital/ConcreteOntology/CompressiveStrength_KG_Template.ttl',
+                     '../../usecases/demonstrator/KIT_Data/CompressiveStrength_json_files/mix0_CompressiveStrength/KIT_21-1605_M1_1d_W1.json',
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/emodul/metadata_json_files/testSpecimenData.json',
+                      '../../usecases/demonstrator/KIT_Data/CompressiveStrength_json_files/mix0_CompressiveStrength/KIT_CS_M1_1d_W1_Specimen.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
                       '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
                       ]
     if args.output == None:
-        args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/testEmoduleMapped.ttl',
-                       '../../usecases/MinimumWorkingExample/Mapping_Example/testSpecimenMapped.ttl',
-                       '../../usecases/MinimumWorkingExample/Mapping_Example/testMixMapped.ttl',
+        args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/ComStMapped.ttl',
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/SpecimenMapped.ttl',
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/MixMapped.ttl',
                        '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl']
 
     # Check mix metadata and generate additional placeholders
@@ -233,9 +245,9 @@ def main():
 
     # run extraction and write metadata file
     #emodule
-    mapping(args.input[0], args.input[1], args.output[0])
+    #mapping(args.input[0], args.input[1], args.output[0])
     #specimen
-    mapping(args.input[2], args.input[3], args.output[1])
+    #mapping(args.input[2], args.input[3], args.output[1])
     #mix
     mapping(args.input[6], args.input[5], args.output[2])
 
