@@ -8,7 +8,7 @@ import os
 
 #json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
 #json_files = os.listdir(json_files_directory)
-json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json'
+json_file_path = '../../usecases/demonstrator/KIT_Data/Mix_json_files/Mix0/Mix0_MixDesign.json'
 kg_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
 output_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
 
@@ -113,12 +113,12 @@ def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
                         line = turtle_lines[i]
                         if 'co:composedOf' + ' ' + f'ns1:{common_prefix},' in line:
                             # Modify the line to add missing common prefixes
-                            new_composed_of = ',\n'.join(
+                            new_composed_of = '\n'.join(
                                 f'        ns1:{common_prefix},' for common_prefix in common_prefixes if
                                 common_prefix not in existing_keys)
                             turtle_lines.insert(i + 1, new_composed_of)
-                        # Add the new key to existing_keys
-                        existing_keys.add(common_prefix)
+                            # Add the new key to existing_keys
+                            existing_keys.add(common_prefix)
 
         # Join the modified lines back into a string
         modified_turtle_data = ''.join(turtle_lines)
