@@ -194,6 +194,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         try:
             metadata['WaterCementRatio'] = float(metadata['Water_Content']
                                                  / metadata['Cement1_Content'])
+            metadata['WaterCementRatio'] = round(water_cement_ratio, 1)
         except:
             raise Exception("Can not calculate water-cement-ratio! No values found!")
 
