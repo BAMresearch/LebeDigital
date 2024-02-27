@@ -136,7 +136,7 @@ def task_extract_metadata_emodul():
                 metadata_emodulus_directory, f.name + '.json')
             yield {
                 'name': f.name,
-                'actions': [(emodul_metadata, [raw_data_path, json_metadata_file])],
+                'actions': [(emodul_metadata, [raw_data_path, json_metadata_file, json_metadata_file])],
                 'file_dep': [raw_data_file],
                 'targets': [json_metadata_file],
                 'clean': [clean_targets]
