@@ -23,7 +23,7 @@ jobs:
       - name: build docker
         run: |
           mkdir -p $OPENBIS_STATE_DIR
-          docker run --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/$OPENBIS_STATE_DIR:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:20.10.4
+          docker run -d --name=openbis -e SERVER_HOST_PORT="localhost:443" -e GROUP_ID=12940 -e GROUP_NAME="docker-host-folder-group" -e CORE_PLUGINS='enabled-modules = dropbox-monitor, dataset-uploader, dataset-file-search, xls-import, openbis-sync, eln-lims, openbis-ng-ui, search-store' -v /home/$OPENBIS_STATE_DIR:/home/openbis/openbis_state -p 8443:443 --restart=always openbis/debian-openbis:20.10.4
 
       - name: checkout repo content
         uses: actions/checkout@v2
