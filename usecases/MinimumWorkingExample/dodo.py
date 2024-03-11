@@ -197,7 +197,7 @@ def task_export_Mapping():
             name_of_ttl = f.name.replace('.json', '.ttl')
             name_of_cvs = f.name.replace('.json', '.csv')
             # path to input KG template
-            KGtemplatePath = Path(knowledge_graphs_Template_directory)
+            KGtemplatePath = Path(knowledge_graphs_Template_directory, 'knowledge_graphs')
             # path the processed data csv
             processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
             # path to output file KG
