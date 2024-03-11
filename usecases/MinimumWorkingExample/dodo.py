@@ -36,6 +36,8 @@ single_example_name = 'Wolf 8.2 Probe 1'
 # corresponding mix sor the "single" example
 single_mix_name = '2014_12_10 Wolf.xls'
 
+single_KG_template = 'MixtureDesign_KG_Template.ttl'
+
 DOIT_CONFIG = {'verbosity': 2}
 
 
@@ -197,7 +199,7 @@ def task_export_Mapping():
             name_of_ttl = f.name.replace('.json', '.ttl')
             name_of_cvs = f.name.replace('.json', '.csv')
             # path to input KG template
-            KGtemplatePath = Path(knowledge_graphs_Template_directory, 'knowledge_graphs')
+            KGtemplatePath = Path(knowledge_graphs_Template_directory, single_KG_template)
             # path the processed data csv
             processed_data_file_path = Path(processed_data_emodulus_directory, name_of_cvs)
             # path to output file KG
