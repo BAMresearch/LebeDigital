@@ -8,6 +8,8 @@ import matplotlib as mpl
 # use package bm with matplotlib
 mpl.rcParams['font.size'] = 14
 mpl.rcParams['legend.fontsize'] = 'medium'
+import matplotlib as mpl
+mpl.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 from lebedigital.demonstrator_calibration.prior import prior
 from lebedigital.demonstrator_calibration.parametric_model import NN_mean
@@ -126,7 +128,7 @@ def viz_learnt_prior_model(NN_model:object,NN_state_dict:str,cov_params:list,lat
         fig.tight_layout(pad=2.0)
         axs[0, 0].plot(x_test, b_mean[:,0])
         axs[0,0].fill_between(x_test.ravel(), b_mean[:,0] - 3*b_std[:,0], b_mean[:,0] + 3*b_std[:,0], alpha=0.3)
-        axs[0, 0].set_ylabel('$B_1 (1/s)$')
+        axs[0, 0].set_ylabel(r'$B_1, \mathrm{1/s}$')
         axs[0, 1].semilogy(x_test, b_mean[:,1])
         axs[0,1].fill_between(x_test.ravel(), b_mean[:,1] - 3*b_std[:,1], b_mean[:,1] + 3*b_std[:,1], alpha=0.3)
         axs[0, 1].set_ylabel('$B_2$')
@@ -135,7 +137,7 @@ def viz_learnt_prior_model(NN_model:object,NN_state_dict:str,cov_params:list,lat
         axs[1, 0].set_ylabel(r'$\eta$')
         axs[1, 1].plot(x_test, b_mean[:,3])
         axs[1,1].fill_between(x_test.ravel(), b_mean[:,3] - 3*b_std[:,3], b_mean[:,3] + 3*b_std[:,3], alpha=0.3)
-        axs[1, 1].set_ylabel(r'$Q_{pot} (J/kg)$')
+        axs[1, 1].set_ylabel(r'$Q_{pot} \mathrm{J/kg}$')
 
 
     if case == 'homogenization':
@@ -143,14 +145,14 @@ def viz_learnt_prior_model(NN_model:object,NN_state_dict:str,cov_params:list,lat
         # make the plots tight
         fig.tight_layout(pad=2.0)
         axs[0].plot(x_test, b_mean[:,0])
-        axs[0].fill_between(x_test.ravel(), b_mean[:,0] - 3*b_std[:,0], b_mean[:,0] + 3*b_std[:,0], alpha=0.3)
-        axs[0].set_ylabel('$E_{paste}$')
+        axs[0].fill_between(x_test.ravel(), b_mean[:,0] - 2*b_std[:,0], b_mean[:,0] + 2*b_std[:,0], alpha=0.3)
+        axs[0].set_ylabel('$E_{paste}$, Pa')
         axs[1].plot(x_test, b_mean[:,1])
-        axs[1].fill_between(x_test.ravel(), b_mean[:,1] - 3*b_std[:,1], b_mean[:,1] + 3*b_std[:,1], alpha=0.3)
-        axs[1].set_ylabel('$f_{c,paste}$')
+        axs[1].fill_between(x_test.ravel(), b_mean[:,1] - 2*b_std[:,1], b_mean[:,1] + 2*b_std[:,1], alpha=0.3)
+        axs[1].set_ylabel('$f_{c,paste}$, Pa')
 
     for ax in axs.flat:
-            ax.set(xlabel=r'$r_{sc}$')
+            ax.set(xlabel=r'$r_{sb}$')
             ax.grid()
             # skip if the below if axis is log scale
             if ax.get_yscale() == 'log':
@@ -181,7 +183,8 @@ def viz_learnt_prior_model(NN_model:object,NN_state_dict:str,cov_params:list,lat
     plt.show()
    
 
-def prob_hydration_solver_output(NN_model:object,NN_state_dict:str,cov_params:list,latent_dim:int,save_path=None):
+def prob_hydration_solver_output(NN_model:object,NN_state_dict:str,cov_params:list,latent_dim:int,
+                                 temp_key :str = '20C', save_path=None):
     # GET THE PRIOR MODEL
 
         # load the state dictionary
@@ -205,8 +208,10 @@ def prob_hydration_solver_output(NN_model:object,NN_state_dict:str,cov_params:li
 
     ratio_keys = ['CP0','CP30','CP50','CP85']
     inp_solver = {}
-    inp_solver['T_rxn'] = 20
-    inp_solver['time_list'] = df[('20C','CP0','Age')]
+    # extrat the first two characters from the string as int
+    inp_solver['T_rxn'] = int(temp_key[:2])
+    #inp_solver['T_rxn'] = 20
+    inp_solver['time_list'] = df[(temp_key,'CP0','Age')]
     hyd_solver = HydrationSolverWrapper()
 
     Q_mean = []
@@ -220,18 +225,19 @@ def prob_hydration_solver_output(NN_model:object,NN_state_dict:str,cov_params:li
         Q_std.append(np.std(np.vstack(Q_tmp),axis=0))
         
     colours = ['blue','orange','green','red']
-    labels_exp = [r'$\bm{\hat{Q}}_{r_{sc}=0.0}$',r'$\bm{\hat{Q}}_{r_{sc}=0.30}$',r'$\bm{\hat{Q}}_{r_{sc}=0.50}$',r'$\bm{\hat{Q}}_{r_{sc}=0.85}$']
-    labels_pred = [r'$\bm{Q}_{r_{sc}=0.0}$',r'$\bm{Q}_{r_{sc}=0.30}$',r'$\bm{Q}_{r_{sc}=0.50}$',r'$\bm{Q}_{r_{sc}=0.85}$']
+    labels_exp = [r'$\bm{\hat{Q}}_{r_{sb}=0.0}$',r'$\bm{\hat{Q}}_{r_{sb}=0.30}$',r'$\bm{\hat{Q}}_{r_{sb}=0.50}$',r'$\bm{\hat{Q}}_{r_{sb}=0.85}$']
+    labels_pred = [r'$\bm{Q}_{r_{sb}=0.0}$',r'$\bm{Q}_{r_{sb}=0.30}$',r'$\bm{Q}_{r_{sb}=0.50}$',r'$\bm{Q}_{r_{sb}=0.85}$']
     for i in range(len(ratio_keys)):
-        ax.plot(df[('20C',ratio_keys[i],'Age')], df[('20C',ratio_keys[i],'Q')],'x', 
+        ax.plot(df[(temp_key,ratio_keys[i],'Age')], df[(temp_key,ratio_keys[i],'Q')],'x', 
                 label=labels_exp[i])
         # label with sharp X marker
 
-        ax.plot(df[('20C','CP0','Age')],Q_mean[i],label=labels_pred[i], color=colours[i])
-        ax.fill_between(df[('20C','CP0','Age')].ravel(), Q_mean[i] - 2*Q_std[i], Q_mean[i] + 2*Q_std[i], alpha=0.3, color = colours[i])
+        ax.plot(df[(temp_key,'CP0','Age')],Q_mean[i],label=labels_pred[i], color=colours[i])
+        ax.fill_between(df[(temp_key,'CP0','Age')].ravel(), Q_mean[i] - 2*Q_std[i], Q_mean[i] + 2*Q_std[i], alpha=0.3, color = colours[i])
     ax.legend()
     ax.set_xlabel('Age (s)')
     ax.set_ylabel(r'Cum. Heat of hydration $\bm{Q}$ (J/gh)')
+    ax.set_title(r'$T_{rxn}=$'+temp_key[:2]+r'$^{\circ}C$')
     ax.ticklabel_format(axis='both', style='sci', scilimits=(0,0))
     ax.grid()
     plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0.)
@@ -281,19 +287,19 @@ def prob_homogenization_solver_output(NN_model:object,NN_state_dict:str,cov_para
     # plot
     fig, axs = plt.subplots(1, 2,figsize=(8, 4))
     # make the plots tight
-    fig.tight_layout(pad=2.0)
+    fig.tight_layout(pad=2.5)
     axs[0].plot(x_test, z_pred_mean[:,0])
-    axs[0].fill_between(x_test.ravel(), z_pred_mean[:,0] - 3*z_pred_std[:,0], z_pred_mean[:,0] + 2*z_pred_std[:,0], alpha=0.5)
+    axs[0].fill_between(x_test.ravel(), z_pred_mean[:,0] - 2*z_pred_std[:,0], z_pred_mean[:,0] + 2*z_pred_std[:,0], alpha=0.3)
     axs[0].plot(data_dict['x'], obs[0],'x',label='observed')
-    axs[0].set_ylabel('$E_{concrete} (Pa)$')
+    axs[0].set_ylabel('$E_{c}$, Pa')
     axs[1].plot(x_test, z_pred_mean[:,1])
-    axs[1].fill_between(x_test.ravel(), z_pred_mean[:,1] - 3*z_pred_std[:,1], z_pred_mean[:,1] + 2*z_pred_std[:,1], alpha=0.5)
+    axs[1].fill_between(x_test.ravel(), z_pred_mean[:,1] - 2*z_pred_std[:,1], z_pred_mean[:,1] + 2*z_pred_std[:,1], alpha=0.3)
     axs[1].plot(data_dict['x'], obs[1],'x',label='observed')
-    axs[1].set_ylabel('$f_{c,concrete} (Pa)$')
+    axs[1].set_ylabel('$f_{c}$, Pa')
 
     for ax in axs.flat:
         ax.grid()
-        ax.set(xlabel=r'$r_{sc}$')
+        ax.set(xlabel=r'$r_{sb}$')
         ax.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
     if save_path is not None:
         plt.savefig(save_path + 'homogenization_solver_output_comparison'+datetime+'.pdf')

@@ -36,7 +36,12 @@ def transformed_back(samples):
     assert samples.shape == shape, "shape of the samples is changed"
     return samples
 
-viz_learnt_prior_model(nn_model,nn_state_dict,cov_params,latent_dim=4,case='hydration',transform_unscaled=transformed_back,
+plot_prior = True
+plot_cov_evolution = False
+plot_hydration_solver = True
+plot_hydration_validation = False
+if plot_prior:
+    viz_learnt_prior_model(nn_model,nn_state_dict,cov_params,latent_dim=4,case='hydration',transform_unscaled=transformed_back,
                        save_path='usecases/optimization_paper/model_learning/hydration/exp_11/Results/')#,save_path='lebedigital/demonstrator_calibration/misc/')
 
 # clip values of the list to 0.1 if its more than that
@@ -48,9 +53,15 @@ viz_learnt_prior_model(nn_model,nn_state_dict,cov_params,latent_dim=4,case='hydr
 
 
 # plot evolution of cov parameters
-legend = [r'$\phi_{11}$',r'$\phi_{21}$',r'$\phi_{22}$',r'$\phi_{31}$',r'$\phi_{32}$',r'$\phi_{33}$',r'$\phi_{41}$',r'$\phi_{42}$',r'$\phi_{43}$',r'$\phi_{44}$']
-plot_data(path=cov_path, labels=[r'$\bm{\phi$}'],legends=legend,save_path='usecases/optimization_paper/model_learning/hydration/exp_11/Results/cov_parameters'+datetime+'.pdf')
+if plot_cov_evolution:
+    legend = [r'$\phi_{11}$',r'$\phi_{21}$',r'$\phi_{22}$',r'$\phi_{31}$',r'$\phi_{32}$',r'$\phi_{33}$',r'$\phi_{41}$',r'$\phi_{42}$',r'$\phi_{43}$',r'$\phi_{44}$']
+    plot_data(path=cov_path, labels=[r'$\bm{\phi$}'],legends=legend,save_path='usecases/optimization_paper/model_learning/hydration/exp_11/Results/cov_parameters'+datetime+'.pdf')
 
-prob_hydration_solver_output(NN_model=nn_model, NN_state_dict=nn_state_dict, cov_params=cov_params, latent_dim=4, 
+if plot_hydration_solver:
+    prob_hydration_solver_output(NN_model=nn_model, NN_state_dict=nn_state_dict, cov_params=cov_params, latent_dim=4, 
+                             save_path='usecases/optimization_paper/model_learning/hydration/exp_11/Results/')
+    
+if plot_hydration_validation:
+    prob_hydration_solver_output(NN_model=nn_model, NN_state_dict=nn_state_dict, cov_params=cov_params, latent_dim=4,temp_key='10C',
                              save_path='usecases/optimization_paper/model_learning/hydration/exp_11/Results/')
 

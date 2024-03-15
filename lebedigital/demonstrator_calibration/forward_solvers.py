@@ -31,6 +31,7 @@ class HydrationSolverWrapper(ForwardBase):
         #mean = np.array([  2.8128, 124.1033,   3.4967,   3.6444]) 
         # 'B_1', 'B_2', 'eta', 'Q_pot' assumes this order
         latent[1] = np.exp(latent[1])
+        latent[-1] = np.exp(latent[-1]) # as E_a is always positive
         #latent_scaled_back = np.array(latent)*std + mean
         latent_scaled_back = np.array(latent)
         return latent_scaled_back
@@ -50,6 +51,7 @@ class HydrationSolverWrapper(ForwardBase):
         parameter['B2'] = latent_scaled_back[1]
         parameter['eta'] = latent_scaled_back[2]  # something about diffusion (should be larger 0)
         parameter['Q_pot'] = latent_scaled_back[3]*1e05  # potential heat per weight of binder in J/kg
+        parameter['E_act'] = latent_scaled_back[4]*1e04  # activation energy in Jmol^-1 (no relevant limits) (Depends only on simulated temp, if that is not change no need to infer E_act)
 
         # -- scaling back the values
         # parameter['B1'] = self._scale_back(latents[0]) # in 1/s (le 0, < 0.1)
@@ -60,10 +62,11 @@ class HydrationSolverWrapper(ForwardBase):
         # -- observed inputs
         parameter['igc'] = 8.3145  # ideal gas constant in [J/K/mol], CONSTANT!!!
         parameter['zero_C'] = 273.15  # in Kelvin, CONSTANT!!!
-        parameter['E_act'] = 47002  # activation energy in Jmol^-1 (no relevant limits) (Depends only on simulated temp, if that is not change no need to infer E_act)
+        #parameter['E_act'] = 47002  # activation energy in Jmol^-1 (no relevant limits) (Depends only on simulated temp, if that is not change no need to infer E_act)
         parameter['alpha_max'] = 0.875  # also possible to approximate based on equation with w/c (larger 0 and max 1)
-        #parameter['T_ref'] = 25  # reference temperature in degree celsius, if its = T_rxn, then E_ect doesnt matter
-        parameter['T_ref'] = inp_solver['T_rxn']  
+        #parameter['T_ref'] = inp_solver['T_rxn']  # reference temperature in degree celsius, if its = T_rxn, then E_ect doesnt matter
+        #parameter['T_ref'] = 20
+        parameter['T_ref'] = 22 # the temp the model learning was done on, this needs to bethe same later on also. 
 
         # this is the minimal time step used in the simulation
         # using a larger value will increase the speed but decrease the accuracy
@@ -135,17 +138,21 @@ def test_hydration_solver_wrapper():
     inp_solver['time_list'] = [0,5000,10000,20000,100000]
 
     # -- latents -----
-    b = np.array([2.916,2.4229,5.554,5])
-    std = np.array([1.9956, 247.6045,   1.8181,   2.5245]) 
-    mean = np.array([  2.8128, 124.1033,   3.4967,   3.6444])
-    b = (b-mean)/std
+    # b = np.array([2.916,2.4229,5.554,5])
+    # std = np.array([1.9956, 247.6045,   1.8181,   2.5245]) 
+    # mean = np.array([  2.8128, 124.1033,   3.4967,   3.6444])
+    # b = (b-mean)/std
+    
+    b = np.array([  2.91, np.log(2.422e-03),   3.4967,   3.6444, 4.7002])
+
+
     hydration_solver = HydrationSolverWrapper()
     heat_list = hydration_solver.solve(latents=b,inp_solver=inp_solver)
     #heat_list = hydration_solver_wrapper(b,inp_solver)
     print(f'heat_list = {heat_list}')
 
     # -- expected outputs
-    heat_list_exp =[  0.,           3.67389493 , 14.76660952 , 68.72818024 ,265.13160957]
+    heat_list_exp =[  0.,        17.61763829,  84.5571727, 181.80505507, 301.89535938]
     # assert the values are approximately equal
     # write assert statement also
     assert np.allclose(heat_list,heat_list_exp,atol=1e-3), "The heat list is not equal to the expected values"
@@ -159,6 +166,6 @@ def test_homogenization_solver():
     assert np.allclose(result,result_correct,atol=1e-3), "The homogenization solver is not working properly"
 
 if __name__ == "__main__":
-    #test_hydration_solver_wrapper()
-    test_homogenization_solver()
+    test_hydration_solver_wrapper()
+    #test_homogenization_solver()
 

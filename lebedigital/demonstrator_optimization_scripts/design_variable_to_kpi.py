@@ -40,7 +40,7 @@ def design_var_to_kpi(workflow_path:str,X: dict, seed: int) -> dict:
     # Run the workflow using snakemake
     # add the path to the workflow file and the path to the directory
     workflow_file_path = workflow_path + '/Snakefile'
-    os.system(f'snakemake --cores 7 --snakefile {workflow_file_path} '
+    os.system(f'snakemake --cores 5 --snakefile {workflow_file_path} '
               f'--directory {workflow_path}  workflow_targets --use-conda')
 
     # Read in the KPIs in a dict

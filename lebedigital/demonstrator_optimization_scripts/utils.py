@@ -34,8 +34,11 @@ def python_fn_run_jobs(path_to_scripts_folder:str,no_samples:int):
     original_dir = os.getcwd()
     os.chdir(script_dir)
     os.system(f'sbatch --wait --array=1-{no_samples} run_jobs.sh')
-    if not os.path.exists(f'../../usecases/optimization_paper/{no_samples}/kpi.json'):
-        raise FileNotFoundError
+    # FIXME: this is only checking for the last folder
+    #if not os.path.exists(f'../../usecases/optimization_paper/{no_samples}/kpi.json'):
+        # raise file not found error with messege
+        #raise FileNotFoundError,"kpi.json file not found"
+        #raise FileNotFoundError
     print('All jobs finished')
     # restore to the working directory
     os.chdir(original_dir)

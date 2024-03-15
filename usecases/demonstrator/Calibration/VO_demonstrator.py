@@ -182,7 +182,7 @@ if optimization:
         sd = x['s.d']
         assert mean.requires_grad == True, "The computational graph seems to be detached"
         assert sd.requires_grad == True, "The computational graph seems to be detached"
-        q_x = th.distributions.Normal(mean,sd) #TODO: it just assumes normal now, can be log normal too.
+        q_x = th.distributions.Normal(loc=mean,scale=sd) #TODO: it just assumes normal now, can be log normal too.
         return q_x
 
     def _p_b_given_x(phi, x):
@@ -369,15 +369,18 @@ if optimization:
             x_2 = q_x_2.sample()
             x_1 = q_x_1.sample()
 
-            # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y))
-            #x_1_scaled = th.special.expit(x_1)
+            # logistic sigmoid function to bound the input in 0-1 = 1/(1+e^(-y)), 
+            # https://www.sciencedirect.com/topics/computer-science/logistic-sigmoid
+            
             # TODO: ugly hardcoded, improve it
             #x_1_scaled_back = x_1.item()*(1100.0 - 700.0) + 700.0 # = x_scaled*(x_max-x_min) +x_min
             x_2_scaled = th.special.expit(x_2)
 
-            x_1_scaled_back = th.exp(x_1)
+            #x_1_scaled_back = th.exp(x_1)
+
+            x_1_scaled_back = th.special.expit(x_1).item()*(1300.0-600.0) + 600.0 # = x_scaled*(x_max-x_min) +x_min, sogmoid transform to tranform it from 0-1 and rescale to have it from 500-1300
             #X_tmp[i,0] = x_1_scaled.item()
-            X_tmp[i, 0] = x_1_scaled_back.item()  # since height need not be scaled.
+            X_tmp[i, 0] = x_1_scaled_back  # since height need not be scaled.
             X_tmp[i,1] = x_2_scaled.item()
         # save the seed and the design varuables
         np.save('./seed_tmp.npy', np.array(seed_tmp))
@@ -422,10 +425,11 @@ if optimization:
             # constraints = G_x_1 + G_x_2 + G_x_3 #+ G_x_4
 
             #TODO : include the third constraint too
-            constraints = th.max(th.as_tensor(C_x_1),th.tensor(0)) + th.max(th.as_tensor(C_x_2),th.tensor(0))# + th.max(th.as_tensor(C_x_3),th.tensor(0))
+            #print('Including the time constraint too')
+            constraints = th.max(th.as_tensor(C_x_1),th.tensor(0)) + th.max(th.as_tensor(C_x_2),th.tensor(0)) + th.max(th.as_tensor(C_x_3),th.tensor(0))
 
             # with constraints
-            c_o = 0.001  # objective scaling
+            c_o = 0.001  # objective scaling (a bit less than divided by 1000. very ugly)
             grad_est_obj = (c_o * obj) * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
             grad_est_cons = constraints * (q_x_1.log_prob(x_1) + q_x_2.log_prob(x_2))
             U_theta_holder.append(grad_est_obj + grad_est_cons)
@@ -449,8 +453,14 @@ if optimization:
             C_1_mean = np.sum(np.stack(C_1_holder)) / num_samples
             C_2_mean = np.sum(np.stack(C_2_holder)) / num_samples
             C_3_mean = np.sum(np.stack(C_3_holder)) / num_samples
+            # get variance of objetcive and constraints
+            obj_var = np.var(np.stack(obj_holder))
+            C_1_var = np.var(np.stack(C_1_holder))
+            C_2_var = np.var(np.stack(C_2_holder))
+            C_3_var = np.var(np.stack(C_3_holder))
         assert U_theta.requires_grad == True
-        return U_theta, U_theta_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, np.std(X_tmp,axis=0)
+        return U_theta, U_theta_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, obj_var, C_1_var, C_2_var, C_3_var
+
 
     # check
     # sigma = th.tensor([1.])
@@ -479,14 +489,14 @@ if optimization:
         # defining design variables
         #x_1 = th.tensor(x1_init, requires_grad=True)
         x1_mean = th.tensor(design_variables['x_1']['mean'], requires_grad=True)
-        x1_sigma = th.tensor(design_variables['x_1']['s.d'])
-        beta_1 = th.tensor(2 * th.log(x1_sigma), requires_grad=True)
+        x1_sigma = th.tensor(design_variables['x_1']['s.d'], requires_grad=True)
+        #beta_1 = th.tensor(2 * th.log(x1_sigma), requires_grad=True)
         x2_mean = th.tensor(design_variables['x_2']['mean'], requires_grad=True)
-        x2_sigma = th.tensor(design_variables['x_2']['s.d'])
-        beta_2 = th.tensor(2 * th.log(x2_sigma), requires_grad=True)
+        x2_sigma = th.tensor(design_variables['x_2']['s.d'], requires_grad=True)
+        #beta_2 = th.tensor(2 * th.log(x2_sigma), requires_grad=True)
 
         # defining optimizer
-        parameters = [x1_mean,beta_1,x2_mean,beta_2]
+        parameters = [x1_mean,x1_sigma,x2_mean,x2_sigma]
         optimizer = th.optim.Adam(parameters, lr=lr)
 
         # value holders
@@ -502,11 +512,12 @@ if optimization:
         num_steps = number_steps
         for i in range(num_steps):
             optimizer.zero_grad()
-            # Y_b is the samples of the solver output for the last opt step.
-            # loss, O_x, C_x, Y_b = objective(X,C) # append with - sign if doing argmax
-            x_1 = {'mean': x1_mean, 's.d': th.exp(0.5 * beta_1)}
-            x_2 = {'mean': x2_mean, 's.d': th.exp(0.5 * beta_2)}  # sigma = sqrt(esp(beta))
-            loss, loss_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, x_std = objective_parallel(x_1=x_1, x_2=x_2, num_samples=number_samples)
+    
+            #x_1 = {'mean': x1_mean, 's.d': th.exp(0.5 * beta_1)}
+            #x_2 = {'mean': x2_mean, 's.d': th.exp(0.5 * beta_2)}  # sigma = sqrt(esp(beta))
+            x_1 = {'mean': x1_mean, 's.d': th.sqrt(th.exp(x1_sigma))} # passing exp transformed values to sd
+            x_2 = {'mean': x2_mean, 's.d': th.sqrt(th.exp(x2_sigma))}
+            loss, loss_var, obj_mean, C_1_mean, C_2_mean, C_3_mean, obj_var, C_1_var, C_2_var, C_3_var = objective_parallel(x_1=x_1, x_2=x_2, num_samples=number_samples)
             # compute grads
             loss.backward()
             # print(XX.grad)
@@ -532,16 +543,18 @@ if optimization:
             #     x2_mean.clamp_(0.1,0.7) # agg ratio is set to 0.7 for workability contraints
 
             df = df.append({'loss': loss.item(), 'loss_var':loss_var.item(), 'objective': obj_mean, 'C_1': C_1_mean,
-                              'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1_mean': x1_mean.clone().detach().item(),
-                            'x_1_std': x_std[0],
+                              'C_2': C_2_mean, 'C_3': C_3_mean, 'x_1_mean': th.special.expit(x1_mean.clone().detach()).item(),
+                            'x_1_std': np.exp(x1_sigma.clone().detach().item()),
                             #'x_1_std': np.sqrt(np.exp(beta_1.clone().detach().item())),
-                            'x_2_mean': x2_mean.clone().detach().item(),
-                            'x_2_std': x_std[1],
+                            'x_2_mean': th.special.expit(x2_mean.clone().detach()).item(),
+                            'x_2_std': np.exp(x2_sigma.clone().detach().item()),
                               #'x_2_std': np.sqrt(np.exp(beta_2.clone().detach().item())),
                               'x_1_mean_grad': x1_mean.grad.clone().detach().item(),
-                            'x_1_beta_grad': beta_1.grad.clone().detach().item(),
                               'x_2_mean_grad': x2_mean.grad.clone().detach().item(),
-                              'x_2_beta_grad': beta_2.grad.clone().detach().item()}
+                              'obj_var': obj_var,
+                              'C_1_var': C_1_var,
+                              'C_2_var': C_2_var,
+                              'C_3_var': C_3_var}
                              , ignore_index=True)
             df.to_csv('./Results/Optimization_results_tmp.csv',index=False)
 
@@ -552,15 +565,24 @@ if __name__ == '__main__':
 
     #x1_init = th.special.logit(th.tensor([0.25]))
     #x1_scaled_init = (1050.0 - 700.0)/(1100.0 - 700.0) # (x - x-min) / (x_max - x_min)
-    x1_scaled_init = th.log(th.tensor([500.0])) # starting from height 900 mm
-    x2_init = th.special.logit(th.tensor([0.25])) # sigmoid transformed values are passed, then later transformed back to normal.
+    # normalize the height, the range is 500-1300mm
+    x1_norm = (810-600)/(1300-600)
+    #x1_norm = 0.357344248553906 # if starting from some value
+    x1_scaled_init = th.special.logit(th.tensor([x1_norm])) # starting from height 600 mm
+    #x1_scaled_init = th.log(th.tensor([600.0])) # starting from height 600 mm
+    x2_init = th.special.logit(th.tensor([0.74])) # sigmoid transformed values are passed, then later transformed back to normal.
+
+    #x1_sigma_phi = np.log(1.0) # So that at the end we get 0.05 as exp^phi value
+    #x2_sigma_phi = np.log(1.0)
+    x1_sigma_phi = np.log(0.21) # So that at the end we get 0.05 as exp^phi value
+    x2_sigma_phi = np.log(0.06)
 
     # beam height is directly proporstional to GWP, and slag ratio is inversely proportional to GWP.
-    design_variables = {'x_1': {'mean': [x1_scaled_init.item()] ,'s.d': [0.1]},
-                       'x_2': {'mean': [x2_init.item()] ,'s.d': [0.1]}}
+    design_variables = {'x_1': {'mean': [x1_scaled_init.item()] ,'s.d': [x1_sigma_phi]},
+                       'x_2': {'mean': [x2_init.item()] ,'s.d': [x2_sigma_phi]}}
 
     #design_variables = {'x_1': {'mean': [0.25] ,'s.d': [0.5]},
     #                    'x_2': {'mean': [0.35] ,'s.d': [0.5]}}
-    df = optimize(design_variables,lr =0.05,number_steps=120,number_samples=80) # 120 step, 125 sample,
+    df = optimize(design_variables,lr =0.1,number_steps=200,number_samples=200) # 120 step, 125 sample,
     df.to_csv('./Results/optimization_results_'+datetime+'.csv',index=False)
 

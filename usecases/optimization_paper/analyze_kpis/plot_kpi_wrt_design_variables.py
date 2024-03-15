@@ -4,6 +4,7 @@ import torch as th
 from matplotlib import pyplot as plt
 import seaborn as sb
 import pandas as pd
+import pickle as pl
 # use latex with matplotlib
 plt.rc('text', usetex=True)
 import matplotlib as mpl
@@ -19,13 +20,15 @@ datetime = time.strftime("%Y-%m-%d_%H-%M-%S")
 #%%
 def kpi_vs_x(csv_file:str, combined:bool =True):
     # load the csv file
+    # remove .csv from the last part of the string
+    csv_file_name = csv_file[:-4]
     data = pd.read_csv(csv_file)
     fig, ax = plt.subplots(1,1)
     for col in data.columns[2:]:
         if combined:
             dim = np.unique(data['height'].values).shape[0]
             if col == 'gwp':
-                gwp = ax.contourf(np.unique(data['slag_ratio'].values),np.unique(data['height'].values),data[col].values.reshape(dim,dim))
+                gwp = ax.contourf(np.unique(data['slag_ratio'].values),np.unique(data['height'].values),data[col].values.reshape(dim,dim),levels=15)
                 fig.colorbar(gwp)
             elif col == 'constraint_beam_design':
                 # plot of single sontour line as an indicator fucntion
@@ -40,12 +43,12 @@ def kpi_vs_x(csv_file:str, combined:bool =True):
 
             ax.set_title('GWP and constraints')
             # save the plot
-            plt.savefig(f'plots/combined_contour.pdf')
+            plt.savefig(f'plots/combined_contour_'+csv_file_name+'.pdf')
         # plot the contours
         else:
-            plt.figure()
+            fig = plt.figure()
             dim = np.unique(data['height'].values).shape[0]
-            plt.contourf(np.unique(data['slag_ratio'].values),np.unique(data['height'].values),data[col].values.reshape(dim,dim))
+            plt.contourf(np.unique(data['slag_ratio'].values),np.unique(data['height'].values),data[col].values.reshape(dim,dim),levels=15)
             # colorbar for the above
             plt.colorbar()
             plt.title(f'{col}')
@@ -53,7 +56,10 @@ def kpi_vs_x(csv_file:str, combined:bool =True):
             #plt.colorbar()
             plt.xlabel(r'$x_2$')
             plt.ylabel(r'$x_1$')
-            plt.savefig(f'plots/{col}_contour.pdf')
+            plt.savefig(f'plots/{col}_contour_'+csv_file_name+'.pdf')
+            with open(f'plots/{col}_contour_'+csv_file_name+'.pickle','wb') as file:
+                pl.dump(fig, file)
+    return fig
 
 
 
@@ -61,8 +67,11 @@ def kpi_vs_x(csv_file:str, combined:bool =True):
 
 #%%
 # Update 1st Sep,2023. Found a set of inputs which gives a good optimization problem. See the latest plot. Obj/constraint variability needs to be checked.
-csv_file = 'kpis_2023-08-31_17-28-38.csv'
+csv_file = 'kpis_seed_43_2023-09-15_18-07-09.csv'
 
-kpi_vs_x(csv_file,combined=True)
+fig = kpi_vs_x(csv_file,combined=False)
+# save to a pickle file
+
+
 
 #%%

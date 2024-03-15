@@ -27,7 +27,7 @@ class VBEM:
                  model_prior_mean:NN_mean, prior_cov_params:list, sigma_likelihood:float, latent_dim:int, 
                  dataframe_observed_data:pd.DataFrame,no_observed_data_pair:int,b_init:list,pre_train:bool=True,lr=1e-2):
         
-        assert len(b_init) == latent_dim, 'the length of the latents must be equal to the latent dim'
+        assert len(b_init) == no_observed_data_pair, 'The length of the initial latent parameters must be equal to the number of observed data pairs'
         self.b_init = b_init
         
         # initialize the Neural Nets
@@ -71,7 +71,7 @@ class VBEM:
         self.x_tmp = None
         self.z_tmp = None
         self.inp_solver_tmp = None
-        self.x = None # the input data
+        self.x = [] # the input data
         #self.x = [[0.3]]
 
         # define the data holders
@@ -89,7 +89,9 @@ class VBEM:
         #y = th.tensor([[2.916, 2.4229, 5.554, 5.0],[2.7, 2.43, 5.56, 4.8]])
         y = th.tensor(self.b_init)
         y = y + 0.05*th.randn_like(y)
-        nn_mean = train_NN(self.NN_mean,x, y, epochs=1000, lr=1e-2, hidden_dim=20)
+        # select first 4 rows, to ensure size of x and y match
+        y = y[:4,:] 
+        nn_mean = train_NN(self.NN_mean,x, y, epochs=150, lr=1e-2, hidden_dim=30)
         return nn_mean
     
     def _posterior_model(self,b:list):
@@ -103,16 +105,26 @@ class VBEM:
                                                                inp_solver=self.inp_solver_tmp)
     def _temp_input_hydration_model(self,x:int):
         """temporary function to set the input data for the hydration model for a given ratio, can be later defined to be overwritten"""
-        ratio_keys = ['CP0','CP30','CP50','CP85']
-        ratios = [[0.0],[0.3],[0.50],[0.85]]
-        self.x = ratios
-        inp_solver = {}
-        inp_solver['T_rxn'] = 20
-        inp_solver['time_list'] = self.df[('20C',ratio_keys[x],'Age')]
-        self.inp_solver_tmp = inp_solver
-        self.z_tmp = self.df[('20C',ratio_keys[x],'Q')]
-        self.x_tmp = ratios[x]
+        #ratio_keys = ['CP0','CP30','CP50','CP85']
+        #temp_keys = ['10C','20C','35C']
+        #ratios = [[0.0],[0.3],[0.50],[0.85]]
+        #self.x = ratios
 
+        keys = list(self.df.keys())
+        # create a new key with has 'Age' in the keys
+        keys_input = [key for key in keys if 'Age' in key]
+        keys_output = [key for key in keys if 'Q' in key]
+        inp_solver = {}
+        #inp_solver['T_rxn'] = 20
+        #inp_solver['time_list'] = self.df[('20C',ratio_keys[x],'Age')]
+        inp_solver['T_rxn'] = int(keys_input[x][0][:2]) # the temp avlue has to be the postion
+        inp_solver['time_list'] = self.df[keys_input[x]]
+        self.inp_solver_tmp = inp_solver
+        #self.z_tmp = self.df[('20C',ratio_keys[x],'Q')]
+        self.z_tmp = self.df[keys_output[x]] 
+        #self.x_tmp = ratios[x]
+        self.x_tmp = [int(keys_input[x][1][2:])/100] # the ratio value has to be the second pos. in the tuple
+        self.x.append(self.x_tmp)
 
     def _E_step(self, no_samples):
         """run the E step of the VBEM algorithm"""
