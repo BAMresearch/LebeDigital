@@ -1,9 +1,29 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 from lebedigital.demonstrator_scripts.beam_design import check_beam_design
 from lebedigital.unit_registry import ureg
 
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Times New Roman']})
+import matplotlib as mpl
+mpl.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+# plt.style.use('ggplot')
+SMALL_SIZE = 8
+MEDIUM_SIZE = 12
+BIGGER_SIZE = 20
+
+rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+rc('axes', titlesize=BIGGER_SIZE)     # fontsize of the axes title
+rc('axes', labelsize=BIGGER_SIZE)    # fontsize of the x and y labels
+rc('xtick', labelsize=BIGGER_SIZE)    # fontsize of the tick labels
+rc('ytick', labelsize=BIGGER_SIZE)    # fontsize of the tick labels
+rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure titles
 
 def simple_setup(input_parameter, height, fc, load):
     """
@@ -92,7 +112,7 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
                 A_errors[i][j] = out["constraint_max_steel_area"]
                 constraint[i][j] = out["constraint_beam_design"]
 
-                if constraint[i][j] >= 0:
+                if constraint[i][j] <= 0:
                     if max_admissable_area < crosssections[i][j]:
                         max_admissable_area = crosssections[i][j]
 
@@ -118,7 +138,7 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
     def plot_contour_filled_white(ax, x, y, Z):
         max = np.nanmax(Z)
         min = np.nanmin(Z)
-        levels = [min - 1, 0.0]
+        levels = [0.0, max]
 
         X, Y = np.meshgrid(y, x)
         ax.contourf(X.magnitude, Y.magnitude, Z, colors="white", levels=levels)
@@ -173,6 +193,8 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
     constraint_plots = [0] * len(chosen_plots)
     plot_values = {}
     max_plot_area = 0.0
+
+    # loop over all three plots
     for i, plot in enumerate(chosen_plots):
         (
             crosssection_plots[i],
@@ -251,11 +273,14 @@ def beam_design_plot(input_parameter, n, fig_path: str = "beam_design_plot.pdf",
 
 if __name__ == "__main__":
     beam_design_example_parameters = {
-        "beamExSpan": 675,
+        #"beamExSpan": 675,
+        'beamExSpan': 1000,
         "beamExSpanUnit": "cm",
-        "beamExWidth": 200,
+        #"beamExWidth": 200,
+        'beamExWidth': 350,
         "beamExWidthUnit": "mm",
-        "beamExYieldStrSteel": 500,
+        #"beamExYieldStrSteel": 500,
+        'beamExYieldStrSteel': 300,
         "beamExYieldStrSteelUnit": "N/mm^2",
         "beamExSteelDiaBu": 10,
         "beamExSteelDiaBuUnit": "mm",
