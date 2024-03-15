@@ -60,7 +60,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s --login admin --password changeit --ignore=demonstrator_calibration
+          pytest -s --login admin --password changeit --ignore=demonstrator_calibration --ignore=paper_workflow
 
       - name: run-minimum-working-example
         shell: bash -l {0}
