@@ -1,0 +1,16 @@
+{
+    "ID": "44c5b83f-2383-4ce4-aa01-e1bb1d17b56e",
+    "humanreadableID": "KIT_MoE_M3_28d_Z2",
+    "MixtureID": "6b2aea25-785a-4987-a92b-e414a2f72f55",
+    "SpecimenShape": "Cylinder",
+    "SpecimenMass": 12292.7,
+    "SpecimenMass_Unit": "g",
+    "SpecimenDiameter": 149.85,
+    "SpecimenDiameter_Unit": "mm",
+    "SpecimenHeight": 297.6333333333,
+    "SpecimenHeight_Unit": "mm",
+    "SpecimenLength": null,
+    "SpecimenLength_Unit": null,
+    "SpecimenWidth": null,
+    "SpecimenWidth_Unit": null
+}

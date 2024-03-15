@@ -4,6 +4,7 @@ import pint_pandas
 import pint
 import pandas as pd
 import json
+import numpy as np
 
 PATH_TO_SCRIPTS = '../../../lebedigital/'
 
@@ -69,6 +70,63 @@ rule workflow_targets:
         "Results/kpi_from_fem.json",
         'Results/demonstrator_beam.xdmf'
 
+
+rule get_mix_hydration_parameters:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py'
+    output:
+        results = 'Results/mixes_hydration_parameters.json'
+    run:
+        from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+
+        results = {}
+
+        # run script
+        results['mix1_B1'], results['mix1_B2'], results['mix1_eta'], results['mix1_E_act'], results['mix1_Q_pot'], results['mix1_T_ref'] = \
+            dummy_hydration_parameters(0,42)
+        results['mix2_B1'], results['mix2_B2'], results['mix2_eta'], results['mix2_E_act'], results['mix2_Q_pot'], results['mix2_T_ref'] = \
+            dummy_hydration_parameters(1,42)
+
+        write_pint_dict(results,output.results)
+
+
+rule compute_doh_at_28_days:
+    input:
+        alpha_max = "Results/approx_max_doh.json",
+        hydration_params = "Results/mixes_hydration_parameters.json"
+    output:
+        results = 'Results/mixes_alpha_t28d.json'
+    run:
+        import fenics_concrete
+
+        p = read_pint_dicts(input)
+
+        time_total =  60 * 60 * 24 * 28 # 28 days in seconds
+        dt = 60 * 60 # 1 hour in seconds
+        T = 20 # 20 degrees Celsius ambient temperature
+
+        time_list = np.arange(0,time_total,dt)
+
+        material_problem = fenics_concrete.ConcreteThermoMechanical()
+        hydration_fkt = material_problem.get_heat_of_hydration_ftk()
+
+        for key in p.keys():
+            # check if paramter has a unit, then remove it, for now...
+            if type(p[key]) == type(1 * ureg("")):
+                p[key] = p[key].magnitude
+
+        parameters1 = {'B1': p['mix1_B1'], 'B2': p['mix1_B2'], 'eta': p['mix1_eta'], 'E_act': p['mix1_E_act'], 'Q_pot': p['mix1_Q_pot'], 'T_ref': p['mix1_T_ref'],'alpha_max': p['max_degree_of_hydration']}
+        heat_list1, doh_list1 = hydration_fkt(T,time_list,dt,parameters1)
+
+        parameters2 = {'B1': p['mix2_B1'], 'B2': p['mix2_B2'], 'eta': p['mix2_eta'], 'E_act': p['mix2_E_act'], 'Q_pot': p['mix2_Q_pot'], 'T_ref': p['mix2_T_ref'],'alpha_max': p['max_degree_of_hydration']}
+        heat_list2, doh_list2 = hydration_fkt(T,time_list,dt,parameters2)
+
+        results = {}
+        # run script
+        results["alpha_mix1"] = float(doh_list1[-1]) * ureg.dimensionless
+        results["alpha_mix2"] = float(doh_list2[-1]) * ureg.dimensionless
+
+        write_pint_dict(results,output.results)
 
 rule kpi_from_fem:
     input:
@@ -157,7 +215,7 @@ rule interpolate_alpha_t28d:
     input:
         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/interpolate_alpha_t28d.py',
         sc_fraction = 'Results/mix_volume_contents.json',
-        alpha_t28d = 'Inputs/alpha_t28d.json'
+        alpha_t28d = 'Results/mixes_alpha_t28d.json'
 
     output:
         results = "Results/alpha_t28d.json"

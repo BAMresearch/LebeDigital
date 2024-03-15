@@ -1,0 +1,16 @@
+{
+    "ID": "df32a04c-5217-40f9-a328-672fd5c45f2a",
+    "humanreadableID": "KIT_CS_M2_28d_Z3",
+    "MixtureID": "958cfbdb-5727-4d3c-a33a-e6f8b68e55ee",
+    "SpecimenShape": "Cylinder",
+    "SpecimenMass": 12489.1,
+    "SpecimenMass_Unit": "g",
+    "SpecimenDiameter": 150.1666666667,
+    "SpecimenDiameter_Unit": "mm",
+    "SpecimenHeight": 298.2333333333,
+    "SpecimenHeight_Unit": "mm",
+    "SpecimenLength": null,
+    "SpecimenLength_Unit": null,
+    "SpecimenWidth": null,
+    "SpecimenWidth_Unit": null
+}

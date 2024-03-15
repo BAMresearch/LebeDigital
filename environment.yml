@@ -14,10 +14,10 @@ dependencies:
   - docker-compose
   - cython
   - numpy
-  - pandas=1.4.3
+  - pandas=2.0.3
   - pyyaml
   - owlready2
-  - rdflib
+  - rdflib=6
   - sparqlwrapper
   - requests
   - gitpython
@@ -27,20 +27,18 @@ dependencies:
   - python-graphviz
   - pytest
   - xlrd
-  - openpyxl
   - tectonic=0.8
   - pint=0.20
   - pint-pandas
   - snakemake
-  - pybis=1.35.5
-  - xlsxwriter
   - termcolor
   - sphinx
   - pytest-cov
   - codecov
-  - pydantic<2.0
   - seaborn
   - pytorch=2.0.0
+  - extpybis
+  - openpyxl
   - pip:
     - probeye==2.3.0
     - -e .

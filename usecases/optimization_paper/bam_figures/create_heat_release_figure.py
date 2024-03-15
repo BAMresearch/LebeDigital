@@ -43,6 +43,17 @@ def create_heat_release_figure(parameter: dict, fig_path: str = "test_heat_reale
     T = parameter["heatExT"]  # temperature...
     dt = parameter["heatExDt"]  # dt
     time_total = parameter["heatExTimeTotal"]
+    parameter["B1"] = parameter["heatExBOne"]
+    parameter["B2"] = parameter["heatExBTwo"]
+    parameter["eta"] = parameter["heatExEta"]
+    parameter["alpha_max"] = parameter["heatExAlphaMax"]
+    parameter["E_act"] = parameter["heatExEAct"]
+    parameter["T_ref"] = parameter["heatExTRef"]
+    parameter["Q_pot"] = parameter["heatExQPot"]
+
+    T = parameter["heatExT"]  # temperature...
+    dt = parameter["heatExDt"]  # dt
+    time_total = parameter["heatExTimeTotal"]
     # what does T and dt do???
 
     time_list = np.arange(0, time_total, dt)
@@ -52,11 +63,13 @@ def create_heat_release_figure(parameter: dict, fig_path: str = "test_heat_reale
         "B2": [parameter["B2"], 0.0001, 0.01],
         "eta": [parameter["eta"], 9, 4.5],
         "Q_pot": [parameter["Q_pot"], 350e3, 650e3],
+        "Q_pot": [parameter["Q_pot"], 350e3, 650e3],
     }
 
     material_problem = fenics_concrete.ConcreteThermoMechanical()
     hydration_fkt = material_problem.get_heat_of_hydration_ftk()
 
+    fig, axs = plt.subplots(2, len(variation_dict), figsize=(20, 7))
     fig, axs = plt.subplots(2, len(variation_dict), figsize=(20, 7))
     ureg.setup_matplotlib()
 
@@ -81,7 +94,28 @@ def create_heat_release_figure(parameter: dict, fig_path: str = "test_heat_reale
             # convert delta_heat to mW/kg
             delta_heat = delta_heat.to(ureg.mW / ureg.kg)
             # heat_list = heat_list.to(ureg.mW / ureg.kg)
+            # add pint units to plot_time and delta_heat
+            plot_time = plot_time * ureg.second
+            # time_list = time_list * ureg.second
+            delta_heat = delta_heat * ureg.watt / ureg.kg
+            heat_list = heat_list * ureg.joule / ureg.kg
 
+            # convert plot_time to hours
+            plot_time = plot_time.to(ureg.hour)
+            # time_list = time_list.to(ureg.hour)
+            # convert delta_heat to mW/kg
+            delta_heat = delta_heat.to(ureg.mW / ureg.kg)
+            # heat_list = heat_list.to(ureg.mW / ureg.kg)
+
+            axs[0][i].set_ylim([0, 6])
+            axs[0][i].set_xlim([0, 24])
+            # plot delta heat over time with a legend
+            axs[0][i].plot(plot_time, delta_heat, label=key + " = " + str(value))
+
+            # cummulative heat release
+            axs[1][i].set_ylim([0, 400])
+            axs[1][i].set_xlim([0, 24 * 4])
+            axs[1][i].plot(plot_time, heat_list[:-1], label=key + " = " + str(value))
             axs[0][i].set_ylim([0, 6])
             axs[0][i].set_xlim([0, 24])
             # plot delta heat over time with a legend
@@ -109,7 +143,9 @@ def create_heat_release_figure(parameter: dict, fig_path: str = "test_heat_reale
 
     fig.tight_layout()
     # plt.show()
+    # plt.show()
 
+    fig.savefig(fig_path)
     fig.savefig(fig_path)
 
 

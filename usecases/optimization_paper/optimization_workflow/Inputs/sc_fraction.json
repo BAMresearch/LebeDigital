@@ -2,5 +2,6 @@
     "sc_mass_fraction": {
         "unit": "dimensionless",
         "value": 0.001
+        "value": 0.5
     }
 }

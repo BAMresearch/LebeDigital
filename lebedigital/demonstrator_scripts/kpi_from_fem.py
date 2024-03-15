@@ -67,8 +67,29 @@ def kpi_from_fem(df, limit_temp, limit_time):
         df.loc[df[("yield", "dimensionless")] == 0.0].index.values[0], ("time", "second")
     ] * ureg("s")
 
-    # check if the interpolation worked
-    if np.isnan(results["time_of_demolding"]):
+    # check if the data in inter or extrapolated
+    # get the first and last line of dataframe
+    yield_first_line = df.iloc[0]["yield"]
+
+    extr_id = None
+    if yield_first_line.all() == 0.0:
+        # write NaN to column time and temperature
+        df.iloc[0]["time"] = np.nan
+        df.iloc[0]["temperature"] = np.nan
+        extr_x = -1
+
+    yield_last_line = df.iloc[-1]["yield"]
+    if yield_last_line.all() == 0.0:
+        # write NaN to column time and temperature
+        df.iloc[-1]["time"] = np.nan
+        df.iloc[-1]["temperature"] = np.nan
+        # lentgh of dataframe
+        extr_x = len(df) - 1
+        print("length of dataframe")
+        print(extr_x)
+
+    if yield_first_line.all() == 0.0 or yield_last_line.all() == 0.0:
+        # if np.isnan(results["time_of_demolding"]):
         # based on https://stackoverflow.com/questions/22491628/extrapolate-values-in-pandas-dataframe
         # extrapolate missing values
 
@@ -92,6 +113,7 @@ def kpi_from_fem(df, limit_temp, limit_time):
             y = fit_df[col].values
             # Curve fit column and get curve parameters
             params = curve_fit(func, x, y, guess)
+
             # Store optimized parameters
             col_params[col] = params[0]
 
@@ -100,11 +122,15 @@ def kpi_from_fem(df, limit_temp, limit_time):
             # Get the index values for NaNs in the column
             x = df[pd.isnull(df[col])].index.astype(float).values
             # Extrapolate those points with the fitted function
-            df[col][x] = func(x, *col_params[col])
+            # df[col][x] = func(x, *col_params[col])
+            df[col][x] = func(extr_x, *col_params[col])
 
         results["time_of_demolding"] = df.at[
             df.loc[df[("yield", "dimensionless")] == 0.0].index.values[0], ("time", "second")
         ] * ureg("s")
+
+        print("extrapolate")
+        print(df)
 
     # changing units, because we can
     results["time_of_demolding"].ito("h")

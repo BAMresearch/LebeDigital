@@ -1,4 +1,4 @@
-from lebedigital.openbis.interbis import Interbis
+from extpybis.openbis import ExtOpenbis
 from pathlib import Path
 import json
 import argparse
@@ -12,10 +12,10 @@ argParser.add_argument("-u", "--url", help="openbis url address")
 
 args = argParser.parse_args()
 
-o = Interbis(args.url, verify_certificates=False)
+o = ExtOpenbis(args.url, verify_certificates=False)
 o.connect_to_datastore(args.login, args.password)
 
-with open(settings_path, 'r') as file:
+with open(settings_path, "r") as file:
     default_settings = json.load(file)
 
 settings_sample = o.get_sample("/ELN_SETTINGS/GENERAL_ELN_SETTINGS")

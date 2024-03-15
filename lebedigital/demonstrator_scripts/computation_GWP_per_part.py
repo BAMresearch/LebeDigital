@@ -1,8 +1,9 @@
 import numpy as np
+
 from lebedigital.unit_registry import ureg
 
 
-@ureg.wraps('kg_CO2_eq',('kg_CO2_eq/m^3', 'kg_CO2_eq/m^3', 'm', 'm', 'm', '', 'm'))
+@ureg.wraps("kg_CO2_eq", ("kg_CO2_eq/m^3", "kg_CO2_eq/m^3", "m", "m", "m", "", "m"))
 def computation_GWP_per_part(gwp_mix, gwp_steel, width, height, length, n_steel, diameter_steel):
     """
     This function computes the global warming potential for a single beam
@@ -35,7 +36,6 @@ def computation_GWP_per_part(gwp_mix, gwp_steel, width, height, length, n_steel,
     beam_gwp = width * height * length * gwp_mix
     # steel
     # difference between rebar length and beam length is ignored
-    beam_gwp += n_steel * (np.pi * (diameter_steel/2)**2) * length * gwp_steel
+    beam_gwp += n_steel * (np.pi * (diameter_steel / 2) ** 2) * length * gwp_steel
 
     return beam_gwp
-    

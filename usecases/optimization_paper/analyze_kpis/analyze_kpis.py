@@ -70,6 +70,10 @@ def get_kpis(input: dict, path: Path) -> dict:
     kpis.update(gwp_beam)
     beam_design = load_json(results_path / "beam_design.json")
     kpis.update(beam_design)
+    mix_gwp = load_json(results_path / "gwp_mix.json")
+    kpis.update(mix_gwp)
+    gwp_steel = load_json(results_path / "steel_gwp_per_volume.json")
+    kpis.update(gwp_steel)
 
     # return the KPIs
     return kpis
@@ -78,6 +82,7 @@ def get_kpis(input: dict, path: Path) -> dict:
 if __name__ == "__main__":
     path_to_workflow = Path("../optimization_workflow")
     input_path = path_to_workflow / "Inputs"
+    output_path = path_to_workflow / "Results"
 
     # input lists
     # height_list = [600.0,750.0,1000.0,1250.0]
@@ -91,6 +96,10 @@ if __name__ == "__main__":
     #for p,seed in enumerate(seed):
     for i, height in enumerate(height_list):
         for j, slag_ratio in enumerate(slag_ratio_list):
+            # remove all files from the directory output_path
+            for file in os.listdir(output_path):
+                os.remove(output_path / file)
+
             total = len(height_list) * len(slag_ratio_list)
             current = i * len(slag_ratio_list) + j + 1
             print("___________________________________________________________")
