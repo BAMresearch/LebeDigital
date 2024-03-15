@@ -71,23 +71,24 @@ rule workflow_targets:
         'Results/demonstrator_beam.xdmf'
 
 
-rule get_mix_hydration_parameters:
-    input:
-        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py'
-    output:
-        results = 'Results/mixes_hydration_parameters.json'
-    run:
-        from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
+# This wont work, align this with the function agruments
+# rule get_mix_hydration_parameters:
+#     input:
+#         script = PATH_TO_SCRIPTS + 'demonstrator_scripts/dummy_hydration_parameters.py'
+#     output:
+#         results = 'Results/mixes_hydration_parameters.json'
+#     run:
+#         from lebedigital.demonstrator_scripts.dummy_hydration_parameters import dummy_hydration_parameters
 
-        results = {}
+#         results = {}
 
-        # run script
-        results['mix1_B1'], results['mix1_B2'], results['mix1_eta'], results['mix1_E_act'], results['mix1_Q_pot'], results['mix1_T_ref'] = \
-            dummy_hydration_parameters(0,42)
-        results['mix2_B1'], results['mix2_B2'], results['mix2_eta'], results['mix2_E_act'], results['mix2_Q_pot'], results['mix2_T_ref'] = \
-            dummy_hydration_parameters(1,42)
+#         # run script
+#         results['mix1_B1'], results['mix1_B2'], results['mix1_eta'], results['mix1_E_act'], results['mix1_Q_pot'], results['mix1_T_ref'] = \
+#             dummy_hydration_parameters(0,42)
+#         results['mix2_B1'], results['mix2_B2'], results['mix2_eta'], results['mix2_E_act'], results['mix2_Q_pot'], results['mix2_T_ref'] = \
+#             dummy_hydration_parameters(1,42)
 
-        write_pint_dict(results,output.results)
+#         write_pint_dict(results,output.results)
 
 
 rule compute_doh_at_28_days:
