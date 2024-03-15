@@ -5,8 +5,8 @@ from lebedigital.unit_registry import ureg
 
 def test_computation_hydration_parameters():
     # load the files
-    NN_path = 'input_for_tests/NN_model_homogenization_final.pt'
-    cov_path = 'input_for_tests/cov_parameters_homogenization_final.csv'
+    NN_path = 'demonstrator_scripts/input_for_tests/NN_model_homogenization_final.pt'
+    cov_path = 'demonstrator_scripts/input_for_tests/cov_parameters_homogenization_final.csv'
 
     
     E,fc = computation_paste_strength_stiffness(slag_ratio=0.2,gaussian_mean=NN_path,
