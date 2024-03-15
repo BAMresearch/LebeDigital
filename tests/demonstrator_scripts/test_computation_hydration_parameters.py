@@ -7,10 +7,10 @@ from lebedigital.unit_registry import ureg
 def test_computation_hydration_parameters():
     # load the files
     cwd = Path(os.getcwd())
-    NN_path = cwd / Path("tests/demonstrator_scripts/input_for_tests/NN_model_hydration_final.pt")
-    cov_path = cwd / Path("tests/demonstrator_scripts/input_for_tests/cov_parameters_hydration_final.csv")
-    # NN_path = 'tests/demonstrator_scripts/input_for_tests/NN_model_hydration_final.pt'
-    # cov_path = 'tests/demonstrator_scripts/input_for_tests/cov_parameters_hydration_final.csv'
+    #NN_path = cwd / Path("tests/demonstrator_scripts/input_for_tests/NN_model_hydration_final.pt")
+    #cov_path = cwd / Path("tests/demonstrator_scripts/input_for_tests/cov_parameters_hydration_final.csv")
+    NN_path = 'demonstrator_scripts/input_for_tests/NN_model_hydration_final.pt'
+    cov_path = 'demonstrator_scripts/input_for_tests/cov_parameters_hydration_final.csv'
 
 
     B1, B2, eta, E_act, Q_pot, T_ref = computation_hydration_parameters(slag_ratio=0.2,gaussian_mean=NN_path,
