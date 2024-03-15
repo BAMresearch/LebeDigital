@@ -22,7 +22,8 @@ from lebedigital.demonstrator_calibration.sampler import MCMC_DRAM
 # set torch deafult data type to float32
 
 class VBEM:
-    """class implementing the Variational Bayes Expectation Maximization algorithm"""
+    """class implementing the Variational Bayes Expectation Maximization algorithm. 
+    Ugly copy of the VBEM class in VBEM.py for the homogenization."""
     def __init__(self,prior:prior,forward_model:callable,likelihood:gaussian_likelihood, 
                  model_prior_mean:NN_mean, prior_cov_params:list, sigma_likelihood:float, latent_dim:int, 
                  dataframe_observed_data:dict,no_observed_data_pair:int,b_init:list,pre_train:bool=True,lr=1e-2):
