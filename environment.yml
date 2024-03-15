@@ -1,4 +1,4 @@
-name: lebedigital
+name: lebedigital_tmp
 channels:
   - conda-forge                     # third party stuff
   - bioconda                        # snakemake
@@ -14,7 +14,7 @@ dependencies:
   - docker-compose
   - cython
   - numpy
-  - pandas
+  - pandas=1.4.3
   - pyyaml
   - owlready2
   - rdflib
@@ -23,7 +23,7 @@ dependencies:
   - gitpython
   - pyshacl
   - conda-ecosystem-user-package-isolation
-  - fenics_concrete
+  - fenics_concrete=0.9.3
   - python-graphviz
   - pytest
   - xlrd
