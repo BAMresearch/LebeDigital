@@ -60,7 +60,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE/tests/
-          pytest -s --login admin --password changeit --ignore=paper_workflow --ignore= demonstrator_calibration/test_sampler.py --ignore=demonstrator_scripts/test_column_plus_homogenization.py # some weird .ito issue. No idea what it is
+          pytest -s --login admin --password changeit --ignore=paper_workflow --ignore=demonstrator_calibration/test_sampler.py --ignore=demonstrator_scripts/test_column_plus_homogenization.py # some weird .ito issue. No idea what it is
 
       - name: run-minimum-working-example
         shell: bash -l {0}
