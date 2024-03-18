@@ -90,7 +90,30 @@ rule workflow_targets:
 
 #         write_pint_dict(results,output.results)
 
+# Updated as per the correct fucntion. Also this rule is not used for the paper (was not existing then)
+rule get_mix_hydration_parameters:
+    input:
+        script = PATH_TO_SCRIPTS + 'demonstrator_scripts/computation_hydration_parameters.py',
+        mean_NN = "Inputs/NN_model_hydration_final.pt",
+        cov_params = "Inputs/cov_parameters_hydration_final.csv",
+        seed = "Inputs/seed_learnt_models.json"
+    output:
+        results = 'Results/mixes_hydration_parameters.json'
+    run:
+        from lebedigital.demonstrator_scripts.computation_hydration_parameters import computation_hydration_parameters
 
+        q = load_json(input.seed)
+        results = {}
+
+        # run script
+        results['mix1_B1'], results['mix1_B2'], results['mix1_eta'], results['mix1_E_act'], results['mix1_Q_pot'], results['mix1_T_ref'] = \
+            computation_hydration_parameters(0,input.mean_NN, input.cov_params,q['seed']['value'])
+        results['mix2_B1'], results['mix2_B2'], results['mix2_eta'], results['mix2_E_act'], results['mix2_Q_pot'], results['mix2_T_ref'] = \
+            computation_hydration_parameters(1,input.mean_NN, input.cov_params,q['seed']['value'])
+
+        write_pint_dict(results,output.results)
+
+# this rule is not used for the paper (was not existing then)
 rule compute_doh_at_28_days:
     input:
         alpha_max = "Results/approx_max_doh.json",

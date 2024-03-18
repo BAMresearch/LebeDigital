@@ -14,28 +14,27 @@ def test_hydration_solver_wrapper():
     inp_solver['time_list'] = [0,5000,10000,20000,100000]
 
     # -- latents -----
-    #b = [2.916,2.4229,5.554,5]
-    b = np.array([2.916E-4,0.0024229,5.554,500e3])
-    std = np.array([1.9956, 247.6045,   1.8181,   2.5245]) 
-    mean = np.array([  2.8128, 124.1033,   3.4967,   3.6444])
-    b = (b-mean)/std
+    # b = np.array([2.916,2.4229,5.554,5])
+    # std = np.array([1.9956, 247.6045,   1.8181,   2.5245]) 
+    # mean = np.array([  2.8128, 124.1033,   3.4967,   3.6444])
+    # b = (b-mean)/std
+    
+    b = np.array([  2.91, np.log(2.422e-03),   3.4967,   3.6444, 4.7002])
 
-    # log-traansform the parameters
-    #b = np.log(b)
+
     hydration_solver = HydrationSolverWrapper()
     heat_list = hydration_solver.solve(latents=b,inp_solver=inp_solver)
     #heat_list = hydration_solver_wrapper(b,inp_solver)
     print(f'heat_list = {heat_list}')
 
     # -- expected outputs
-    heat_list_exp =[  0.,           3.67389493 , 14.76660952 , 68.72818024 ,265.13160957]
+    heat_list_exp =[0.0,         0.06231378, 0.1284133,  0.27287546, 2.28620259]
     # assert the values are approximately equal
     # write assert statement also
-    assert np.allclose(heat_list,heat_list_exp,atol=1e-3), f"The heat list is not equal to the expected values. The solver output is {heat_list}"
+    assert np.allclose(heat_list,heat_list_exp,atol=1e-3), "The heat list is not equal to the expected values"
 
 def test_homogenization_solver():
     latents = [30,3]
-    #latents = [40e9,40e6]
     homogenization_solver = HomogenizationSolverWrapper()
     result = homogenization_solver.solve(latents=latents)
     print(f'result = {result}')
@@ -43,5 +42,5 @@ def test_homogenization_solver():
     assert np.allclose(result,result_correct,atol=1e-3), "The homogenization solver is not working properly"
 
 
-test_homogenization_solver()
+#test_homogenization_solver()
 #test_hydration_solver_wrapper()

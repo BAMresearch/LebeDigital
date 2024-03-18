@@ -132,6 +132,10 @@ def MCMC_DRAM(log_func:callable, n_dim:int,no_samples=1000,x_init:list =None, **
         The first agrumnet should be the RVs and the rest are the parameters which should be provided.
     n_dim : int
         _description_
+    no_samples : int
+        _description_
+    x_init : list
+        The initial point of the Markov Chain
     """
 
     pmpd = pm.ParaDRAM()
