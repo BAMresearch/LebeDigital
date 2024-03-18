@@ -107,9 +107,9 @@ rule get_mix_hydration_parameters:
 
         # run script
         results['mix1_B1'], results['mix1_B2'], results['mix1_eta'], results['mix1_E_act'], results['mix1_Q_pot'], results['mix1_T_ref'] = \
-            computation_hydration_parameters(0,input.mean_NN, input.cov_params,q['seed']['value'])
+            computation_hydration_parameters(0.0,input.mean_NN, input.cov_params,q['seed']['value'])
         results['mix2_B1'], results['mix2_B2'], results['mix2_eta'], results['mix2_E_act'], results['mix2_Q_pot'], results['mix2_T_ref'] = \
-            computation_hydration_parameters(1,input.mean_NN, input.cov_params,q['seed']['value'])
+            computation_hydration_parameters(1.0,input.mean_NN, input.cov_params,q['seed']['value'])
 
         write_pint_dict(results,output.results)
 
