@@ -4,6 +4,8 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import time
+datetime = time.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 def update_json(file_path: Path, key: str, value):
@@ -43,6 +45,12 @@ def get_kpis(input: dict, path: Path) -> dict:
     # The design variables, aggregate ratio and the slag ratio needs to be updated.
     update_json(input_path / "geometry.json", "height", input["height"])
     update_json(input_path / "sc_fraction.json", "sc_mass_fraction", input["slag_ratio"])
+    update_json(input_path/"seed_learnt_models.json", "seed", input["seed"])
+
+    # # pass the seed to the scripts for the RVs (see eqn 29 SVO paper)
+    # # Updating the phi's which are input to the script.
+    # update_json(phi_hydration_path, 'seed', seed)
+    # update_json(phi_paste_path, 'seed', seed)
 
     # Run the workflow using snakemake
     # add the path to the workflow file and the path to the directory
@@ -50,9 +58,10 @@ def get_kpis(input: dict, path: Path) -> dict:
     # directory_path = Optimization_workflow_path
 
     # run workflow
-    os.system(f'snakemake --cores 4 --snakefile {path / "Snakefile"} ' f"--directory {path}")
+    os.system(f'snakemake --cores 8 --snakefile {path / "Snakefile"} ' f"--directory {path}")
 
     # get kpis
+    # negative values of constraints are good and positve are failing
     kpis = {}
     results_path = path / "Results"
     kpi_from_fem = load_json(results_path / "kpi_from_fem.json")
@@ -76,11 +85,15 @@ if __name__ == "__main__":
     output_path = path_to_workflow / "Results"
 
     # input lists
-    height_list = [1200]
-    slag_ratio_list = [0.5]
+    # height_list = [600.0,750.0,1000.0,1250.0]
+    # slag_ratio_list = [0.1,0.35,0.60,0.85]
+    height_list = [700.0,750.0,800.0,850.0]
+    slag_ratio_list = [0.001]
 
     df = pd.DataFrame()
-
+    seed =666
+    #seed = [43, 66, 10,546]
+    #for p,seed in enumerate(seed):
     for i, height in enumerate(height_list):
         for j, slag_ratio in enumerate(slag_ratio_list):
             # remove all files from the directory output_path
@@ -92,7 +105,7 @@ if __name__ == "__main__":
             print("___________________________________________________________")
             print(f" {current}/{total}     RUN WORKFLOW WITH {height} {slag_ratio}")
             print("___________________________________________________________")
-            inputs = {"height": height, "slag_ratio": slag_ratio}
+            inputs = {"height": height, "slag_ratio": slag_ratio, "seed":seed}
             results = get_kpis(inputs, path_to_workflow)
 
             new_row = {
@@ -109,7 +122,8 @@ if __name__ == "__main__":
             # add new row to existing dataframe
             df = pd.concat([df, new_df], ignore_index=True)
 
-    # df.to_csv(f"kpis_{inputs['agg_ratio']}_{inputs['slag_ratio']}.csv",index=False)
-    df.to_csv(f"kpis.csv", index=False)
+    #df.to_csv(f"kpis_{inputs['agg_ratio']}_{inputs['slag_ratio']}.csv",index=False)
+    #df.to_csv(f"kpis_seed_{seed}_"+datetime+".csv", index=False)
+    df.to_csv(f"kpis_"+datetime+".csv", index=False)
 
 print("Done")

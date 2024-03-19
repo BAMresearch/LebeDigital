@@ -1,0 +1,28 @@
+operator_date: '2017-03-06'
+tester_name: Haamkens
+specimen_name: Stelzner 7.1
+cement--QuantityInMix: 580.0
+cement--BulkDensity: 3.123
+cement--Volume: 185.7
+cement--Annotation: CEM I 42.5 R "Rüdersdorf"
+water_total--QuantityInMix: 173.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 173.0
+water_cement_ratio: 0.2982758620689655
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 63.8
+addition1--BulkDensity: 2.39
+addition1--Volume: 26.7
+addition1--Annotation: RW Füller (Mikrosilika)
+admixture--QuantityInMix: 14.5
+admixture--BulkDensity: 1.05
+admixture--Volume: 13.8
+admixture--Annotation: FM 595 BASF
+aggregate--QuantityInMix: 1528.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 580.8

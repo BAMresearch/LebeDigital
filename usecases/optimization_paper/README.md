@@ -42,3 +42,7 @@ Currently, these macros are defined in **tex/macros/py_macros.yaml**.
 It is a simpel dictionary where the key is the tex-command and the value, the tex-code.
 The script **tex/macros/py_macros.py** then generates the **tex/macros/py_macros.tex** from this.
 The dictionary is also read in the dodo file, so file names can be passed as inputs to functions.
+
+## Comments from Atul:
+### Analyze_kpis
+This folder has a script to run the snakemake workflow for varrying design variables and saving the KPIs as csv file. Also has script to plot from this .csv file. Careful with the Paths !!
