@@ -74,6 +74,10 @@ jobs:
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/optimization_workflow/
           snakemake -c 1
 
+      - uses: actions/checkout@v2 # install latex
+      - name: Set up LaTeX
+        uses: xu-cheng/latex-action@v2
+
       - name: run-optimization-paper
         shell: bash -l {0}
         run: |
