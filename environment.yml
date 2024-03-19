@@ -1,4 +1,4 @@
-name: lebedigital_tmp
+name: lebedigital
 channels:
   - conda-forge                     # third party stuff
   - bioconda                        # snakemake
