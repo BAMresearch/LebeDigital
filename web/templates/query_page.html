@@ -68,6 +68,62 @@
         <a href="/query" class="menu-item">Query Data</a>
         <a href="/logout" style="position: absolute; bottom: 20px; left: 100px; text-decoration: underline; color: blue; cursor: pointer;">Logout</a>
     </div>
+    <div class="content">
+        <!-- Existing content -->
 
+        <!-- SPARQL Query Form -->
+        <h3>Query Data</h3>
+        <form id="sparqlForm">
+            <textarea id="sparqlQuery" name="q" rows="10" cols="100" placeholder="Enter your SPARQL query here"></textarea>
+            <br>
+            <button type="submit">Run Query</button>
+        </form>
+        <!-- Button, um vorgefertigten Text einzufügen -->
+        <button id="insertTextBtn">Insert Predefined Text</button>
+        <div id="queryResults">
+            <!-- Query results will be displayed here -->
+        </div>
+    </div>
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Funktion zum Ausführen der SPARQL-Abfrage
+    function executeSparqlQuery(query) {
+        // Erstellen eines neuen XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        // Konfigurieren der Anfrage
+        xhr.open('POST', '/query', true); // oder GET, abhängig von Ihrem Endpunkt
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Für POST-Anfragen
+
+        // Setzen eines Handlers für die Antwort
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Erfolg: Ergebnisse im angegebenen Container anzeigen
+                document.getElementById('queryResults').innerHTML = xhr.responseText;
+            } else {
+                // Fehler: Fehlermeldung im Container anzeigen
+                document.getElementById('queryResults').innerHTML = 'Fehler bei der Ausführung der Abfrage.';
+            }
+        };
+
+        // Senden der Anfrage mit Daten
+        xhr.send('query=' + encodeURIComponent(query)); // Stellen Sie sicher, dass dies Ihrem Endpunkt-Format entspricht
+    }
+
+    // Formular-Submit-Event-Handler
+    document.getElementById('sparqlForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Standard-Formular-Submit unterbrechen
+        var query = document.getElementById('sparqlQuery').value;
+
+        // Führen Sie die Abfrage mit der definierten Funktion aus
+        executeSparqlQuery(query);
+    });
+    // Event-Handler für den Button, um den vorgefertigten Text einzufügen
+    document.getElementById('insertTextBtn').addEventListener('click', function() {
+        var predefinedText = 'SELECT ?s ?p ?o WHERE { ?s ?p ?o }';
+        document.getElementById('sparqlQuery').value = predefinedText;
+    });
+});
+</script>
+

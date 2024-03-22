@@ -108,7 +108,7 @@
         &emsp;
         <h3>Data Upload complete.</h3>
         <br><br><br>
-        <button type="button" onclick="uploadFinish()">Finish</button>
+        <button type="button" onclick="window.location.href='/query';">Finish</button>
     </div>
 </body>
 </html>
@@ -117,13 +117,26 @@
     // Globale Variable
     var mixtureID = null;
     var institute = 'BAM';
-    
-    function uploadData(type, buttonID) {
-        var fileInput = document.getElementById(buttonID);
 
+    function generateUUIDv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+    }
+
+    function uploadData(type, buttonID) {
+        if (type === 'Mixture') {
+        mixtureID = generateUUIDv4(); // Generiere eine neue UUID v4 und weise sie `mixtureID` zu
+         console.log(`Neue Mixture ID: ${mixtureID}`); // Zeige die generierte ID an
+        } else {
+        console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
+        }
+
+        var fileInput = document.getElementById(buttonID);
         var formData = new FormData();
         formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
         formData.append('type', type); // Fügt den übergebenen Typ hinzu
+        formData.append('Mixture_ID', mixtureID); // Übergibt die Mixture ID
 
         fetch('/dataUpload', {
             method: 'POST',
@@ -180,14 +193,6 @@
             responseDiv.innerHTML = 'Fehler beim Abrufen der Daten'; // Zeigt eine Fehlermeldung an
         });
     }
-
-    
-    // Wenn die mixture hochgeladen wird
-    function uploadMixture() {
-        // reset mixtureID if it is uploaded seperatly because it will get a new ID
-        mixtureID = null;
-        return true;
-    }
     
     // Nächste Seite
     function nextSiteOne(page) {
@@ -203,22 +208,5 @@
 
         // Zeigt den neuen Inhalt an
         document.getElementById(pageMap.get(page + 1)).style.display = 'block';
-    }
-    
-    // Metadaten hochladen beim beenden
-    function uploadFinish() {
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/uploadFinish", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Weiterleitung nach erfolgreichem Senden der Daten
-                window.location.href = "/query";
-            }
-        };
-
-        var data = JSON.stringify({ "var1": mixtureID, "var2": institute });
-        xhr.send(data);
     }
 </script>

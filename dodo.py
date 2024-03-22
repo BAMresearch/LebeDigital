@@ -25,16 +25,6 @@ output_files_name = {'Mixture': 'Mixture_Mapped.ttl',
 datasets = []
 
 
-def task_json_to_db():
-    def upload_json():
-        upload_to_db()
-        return
-    return {
-        'actions': [upload_json],
-        'verbosity': 2,
-    }
-
-
 def task_mix_mapping():
     def mix_mapping():
         dateipfad = f'{import_path}/mix.json'

@@ -17,11 +17,10 @@ def show_uploads():
 
     # Überprüfen, ob Einträge vorhanden sind
     if rows:
-        print("ID | User | FileType | Type | Blob (size)")
-        print("-" * 50)
         for row in rows:
-            # Die Größe des BLOBs wird für die Anzeige ermittelt, um die Ausgabe lesbar zu halten
-            print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {len(row[4])} bytes")
+            print('------------')
+            for number, element in enumerate(row):
+                print(number, element)
     else:
         print("Keine Einträge gefunden.")
 

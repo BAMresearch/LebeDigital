@@ -1,6 +1,7 @@
 import os
+import uuid
 import sqlite3
-from datetime import timedelta
+from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -147,10 +148,19 @@ def init_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS uploads (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user TEXT NOT NULL,
-                filetype TEXT NOT NULL,
-                type TEXT NOT NULL,
-                blob BLOB NOT NULL
+                Unique_ID TEXT,
+                Mixture_ID TEXT,
+                user TEXT,
+                filetype TEXT,
+                type TEXT,
+                blob BLOB,
+                Json BLOB,
+                ttl BLOB,
+                Json_Specimen BLOB,
+                ttl_Specimen BLOB,
+                UploadDate TEXT,
+                Mapped INTEGER,
+                Error INTEGER
             );
         ''')
         conn.commit()
@@ -161,7 +171,6 @@ def init_db():
 def data_upload():
     init_db()
     file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt']
-    # Session-Beispiel (stellen Sie sicher, dass Sie den Benutzernamen in der Session setzen)
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
@@ -174,7 +183,12 @@ def data_upload():
 
     if 'type' not in request.form:
         return jsonify({'error': 'Kein Typ angegeben'}), 400
+
+    if 'Mixture_ID' not in request.form:
+        return jsonify({'error': 'Keine Mixture ID angegeben'}), 400
+
     type = request.form['type']
+    mixtureID = str(request.form['Mixture_ID'])
     user = session['username']  # Benutzernamen aus der Session holen
     # Extrahieren der Dateiendung
     _, file_extension = os.path.splitext(file.filename)
@@ -187,11 +201,19 @@ def data_upload():
     # Datei als BLOB speichern
     file_blob = file.read()
 
+    # Aktuelle Zeit
+    uploaddate = datetime.now().isoformat()
+
+    if type == 'Mixture':
+        unique_id = mixtureID
+    else:
+        unique_id = str(uuid.uuid4())
+
     # Verbindung zur Datenbank herstellen und die Daten speichern
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO uploads (user, filetype, type, blob) VALUES (?, ?, ?, ?)',
-                   (user, filetype, type, file_blob))
+    cursor.execute('INSERT INTO uploads (user, filetype, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                   (user, filetype, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
     conn.commit()
     conn.close()
 
