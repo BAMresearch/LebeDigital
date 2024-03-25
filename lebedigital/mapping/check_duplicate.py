@@ -45,7 +45,7 @@ def extract_common_prefix(keys):
 # Load the JSON data from your file
 def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
     #json_files = os.listdir(json_files_directory)
-    with open(json_file_path, 'r') as file:
+    with open(json_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
     #for json_file in json_files:
         #json_file_path = os.path.join(json_files_directory, json_file)
