@@ -107,10 +107,26 @@ def extract_metadata_mixdesign(locationOfRawData):
                 logger.error('More than two additions found in raw data.')
                 raise Exception('More than two additions found in raw data.')
 
+        for i in range(len(labelcolumn)):
+            labelcolumn[i] = str(labelcolumn[i]).strip()  # remove whitespace
+
+            # fill dictionary with labels and corresponding indices, unless the
+            # label is "admixture". Then differ between 1st and 2nd admixture
+            if labelcolumn[i] != 'Zusatzmittel':
+                labelidx[labelcolumn[i]] = i
+            elif labelcolumn[i] == 'Zusatzmittel' and 'Zusatzmittel1' not in labelidx.keys():
+                labelidx['Zusatzmittel1'] = i
+            elif labelcolumn[i] == 'Zusatzmittel' and 'Zusatzmittel1' in labelidx.keys() \
+                    and 'Zusatzmittel2' not in labelidx.keys():
+                labelidx['Zusatzmittel2'] = i
+                logger.debug('Second admixture found in raw data.')
+            else:
+                logger.error('More than two admixtures found in raw data.')
+                raise Exception('More than two admixtures found in raw data.')
         # Check for missing labels; the following labels should exist (except
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
         default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)',
-                          'Zusatzmittel', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
+                          'Zusatzmittel1', 'Zusatzmittel2', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
         missing_labels = [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
             if missing_labels == ['Zusatzstoff2']:
@@ -127,6 +143,18 @@ def extract_metadata_mixdesign(locationOfRawData):
         idx_addition = [i for i in range(len(addition_finder)) if addition_finder[i] == True]
         logger.debug('Number of additions in raw data: ' + str(len(idx_addition)))
         for i in idx_addition:
+            # add the name in the annotation if not written there already
+            if str(exceltodf.iloc[i, 1]) in str(exceltodf.iloc[i, 8]):
+                pass
+            elif isNaN(exceltodf.iloc[i, 8]):
+                exceltodf.iloc[i, 8] = str(exceltodf.iloc[i, 1])
+            else:
+                exceltodf.iloc[i, 8] = str(exceltodf.iloc[i, 8]) + ' ' + str(exceltodf.iloc[i, 1])
+
+        admixture_finder = [True if i == 'Zusatzmittel' else False for i in labelcolumn]
+        idx_admixture = [i for i in range(len(admixture_finder)) if admixture_finder[i] == True]
+        logger.debug('Number of additions in raw data: ' + str(len(idx_admixture)))
+        for i in idx_admixture:
             # add the name in the annotation if not written there already
             if str(exceltodf.iloc[i, 1]) in str(exceltodf.iloc[i, 8]):
                 pass
@@ -198,8 +226,8 @@ def extract_metadata_mixdesign(locationOfRawData):
             raise Exception("Can not calculate water-cement-ratio! No values found!")
 
         # Admixture/Plasticizer ('Zusatzmittel')
-        if 'Zusatzmittel' not in missing_labels:
-            idx = labelidx['Zusatzmittel']
+        if 'Zusatzmittel1' not in missing_labels:
+            idx = labelidx['Zusatzmittel1']
             metadata['Admixture1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
             metadata['Admixture1_Content_Unit'] = 'kg/m^3'
             metadata['Admixture1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
@@ -207,6 +235,18 @@ def extract_metadata_mixdesign(locationOfRawData):
             no_empty_annotation('Admixture1')
         else:
             logger.error('Plasticizer/Admixture not included in json-file')
+
+        # Admixture/Plasticizer ('Zusatzmittel')
+        if 'Zusatzmittel2' not in missing_labels:
+            idx = labelidx['Zusatzmittel2']
+            metadata['Admixture2_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Admixture2_Content_Unit'] = 'kg/m^3'
+            metadata['Admixture2_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Admixture2_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Admixture2')
+        else:
+            logger.error('Plasticizer/Admixture2 not included in json-file')
+
 
         # Aggregate ('Zuschlag (gesamt)')
         if 'Zuschlag (gesamt)' not in missing_labels:
