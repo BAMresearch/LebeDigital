@@ -2,8 +2,8 @@ from server import app, db, User
 
 # run this to add a user to db
 
-username = ""
-plain_password = ""
+username = "test"
+plain_password = "test1"
 
 with app.app_context():
     # create new user

@@ -1,8 +1,14 @@
 import os
+import sys
+# Get the directory of the current script
+script_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
+
 import uuid
 import sqlite3
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
+from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query
@@ -61,14 +67,14 @@ def login():
 # Query page
 @app.route('/query')
 def query_page():
-    return render_template('query_page.html')
+    return render_template('queryPage.html')
 
 
 # Query page
 @app.route('/upload')
 def upload_page():
     if 'username' in session:
-        return render_template('upload_form.html')
+        return render_template('uploadForm.html')
     else:
         return redirect(url_for('login'))
 

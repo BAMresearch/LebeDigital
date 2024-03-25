@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Query Data{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<div class="content">
+    <!-- Existing content -->
+
+    <!-- SPARQL Query Form -->
+    <h3>Query Data</h3>
+    <form id="sparqlForm" class="pb-2">
+        <textarea id="sparqlQuery" name="q" rows="10" cols="100" placeholder="Enter your SPARQL query here"></textarea>
+        <br>
+        <button type="submit" class="btn btn-dark" >Run Query</button>
+    </form>
+    <!-- Button, um vorgefertigten Text einzufügen -->
+    <button type="button" class="btn btn-dark" id="insertTextBtn">Insert Predefined Text</button>
+    <div id="queryResults">
+        <!-- Query results will be displayed here -->
+    </div>
+</div>
+{% endblock %}

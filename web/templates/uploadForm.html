@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Data{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<!-- Hauptinhalt -->
+<div class="content" id="mainContent">
+    <h1 class="title-item">Upload your Data</h1>
+    &emsp;
+    <h3>Which Concrete Mixture did you use?</h3>
+    <!-- Textfeld mit Go-Knopf -->
+    <input type="text" id="textInput" placeholder="Enter mixture Name">
+    <button onclick="submitMixture()">Go</button>
+    <br>
+    <div id="mixresponseText" style="display: none;"></div>
+    <br><br>
+    <span>or <strong>upload</strong> your own</span>
+    <br><br>
+    <input type="file" id="fileInput1">
+    <button onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
+
+    <br><br><br><br><br>
+    <button onclick="nextSiteOne(1)">Next</button>
+</div>
+
+<!-- Neuer Inhalt, anfangs ausgeblendet -->
+<div class="new-content" id="newContent" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+    <h1 class="title-item">Upload your Data</h1>
+    &emsp;
+    <h3>Upload your E-Module</h3>
+    <p>(if you don't have it click next)</p>
+    <br><br>
+    <input type="file" id="fileInput2">
+    <button onclick="uploadData('EModule', 'fileInput2')">Upload</button>
+    <br><br><br><br><br>
+    <button onclick="nextSiteOne(2)">Next</button>
+</div>
+
+<!-- Neuer Inhalt, anfangs ausgeblendet -->
+<div class="new-content" id="last" style="display: none; width: 78%; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+    <h1 class="title-item">Upload your Data</h1>
+    &emsp;
+    <h3>Data Upload complete.</h3>
+    <br><br><br>
+    <button type="button" onclick="window.location.href='/query';">Finish</button>
+</div>
+{% endblock %}
