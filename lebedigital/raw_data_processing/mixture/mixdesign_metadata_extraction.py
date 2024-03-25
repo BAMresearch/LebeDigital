@@ -95,11 +95,11 @@ def extract_metadata_mixdesign(locationOfRawData):
 
             # fill dictionary with labels and corresponding indices, unless the
             # label is "addition". Then differ between 1st and 2nd addition
-            if labelcolumn[i] != 'Zusatzstoff':
+            if labelcolumn[i] != 'Zusatzstoff Flugasche':
                 labelidx[labelcolumn[i]] = i
-            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' not in labelidx.keys():
+            elif labelcolumn[i] == 'Zusatzstoff Flugasche' and 'Zusatzstoff1' not in labelidx.keys():
                 labelidx['Zusatzstoff1'] = i
-            elif labelcolumn[i] == 'Zusatzstoff' and 'Zusatzstoff1' in labelidx.keys() \
+            elif labelcolumn[i] == 'Zusatzstoff Flugasche' and 'Zusatzstoff1' in labelidx.keys() \
                     and 'Zusatzstoff2' not in labelidx.keys():
                 labelidx['Zusatzstoff2'] = i
                 logger.debug('Second addition found in raw data.')
@@ -123,7 +123,7 @@ def extract_metadata_mixdesign(locationOfRawData):
         # in a cell that will be neglected during the extraction, so this saves
         # the type of Addition inside the annotation - but only in case it isn't
         # mentioned there already
-        addition_finder = [True if i == 'Zusatzstoff' else False for i in labelcolumn]
+        addition_finder = [True if i == 'Zusatzstoff Flugasche' else False for i in labelcolumn]
         idx_addition = [i for i in range(len(addition_finder)) if addition_finder[i] == True]
         logger.debug('Number of additions in raw data: ' + str(len(idx_addition)))
         for i in idx_addition:
@@ -244,7 +244,14 @@ def extract_metadata_mixdesign(locationOfRawData):
             logger.error('addition2 not included in json-file')
 
         return metadata
-
+def remove_double_quotes(metadata):
+    """
+    Removes double quotes from values in the metadata dictionary.
+    """
+    for key, value in metadata.items():
+        if isinstance(value, str):
+            metadata[key] = value.replace('"', '')  # Remove double quotes
+    return metadata
 
 def mix_metadata(rawDataPath, metaDataFile):
     """Creates a json file with extracted metadata for the mixDesign.
@@ -266,11 +273,14 @@ def mix_metadata(rawDataPath, metaDataFile):
     # Replace occurrences of NaN with None in the metadata dictionary
     metadata = {key: None if isNaN(value) else value for key, value in metadata.items()}
 
+    # Remove double quotes from values
+    metadata = remove_double_quotes(metadata)
+
     json_name = os.path.basename(rawDataPath).split('.')[0]
     metaDataFile = str(metaDataFile) + json_name
     # print(rawDataPath.split('/')[-1].split('.')[0])
     # writing the metadata to json file
-    with open(metaDataFile + ".json", 'w') as jsonFile:
+    with open(metaDataFile + ".json", 'w', encoding='utf-8') as jsonFile:
         json.dump(metadata, jsonFile, sort_keys=False, ensure_ascii=False, indent=4)
 
     return metaDataFile
@@ -287,10 +297,10 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../usecases/MinimumWorkingExample/Data/Mischungen/2019_06_26 Klimek Geschossdecke_Quarzkies.xls'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Mischungen_BAM/20240220_7188_M01.xls'
         
     if args.output == None:
-        args.output = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
+        args.output = '../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
           
     # run extraction and write metadata file
     # path_to_json = mix_metadata(args.input, args.output)

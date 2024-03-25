@@ -149,7 +149,7 @@ def extract_metadata_emodulus(rawDataPath, specimen_file='specimen.dat', mix_fil
 
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + os.path.splitext(lines)[0] + ".json", "r", encoding="utf8", errors='ignore') as mixjson:  #change location of where
+            with open("../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + 'metadata_' + os.path.splitext(lines)[0] + ".json", "r", encoding="utf8", errors='ignore') as mixjson:  #change location of where
             #with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
                 #mixtureHumID = mixdesign['humanreadableID']

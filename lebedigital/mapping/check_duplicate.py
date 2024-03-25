@@ -2,13 +2,15 @@
 # placeholders for them and add them to the Knowledge graph Template
 
 from loguru import logger
+from pathlib import Path
 import json
 import re
 import os
 
-#json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
-#json_files = os.listdir(json_files_directory)
-json_file_path = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2014_08_05 Rezeptur_MI.json'
+json_files_directory = '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/'
+# Get the list of all JSON files in the directory
+json_files = [file for file in os.listdir(json_files_directory) if file.endswith('.json')]
+# Path to the KG template
 kg_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl'
 output_template_path = '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
 
@@ -131,9 +133,12 @@ def check_mix_metadata(json_file_path, kg_template_path, output_template_path):
     with open(output_template_path, 'w') as new_file:
         new_file.write(modified_turtle_data.replace(",        n", ",\n\t\tn"))
 
-
+if json_files:
+    # Get the path to the selected JSON file
+    selected_json_file = json_files[0]
+    path_to_json = Path(json_files_directory) / selected_json_file
 # Call the function with the appropriate file paths
-check_mix_metadata(json_file_path, kg_template_path, output_template_path)
+    check_mix_metadata(path_to_json, kg_template_path, output_template_path)
 
 # Print a message indicating the successful modification and the path to the new TTL file
 logger.info(f'Turtle data has been successfully modified and saved to {output_template_path}')

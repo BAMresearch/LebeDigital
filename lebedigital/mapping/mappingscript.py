@@ -231,7 +231,7 @@ def main():
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
                       '../../usecases/demonstrator/KIT_Data/CompressiveStrength_json_files/mix0_CompressiveStrength/KIT_CS_M1_1d_W1_Specimen.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/2019_06_26 Klimek Geschossdecke_Quarzkies.json',
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/metadata_2019_06_26 Klimek Geschossdecke_Quarzkies.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
                       ]
     if args.output == None:
