@@ -211,7 +211,7 @@ def mapping(KGtemplatePath, metadataPath, outputPath):
     mappedKG = placeholderreplacement(KGtemplatePath, metadataPath)
 
     # writing to ttl file
-    with open(outputPath, 'w') as file:
+    with open(outputPath, 'w', encoding="utf8") as file:
         for line in mappedKG:
             file.write(line)
 
@@ -231,13 +231,13 @@ def main():
                       '../../lebedigital/ConcreteOntology/Specimen_KG_Template.ttl',
                       '../../usecases/demonstrator/KIT_Data/CompressiveStrength_json_files/mix0_CompressiveStrength/KIT_CS_M1_1d_W1_Specimen.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template.ttl',
-                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/metadata_2019_06_26 Klimek Geschossdecke_Quarzkies.json',
+                      '../../usecases/MinimumWorkingExample/mixture/metadata_json_files/m_20240220_7188_M02.json',
                       '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl'
                       ]
     if args.output == None:
         args.output = ['../../usecases/MinimumWorkingExample/Mapping_Example/ComStMapped.ttl',
                        '../../usecases/MinimumWorkingExample/Mapping_Example/SpecimenMapped.ttl',
-                       '../../usecases/MinimumWorkingExample/Mapping_Example/MixMapped.ttl',
+                       '../../usecases/MinimumWorkingExample/Mapping_Example/M02_Mapped.ttl',
                        '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl']
 
     # Check mix metadata and generate additional placeholders
