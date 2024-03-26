@@ -65,7 +65,7 @@ Path(emodul_output_directory).mkdir(parents=True, exist_ok=True)
 # MIXTURE PATHS
 # defining paths for mixture
 # folder with raw data files (excel)
-raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen')
+raw_data_mixture_directory = Path(ParentDir, 'Data', 'Mischungen_BAM')
 mixture_output_directory = Path(ParentDir, 'mixture')   # folder with folders
 metadata_mixture_directory = Path(mixture_output_directory, 'metadata_json_files')
 
@@ -116,97 +116,97 @@ def task_extract_metadata_mixture():
 
 
 # extract standardized metadata for Young's modulus tests
-@create_after('extract_metadata_mixture')
-def task_extract_metadata_emodul():
+#@create_after('extract_metadata_mixture')
+#def task_extract_metadata_emodul():
     # create folder, if it is not there
-    Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
+    #Path(metadata_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
     # if config['mode'] == 'cheap' or config['mode'] == 'single':
     #    list_raw_data_emodulus_directories = [ Path(raw_data_emodulus_directory, single_example_name) ]
     # else: # go through all files
-    list_raw_data_emodulus_directories = os.scandir(
-        raw_data_emodulus_directory)
+    #list_raw_data_emodulus_directories = os.scandir(
+        #raw_data_emodulus_directory)
 
-    for f in list_raw_data_emodulus_directories:
-        if f.is_dir():
-            raw_data_path = Path(f)
-            raw_data_file = Path(f, 'specimen.dat')
-            specimen_metadata_file = Path(
-                metadata_emodulus_directory, f.name + ' _Specimen' + '.json')
-            metadata_file = Path(
-                metadata_emodulus_directory, f.name + '.json')
-            yield {
-                'name': f.name,
-                'actions': [(emodul_metadata, [raw_data_path, metadata_file, specimen_metadata_file])],
-                'file_dep': [raw_data_file],
-                'targets': [metadata_file, specimen_metadata_file],
-                'clean': [clean_targets]
-            }
+    #for f in list_raw_data_emodulus_directories:
+        #if f.is_dir():
+            #raw_data_path = Path(f)
+            #raw_data_file = Path(f, 'specimen.dat')
+            #specimen_metadata_file = Path(
+                #metadata_emodulus_directory, f.name + ' _Specimen' + '.json')
+            #metadata_file = Path(
+                #metadata_emodulus_directory, f.name + '.json')
+            #yield {
+                #'name': f.name,
+                #'actions': [(emodul_metadata, [raw_data_path, metadata_file, specimen_metadata_file])],
+                #'file_dep': [raw_data_file],
+                #'targets': [metadata_file, specimen_metadata_file],
+                #'clean': [clean_targets]
+            #}
 
 # extract standardized processed data for Young' modulus tests
 
 
-def task_extract_processed_data_emodul():
+#def task_extract_processed_data_emodul():
     # create folder, if it is not there
-    Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
+    #Path(processed_data_emodulus_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_raw_data_emodulus_directories = [
-            Path(raw_data_emodulus_directory, single_example_name)]
-    else:  # go through all files
-        list_raw_data_emodulus_directories = os.scandir(
-            raw_data_emodulus_directory)
+    #if config['mode'] == 'cheap' or config['mode'] == 'single':
+        #list_raw_data_emodulus_directories = [
+            #Path(raw_data_emodulus_directory, single_example_name)]
+    #else:  # go through all files
+        #list_raw_data_emodulus_directories = os.scandir(
+            #raw_data_emodulus_directory)
 
-    for f in list_raw_data_emodulus_directories:
-        if f.is_dir():
-            raw_data_file = Path(f, 'specimen.dat')
+    #for f in list_raw_data_emodulus_directories:
+        #if f.is_dir():
+            #raw_data_file = Path(f, 'specimen.dat')
             # the name of the csv file is the file name of the raw data
             # is processed_data_directory + directory_raw_data.csv
-            csv_data_file = Path(
-                processed_data_emodulus_directory, f.name + '.csv')
+            #csv_data_file = Path(
+                #processed_data_emodulus_directory, f.name + '.csv')
 
-            yield {
-                'name': f.name,
-                'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
-                'file_dep': [raw_data_file],
-                'targets': [csv_data_file],
-                'clean': [clean_targets]
-            }
+            #yield {
+                #'name': f.name,
+                #'actions': [(processed_data_from_rawdata, [f, csv_data_file])],
+                #'file_dep': [raw_data_file],
+                #'targets': [csv_data_file],
+                #'clean': [clean_targets]
+            #}
 
 #generate knowledgeGraphs
-@create_after(executed='extract_metadata_emodul')
-def task_export_Mapping():
+#@create_after(executed='extract_metadata_emodul')
+#def task_export_Mapping():
 # create folder, if it is not there
-    Path(knowledge_graphs_output_directory).mkdir(parents=True, exist_ok=True)
+    #Path(knowledge_graphs_output_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    if config['mode'] == 'cheap' or config['mode'] == 'single':
-        list_metadata_json_files = [Path(metadata_mixture_directory, single_mix_name.split(".xls")[0] + '.json')]
-    else:  # go through all files
+    #if config['mode'] == 'cheap' or config['mode'] == 'single':
+        #list_metadata_json_files = [Path(metadata_mixture_directory, single_mix_name.split(".xls")[0] + '.json')]
+    #else:  # go through all files
         # list of all meta data files....
-        list_metadata_json_files = os.scandir(metadata_mixture_directory)
+        #list_metadata_json_files = os.scandir(metadata_mixture_directory)
 
     # check directory, if
 
-    for f in list_metadata_json_files:
-        if f.is_file():
+    #for f in list_metadata_json_files:
+        #if f.is_file():
             # path to metadata json
-            metadata_file_path = Path(f)
-            name_of_ttl = f.name.replace('.json', '.ttl')
+            #metadata_file_path = Path(f)
+            #name_of_ttl = f.name.replace('.json', '.ttl')
             # path to input KG template
-            KGtemplatePath = Path(knowledge_graphs_Template_directory, single_KG_template)
+            #KGtemplatePath = Path(knowledge_graphs_Template_directory, single_KG_template)
             # path to output file KG
-            knowledge_graph_file = Path(knowledge_graphs_output_directory, name_of_ttl)
+            #knowledge_graph_file = Path(knowledge_graphs_output_directory, name_of_ttl)
 
-            yield{
-                'name': f.name,
-                'actions': [(mapping, [KGtemplatePath, metadata_file_path, knowledge_graph_file])],
-                'file_dep': [metadata_file_path],
-                'targets': [knowledge_graph_file],
-                'clean': [clean_targets]
-            }
+            #yield{
+                #'name': f.name,
+                #'actions': [(mapping, [KGtemplatePath, metadata_file_path, knowledge_graph_file])],
+                #'file_dep': [metadata_file_path],
+                #'targets': [knowledge_graph_file],
+                #'clean': [clean_targets]
+            #}
 
 
 
