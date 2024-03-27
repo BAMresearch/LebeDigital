@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -82,6 +83,7 @@
             <input type="password" id="passwordInput" name="password" placeholder="Passwort" autocomplete="new-password" required>
             <button type="submit" id="loginButton">Anmelden</button>
         </form>
+        <p>Don't have an account? <a href="/signup">Create one</a>.</p>
     </div>
 </body>
 </html>

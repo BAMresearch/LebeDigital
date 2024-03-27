@@ -64,6 +64,25 @@ def login():
     return render_template('login.html')
 
 
+#Sign up page
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # create new user
+        new_user = User(username=username)
+        new_user.set_password(password)
+
+        # Add to db
+        db.session.add(new_user)
+        db.session.commit()
+        return 'User {} signed up!'.format(username)
+
+    return render_template('signup.html')
+
+
 # Query page
 @app.route('/query')
 def query_page():
