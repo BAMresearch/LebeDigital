@@ -5,23 +5,29 @@
 {% block content %}
 <!-- Page-specific content goes here -->
 <!-- Hauptinhalt -->
-<div class="content" id="mainContent">
-    <h1 class="title-item">Upload your Data</h1>
-    &emsp;
-    <h3>Which Concrete Mixture did you use?</h3>
-    <!-- Textfeld mit Go-Knopf -->
-    <input type="text" id="textInput" placeholder="Enter mixture Name">
-    <button onclick="submitMixture()">Go</button>
-    <br>
-    <div id="mixresponseText" style="display: none;"></div>
-    <br><br>
-    <span>or <strong>upload</strong> your own</span>
-    <br><br>
-    <input type="file" id="fileInput1">
-    <button onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
-
-    <br><br><br><br><br>
-    <button onclick="nextSiteOne(1)">Next</button>
+<div class="content col-md-9" id="mainContent">
+    <h3 class="title-item pb-2">Upload your Data</h3>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title">Which Concrete Mixture did you use?</p>
+            <div class="input-group mb-3">
+                <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-dark" type="button" onclick="submitMixture()">Go</button>
+                </div>
+            </div>
+            <div id="mixresponseText" style="display: none;"></div>
+            <p class="mt-5">or <strong>upload</strong> your own</p>
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="fileInput1">
+                </div>
+                
+                <button class="btn btn-outline-dark" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
+            </div>
+            <button class="btn btn-dark mt-4" onclick="nextSiteOne(1)">Next</button>
+        </div>
+    </div>
 </div>
 
 <!-- Neuer Inhalt, anfangs ausgeblendet -->

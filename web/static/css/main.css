@@ -1,5 +1,5 @@
 body {
-    font-size: .875rem;
+    font-size: 1rem;
   }
   
   .feather {
@@ -28,23 +28,17 @@ body {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   }
   
-  .sidebar .nav-link {
+  .nav-link {
+    color: #333;
+  }
+  .nav-link:hover {
     font-weight: 500;
     color: #333;
   }
-  
-  .sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #999;
-  }
-  
-  .sidebar .nav-link.active {
-    color: #007bff;
-  }
-  
-  .sidebar .nav-link:hover .feather,
-  .sidebar .nav-link.active .feather {
-    color: inherit;
+  .nav-link.active {
+    background-color: #e0e0e0 !important;
+    color: #333 !important;
+    font-weight: 500;
   }
   
   .sidebar-heading {

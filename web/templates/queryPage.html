@@ -9,15 +9,18 @@
 
     <!-- SPARQL Query Form -->
     <h3>Query Data</h3>
-    <form id="sparqlForm" class="pb-2">
+    <form id="sparqlForm" class="pt-2 pb-4">
         <textarea id="sparqlQuery" name="q" rows="10" cols="100" placeholder="Enter your SPARQL query here"></textarea>
         <br>
-        <button type="submit" class="btn btn-dark" >Run Query</button>
+        <div class="d-flex pt-3" style="gap: 10px;">
+            <button type="submit" class="btn btn-dark">Run Query</button>
+            <!-- Button, um vorgefertigten Text einzufügen -->
+            <button type="button" class="btn btn-outline-dark" id="insertTextBtn">Insert Predefined Text</button>
+        </div>
     </form>
-    <!-- Button, um vorgefertigten Text einzufügen -->
-    <button type="button" class="btn btn-dark" id="insertTextBtn">Insert Predefined Text</button>
     <div id="queryResults">
         <!-- Query results will be displayed here -->
     </div>
+
 </div>
 {% endblock %}
