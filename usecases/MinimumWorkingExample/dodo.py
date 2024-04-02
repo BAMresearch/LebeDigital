@@ -17,6 +17,10 @@ from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_process
     processed_data_from_rawdata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
     emodul_metadata
+from lebedigital.raw_data_processing.Compressive_strength.ComSt_generate_processed_data import \
+    processed_rawdata
+from lebedigital.raw_data_processing.Compressive_strength.ComSt_metadata_extraction import \
+    ComSt_metadata
 from lebedigital.mapping.mappingscript import mapping
 
 # from lebedigital.shacl import validation as shacl
@@ -33,7 +37,7 @@ config = {"mode": get_var('mode', 'cheap')}
 single_example_name = 'Wolf 8.2 Probe 1'
 # TODO: (if we want to keep using a single example) automatic identification of corresponding mix
 # corresponding mix sor the "single" example
-single_mix_name = '2014_12_10 Wolf.xls'
+single_mix_name = '20240220_7188_M01.xls'
 
 single_KG_template = 'MixtureDesign_KG_Template.ttl'
 
@@ -52,7 +56,7 @@ emodul_output_directory = Path(ParentDir, 'emodul')
 raw_data_emodulus_directory = Path(ParentDir, 'Data', 'E-modul')
 # folder with metadata json files
 metadata_emodulus_directory = Path(
-    emodul_output_directory, 'metadata_json_files')
+    emodul_output_directory, 'mixture/metadata_json_files')
 processed_data_emodulus_directory = Path(
     emodul_output_directory, 'processed_data')  # folder with csv data files
 knowledge_graphs_output_directory = Path(
@@ -85,6 +89,12 @@ shacl_directory = Path(lebedigital_directory, 'shacl')
 #union_output_path.mkdir(parents=True, exist_ok=True)
 
 
+def fixnames(path):
+    for f in os.listdir(path):
+        r = f.replace(" ","")
+        if( r != f):
+            os.rename(f,r)
+
 # TASKS
 # extract metadata for the mixture
 def task_extract_metadata_mixture():
@@ -104,8 +114,9 @@ def task_extract_metadata_mixture():
             raw_data_path = Path(f)
             # Extract the file name without extension and remove spaces
             file_name_without_extension = f.name.split(".xls")[0]
-            json_metadata_file = Path(metadata_mixture_directory, 'metadata_')
-            json_metadata = Path(json_metadata_file, file_name_without_extension + '.json')
+            #json_metadata_file = Path(metadata_mixture_directory, " ")
+            json_metadata_file = str(metadata_mixture_directory) + "/"
+            json_metadata = Path(json_metadata_file,  file_name_without_extension + '.json')
             if f.name not in excluded_mix_list:
                 yield {
                     'name': f.name,
@@ -113,8 +124,6 @@ def task_extract_metadata_mixture():
                     'targets': [json_metadata],
                     'clean': [clean_targets]
                 }
-
-
 # extract standardized metadata for Young's modulus tests
 #@create_after('extract_metadata_mixture')
 #def task_extract_metadata_emodul():
@@ -207,6 +216,3 @@ def task_extract_metadata_mixture():
                 #'targets': [knowledge_graph_file],
                 #'clean': [clean_targets]
             #}
-
-
-
