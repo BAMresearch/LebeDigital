@@ -47,7 +47,13 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
+# main page
+@app.route('/')
+def index():
+    # go to welcome page (no login required)
+    return render_template('welcome.html')
 
+#login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -116,13 +122,6 @@ def logout():
     session.pop('username', None)
 
     return redirect(url_for('login'))
-
-
-# main page
-@app.route('/')
-def index():
-    # standard is query (no login required)
-    return redirect(url_for('query_page'))
 
 
 # query mixture
