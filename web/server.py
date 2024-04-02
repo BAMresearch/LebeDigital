@@ -58,9 +58,10 @@ def login():
         if user and user.check_password(password):  # check password
             session['username'] = user.username
             # set session for user
-            return redirect(url_for('upload_page'))
+            return redirect(url_for('query_page'))
         else:
-            flash('Falscher Benutzername oder Passwort')
+            error_message = 'Incorrect Username or Password'
+            return render_template('login.html', errormessage=error_message)
     return render_template('login.html')
 
 
@@ -71,25 +72,36 @@ def signup():
         username = request.form['username']
         password = request.form['password']
 
-        # create new user
+        # Check if the username already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            # Username already taken, show an error message
+            error_message = "Username already exists. Please choose a different one."
+            return render_template('signup.html', errormessage=error_message)
+
+        # Create a new user
         new_user = User(username=username)
         new_user.set_password(password)
 
-        # Add to db
+        # Add to the database
         db.session.add(new_user)
         db.session.commit()
-        return 'User {} signed up!'.format(username)
+        return render_template('login.html')
 
     return render_template('signup.html')
+
 
 
 # Query page
 @app.route('/query')
 def query_page():
-    return render_template('queryPage.html')
+    if 'username' in session:
+        return render_template('queryPage.html')
+    else:
+        return redirect(url_for('login'))
 
 
-# Query page
+# Upload page
 @app.route('/upload')
 def upload_page():
     if 'username' in session:

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <title>Sign Up</title>
     <!-- Other common meta tags, stylesheets, etc. -->
 
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #e9ecef;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,21 +24,44 @@
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="card col-md-5 no-border">
-            <div class="card-body">
-                <h2 class="card-title  text-center">Create Your Account</h2>
-                <form method="POST">
-                    <div class="form-group pb-2">
+        <div class="card col-md-5 no-border shadow-sm">
+            <div class="card-body p-5">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+                    <h5 class="text-center py-3 text-muted">Create Your Own Account</h5>
+                </div>
+                
+                <form method="POST" autocomplete="off">
+                    <div class="form-group pb-3">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                     </div>
-                    <div class="form-group pb-5">
+                    <div class="form-group pb-3">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100">Signup</button>
+                    <div class="form-group pb-3">
+                        <input type="password" class="form-control" id="retype-password" name="retype-password" placeholder="Retype Password" required>
+                    </div>
+                     <!-- Error message placeholder -->
+                    <p id="errormessage" name="errormessage" class="text-danger">{{ errormessage }}</p>
+                    <button type="submit" class="btn btn-dark w-100" onclick="return validate()">Signup</button>
                 </form>
-                <p class=" text-center pt-2">Already have an account? <a href="/login">Log in</a></p>
+                <p class="text-muted text-center pt-4">Already have an account? <a href="/login">Log in</a></p>
             </div>
         </div>
     </div>
+    <script>
+        function validate() {
+            var password = document.getElementById("password").value;
+            var retypePassword = document.getElementById("retype-password").value;
+    
+            if (password === retypePassword) {
+                // Passwords match
+                return true;
+            } else {
+                document.getElementById("errormessage").textContent = "Passwords do not match. Please re-enter.";
+                return false;
+            }
+        }
+    </script>
 </body>
 </html>
