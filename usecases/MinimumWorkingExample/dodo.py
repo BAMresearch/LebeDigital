@@ -17,10 +17,10 @@ from lebedigital.raw_data_processing.youngs_modulus_data.emodul_generate_process
     processed_data_from_rawdata
 from lebedigital.raw_data_processing.youngs_modulus_data.emodul_metadata_extraction import \
     emodul_metadata
-from lebedigital.raw_data_processing.Compressive_strength.ComSt_generate_processed_data import \
-    processed_rawdata
-from lebedigital.raw_data_processing.Compressive_strength.ComSt_metadata_extraction import \
-    ComSt_metadata
+#from lebedigital.raw_data_processing.Compressive_strength.ComSt_generate_processed_data import \
+    #processed_rawdata
+#from lebedigital.raw_data_processing.Compressive_strength.ComSt_metadata_extraction import \
+    #ComSt_metadata
 from lebedigital.mapping.mappingscript import mapping
 
 # from lebedigital.shacl import validation as shacl
