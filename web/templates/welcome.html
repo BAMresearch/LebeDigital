@@ -5,21 +5,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Carousel Template · Bootstrap v5.0</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>LeBeDigital</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     
   </head>
   <body>
     
 <header>
-    <nav class="navbar sticky-top shadow-sm justify-content-center py-md-3">
+    <nav class="navbar fixed-top bg-light shadow-sm justify-content-center pt-m pb-0d-3">
         <img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">
         <h3 class="mb-0">&nbsp; LeBeDigital: <span class="fw-light">Life cycle of concrete</span> </h3>
     </nav>
@@ -27,58 +27,58 @@
 
 <main>
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-interval="5000">
-            <img src="{{ url_for('static', filename='images/3.jpg') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption pt-0 align-middle">
-                <h3 class="display-6">Ontology development for the concrete <br>production process chain</h3>
-                <a href="/login"><button class="btn btn-lg btn-theme mt-4">Get Started</button></a>
-            </div>    
-            </div>
-            <div class="carousel-item" data-interval="5000">
-            <img src="{{ url_for('static', filename='images/2.jpg') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption pt-0 align-middle text-start">
-                <h3 class="display-6">A material database, where Concrete-specific characteristic values & models are integrated</h3>
-                <a href="/query"><button class="btn btn-lg btn-theme mt-4">Query Data</button></a>
-            </div>
-            </div>
-            <div class="carousel-item">
-            <img src="{{ url_for('static', filename='images/1.jpg') }}" class="d-block w-100" alt="...">
-            <div class="carousel-caption pt-0 align-middle text-end">
-                <h3 class="display-6">Automated workflow to create knowledge graphs from raw experimental data</h3>
-                <a href="/upload"><button class="btn btn-lg mt-4 btn-theme">Upload Data</button></a>
-            </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+  <div id="carouselExampleIndicators" class="carousel slide pt-5" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+          <div class="carousel-item active" data-interval="5000">
+          <img src="{{ url_for('static', filename='images/3.jpg') }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption pt-0 align-middle">
+              <h3 class="display-6">Ontology development for the concrete <br>production process chain</h3>
+              <a href="/login"><button class="btn btn-lg btn-theme mt-4">Get Started</button></a>
+          </div>    
+          </div>
+          <div class="carousel-item" data-interval="5000">
+          <img src="{{ url_for('static', filename='images/2.jpg') }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption pt-0 align-middle text-start">
+              <h3 class="display-6">A material database, where Concrete-specific characteristic values & models are integrated</h3>
+              <a href="/query"><button class="btn btn-lg btn-theme mt-4">Query Data</button></a>
+          </div>
+          </div>
+          <div class="carousel-item">
+          <img src="{{ url_for('static', filename='images/1.jpg') }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption pt-0 align-middle text-end">
+              <h3 class="display-6">Automated workflow to create knowledge graphs from raw experimental data</h3>
+              <a href="/upload"><button class="btn btn-lg mt-4 btn-theme">Upload Data</button></a>
+          </div>
+          </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </button>
+  </div>
 
 
   
-  <div class="container marketing">
+  <div class="container-fluid">
 
-    <div class="row featurette pt-5">
+    <div class="row featurette p-5">
       <div class="col-md-7 my-auto pt-4">
-        <h2 class="featurette-heading pb-4">Overview of content and objectives</h2>
+        <h2 class="featurette-heading pb-4">Overview of Content & Objectives</h2>
         <p class="">
             Production and testing of concrete:
             <ul>
-                <li>Ontology-based collection of data and metadata in TripleStores</li>
-                <li>Linking existing, experience-based, experimental and simulated data</li>
-                <li>Combined material optimisation and geometry optimisation of precast elements based on simulation workflows</li>
+                <li>Ontology-based collection of <span class="fw-bold">data</span> and <span class="fw-bold">metadata</span> in TripleStores</li>
+                <li>Linking existing, <span class="fw-bold">experience-based, experimental</span> and <span class="fw-bold">simulated</span> data</li>
+                <li>Combined <span class="fw-bold">material optimisation</span> and <span class="fw-bold">geometry optimisation</span> of precast elements based on simulation workflows</li>
                 <li>Model calibration</li>
             </ul>
         </p>
@@ -88,74 +88,153 @@
       </div>
     </div>
 
-    <div class="row featurette pt-5">
-        <div class="col-md-12  pt-4">
+    <div class="row featurette p-5 mt-5 bg-light-blue">
+        <div class="col-md-12 pt-2 pb-4 px-5">
           <h2 class="featurette-heading text-center pb-4">Ontology Development</h2>
-          <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="row row-cols-1 row-cols-md-3 g-5">
             <div class="col">
-              <div class="card h-100">
-                <div class="card-body py-4">
-                    <h5 class="card-title text-center pb-3">Conceptualisation</h5>
-                    <p class="card-text text-center">Lists of</p>
-                    <ul>
-                        <li>Definitions from the knowledge area of mineral building materials</li>
-                        <li>Specific relations</li>
-                        <li>Boundary conditions, scopes of application and value ranges</li>
-                    </ul>
-                    <div class="text-center">
-                        <img src="{{ url_for('static', filename='images/xlsx.png') }}"  alt="excel">
-                    </div>    
+              <div class="card h-100 border-0">
+                <div class="card-body pt-4 pb-0">
+                  <h5 class="card-title clr-theme text-center">Conceptualisation</h5>
+                  <p class="card-text text-center">Lists of</p>
+                  <ul>
+                      <li>Definitions from the knowledge area of mineral building materials</li>
+                      <li>Specific relations</li>
+                      <li>Boundary conditions, scopes of application and value ranges</li>
+                  </ul>   
                 </div>
+                <div class="card-footer text-center bg-white pb-4 pt-0 border-top-0">
+                  <img src="{{ url_for('static', filename='images/xlsx.png') }}"  alt="excel" class="icon-48">
+                </div> 
               </div>
             </div>
             <div class="col">
-              <div class="card h-100">
-                <div class="card-body py-4">
-                    <h5 class="card-title text-center pb-3">Structuring</h5>
-                    <p class="card-text text-center">Construction of domain ontologies</p>
-                    <ul>
-                        <li>Categorisation of definitions in classes</li>
-                        <li>Definition Properties</li>
-                        <li>Restrictions, Domains, Ranges, ...</li>
-                    </ul>
-                    <div class="text-center">
-                        <img src="{{ url_for('static', filename='images/protege.png') }}"  alt="excel">
-                    </div>    
+              <div class="card h-100 border-0">
+                <div class="card-body pt-4 pb-0">
+                  <h5 class="card-title clr-theme text-center">Structuring</h5>
+                  <p class="card-text text-center">Construction of domain ontologies</p>
+                  <ul>
+                      <li>Categorisation of definitions in classes</li>
+                      <li>Definition Properties</li>
+                      <li>Restrictions, Domains, Ranges, ...</li>
+                  </ul>  
                 </div>
+                <div class="card-footer text-center bg-white pb-3 pt-0 border-top-0">
+                  <img src="{{ url_for('static', filename='images/protege.jpg') }}"  alt="protege" class="icon-56">
+                </div>  
               </div>
             </div>
             <div class="col">
-              <div class="card h-100">
-                <div class="card-body py-4">
-                    <h5 class="card-title text-center pb-3">Networking</h5>
-                    <ul>
-                        <li>Individuals as placeholders </li>
-                        <li>Classification of individuals into classes</li>
-                        <li>Linking of individuals via properties</li>
-                        <li>TEMPLATE: KNOWLEDGE GRAPH</li>
-                    </ul>
-                    <div class="text-center">
-                        <img src="{{ url_for('static', filename='images/drawio.png') }}"  alt="excel">
-                    </div>    
+              <div class="card h-100 border-0">
+                <div class="card-body pt-4 pb-0">
+                  <h5 class="card-title clr-theme text-center">Networking</h5>
+                  <ul>
+                      <li>Individuals as placeholders </li>
+                      <li>Classification of individuals into classes</li>
+                      <li>Linking of individuals via properties</li>
+                      <li>TEMPLATE: KNOWLEDGE GRAPH</li>
+                  </ul>  
                 </div>
+                <div class="card-footer text-center bg-white pb-4 pt-0 border-top-0">
+                  <img src="{{ url_for('static', filename='images/drawio.png') }}"  alt="drawio" class="icon-48">
+                </div>  
               </div>
             </div>
           </div>
         </div>
         
+    </div>
+
+    <div class="row featurette p-5">
+      <div class="col-md-12 justify-content-center pt-2 pb-3 px-5">
+        <h2 class="featurette-heading text-center pb-4">Mapping Knowledge Graphs</h2>
+        <div class="row text-center py-md-3 px-md-5">
+          <!-- First row: 4 images -->
+          <div class="col-md-3">
+              <img src="{{ url_for('static', filename='images/kg1.png') }}" alt="Feature 1" class="icon-96">
+              <h5><span class="clr-theme">01.</span> <span class="fw-normal">Mixture Design</span></h5>
+          </div>
+          <div class="col-md-3">
+              <img src="{{ url_for('static', filename='images/kg2.png') }}" alt="Feature 2" class="icon-96">
+              <h5><span class="clr-theme">02.</span> <span class="fw-normal">Mixing Process</span></h5>
+          </div>
+          <div class="col-md-3">
+              <img src="{{ url_for('static', filename='images/kg3.png') }}" alt="Heat of Hydration" class="icon-96">
+              <h5><span class="clr-theme">03.</span> <span class="fw-normal">Heat of Hydration</span></h5>
+          </div>
+          <div class="col-md-3">
+              <img src="{{ url_for('static', filename='images/kg4.png') }}" alt="Hardening Storage" class="icon-96">
+              <h5><span class="clr-theme">04.</span> <span class="fw-normal">Hardening Storage</span></h5>
+          </div>
+        </div>
+        <div class="row text-center py-md-3 px-md-5">
+            <!-- Second row: 3 images -->
+            <div class="col-md-4 ">
+                <img src="{{ url_for('static', filename='images/kg5.png') }}" alt="Specimen" class="icon-96">
+                <h5><span class="clr-theme">05.</span> <span class="fw-normal">Specimen</span></h5>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/kg6.png') }}" alt="Compressive Strength" class="icon-96">
+                <h5><span class="clr-theme">06.</span> <span class="fw-normal">Compressive Strength</span></h5>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/kg7.png') }}" alt="E-Module" class="icon-96">
+                <h5><span class="clr-theme">07.</span> <span class="fw-normal">E-Module</span></h5>
+            </div>
+        </div>
       </div>
+    </div>
 
-    
+    <div class="row featurette p-5 bg-light-blue">
+      <div class="col-md-5 py-3">
+        <img src="{{ url_for('static', filename='images/workflow.png') }}" class="w-100" alt="overview">
+      </div>
+      <div class="col-md-7 pt-3 my-auto text-justify">
+        <h2 class="featurette-heading pb-2">Automated Workflow
+        </h2>
+        <p class="">
+            <ul>
+                <li>
+                  Raw Data, like sample matrix and test results, are usually LAB specific and can have different formats: .xls, .csv, .dat… <span class="text-danger">(1)</span>
+                </li>
+                <li>
+                  Data and metadata are extracted from the raw files using a Python script and then saved in a standardized JSON file <span class="text-danger">(2, 3)</span>
+                </li>
+                <li>
+                  Knowledge Graph <strong>(KG)</strong> templates following the structure of the Concrete Production and Testing Ontology <strong>(CPTO)</strong> are designed using a program which generates Draw.io files <span class="text-danger">(4.1, 4.2, 4)</span>
+                </li>
+                <li>
+                  Mapping: Placeholders with hashtags # and dollar-symbols $ contained in the KG-templates are replaced by the extracted data and metadata using a Python-script <span class="text-danger">(5)</span>
+                </li>
+            </ul>
+        </p>
+      </div>
+      
+    </div>
 
-    <!-- /END THE FEATURETTES -->
+    <div class="row featurette p-5">
+      <div class="col-md-12 justify-content-center pt-2 pb-3 px-5">
+        <h2 class="featurette-heading text-center pb-4">Our Team</h2>
+        <div class="d-flex justify-content-between py-md-3">
+          <!-- First row: 4 images -->
+          
+          <img src="{{ url_for('static', filename='images/team1.png') }}" alt="logo" class="icon-72">      
+          <img src="{{ url_for('static', filename='images/team2.png') }}" alt="bam" class="icon-72">
+          <img src="{{ url_for('static', filename='images/team3.png') }}" alt="materialdigital" class="icon-72">
+          <img src="{{ url_for('static', filename='images/team5.png') }}" alt="tum" class="icon-72">
+          <img src="{{ url_for('static', filename='images/team4.png') }}" alt="kit" class="icon-72">
+        </div>
+      </div>
+    </div>
 
-  </div><!-- /.container -->
+  </div>
 
 
   <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  <footer class="container-fluid bg-light py-3 px-5">
+
+    <h4 class="float-end mb-0"><a href="#" class="clr-theme"><i class="fas fa-arrow-circle-up"></i></a></h4>
+    <p class="mb-0 text-muted ">&copy; <small>Bundesanstalt für Materialforschung und -prüfung (BAM) 2024</small></p>
   </footer>
 </main>
 

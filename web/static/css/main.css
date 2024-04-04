@@ -110,9 +110,29 @@ body {
     .btn-theme{
         background-color: #0077b6;
         color: white;
-    }   
+    }  
+    .clr-theme{
+      color: #0077b6;
+    }  
     .logo{
         width: 24px;
+    } 
+
+    .bg-light-blue{
+      background-color: #e4f4fc;
+    } 
+
+    .icon-48{
+      height: 48px;
+    } 
+    .icon-56{
+      height: 56px;
+    } 
+    .icon-72{
+      height: 72px;
+    } 
+    .icon-96{
+      height: 96px;
     } 
     @media (min-width: 768px) {
         .align-middle{
