@@ -9,7 +9,7 @@ dependencies:
   - pip
   - matplotlib
   - mamba
-  - scipy
+  - scipy=1.10.0
   - doit
   - docker-compose
   - cython
