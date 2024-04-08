@@ -16,8 +16,17 @@ function uploadData(type, buttonID) {
     } else {
     console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
     }
-
     var fileInput = document.getElementById(buttonID);
+    // Check the file format (extension)
+    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt'];
+    const fileExtension = fileInput.files[0].name.split('.').pop().toLowerCase();
+
+    console.log(fileExtension)
+    if (!allowedFormats.includes(fileExtension)) {
+        alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
+        return;
+    }
+    
     var formData = new FormData();
     formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
     formData.append('type', type); // Fügt den übergebenen Typ hinzu
