@@ -102,11 +102,13 @@ function submitMixture() {
         // Verarbeitet die Antwort des Backends
         var responseDiv = document.getElementById('mixresponseText');
         responseDiv.style.display = 'block'; // Macht den Antwort-Text sichtbar
+        responseDiv.classList = 'text-danger';
         responseDiv.innerHTML = data.message; // Setzt die Antwort des Backends in das Div
         
         // Speichert die mixtureID als Variable, ohne sie anzuzeigen
         if (data.mixtureID) {
             mixtureID = data.mixtureID; // Speichert den Wert in der Variable
+            responseDiv.classList = 'text-success';
             console.log('Gespeicherte mixtureID:', mixtureID); // Optional: Zur Überprüfung in der Konsole ausgeben
 }
     })
@@ -114,6 +116,7 @@ function submitMixture() {
         console.error('There was a problem with your fetch operation:', error);
         var responseDiv = document.getElementById('mixresponseText');
         responseDiv.style.display = 'block';
+        responseDiv.classList = 'text-danger';
         responseDiv.innerHTML = 'Fehler beim Abrufen der Daten'; // Zeigt eine Fehlermeldung an
     });
 }
@@ -132,4 +135,32 @@ function nextSiteOne(page) {
 
     // Zeigt den neuen Inhalt an
     document.getElementById(pageMap.get(page + 1)).style.display = 'block';
+}
+
+// previous page
+function previousSiteOne(page) {
+    // Dictionary für seiten Namen
+    let pageMap = new Map();
+
+    pageMap.set(1, 'mainContent');
+    pageMap.set(2, 'newContent');
+    pageMap.set(3, 'last');
+
+    document.getElementById(pageMap.get(page)).style.display = 'block';
+
+    document.getElementById(pageMap.get(page + 1)).style.display = 'none';
+}
+
+function toggleSections() {
+    const existingMixture = document.getElementById("existingMixture");
+    const mixtureDetails = document.getElementById("mixtureDetails");
+    const fileUpload = document.getElementById("fileUpload");
+
+    if (existingMixture.checked) {
+        mixtureDetails.style.display = "block";
+        fileUpload.style.display = "none";
+    } else {
+        mixtureDetails.style.display = "none";
+        fileUpload.style.display = "block";
+    }
 }

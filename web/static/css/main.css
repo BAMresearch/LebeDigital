@@ -107,12 +107,18 @@ body {
         height: 100%;
         background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
     }
-    .btn-theme{
-        background-color: #0077b6;
+    .btn-theme, .btn-theme:hover, .btn-theme:active,.btn-outline-theme:active, .btn-outline-theme:hover{
+        background-color: #0068b6;
         color: white;
     }  
+
+    .btn-outline-theme{
+      color: #0068b6;
+      border-color: #0068b6;
+    } 
+ 
     .clr-theme{
-      color: #0077b6;
+      color: #0068b6;
     }  
     .logo{
         width: 24px;
