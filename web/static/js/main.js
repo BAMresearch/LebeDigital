@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
         placeholder: "Daten werden geladen...",
     });
 
+    // Hinzufügen eines Buttons zum Herunterladen als CSV
+    var downloadCSVButton = document.createElement("button");
+    downloadCSVButton.textContent = "Download CSV";
+    downloadCSVButton.onclick = function () {
+        table.download("csv", "daten.csv");
+    };
+    document.body.appendChild(downloadCSVButton);
+
     function generateColumns(vars) {
         return vars.map(varName => ({
             title: varName.toUpperCase(),  // Spaltentitel als Großbuchstaben der Variablennamen
