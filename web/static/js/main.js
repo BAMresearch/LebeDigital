@@ -1,26 +1,62 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Funktion zum Ausführen der SPARQL-Abfrage
-    function executeSparqlQuery(query) {
-        // Erstellen eines neuen XMLHttpRequest
-        var xhr = new XMLHttpRequest();
-        // Konfigurieren der Anfrage
-        xhr.open('POST', '/query', true); // oder GET, abhängig von Ihrem Endpunkt
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Für POST-Anfragen
+    var table = new Tabulator("#resultsTable", {
+        layout: "fitColumns",
+        placeholder: "Daten werden geladen...",
+    });
 
-        // Setzen eines Handlers für die Antwort
+    function generateColumns(vars) {
+        return vars.map(varName => ({
+            title: varName.toUpperCase(),  // Spaltentitel als Großbuchstaben der Variablennamen
+            field: varName,
+            sorter: "string",
+            headerFilter: true  // Optional: Fügt Filtermöglichkeiten zu jeder Spalte hinzu
+        }));
+    }
+
+    function transformData(bindings, vars) {
+        return bindings.map(binding => {
+            let row = {};
+            vars.forEach(varName => {
+                // Extrahiert den Wert für jede Variable in jeder Bindung
+                row[varName] = binding[varName].value;
+            });
+            return row;
+        });
+    }
+
+    function executeSparqlQuery(query) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/queryexec', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
-                // Erfolg: Ergebnisse im angegebenen Container anzeigen
-                document.getElementById('queryResults').innerHTML = xhr.responseText;
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    var vars = response.message.head.vars;
+                    var bindings = response.message.results.bindings;
+
+                    var columns = generateColumns(vars);
+                    var data = transformData(bindings, vars);
+
+                    table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
+                    table.setData(data);        // Setzt die transformierten Daten
+                } catch (error) {
+                    document.getElementById('queryResults').innerHTML = 'Fehler beim Parsen der Daten: ' + error.message;
+                }
             } else {
-                // Fehler: Fehlermeldung im Container anzeigen
-                document.getElementById('queryResults').innerHTML = 'Fehler bei der Ausführung der Abfrage.';
+                document.getElementById('queryResults').innerHTML = 'Fehler bei der Ausführung der Abfrage: Status ' + xhr.status;
             }
         };
 
-        // Senden der Anfrage mit Daten
-        xhr.send('query=' + encodeURIComponent(query)); // Stellen Sie sicher, dass dies Ihrem Endpunkt-Format entspricht
+        xhr.onerror = function() {
+            document.getElementById('queryResults').innerHTML = 'Netzwerkfehler bei der Anfrage.';
+        };
+
+        xhr.send('query=' + encodeURIComponent(query));
     }
+
 
     // Formular-Submit-Event-Handler
     document.getElementById('sparqlForm').addEventListener('submit', function(e) {

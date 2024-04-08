@@ -8,7 +8,7 @@ import uuid
 import sqlite3
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
-from flask_bootstrap import Bootstrap
+#from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query
@@ -96,6 +96,14 @@ def signup():
 
     return render_template('signup.html')
 
+
+@app.route('/queryexec', methods=['POST'])
+def execute_sparql_query():
+    # Hier extrahieren wir die Daten aus dem POST-Request
+    results = send_sparql_query(request.form['query'])
+    return jsonify({
+        'message': results
+    })
 
 
 # Query page
