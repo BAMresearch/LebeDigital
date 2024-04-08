@@ -56,6 +56,8 @@ def index():
 #login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        return render_template('queryPage.html')
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -111,6 +113,14 @@ def execute_sparql_query():
 def query_page():
     if 'username' in session:
         return render_template('queryPage.html')
+    else:
+        return redirect(url_for('login'))
+
+# Query page
+@app.route('/query-simple')
+def query_page_simple():
+    if 'username' in session:
+        return render_template('queryPage-simple.html')
     else:
         return redirect(url_for('login'))
 

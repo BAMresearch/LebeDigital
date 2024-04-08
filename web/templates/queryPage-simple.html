@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Query Data{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<div class="content">
+    <!-- Existing content -->
+
+    <!-- SPARQL Query Form -->
+    <h3>Query Data</h3>
+    <h1>Zeig mir:</h1>
+    <form id="sparqlForm" class="pt-2 pb-4">
+        <select id="queryType" class="form-control mb-3">
+            <option value="Mischung">Mischung/en</option>
+            <option value="EModule">E-Modul/e</option>
+        </select>
+        <input id="nameInput" type="text" class="form-control" placeholder="Namen hier einfügen...">
+        <br>
+        <br>
+            <button type="submit" class="btn btn-theme">Run Query</button>
+        </div>
+    </form>
+    <div id="queryResults">
+        <!-- Query results will be displayed here -->
+    </div>
+    <div style="text-align: right;">
+        <button class="btn btn-theme" onclick="downloadTable()">Download CSV</button>
+    </div>
+    <br>
+
+    <div id="resultsTable"></div>
+
+
+
+</div>
+<script src="static/js/querypage-simple.js"></script>
+{% endblock %}
