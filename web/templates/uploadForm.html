@@ -6,7 +6,7 @@
 <!-- Page-specific content goes here -->
 <!-- Hauptinhalt -->
 <div class="content col-md-9" id="mainContent">
-    <h3 class="title-item pb-2">Upload your Data</h3>
+    <h3 class="title-item pb-2">Upload your Mixture</h3>
     <div class="card">
         <div class="card-body">
             <p class="card-title">Is this mixture uploaded before or new?</p>
@@ -35,8 +35,8 @@
                 
             </div>
             <div id="fileUpload" style="display: none;">
-                <p>Upload your own mixture file</p>
-                <div class="input-group mb-3">
+                
+                <div class="input-group pt-4">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="fileInput1">
                         <label class="custom-file-label" for="fileInput1"></label>
@@ -45,6 +45,7 @@
                         <button class="btn btn-outline-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
                     </div>
                 </div>
+                <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt</p>
             </div>
             <button class="btn btn-theme mt-4" onclick="nextSiteOne(1)">Next</button>
         </div>
@@ -57,7 +58,7 @@
     <div class="card">
         <div class="card-body">
             <p class="card-title">(If you don't have it click next)</p>
-            <div class="input-group mb-3">
+            <div class="input-group mt-4">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="fileInput2">
                     <label class="custom-file-label" for="fileInput2"></label>
@@ -66,7 +67,7 @@
                     <button class="btn btn-outline-theme" type="button" onclick="uploadData('EModule', 'fileInput2')">Upload</button>
                 </div>
             </div>
-            
+            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt</p>
             <button class="btn btn-outline-theme mt-4" onclick="previousSiteOne(1)">Back</button>
             <button class="btn btn-theme mt-4" onclick="nextSiteOne(2)">Next</button>
         </div>

@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 </head>
 <body>
-    <nav class="navbar sticky-top shadow-sm flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"></a>
+    <nav class="navbar sticky-top shadow-sm flex-md-nowrap p-0 bg-white">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0 py-1" href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"></a>
         <ul class="navbar-nav px-3">
           <li class="nav-item text-nowrap">
             {% if session['username'] %}
@@ -29,9 +29,9 @@
     <div class="container-fluid">
         <div class="row">
             {% set active_page = request.path %}
-            <nav class="col-md-2 col-5 bg-light px-0">
-                <div class="sidebar-sticky">
-                    <ul class="nav nav-pills flex-column mb-auto">
+            <nav class="col-md-2 col-5 bg-light px-0" style="min-height: 100vh;">
+                <div class="sticky-top" style="top: 65px;">
+                    <ul class="nav nav-pills flex-column mb-auto pt-3">
                         <li class="nav-item">
                             <a class="nav-link {{ '/query' in active_page and 'active' or '' }}" href="/query">
                                 <i class="clr-theme fas fa-database"></i>&nbsp; Query Data
@@ -48,10 +48,10 @@
             </nav>
             <main role="main" class="col-md-10 col-7 ml-sm-auto pt-3 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-                {% block content %}
-                <!-- Content specific to each page will go here -->
-                {% endblock %}
-            </div>   
+                    {% block content %}
+                    <!-- Content specific to each page will go here -->
+                    {% endblock %}
+                </div>  
             </main>
         </div>
     </div>
