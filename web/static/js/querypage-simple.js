@@ -5,14 +5,117 @@ function downloadTable() {
     table.download("csv", "daten.csv");
 }
 
+// Cleans the data retrieved from Sparql Query (Removes URI and UUID4)
+function cleanEntry(entry) {
+    // Überprüfung auf UUID4 am Ende und Entfernen
+    const uuidRegex = /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    if (uuidRegex.test(entry)) {
+        entry = entry.replace(uuidRegex, '');
+    }
+
+    // Überprüfung, ob der Eintrag mit einer URL beginnt und Entfernen bis zum letzten "/"
+    const urlRegex = /^(https?:\/\/[^\/]+\/.*)$/;
+    if (urlRegex.test(entry)) {
+        const lastSlashIndex = entry.lastIndexOf('/');
+        if (lastSlashIndex > -1) {
+            entry = entry.substring(lastSlashIndex + 1);
+        }
+    }
+
+    return entry;
+}
+
+// Funktion zum Extrahieren der Werte einer spezifizierten Eigenschaft aus den Bindings
+function extractValues(data, propertyName) {
+    if (!data.message || !data.message.results || !data.message.results.bindings) {
+        console.error("Fehler: Die Datenstruktur ist nicht wie erwartet.");
+        return [];
+    }
+
+    // Extrahieren der 'value'-Werte für die spezifizierte Eigenschaft aus jedem Binding
+    const propertyValues = data.message.results.bindings.map(binding => {
+        if (binding[propertyName] && binding[propertyName].value) {
+            return binding[propertyName].value; // Gibt den Wert zurück, wenn die Eigenschaft existiert
+        } else {
+            return null; // Gibt null zurück, wenn die Eigenschaft im Binding fehlt
+        }
+    });
+
+    return propertyValues;
+}
+
 // Creates a Query based on the specific input from the user and executes it
 async function create_query(selectedQueryType, enteredName){
     // check if extended is checked
     const checkbox = document.getElementById('extendedCheckbox');
     let query = null;
+    let response = null;
+    let valuesList = null;
 
     if (checkbox.checked){
-        // code
+        // shows all information for every mixture
+        if (selectedQueryType === "Mischung" && enteredName === "") {
+            query = `
+            SELECT ?ID WHERE {
+              ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/cpto/MaterialComposition>.
+              ?s <http://purl.org/spar/datacite/hasIdentifier> ?p.
+              ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
+              ?p <https://w3id.org/pmd/co/value> ?ID.
+              FILTER(REGEX(str(?p), "/humanreadableID[^/]*$"))
+            }`;
+            response = await executeSparqlQuery(query);
+
+            // extracts an array of every ID for every mixture
+            valuesList = extractValues(response, "ID");
+            console.log(valuesList);
+
+            let allList = [];
+
+            // goes through all mixtures in database
+            for (const [index, value] of valuesList.entries()) {
+
+                // looks up mixture
+                query = `
+                SELECT ?Bestandteil ?Wert WHERE {
+                    ?g ?p "${value}".
+                    BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
+                    ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
+                    FILTER(STRENDS(STR(?Bestandteil), ?suffix))
+                }`;
+
+                response = await executeSparqlQuery(query);
+                console.log(response)
+                // extract all "Bestandteil"
+                titleList = extractValues(response, "Bestandteil");
+
+                // cleans data
+                for (let i = 0; i < titleList.length; i++) {
+                    titleList[i] = cleanEntry(titleList[i]);
+                }
+
+                // extract all "Bestandteil"
+                valuesList = extractValues(response, "Wert");
+
+                // for the first mixture extract column Names
+                if (index === 0) {
+                    // sets columnn name
+                    console.log(titleList);
+                    tableData = {message: {head: {vars: titleList}, results: {bindings: []}}};
+                }
+
+                let pushObject = {};
+                for (let i = 0; i < titleList.length; i++) {
+                    pushObject[titleList[i]] = { type: "literal", value: valuesList[i] };
+                }
+
+                console.log(pushObject);  // Dies zeigt das Objekt direkt in der Konsole
+                allList.push(pushObject);  // Fügen Sie das Objekt zur Liste hinzu
+            }
+            tableData.message.results.bindings = allList;
+            console.log(tableData);
+            createTable(tableData);
+        }
+
     } else {
         // Show all Mixtures with Name and ID
         if (selectedQueryType === "Mischung" && enteredName === "") {
@@ -31,7 +134,7 @@ async function create_query(selectedQueryType, enteredName){
         }
 
         // Show all Info from a specific Mixture
-        if (selectedQueryType === "Mischung" && enteredName !== "" && !checkbox.checked){
+        if (selectedQueryType === "Mischung" && enteredName !== ""){
             query = `
             SELECT ?Bestandteil ?Wert ?Einheit WHERE {
             ?g ?p "${enteredName}".
@@ -80,26 +183,6 @@ function createTable(tableData){
             });
             return row;
         });
-    }
-
-    // Cleans the data retrieved from Sparql Query (Removes URI and UUID4)
-    function cleanEntry(entry) {
-        // Überprüfung auf UUID4 am Ende und Entfernen
-        const uuidRegex = /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-        if (uuidRegex.test(entry)) {
-            entry = entry.replace(uuidRegex, '');
-        }
-
-        // Überprüfung, ob der Eintrag mit einer URL beginnt und Entfernen bis zum letzten "/"
-        const urlRegex = /^(https?:\/\/[^\/]+\/.*)$/;
-        if (urlRegex.test(entry)) {
-            const lastSlashIndex = entry.lastIndexOf('/');
-            if (lastSlashIndex > -1) {
-                entry = entry.substring(lastSlashIndex + 1);
-            }
-        }
-
-        return entry;
     }
 
     try {
