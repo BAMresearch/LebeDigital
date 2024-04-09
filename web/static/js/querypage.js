@@ -19,7 +19,7 @@ function transformData(bindings, vars) {
         let row = {};
         vars.forEach(varName => {
             // Extrahiert den Wert für jede Variable in jeder Bindung
-            row[varName] = binding[varName].value;
+            row[varName] = binding[varName] ? binding[varName].value : "";
         });
         return row;
     });

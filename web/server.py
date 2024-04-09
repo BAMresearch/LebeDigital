@@ -143,8 +143,8 @@ def logout():
 
 
 # query mixture
-@app.route('/search', methods=['POST'])
-def search():
+@app.route('/search-mixture', methods=['POST'])
+def search_mixture():
     data = request.json
     mixture_name = data['mixtureName']
     # Search, if the mixture exists in the database
@@ -154,7 +154,6 @@ def search():
         ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
       }}
     '''
-    print(query)
     value_of_i = 0
     results = send_sparql_query(query)
     if results and results.get("results", {}).get("bindings", []):

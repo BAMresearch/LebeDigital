@@ -52,7 +52,7 @@ function uploadData(type, buttonID) {
 
 function submitMixture() {
     var textInput = document.getElementById('textInput').value;
-    var apiUrl = '/search'; // Pfad zur Flask-Route, relativ zur Basis-URL der Website
+    var apiUrl = '/search-mixture'; // Pfad zur Flask-Route, relativ zur Basis-URL der Website
 
     // Macht den Aufruf an das Backend
     fetch(apiUrl, {
