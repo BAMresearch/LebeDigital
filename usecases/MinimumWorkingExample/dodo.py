@@ -39,7 +39,7 @@ single_example_name = 'Wolf 8.2 Probe 1'
 # corresponding mix sor the "single" example
 single_mix_name = '20240220_7188_M01.xls'
 
-single_KG_template = 'MixtureDesign_KG_Template.ttl'
+single_KG_template = 'MixtureDesign_KG_Template_modified.ttl'
 
 DOIT_CONFIG = {'verbosity': 2}
 
@@ -186,33 +186,33 @@ def task_extract_metadata_mixture():
 
 #generate knowledgeGraphs
 #@create_after(executed='extract_metadata_emodul')
-#def task_export_Mapping():
+def task_export_Mapping():
 # create folder, if it is not there
-    #Path(knowledge_graphs_output_directory).mkdir(parents=True, exist_ok=True)
+    Path(knowledge_graphs_output_directory).mkdir(parents=True, exist_ok=True)
 
     # setting for fast test, defining the list
-    #if config['mode'] == 'cheap' or config['mode'] == 'single':
-        #list_metadata_json_files = [Path(metadata_mixture_directory, single_mix_name.split(".xls")[0] + '.json')]
-    #else:  # go through all files
-        # list of all meta data files....
-        #list_metadata_json_files = os.scandir(metadata_mixture_directory)
+    if config['mode'] == 'cheap' or config['mode'] == 'single':
+        list_metadata_json_files = [Path(metadata_mixture_directory, single_mix_name.split(".xls")[0] + '.json')]
+    else:  # go through all files
+        # list of all metadata files....
+        list_metadata_json_files = os.scandir(metadata_mixture_directory)
 
     # check directory, if
 
-    #for f in list_metadata_json_files:
-        #if f.is_file():
+    for f in list_metadata_json_files:
+        if f.is_file():
             # path to metadata json
-            #metadata_file_path = Path(f)
-            #name_of_ttl = f.name.replace('.json', '.ttl')
+            metadata_file_path = Path(f)
+            name_of_ttl = f.name.replace('.json', '.ttl')
             # path to input KG template
-            #KGtemplatePath = Path(knowledge_graphs_Template_directory, single_KG_template)
+            KGtemplatePath = Path(knowledge_graphs_Template_directory, single_KG_template)
             # path to output file KG
-            #knowledge_graph_file = Path(knowledge_graphs_output_directory, name_of_ttl)
+            knowledge_graph_file = Path(knowledge_graphs_output_directory, name_of_ttl)
 
-            #yield{
-                #'name': f.name,
-                #'actions': [(mapping, [KGtemplatePath, metadata_file_path, knowledge_graph_file])],
-                #'file_dep': [metadata_file_path],
-                #'targets': [knowledge_graph_file],
-                #'clean': [clean_targets]
-            #}
+            yield{
+                'name': f.name,
+                'actions': [(mapping, [KGtemplatePath, metadata_file_path, knowledge_graph_file])],
+                'file_dep': [metadata_file_path],
+                'targets': [knowledge_graph_file],
+                'clean': [clean_targets]
+            }
