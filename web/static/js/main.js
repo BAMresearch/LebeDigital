@@ -18,7 +18,7 @@ function uploadData(type, buttonID) {
     }
     var fileInput = document.getElementById(buttonID);
     // Check the file format (extension)
-    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt'];
+    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json'];
     const fileExtension = fileInput.files[0].name.split('.').pop().toLowerCase();
 
     console.log(fileExtension)

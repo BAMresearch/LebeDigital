@@ -5,7 +5,7 @@ import json
 from loguru import logger
 
 
-def unit_conversion(input_metadata, UnitURIpath = "scripts/mapping/unit_URI.json"):
+def unit_conversion(input_metadata, UnitURIpath = "unit_URI.json"):
 
     """
 
@@ -22,8 +22,8 @@ def unit_conversion(input_metadata, UnitURIpath = "scripts/mapping/unit_URI.json
     output_metadata : dict
         Dictionary with units replaced by link to an instance defined in the PMD core.
     """
-    with open(UnitURIpath, 'r') as file:
-        unit_mappings = json.load(file)
+    unit_mappings = {"mm": "http://qudt.org/vocab/unit/MilliM", "g": "http://qudt.org/vocab/unit/GM", "kN": "https://qudt.org/vocab/unit/KN", "kg/m^3": "http://qudt.org/vocab/unit/KiloGM-PER-M3", "kg/dm^3": "http://qudt.org/vocab/unit/KiloGM-PER-DeciM3", "dm^3": "http://qudt.org/vocab/unit/DeciM3", "day": "https://qudt.org/vocab/unit/DAY", "GPa": "https://qudt.org/vocab/unit/GigaPA", "cylindrical": "https://w3id.org/cpto/Cylinder", "cubical":  "https://w3id.org/cpto/Cube"}
+
 
 
     # Define the unit mappings as a dictionary

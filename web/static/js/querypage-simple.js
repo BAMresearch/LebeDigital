@@ -191,7 +191,6 @@ function createTable(tableData){
 
         var columns = generateColumns(vars);
         var data = transformData(bindings, vars);
-
         table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
         table.setData(data);        // Setzt die transformierten Daten
     } catch (error) {

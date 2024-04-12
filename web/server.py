@@ -1,9 +1,12 @@
 import os
 import sys
 # Get the directory of the current script
+import threading
+
 script_directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
 
+import json
 import uuid
 import sqlite3
 from datetime import timedelta, datetime
@@ -12,8 +15,15 @@ from flask import Flask, request, render_template, redirect, url_for, flash, ses
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query
+from scripts.upload.upload_script import upload_binary_to_existing_docker
+from scripts.mapping.mixmapping import mappingmixture
+from scripts.mapping.mappingscript import placeholderreplacement
 
 app = Flask(__name__)
+
+with open('config.json', 'r') as file:
+    config = json.load(file)
+    docker_token = config['DOCKER_TOKEN']
 
 # clear users.db before deployment !!!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -101,11 +111,12 @@ def signup():
 
 @app.route('/queryexec', methods=['POST'])
 def execute_sparql_query():
-    # Hier extrahieren wir die Daten aus dem POST-Request
-    results = send_sparql_query(request.form['query'])
-    return jsonify({
-        'message': results
-    })
+    if 'username' in session:
+        # Hier extrahieren wir die Daten aus dem POST-Request
+        results = send_sparql_query(request.form['query'], docker_token)
+        return jsonify({
+            'message': results
+        })
 
 
 # Query page
@@ -145,53 +156,58 @@ def logout():
 # query mixture
 @app.route('/search-mixture', methods=['POST'])
 def search_mixture():
-    data = request.json
-    mixture_name = data['mixtureName']
-    # Search, if the mixture exists in the database
-    query = f'''
-    SELECT ?s WHERE {{
-        ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
-        ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
-      }}
-    '''
-    value_of_i = 0
-    results = send_sparql_query(query)
-    if results and results.get("results", {}).get("bindings", []):
-        # If found, find the ID
-        for result in results.get('results', {}).get('bindings', []):
-            # Extrahieren des Wertes für 's'
-            value = result.get('s', {}).get('value', '')
-            # Überprüfen, ob "humanreadableID" im Wert enthalten ist
-            if "humanreadableID" in value:
-                query = f'''
-                    SELECT ?i WHERE {{
-                        ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
-                        ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
-                        ?a <http://purl.org/spar/datacite/hasIdentifier> ?s .
-                        ?a <http://purl.org/spar/datacite/hasIdentifier> ?b .
-                        FILTER(?s != ?b)
-                        ?b <https://w3id.org/pmd/co/value> ?i
-                  }}
-                '''
-                results = send_sparql_query(query)
-                if results and results.get("results", {}).get("bindings", []):
-                    # Extrahieren des Wertes von `?i`
-                    for binding in results['results']['bindings']:
-                        value_of_i = binding['i']['value']
-                    if value_of_i:
-                        return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+    if 'username' in session:
+        data = request.json
+        mixture_name = data['mixtureName']
+        # Search, if the mixture exists in the database
+        query = f'''
+        SELECT ?s WHERE {{
+            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
+            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
+          }}
+        '''
+        value_of_i = 0
+        results = send_sparql_query(query, docker_token)
+        if results and results.get("results", {}).get("bindings", []):
+            # If found, find the ID
+            for result in results.get('results', {}).get('bindings', []):
+                # Extrahieren des Wertes für 's'
+                value = result.get('s', {}).get('value', '')
+                # Überprüfen, ob "humanreadableID" im Wert enthalten ist
+                if "humanreadableID" in value:
+                    query = f'''
+                        SELECT ?i WHERE {{
+                            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
+                            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
+                            ?a <http://purl.org/spar/datacite/hasIdentifier> ?s .
+                            ?a <http://purl.org/spar/datacite/hasIdentifier> ?b .
+                            FILTER(?s != ?b)
+                            ?b <https://w3id.org/pmd/co/value> ?i
+                      }}
+                    '''
+                    results = send_sparql_query(query, docker_token)
+                    if results and results.get("results", {}).get("bindings", []):
+                        # Extrahieren des Wertes von `?i`
+                        for binding in results['results']['bindings']:
+                            value_of_i = binding['i']['value']
+                        if value_of_i:
+                            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
 
-            else:
-                value_of_i = mixture_name
-        return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
-    else:
-        # Keine Ergebnisse, Mischung nicht gefunden
-        return jsonify({'message': 'Mischung nicht gefunden.'})
+                else:
+                    value_of_i = mixture_name
+            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+        else:
+            # Keine Ergebnisse, Mischung nicht gefunden
+            return jsonify({'message': 'Mischung nicht gefunden.'})
 
 
 def get_db_connection():
-    conn = sqlite3.connect(upload_db)
-    conn.row_factory = sqlite3.Row  # Ermöglicht den Zugriff auf die Daten per Index und per Name
+    try:
+        conn = sqlite3.connect(upload_db)
+        conn.row_factory = sqlite3.Row
+    except sqlite3.Error as e:
+        print(f"Database connection error: {e}")
+        conn = None
     return conn
 
 
@@ -219,11 +235,137 @@ def init_db():
         conn.commit()
 
 
+# Mapping function
+def async_function(unique_id):
+
+    # Lookup table for path
+    paths = {'EModule': 'cpto/EModuleOntology_KG_Template.ttl',
+             'Specimen': 'cpto/Specimen_KG_Template.ttl'}
+
+    def add_data(rowname, data):
+        # Verbindung zur Datenbank herstellen
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        # UPDATE-Anweisung vorbereiten, um den json-Wert in der Zeile mit der gegebenen uniqueID zu aktualisieren
+        query = f"UPDATE uploads SET {rowname} = ? WHERE Unique_ID = ?"
+        try:
+            cursor.execute(query, (data, unique_id))
+            conn.commit()
+            print(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
+            status = 1
+        except Exception as e:
+            print(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {e}")
+            conn.rollback()
+            status = 0
+        finally:
+            # Verbindung schließen
+            conn.close()
+
+        return status
+
+    def get_data():
+        # Verbindung zur Datenbank herstellen und Daten auslesen
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        query = "SELECT * FROM uploads WHERE Unique_ID = ?"
+        cursor.execute(query, (unique_id,))
+
+        # Ergebnis der Abfrage abrufen
+        row = cursor.fetchone()
+        # Verbindung schließen
+        conn.close()
+
+        return row
+
+    def upload_to_docker(data):
+        status = upload_binary_to_existing_docker(docker_token, 'Test', data)
+        if status != 1:
+            add_data('Error', 1)
+
+    # Imitiere eine lang laufende Aufgabe
+    print(f"Starte die Verarbeitung für {unique_id}")
+
+    # Ergebnis der Abfrage abrufen
+    row = get_data()
+
+    # Test ob bereits gemapped
+    if row['Mapped'] != 0:
+        print(f'Error already mapped with {unique_id}')
+        return
+
+    # wenn eine json datei hochgeladen wurde
+    if row['filetype'] == 'json':
+        json_data = json.loads(row['blob'].decode('utf-8'))
+        json_data['ID'] = unique_id
+        if row['type'] != 'Mixture':
+            json_data['mixtureID'] = row['Mixture_ID']
+        add_data('Json', json.dumps(json_data).encode('utf-8'))
+    else:
+        ## Raw data extraction
+        print("RawData")
+
+    #### Set ID and mixtureID in json!!!
+
+    ## Mapping
+    ## Neue abfrage um ggfs. extrahierte daten abzurufen
+
+    # Ergebnis der Abfrage abrufen
+    row = get_data()
+
+    if row['Json'] == '':
+        print(f"No Json for {unique_id}")
+        add_data('Error', 1)
+
+    if row['type'] == 'Mixture':
+        try:
+            ttl_blob = mappingmixture(row['Json'])
+            status = add_data('ttl', ttl_blob)
+            # if error set error
+            if status != 1:
+                add_data('Error', 1)
+                return
+            else:
+                upload_to_docker(ttl_blob)
+        except Exception as e:
+            print(f'Error in Mixture mapping: {e}')
+    else:
+        try:
+            ttl_blob = placeholderreplacement(paths[row['type']], row['Json'])
+            status = add_data('ttl', ttl_blob)
+            if status != 1:
+                add_data('Error', 1)
+                return
+            else:
+                upload_to_docker(ttl_blob)
+        except Exception as e:
+            print(f'Error in Placeholderreplacement: {e}')
+            add_data('Error', 1)
+            return
+        if row['Json_Specimen'] != '':
+            try:
+                ttl_blob = placeholderreplacement(paths['Specimen'], row['Json_Specimen'])
+                status = add_data('ttl_Specimen', ttl_blob)
+                if status != 1:
+                    add_data('Error', 1)
+                    return
+                else:
+                    upload_to_docker(ttl_blob)
+            except Exception as e:
+                print(f'Error in Placeholderreplacement: {e}')
+                add_data('Error', 1)
+                return
+
+    print(f"Verarbeitung für {unique_id} abgeschlossen.")
+    add_data('Mapped', 1)
+
+
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt']
+    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json']
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
@@ -270,7 +412,11 @@ def data_upload():
     conn.commit()
     conn.close()
 
-    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!'}), 200
+    # Starten der asynchronen Funktion
+    thread = threading.Thread(target=async_function, args=(unique_id,))
+    thread.start()
+
+    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!', 'uniqueID': unique_id}), 200
 
 
 if __name__ == '__main__':
