@@ -43,7 +43,10 @@ function uploadData(type, buttonID) {
         return response.json();
     })
     .then(data => {
-        alert(data.message); // Zeigt eine Nachricht vom Server an
+        const toastLiveExample = document.getElementById('liveToast')
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastBootstrap.show()
+        console.log(data.message); // Zeigt eine Nachricht vom Server an
     })
     .catch((error) => {
         console.error('Fehler beim Hochladen:', error);

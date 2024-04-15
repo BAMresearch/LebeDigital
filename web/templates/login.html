@@ -27,8 +27,11 @@
         <div class="card col-md-5 no-border shadow-sm">
             <div class="card-body p-5">
                 <div class="text-center">
-                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-                    <h5 class="text-center py-3 text-muted">Login to Your Account</h5>
+                    <a class="navbar-brand col-sm-3 col-md-2 mr-0 py-2 text-dark" href="/">
+                        <h4 class="mb-0 mx-md-3"><img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span></h4>
+                    </a>
+                    <h3 class="mb-0">&nbsp; LeBeDigital </h3>
+                    <h5 class=" py-3 clr-theme">Login to Your Account</h5>
                 </div>
                 <form action="/login" method="post">
                     <div class="form-group pb-3">
@@ -39,7 +42,7 @@
                     </div>
                     <!-- Error message placeholder -->
                     <p id="errormessage" name="errormessage" class="text-danger">{{ errormessage }}</p>
-                    <button type="submit" class="btn btn-dark w-100" id="loginButton">Login</button>
+                    <button type="submit" class="btn btn-theme w-100" id="loginButton">Login</button>
                 </form>
                 <p class="text-muted text-center pt-4">Don't have an account? <a href="/signup">Create one</a>.</p>
             </div>
