@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Page-specific content goes here -->
-<!-- Hauptinhalt -->
+<!-- Hauptinhalt 
 <div class="content col-md-9" id="mainContent">
     <h3 class="title-item pb-2">Upload your Mixture</h3>
     <div class="card">
@@ -45,14 +45,14 @@
                         <button class="btn btn-outline-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
                     </div>
                 </div>
-                <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt</p>
+                <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
             </div>
             <button class="btn btn-theme mt-4" onclick="nextSiteOne(1)">Next</button>
         </div>
     </div>
-</div>
+</div>-->
 
-<!-- Neuer Inhalt, anfangs ausgeblendet-->
+<!-- Neuer Inhalt, anfangs ausgeblendet
 <div class="content col-md-9" id="newContent" id="newContent" style="display: none;">
     <h3 class="title-item pb-2">Upload your E-Module</h3>
     <div class="card">
@@ -67,20 +67,142 @@
                     <button class="btn btn-outline-theme" type="button" onclick="uploadData('EModule', 'fileInput2')">Upload</button>
                 </div>
             </div>
-            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt</p>
+            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
             <button class="btn btn-outline-theme mt-4" onclick="previousSiteOne(1)">Back</button>
             <button class="btn btn-theme mt-4" onclick="nextSiteOne(2)">Next</button>
         </div>
     </div>
-</div>
-
+</div>-->
 
 <!-- Neuer Inhalt, anfangs ausgeblendet -->
-<div class="new-content text-center col-12" id="last" style="display: none;">
+<!--<div class="new-content text-center col-12" id="last" style="display: none;">
     
     <h1 class="display-1 pt-4 text-success"><i class="fas fa-check-circle"></i></h1>
     <p class="pt-2">Your Mixture and E-Module data has been uploaded succesfully! </p>
     <button type="button" onclick="window.location.href='/query';" class="btn btn-theme mt-4">Go Back to Querying</button>
     
+</div>-->
+<div class="content col-12">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                <h5 class="mb-0">Mixture</h5>
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+            <div class="row">
+                <div class="col-7">
+                    <p class="card-title">Is this mixture uploaded before or new?</p>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="mixtureOption" id="existingMixture" value="existing" onclick="toggleSections()">
+                        <label class="form-check-label" for="existingMixture">
+                            This mixture is uploaded before
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="mixtureOption" id="newMixture" value="new" onclick="toggleSections()">
+                        <label class="form-check-label" for="newMixture">
+                            This is a new mixture
+                        </label>
+                    </div>
+                    <div id="mixtureDetails" style="display: none;">
+                        <p>Which Concrete Mixture did you use?</p>
+                        <div class="input-group mb-3 w-50">
+                            <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-theme" type="button" onclick="submitMixture()">Search</button>
+                            </div>
+                        </div>
+                        
+                        <div id="mixresponseText" style="display: none;"></div>
+                        
+                    </div>
+                    <div id="fileUpload" style="display: none;">
+                        
+                        <div class="input-group pt-4">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileInput1">
+                                <label class="custom-file-label" for="fileInput1"></label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
+                            </div>
+                        </div>
+                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <img src="{{ url_for('static', filename='images/kg2.png') }}" alt="mixture" class="icon-96">
+                </div>
+            </div>
+                
+            <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-controls="flush-collapseTwo">Next</button>
+            </div>
+        </div>
+        </div>
+        <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                <h5 class="mb-0">Compressive Strength</h5>
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="card-title">(If you don't have it click next)</p>
+                        <div class="input-group mt-4">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileInput2">
+                                <label class="custom-file-label" for="fileInput2"></label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-theme" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2')">Upload</button>
+                            </div>
+                        </div>
+                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
+                        <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-controls="flush-collapseThree">Next</button>
+                    </div>
+                    <div class="col-5">
+                        <img src="{{ url_for('static', filename='images/kg6.png') }}" alt="CompressiveStrength" class="icon-96">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                <h5 class="mb-0">E-Module</h5>
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-7">
+                        <p class="card-title">(If you don't have it click next)</p>
+                        <div class="input-group mt-4">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileInput3">
+                                <label class="custom-file-label" for="fileInput3"></label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-theme" type="button" onclick="uploadData('EModule', 'fileInput3')">Upload</button>
+                            </div>
+                        </div>
+                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
+                        <a href="/"><button class="btn btn-outline-theme mt-4" >Back to Home</button></a>
+                    </div>
+                    <div class="col-5">
+                        <img src="{{ url_for('static', filename='images/kg7.png') }}" alt="E-Module" class="icon-96">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

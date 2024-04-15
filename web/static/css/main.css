@@ -116,12 +116,23 @@ body {
       color: #0068b6;
       border-color: #0068b6;
     } 
+
+    .accordion-button:not(.collapsed) {
+      color: #0068b6 !important;
+      background-color: white;
+    } 
+   
+
+    .accordion-button:focus {
+      border-color: #fff;
+      box-shadow: none;
+    }  
  
     .clr-theme{
       color: #0068b6;
     }  
     .logo{
-        width: 24px;
+        width: 18px;
     } 
 
     .bg-light-blue{
