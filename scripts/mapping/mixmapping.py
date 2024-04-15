@@ -17,14 +17,18 @@ If the structure fundamentally changes this needs to be changed here too.
 '''
 
 
-def mappingmixture(inputpath, outputpath):
+def mappingmixture(blob_data):
 
-    with open(inputpath, 'r') as file:
-        try:
-            metadata = json.load(file)
-            metadata = unit_conversion(metadata)
-        except Exception as e:
-            print(f'Error reading Mixture json: {e}')
+    # Versuche, den BLOB als JSON zu laden
+    try:
+        # Der BLOB ist binär, konvertiere ihn zuerst in einen String
+        json_data = blob_data.decode('utf-8')
+        # Lade den JSON-Inhalt
+        metadata = json.loads(json_data)
+        # Verwende deine Funktion `unit_conversion` auf die geladenen Metadaten
+        metadata = unit_conversion(metadata)
+    except Exception as e:
+        print(f'Error reading Mixture json: {e}')
 
     # Create a new graph
     g = Graph()
@@ -294,29 +298,34 @@ def mappingmixture(inputpath, outputpath):
     water_density = URIRef(cpto + f"Water_Density_{metadata['ID']}")
     water_type = URIRef(cpto + f"Water_Type_{metadata['ID']}")
 
-    # cement
+    # water
     g.add((water_individual, RDF.type, co.BaseMaterial))
     g.add((water_individual, RDF.type, owl.NamedIndividual))
     g.add((water_individual, co.characteristic, water_content))
     g.add((water_individual, co.characteristic, water_density))
     g.add((water_individual, co.composedOf, water_type))
 
-    # cement content
+    # water content
     g.add((water_content, RDF.type, cpto.Content))
     g.add((water_content, RDF.type, owl.NamedIndividual))
-    g.add((water_content, co.unit, URIRef(f"{metadata[f'Water_Content_Unit']}")))
-    g.add((water_content, co.value, Literal(f"{metadata[f'Water_Content']}", datatype=xsd.float)))
+    if metadata.get('Water_Content_Unit'):
+        g.add((water_content, co.unit, URIRef(f"{metadata[f'Water_Content_Unit']}")))
+    if metadata.get('Water_Content'):
+        g.add((water_content, co.value, Literal(f"{metadata[f'Water_Content']}", datatype=xsd.float)))
 
-    # cement density
+    # water density
     g.add((water_density, RDF.type, cpto.RelativeDensity))
     g.add((water_density, RDF.type, owl.NamedIndividual))
-    g.add((water_density, co.unit, URIRef(f"{metadata[f'Water_Density_Unit']}")))
-    g.add((water_density, co.value, Literal(f"{metadata[f'Water_Density']}", datatype=xsd.float)))
+    if metadata.get('Water_Density_Unit'):
+        g.add((water_density, co.unit, URIRef(f"{metadata[f'Water_Density_Unit']}")))
+    if metadata.get('Water_Density'):
+        g.add((water_density, co.value, Literal(f"{metadata[f'Water_Density']}", datatype=xsd.float)))
 
-    # cement type
+    # water type
     g.add((water_type, RDF.type, cpto.Addition))
     g.add((water_type, RDF.type, owl.NamedIndividual))
-    g.add((water_type, co.value, Literal(f"{metadata[f'Water_Type']}", datatype=xsd.string)))
+    if metadata.get('Water_Type'):
+        g.add((water_type, co.value, Literal(f"{metadata[f'Water_Type']}", datatype=xsd.string)))
 
 
     # humanreadableID
@@ -333,7 +342,8 @@ def mappingmixture(inputpath, outputpath):
 
     g.add((wz_individual, RDF.type, cpto.WaterCementRatio))
     g.add((wz_individual, RDF.type, owl.NamedIndividual))
-    g.add((wz_individual, co.value, Literal(f"{metadata['WaterCementRatio']}", datatype=xsd.decimal)))
+    if metadata.get('WaterCementRatio'):
+        g.add((wz_individual, co.value, Literal(f"{metadata['WaterCementRatio']}", datatype=xsd.decimal)))
 
     # rawdata file
 
@@ -341,7 +351,8 @@ def mappingmixture(inputpath, outputpath):
 
     g.add((raw_individual, RDF.type, co.Dataset))
     g.add((raw_individual, RDF.type, owl.NamedIndividual))
-    g.add((raw_individual, co.value, Literal(f"{metadata['RawDataFile']}", datatype=xsd.string)))
+    if metadata.get('RawDataFile'):
+        g.add((raw_individual, co.value, Literal(f"{metadata['RawDataFile']}", datatype=xsd.string)))
 
     # mixing date
 
@@ -349,7 +360,8 @@ def mappingmixture(inputpath, outputpath):
 
     g.add((mixing_individual, RDF.type, co.Time))
     g.add((mixing_individual, RDF.type, owl.NamedIndividual))
-    g.add((mixing_individual, co.value, Literal(f"{metadata['MixingDate']}", datatype=xsd.string)))
+    if metadata.get('MixingDate'):
+        g.add((mixing_individual, co.value, Literal(f"{metadata['MixingDate']}", datatype=xsd.string)))
 
     # lab
 
@@ -357,7 +369,8 @@ def mappingmixture(inputpath, outputpath):
 
     g.add((lab_individual, RDF.type, co.Laboratory))
     g.add((lab_individual, RDF.type, owl.NamedIndividual))
-    g.add((lab_individual, co.value, Literal(f"{metadata['Lab']}", datatype=xsd.string)))
+    if metadata.get('Lab'):
+        g.add((lab_individual, co.value, Literal(f"{metadata['Lab']}", datatype=xsd.string)))
 
     # id
 
@@ -400,7 +413,11 @@ def mappingmixture(inputpath, outputpath):
     for entry in cements:
         g.add((composition_individual, co.composedOf, URIRef(cpto + f"Cement{entry}_{metadata['ID']}")))
 
-    # Speichern des Graphen in einer TTL-Datei
-    with open(outputpath, "wb") as ttl_file:
-        ttl_file.write(g.serialize(format="turtle").encode('UTF-8'))
-        logger.debug('Mixture Mapping success.')
+    try:
+        # Serialisiert den Graphen im Turtle-Format und kodiert ihn in UTF-8 als binäre Daten
+        serialized_data = g.serialize(format="turtle").encode('UTF-8')
+        return serialized_data
+    except Exception as e:
+        # Fange mögliche Fehler beim Serialisieren und Kodieren ab
+        print(f"Fehler beim Serialisieren des Graphen: {e}")
+        return None

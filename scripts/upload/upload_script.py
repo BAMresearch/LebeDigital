@@ -2,6 +2,31 @@ import json
 import requests
 import loguru
 
+
+def upload_binary_to_existing_docker(token, dataset_name, binary_data, triplestore="jena"):
+    ontodocker_url = 'https://ontodocker-pmd.bam.de'  # Setze hier deine spezifische OntoDocker URL
+    ontodocker_jwt = token
+
+    # Setze den Authorization Header mit dem JWT-Token
+    headers = {"Authorization": f"Bearer {ontodocker_jwt}", "Content-Type": "text/turtle"}
+
+    # URL vorbereiten für den Upload
+    upload_url = f'{ontodocker_url}/api/{triplestore}/{dataset_name}/upload'
+    print(f"Uploading data to dataset '{dataset_name}' at '{upload_url}'.")
+
+    # Lade die binäre Datei in das Dataset hoch
+    upload_response = requests.post(upload_url, headers=headers, data=binary_data)
+    print(upload_response.content.decode())
+
+    # Statusmeldung basierend auf dem Antwortstatus
+    if upload_response.status_code == 200:
+        print("Data successfully uploaded.")
+        return 1
+    else:
+        print("Failed to upload data.")
+        return 0
+
+
 def upload_to_docker(token, datasets):
 
     ontodocker_url = 'https://ontodocker-pmd.bam.de'  # replace with url to own ontodocker url.
@@ -89,7 +114,7 @@ def upload_to_docker(token, datasets):
     #   print(result["s"], result["p"], result["o"])
 
 
-def send_sparql_query(query):
+def send_sparql_query(query, token):
     """
     Sendet eine SPARQL-Query an einen Jena Fuseki Server und überprüft,
     ob die Suche erfolgreich war.
@@ -99,8 +124,6 @@ def send_sparql_query(query):
     :return: True, wenn die Suche erfolgreich war, sonst False
     """
 
-    # remove and find a better way
-    token = ''
     ontodocker_url = 'https://ontodocker-pmd.bam.de'  # replace with url to own ontodocker url.
     ontodocker_jwt = token
 

@@ -46,7 +46,7 @@ def generate_placeholder(key, type="Value"):
     return placeholder
 
 
-def placeholderreplacement(kgPath, metadataPath):
+def placeholderreplacement(kgPath, metadata):
     '''
         Maps the values of one given metadata file (for one specimen or
         experiment) to a given knowledge graph (KG) template, by searching through
@@ -65,9 +65,10 @@ def placeholderreplacement(kgPath, metadataPath):
         Returns list of lines that consist of the template with mapped metadata.
 
     '''
+    # Lade den JSON-String als Python-Objekt
+    metadata = json.loads(metadata.decode('utf-8'))
 
     # load metadata, convert the units through module and get the keys
-    metadata = load_metadata(metadataPath)
     metadata = unit_conversion(metadata)
     keys = list(metadata.keys())
     keys_unit = [i for i in keys if "_Unit" in i]
@@ -179,7 +180,9 @@ def placeholderreplacement(kgPath, metadataPath):
     else:
         logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template received metadata.')
 
-    return lines
+    mappedKG_content = ''.join(lines)  # Konvertiere die Liste in einen einzigen String
+    mappedKG_bytes = mappedKG_content.encode('utf-8')
+    return mappedKG_bytes
 
 
 def mapping(KGtemplatePath, metadataPath, outputPath):

@@ -162,3 +162,5 @@ cython_debug/
 # pydoit
 # doit stuff
 .doit.*
+
+config.json
