@@ -48,6 +48,9 @@ co:value a owl:DatatypeProperty .
 
 <https://w3id.org/cpto/##SpecimenAge_Unit##> a owl:NamedIndividual .
 
+<https://w3id.org/cpto/##Strain_Unit##> a ns3:Unit,
+        owl:NamedIndividual .
+
 ns1:CompressionForce_ a owl:NamedIndividual,
         co:MaximumForce ;
     co:unit <https://w3id.org/cpto/##CompressionForce_Unit##> ;
@@ -76,6 +79,7 @@ ns1:ExperimentInfo_ a owl:NamedIndividual,
         ns1:ExtensometerGaugeLength_,
         ns1:Lab_,
         ns1:ProcessedFile_,
+        ns1:Strain_,
         ns1:Transducer_ .
 
 ns1:ExtensometerGaugeLength_ a owl:NamedIndividual,
@@ -115,6 +119,11 @@ ns1:SpecimenAge_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
+ns1:Strain_ a owl:NamedIndividual,
+        co:Extension ;
+    co:unit <https://w3id.org/cpto/##Strain_Unit##> ;
+    co:value "$$Strain_Value$$"^^xsd:string .
+
 ns1:Transducer_ a owl:NamedIndividual,
         co:Extension ;
     co:unit <https://w3id.org/cpto/##Extensometer_Unit##> ;
@@ -123,8 +132,6 @@ ns1:Transducer_ a owl:NamedIndividual,
 co:ComputingNode a owl:Class .
 
 co:Date a owl:Class .
-
-co:Extension a owl:Class .
 
 co:ExtensometerGaugeLength a owl:Class .
 
@@ -135,6 +142,8 @@ co:MaximumForce a owl:Class .
 co:ModulusOfElasticity a owl:Class .
 
 co:Specimen a owl:Class .
+
+co:Extension a owl:Class .
 
 co:Dataset a owl:Class .
 
