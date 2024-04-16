@@ -18,6 +18,12 @@ If the structure fundamentally changes this needs to be changed here too.
 
 
 def mappingmixture(blob_data):
+    """
+    Mappes the give data to the Mixture KG
+
+    :param blob_data: json file in binary format containing all relevant informations
+    :return: ttl file as binary
+    """
 
     # Versuche, den BLOB als JSON zu laden
     try:
@@ -30,7 +36,6 @@ def mappingmixture(blob_data):
     except Exception as e:
         print(f'Error reading Mixture json: {e}')
         return
-
 
     # Create a new graph
     g = Graph()
@@ -350,7 +355,6 @@ def mappingmixture(blob_data):
     g.add((water_type, RDF.type, owl.NamedIndividual))
     if metadata.get('Water_Type'):
         g.add((water_type, co.value, Literal(f"{metadata[f'Water_Type']}", datatype=xsd.string)))
-
 
     # humanreadableID
 

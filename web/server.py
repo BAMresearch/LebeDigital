@@ -1,17 +1,9 @@
 import os
 import sys
-# Get the directory of the current script
 import threading
-
-script_directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
-
 import json
 import uuid
 import sqlite3
-from datetime import timedelta, datetime
-from flask import Flask, request, render_template, redirect, url_for, flash, session, jsonify
-#from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query
@@ -19,6 +11,11 @@ from scripts.upload.upload_script import upload_binary_to_existing_docker
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
+from datetime import timedelta, datetime
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify
+
+script_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
 
 app = Flask(__name__)
 
@@ -54,13 +51,15 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
+
 # main page
 @app.route('/')
 def index():
     # go to welcome page (no login required)
     return render_template('welcome.html')
 
-#login page
+
+# login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
@@ -80,7 +79,7 @@ def login():
     return render_template('login.html')
 
 
-#Sign up page
+# Sign up page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -110,7 +109,7 @@ def signup():
 def execute_sparql_query():
     if 'username' in session:
         # Hier extrahieren wir die Daten aus dem POST-Request
-        results = send_sparql_query(request.form['query'], docker_token)
+        results = send_sparql_query(request.form['query'], config)
         return jsonify({
             'message': results
         })
@@ -123,6 +122,7 @@ def query_page():
         return render_template('queryPage.html')
     else:
         return redirect(url_for('login'))
+
 
 # Query page
 @app.route('/query-simple')
@@ -164,7 +164,7 @@ def search_mixture():
           }}
         '''
         value_of_i = 0
-        results = send_sparql_query(query, docker_token)
+        results = send_sparql_query(query, config)
         if results and results.get("results", {}).get("bindings", []):
             # If found, find the ID
             for result in results.get('results', {}).get('bindings', []):
@@ -174,21 +174,19 @@ def search_mixture():
                 if "humanreadableID" in value:
                     query = f'''
                         SELECT ?i WHERE {{
-                            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
-                            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
-                            ?a <http://purl.org/spar/datacite/hasIdentifier> ?s .
-                            ?a <http://purl.org/spar/datacite/hasIdentifier> ?b .
-                            FILTER(?s != ?b)
-                            ?b <https://w3id.org/pmd/co/value> ?i
-                      }}
-                    '''
-                    results = send_sparql_query(query, docker_token)
+                            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" . ?s <http://www.w3.org/1999/02/22
+                            -rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> . ?a 
+                            <http://purl.org/spar/datacite/hasIdentifier> ?s . ?a 
+                            <http://purl.org/spar/datacite/hasIdentifier> ?b . FILTER(?s != ?b) ?b 
+                            <https://w3id.org/pmd/co/value> ?i }} '''
+                    results = send_sparql_query(query, config)
                     if results and results.get("results", {}).get("bindings", []):
                         # Extrahieren des Wertes von `?i`
                         for binding in results['results']['bindings']:
                             value_of_i = binding['i']['value']
                         if value_of_i:
-                            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+                            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!',
+                                            'mixtureID': value_of_i})
 
                 else:
                     value_of_i = mixture_name
@@ -250,16 +248,16 @@ def async_function(unique_id):
             cursor.execute(query, (data, unique_id))
             conn.commit()
             print(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
-            status = 1
-        except Exception as e:
-            print(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {e}")
+            success = 1
+        except Exception as ex:
+            print(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
             conn.rollback()
-            status = 0
+            success = 0
         finally:
             # Verbindung schließen
             conn.close()
 
-        return status
+        return success
 
     def get_data():
         # Verbindung zur Datenbank herstellen und Daten auslesen
@@ -271,15 +269,15 @@ def async_function(unique_id):
         cursor.execute(query, (unique_id,))
 
         # Ergebnis der Abfrage abrufen
-        row = cursor.fetchone()
+        rowdata = cursor.fetchone()
         # Verbindung schließen
         conn.close()
 
-        return row
+        return rowdata
 
     def upload_to_docker(data):
-        status = upload_binary_to_existing_docker(docker_token, 'Test', data)
-        if status != 1:
+        success = upload_binary_to_existing_docker(data, config)
+        if success != 0:
             add_data('Error', 1)
 
     # Imitiere eine lang laufende Aufgabe
@@ -302,19 +300,16 @@ def async_function(unique_id):
         add_data('Json', json.dumps(json_data).encode('utf-8'))
     else:
         if row['type'] == 'Mixture':
-            json_data = mix_metadata(row['blob'] ,row['filename'])
+            json_data = mix_metadata(row['blob'], row['filename'])
             json_data['ID'] = row['unique_id']
             print(json_data)
             add_data('Json', json.dumps(json_data).encode('utf-8'))
-        ## Raw data extraction
+        # Raw data extraction
         print("RawData")
 
-    #### Set ID and mixtureID in json!!!
-
-    ## Mapping
-
-
-    # Aktualisierte Daten abfragen
+    # Set ID and mixtureID in json!
+    # Mapping
+    # Aktualisierten Daten abfragen
     row = get_data()
 
     if row['Json'] == '':
@@ -412,7 +407,8 @@ def data_upload():
     # Verbindung zur Datenbank herstellen und die Daten speichern
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
+                   'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                    (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
     conn.commit()
     conn.close()
@@ -421,7 +417,8 @@ def data_upload():
     thread = threading.Thread(target=async_function, args=(unique_id,))
     thread.start()
 
-    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!', 'uniqueID': unique_id}), 200
+    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!',
+                    'uniqueID': unique_id}), 200
 
 
 if __name__ == '__main__':

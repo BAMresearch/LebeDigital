@@ -206,6 +206,7 @@ def mapping(KGtemplatePath, metadataPath, outputPath):
         for line in mappedKG:
             file.write(line)
 
+
 def main():
     # create parser
     parser = argparse.ArgumentParser(description='Script for mapping metadata to a Knowledge graph template.')

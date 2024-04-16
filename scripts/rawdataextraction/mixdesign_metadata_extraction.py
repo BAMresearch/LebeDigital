@@ -301,19 +301,16 @@ def remove_double_quotes(metadata):
     return metadata
 
 
-def mix_metadata(rawData, filename):
+def mix_metadata(rawdata, filename):
     """Creates a json file with extracted metadata for the mixDesign.
 
-    Parameters
-    ----------
-    rawDataFile : string
-        Path to the raw data file
-    metaDataFile : string
-        Path to the output data file for mix metadata
+    :param rawdata: Excel file in binary, containing relevant information
+    :param filename: name of the Excel file
+    :return: extracted metadata in json in binary
     """
 
     # extracting the metadata
-    metadata = extract_metadata_mixdesign(rawData, filename)
+    metadata = extract_metadata_mixdesign(rawdata, filename)
 
     # Convert any non-serializable values to strings
     metadata = {key: str(value) if not isinstance(value, (int, float, bool, dict, list, tuple, set, type(None))) else value for key, value in metadata.items()}
