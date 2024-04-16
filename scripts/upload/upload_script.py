@@ -135,9 +135,18 @@ def send_sparql_query(query, token):
         'query': query
     }
 
+    del_query = """
+        DELETE WHERE
+        {
+          ?s ?p ?o .
+        }
+        """
+
     dataset_name = "Test"
     triplestore = "jena"
     response = requests.get(f'{ontodocker_url}/api/{triplestore}/{dataset_name}/sparql', headers=headers, params=data)
+    #response = requests.post(f'{ontodocker_url}/api/{triplestore}/{dataset_name}/update', headers=headers,
+    #              params={"update": del_query}).content.decode()
 
     if response.status_code == 200:
         results = response.json()

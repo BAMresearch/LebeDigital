@@ -18,18 +18,17 @@ from scripts.upload.upload_script import send_sparql_query
 from scripts.upload.upload_script import upload_binary_to_existing_docker
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
+from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 
 app = Flask(__name__)
 
 with open('config.json', 'r') as file:
     config = json.load(file)
     docker_token = config['DOCKER_TOKEN']
+    app.config['SECRET_KEY'] = config['SECRET_KEY']
 
 # clear users.db before deployment !!!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-# change before deployment !!!!!
-app.config['SECRET_KEY'] = '9dddba0645ea2c32c78bd5c3409ec5b5c55efc9f9aeb16b750dfd72237e77c8fe52ca1655048fdbff5f5707716670a0cf3e0a01f59a704a1194a59ddc41df693'
-# !!!!
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
 app.config['SESSION_TYPE'] = "filesystem"
@@ -38,8 +37,6 @@ db = SQLAlchemy(app)
 
 # Upload Database
 upload_db = 'upload.db'
-
-main_path = ''
 
 
 class User(db.Model):
@@ -221,6 +218,7 @@ def init_db():
                 Mixture_ID TEXT,
                 user TEXT,
                 filetype TEXT,
+                filename TEXT,
                 type TEXT,
                 blob BLOB,
                 Json BLOB,
@@ -303,15 +301,20 @@ def async_function(unique_id):
             json_data['mixtureID'] = row['Mixture_ID']
         add_data('Json', json.dumps(json_data).encode('utf-8'))
     else:
+        if row['type'] == 'Mixture':
+            json_data = mix_metadata(row['blob'] ,row['filename'])
+            json_data['ID'] = row['unique_id']
+            print(json_data)
+            add_data('Json', json.dumps(json_data).encode('utf-8'))
         ## Raw data extraction
         print("RawData")
 
     #### Set ID and mixtureID in json!!!
 
     ## Mapping
-    ## Neue abfrage um ggfs. extrahierte daten abzurufen
 
-    # Ergebnis der Abfrage abrufen
+
+    # Aktualisierte Daten abfragen
     row = get_data()
 
     if row['Json'] == '':
@@ -385,6 +388,8 @@ def data_upload():
     type = request.form['type']
     mixtureID = str(request.form['Mixture_ID'])
     user = session['username']  # Benutzernamen aus der Session holen
+
+    file_name = file.filename
     # Extrahieren der Dateiendung
     _, file_extension = os.path.splitext(file.filename)
 
@@ -407,8 +412,8 @@ def data_upload():
     # Verbindung zur Datenbank herstellen und die Daten speichern
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO uploads (user, filetype, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                   (user, filetype, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+    cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                   (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
     conn.commit()
     conn.close()
 
