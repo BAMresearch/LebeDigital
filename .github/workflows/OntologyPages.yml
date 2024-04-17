@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy ontology page
 
 env:
   ONTOLOGY_FILE_NAME: lebedigital/ConcreteOntology/BaseOntology/cpto.ttl
