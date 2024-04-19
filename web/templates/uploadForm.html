@@ -14,7 +14,7 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
             <div class="row">
-                <div class="col-7">
+                <div class="col-md-8">
                     <p class="card-title">Is this mixture uploaded before or new?</p>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="radio" name="mixtureOption" id="existingMixture" value="existing" onclick="toggleSections()">
@@ -54,8 +54,8 @@
                         <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
                     </div>
                 </div>
-                <div class="col-5">
-                    <img src="{{ url_for('static', filename='images/kg2.png') }}" alt="mixture" class="icon-96">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='images/Concrete_Mixture.jpg') }}" alt="mixture" class="w-100">
                 </div>
             </div>
             <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-controls="flush-collapseTwo">Next</button>
@@ -71,8 +71,17 @@
         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
                 <div class="row">
-                    <div class="col-7">
-                        <p class="card-title">(If you don't have it click next)</p>
+                    <div class="col-md-9">
+                        <p class="small">
+                            Compressive strength is an extremely important parameter for a large number of building materials that are subjected to pressure in a building (natural stone, ceramic materials, bricks, concrete, etc.). 
+                            The compressive strength <var>β<sub>D</sub></var> is understood to be the maximum force max<var> F<sub>D</sub></var> that can be withstood with a rapid, uniaxial compressive load in relation to the initial cross-section <var>A<sub>0</sub></var>:
+                        </p>    
+                        <p class="text-center">
+                            <var>β<sub>D</sub></var> = max <var>σ<sub>D</sub></var> = max <var>F<sub>D</sub></var> <span class="bar">/</span> <var>A<sub>0</sub></var>
+                        </p>
+                        <p class="small">
+                            The compressive strength is preferably determined on cube-shaped, prismatic or cylindrical test specimens. The test is carried out on a compression testing machine between two flat and completely plane steel plates that rest on the specimen without an intermediate layer.
+                        </p>
                         <div class="input-group mt-4">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInput2">
@@ -85,8 +94,8 @@
                         <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
                         <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-controls="flush-collapseThree">Next</button>
                     </div>
-                    <div class="col-5">
-                        <img src="{{ url_for('static', filename='images/kg6.png') }}" alt="CompressiveStrength" class="icon-96">
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='images/Concrete_Compressive_Strength.jpeg') }}" alt="CompressiveStrength" class="w-100">
                     </div>
                 </div>
             </div>
@@ -95,14 +104,20 @@
         <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                <h5 class="mb-0">E-Module</h5>
+                <h5 class="mb-0">Elastic Modulus (E-Modul)</h5>
             </button>
         </h2>
         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
                 <div class="row">
-                    <div class="col-7">
-                        <p class="card-title">(If you don't have it click next)</p>
+                    <div class="col-md-9">
+                        <p class="small">
+                            Elastic changes in shape occur directly as a result of a load and disappear completely after the load is removed. Stresses and strains are proportional to each other or can be assumed to be approximately proportional. The stress-strain curve is almost linear; Hooke's law applies in this area. The proportionality factor between normal stress and strain is known as the elastic modulus <var>E</var>:
+                        </p>    
+                        <p class="text-center">
+                            <var>E</var> = max <var>σ</var> <span class="bar">/</span> <var>ε</var>
+                        </p>
+                        
                         <div class="input-group mt-4">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInput3">
@@ -113,10 +128,11 @@
                             </div>
                         </div>
                         <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
+             
                         <a href="/"><button class="btn btn-outline-theme mt-4" >Back to Home</button></a>
                     </div>
-                    <div class="col-5">
-                        <img src="{{ url_for('static', filename='images/kg7.png') }}" alt="E-Module" class="icon-96">
+                    <div class="col-md-3">
+                        <img src="{{ url_for('static', filename='images/Concrete_E-Modul.jpeg') }}" alt="E-Module" class="w-100">
                     </div>
                 </div>
                 
