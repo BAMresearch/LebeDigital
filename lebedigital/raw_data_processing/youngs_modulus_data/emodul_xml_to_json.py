@@ -90,8 +90,8 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
                 specimen_data['SpecimenMass'] = float(value)
                 specimen_data['SpecimenMass_Unit'] = var_data.find('Unit').text
             elif name == 'Grundfläche':
-                specimen_data['SpecimenArea'] = float(value)
-                specimen_data['SpecimenArea_Unit'] = var_data.find('Unit').text
+                specimen_data['SpecimenBaseArea'] = float(value)
+                specimen_data['SpecimenBaseArea_Unit'] = var_data.find('Unit').text
             elif name == 'Rohdichte':
                 specimen_data['SpecimenRawDensity'] = float(value)
                 specimen_data['SpecimenRawDensity_Unit'] = var_data.find('Unit').text
