@@ -18,6 +18,12 @@ If the structure fundamentally changes this needs to be changed here too.
 
 
 def mappingmixture(blob_data):
+    """
+    Mappes the give data to the Mixture KG
+
+    :param blob_data: json file in binary format containing all relevant informations
+    :return: ttl file as binary
+    """
 
     # Versuche, den BLOB als JSON zu laden
     try:
@@ -29,6 +35,7 @@ def mappingmixture(blob_data):
         metadata = unit_conversion(metadata)
     except Exception as e:
         print(f'Error reading Mixture json: {e}')
+        return
 
     # Create a new graph
     g = Graph()
@@ -136,19 +143,24 @@ def mappingmixture(blob_data):
         # cement content
         g.add((cement_content, RDF.type, cpto.Content))
         g.add((cement_content, RDF.type, owl.NamedIndividual))
-        g.add((cement_content, co.unit, URIRef(f"{metadata[f'Cement{entry}_Content_Unit']}")))
-        g.add((cement_content, co.value, Literal(f"{metadata[f'Cement{entry}_Content']}", datatype=xsd.float)))
+        if metadata.get(f'Cement{entry}_Content_Unit'):
+            g.add((cement_content, co.unit, URIRef(f"{metadata[f'Cement{entry}_Content_Unit']}")))
+        if metadata.get(f'Cement{entry}_Content'):
+            g.add((cement_content, co.value, Literal(f"{metadata[f'Cement{entry}_Content']}", datatype=xsd.float)))
 
         # cement density
         g.add((cement_density, RDF.type, cpto.RelativeDensity))
         g.add((cement_density, RDF.type, owl.NamedIndividual))
-        g.add((cement_density, co.unit, URIRef(f"{metadata[f'Cement{entry}_Density_Unit']}")))
-        g.add((cement_density, co.value, Literal(f"{metadata[f'Cement{entry}_Density']}", datatype=xsd.float)))
+        if metadata.get(f'Cement{entry}_Density_Unit'):
+            g.add((cement_density, co.unit, URIRef(f"{metadata[f'Cement{entry}_Density_Unit']}")))
+        if metadata.get(f'Cement{entry}_Density'):
+            g.add((cement_density, co.value, Literal(f"{metadata[f'Cement{entry}_Density']}", datatype=xsd.float)))
 
         # cement type
         g.add((cement_type, RDF.type, cpto.Cement))
         g.add((cement_type, RDF.type, owl.NamedIndividual))
-        g.add((cement_type, co.value, Literal(f"{metadata[f'Cement{entry}_Type']}", datatype=xsd.string)))
+        if metadata.get(f'Cement{entry}_Type'):
+            g.add((cement_type, co.value, Literal(f"{metadata[f'Cement{entry}_Type']}", datatype=xsd.string)))
 
     # now we add the aggregate, basically like the cement
 
@@ -182,25 +194,32 @@ def mappingmixture(blob_data):
         # aggregate content
         g.add((aggregate_content, RDF.type, cpto.Content))
         g.add((aggregate_content, RDF.type, owl.NamedIndividual))
-        g.add((aggregate_content, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Content_Unit']}")))
-        g.add((aggregate_content, co.value, Literal(f"{metadata[f'Aggregate{entry}_Content']}", datatype=xsd.float)))
+        if metadata.get(f'Aggregate{entry}_Content_Unit'):
+            g.add((aggregate_content, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Content_Unit']}")))
+        if metadata.get(f'Aggregate{entry}_Content'):
+            g.add((aggregate_content, co.value, Literal(f"{metadata[f'Aggregate{entry}_Content']}", datatype=xsd.float)))
 
         # aggregate density
         g.add((aggregate_density, RDF.type, cpto.RelativeDensity))
         g.add((aggregate_density, RDF.type, owl.NamedIndividual))
-        g.add((aggregate_density, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Density_Unit']}")))
-        g.add((aggregate_density, co.value, Literal(f"{metadata[f'Aggregate{entry}_Density']}", datatype=xsd.float)))
+        if metadata.get(f'Aggregate{entry}_Density_Unit'):
+            g.add((aggregate_density, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Density_Unit']}")))
+        if metadata.get(f'Aggregate{entry}_Density'):
+            g.add((aggregate_density, co.value, Literal(f"{metadata[f'Aggregate{entry}_Density']}", datatype=xsd.float)))
 
         # aggregate size
         g.add((aggregate_size, RDF.type, cpto.AggregateSize))
         g.add((aggregate_size, RDF.type, owl.NamedIndividual))
-        g.add((aggregate_size, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Size_Unit']}")))
-        g.add((aggregate_size, co.value, Literal(f"{metadata[f'Aggregate{entry}_Size']}", datatype=xsd.float)))
+        if metadata.get(f'Aggregate{entry}_Size_Unit'):
+            g.add((aggregate_size, co.unit, URIRef(f"{metadata[f'Aggregate{entry}_Size_Unit']}")))
+        if metadata.get(f'Aggregate{entry}_Size'):
+            g.add((aggregate_size, co.value, Literal(f"{metadata[f'Aggregate{entry}_Size']}", datatype=xsd.float)))
 
         # aggregate type
         g.add((aggregate_type, RDF.type, cpto.Aggregate))
         g.add((aggregate_type, RDF.type, owl.NamedIndividual))
-        g.add((aggregate_type, co.value, Literal(f"{metadata[f'Aggregate{entry}_Type']}", datatype=xsd.string)))
+        if metadata.get(f'Aggregate{entry}_Type'):
+            g.add((aggregate_type, co.value, Literal(f"{metadata[f'Aggregate{entry}_Type']}", datatype=xsd.string)))
 
     # now admixture
 
@@ -232,19 +251,24 @@ def mappingmixture(blob_data):
         # cement content
         g.add((admixture_content, RDF.type, cpto.Content))
         g.add((admixture_content, RDF.type, owl.NamedIndividual))
-        g.add((admixture_content, co.unit, URIRef(f"{metadata[f'Admixture{entry}_Content_Unit']}")))
-        g.add((admixture_content, co.value, Literal(f"{metadata[f'Admixture{entry}_Content']}", datatype=xsd.float)))
+        if metadata.get(f'Admixture{entry}_Content_Unit'):
+            g.add((admixture_content, co.unit, URIRef(f"{metadata[f'Admixture{entry}_Content_Unit']}")))
+        if metadata.get(f'Admixture{entry}_Content'):
+            g.add((admixture_content, co.value, Literal(f"{metadata[f'Admixture{entry}_Content']}", datatype=xsd.float)))
 
         # cement density
         g.add((admixture_density, RDF.type, cpto.RelativeDensity))
         g.add((admixture_density, RDF.type, owl.NamedIndividual))
-        g.add((admixture_density, co.unit, URIRef(f"{metadata[f'Admixture{entry}_Density_Unit']}")))
-        g.add((admixture_density, co.value, Literal(f"{metadata[f'Admixture{entry}_Density']}", datatype=xsd.float)))
+        if metadata.get(f'Admixture{entry}_Density_Unit'):
+            g.add((admixture_density, co.unit, URIRef(f"{metadata[f'Admixture{entry}_Density_Unit']}")))
+        if metadata.get(f'Admixture{entry}_Density'):
+            g.add((admixture_density, co.value, Literal(f"{metadata[f'Admixture{entry}_Density']}", datatype=xsd.float)))
 
         # cement type
         g.add((admixture_type, RDF.type, cpto.Admixture))
         g.add((admixture_type, RDF.type, owl.NamedIndividual))
-        g.add((admixture_type, co.value, Literal(f"{metadata[f'Admixture{entry}_Type']}", datatype=xsd.string)))
+        if metadata.get(f'Admixture{entry}_Type'):
+            g.add((admixture_type, co.value, Literal(f"{metadata[f'Admixture{entry}_Type']}", datatype=xsd.string)))
 
     # lastly addition
 
@@ -276,19 +300,24 @@ def mappingmixture(blob_data):
         # cement content
         g.add((addition_content, RDF.type, cpto.Content))
         g.add((addition_content, RDF.type, owl.NamedIndividual))
-        g.add((addition_content, co.unit, URIRef(f"{metadata[f'Addition{entry}_Content_Unit']}")))
-        g.add((addition_content, co.value, Literal(f"{metadata[f'Addition{entry}_Content']}", datatype=xsd.float)))
+        if metadata.get(f'Addition{entry}_Content_Unit'):
+            g.add((addition_content, co.unit, URIRef(f"{metadata[f'Addition{entry}_Content_Unit']}")))
+        if metadata.get(f'Addition{entry}_Content'):
+            g.add((addition_content, co.value, Literal(f"{metadata[f'Addition{entry}_Content']}", datatype=xsd.float)))
 
         # cement density
         g.add((addition_density, RDF.type, cpto.RelativeDensity))
         g.add((addition_density, RDF.type, owl.NamedIndividual))
-        g.add((addition_density, co.unit, URIRef(f"{metadata[f'Addition{entry}_Density_Unit']}")))
-        g.add((addition_density, co.value, Literal(f"{metadata[f'Addition{entry}_Density']}", datatype=xsd.float)))
+        if metadata.get(f'Addition{entry}_Density_Unit'):
+            g.add((addition_density, co.unit, URIRef(f"{metadata[f'Addition{entry}_Density_Unit']}")))
+        if metadata.get(f'Addition{entry}_Density'):
+            g.add((addition_density, co.value, Literal(f"{metadata[f'Addition{entry}_Density']}", datatype=xsd.float)))
 
         # cement type
         g.add((addition_type, RDF.type, cpto.Addition))
         g.add((addition_type, RDF.type, owl.NamedIndividual))
-        g.add((addition_type, co.value, Literal(f"{metadata[f'Addition{entry}_Type']}", datatype=xsd.string)))
+        if metadata.get(f'Addition{entry}_Type'):
+            g.add((addition_type, co.value, Literal(f"{metadata[f'Addition{entry}_Type']}", datatype=xsd.string)))
 
     # now water, without multiple, just one
 
@@ -326,7 +355,6 @@ def mappingmixture(blob_data):
     g.add((water_type, RDF.type, owl.NamedIndividual))
     if metadata.get('Water_Type'):
         g.add((water_type, co.value, Literal(f"{metadata[f'Water_Type']}", datatype=xsd.string)))
-
 
     # humanreadableID
 
