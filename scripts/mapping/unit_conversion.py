@@ -5,7 +5,7 @@ import json
 from loguru import logger
 
 
-def unit_conversion(input_metadata, UnitURIpath = "unit_URI.json"):
+def unit_conversion(input_metadata):
 
     """
 
@@ -15,7 +15,7 @@ def unit_conversion(input_metadata, UnitURIpath = "unit_URI.json"):
         Dictionary containing the extracted metadata.
     UnitURIpath : string (path to json file)
         Json file containing the translation of unit abbreviations to URIs, by default given
-        by "../../lebedigital/mapping/unit_URI.json".
+        ".
 
     Returns:
     -------
