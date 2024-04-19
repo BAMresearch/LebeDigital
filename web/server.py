@@ -4,6 +4,10 @@ import threading
 import json
 import uuid
 import sqlite3
+
+script_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query
@@ -14,8 +18,7 @@ from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 
-script_directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
+
 
 app = Flask(__name__)
 
