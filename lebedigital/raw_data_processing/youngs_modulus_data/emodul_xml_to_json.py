@@ -99,8 +99,8 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
                 emodul_data['ExtensometerLength'] = float(value)
                 emodul_data['ExtensometerLength_Unit'] = var_data.find('Unit').text
             elif name == 'Dehnung':
-                emodul_data['SpecimenStrain'] = float(value)
-                emodul_data['SpecimenStrain_Unit'] = var_data.find('Unit').text
+                emodul_data['Strain'] = float(value)
+                emodul_data['Strain_Unit'] = var_data.find('Unit').text
 
     # Calculate specimen age
     if 'ExperimentDate' in emodul_data and mixing_date:
