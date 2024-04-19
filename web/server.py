@@ -19,9 +19,9 @@ sys.path.append(os.path.join(script_directory, '..'))  # Add the parent director
 
 app = Flask(__name__)
 
+# Load config.json
 with open('config.json', 'r') as file:
     config = json.load(file)
-    docker_token = config['DOCKER_TOKEN']
     app.config['SECRET_KEY'] = config['SECRET_KEY']
 
 # clear users.db before deployment !!!
@@ -36,6 +36,7 @@ db = SQLAlchemy(app)
 upload_db = 'upload.db'
 
 
+# Create password db
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -63,7 +64,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
-        return render_template('queryPage.html')
+        return redirect(url_for('query'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -100,11 +101,12 @@ def signup():
         # Add to the database
         db.session.add(new_user)
         db.session.commit()
-        return render_template('login.html')
+        return redirect(url_for('login'))
 
     return render_template('signup.html')
 
 
+# Send Query to Ontodocker
 @app.route('/queryexec', methods=['POST'])
 def execute_sparql_query():
     if 'username' in session:
@@ -124,7 +126,7 @@ def query_page():
         return redirect(url_for('login'))
 
 
-# Query page
+# Query page (simple version)
 @app.route('/query-simple')
 def query_page_simple():
     if 'username' in session:
@@ -142,6 +144,7 @@ def upload_page():
         return redirect(url_for('login'))
 
 
+# Logout
 @app.route('/logout')
 def logout():
     # delete username out of session
@@ -150,7 +153,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-# query mixture
+# query mixture (in upload page)
 @app.route('/search-mixture', methods=['POST'])
 def search_mixture():
     if 'username' in session:
