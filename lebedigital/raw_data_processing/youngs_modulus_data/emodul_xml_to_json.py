@@ -75,8 +75,8 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
             elif name == 'TestRunName':
                 emodul_data['TestRunName'] = value
             elif name == 'E_Modul':
-                emodul_data['EModul'] = float(value)
-                emodul_data['EModul_Unit'] = var_data.find('Unit').text
+                emodul_data['EModule'] = float(value)
+                emodul_data['EModule_Unit'] = var_data.find('Unit').text
             elif name == 'Druckfestigkeit':
                 emodul_data['CompressiveStrength'] = float(value)
                 emodul_data['CompressiveStrength_Unit'] = var_data.find('Unit').text
