@@ -10,8 +10,7 @@ sys.path.append(os.path.join(script_directory, '..'))  # Add the parent director
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query
-from scripts.upload.upload_script import upload_binary_to_existing_docker
+from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
@@ -67,7 +66,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
-        return redirect(url_for('query'))
+        return redirect(url_for('query_page'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -147,6 +146,15 @@ def upload_page():
         return redirect(url_for('login'))
 
 
+# Upload page
+@app.route('/admin')
+def admin_page():
+    if session['username'] == 'admin':
+        return render_template('admin.html')
+    else:
+        return redirect(url_for('login'))
+
+
 # Logout
 @app.route('/logout')
 def logout():
@@ -154,6 +162,64 @@ def logout():
     session.pop('username', None)
 
     return redirect(url_for('login'))
+
+
+@app.route('/adminData', methods=['POST', 'GET'])
+def get_admin_data():
+    if session['username'] != 'admin':
+        return jsonify({"error": "Unauthorized"}), 401
+
+    if request.method == 'GET':
+        # Logik für GET-Anfragen
+        users = User.query.all()
+        usernames = [user.username for user in users]
+        return jsonify({"config": config, "users": usernames})
+    elif request.method == 'POST':
+        # Logik für POST-Anfragen
+        data = request.json
+        print(data)
+        if data.get("clearData"):
+            if data["clearData"]:
+                clear_dataset(config)
+                print("Ontodocker cleared.")
+                # Verbindung zur Datenbank herstellen
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                query = f"DELETE FROM uploads"
+                try:
+                    cursor.execute(query)
+                    conn.commit()
+                    print("Datenbank gelöscht.")
+                except Exception as ex:
+                    print(f"Fehler beim Löschen der Tabelle uploads: {ex}")
+                    conn.rollback()
+                finally:
+                    # Verbindung schließen
+                    conn.close()
+        else:
+            config['ontodocker_url'] = data["config"]["ontodocker_url"]
+            config["DOCKER_TOKEN"] = data["config"]["DOCKER_TOKEN"]
+            config["triplestore_server"] = data["config"]["triplestore_server"]
+            config["dataset_name"] = data["config"]["dataset_name"]
+
+            with open('config.json', 'w') as file:
+                json.dump(config, file, indent=4)
+
+            for entry in data["users"]:
+                # Suche den Benutzer anhand des Benutzernamens
+                user = User.query.filter_by(username=entry).first()
+
+                if user:
+                    # Wenn der Benutzer gefunden wurde, lösche ihn
+                    db.session.delete(user)
+                    db.session.commit()
+                else:
+                    # Wenn kein Benutzer gefunden wurde, sende eine Fehlermeldung
+                    return jsonify({'error': 'User not found'}), 404
+
+        return jsonify({"message": "Data received"})
+    else:
+        return jsonify({"error": "Method Not Allowed"}), 405
 
 
 # query mixture (in upload page)

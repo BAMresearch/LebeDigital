@@ -133,5 +133,3 @@ cython_debug/
 config.json
 # database for uploaded data
 upload.db
-# user database with passwords (hashed)
-users.db
