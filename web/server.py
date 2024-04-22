@@ -4,19 +4,19 @@ import threading
 import json
 import uuid
 import sqlite3
-
-script_directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
+from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 
+
+script_directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
 
 
 app = Flask(__name__)
@@ -307,8 +307,8 @@ def init_db():
 def async_function(unique_id):
 
     # Lookup table for path
-    paths = {'EModule': 'cpto/EModuleOntology_KG_Template.ttl',
-             'Specimen': 'cpto/Specimen_KG_Template.ttl'}
+    paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
+             'Specimen': '../cpto/Specimen_KG_Template.ttl'}
 
     def add_data(rowname, data):
         # Verbindung zur Datenbank herstellen
@@ -331,14 +331,17 @@ def async_function(unique_id):
 
         return success
 
-    def get_data():
+    def get_data(uid=None):
         # Verbindung zur Datenbank herstellen und Daten auslesen
         conn = get_db_connection()
         cursor = conn.cursor()
 
+        if uid is None:
+            uid = unique_id
+
         # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
         query = "SELECT * FROM uploads WHERE Unique_ID = ?"
-        cursor.execute(query, (unique_id,))
+        cursor.execute(query, (uid,))
 
         # Ergebnis der Abfrage abrufen
         rowdata = cursor.fetchone()
@@ -376,7 +379,21 @@ def async_function(unique_id):
             json_data['ID'] = row['unique_id']
             print(json_data)
             add_data('Json', json.dumps(json_data).encode('utf-8'))
-        # Raw data extraction
+        elif row['type'] == 'EModule':
+            if row['filetype'] == 'xml':
+                mix_data = get_data(row['Mixture_ID'])
+                print(mix_data)
+                json_data = xml_to_json(row['blob'], mix_data['Json'])
+                print(json_data)
+                emodule_json = json_data[0]
+                specimen_json = json_data[1]
+                emodule_json['ID'] = row['unique_id']
+                specimen_json['ID'] = row['unique_id']
+                emodule_json['SpecimenID'] = row['unique_id']
+                print(emodule_json)
+                print(specimen_json)
+                add_data('Json', json.dumps(emodule_json).encode('utf-8'))
+                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
         print("RawData")
 
     # Set ID and mixtureID in json!
@@ -435,7 +452,7 @@ def async_function(unique_id):
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json']
+    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml']
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 

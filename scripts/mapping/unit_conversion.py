@@ -20,7 +20,12 @@ def unit_conversion(input_metadata):
                      "day": "https://qudt.org/vocab/unit/DAY",
                      "GPa": "https://qudt.org/vocab/unit/GigaPA",
                      "cylindrical": "https://w3id.org/cpto/Cylinder",
-                     "cubical":  "https://w3id.org/cpto/Cube"}
+                     "cubical":  "https://w3id.org/cpto/Cube",
+                     "N/mm^2": "http://qudt.org/vocab/unit/N-PER-MilliM2",
+                     "mm^2": "http://qudt.org/vocab/unit/MilliM2",
+                     "g/mm^3": "http://qudt.org/vocab/unit/GM-PER-CentiM3",
+                     "mm/mm": "http://qudt.org/vocab/unit/PER-MilliM",
+                     "kg": "http://qudt.org/vocab/unit/KiloGM"}
 
     # Add more unit mappings as needed
 

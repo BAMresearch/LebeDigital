@@ -79,7 +79,7 @@
                 layout: "fitColumns", // Passende Spaltenbreite
                 columns: [
                     {title: "Benutzername", field: "name"},
-                    {formatter:"buttonCross", width: 75, align:"center", cellClick:function(e, cell){
+                    {formatter:"buttonCross", width: 75, width: 3, align:"center", cellClick:function(e, cell){
                     let userName = cell.getRow().getData().name;
                     deletedUsers.push(userName); // Fügt den Benutzernamen zur Liste der gelöschten Benutzer hinzu
                     cell.getRow().delete(); // Löscht die Zeile aus der Tabelle
