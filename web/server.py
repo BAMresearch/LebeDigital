@@ -66,8 +66,8 @@ def index():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'username' in session:
-        return redirect(url_for('query'))
+    #if 'username' in session:
+    #    return redirect(url_for('query_page'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']

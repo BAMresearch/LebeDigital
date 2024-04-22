@@ -29,11 +29,11 @@
                         </label>
                     </div>
                     <div id="mixtureDetails" style="display: none;">
-                        <p>Which Concrete Mixture did you use?</p>
+                        <p class="pt-4">Which Concrete Mixture did you use?</p>
                         <div class="input-group mb-3 w-50">
                             <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-theme" type="button" onclick="submitMixture()">Search</button>
+                                <button class="btn btn-theme" type="button" onclick="submitMixture()">Search</button>
                             </div>
                         </div>
                         
@@ -42,7 +42,7 @@
                     </div>
                     <div id="fileUpload" style="display: none;">
                         
-                        <div class="input-group pt-4">
+                        <!--<div class="input-group pt-4">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInput1">
                                 <label class="custom-file-label" for="fileInput1"></label>
@@ -50,8 +50,54 @@
                             <div class="input-group-append">
                                 <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
                             </div>
+                        </div>-->
+                        
+                        <div class="card p-4 bg-light-blue" style="border: 0;">
+                            <p class="text-center">Upload your Mixture file here, browse files or import from</p>
+                            <div class="d-md-flex justify-content-center">
+                                <div class="px-2 text-center">
+                                    <button class="btn btn-outline-theme icon-42" onclick="document.getElementById('fileInput1').click()">
+                                        <i class="fas fa-upload"></i>
+                                    </button> <br>
+                                    <span class="clr-theme text-small">Device </span>
+                                    <input type="file" id="fileInput1" style="display: none;" onchange="onFileSelected(event,'fileLabel1')">
+                                </div>
+                                
+                                <div class="px-2 text-center">
+                                    <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-link"></i> 
+                                    </button>
+                                    <br> <span class="clr-theme text-small">URL</span>
+                                </div>  
+                                 
+                                 
+                            </div>
+                            <label id="fileLabel1" class="text-center">&nbsp;</label>
+                            <div class="">
+                                <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1', 'urlInput1','fileLabel1')">Upload</button>
+                            </div>
+                            <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                            
+                          
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h6>Upload your Mixture</h6>
+                                      </div>
+                                      <div class="modal-body">
+                                        <input type="text" id="urlInput1" class="form-control" placeholder="Enter URL">
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-theme" onclick="onUrlEntered('urlInput1','fileLabel1')">Submit</button>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
+                        
                     </div>
                 </div>
                 <div class="col-md-4">
