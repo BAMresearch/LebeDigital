@@ -9,19 +9,10 @@ import pandas as pd
 import numpy as np
 # removing 'SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame'
 pd.options.mode.chained_assignment = None  # default='warn'
-import os
-import json
 from loguru import logger
-from pathlib import Path
 import argparse
 import uuid
 import io
-
-# Set up logger
-baseDir = Path(__file__).parents[0]
-logPath = os.path.join(baseDir, "logs", "file_{time}.log")
-# logger.add(logPath, level="DEBUG")  # this also displays the log in the console
-logger.configure(handlers=[{"sink": logPath, "level": "DEBUG"}])
 
 
 # function to convert german formatting to english
@@ -72,6 +63,7 @@ def extract_metadata_mixdesign(RawData, filename):
     excelfile = pd.read_excel(excel_file, sheet_name=None)
 
     listofkeys = [i for i in excelfile.keys() if 'Rezeptur' in i]
+    logger.debug("-" * 20)
     logger.debug('Working on file: ' + excelsheet)
     logger.debug('Following sheet(s) contain mixture metadata in this file: ' + str(listofkeys))
 

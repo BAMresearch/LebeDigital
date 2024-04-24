@@ -145,6 +145,37 @@ async function create_query(selectedQueryType, enteredName){
             }`;
         }
 
+        // Show all Mixtures with Name and ID
+        if (selectedQueryType === "EModule" && enteredName === "") {
+            query = `
+            SELECT ?ID ?Mixture ?Name ?EModule WHERE {
+              ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ModulusOfElasticity>.
+              ?o <https://w3id.org/pmd/co/input> ?s.
+              ?o <http://purl.org/spar/datacite/hasIdentifier> ?p.
+              ?o <http://purl.org/spar/datacite/hasIdentifier> ?d.
+              ?o <http://purl.org/spar/datacite/hasIdentifier> ?m.
+              FILTER(REGEX(str(?d), "/humanreadableID[^/]*$"))
+              FILTER(REGEX(str(?p), "/ID[^/]*$"))
+              FILTER(REGEX(str(?m), "/MixtureID[^/]*$"))
+              OPTIONAL { ?p <https://w3id.org/pmd/co/value> ?ID. }
+              OPTIONAL { ?m <https://w3id.org/pmd/co/value> ?Mixture. }
+              OPTIONAL { ?d <https://w3id.org/pmd/co/value> ?Name. }
+              OPTIONAL { ?s <https://w3id.org/pmd/co/value> ?EModule. }
+            }`;
+        }
+
+        // Show all Info from a specific Mixture
+        if (selectedQueryType === "EModule" && enteredName !== ""){
+            query = `
+            SELECT ?Bestandteil ?Wert ?Einheit WHERE {
+            ?g ?p "${enteredName}".
+            BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
+            ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
+            OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
+            FILTER(STRENDS(STR(?Bestandteil), ?suffix))
+            }`;
+        }
+
         // main logic for not extended queries
         try {
             const tableData = await executeSparqlQuery(query);
@@ -239,10 +270,26 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
     // creates a new table and adds placeholder
     table = new Tabulator("#resultsTable", {
     layout: "fitColumns",
-    placeholder: "Daten werden geladen..."
+    placeholder: "Daten werden geladen...",
     });
+
 
     // function for creating and executing Sparql query, based on input from the form
     create_query(selectedQueryType, enteredName)
 
+    // Fügt den Event Listener für den Klick auf eine Zeile hinzu
+    table.on("cellClick", function(e, cell) {
+        // 'cell' ist das Zellen-Objekt, 'e' ist das Event-Objekt
+        var value = cell.getValue(); // Holt den Wert der Zelle
+        var field = cell.getField(); // Holt den Feldnamen der Spalte
+
+        if (field === "Name" || field == "ID") { // Überprüft, ob die Spalte 'Name' ist
+            document.getElementById('nameInput').value = value;  // Setzt den Wert ins Eingabefeld
+            document.getElementById('submit').click(); // Automatisches Auslösen des Query-Buttons
+        } else {
+            console.log(`Geklickt auf Spalte: ${field} mit Wert: ${value}`);
+        }
+    });
+
 });
+

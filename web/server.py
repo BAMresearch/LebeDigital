@@ -13,6 +13,9 @@ from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
+from loguru import logger
+from pathlib import Path
+import os
 
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
@@ -36,6 +39,24 @@ db = SQLAlchemy(app)
 
 # Upload Database
 upload_db = 'upload.db'
+
+
+# Pfad zur Basis des Projekts bestimmen
+baseDir = Path(__file__).parent
+logDir = os.path.join(baseDir, "logs")
+
+# Stelle sicher, dass das Verzeichnis für die Logs existiert
+os.makedirs(logDir, exist_ok=True)
+
+# Pfade für die Log-Dateien
+debugLogPath = os.path.join(logDir, "debug_{time}.log")
+infoLogPath = os.path.join(logDir, "info_{time}.log")
+
+# Konfiguriere die globalen Logger-Einstellungen
+logger.configure(handlers=[
+    {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "10 days"},
+    {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
+])
 
 
 # Create password db

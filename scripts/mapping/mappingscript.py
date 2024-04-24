@@ -186,7 +186,7 @@ def placeholderreplacement(kgPath, metadata):
     if remainingPH:
         # Remove not mapped data
         g = Graph()
-        g.parse(mappedKG_content)
+        g.parse(data=mappedKG_content, format='turtle')
 
         # Liste der zu löschenden Tripel vorbereiten
         to_remove = []
