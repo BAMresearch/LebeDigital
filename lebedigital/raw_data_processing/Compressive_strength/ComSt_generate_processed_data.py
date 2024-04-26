@@ -66,7 +66,7 @@ def processed_rawdata(locationOfRawData, locationOfProcessedData):
 
 
 
-    rawDataDataFrame = pd.DataFrame(columns=[str(n) for n in range(1, 7)], data=rawDataValue)
+    rawDataDataFrame = pd.DataFrame(columns=[str(n) for n in range(1, 6)], data=rawDataValue)
 
     processedDataDataFrame = pd.DataFrame(columns=['Force [kN]'
                                                    ],
@@ -77,7 +77,4 @@ def processed_rawdata(locationOfRawData, locationOfProcessedData):
 
 
 
-processed_rawdata('C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 2', 'C:/develop/lebedigital-new/Lebedigital/usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')
-
-
-
+processed_rawdata('../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit_BAM/20240220_7188_M01/Druckfestigkeiten_7Tage/20240220_7188_M01_W01', '../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')
