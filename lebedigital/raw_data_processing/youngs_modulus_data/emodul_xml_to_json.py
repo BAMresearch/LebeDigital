@@ -162,7 +162,7 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
 
 
 # Example usage:
-xml_file_path = "../../../usecases/MinimumWorkingExample/Data/E-Modul_28_Tage/20240220_7188_M01_Z04_E.xml"
+xml_file_path = "../../../usecases/MinimumWorkingExample/Data/E-Modul_28_Tage/20240220_7188_M01/20240220_7188_M01_Z04_E-Modul.xml"
 emodul_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M01_Z04_E.json"
 specimen_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M01_Z04_E_Specimen.json"
 
