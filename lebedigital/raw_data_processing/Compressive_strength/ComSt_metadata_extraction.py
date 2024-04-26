@@ -87,7 +87,7 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
         metadata_ComSt['ID'] = ComStID
 
         # get experiment date and time in protege format YYYY-MM-DDTHH:mm:SS
-        date = serviceInformation[10][4]  # datetime.datetime.strptime(,'%d.%m.%y')
+        date = serviceInformation[11][4]  # datetime.datetime.strptime(,'%d.%m.%y')
         date_only = datetime.datetime.strptime(date.split(" ")[0], '%d.%m.%Y')
         date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + date.split(" ")[1]
         metadata_ComSt['ExperimentDate'] = str(date_protegeformat)
@@ -108,23 +108,20 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
         metadata_ComSt['Extensometer_Unit'] = "mm"  # Transducer messen eine Verschiebung.
 
 
-
-
-        # set specimen age to 28 days
-        metadata_ComSt['SpecimenAge'] = 28.0
-        metadata_ComSt['SpecimenAge_Unit'] = 'day'
-
         # name of specimen (humanreadable)
         metadata_specimen_ComSt['humanreadableID'] = folderName
         # set size of specimen
-        metadata_specimen_ComSt['SpecimenDiameter'] = float(replace_comma(serviceInformation[5][1]))  #diameter
+        metadata_specimen_ComSt['SpecimenDiameter'] = float(replace_comma(serviceInformation[5][1]))  # diameter
         metadata_specimen_ComSt['SpecimenDiameter_Unit'] = 'mm'
-        metadata_specimen_ComSt['SpecimenHeight'] = float(replace_comma(serviceInformation[6][1]))  #length
+        metadata_specimen_ComSt['SpecimenHeight'] = float(replace_comma(serviceInformation[6][1]))  # Height
         metadata_specimen_ComSt['SpecimenHeight_Unit'] = 'mm'
 
+        # set the length
+        metadata_specimen_ComSt['SpecimenLength'] = float(replace_comma(serviceInformation[7][1]))  # Length
+        metadata_specimen_ComSt['SpecimenLength_Unit'] = 'mm'
 
         # weight
-        metadata_specimen_ComSt['SpecimenMass'] = float(replace_comma(serviceInformation[7][1]))
+        metadata_specimen_ComSt['SpecimenMass'] = float(replace_comma(serviceInformation[8][1]))
         metadata_specimen_ComSt['SpecimenMass_Unit'] = 'g'
 
         # path to specimen.dat
@@ -144,13 +141,27 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
         metadata_ComSt['specimenID'] = metadata_specimen_ComSt['ID'] = ComStID
         # save Mixdesign ID to specimen metadata
         try:
-            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + lines[:-4] + ".json", "r") as mixjson:  # change location of where
+            with open("../../../usecases/MinimumWorkingExample/mixture/metadata_json_files/" + os.path.splitext(lines)[0] + ".json", "r", encoding="utf8", errors='ignore') as mixjson:  # change location of where
             #with open(path_to_json, "r") as mixjson:
                 mixdesign = json.load(mixjson)
                 mixtureID = mixdesign['ID']
                 metadata_specimen_ComSt['MixtureID'] = mixtureID
+            # Extract mixing date
+            mixing_date_str = mixdesign['MixingDate']
+            mixing_date = datetime.datetime.strptime(mixing_date_str, '%Y-%m-%dT%H:%M:%S')
         except AttributeError:
             raise Exception("No mixdesign json-file found! Can't import the ID and save it to the output!")
+
+        # Calculate specimen age
+        if 'ExperimentDate' in metadata_ComSt and mixing_date:
+            # Convert dates to midnight
+            experiment_date = datetime.datetime.strptime(metadata_ComSt['ExperimentDate'], '%Y-%m-%dT%H:%M:%S').replace(
+                hour=0, minute=0, second=0)
+            mixing_date = mixing_date.replace(hour=0, minute=0, second=0)
+            # Calculate age
+            specimen_age = (experiment_date - mixing_date).days
+            metadata_ComSt['SpecimenAge'] = specimen_age
+            metadata_ComSt['SpecimenAge_Unit'] = 'day'
 
         # set paths
         metadata_ComSt['ProcessedFile'] = os.path.join('../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')  # path to csv file with values extracted by ComSt_generate_processed_data.py
@@ -214,10 +225,10 @@ def main():
 
     # default values for testing of my script
     if args.input == None:
-        args.input = '../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit/Wolf 8.2 Probe 2'
+        args.input = '../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit_BAM/20240220_7188_M01/Druckfestigkeiten_7Tage/20240220_7188_M01_W01'
     if args.output == None:
-        args.output = ['../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/testComStMetaData.json',
-                       '../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/testSpecimenData.json']
+        args.output = ['../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/20240220_7188_M01_W01_ComSt.json',
+                       '../../../usecases/MinimumWorkingExample/Druckfestigkeit/metadata_json_files/20240220_7188_M01_W01_ComStSpecimen.json']
 
     # run extraction and write metadata file
     ComSt_metadata(args.input, args.output[0], args.output[1])
