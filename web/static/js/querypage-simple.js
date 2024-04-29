@@ -283,9 +283,12 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
         var value = cell.getValue(); // Holt den Wert der Zelle
         var field = cell.getField(); // Holt den Feldnamen der Spalte
 
-        if (field === "Name" || field == "ID") { // Überprüft, ob die Spalte 'Name' ist
+        if (field == "Name" || field == "ID") { // Überprüft, ob die Spalte 'Name' ist
             document.getElementById('nameInput').value = value;  // Setzt den Wert ins Eingabefeld
             document.getElementById('submit').click(); // Automatisches Auslösen des Query-Buttons
+        } else if (field == "Einheit") {
+            var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
+            window.open(url, "_blank");
         } else {
             console.log(`Geklickt auf Spalte: ${field} mit Wert: ${value}`);
         }
