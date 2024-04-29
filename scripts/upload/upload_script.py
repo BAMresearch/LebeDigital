@@ -1,4 +1,5 @@
 import requests
+from loguru import logger
 
 
 def upload_binary_to_existing_docker(binary_data, config):
@@ -12,23 +13,29 @@ def upload_binary_to_existing_docker(binary_data, config):
     :return: if success 0, else 1
     """
 
+    logger.debug("-" * 20)
+    logger.debug(f"Startet uploading to: {config['ontodocker_url']} for file with length: {len(binary_data)}")
+    logger.debug(
+        f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}')
+
     # Set Authorization Header with token
     headers = {"Authorization": f"Bearer {config['DOCKER_TOKEN']}", "Content-Type": "text/turtle"}
 
     # Prepare URL's for upload
     upload_url = f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}/upload'
-    print(f"Uploading data to dataset '{config['dataset_name']}' at '{upload_url}'.")
 
     # Upload the binary data to the dataset
     upload_response = requests.post(upload_url, headers=headers, data=binary_data)
-    print(upload_response.content.decode())
+    logger.debug(upload_response.content.decode())
 
     # Status based on response code
     if upload_response.status_code == 200:
-        print("Data successfully uploaded.")
+        logger.debug("Data successfully uploaded.")
+        logger.debug("-" * 20)
         return 0
     else:
-        print("Failed to upload data.")
+        logger.error("Failed to upload data to Ontodocker.")
+        logger.debug("-" * 20)
         return 1
 
 
@@ -42,6 +49,12 @@ def send_sparql_query(query, config):
                     dataset_name and triplestore_server
     :return: result of Query if successful, else error
     """
+
+    logger.debug("-" * 20)
+    logger.debug(f'Sending Sparql-Query to Ontodocker: {query}')
+    logger.debug(f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/'
+                 f'{config["dataset_name"]}'
+                 f'/sparql')
 
     # Set Authorization Header with token
     headers = {
@@ -60,10 +73,12 @@ def send_sparql_query(query, config):
 
     # Return based on response code
     if response.status_code == 200:
+        logger.debug("Query successful.")
+        logger.debug("-" * 20)
         results = response.json()
         return results
     else:
-        print(f"Fehler bei der Anfrage: HTTP {response.status_code}, {response.text}")
+        logger.error(f"Error in the query request for the Ontodocker: HTTP {response.status_code}, {response.text}")
         return f"Fehler bei der Anfrage: HTTP {response.status_code}"
 
 
@@ -75,6 +90,11 @@ def clear_dataset(config):
                     dataset_name and triplestore_server
     :return: true
     """
+
+    logger.debug("-" * 20)
+    logger.debug("Clearing Dataset and Ontodocker.")
+    logger.debug(f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/'
+                 f'{config["dataset_name"]}/update')
 
     # Set Authorization Header with token
     headers = {
@@ -90,7 +110,11 @@ def clear_dataset(config):
         """
 
     # Post the deletion request to the server
-    requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}/update',
+    requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
+                  f'/update',
                   headers=headers, params={"update": del_query}).content.decode()
+
+    logger.debug("Deletion request successfully sent.")
+    logger.debug("-" * 20)
 
     return

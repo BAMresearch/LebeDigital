@@ -31,16 +31,12 @@ function uploadData(type, fileID, urlID, label) {
     } else {
         // It's a file
         var fileInput = document.getElementById(fileID);
-        // Check the file format (extension)
-        const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json'];
-        const fileExtension = fileInput.files[0].name.split('.').pop().toLowerCase();
-
-        console.log(fileExtension)
-        if (!allowedFormats.includes(fileExtension)) {
-            alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
-            return;
-        }
         formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
+    }
+
+    // Log each key-value pair in formData
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
     }
 
     fetch('/dataUpload', {
@@ -64,21 +60,47 @@ function uploadData(type, fileID, urlID, label) {
     });
 }
 
+// This function is called when the upload button is clicked
+function clearFileInput(fileID) {
+    document.getElementById(fileID).value = '';
+}
 
 // This function is called when a file is selected
 function onFileSelected(event, fileLabel) {
     var fileName = event.target.files[0].name;
+
+    // Check the file format (extension)
+    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json'];
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+
+    if (!allowedFormats.includes(fileExtension)) {
+        alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
+        return;
+    }
     document.getElementById(fileLabel).textContent = fileName;
+    //event.target.value = '';  // Reset the value
 }
 
 // This function is called when the "ok" button in the modal is clicked
-function onUrlEntered(urlInput1,fileLabel) {
-    var url = document.getElementById(urlInput1).value;
-    document.getElementById(fileLabel).textContent = url;
+function onUrlEntered(urlInput,fileLabel) {
+    var url = document.getElementById(urlInput).value;
+    if (isValidURL(url)) {
+        document.getElementById(fileLabel).textContent = url;
+    } else {
+        alert("Please enter a valid URL.");
+    }
     var modalElement = document.getElementById('exampleModal');
     var modalInstance = bootstrap.Modal.getInstance(modalElement);
     modalInstance.hide();
 }
+
+// This function checks if a URL is valid
+function isValidURL(string) {
+    var res = string.match(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/);
+    return (res !== null)
+};
+
+
 
 /*function uploadData(type, inputID, isUrl = false) {
     var mixtureID;

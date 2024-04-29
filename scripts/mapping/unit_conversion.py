@@ -1,42 +1,33 @@
-# Script to convert the units extracted from the raw data into valid ontology 
-# instances.
-
-import json
 from loguru import logger
 
 
 def unit_conversion(input_metadata):
-
     """
+    Script to convert the units extracted from the raw data into valid ontology
+    instances.
 
-    Parameters:
-    ----------
-    input_metadata : dict
-        Dictionary containing the extracted metadata.
-    UnitURIpath : string (path to json file)
-        Json file containing the translation of unit abbreviations to URIs, by default given
-        ".
-
-    Returns:
-    -------
-    output_metadata : dict
-        Dictionary with units replaced by link to an instance defined in the PMD core.
+    :param input_metadata: dictionary of metadata
+    :return: dictionary of converted units
     """
-    unit_mappings = {"mm": "http://qudt.org/vocab/unit/MilliM", "g": "http://qudt.org/vocab/unit/GM", "kN": "https://qudt.org/vocab/unit/KN", "kg/m^3": "http://qudt.org/vocab/unit/KiloGM-PER-M3", "kg/dm^3": "http://qudt.org/vocab/unit/KiloGM-PER-DeciM3", "dm^3": "http://qudt.org/vocab/unit/DeciM3", "day": "https://qudt.org/vocab/unit/DAY", "GPa": "https://qudt.org/vocab/unit/GigaPA", "cylindrical": "https://w3id.org/cpto/Cylinder", "cubical":  "https://w3id.org/cpto/Cube"}
-
-
 
     # Define the unit mappings as a dictionary
-    #unit_mappings = {
-    #   'mm': 'http://qudt.org/vocab/unit/MilliM',
-    #   'g': 'http://qudt.org/vocab/unit/GM',
-    #   'kN': 'https://qudt.org/vocab/unit/KN',
-    #   'kg/m^3': 'http://qudt.org/vocab/unit/KiloGM-PER-M3',
-    #   'kg/dm^3': 'http://qudt.org/vocab/unit/KiloGM-PER-DeciM3',
-    #   'dm³': 'http://qudt.org/vocab/unit/DeciM3'
+    unit_mappings = {"mm": "http://qudt.org/vocab/unit/MilliM",
+                     "g": "http://qudt.org/vocab/unit/GM",
+                     "kN": "https://qudt.org/vocab/unit/KN",
+                     "kg/m^3": "http://qudt.org/vocab/unit/KiloGM-PER-M3",
+                     "kg/dm^3": "http://qudt.org/vocab/unit/KiloGM-PER-DeciM3",
+                     "dm^3": "http://qudt.org/vocab/unit/DeciM3",
+                     "day": "https://qudt.org/vocab/unit/DAY",
+                     "GPa": "https://qudt.org/vocab/unit/GigaPA",
+                     "cylindrical": "https://w3id.org/cpto/Cylinder",
+                     "cubical":  "https://w3id.org/cpto/Cube",
+                     "N/mm^2": "http://qudt.org/vocab/unit/N-PER-MilliM2",
+                     "mm^2": "http://qudt.org/vocab/unit/MilliM2",
+                     "g/mm^3": "http://qudt.org/vocab/unit/GM-PER-CentiM3",
+                     "mm/mm": "http://qudt.org/vocab/unit/PER-MilliM",
+                     "kg": "http://qudt.org/vocab/unit/KiloGM"}
 
-        # Add more unit mappings as needed
-    #}
+    # Add more unit mappings as needed
 
     debug_counter = 0
     
@@ -54,4 +45,3 @@ def unit_conversion(input_metadata):
     output_metadata = input_metadata
 
     return output_metadata
-

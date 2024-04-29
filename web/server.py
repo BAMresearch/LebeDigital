@@ -1,23 +1,27 @@
 import os
 import sys
-import threading
-import json
-import uuid
-import sqlite3
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
 
+import threading
+import json
+import uuid
+import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query
-from scripts.upload.upload_script import upload_binary_to_existing_docker
+from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
+from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
-
+from loguru import logger
+from pathlib import Path
+import requests
+from werkzeug.datastructures import FileStorage
+from io import BytesIO
 
 
 app = Flask(__name__)
@@ -37,6 +41,24 @@ db = SQLAlchemy(app)
 
 # Upload Database
 upload_db = 'upload.db'
+
+
+# Pfad zur Basis des Projekts bestimmen
+baseDir = Path(__file__).parent
+logDir = os.path.join(baseDir, "logs")
+
+# Stelle sicher, dass das Verzeichnis für die Logs existiert
+os.makedirs(logDir, exist_ok=True)
+
+# Pfade für die Log-Dateien
+debugLogPath = os.path.join(logDir, "debug_{time}.log")
+infoLogPath = os.path.join(logDir, "info_{time}.log")
+
+# Konfiguriere die globalen Logger-Einstellungen
+logger.configure(handlers=[
+    {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "10 days"},
+    {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
+])
 
 
 # Create password db
@@ -147,6 +169,15 @@ def upload_page():
         return redirect(url_for('login'))
 
 
+# Upload page
+@app.route('/admin')
+def admin_page():
+    if session['username'] == 'admin':
+        return render_template('admin.html')
+    else:
+        return redirect(url_for('login'))
+
+
 # Logout
 @app.route('/logout')
 def logout():
@@ -154,6 +185,64 @@ def logout():
     session.pop('username', None)
 
     return redirect(url_for('login'))
+
+
+@app.route('/adminData', methods=['POST', 'GET'])
+def get_admin_data():
+    if session['username'] != 'admin':
+        return jsonify({"error": "Unauthorized"}), 401
+
+    if request.method == 'GET':
+        # Logik für GET-Anfragen
+        users = User.query.all()
+        usernames = [user.username for user in users]
+        return jsonify({"config": config, "users": usernames})
+    elif request.method == 'POST':
+        # Logik für POST-Anfragen
+        data = request.json
+        print(data)
+        if data.get("clearData"):
+            if data["clearData"]:
+                clear_dataset(config)
+                print("Ontodocker cleared.")
+                # Verbindung zur Datenbank herstellen
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                query = f"DELETE FROM uploads"
+                try:
+                    cursor.execute(query)
+                    conn.commit()
+                    print("Datenbank gelöscht.")
+                except Exception as ex:
+                    print(f"Fehler beim Löschen der Tabelle uploads: {ex}")
+                    conn.rollback()
+                finally:
+                    # Verbindung schließen
+                    conn.close()
+        else:
+            config['ontodocker_url'] = data["config"]["ontodocker_url"]
+            config["DOCKER_TOKEN"] = data["config"]["DOCKER_TOKEN"]
+            config["triplestore_server"] = data["config"]["triplestore_server"]
+            config["dataset_name"] = data["config"]["dataset_name"]
+
+            with open('config.json', 'w') as file:
+                json.dump(config, file, indent=4)
+
+            for entry in data["users"]:
+                # Suche den Benutzer anhand des Benutzernamens
+                user = User.query.filter_by(username=entry).first()
+
+                if user:
+                    # Wenn der Benutzer gefunden wurde, lösche ihn
+                    db.session.delete(user)
+                    db.session.commit()
+                else:
+                    # Wenn kein Benutzer gefunden wurde, sende eine Fehlermeldung
+                    return jsonify({'error': 'User not found'}), 404
+
+        return jsonify({"message": "Data received"})
+    else:
+        return jsonify({"error": "Method Not Allowed"}), 405
 
 
 # query mixture (in upload page)
@@ -241,8 +330,8 @@ def init_db():
 def async_function(unique_id):
 
     # Lookup table for path
-    paths = {'EModule': 'cpto/EModuleOntology_KG_Template.ttl',
-             'Specimen': 'cpto/Specimen_KG_Template.ttl'}
+    paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
+             'Specimen': '../cpto/Specimen_KG_Template.ttl'}
 
     def add_data(rowname, data):
         # Verbindung zur Datenbank herstellen
@@ -265,14 +354,17 @@ def async_function(unique_id):
 
         return success
 
-    def get_data():
+    def get_data(uid=None):
         # Verbindung zur Datenbank herstellen und Daten auslesen
         conn = get_db_connection()
         cursor = conn.cursor()
 
+        if uid is None:
+            uid = unique_id
+
         # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
         query = "SELECT * FROM uploads WHERE Unique_ID = ?"
-        cursor.execute(query, (unique_id,))
+        cursor.execute(query, (uid,))
 
         # Ergebnis der Abfrage abrufen
         rowdata = cursor.fetchone()
@@ -310,7 +402,21 @@ def async_function(unique_id):
             json_data['ID'] = row['unique_id']
             print(json_data)
             add_data('Json', json.dumps(json_data).encode('utf-8'))
-        # Raw data extraction
+        elif row['type'] == 'EModule':
+            if row['filetype'] == 'xml':
+                mix_data = get_data(row['Mixture_ID'])
+                print(mix_data)
+                json_data = xml_to_json(row['blob'], mix_data['Json'])
+                print(json_data)
+                emodule_json = json_data[0]
+                specimen_json = json_data[1]
+                emodule_json['ID'] = row['unique_id']
+                specimen_json['ID'] = row['unique_id']
+                emodule_json['SpecimenID'] = row['unique_id']
+                print(emodule_json)
+                print(specimen_json)
+                add_data('Json', json.dumps(emodule_json).encode('utf-8'))
+                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
         print("RawData")
 
     # Set ID and mixtureID in json!
@@ -369,16 +475,21 @@ def async_function(unique_id):
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json']
+    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml']
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
-    if 'file' not in request.files:
-        return jsonify({'error': 'Keine Datei gefunden'}), 400
-
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'Keine Datei ausgewählt'}), 400
+    print(request.files)
+    if 'file' in request.files and request.files['file'].filename != '':
+        file = request.files['file']
+        file_name = file.filename
+    elif 'url' in request.form and request.form['url'] != '':
+        url = request.form['url']
+        response = requests.get(url)
+        file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
+        file_name = url
+    else:
+        return jsonify({'error': 'Keine Datei oder URL gefunden'}), 400
 
     if 'type' not in request.form:
         return jsonify({'error': 'Kein Typ angegeben'}), 400
@@ -390,7 +501,6 @@ def data_upload():
     mixtureID = str(request.form['Mixture_ID'])
     user = session['username']  # Benutzernamen aus der Session holen
 
-    file_name = file.filename
     # Extrahieren der Dateiendung
     _, file_extension = os.path.splitext(file.filename)
 
