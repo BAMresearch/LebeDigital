@@ -22,7 +22,12 @@
     <nav class="navbar fixed-top bg-light shadow-sm justify-content-between px-5">
       <h3 class="mb-0 mx-md-3"><img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> </h3>
       <h3 class="mb-0">&nbsp; LeBeDigital: <span class="fw-light">Life cycle of concrete</span> </h3>
-      <a href="/login"><button class="btn btn-outline-theme mx-md-3">Login</button></a>
+      
+      {% if session['username'] %}
+        <a href="/logout"><button class="btn btn-outline-theme mx-md-3">Sign out</button></a>
+      {% else %}
+        <a href="/login"><button class="btn btn-outline-theme mx-md-3">Sign in</button></a>
+      {% endif %}
     </nav>
 </header>
 

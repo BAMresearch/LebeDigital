@@ -99,7 +99,9 @@ def login():
         if user and user.check_password(password):  # check password
             session['username'] = user.username
             # set session for user
-            return redirect(url_for('query_page'))
+            # After successful login, redirect to the stored URL
+            next_page = session.get('next', url_for('query_page'))  # Use a default if 'next' doesn't exist
+            return redirect(next_page)
         else:
             error_message = 'Incorrect Username or Password'
             return render_template('login.html', errormessage=error_message)
@@ -149,6 +151,8 @@ def query_page():
     if 'username' in session:
         return render_template('queryPage.html')
     else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('query_page')
         return redirect(url_for('login'))
 
 
@@ -158,6 +162,8 @@ def query_page_simple():
     if 'username' in session:
         return render_template('queryPage-simple.html')
     else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('query_page_simple')
         return redirect(url_for('login'))
 
 
@@ -167,8 +173,9 @@ def upload_page():
     if 'username' in session:
         return render_template('uploadForm.html')
     else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('upload_page')
         return redirect(url_for('login'))
-
 
 # Upload page
 @app.route('/admin')
@@ -182,10 +189,11 @@ def admin_page():
 # Logout
 @app.route('/logout')
 def logout():
-    # delete username out of session
+    # delete username and url out of session
     session.pop('username', None)
+    session.pop('next', None)
 
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @app.route('/adminData', methods=['POST', 'GET'])
