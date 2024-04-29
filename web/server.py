@@ -325,6 +325,14 @@ def init_db():
             );
         ''')
         conn.commit()
+        cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS uidlookup (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Unique_ID TEXT,
+                        Name TEXT
+                    );
+                ''')
+        conn.commit()
 
 
 # Mapping function
@@ -528,6 +536,9 @@ def data_upload():
                    'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                    (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
     conn.commit()
+    cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                   (unique_id, file_name.split(".")[0]))
+    conn.commit()
     conn.close()
 
     # Starten der asynchronen Funktion
@@ -542,6 +553,12 @@ def data_upload():
 def raw_download():
 
     temp_directory = "temp/"
+
+    if not os.path.exists(temp_directory):
+        os.makedirs(temp_directory)
+
+    if not os.path.exists("zip/"):
+        os.makedirs("zip/")
 
     def zip_directory(folder_path, output_zip_path):
         # Erstelle eine ZIP-Datei und füge Dateien hinzu
@@ -558,13 +575,13 @@ def raw_download():
 
         logger.info(f"ZIP-Datei wurde erstellt: {output_zip_path}")
 
-    def get_data(uid):
+    def get_data(uid, row="Unique_ID", table="uploads"):
         # Verbindung zur Datenbank herstellen und Daten auslesen
         conn = get_db_connection()
         cursor = conn.cursor()
 
         # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
-        query = "SELECT * FROM uploads WHERE Unique_ID = ?"
+        query = f"SELECT * FROM {table} WHERE {row} = ?"
         cursor.execute(query, (uid,))
 
         # Ergebnis der Abfrage abrufen
@@ -585,48 +602,14 @@ def raw_download():
         if not uuid_obj.version == 4:
             abort(400, description="Wrong ID format")
     except ValueError:
-        # Search, if the mixture exists in the database
-        query = f'''
-                SELECT ?s WHERE {{
-                    ?s <https://w3id.org/pmd/co/value> "{mixture_id}" .
-                    ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
-                  }}
-                '''
-        value_of_i = 0
-        results = send_sparql_query(query, config)
-        if results and results.get("results", {}).get("bindings", []):
-            # If found, find the ID
-            for result in results.get('results', {}).get('bindings', []):
-                # Extrahieren des Wertes für 's'
-                value = result.get('s', {}).get('value', '')
-                # Überprüfen, ob "humanreadableID" im Wert enthalten ist
-                if "humanreadableID" in value:
-                    query = f'''
-                                SELECT ?i WHERE {{
-                                    ?s <https://w3id.org/pmd/co/value> "{mixture_id}" . ?s <http://www.w3.org/1999/02/22
-                                    -rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> . ?a 
-                                    <http://purl.org/spar/datacite/hasIdentifier> ?s . ?a 
-                                    <http://purl.org/spar/datacite/hasIdentifier> ?b . FILTER(?s != ?b) ?b 
-                                    <https://w3id.org/pmd/co/value> ?i }} '''
-                    results = send_sparql_query(query, config)
-                    if results and results.get("results", {}).get("bindings", []):
-                        # Extrahieren des Wertes von `?i`
-                        for binding in results['results']['bindings']:
-                            value_of_i = binding['i']['value']
-                        if not value_of_i:
-                            abort(400, description="Mixture not found")
-                            mixture_id = value_of_i
-                else:
-                    value_of_i = mixture_id
-        else:
-            abort(400, description="Mixture not found")
-
+        row = get_data(mixture_id, "Name", "uidlookup")
+        mixture_id = row["Unique_ID"]
     if mixture_id:
         row = get_data(mixture_id)
 
         if row["blob"]:
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}.{row['filetype']}")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.{row['filetype']}")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
@@ -634,7 +617,7 @@ def raw_download():
 
         if row["Json"]:
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}.json")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.json")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
@@ -642,7 +625,7 @@ def raw_download():
 
         if row["ttl"]:
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}.ttl")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.ttl")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
@@ -650,7 +633,7 @@ def raw_download():
 
         if row["Json_Specimen"]:
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}_Specimen.json")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}_Specimen.json")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
@@ -658,23 +641,23 @@ def raw_download():
 
         if row["ttl_Specimen"]:
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}_Specimen.ttl")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}_Specimen.ttl")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
                 file.write(row["ttl_Specimen"])
 
-        if row["Mixture_ID"]:
+        if row["Mixture_ID"] and row["Mixture_ID"] != row["Unique_ID"]:
             row2 = get_data(row["Mixture_ID"])
 
             # Pfad, unter dem die extrahierten Dateien gespeichert werden
-            output_path = os.path.join(temp_directory, f"{row['filename']}_Mixture.{row2['filetype']}")
+            output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}_Mixture.{row2['filetype']}")
 
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
                 file.write(row2["blob"])
 
-        zip_output_path = f"zip/{row['filename']}.zip"
+        zip_output_path = f"zip/{row['filename'].split('.')[0]}.zip"
         zip_directory(temp_directory, zip_output_path)
 
         try:
@@ -684,9 +667,9 @@ def raw_download():
             logger.warning(f"Error in Zip: {e}")
             # Wenn etwas schiefgeht, z.B. Datei nicht gefunden
             abort(404, description="File not found.")
-        finally:
-            os.remove(zip_output_path)
-            os.remove(temp_directory)
+        #finally:
+        #    os.remove(zip_output_path)
+        #    os.remove(temp_directory)
     else:
         # Wenn keine ID angegeben ist, sende einen 400 Bad Request Fehler
         abort(400, description="No file ID provided.")

@@ -305,7 +305,7 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
                 var url = window.URL.createObjectURL(blob);
                 var a = document.createElement('a');
                 a.href = url;
-                a.download = `raw_data_${id}.zip`;
+                a.download = `${id}.zip`;
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
