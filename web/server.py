@@ -16,12 +16,13 @@ from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from datetime import timedelta, datetime
-from flask import Flask, request, render_template, redirect, url_for, session, jsonify
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify, abort, send_file
 from loguru import logger
 from pathlib import Path
 import requests
 from werkzeug.datastructures import FileStorage
 from io import BytesIO
+import zipfile
 
 
 app = Flask(__name__)
@@ -536,6 +537,159 @@ def data_upload():
     return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!',
                     'uniqueID': unique_id}), 200
 
+
+@app.route('/rawdownload')
+def raw_download():
+
+    temp_directory = "temp/"
+
+    def zip_directory(folder_path, output_zip_path):
+        # Erstelle eine ZIP-Datei und füge Dateien hinzu
+        with zipfile.ZipFile(output_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            # Durchlaufe alle Ordner und Dateien im Verzeichnis
+            for foldername, subfolders, filenames in os.walk(folder_path):
+                for filename in filenames:
+                    # Erstelle den absoluten Pfad zur Datei
+                    file_path = os.path.join(foldername, filename)
+                    # Bestimme den relativen Pfad zur Datei im Verzeichnis für die ZIP-Datei
+                    arcname = os.path.relpath(file_path, start=folder_path)
+                    # Füge die Datei zur ZIP-Datei hinzu
+                    zipf.write(file_path, arcname=arcname)
+
+        logger.info(f"ZIP-Datei wurde erstellt: {output_zip_path}")
+
+    def get_data(uid):
+        # Verbindung zur Datenbank herstellen und Daten auslesen
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        query = "SELECT * FROM uploads WHERE Unique_ID = ?"
+        cursor.execute(query, (uid,))
+
+        # Ergebnis der Abfrage abrufen
+        rowdata = cursor.fetchone()
+        # Verbindung schließen
+        conn.close()
+
+        return rowdata
+
+    # Hole die ID aus den Query-Parametern
+    mixture_id = request.args.get('id')
+
+    if not mixture_id:
+        abort(400, description="No file ID provided.")
+
+    try:
+        uuid_obj = uuid.UUID(mixture_id, version=4)
+        if not uuid_obj.version == 4:
+            abort(400, description="Wrong ID format")
+    except ValueError:
+        # Search, if the mixture exists in the database
+        query = f'''
+                SELECT ?s WHERE {{
+                    ?s <https://w3id.org/pmd/co/value> "{mixture_id}" .
+                    ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
+                  }}
+                '''
+        value_of_i = 0
+        results = send_sparql_query(query, config)
+        if results and results.get("results", {}).get("bindings", []):
+            # If found, find the ID
+            for result in results.get('results', {}).get('bindings', []):
+                # Extrahieren des Wertes für 's'
+                value = result.get('s', {}).get('value', '')
+                # Überprüfen, ob "humanreadableID" im Wert enthalten ist
+                if "humanreadableID" in value:
+                    query = f'''
+                                SELECT ?i WHERE {{
+                                    ?s <https://w3id.org/pmd/co/value> "{mixture_id}" . ?s <http://www.w3.org/1999/02/22
+                                    -rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> . ?a 
+                                    <http://purl.org/spar/datacite/hasIdentifier> ?s . ?a 
+                                    <http://purl.org/spar/datacite/hasIdentifier> ?b . FILTER(?s != ?b) ?b 
+                                    <https://w3id.org/pmd/co/value> ?i }} '''
+                    results = send_sparql_query(query, config)
+                    if results and results.get("results", {}).get("bindings", []):
+                        # Extrahieren des Wertes von `?i`
+                        for binding in results['results']['bindings']:
+                            value_of_i = binding['i']['value']
+                        if not value_of_i:
+                            abort(400, description="Mixture not found")
+                            mixture_id = value_of_i
+                else:
+                    value_of_i = mixture_id
+        else:
+            abort(400, description="Mixture not found")
+
+    if mixture_id:
+        row = get_data(mixture_id)
+
+        if row["blob"]:
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}.{row['filetype']}")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row['blob'])
+
+        if row["Json"]:
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}.json")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row['Json'])
+
+        if row["ttl"]:
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}.ttl")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row['ttl'])
+
+        if row["Json_Specimen"]:
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}_Specimen.json")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row["Json_Specimen"])
+
+        if row["ttl_Specimen"]:
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}_Specimen.ttl")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row["ttl_Specimen"])
+
+        if row["Mixture_ID"]:
+            row2 = get_data(row["Mixture_ID"])
+
+            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            output_path = os.path.join(temp_directory, f"{row['filename']}_Mixture.{row2['filetype']}")
+
+            # Schreibe BLOB-Daten in eine Datei
+            with open(output_path, 'wb') as file:
+                file.write(row2["blob"])
+
+        zip_output_path = f"zip/{row['filename']}.zip"
+        zip_directory(temp_directory, zip_output_path)
+
+        try:
+            # Sende die Datei zum Download, stellt sicher, dass as_attachment=True gesetzt ist
+            return send_file(zip_output_path, as_attachment=True)
+        except Exception as e:
+            logger.warning(f"Error in Zip: {e}")
+            # Wenn etwas schiefgeht, z.B. Datei nicht gefunden
+            abort(404, description="File not found.")
+        finally:
+            os.remove(zip_output_path)
+            os.remove(temp_directory)
+    else:
+        # Wenn keine ID angegeben ist, sende einen 400 Bad Request Fehler
+        abort(400, description="No file ID provided.")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -289,6 +289,29 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
         } else if (field == "Einheit") {
             var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
             window.open(url, "_blank");
+        } else if (field == "Wert" && value == "locationOfRawData") {
+            // zuerst ID der mischung bekommen
+            var id = document.getElementById('nameInput').value
+            // Sendet eine Anfrage an das Backend
+            fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
+                method: 'GET'
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            }).then(blob => {
+                // Erstellt einen Download-Link und klickt darauf
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = `raw_data_${id}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
         } else {
             console.log(`Geklickt auf Spalte: ${field} mit Wert: ${value}`);
         }
