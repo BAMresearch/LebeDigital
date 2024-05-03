@@ -145,6 +145,12 @@ def placeholderreplacement(kgPath, metadataPath):
                 #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
                 #             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
                 lines[i] = lines[i].replace("_ ", "_" + str(metadataID) + " ")
+                
+            # Handling SpecimenShape
+            if "##SpecimenShape##" in lines[i]:
+                logger.debug('Found SpecimenShape placeholder "##SpecimenShape##" with value "' \
+                                + str(metadata["SpecimenShape"]) + '".')
+                lines[i] = lines[i].replace("##SpecimenShape##", str(metadata["SpecimenShape"]))
 
 
     ############################ L O G G I N G #############################        
