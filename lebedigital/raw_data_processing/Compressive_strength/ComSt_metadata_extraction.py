@@ -163,6 +163,10 @@ def extract_metadata_ComSt(rawDataPath, specimen_file='specimen.dat', mix_file='
             metadata_ComSt['SpecimenAge'] = specimen_age
             metadata_ComSt['SpecimenAge_Unit'] = 'day'
 
+        # set shape
+        if 'SpecimenHeight' in metadata_specimen_ComSt:
+            metadata_specimen_ComSt['SpecimenShape'] = 'Cube'
+
         # set paths
         metadata_ComSt['ProcessedFile'] = os.path.join('../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')  # path to csv file with values extracted by ComSt_generate_processed_data.py
         metadata_ComSt['RawDataFile'] = os.path.join(rawDataPath, specimen_file).replace('\\', '/')
@@ -236,5 +240,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
