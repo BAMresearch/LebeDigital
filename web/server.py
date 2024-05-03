@@ -8,6 +8,7 @@ import threading
 import json
 import uuid
 import sqlite3
+import time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
@@ -23,6 +24,7 @@ import requests
 from werkzeug.datastructures import FileStorage
 from io import BytesIO
 import zipfile
+import shutil
 
 
 app = Flask(__name__)
@@ -57,10 +59,21 @@ infoLogPath = os.path.join(logDir, "info_{time}.log")
 
 # Konfiguriere die globalen Logger-Einstellungen
 logger.configure(handlers=[
-    {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "10 days"},
+    {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "5 days"},
     {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
 ])
 
+# Funktion zum Löschen leerer Logdateien nach zwei Tagen
+def delete_empty_logs(directory):
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        # Überprüfe, ob die Datei leer ist
+        if os.path.isfile(filepath) and os.path.getsize(filepath) == 0:
+            # Überprüfe, ob die Datei älter als zwei Tage ist
+            if time.time() - os.path.getmtime(filepath) > 2 * 24 * 60 * 60:
+                os.remove(filepath)
+
+delete_empty_logs(logDir)
 
 # Create password db
 class User(db.Model):
@@ -78,6 +91,13 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
+# Middleware zum Protokollieren der IP-Adresse
+@app.before_request
+def log_request_info():
+    if request.endpoint is not None and request.endpoint != 'static':
+        ip_address = request.remote_addr
+        username = session.get('username', 'Unknown')  # Standardwert 'Unknown', falls kein Benutzer angemeldet ist
+        logger.info(f"Request from IP: {ip_address}, User: {username}, Endpoint: {request.path}")
 
 # main page
 @app.route('/')
@@ -214,20 +234,12 @@ def get_admin_data():
             if data["clearData"]:
                 clear_dataset(config)
                 print("Ontodocker cleared.")
-                # Verbindung zur Datenbank herstellen
-                conn = get_db_connection()
-                cursor = conn.cursor()
-                query = f"DELETE FROM uploads"
                 try:
-                    cursor.execute(query)
-                    conn.commit()
-                    print("Datenbank gelöscht.")
-                except Exception as ex:
-                    print(f"Fehler beim Löschen der Tabelle uploads: {ex}")
-                    conn.rollback()
-                finally:
-                    # Verbindung schließen
-                    conn.close()
+                    os.remove("upload.db")
+                    print("db cleared.")
+                except Exception as e:
+                    print(f'Error {e}')
+
         else:
             config['ontodocker_url'] = data["config"]["ontodocker_url"]
             config["DOCKER_TOKEN"] = data["config"]["DOCKER_TOKEN"]
@@ -259,42 +271,22 @@ def get_admin_data():
 def search_mixture():
     if 'username' in session:
         data = request.json
-        mixture_name = data['mixtureName']
+        uid = data['mixtureName']
         # Search, if the mixture exists in the database
-        query = f'''
-        SELECT ?s WHERE {{
-            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" .
-            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> .
-          }}
-        '''
-        value_of_i = 0
-        results = send_sparql_query(query, config)
-        if results and results.get("results", {}).get("bindings", []):
-            # If found, find the ID
-            for result in results.get('results', {}).get('bindings', []):
-                # Extrahieren des Wertes für 's'
-                value = result.get('s', {}).get('value', '')
-                # Überprüfen, ob "humanreadableID" im Wert enthalten ist
-                if "humanreadableID" in value:
-                    query = f'''
-                        SELECT ?i WHERE {{
-                            ?s <https://w3id.org/pmd/co/value> "{mixture_name}" . ?s <http://www.w3.org/1999/02/22
-                            -rdf-syntax-ns#type> <https://w3id.org/pmd/co/ProvidedIdentifier> . ?a 
-                            <http://purl.org/spar/datacite/hasIdentifier> ?s . ?a 
-                            <http://purl.org/spar/datacite/hasIdentifier> ?b . FILTER(?s != ?b) ?b 
-                            <https://w3id.org/pmd/co/value> ?i }} '''
-                    results = send_sparql_query(query, config)
-                    if results and results.get("results", {}).get("bindings", []):
-                        # Extrahieren des Wertes von `?i`
-                        for binding in results['results']['bindings']:
-                            value_of_i = binding['i']['value']
-                        if value_of_i:
-                            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!',
-                                            'mixtureID': value_of_i})
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
-                else:
-                    value_of_i = mixture_name
-            return jsonify({'message': f'Mischung {mixture_name} erfolgreich gefunden!', 'mixtureID': value_of_i})
+        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        query = "SELECT * FROM uidlookup WHERE Name = ? OR Unique_ID = ?"
+        cursor.execute(query, (uid, uid))
+
+        # Ergebnis der Abfrage abrufen
+        rowdata = cursor.fetchone()
+        # Verbindung schließen
+        conn.close()
+
+        if rowdata:
+            return jsonify({'message': f'Mischung {uid} erfolgreich gefunden!', 'mixtureID': rowdata['Unique_ID']})
         else:
             # Keine Ergebnisse, Mischung nicht gefunden
             return jsonify({'message': 'Mischung nicht gefunden.'})
@@ -560,12 +552,23 @@ def data_upload():
 @app.route('/rawdownload')
 def raw_download():
 
+    if 'username' not in session:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
+    
     temp_directory = "temp/"
 
     if not os.path.exists(temp_directory):
         os.makedirs(temp_directory)
 
     if not os.path.exists("zip/"):
+        os.makedirs("zip/")
+
+    if not len(os.listdir(temp_directory)) == 0:
+        shutil.rmtree(temp_directory)
+        os.makedirs(temp_directory)
+    
+    if not len(os.listdir("zip/")) == 0:
+        shutil.rmtree("zip/")
         os.makedirs("zip/")
 
     def zip_directory(folder_path, output_zip_path):
@@ -675,9 +678,6 @@ def raw_download():
             logger.warning(f"Error in Zip: {e}")
             # Wenn etwas schiefgeht, z.B. Datei nicht gefunden
             abort(404, description="File not found.")
-        #finally:
-        #    os.remove(zip_output_path)
-        #    os.remove(temp_directory)
     else:
         # Wenn keine ID angegeben ist, sende einen 400 Bad Request Fehler
         abort(400, description="No file ID provided.")

@@ -133,3 +133,5 @@ cython_debug/
 config.json
 # database for uploaded data
 upload.db
+temp/
+zip/
