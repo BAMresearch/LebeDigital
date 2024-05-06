@@ -7,6 +7,7 @@ The term “LeBe” from LeBeDigital stands in German for “Lebenszyklus von Be
 
 Concrete, the main subject of the project, is a very complex material considering the diversity of the base materials and component designs, the high complexity of recipes and the manufacturing process, the diversity in molding designs as well as the time dependency of all properties.
 The expected outcome of the project is to develop a material database, where concrete-specific characteristic values and models are structurally integrated. The main objectives are:
+
 1. Ontology-based collection of data and metadata in TripleStores
 2. Linking existing, experience-based, experimental and simulated data
 3. Combined material optimisation and geometry optimisation of precast elements based on simulation workflows
