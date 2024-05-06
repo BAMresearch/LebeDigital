@@ -4,11 +4,11 @@
 
 {% block content %}
 <!-- Page-specific content goes here -->
-<div class="content">
+<div class="content p-2">
     <!-- Existing content -->
 
     <!-- SPARQL Query Form -->
-    <h3>Query Data</h3>
+    <h5 class="">SPARQL Query</h5>
     <form id="sparqlForm" class="pt-2 pb-4">
         <textarea id="sparqlQuery" name="q" rows="10" cols="100" placeholder="Enter your SPARQL query here"></textarea>
         <br>
@@ -22,7 +22,7 @@
         <!-- Query results will be displayed here -->
     </div>
     <div style="text-align: right;">
-        <button class="btn btn-theme" onclick="downloadTable()">Download CSV</button>
+        <button class="btn btn-theme" onclick="downloadTable()">Download as CSV</button>
     </div>
     <br>
 

@@ -52,6 +52,10 @@ async function create_query(selectedQueryType, enteredName){
     let response = null;
     let valuesList = null;
 
+    // Create a new <h2> element
+    var heading = document.getElementById('result');
+    heading.textContent = 'All Mixtures'; // Set the text
+
     if (checkbox.checked){
         // shows all information for every mixture
         if (selectedQueryType === "Mischung" && enteredName === "") {
@@ -135,6 +139,8 @@ async function create_query(selectedQueryType, enteredName){
 
         // Show all Info from a specific Mixture
         if (selectedQueryType === "Mischung" && enteredName !== ""){
+            heading.textContent = "Mixture Details: " + enteredName;
+
             query = `
             SELECT ?Bestandteil ?Wert ?Einheit WHERE {
             ?g ?p "${enteredName}".
@@ -147,6 +153,7 @@ async function create_query(selectedQueryType, enteredName){
 
         // Show all Mixtures with Name and ID
         if (selectedQueryType === "EModule" && enteredName === "") {
+            heading.textContent = "All E-Modul";
             query = `
             SELECT ?ID ?Mixture ?Name ?EModule WHERE {
               ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ModulusOfElasticity>.
@@ -166,6 +173,8 @@ async function create_query(selectedQueryType, enteredName){
 
         // Show all Info from a specific Mixture
         if (selectedQueryType === "EModule" && enteredName !== ""){
+            heading.textContent = "E-Modul Details: " + enteredName;
+
             query = `
             SELECT ?Bestandteil ?Wert ?Einheit WHERE {
             ?g ?p "${enteredName}".
@@ -250,12 +259,9 @@ async function executeSparqlQuery(query) {
     }
 }
 
-
-// Form event Listener
-document.getElementById('sparqlForm').addEventListener('submit', function(e) {
-    // Starts when "Run Query" is pressed
-
-    e.preventDefault(); // Stops standard formular transmission
+// Define the function that you want to run
+function runQuery(e) {
+    if (e) e.preventDefault(); // Stops standard formular transmission
 
     // Get information from query type selector
     var queryTypeSelect = document.getElementById("queryType");
@@ -316,6 +322,16 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
             console.log(`Geklickt auf Spalte: ${field} mit Wert: ${value}`);
         }
     });
+}
 
-});
+// Attach the function to the 'submit' event of the form
+document.getElementById('sparqlForm').addEventListener('submit', runQuery);
 
+// Also run the function when the page is loaded
+window.onload = runQuery;
+
+// Run the function when the dropdown value is changed
+document.getElementById('queryType').addEventListener('change', runQuery);
+
+// Run the function when the checkbox is checked or unchecked
+document.getElementById('extendedCheckbox').addEventListener('change', runQuery);

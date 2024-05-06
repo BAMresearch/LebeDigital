@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Query Data{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<div class="content col-12 p-2">
+    <h5 class="mb-3">Query Data</h5>
+    <div class="form-container">
+        <form id="sparqlForm" class="form-inline d-md-flex justify-content-between">
+            <div>
+                <label class="clr-theme text-small" for="queryType">Select Type</label>
+                <select id="queryType" class="form-control mb-3" style="min-width: 200px;">
+                    <option value="Mischung">Mixture</option>
+                    <option value="EModule">E-Modul</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="clr-theme text-small"  for="nameInput">Search by Name</label>
+                <div class="input-group mb-3"  style="min-width: 350px;">
+                    <input id="nameInput" type="text" class="form-control" placeholder="e.g. 20240220_7188_M02">
+                    <div class="input-group-append">
+                        <button id="submit" type="submit" class="btn btn-theme">
+                            <i class="fa fa-search"></i> <!-- Search icon -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <label>
+        <input type="checkbox" id="extendedCheckbox">
+            Detailed (!!! approx. 1 second per mixture)
+    </label>
+    
+    <div id="queryResults" style="min-height: 50px;">
+        <div class="d-md-flex justify-content-between pt-5 pb-3">
+            <h5 class="clr-theme" id="result"></h5>
+            <div style="text-align: right;">
+                <button class="btn btn-theme" onclick="downloadTable()">Download as CSV</button>
+            </div>
+        </div>
+        
+        <!-- Query results will be displayed here -->
+    </div>
+    <div id="resultsTable"></div>
+</div>
+<script src="static/js/querypage-simple.js"></script>
+{% endblock %}

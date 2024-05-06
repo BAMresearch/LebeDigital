@@ -1,48 +1,45 @@
-{% extends 'base.html' %}
 
-{% block title %}Upload Data{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}Upload Data{% endblock %} {% block content %}
 <div class="content col-12">
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                 <h5 class="mb-0">Mixture</h5>
             </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <p class="card-title">Is this mixture uploaded before or new?</p>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="mixtureOption" id="existingMixture" value="existing" onclick="toggleSections()">
-                        <label class="form-check-label" for="existingMixture">
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="card-title">Is this mixture uploaded before or new?</p>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="mixtureOption" id="existingMixture" value="existing" onclick="toggleSections()">
+                                <label class="form-check-label" for="existingMixture">
                             This mixture is uploaded before
                         </label>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="mixtureOption" id="newMixture" value="new" onclick="toggleSections()">
-                        <label class="form-check-label" for="newMixture">
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="mixtureOption" id="newMixture" value="new" onclick="toggleSections()">
+                                <label class="form-check-label" for="newMixture">
                             This is a new mixture
                         </label>
-                    </div>
-                    <div id="mixtureDetails" style="display: none;">
-                        <p class="pt-4">Which Concrete Mixture did you use?</p>
-                        <div class="input-group mb-3 w-50">
-                            <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button" onclick="submitMixture()">Search</button>
                             </div>
-                        </div>
-                        
-                        <div id="mixresponseText" style="display: none;"></div>
-                        
-                    </div>
-                    <div id="fileUpload" style="display: none;">
-                        
-                        <!--<div class="input-group pt-4">
+                            <div id="mixtureDetails" style="display: none;">
+                                <p class="pt-4">Which Concrete Mixture did you use?</p>
+                                <div class="input-group mb-3 w-50">
+                                    <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-theme" type="button" onclick="submitMixture()">Search</button>
+                                    </div>
+                                </div>
+
+                                <div id="mixresponseText" style="display: none;"></div>
+
+                            </div>
+                            <div id="fileUpload" style="display: none;">
+
+                                <!--<div class="input-group pt-4">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="fileInput1">
                                 <label class="custom-file-label" for="fileInput1"></label>
@@ -51,139 +48,233 @@
                                 <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
                             </div>
                         </div>-->
-                        
-                        <div class="card p-4 bg-light-blue" style="border: 0;">
-                            <p class="text-center">Upload your Mixture file here, browse files or import from</p>
-                            <div class="d-md-flex justify-content-center">
-                                <div class="px-2 text-center">
-                                    <button class="btn btn-outline-theme icon-42" onclick="clearFileInput('fileInput1'); document.getElementById('fileInput1').click()">
+
+                                <div class="card p-4 bg-light-blue" style="border: 0;">
+                                    <p class="text-center">Upload your Mixture file here, browse files or import from</p>
+                                    <div class="d-md-flex justify-content-center">
+                                        <div class="px-2 text-center">
+                                            <button class="btn btn-outline-theme icon-42" onclick="clearFileInput('fileInput1'); document.getElementById('fileInput1').click()">
                                         <i class="fas fa-upload"></i>
                                     </button> <br>
-                                    <span class="clr-theme text-small">Device </span>
-                                    <input type="file" id="fileInput1" style="display: none;" onchange="onFileSelected(event,'fileLabel1')">
-                                </div>
-                                
-                                <div class="px-2 text-center">
-                                    <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <span class="clr-theme text-small">Device </span>
+                                            <input type="file" id="fileInput1" style="display: none;" onchange="onFileSelected(event,'fileLabel1')">
+                                        </div>
+
+                                        <div class="px-2 text-center">
+                                            <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-link"></i> 
                                     </button>
-                                    <br> <span class="clr-theme text-small">URL</span>
+                                            <br> <span class="clr-theme text-small">URL</span>
+                                        </div>
+
+                                    </div>
+                                    <div id="fileLabel1" class="text-center">&nbsp;</div>
+
+                                    <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                    <div class="text-center">
+                                        <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1', 'urlInput1','fileLabel1')">Upload</button>
+                                    </div>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6>Upload your Mixture</h6>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="text" id="urlInput1" class="form-control" placeholder="Enter URL">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-theme" onclick="onUrlEntered('urlInput1','fileLabel1')">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-    
+
                             </div>
-                            <div id="fileLabel1" class="text-center">&nbsp;</div>
-                            
-                            <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
-                            <div class="text-center">
-                                <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1', 'urlInput1','fileLabel1')">Upload</button>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='images/Concrete_Mixture.jpg') }}" alt="mixture" class="w-100">
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-controls="flush-collapseTwo">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                <h5 class="mb-0">Compressive Strength</h5>
+            </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="small">
+                                Compressive strength is an extremely important parameter for a large number of building materials that are subjected to pressure in a building (natural stone, ceramic materials, bricks, concrete, etc.). The compressive strength <var>β<sub>D</sub></var>                                is understood to be the maximum force max<var> F<sub>D</sub></var> that can be withstood with a rapid, uniaxial compressive load in relation to the initial cross-section <var>A<sub>0</sub></var>:
+                            </p>
+                            <p class="text-center">
+                                <var>β<sub>D</sub></var> = max <var>σ<sub>D</sub></var> = max <var>F<sub>D</sub></var> <span class="bar">/</span> <var>A<sub>0</sub></var>
+                            </p>
+                            <p class="small">
+                                The compressive strength is preferably determined on cube-shaped, prismatic or cylindrical test specimens. The test is carried out on a compression testing machine between two flat and completely plane steel plates that rest on the specimen without an
+                                intermediate layer.
+                            </p>
+                            <!-- <div class="input-group mt-4">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="fileInput2">
+                                    <label class="custom-file-label" for="fileInput2"></label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2')">Upload</button>
+                                </div>
                             </div>
-                            
-                          
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h6>Upload your Mixture</h6>
-                                      </div>
-                                      <div class="modal-body">
-                                        <input type="text" id="urlInput1" class="form-control" placeholder="Enter URL">
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-theme" onclick="onUrlEntered('urlInput1','fileLabel1')">Submit</button>
-                                      </div>
+                            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
+
+                            <div class="card p-4 bg-light-blue" style="border: 0;">
+                                <p class="text-center">Upload your Compressive Strength file here, browse files or import from</p>
+                                <div class="d-md-flex justify-content-center">
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" onclick="clearFileInput('fileInput2'); document.getElementById('fileInput2').click()">
+                                        <i class="fas fa-upload"></i>
+                                    </button> <br>
+                                        <span class="clr-theme text-small">Device </span>
+                                        <input type="file" id="fileInput2" style="display: none;" onchange="onFileSelected(event,'fileLabel2')">
+                                    </div>
+
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                        <i class="fas fa-link"></i> 
+                                    </button>
+                                        <br> <span class="clr-theme text-small">URL</span>
+                                    </div>
+
+                                </div>
+                                <div id="fileLabel2" class="text-center">&nbsp;</div>
+
+                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <div class="text-center">
+                                    <button class="btn btn-theme" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2', 'urlInput2','fileLabel2')">Upload</button>
+                                </div>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h6>Upload your Compressive Strength</h6>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" id="urlInput2" class="form-control" placeholder="Enter URL">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-theme" onclick="onUrlEntered('urlInput2','fileLabel2')">Submit</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-controls="flush-collapseThree">Next</button>
                         </div>
-                        
+                        <div class="col-md-3">
+                            <img src="{{ url_for('static', filename='images/Concrete_Compressive_Strength.jpeg') }}" alt="CompressiveStrength" class="w-100">
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <img src="{{ url_for('static', filename='images/Concrete_Mixture.jpg') }}" alt="mixture" class="w-100">
-                </div>
             </div>
-            <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-controls="flush-collapseTwo">Next</button>
-            </div>
-        </div>
         </div>
         <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                <h5 class="mb-0">Compressive Strength</h5>
-            </button>
-        </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                <div class="row">
-                    <div class="col-md-9">
-                        <p class="small">
-                            Compressive strength is an extremely important parameter for a large number of building materials that are subjected to pressure in a building (natural stone, ceramic materials, bricks, concrete, etc.). 
-                            The compressive strength <var>β<sub>D</sub></var> is understood to be the maximum force max<var> F<sub>D</sub></var> that can be withstood with a rapid, uniaxial compressive load in relation to the initial cross-section <var>A<sub>0</sub></var>:
-                        </p>    
-                        <p class="text-center">
-                            <var>β<sub>D</sub></var> = max <var>σ<sub>D</sub></var> = max <var>F<sub>D</sub></var> <span class="bar">/</span> <var>A<sub>0</sub></var>
-                        </p>
-                        <p class="small">
-                            The compressive strength is preferably determined on cube-shaped, prismatic or cylindrical test specimens. The test is carried out on a compression testing machine between two flat and completely plane steel plates that rest on the specimen without an intermediate layer.
-                        </p>
-                        <div class="input-group mt-4">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileInput2">
-                                <label class="custom-file-label" for="fileInput2"></label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2')">Upload</button>
-                            </div>
-                        </div>
-                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
-                        <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-controls="flush-collapseThree">Next</button>
-                    </div>
-                    <div class="col-md-3">
-                        <img src="{{ url_for('static', filename='images/Concrete_Compressive_Strength.jpeg') }}" alt="CompressiveStrength" class="w-100">
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                 <h5 class="mb-0">Elastic Modulus (E-Modul)</h5>
             </button>
-        </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                <div class="row">
-                    <div class="col-md-9">
-                        <p class="small">
-                            Elastic changes in shape occur directly as a result of a load and disappear completely after the load is removed. Stresses and strains are proportional to each other or can be assumed to be approximately proportional. The stress-strain curve is almost linear; Hooke's law applies in this area. The proportionality factor between normal stress and strain is known as the elastic modulus <var>E</var>:
-                        </p>    
-                        <p class="text-center">
-                            <var>E</var> = max <var>σ</var> <span class="bar">/</span> <var>ε</var>
-                        </p>
-                        
-                        <div class="input-group mt-4">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileInput3">
-                                <label class="custom-file-label" for="fileInput3"></label>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="small">
+                                Elastic changes in shape occur directly as a result of a load and disappear completely after the load is removed. Stresses and strains are proportional to each other or can be assumed to be approximately proportional. The stress-strain curve is almost
+                                linear; Hooke's law applies in this area. The proportionality factor between normal stress and strain is known as the elastic modulus <var>E</var>:
+                            </p>
+                            <p class="text-center">
+                                <var>E</var> = max <var>σ</var> <span class="bar">/</span> <var>ε</var>
+                            </p>
+
+                            <!-- <div class="input-group mt-4">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="fileInput3">
+                                    <label class="custom-file-label" for="fileInput3"></label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" type="button" onclick="uploadData('EModule', 'fileInput3')">Upload</button>
+                                </div>
                             </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button" onclick="uploadData('EModule', 'fileInput3')">Upload</button>
+                            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
+
+                            <div class="card p-4 bg-light-blue" style="border: 0;">
+                                <p class="text-center">Upload your E-Modul file here, browse files or import from</p>
+                                <div class="d-md-flex justify-content-center">
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" onclick="clearFileInput('fileInput3'); document.getElementById('fileInput3').click()">
+                                        <i class="fas fa-upload"></i>
+                                    </button> <br>
+                                        <span class="clr-theme text-small">Device </span>
+                                        <input type="file" id="fileInput3" style="display: none;" onchange="onFileSelected(event,'fileLabel3')">
+                                    </div>
+
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                                        <i class="fas fa-link"></i> 
+                                    </button>
+                                        <br> <span class="clr-theme text-small">URL</span>
+                                    </div>
+
+                                </div>
+                                <div id="fileLabel3" class="text-center">&nbsp;</div>
+
+                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <div class="text-center">
+                                    <button class="btn btn-theme" type="button" onclick="uploadData('EModule', 'fileInput3', 'urlInput3','fileLabel3')">Upload</button>
+                                </div>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h6>Upload your E-Modul</h6>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" id="urlInput3" class="form-control" placeholder="Enter URL">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-theme" onclick="onUrlEntered('urlInput3','fileLabel3')">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <a href="/"><button class="btn btn-outline-theme mt-4" >Back to Home</button></a>
                         </div>
-                        <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p>
-             
-                        <a href="/"><button class="btn btn-outline-theme mt-4" >Back to Home</button></a>
+                        <div class="col-md-3">
+                            <img src="{{ url_for('static', filename='images/Concrete_E-Modul.jpeg') }}" alt="E-Module" class="w-100">
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <img src="{{ url_for('static', filename='images/Concrete_E-Modul.jpeg') }}" alt="E-Module" class="w-100">
-                    </div>
+
                 </div>
-                
             </div>
-        </div>
         </div>
     </div>
 </div>

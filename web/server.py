@@ -180,7 +180,7 @@ def query_page():
 @app.route('/query-simple')
 def query_page_simple():
     if 'username' in session:
-        return render_template('queryPage-simple.html')
+        return render_template('queryPageSimple.html')
     else:
         # Store the URL the user was trying to access in the session data
         session['next'] = url_for('query_page_simple')
