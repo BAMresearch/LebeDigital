@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}My Files{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<div class="content p-2">
+    <!-- Existing content -->
+
+    <!-- SPARQL Query Form -->
+    <h5 class="">My Files</h5>
+    <p>Here you can find the all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
+
+    <table>
+        <tr>
+            <th>Mixture ID</th>
+            <th>File Name</th>
+            <th>Type</th>
+            <th>Upload Date</th>
+        </tr>
+        {% for upload in uploads %}
+        <tr>
+            <td>{{ upload[0] }}</td>
+            <td>{{ upload[1] }}</td>
+            <td>{{ upload[2] }}</td>
+            <td>{{ upload[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+
+
+</div>
+<script src="static/js/querypage.js"></script>
+{% endblock %}

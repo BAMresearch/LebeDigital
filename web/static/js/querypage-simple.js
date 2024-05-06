@@ -276,7 +276,7 @@ function runQuery(e) {
     // creates a new table and adds placeholder
     table = new Tabulator("#resultsTable", {
     layout: "fitColumns",
-    placeholder: "Daten werden geladen...",
+    placeholder: "Loading Data...",
     });
 
 

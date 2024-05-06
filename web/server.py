@@ -197,6 +197,32 @@ def upload_page():
         session['next'] = url_for('upload_page')
         return redirect(url_for('login'))
 
+
+# My Files page
+@app.route('/files')
+def my_files():
+    if 'username' in session:
+        user = session['username'] 
+        conn = get_db_connection() 
+        cursor = conn.cursor()
+
+        # Prepare SQL query to get data 
+        query = "SELECT Mixture_ID, filename, filetype, uploadDate FROM uploads WHERE user = ?"
+        cursor.execute(query, (user,)) # Execute the query
+       
+        # Fetch the results of the query
+        uploads = cursor.fetchall()
+
+        # Close the connection
+        conn.close()
+
+        return render_template('myFiles.html', uploads=uploads)
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('my_files')
+        return redirect(url_for('login'))
+
+
 # Upload page
 @app.route('/admin')
 def admin_page():
