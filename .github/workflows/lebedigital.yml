@@ -74,6 +74,11 @@ jobs:
           cd $GITHUB_WORKSPACE/usecases/optimization_paper/optimization_workflow/
           snakemake -c 1
 
+      - name: run-usecase-mode_learning
+        shell: bash -l {0}
+        run: |
+          cd $GITHUB_WORKSPACE/usecases/optimization_paper/model_learning/homogenization/exp_5
+          python homogenization_model_calibration.py
       # Issue with Latex installation in runner. Anyway the paper is in Overleaf, so this obsolete/unnecessary
       # - name: run-optimization-paper
       #   shell: bash -l {0}
