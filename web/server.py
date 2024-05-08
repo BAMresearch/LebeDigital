@@ -207,11 +207,28 @@ def my_files():
         cursor = conn.cursor()
 
         # Prepare SQL query to get data 
-        query = "SELECT Mixture_ID, filename, filetype, uploadDate FROM uploads WHERE user = ?"
+        query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads WHERE user = ?"
         cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
-        uploads = cursor.fetchall()
+        rows = cursor.fetchall()
+
+        # Convert rows to dictionaries and format uploadDate
+        uploads = []
+
+
+        for row in rows:
+            upload = {
+                'Mixture_ID': row[0],
+                'filename': row[1],
+                'type': row[2],
+                'uploadDate': row[3]
+            }
+
+            date_object = datetime.strptime(upload['uploadDate'], '%Y-%m-%dT%H:%M:%S.%f')
+            upload['uploadDate'] = date_object.strftime('%Y-%m-%d %H:%M')
+            uploads.append(upload)
+
 
         # Close the connection
         conn.close()

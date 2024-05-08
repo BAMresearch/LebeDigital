@@ -4,32 +4,35 @@
 
 {% block content %}
 <!-- Page-specific content goes here -->
-<div class="content p-2">
+<div class="content p-2 col-12" style="overflow-x: hidden;">
     <!-- Existing content -->
 
     <!-- SPARQL Query Form -->
     <h5 class="">My Files</h5>
     <p>Here you can find the all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
 
-    <table>
-        <tr>
-            <th>Mixture ID</th>
-            <th>File Name</th>
-            <th>Type</th>
-            <th>Upload Date</th>
-        </tr>
-        {% for upload in uploads %}
-        <tr>
-            <td>{{ upload[0] }}</td>
-            <td>{{ upload[1] }}</td>
-            <td>{{ upload[2] }}</td>
-            <td>{{ upload[3] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+
+    <div class="container-fluid"> <!-- Add this div -->
+        <table class="table table-hover">
+            <thead>
+                <tr class="row">
+                    <th class="col-5 clr-theme">File</th>
+                    <th class="col-2 clr-theme">Type</th>
+                    <th class="col-2 clr-theme">Uploaded at</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for upload in uploads %}
+                <tr class="row">
+                    <td class="col-5" style=" word-wrap: break-word;">{{ upload['filename'] }}</td>
+                    <td class="col-2">{{ upload['type'] }}</td>
+                    <td class="col-2" >{{ upload['uploadDate'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> <!-- Close the div -->
     
-
-
 </div>
 <script src="static/js/querypage.js"></script>
 {% endblock %}
