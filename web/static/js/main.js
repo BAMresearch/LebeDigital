@@ -3,6 +3,24 @@
 var mixtureID = null;
 var institute = 'BAM';
 
+function showMixtureId() {
+    if (mixtureID !== null) {
+        var elements = document.getElementsByClassName('show-mixture-id');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].innerHTML = "Mixture ID: "+ mixtureID;
+        }
+    }    
+}
+
+function hideMixtureId() {
+    if (mixtureID == null) {
+        var elements = document.getElementsByClassName('show-mixture-id');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].innerHTML = "";
+        }
+    }    
+}
+
 function generateUUIDv4() {
 return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -10,13 +28,13 @@ return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
 }
 
 function uploadData(type, fileID, urlID, label) {
-    var mixtureID;
     if (type === 'Mixture') {
         mixtureID = generateUUIDv4(); // Generiere eine neue UUID v4 und weise sie `mixtureID` zu
         console.log(`Neue Mixture ID: ${mixtureID}`); // Zeige die generierte ID an
     } else {
         console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
     }
+    showMixtureId();
 
     var formData = new FormData();
     formData.append('type', type); // Fügt den übergebenen Typ hinzu
@@ -70,7 +88,7 @@ function onFileSelected(event, fileLabel) {
     var fileName = event.target.files[0].name;
 
     // Check the file format (extension)
-    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json'];
+    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml'];
     const fileExtension = fileName.split('.').pop().toLowerCase();
 
     if (!allowedFormats.includes(fileExtension)) {
@@ -101,82 +119,6 @@ function isValidURL(string) {
 };
 
 
-
-/*function uploadData(type, inputID, isUrl = false) {
-    var mixtureID;
-    if (type === 'Mixture') {
-        mixtureID = generateUUIDv4(); // Generiere eine neue UUID v4 und weise sie `mixtureID` zu
-        console.log(`Neue Mixture ID: ${mixtureID}`); // Zeige die generierte ID an
-    } else {
-        console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
-    }
-    var formData = new FormData();
-    formData.append('type', type); // Fügt den übergebenen Typ hinzu
-    formData.append('Mixture_ID', mixtureID); // Übergibt die Mixture ID
-    if (isUrl) {
-        var urlInput = document.getElementById(inputID);
-        fetch(urlInput.value)
-            .then(response => {
-                const contentType = response.headers.get("content-type");
-                if (!contentType) {
-                    throw new Error('Unable to determine the file type of the URL');
-                }
-                // Check the file format (MIME type)
-                const allowedFormats = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/csv', 'text/plain', 'application/json'];
-                if (!allowedFormats.includes(contentType)) {
-                    alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
-                    return;
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                var file = new File([blob], urlInput.value.split('/').pop(), { type: blob.type });
-                formData.append('file', file); // Fügt die Datei hinzu
-                uploadToServer(formData);
-            })            
-            .catch((error) => {
-                console.error('Fehler beim Herunterladen der Datei:', error);
-            });    
-    } else {
-        var fileInput = document.getElementById(inputID);
-        console.log(fileInput.files[0]);
-        // Check the file format (extension)
-        const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json'];
-        const fileExtension = fileInput.files[0].name.split('.').pop().toLowerCase();
-
-        console.log(fileExtension)
-        if (!allowedFormats.includes(fileExtension)) {
-            alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
-            return;
-        }
-        formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
-        uploadToServer(formData);
-    }
-}
-
-
-function uploadToServer(formData) {
-    fetch('/dataUpload', {
-        method: 'POST',
-        body: formData, // Sendet FormData, das Datei und Typ enthält
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Netzwerkantwort war nicht ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const toastLiveExample = document.getElementById('liveToast')
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-        toastBootstrap.show()
-        console.log(data.message); // Zeigt eine Nachricht vom Server an
-    })
-    .catch((error) => {
-        console.error('Fehler beim Hochladen:', error);
-    });
-}*/
-
 function submitMixture() {
     var textInput = document.getElementById('textInput').value;
     var apiUrl = '/search-mixture'; // Pfad zur Flask-Route, relativ zur Basis-URL der Website
@@ -205,16 +147,23 @@ function submitMixture() {
         // Speichert die mixtureID als Variable, ohne sie anzuzeigen
         if (data.mixtureID) {
             mixtureID = data.mixtureID; // Speichert den Wert in der Variable
-            responseDiv.classList = 'text-success';
+            responseDiv.style.display = 'none';
+            showMixtureId();
             console.log('Gespeicherte mixtureID:', mixtureID); // Optional: Zur Überprüfung in der Konsole ausgeben
-}
+        }
+        else{
+            mixtureID = null;
+            hideMixtureId();
+        }
+
     })
         .catch(error => {
         console.error('There was a problem with your fetch operation:', error);
         var responseDiv = document.getElementById('mixresponseText');
         responseDiv.style.display = 'block';
         responseDiv.classList = 'text-danger';
-        responseDiv.innerHTML = 'Fehler beim Abrufen der Daten'; // Zeigt eine Fehlermeldung an
+        responseDiv.innerHTML = 'Mixture not found'; // Zeigt eine Fehlermeldung an
+        mixtureID = null;
     });
 }
 

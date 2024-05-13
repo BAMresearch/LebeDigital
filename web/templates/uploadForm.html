@@ -38,17 +38,6 @@
 
                             </div>
                             <div id="fileUpload" style="display: none;">
-
-                                <!--<div class="input-group pt-4">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="fileInput1">
-                                <label class="custom-file-label" for="fileInput1"></label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button" onclick="uploadData('Mixture', 'fileInput1')">Upload</button>
-                            </div>
-                        </div>-->
-
                                 <div class="card p-4 bg-light-blue" style="border: 0;">
                                     <p class="text-center">Upload your Mixture file here, browse files or import from</p>
                                     <div class="d-md-flex justify-content-center">
@@ -96,7 +85,9 @@
                                 </div>
 
                             </div>
+                            <p class="small text-success show-mixture-id"></p>
                         </div>
+                       
                         <div class="col-md-4">
                             <img src="{{ url_for('static', filename='images/Concrete_Mixture.jpg') }}" alt="mixture" class="w-100">
                         </div>
@@ -137,6 +128,7 @@
                             <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
 
                             <div class="card p-4 bg-light-blue" style="border: 0;">
+                                <p class="show-mixture-id small text-center clr-theme"></p>
                                 <p class="text-center">Upload your Compressive Strength file here, browse files or import from</p>
                                 <div class="d-md-flex justify-content-center">
                                     <div class="px-2 text-center">
@@ -221,6 +213,7 @@
                             <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
 
                             <div class="card p-4 bg-light-blue" style="border: 0;">
+                                <p class="show-mixture-id small text-center clr-theme"></p>
                                 <p class="text-center">Upload your E-Modul file here, browse files or import from</p>
                                 <div class="d-md-flex justify-content-center">
                                     <div class="px-2 text-center">
