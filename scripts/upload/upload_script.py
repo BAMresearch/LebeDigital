@@ -1,6 +1,55 @@
 import requests
 from loguru import logger
+from SPARQLWrapper import SPARQLWrapper, POST
 
+from rdflib import Graph, URIRef
+
+def extract_specific_triples_from_ttl(binary_data):
+    """
+    Extracts specific triples from a ttl triple file in binary format.
+
+    :param binary_data: ttl triple file in binary format
+    :param triples_to_extract: List of triples to extract
+    :return: List of extracted triples
+    """
+
+    # Parse the ttl file
+    g = Graph()
+    g.parse(data=binary_data, format="turtle")
+
+    # extract all triples from the ttl file
+    triples_to_extract = [(str(s), str(p), str(o)) for s, p, o in g]
+
+    return triples_to_extract
+
+def delete_specific_triples_from_endpoint(ttl_binary, config):
+    """
+    Deletes specific triples from a SPARQL endpoint.
+
+    :param ttl_binary: ttl triple file in binary format
+    :param config: Config-File, containing configurations: SPARQL_ENDPOINT, DOCKER_TOKEN
+    :return: if success 0, else 1
+    """
+    triples_to_delete = extract_specific_triples_from_ttl(ttl_binary)
+
+    # Prepare the SPARQL DELETE DATA query
+    triples_str = "\n".join(f"<{s}> <{p}> <{o}> ." for s, p, o in triples_to_delete)
+    query = f"""
+        DELETE DATA {{
+            GRAPH <{config['dataset_name']}> {{
+                {triples_str}
+            }}
+        }}
+    """
+
+    # Send the SPARQL DELETE DATA query to the endpoint
+    sparql = SPARQLWrapper(config['SPARQL_ENDPOINT'])
+    sparql.setMethod(POST)
+    sparql.setQuery(query)
+    sparql.addParameter("Authorization", f"Bearer {config['DOCKER_TOKEN']}")
+    logger.debug(sparql.query().response.read().decode())
+
+    return 0
 
 def upload_binary_to_existing_docker(binary_data, config):
     """

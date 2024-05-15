@@ -11,7 +11,7 @@ import sqlite3
 import time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
+from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset, delete_specific_triples_from_endpoint
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
@@ -207,9 +207,14 @@ def my_files():
         conn = get_db_connection() 
         cursor = conn.cursor()
 
-        # Prepare SQL query to get data 
-        query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads WHERE user = ?"
-        cursor.execute(query, (user,)) # Execute the query
+        # admin sees all files
+        if user == 'admin':
+            query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads"
+            cursor.execute(query) # Execute the query
+        else:
+            # user sees only his files
+            query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads WHERE user = ?"
+            cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
         rows = cursor.fetchall()
@@ -262,17 +267,22 @@ def logout():
 
 @app.route('/adminData', methods=['POST', 'GET'])
 def get_admin_data():
+    # if user is not admin, return unauthorized
     if session['username'] != 'admin':
         return jsonify({"error": "Unauthorized"}), 401
 
+    # GET-Request
     if request.method == 'GET':
-        # Logik für GET-Anfragen
+        # return config and all users
         users = User.query.all()
         usernames = [user.username for user in users]
         return jsonify({"config": config, "users": usernames})
+    
+    # POST-Request
     elif request.method == 'POST':
-        # Logik für POST-Anfragen
         data = request.json
+
+        # clear data
         if data.get("clearData"):
             if data["clearData"]:
                 clear_dataset(config)
@@ -284,8 +294,76 @@ def get_admin_data():
                     logger.info("db initialized")
                 except Exception as e:
                     logger.error(f'Error {e}')
+                return jsonify({"message": "Data cleared"})
+            
+        # remove file (unique_id)
+        elif data.get("removeFile"):
+            if data["removeFile"]:
+                logger.info(f"Removing file {data['removeFile']}")
+                conn = get_db_connection()
+                cursor = conn.cursor()
 
+                # check if file exists in uploads
+                query = "SELECT * FROM uploads WHERE Unique_ID = ?"
+                cursor.execute(query, (data["removeFile"],))
+                rowdata = cursor.fetchone()
+
+                # check if file exists in uidlookup
+                query = "SELECT * FROM uidlookup WHERE Unique_ID = ?"
+                cursor.execute(query, (data["removeFile"],))
+                rowdata2 = cursor.fetchone()
+
+                # check if file exists in Ontodocker
+                query = f'''
+                SELECT ?g WHERE {{
+                    ?g ?p "{data["removeFile"]}".
+                }}'''
+                # send query
+                results = send_sparql_query(query, config)
+
+                def check_if_key_has_empty_value(d, key):
+                    """
+                    Checks if a key in a potentially nested dictionary has an empty value.
+                
+                    :param d: The dictionary to check
+                    :param key: The key to check
+                    :return: True if the key has an empty value, False otherwise
+                    """
+                
+                    for k, v in d.items():
+                        if k == key:
+                            return not bool(v)
+                        elif isinstance(v, dict):
+                            if check_if_key_has_empty_value(v, key):
+                                return True
+                    return False
+                
+                # if results is not empty, delete from Ontodocker
+                if not check_if_key_has_empty_value(results, "g"):
+                    if rowdata:
+                        delete_specific_triples_from_endpoint(rowdata["ttl"], config)
+                        logger.info(f"File {data['removeFile']} deleted from Ontodocker")
+    
+                # remove from both tables
+                if rowdata:
+                    cursor.execute("DELETE FROM uploads WHERE Unique_ID = ?", (data["removeFile"],))
+                    conn.commit()
+                    logger.info(f"File {data['removeFile']} deleted from uploads")
+                if rowdata2:
+                    cursor.execute("DELETE FROM uidlookup WHERE Unique_ID = ?", (data["removeFile"],))
+                    conn.commit()
+                    logger.info(f"File {data['removeFile']} deleted from uidlookup")
+                conn.close()
+
+                # if file not found
+                if not rowdata and not rowdata2:
+                    logger.error(f"File {data['removeFile']} not found")
+                    return jsonify({"error": "File not found"}), 404
+                return jsonify({"message": "File removed"})
+            
+        # update config
         else:
+            logger.info("Updating config")
             config['ontodocker_url'] = data["config"]["ontodocker_url"]
             config["DOCKER_TOKEN"] = data["config"]["DOCKER_TOKEN"]
             config["triplestore_server"] = data["config"]["triplestore_server"]
@@ -293,20 +371,22 @@ def get_admin_data():
 
             with open('config.json', 'w') as file:
                 json.dump(config, file, indent=4)
+            logger.info("Config updated")
 
             for entry in data["users"]:
-                # Suche den Benutzer anhand des Benutzernamens
+                # check if user exists
                 user = User.query.filter_by(username=entry).first()
 
                 if user:
-                    # Wenn der Benutzer gefunden wurde, lösche ihn
+                    # if user exists, delete user
                     db.session.delete(user)
                     db.session.commit()
+                    logger.info(f"User {entry} deleted")
                 else:
-                    # Wenn kein Benutzer gefunden wurde, sende eine Fehlermeldung
+                    # if user does not exist, return error
                     return jsonify({'error': 'User not found'}), 404
-
-        return jsonify({"message": "Data received"})
+                
+    # if not GET or POST
     else:
         return jsonify({"error": "Method Not Allowed"}), 405
 
