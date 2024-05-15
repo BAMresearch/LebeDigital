@@ -46,30 +46,30 @@ db = SQLAlchemy(app)
 upload_db = 'upload.db'
 
 
-# Pfad zur Basis des Projekts bestimmen
+# path to the logs directory
 baseDir = Path(__file__).parent
 logDir = os.path.join(baseDir, "logs")
 
-# Stelle sicher, dass das Verzeichnis für die Logs existiert
+# make sure the logs directory exists
 os.makedirs(logDir, exist_ok=True)
 
-# Pfade für die Log-Dateien
+# path to the log files
 debugLogPath = os.path.join(logDir, "debug_{time}.log")
 infoLogPath = os.path.join(logDir, "info_{time}.log")
 
-# Konfiguriere die globalen Logger-Einstellungen
+# configure the logger
 logger.configure(handlers=[
     {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "5 days"},
     {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
 ])
 
-# Funktion zum Löschen leerer Logdateien nach zwei Tagen
+# delete empty log files older than two days
 def delete_empty_logs(directory):
     for filename in os.listdir(directory):
         filepath = os.path.join(directory, filename)
-        # Überprüfe, ob die Datei leer ist
+        # check if the file is empty
         if os.path.isfile(filepath) and os.path.getsize(filepath) == 0:
-            # Überprüfe, ob die Datei älter als zwei Tage ist
+            # check if the file is older than two days
             if time.time() - os.path.getmtime(filepath) > 2 * 24 * 60 * 60:
                 os.remove(filepath)
 
@@ -91,7 +91,7 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
-# Middleware zum Protokollieren der IP-Adresse
+# middleware to log requests
 @app.before_request
 def log_request_info():
     if request.endpoint is not None and request.endpoint != 'static':
@@ -102,7 +102,7 @@ def log_request_info():
 # main page
 @app.route('/')
 def index():
-    # go to welcome page (no login required)
+    # go to welcome page
     return render_template('welcome.html')
 
 
@@ -159,7 +159,7 @@ def signup():
 @app.route('/queryexec', methods=['POST'])
 def execute_sparql_query():
     if 'username' in session:
-        # Hier extrahieren wir die Daten aus dem POST-Request
+        # Send the query to the Ontodocker and return the result
         results = send_sparql_query(request.form['query'], config)
         return jsonify({
             'message': results
@@ -401,19 +401,18 @@ def search_mixture():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        # Sql query to search for the mixture
         query = "SELECT * FROM uidlookup WHERE Name = ? OR Unique_ID = ?"
         cursor.execute(query, (uid, uid))
 
-        # Ergebnis der Abfrage abrufen
+        # Fetch the results of the query
         rowdata = cursor.fetchone()
-        # Verbindung schließen
         conn.close()
 
         if rowdata:
             return jsonify({'message': f'Mischung {uid} erfolgreich gefunden!', 'mixtureID': rowdata['Unique_ID']})
         else:
-            # Keine Ergebnisse, Mischung nicht gefunden
+            # If the mixture does not exist in the database
             return jsonify({'message': 'Mischung nicht gefunden.'})
 
 
@@ -468,41 +467,39 @@ def async_function(unique_id):
              'Specimen': '../cpto/Specimen_KG_Template.ttl'}
 
     def add_data(rowname, data):
-        # Verbindung zur Datenbank herstellen
         conn = get_db_connection()
         cursor = conn.cursor()
-        # UPDATE-Anweisung vorbereiten, um den json-Wert in der Zeile mit der gegebenen uniqueID zu aktualisieren
+        # update data
         query = f"UPDATE uploads SET {rowname} = ? WHERE Unique_ID = ?"
         try:
             cursor.execute(query, (data, unique_id))
             conn.commit()
             logger.debug(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
             success = 1
+
+        # Error handling
         except Exception as ex:
             logger.error(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
             conn.rollback()
             success = 0
         finally:
-            # Verbindung schließen
             conn.close()
 
         return success
 
     def get_data(uid=None):
-        # Verbindung zur Datenbank herstellen und Daten auslesen
         conn = get_db_connection()
         cursor = conn.cursor()
 
         if uid is None:
             uid = unique_id
 
-        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        # sql query to get data
         query = "SELECT * FROM uploads WHERE Unique_ID = ?"
         cursor.execute(query, (uid,))
 
-        # Ergebnis der Abfrage abrufen
+        # fetch the results of the query
         rowdata = cursor.fetchone()
-        # Verbindung schließen
         conn.close()
 
         return rowdata
@@ -512,18 +509,18 @@ def async_function(unique_id):
         if success != 0:
             add_data('Error', 1)
 
-    # Imitiere eine lang laufende Aufgabe
+    # start of the processing
     logger.debug(f"Starte die Verarbeitung für {unique_id}")
 
-    # Ergebnis der Abfrage abrufen
+    # fetch data
     row = get_data()
 
-    # Test ob bereits gemapped
+    # check if data is already mapped
     if row['Mapped'] != 0:
         logger.error(f'Error already mapped with {unique_id}')
         return
 
-    # wenn eine json datei hochgeladen wurde
+    # if json was uploaded
     if row['filetype'] == 'json':
         json_data = json.loads(row['blob'].decode('utf-8'))
         json_data['ID'] = unique_id
@@ -626,9 +623,9 @@ def data_upload():
 
     type = request.form['type']
     mixtureID = str(request.form['Mixture_ID'])
-    user = session['username']  # Benutzernamen aus der Session holen
+    user = session['username']  # get username
 
-    # Extrahieren der Dateiendung
+    # extract file extension
     _, file_extension = os.path.splitext(file.filename)
 
     filetype = file_extension.lstrip('.')
@@ -636,10 +633,10 @@ def data_upload():
     if filetype not in file_types:
         return jsonify({'error': 'Unsupported Type'}), 400
 
-    # Datei als BLOB speichern
+    # save as blob
     file_blob = file.read()
 
-    # Aktuelle Zeit
+    # current time
     uploaddate = datetime.now().isoformat()
 
     if type == 'Mixture':
@@ -647,7 +644,7 @@ def data_upload():
     else:
         unique_id = str(uuid.uuid4())
 
-    # Verbindung zur Datenbank herstellen und die Daten speichern
+    # connection to the database and insert data
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
@@ -659,7 +656,7 @@ def data_upload():
     conn.commit()
     conn.close()
 
-    # Starten der asynchronen Funktion
+    # start async function
     thread = threading.Thread(target=async_function, args=(unique_id,))
     thread.start()
 
@@ -690,37 +687,35 @@ def raw_download():
         os.makedirs("zip/")
 
     def zip_directory(folder_path, output_zip_path):
-        # Erstelle eine ZIP-Datei und füge Dateien hinzu
+        # create a ZipFile object
         with zipfile.ZipFile(output_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-            # Durchlaufe alle Ordner und Dateien im Verzeichnis
+            # iterate over all the files in directory
             for foldername, subfolders, filenames in os.walk(folder_path):
                 for filename in filenames:
-                    # Erstelle den absoluten Pfad zur Datei
+                    # create complete filepath of file in directory
                     file_path = os.path.join(foldername, filename)
-                    # Bestimme den relativen Pfad zur Datei im Verzeichnis für die ZIP-Datei
+                    # create complete filepath of file in zip
                     arcname = os.path.relpath(file_path, start=folder_path)
-                    # Füge die Datei zur ZIP-Datei hinzu
+                    # Add file to zip
                     zipf.write(file_path, arcname=arcname)
 
         logger.info(f"ZIP-Datei wurde erstellt: {output_zip_path}")
 
     def get_data(uid, row="Unique_ID", table="uploads"):
-        # Verbindung zur Datenbank herstellen und Daten auslesen
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # SQL-Abfrage vorbereiten, um alle Daten aus der Zeile mit der gegebenen uniqueID zu erhalten
+        # sql query to get data
         query = f"SELECT * FROM {table} WHERE {row} = ?"
         cursor.execute(query, (uid,))
 
-        # Ergebnis der Abfrage abrufen
+        # fetch the results of the query
         rowdata = cursor.fetchone()
-        # Verbindung schließen
         conn.close()
 
         return rowdata
 
-    # Hole die ID aus den Query-Parametern
+    # Get the file ID from the URL parameters
     mixture_id = request.args.get('id')
 
     if not mixture_id:
@@ -737,26 +732,26 @@ def raw_download():
         row = get_data(mixture_id)
 
         if row["blob"]:
-            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            # Path where the extracted files will be saved
             output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.{row['filetype']}")
 
-            # Schreibe BLOB-Daten in eine Datei
+            # write BLOB data to a file
             with open(output_path, 'wb') as file:
                 file.write(row['blob'])
 
         if row["Json"]:
-            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            # path where the extracted files will be saved
             output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.json")
 
-            # Schreibe BLOB-Daten in eine Datei
+            # write BLOB data to a file
             with open(output_path, 'wb') as file:
                 file.write(row['Json'])
 
         if row["ttl"]:
-            # Pfad, unter dem die extrahierten Dateien gespeichert werden
+            # path where the extracted files will be saved
             output_path = os.path.join(temp_directory, f"{row['filename'].split('.')[0]}.ttl")
 
-            # Schreibe BLOB-Daten in eine Datei
+            # write BLOB data to a file
             with open(output_path, 'wb') as file:
                 file.write(row['ttl'])
 
@@ -790,14 +785,14 @@ def raw_download():
         zip_directory(temp_directory, zip_output_path)
 
         try:
-            # Sende die Datei zum Download, stellt sicher, dass as_attachment=True gesetzt ist
+            # send the zip file as a response
             return send_file(zip_output_path, as_attachment=True)
         except Exception as e:
             logger.warning(f"Error in Zip: {e}")
-            # Wenn etwas schiefgeht, z.B. Datei nicht gefunden
+            # if file not found
             abort(404, description="File not found.")
     else:
-        # Wenn keine ID angegeben ist, sende einen 400 Bad Request Fehler
+        # if no id found
         abort(400, description="No file ID provided.")
 
 if __name__ == '__main__':
