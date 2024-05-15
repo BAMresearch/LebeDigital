@@ -149,6 +149,7 @@ def signup():
         # Add to the database
         db.session.add(new_user)
         db.session.commit()
+        logger.info(f"New user {username} created.")
         return redirect(url_for('login'))
 
     return render_template('signup.html')
@@ -272,16 +273,17 @@ def get_admin_data():
     elif request.method == 'POST':
         # Logik für POST-Anfragen
         data = request.json
-        print(data)
         if data.get("clearData"):
             if data["clearData"]:
                 clear_dataset(config)
-                print("Ontodocker cleared.")
+                logger.info("Ontodocker cleared")
                 try:
                     os.remove("upload.db")
-                    print("db cleared.")
+                    logger.info("db cleared")
+                    init_db()
+                    logger.info("db initialized")
                 except Exception as e:
-                    print(f'Error {e}')
+                    logger.error(f'Error {e}')
 
         else:
             config['ontodocker_url'] = data["config"]["ontodocker_url"]
@@ -340,7 +342,7 @@ def get_db_connection():
         conn = sqlite3.connect(upload_db)
         conn.row_factory = sqlite3.Row
     except sqlite3.Error as e:
-        print(f"Database connection error: {e}")
+        logger.error(f"Database connection error: {e}")
         conn = None
     return conn
 
@@ -394,10 +396,10 @@ def async_function(unique_id):
         try:
             cursor.execute(query, (data, unique_id))
             conn.commit()
-            print(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
+            logger.debug(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
             success = 1
         except Exception as ex:
-            print(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
+            logger.error(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
             conn.rollback()
             success = 0
         finally:
@@ -431,14 +433,14 @@ def async_function(unique_id):
             add_data('Error', 1)
 
     # Imitiere eine lang laufende Aufgabe
-    print(f"Starte die Verarbeitung für {unique_id}")
+    logger.debug(f"Starte die Verarbeitung für {unique_id}")
 
     # Ergebnis der Abfrage abrufen
     row = get_data()
 
     # Test ob bereits gemapped
     if row['Mapped'] != 0:
-        print(f'Error already mapped with {unique_id}')
+        logger.error(f'Error already mapped with {unique_id}')
         return
 
     # wenn eine json datei hochgeladen wurde
@@ -452,24 +454,18 @@ def async_function(unique_id):
         if row['type'] == 'Mixture':
             json_data = mix_metadata(row['blob'], row['filename'])
             json_data['ID'] = row['unique_id']
-            print(json_data)
             add_data('Json', json.dumps(json_data).encode('utf-8'))
         elif row['type'] == 'EModule':
             if row['filetype'] == 'xml':
                 mix_data = get_data(row['Mixture_ID'])
-                print(mix_data)
                 json_data = xml_to_json(row['blob'], mix_data['Json'])
-                print(json_data)
                 emodule_json = json_data[0]
                 specimen_json = json_data[1]
                 emodule_json['ID'] = row['unique_id']
                 specimen_json['ID'] = row['unique_id']
                 emodule_json['SpecimenID'] = row['unique_id']
-                print(emodule_json)
-                print(specimen_json)
                 add_data('Json', json.dumps(emodule_json).encode('utf-8'))
                 add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
-        print("RawData")
 
     # Set ID and mixtureID in json!
     # Mapping
@@ -477,7 +473,7 @@ def async_function(unique_id):
     row = get_data()
 
     if row['Json'] == '':
-        print(f"No Json for {unique_id}")
+        logger.error(f"No Json for {unique_id}")
         add_data('Error', 1)
 
     if row['type'] == 'Mixture':
@@ -491,7 +487,7 @@ def async_function(unique_id):
             else:
                 upload_to_docker(ttl_blob)
         except Exception as e:
-            print(f'Error in Mixture mapping: {e}')
+            logger.error(f'Error in Mixture mapping: {e}')
     else:
         try:
             ttl_blob = placeholderreplacement(paths[row['type']], row['Json'])
@@ -502,7 +498,7 @@ def async_function(unique_id):
             else:
                 upload_to_docker(ttl_blob)
         except Exception as e:
-            print(f'Error in Placeholderreplacement: {e}')
+            logger.error(f'Error in Placeholderreplacement: {e}')
             add_data('Error', 1)
             return
         if row['Json_Specimen'] != '':
@@ -515,11 +511,11 @@ def async_function(unique_id):
                 else:
                     upload_to_docker(ttl_blob)
             except Exception as e:
-                print(f'Error in Placeholderreplacement: {e}')
+                logger.error(f'Error in Placeholderreplacement: {e}')
                 add_data('Error', 1)
                 return
 
-    print(f"Verarbeitung für {unique_id} abgeschlossen.")
+    logger.debug(f"Verarbeitung für {unique_id} abgeschlossen.")
     add_data('Mapped', 1)
 
 
@@ -531,7 +527,6 @@ def data_upload():
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
-    print(request.files)
     if 'file' in request.files and request.files['file'].filename != '':
         file = request.files['file']
         file_name = file.filename
