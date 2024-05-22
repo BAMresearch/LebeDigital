@@ -251,7 +251,7 @@ def my_files():
         return redirect(url_for('login'))
 
 
-# Upload page
+# Admin page
 @app.route('/admin')
 def admin_page():
     if session['username'] == 'admin':
@@ -652,20 +652,30 @@ def data_upload():
     # connection to the database and insert data
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
-                   'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                   (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
-    conn.commit()
-    cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
-                   (unique_id, file_name.split(".")[0]))
-    conn.commit()
+    # Check if the file already exists in the database
+    cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
+    data = cursor.fetchone()
+
+    # If data is None, then the file does not exist in the database
+    if data is None:
+        cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
+                    'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+        conn.commit()
+        cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                    (unique_id, file_name.split(".")[0]))
+        conn.commit()
+        message = "Your file has been uploaded successfully."
+    else:
+        message = "This file already exists."
+
     conn.close()
 
     # start async function
     thread = threading.Thread(target=async_function, args=(unique_id,))
     thread.start()
 
-    return jsonify({'message': f'Datei {file.filename} und Typ {type} erfolgreich hochgeladen und gespeichert!',
+    return jsonify({'message': message,
                     'uniqueID': unique_id}), 200
 
 
