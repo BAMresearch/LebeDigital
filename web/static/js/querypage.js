@@ -42,16 +42,18 @@ function executeSparqlQuery(query, table) {
 
                 table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
                 table.setData(data);        // Setzt die transformierten Daten
+
+                document.getElementById('downloadBtn').style.display = 'block'; //show download button
             } catch (error) {
-                document.getElementById('queryResults').innerHTML = 'Fehler beim Parsen der Daten: ' + error.message;
+                document.getElementById('queryResults').innerHTML = 'Please insert a valid query. ' + error.message;
             }
         } else {
-            document.getElementById('queryResults').innerHTML = 'Fehler bei der Ausführung der Abfrage: Status ' + xhr.status;
+            document.getElementById('queryResults').innerHTML = 'Failed to load data: Status ' + xhr.status;
         }
     };
 
     xhr.onerror = function() {
-        document.getElementById('queryResults').innerHTML = 'Netzwerkfehler bei der Anfrage.';
+        document.getElementById('queryResults').innerHTML = 'Network Error';
     };
 
     xhr.send('query=' + encodeURIComponent(query));

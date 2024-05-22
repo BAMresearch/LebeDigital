@@ -209,11 +209,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads"
+            query = "SELECT Unique_ID, filename, type, uploadDate FROM uploads"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Mixture_ID, filename, type, uploadDate FROM uploads WHERE user = ?"
+            query = "SELECT Unique_ID, filename, type, uploadDate FROM uploads WHERE user = ? and mapped = 1"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -224,9 +224,14 @@ def my_files():
 
 
         for row in rows:
+            filename = row[1]
+            # Check if filename is a URL
+            if filename.startswith('http://') or filename.startswith('https://'):
+                filename = os.path.basename(filename)  # Extract the file name from the URL
+
             upload = {
-                'Mixture_ID': row[0],
-                'filename': row[1],
+                'Unique_ID': row[0],
+                'filename': filename,
                 'type': row[2],
                 'uploadDate': row[3]
             }

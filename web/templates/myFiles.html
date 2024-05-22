@@ -9,30 +9,60 @@
 
     <!-- SPARQL Query Form -->
     <h5 class="">My Files</h5>
-    <p>Here you can find the all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
+    <p>Here you can find all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
 
-
-    <div class="container-fluid"> <!-- Add this div -->
+    <div class="container-fluid">
+        {% if uploads %}
         <table class="table table-hover">
             <thead>
                 <tr class="row">
-                    <th class="col-5 clr-theme">File</th>
+                    <th class="col-4 clr-theme">File</th>
                     <th class="col-2 clr-theme">Type</th>
+                    <th class="col-4 clr-theme">ID</th>
                     <th class="col-2 clr-theme">Uploaded at</th>
                 </tr>
             </thead>
             <tbody>
                 {% for upload in uploads %}
-                <tr class="row">
-                    <td class="col-5" style=" word-wrap: break-word;">{{ upload['filename'] }}</td>
+                <tr class="row small">
+                    <td class="col-4" style=" word-wrap: break-word;">
+                        <a href="#" onclick="downloadFile('{{ upload['Unique_ID'] }}')">{{ upload['filename'] }}</a></td>
                     <td class="col-2">{{ upload['type'] }}</td>
+                    <td class="col-4">{{ upload['Unique_ID'] }}</td>
                     <td class="col-2" >{{ upload['uploadDate'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div> <!-- Close the div -->
-    
+        {% else %}
+        <div class="text-center p-5">
+            <img src="{{ url_for('static', filename='images/no-content.png') }}" alt="No files">
+            <p class="small text-muted">You have not uploaded any files yet.</p>
+        </div>
+        {% endif %}
+    </div>
 </div>
-<script src="static/js/querypage.js"></script>
+<script>
+    function downloadFile(id) {
+        fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
+            method: 'GET'
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        }).then(blob => {
+            // Erstellt einen Download-Link und klickt darauf
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = `${id}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }).catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
+</script>
 {% endblock %}
