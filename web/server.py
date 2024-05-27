@@ -419,6 +419,29 @@ def search_mixture():
         else:
             # If the mixture does not exist in the database
             return jsonify({'message': 'Mischung nicht gefunden.'})
+        
+@app.route('/get-mixtures', methods=['GET'])
+def get_mixtures():
+    if 'username' in session:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Sql query to search for the mixture
+        query = "SELECT filename,Mixture_ID FROM uploads where mapped = 1 and type = 'Mixture';"
+        cursor.execute(query,)
+
+        # Fetch all the results of the query
+        rowdata = cursor.fetchall()
+        conn.close()
+
+        # Extract the mixture names and ids from the row data
+        mixtures = [{'name': row['filename'], 'id': row['Mixture_ID']} for row in rowdata]
+
+        # Return the mixtures as a JSON response
+        return jsonify({'mixtures': mixtures})
+
+    else:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
 
 
 def get_db_connection():

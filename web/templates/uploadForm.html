@@ -27,14 +27,18 @@
                             </div>
                             <div id="mixtureDetails" style="display: none;">
                                 <p class="pt-4">Which Concrete Mixture did you use?</p>
-                                <div class="input-group mb-3 w-50">
+                                <!--<div class="input-group mb-3 w-50">
                                     <input type="text" id="textInput" class="form-control" placeholder="Enter mixture Name">
                                     <div class="input-group-append">
                                         <button class="btn btn-theme" type="button" onclick="submitMixture()"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
-
-                                <div id="mixresponseText" style="display: none;"></div>
+                                <div id="mixresponseText" style="display: none;"></div>-->
+                               
+                                <select id="mixtures" style="width: 45%;">
+                                    <option selected disabled hidden>Select a mixture</option>
+                                    <!-- Options will be populated here by JavaScript -->
+                                </select>
 
                             </div>
                             <div id="fileUpload" style="display: none;">
@@ -85,7 +89,7 @@
                                 </div>
 
                             </div>
-                            <p class="small text-success show-mixture-id"></p>
+                            <p class="small text-success show-mixture-id mt-2"></p>
                         </div>
                        
                         <div class="col-md-4">
@@ -116,16 +120,6 @@
                                 The compressive strength is preferably determined on cube-shaped, prismatic or cylindrical test specimens. The test is carried out on a compression testing machine between two flat and completely plane steel plates that rest on the specimen without an
                                 intermediate layer.
                             </p>
-                            <!-- <div class="input-group mt-4">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="fileInput2">
-                                    <label class="custom-file-label" for="fileInput2"></label>
-                                </div>
-                                <div class="input-group-append">
-                                    <button class="btn btn-theme" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2')">Upload</button>
-                                </div>
-                            </div>
-                            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
 
                             <div class="card p-4 bg-light-blue" style="border: 0;">
                                 <p class="show-mixture-id small text-center clr-theme"></p>
@@ -200,17 +194,6 @@
                             <p class="text-center">
                                 <var>E</var> = max <var>σ</var> <span class="bar">/</span> <var>ε</var>
                             </p>
-
-                            <!-- <div class="input-group mt-4">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="fileInput3">
-                                    <label class="custom-file-label" for="fileInput3"></label>
-                                </div>
-                                <div class="input-group-append">
-                                    <button class="btn btn-theme" type="button" onclick="uploadData('EModule', 'fileInput3')">Upload</button>
-                                </div>
-                            </div>
-                            <p class="text-muted">Supported file formats: xlsx, xls, csv, dat, txt, xml</p> -->
 
                             <div class="card p-4 bg-light-blue" style="border: 0;">
                                 <p class="show-mixture-id small text-center clr-theme"></p>

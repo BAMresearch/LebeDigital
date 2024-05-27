@@ -49,6 +49,9 @@ function uploadData(type, fileID, urlID, label) {
     } else {
         // It's a file
         var fileInput = document.getElementById(fileID);
+        //for (var i = 0; i < fileInput.files.length; i++) {
+        //   formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
+        //}
         formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
     }
 
@@ -83,21 +86,29 @@ function clearFileInput(fileID) {
     document.getElementById(fileID).value = '';
 }
 
-// This function is called when a file is selected
+// This function is called when multiple files are selected
 function onFileSelected(event, fileLabel) {
-    var fileName = event.target.files[0].name;
+    var files = event.target.files; // Get the list of files
+    var fileNames = []; // Initialize an array to store the names of valid files
 
-    // Check the file format (extension)
+    // Check the file format (extension) for each file
     const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml'];
-    const fileExtension = fileName.split('.').pop().toLowerCase();
+    for (var i = 0; i < files.length; i++) {
+        var fileName = files[i].name;
+        const fileExtension = fileName.split('.').pop().toLowerCase();
 
-    if (!allowedFormats.includes(fileExtension)) {
-        alert('Invalid file. Please select a xlsx, xls, csv, dat or txt file.');
-        return;
+        if (!allowedFormats.includes(fileExtension)) {
+            alert('Invalid file: ' + fileName + '. Please select a xlsx, xls, csv, dat, txt, json, or xml file.');
+            continue; // Skip this file and move to the next one
+        }
+        fileNames.push(fileName); // Add the valid file name to the array
     }
-    document.getElementById(fileLabel).textContent = fileName;
+
+    // Display the names of valid files
+    document.getElementById(fileLabel).textContent = fileNames.join(', ');
     //event.target.value = '';  // Reset the value
 }
+
 
 // This function is called when the "ok" button in the modal is clicked
 function onUrlEntered(urlInput,fileLabel) {
@@ -166,6 +177,51 @@ function submitMixture() {
         mixtureID = null;
     });
 }
+
+$(document).ready(function() {
+    getMixtures();
+    $('#mixtures').select2();
+});
+
+function getMixtures() {
+    // Fetch the list of mixtures from the server
+    fetch('/get-mixtures', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Expect the response from the backend as JSON
+    })
+    .then(data => {
+        // Process the response from the backend
+        console.log(data); // Log the data to check its structure
+        var select = document.getElementById('mixtures');
+        // Loop over the mixtures and add each one as an option to the select
+        for (var i = 0; i < data.mixtures.length; i++) {
+            var option = document.createElement('option');
+            option.value = data.mixtures[i].id;
+            option.text = data.mixtures[i].name;
+            select.appendChild(option);
+        }
+        // This line updates the select with Select2
+        $(select).select2();
+    })
+    .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+    });
+}
+
+// Update the mixtureId variable and the label when a mixture is selected
+$('#mixtures').on('change', function() {
+    mixtureID = this.value;
+    showMixtureId();
+});
+
 
 // Nächste Seite
 function nextSiteOne(page) {
