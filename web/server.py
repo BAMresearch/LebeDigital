@@ -209,11 +209,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate FROM uploads"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped FROM uploads"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate FROM uploads WHERE user = ? and mapped = 1"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped FROM uploads WHERE user = ? and mapped = 1"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -233,7 +233,8 @@ def my_files():
                 'Unique_ID': row[0],
                 'filename': filename,
                 'type': row[2],
-                'uploadDate': row[3]
+                'uploadDate': row[3],
+                'mapped':row[4]
             }
 
             date_object = datetime.strptime(upload['uploadDate'], '%Y-%m-%dT%H:%M:%S.%f')

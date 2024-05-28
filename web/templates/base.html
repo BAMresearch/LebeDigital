@@ -41,7 +41,7 @@
                     <ul class="nav nav-pills flex-column mb-auto pt-1">
                         <li class="nav-item">
                             <a class="nav-link {{ active_page == '/query-simple' and 'active' or '' }}" href="/query-simple">
-                                <i class="clr-theme fas fa-database"></i>&nbsp; Query Data
+                                <i class="clr-theme fas fa-database"></i>&nbsp; Database
                             </a>
                             <li><a class="nav-link {{ active_page == '/query' and 'active' or '' }} small" href="/query">
                                 <span>&nbsp; &nbsp; &nbsp; &nbsp;  SPARQL Query </span>
@@ -56,7 +56,12 @@
 
                         <li class="nav-item">
                             <a class="nav-link {{ '/files' in active_page and 'active' or '' }}" href="/files">
-                                <i class="clr-theme fas fa-file"></i>&nbsp; My Files
+                                <i class="clr-theme fas fa-file"></i>&nbsp; 
+                                {% if session['username'] == 'admin' %}
+                                    All files
+                                {% else %}
+                                    My files
+                                {% endif %}
                             </a>
                         </li>
                     
