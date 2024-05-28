@@ -711,8 +711,10 @@ def data_upload():
                     (unique_id, file_name.split(".")[0]))
         conn.commit()
         message = "Your file has been uploaded successfully."
+        status = 200
     else:
         message = "This file already exists."
+        status = 409
 
     conn.close()
 
@@ -721,7 +723,8 @@ def data_upload():
     thread.start()
 
     return jsonify({'message': message,
-                    'uniqueID': unique_id}), 200
+                    'uniqueID': unique_id,
+                    'status': status}), 200
 
 
 @app.route('/rawdownload')

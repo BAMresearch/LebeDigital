@@ -80,10 +80,17 @@ function uploadData(type, fileID, urlID, label) {
         return response.json();
     })
     .then(data => {
-        document.getElementById("message").innerHTML = data.message
-        const toastLiveExample = document.getElementById('liveToast')
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-        toastBootstrap.show()
+        if (data.status === 200) {
+            document.getElementById("message").innerHTML = data.message
+            const toastLiveExample = document.getElementById('liveToast')
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()  
+        } else {
+            document.getElementById("error-message").innerHTML = data.message
+            const toastLiveExample = document.getElementById('liveToastError')
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+        }
     })
     .catch((error) => {
         console.error('Fehler beim Hochladen:', error);
