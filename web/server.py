@@ -209,11 +209,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped FROM uploads"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped FROM uploads WHERE user = ? and mapped = 1"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and mapped = 1 and deleted_by_user = 0"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -234,11 +234,12 @@ def my_files():
                 'filename': filename,
                 'type': row[2],
                 'uploadDate': row[3],
-                'mapped':row[4]
+                'mapped':row[4],
+                'deletedByUser':row[5]
             }
 
             date_object = datetime.strptime(upload['uploadDate'], '%Y-%m-%dT%H:%M:%S.%f')
-            upload['uploadDate'] = date_object.strftime('%Y-%m-%d %H:%M')
+            upload['uploadDate'] = date_object.strftime('%d/%m/%y %H:%M')
             uploads.append(upload)
 
 
@@ -269,6 +270,24 @@ def logout():
     session.pop('next', None)
 
     return redirect(url_for('index'))
+
+
+
+@app.route('/updateDeletedByUser', methods=['POST'])
+def update_deleted_by_user():
+    data = request.json
+    unique_id = data.get('removeFile')
+    print(unique_id)
+    if unique_id:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE uploads SET deleted_by_user = 1 WHERE Unique_ID = ?", (unique_id,))
+        conn.commit()
+        conn.close()
+        return jsonify({"message": "Your delete request has been processed.","status":200})
+    else:
+        return jsonify({"error": "Invalid request","status":400}), 400
+
 
 
 @app.route('/adminData', methods=['POST', 'GET'])
@@ -474,6 +493,7 @@ def init_db():
                 ttl_Specimen BLOB,
                 UploadDate TEXT,
                 Mapped INTEGER,
+                deleted_by_user BOOLEAN DEFAULT 0 NOT NULL,
                 Error INTEGER
             );
         ''')
@@ -486,6 +506,7 @@ def init_db():
                     );
                 ''')
         conn.commit()
+
 
 
 # Mapping function

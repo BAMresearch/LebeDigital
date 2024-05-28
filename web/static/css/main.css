@@ -139,6 +139,18 @@ body {
       background-color: #e4f4fc;
     } 
 
+    .light-red{
+      color: #ffcccb;
+    } 
+
+    .bg-light-red{
+      background-color: #ffcccb;
+    } 
+
+    a.light-red:hover{
+      color: #CA0B00
+    }
+
     .text-small{
       font-size: 12px;
     }
