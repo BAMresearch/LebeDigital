@@ -1,13 +1,14 @@
 //js for upload data page
 // Globale Variable
 var mixtureID = null;
+var mixtureName = null;
 var institute = 'BAM';
 
-function showMixtureId() {
+function showMixtureName() {
     if (mixtureID !== null) {
         var elements = document.getElementsByClassName('show-mixture-id');
         for (var i = 0; i < elements.length; i++) {
-            elements[i].innerHTML = "Mixture ID: "+ mixtureID;
+            elements[i].innerHTML = "Mixture: "+ mixtureName;
         }
     }    
 }
@@ -34,18 +35,24 @@ function uploadData(type, fileID, urlID, label) {
     } else {
         console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
     }
-    showMixtureId();
-
+    
     var formData = new FormData();
     formData.append('type', type); // Fügt den übergebenen Typ hinzu
     formData.append('Mixture_ID', mixtureID); // Übergibt die Mixture ID
 
      // Check if the input is a file or a URL
-     var fileLabel = document.getElementById(label).textContent;
+    var fileLabel = document.getElementById(label).textContent;
     if (fileLabel.startsWith('http')) {
         // It's a URL, append it to the form data
         var urlInput = document.getElementById(urlID).value;
         formData.append('url', urlInput);
+
+        // Extract the filename from the URL
+        var url = new URL(urlInput);
+        var pathname = url.pathname;
+        var filename = pathname.substring(pathname.lastIndexOf('/') + 1);
+        mixtureName = filename;
+
     } else {
         // It's a file
         var fileInput = document.getElementById(fileID);
@@ -53,7 +60,9 @@ function uploadData(type, fileID, urlID, label) {
         //   formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
         //}
         formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
+        mixtureName = fileLabel;
     }
+    showMixtureName();
 
     // Log each key-value pair in formData
     for (var pair of formData.entries()) {
@@ -159,7 +168,7 @@ function submitMixture() {
         if (data.mixtureID) {
             mixtureID = data.mixtureID; // Speichert den Wert in der Variable
             responseDiv.style.display = 'none';
-            showMixtureId();
+            showMixtureName();
             console.log('Gespeicherte mixtureID:', mixtureID); // Optional: Zur Überprüfung in der Konsole ausgeben
         }
         else{
@@ -219,7 +228,8 @@ function getMixtures() {
 // Update the mixtureId variable and the label when a mixture is selected
 $('#mixtures').on('change', function() {
     mixtureID = this.value;
-    showMixtureId();
+    mixtureName = $(this).find('option:selected').text();
+    showMixtureName();
 });
 
 
