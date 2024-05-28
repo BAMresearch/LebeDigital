@@ -177,8 +177,8 @@ def query_page():
         return redirect(url_for('login'))
 
 
-# Query page (simple version)
-@app.route('/query-simple')
+# Database page (query page simple version)
+@app.route('/database')
 def query_page_simple():
     if 'username' in session:
         return render_template('queryPageSimple.html')

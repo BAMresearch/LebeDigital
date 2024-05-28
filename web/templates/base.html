@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
@@ -40,7 +43,7 @@
                 <div class="sticky-top" style="top: 65px;">
                     <ul class="nav nav-pills flex-column mb-auto pt-1">
                         <li class="nav-item">
-                            <a class="nav-link {{ active_page == '/query-simple' and 'active' or '' }}" href="/query-simple">
+                            <a class="nav-link {{ active_page == '/database' and 'active' or '' }}" href="/database">
                                 <i class="clr-theme fas fa-database"></i>&nbsp; Database
                             </a>
                             <li><a class="nav-link {{ active_page == '/query' and 'active' or '' }} small" href="/query">
@@ -89,12 +92,9 @@
     <!-- Bootstrap JavaScript -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@5.0.7/dist/js/tabulator.min.js"></script>
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
-    <!-- custom JavaScript -->
-    <script src="/static/js/main.js"></script>
 </body>
 </html>
 
