@@ -486,6 +486,7 @@ def init_db():
                 filetype TEXT,
                 filename TEXT,
                 type TEXT,
+                url TEXT,
                 blob BLOB,
                 Json BLOB,
                 ttl BLOB,
@@ -676,48 +677,80 @@ def data_upload():
     else:
         unique_id = str(uuid.uuid4())
 
+
     file_keys = [key for key in request.files.keys() if key.startswith('file')]
     if file_keys:  # Check if there are any files
         for file_key in file_keys:
             file = request.files[file_key]
             if file.filename != '':
                 file_name = file.filename
-            
-                # extract file extension
-                _, file_extension = os.path.splitext(file.filename)
-                filetype = file_extension.lstrip('.')
-                if filetype not in file_types:
-                    return jsonify({'error': 'Unsupported Type'}), 400
-                # save as blob
-                file_blob = file.read()
-                # insert data into the database
-                cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate,Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                            (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
-                conn.commit()
-                cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
-                            (unique_id, file_name.split(".")[0]))
-                conn.commit()
+
+                # Check if the file already exists in the database
+                cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
+                data = cursor.fetchone()
+
+                # If data is not None, then the file exist in the database
+                if data is not None:
+                    conn.close()
+                    return jsonify({'message': "This file already exists: " + file_name,
+                                    'status': 409}), 200
+                else:
+                    # extract file extension
+                    _, file_extension = os.path.splitext(file.filename)
+                    filetype = file_extension.lstrip('.')
+                    if filetype not in file_types:
+                        return jsonify({'error': 'Unsupported Type'}), 400
+                    # save as blob
+                    file_blob = file.read()
+                    # insert data into the database
+                    cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate,Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+                    conn.commit()
+                    cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                                (unique_id, file_name.split(".")[0]))
+                    conn.commit()
+                    
+
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
         response = requests.get(url)
         file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
-        file_name = url
-        # insert data into the database
-        cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
-                    'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
-        conn.commit()
-        cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
-                    (unique_id, file_name.split(".")[0]))
-        conn.commit()
+        file_name = url.split('/')[-1]
+        file_blob = file.read()
+
+        # extract file extension
+        _, file_extension = os.path.splitext(file.filename)
+        filetype = file_extension.lstrip('.')
+        if filetype not in file_types:
+            return jsonify({'error': 'Unsupported Type'}), 400
+        
+        # Check if the file already exists in the database
+        cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
+        data = cursor.fetchone()
+
+        # If data is not None, then the file exists in the database
+        if data is not None:
+            conn.close()
+            return jsonify({'message': "This file already exists.",
+                            'status': 409}), 200
+        else:
+            # insert data into the database
+            cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
+                        'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
+                        (user, filetype, file_name, url, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+            conn.commit()
+            cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                        (unique_id, file_name.split(".")[0]))
+            conn.commit()
     else:
-        return jsonify({'error': 'Keine Datei oder URL gefunden'}), 400
+        return jsonify({'error': 'No Data found'}), 400
 
     conn.close()
 
     # start async function
     thread = threading.Thread(target=async_function, args=(unique_id,))
     thread.start()
+
 
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
