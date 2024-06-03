@@ -18,6 +18,14 @@
 
     <p>Here you can find all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
 
+    {% if unmapped_files %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Oopss!</strong> Some files couldn't be processed due to format issues and are not in the Database.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>   
+    {% endif %}
+    
+
     <div class="container-fluid">
         {% if uploads %}
         <table class="table table-hover">
@@ -33,7 +41,18 @@
                 {% for upload in uploads %}
                 <tr class="row small">
                     <td class="col-4" style=" word-wrap: break-word;">
-                        <a href="#" onclick="downloadFile('{{ upload['Unique_ID'] }}')" class="{{ 'text-danger' if upload['mapped'] == 0 }}">{{ upload['filename'] }}</a>
+
+                        {% if upload['mapped'] == 0 %}
+                            <div title="File couldn't be processed">
+                                <a href="#" onclick="return false;" class="text-muted">{{ upload['filename'] }}</a>
+                                <i class="fas fa-exclamation-triangle text-warning"></i> <!-- Warning icon -->
+                            </div>
+                        {% else %}
+                            <a href="#" onclick="downloadFile('{{ upload['Unique_ID'] }}')" title="Click to download">{{ upload['filename'] }}</a>
+                        {% endif %}
+
+
+
                         {% if upload['deletedByUser'] == 1 %}
                             <span class="badge rounded-pill text-danger bg-light-red">Deleted</span>                         
                         {% endif %}

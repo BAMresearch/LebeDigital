@@ -213,7 +213,7 @@ def my_files():
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and mapped = 1 and deleted_by_user = 0 ORDER BY uploadDate DESC"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and deleted_by_user = 0 ORDER BY uploadDate DESC"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -222,6 +222,7 @@ def my_files():
         # Convert rows to dictionaries and format uploadDate
         uploads = []
 
+        unmapped_files = False
 
         for row in rows:
             filename = row[1]
@@ -235,6 +236,9 @@ def my_files():
                 'deletedByUser':row[5]
             }
 
+            if upload['mapped'] == 0:
+                unmapped_files = True
+
             date_object = datetime.strptime(upload['uploadDate'], '%Y-%m-%dT%H:%M:%S.%f')
             upload['uploadDate'] = date_object.strftime('%d/%m/%y %H:%M')
             uploads.append(upload)
@@ -243,7 +247,7 @@ def my_files():
         # Close the connection
         conn.close()
 
-        return render_template('myFiles.html', uploads=uploads)
+        return render_template('myFiles.html', uploads=uploads, unmapped_files=unmapped_files)
     else:
         # Store the URL the user was trying to access in the session data
         session['next'] = url_for('my_files')
@@ -281,7 +285,7 @@ def update_deleted_by_user():
         cursor.execute("UPDATE uploads SET deleted_by_user = 1 WHERE Unique_ID = ?", (unique_id,))
         conn.commit()
         conn.close()
-        return jsonify({"message": "Your delete request has been processed.","status":200})
+        return jsonify({"message": "Your delete request has been sent.","status":200})
     else:
         return jsonify({"error": "Invalid request","status":400}), 400
 
