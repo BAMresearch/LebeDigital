@@ -295,7 +295,7 @@ function runQuery(e) {
         } else if (field == "Einheit") {
             var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
             window.open(url, "_blank");
-        } else if (field == "Wert" && value == "locationOfRawData") {
+        } else if (field == "Wert" && value == "Download") {
             // zuerst ID der mischung bekommen
             var id = document.getElementById('nameInput').value
             // Sendet eine Anfrage an das Backend

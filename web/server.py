@@ -209,11 +209,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY uploadDate DESC"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and mapped = 1 and deleted_by_user = 0"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and mapped = 1 and deleted_by_user = 0 ORDER BY uploadDate DESC"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query

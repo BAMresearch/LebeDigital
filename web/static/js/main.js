@@ -5,6 +5,7 @@ var mixtureName = null;
 var institute = 'BAM';
 
 function showMixtureName() {
+    console.log(mixtureName)
     if (mixtureID !== null) {
         var elements = document.getElementsByClassName('show-mixture-id');
         for (var i = 0; i < elements.length; i++) {
@@ -51,7 +52,9 @@ function uploadData(type, fileID, urlID, label) {
         var url = new URL(urlInput);
         var pathname = url.pathname;
         var filename = pathname.substring(pathname.lastIndexOf('/') + 1);
-        mixtureName = filename;
+        if (type === 'Mixture') {
+            mixtureName = filename;
+        }
 
     } else {
         // It's a file
@@ -59,8 +62,9 @@ function uploadData(type, fileID, urlID, label) {
         for (var i = 0; i < fileInput.files.length; i++) {
            formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
         }
-        //formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
-        mixtureName = fileLabel;
+        if (type === 'Mixture') {
+            mixtureName = fileInput.files[0].name; // Use the name of the first file
+        }
     }
     showMixtureName();
 

@@ -173,7 +173,7 @@ def extract_metadata_mixdesign(RawData, filename):
         ############### E X T R A C T I O N #############
 
         # get raw data file name
-        metadata['RawDataFile'] = 'locationOfRawData'
+        metadata['RawDataFile'] = 'Download'
 
         # get date (always the same position) & set time to 12:00 - Protege datetime format YYYY-MM-DDTHH:mm:SS
         metadata['MixingDate'] = str(exceltodf.columns[9])[:10] + "T12:00:00"
