@@ -57,6 +57,8 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
     emodul_data['RawDataFile'] = rawdata_file_path
 
     # Iterate through each ArrayOfVariableData element
+    has_diameter = False
+    has_length = False
     for array_var_data in root.findall('ArrayOfVariableData'):
         # Iterate through each VariableData element
         for var_data in array_var_data.findall('VariableData'):
@@ -83,9 +85,11 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
             elif name == 'Durchmesser':
                 specimen_data['SpecimenDiameter'] = float(value)
                 specimen_data['SpecimenDiameter_Unit'] = var_data.find('Unit').text
+                has_diameter = True
             elif name == 'Länge':
                 specimen_data['SpecimenLength'] = float(value)
                 specimen_data['SpecimenLength_Unit'] = var_data.find('Unit').text
+                has_length = True
             elif name == 'Masse':
                 specimen_data['SpecimenMass'] = float(value)
                 specimen_data['SpecimenMass_Unit'] = var_data.find('Unit').text
@@ -101,6 +105,11 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
             elif name == 'Dehnung':
                 emodul_data['Strain'] = float(value)
                 emodul_data['Strain_Unit'] = var_data.find('Unit').text
+    # Set specimen shape based on presence of diameter and length
+    if has_diameter and has_length:
+        specimen_data['SpecimenShape'] = 'Cylinder'
+    else:
+        specimen_data['SpecimenShape'] = 'Cube'
 
     # Calculate specimen age
     if 'ExperimentDate' in emodul_data and mixing_date:
@@ -162,9 +171,9 @@ def xml_to_json(xml_file, emodul_json_file, specimen_json_file):
 
 
 # Example usage:
-xml_file_path = "../../../usecases/MinimumWorkingExample/Data/E-Modul_28_Tage/20240220_7188_M01/20240220_7188_M01_Z04_E-Modul.xml"
-emodul_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M01_Z04_E.json"
-specimen_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M01_Z04_E_Specimen.json"
+xml_file_path = "../../../usecases/MinimumWorkingExample/Data/E-Modul_28_Tage/20240220_7188_M02/20240220_7188_M02_Z06_E-Modul.xml"
+emodul_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M02_Z06_E.json"
+specimen_json_file_path = "../../../usecases/MinimumWorkingExample/emodul/metadata_json_files/20240220_7188_M02_Z06_E_Specimen.json"
 
 xml_to_json(xml_file_path, emodul_json_file_path, specimen_json_file_path)
 
