@@ -225,9 +225,6 @@ def my_files():
 
         for row in rows:
             filename = row[1]
-            # Check if filename is a URL
-            if filename.startswith('http://') or filename.startswith('https://'):
-                filename = os.path.basename(filename)  # Extract the file name from the URL
 
             upload = {
                 'Unique_ID': row[0],
@@ -447,7 +444,7 @@ def get_mixtures():
         cursor = conn.cursor()
 
         # Sql query to search for the mixture
-        query = "SELECT filename,Mixture_ID FROM uploads where mapped = 1 and type = 'Mixture';"
+        query = "SELECT filename,Mixture_ID FROM uploads where mapped = 1 and deleted_by_user = 0 and type = 'Mixture';"
         cursor.execute(query,)
 
         # Fetch all the results of the query
@@ -686,7 +683,7 @@ def data_upload():
                 file_name = file.filename
 
                 # Check if the file already exists in the database
-                cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
+                cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
                 data = cursor.fetchone()
 
                 # If data is not None, then the file exist in the database
@@ -725,7 +722,7 @@ def data_upload():
             return jsonify({'error': 'Unsupported Type'}), 400
         
         # Check if the file already exists in the database
-        cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
+        cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
         data = cursor.fetchone()
 
         # If data is not None, then the file exists in the database
