@@ -654,17 +654,6 @@ def data_upload():
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
-    if 'file' in request.files and request.files['file'].filename != '':
-        file = request.files['file']
-        file_name = file.filename
-    elif 'url' in request.form and request.form['url'] != '':
-        url = request.form['url']
-        response = requests.get(url)
-        file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
-        file_name = url
-    else:
-        return jsonify({'error': 'Keine Datei oder URL gefunden'}), 400
-
     if 'type' not in request.form:
         return jsonify({'error': 'Kein Typ angegeben'}), 400
 
@@ -675,16 +664,9 @@ def data_upload():
     mixtureID = str(request.form['Mixture_ID'])
     user = session['username']  # get username
 
-    # extract file extension
-    _, file_extension = os.path.splitext(file.filename)
-
-    filetype = file_extension.lstrip('.')
-
-    if filetype not in file_types:
-        return jsonify({'error': 'Unsupported Type'}), 400
-
-    # save as blob
-    file_blob = file.read()
+    # connection to the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     # current time
     uploaddate = datetime.now().isoformat()
@@ -694,15 +676,33 @@ def data_upload():
     else:
         unique_id = str(uuid.uuid4())
 
-    # connection to the database and insert data
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    # Check if the file already exists in the database
-    cursor.execute('SELECT * FROM uploads WHERE filename = ?', (file_name,))
-    data = cursor.fetchone()
-
-    # If data is None, then the file does not exist in the database
-    if data is None:
+    file_keys = [key for key in request.files.keys() if key.startswith('file')]
+    if file_keys:  # Check if there are any files
+        for file_key in file_keys:
+            file = request.files[file_key]
+            if file.filename != '':
+                file_name = file.filename
+            
+                # extract file extension
+                _, file_extension = os.path.splitext(file.filename)
+                filetype = file_extension.lstrip('.')
+                if filetype not in file_types:
+                    return jsonify({'error': 'Unsupported Type'}), 400
+                # save as blob
+                file_blob = file.read()
+                # insert data into the database
+                cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate,Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+                conn.commit()
+                cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                            (unique_id, file_name.split(".")[0]))
+                conn.commit()
+    elif 'url' in request.form and request.form['url'] != '':
+        url = request.form['url']
+        response = requests.get(url)
+        file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
+        file_name = url
+        # insert data into the database
         cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, '
                     'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
@@ -710,11 +710,8 @@ def data_upload():
         cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
                     (unique_id, file_name.split(".")[0]))
         conn.commit()
-        message = "Your file has been uploaded successfully."
-        status = 200
     else:
-        message = "This file already exists."
-        status = 409
+        return jsonify({'error': 'Keine Datei oder URL gefunden'}), 400
 
     conn.close()
 
@@ -722,9 +719,9 @@ def data_upload():
     thread = threading.Thread(target=async_function, args=(unique_id,))
     thread.start()
 
-    return jsonify({'message': message,
+    return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
-                    'status': status}), 200
+                    'status': 200}), 200
 
 
 @app.route('/rawdownload')

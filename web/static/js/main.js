@@ -56,10 +56,10 @@ function uploadData(type, fileID, urlID, label) {
     } else {
         // It's a file
         var fileInput = document.getElementById(fileID);
-        //for (var i = 0; i < fileInput.files.length; i++) {
-        //   formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
-        //}
-        formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
+        for (var i = 0; i < fileInput.files.length; i++) {
+           formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
+        }
+        //formData.append('file', fileInput.files[0]); // Fügt die Datei hinzu
         mixtureName = fileLabel;
     }
     showMixtureName();
@@ -145,54 +145,6 @@ function isValidURL(string) {
     return (res !== null)
 };
 
-
-function submitMixture() {
-    var textInput = document.getElementById('textInput').value;
-    var apiUrl = '/search-mixture'; // Pfad zur Flask-Route, relativ zur Basis-URL der Website
-
-    // Macht den Aufruf an das Backend
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ mixtureName: textInput }), // Sendet den Namen der Mischung als JSON
-    })
-        .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Erwartet die Antwort des Backends als JSON
-    })
-        .then(data => {
-        // Verarbeitet die Antwort des Backends
-        var responseDiv = document.getElementById('mixresponseText');
-        responseDiv.style.display = 'block'; // Macht den Antwort-Text sichtbar
-        responseDiv.classList = 'text-danger';
-        responseDiv.innerHTML = data.message; // Setzt die Antwort des Backends in das Div
-        
-        // Speichert die mixtureID als Variable, ohne sie anzuzeigen
-        if (data.mixtureID) {
-            mixtureID = data.mixtureID; // Speichert den Wert in der Variable
-            responseDiv.style.display = 'none';
-            showMixtureName();
-            console.log('Gespeicherte mixtureID:', mixtureID); // Optional: Zur Überprüfung in der Konsole ausgeben
-        }
-        else{
-            mixtureID = null;
-            hideMixtureId();
-        }
-
-    })
-        .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
-        var responseDiv = document.getElementById('mixresponseText');
-        responseDiv.style.display = 'block';
-        responseDiv.classList = 'text-danger';
-        responseDiv.innerHTML = 'Mixture not found'; // Zeigt eine Fehlermeldung an
-        mixtureID = null;
-    });
-}
 
 $(document).ready(function() {
     getMixtures();
