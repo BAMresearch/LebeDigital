@@ -673,11 +673,6 @@ def data_upload():
     # current time
     uploaddate = datetime.now().isoformat()
 
-    if type == 'Mixture':
-        unique_id = mixtureID
-    else:
-        unique_id = str(uuid.uuid4())
-
 
     file_keys = [key for key in request.files.keys() if key.startswith('file')]
     if file_keys:  # Check if there are any files
@@ -703,6 +698,12 @@ def data_upload():
                         return jsonify({'error': 'Unsupported Type'}), 400
                     # save as blob
                     file_blob = file.read()
+
+                    if type == 'Mixture':
+                        unique_id = mixtureID
+                    else:
+                        unique_id = str(uuid.uuid4())
+
                     # insert data into the database
                     cursor.execute('INSERT INTO uploads (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate,Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                                 (user, filetype, file_name, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
@@ -710,7 +711,10 @@ def data_upload():
                     cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
                                 (unique_id, file_name.split(".")[0]))
                     conn.commit()
-                    
+
+                    # start async function for each file
+                    thread = threading.Thread(target=async_function, args=(unique_id,))
+                    thread.start()
 
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
@@ -735,6 +739,10 @@ def data_upload():
             return jsonify({'message': "This file already exists.",
                             'status': 409}), 200
         else:
+            if type == 'Mixture':
+                unique_id = mixtureID
+            else:
+                unique_id = str(uuid.uuid4())
             # insert data into the database
             cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
                         'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
@@ -749,8 +757,8 @@ def data_upload():
     conn.close()
 
     # start async function
-    thread = threading.Thread(target=async_function, args=(unique_id,))
-    thread.start()
+    #thread = threading.Thread(target=async_function, args=(unique_id,))
+    #thread.start()
 
 
     return jsonify({'message': "Your files have been uploaded successfully.",

@@ -30,6 +30,11 @@ def delete_specific_triples_from_endpoint(ttl_binary, config):
     :param config: Config-File, containing configurations: SPARQL_ENDPOINT, DOCKER_TOKEN
     :return: if success 0, else 1
     """
+    # Set Authorization Header with token
+    headers = {
+        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
+    }
+
     triples_to_delete = extract_specific_triples_from_ttl(ttl_binary)
 
     # Prepare the SPARQL DELETE DATA query
@@ -42,12 +47,18 @@ def delete_specific_triples_from_endpoint(ttl_binary, config):
         }}
     """
 
+    logger.info(query)
+    # Post the deletion request to the server
+    response = requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
+                  f'/update',
+                  headers=headers, params={"update": query}).content.decode()
+
     # Send the SPARQL DELETE DATA query to the endpoint
-    sparql = SPARQLWrapper(config['SPARQL_ENDPOINT'])
-    sparql.setMethod(POST)
-    sparql.setQuery(query)
-    sparql.addParameter("Authorization", f"Bearer {config['DOCKER_TOKEN']}")
-    logger.debug(sparql.query().response.read().decode())
+    #sparql = SPARQLWrapper(config['SPARQL_ENDPOINT'])
+    #sparql.setMethod(POST)
+    #sparql.setQuery(query)
+    #sparql.addParameter("Authorization", f"Bearer {config['DOCKER_TOKEN']}")
+    logger.debug(response)
 
     return 0
 
