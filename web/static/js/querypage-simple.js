@@ -5,6 +5,16 @@ function downloadTable() {
     table.download("csv", "daten.csv");
 }
 
+var heading = document.getElementById('heading')
+// Function for back button
+function goBack() { 
+    history.back(); 
+    // Hide the heading again after 1 sec
+    setTimeout(function() {
+        heading.classList.replace("d-md-flex", "d-none");
+    }, 1000);
+};
+
 // Cleans the data retrieved from Sparql Query (Removes URI and UUID4)
 function cleanEntry(entry) {
     // Überprüfung auf UUID4 am Ende und Entfernen
@@ -46,170 +56,137 @@ function extractValues(data, propertyName) {
 
 // Creates a Query based on the specific input from the user and executes it
 async function create_query(selectedQueryType, enteredName){
-    // check if extended is checked
-    const checkbox = document.getElementById('extendedCheckbox');
     let query = null;
-    let response = null;
-    let valuesList = null;
 
-    // Create a new <h2> element
-    var heading = document.getElementById('result');
-    heading.textContent = 'All Mixtures'; // Set the text
-
-    if (checkbox.checked){
-        // shows all information for every mixture
-        if (selectedQueryType === "Mischung" && enteredName === "") {
-            query = `
-            SELECT ?ID WHERE {
-              ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/cpto/MaterialComposition>.
-              ?s <http://purl.org/spar/datacite/hasIdentifier> ?p.
-              ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
-              ?p <https://w3id.org/pmd/co/value> ?ID.
-              FILTER(REGEX(str(?p), "/humanreadableID[^/]*$"))
-            }`;
-            response = await executeSparqlQuery(query);
-
-            // extracts an array of every ID for every mixture
-            valuesList = extractValues(response, "ID");
-            console.log(valuesList);
-
-            let allList = [];
-
-            // goes through all mixtures in database
-            for (const [index, value] of valuesList.entries()) {
-
-                // looks up mixture
-                query = `
-                SELECT ?Bestandteil ?Wert WHERE {
-                    ?g ?p "${value}".
-                    BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-                    ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
-                    FILTER(STRENDS(STR(?Bestandteil), ?suffix))
-                }`;
-
-                response = await executeSparqlQuery(query);
-                console.log(response)
-                // extract all "Bestandteil"
-                titleList = extractValues(response, "Bestandteil");
-
-                // cleans data
-                for (let i = 0; i < titleList.length; i++) {
-                    titleList[i] = cleanEntry(titleList[i]);
-                }
-
-                // extract all "Bestandteil"
-                valuesList = extractValues(response, "Wert");
-
-                // for the first mixture extract column Names
-                if (index === 0) {
-                    // sets columnn name
-                    console.log(titleList);
-                    tableData = {message: {head: {vars: titleList}, results: {bindings: []}}};
-                }
-
-                let pushObject = {};
-                for (let i = 0; i < titleList.length; i++) {
-                    pushObject[titleList[i]] = { type: "literal", value: valuesList[i] };
-                }
-
-                console.log(pushObject);  // Dies zeigt das Objekt direkt in der Konsole
-                allList.push(pushObject);  // Fügen Sie das Objekt zur Liste hinzu
-            }
-            tableData.message.results.bindings = allList;
-            console.log(tableData);
-            createTable(tableData);
-        }
-
-    } else {
-        // Show all Mixtures with Name and ID
-        if (selectedQueryType === "Mischung" && enteredName === "") {
-            query = `
-            SELECT ?ID ?Name WHERE {
-              ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/cpto/MaterialComposition>.
-              ?s <http://purl.org/spar/datacite/hasIdentifier> ?o.
-              ?s <http://purl.org/spar/datacite/hasIdentifier> ?p.
-              ?o <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
-              ?o <https://w3id.org/pmd/co/value> ?Name.
-              ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
-              ?p <https://w3id.org/pmd/co/value> ?ID.
-              FILTER(REGEX(str(?o), "/humanreadableID[^/]*$"))
-              FILTER(REGEX(str(?p), "/ID[^/]*$"))
-            }`;
-        }
-
-        // Show all Info from a specific Mixture
-        if (selectedQueryType === "Mischung" && enteredName !== ""){
-            heading.textContent = "Mixture Details: " + enteredName;
-
-            query = `
-            SELECT ?Bestandteil ?Wert ?Einheit WHERE {
-            ?g ?p "${enteredName}".
-            BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-            ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
-            OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
-            FILTER(STRENDS(STR(?Bestandteil), ?suffix))
-            }`;
-        }
-
-        // Show all Mixtures with Name and ID
-        if (selectedQueryType === "EModule" && enteredName === "") {
-            heading.textContent = "All E-Modul";
-            query = `
-            SELECT ?ID ?Mixture ?Name ?EModule WHERE {
-              ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ModulusOfElasticity>.
-              ?o <https://w3id.org/pmd/co/input> ?s.
-              ?o <http://purl.org/spar/datacite/hasIdentifier> ?p.
-              ?o <http://purl.org/spar/datacite/hasIdentifier> ?d.
-              ?o <http://purl.org/spar/datacite/hasIdentifier> ?m.
-              FILTER(REGEX(str(?d), "/humanreadableID[^/]*$"))
-              FILTER(REGEX(str(?p), "/ID[^/]*$"))
-              FILTER(REGEX(str(?m), "/MixtureID[^/]*$"))
-              OPTIONAL { ?p <https://w3id.org/pmd/co/value> ?ID. }
-              OPTIONAL { ?m <https://w3id.org/pmd/co/value> ?Mixture. }
-              OPTIONAL { ?d <https://w3id.org/pmd/co/value> ?Name. }
-              OPTIONAL { ?s <https://w3id.org/pmd/co/value> ?EModule. }
-            }`;
-        }
-
-        // Show all Info from a specific Mixture
-        if (selectedQueryType === "EModule" && enteredName !== ""){
-            heading.textContent = "E-Modul Details: " + enteredName;
-
-            query = `
-            SELECT ?Bestandteil ?Wert ?Einheit WHERE {
-            ?g ?p "${enteredName}".
-            BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-            ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
-            OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
-            FILTER(STRENDS(STR(?Bestandteil), ?suffix))
-            }`;
-        }
-
-        // main logic for not extended queries
-        try {
-            const tableData = await executeSparqlQuery(query);
-            createTable(tableData);
-        } catch (error) {
-            document.getElementById('queryResults').textContent = error.message;
-        }
+    // Show all Mixtures with Name and ID
+    if (selectedQueryType === "Mischung" && enteredName === "") {
+        query = `
+        SELECT ?ID ?Name WHERE {
+            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/cpto/MaterialComposition>.
+            ?s <http://purl.org/spar/datacite/hasIdentifier> ?o.
+            ?s <http://purl.org/spar/datacite/hasIdentifier> ?p.
+            ?o <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
+            ?o <https://w3id.org/pmd/co/value> ?Name.
+            ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
+            ?p <https://w3id.org/pmd/co/value> ?ID.
+            FILTER(REGEX(str(?o), "/humanreadableID[^/]*$"))
+            FILTER(REGEX(str(?p), "/ID[^/]*$"))
+        }`;
+        history.pushState({ view: "Mischung"}, "");
     }
 
+    // Show searched Mixtures
+    if (selectedQueryType === "Mischung" && enteredName !== ""){
+        query = `SELECT ?ID ?Name WHERE {
+            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/cpto/MaterialComposition>.
+            ?s <http://purl.org/spar/datacite/hasIdentifier> ?o.
+            ?s <http://purl.org/spar/datacite/hasIdentifier> ?p.
+            ?o <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
+            ?o <https://w3id.org/pmd/co/value> ?Name.
+            ?p <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual>.
+            ?p <https://w3id.org/pmd/co/value> ?ID.
+            FILTER(REGEX(str(?o), "/humanreadableID[^/]*$"))
+            FILTER(REGEX(str(?p), "/ID[^/]*$"))
+            FILTER(CONTAINS(LCASE(?Name), "${enteredName}"))
+            }`;
+        history.pushState({ view: "Mischung",  name: enteredName }, "");
+    }
+
+    // Show all Info from a specific Mixture
+    if (selectedQueryType === "Details" && enteredName !== ""){
+        query = `
+        SELECT ?Bestandteil ?Wert ?Einheit WHERE {
+        ?g ?p "${enteredName}".
+        BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
+        ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
+        OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
+        FILTER(STRENDS(STR(?Bestandteil), ?suffix))
+        }`;
+        history.pushState({ view: "Details", name: enteredName }, "");
+
+        // Show the heading div after a delay so that data loading is complete
+        setTimeout(function() {
+            heading.classList.replace("d-none", "d-md-flex");
+        }, 1000);
+
+        var selectedName = document.getElementById('selectedName');
+        selectedName.textContent = enteredName; 
+    }
+
+    // Show all Emodule with Name and ID
+    if (selectedQueryType === "EModule" && enteredName === "") {
+        query = `
+        SELECT ?ID ?Mixture ?Name ?EModule WHERE {
+            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/pmd/co/ModulusOfElasticity>.
+            ?o <https://w3id.org/pmd/co/input> ?s.
+            ?o <http://purl.org/spar/datacite/hasIdentifier> ?p.
+            ?o <http://purl.org/spar/datacite/hasIdentifier> ?d.
+            ?o <http://purl.org/spar/datacite/hasIdentifier> ?m.
+            FILTER(REGEX(str(?d), "/humanreadableID[^/]*$"))
+            FILTER(REGEX(str(?p), "/ID[^/]*$"))
+            FILTER(REGEX(str(?m), "/MixtureID[^/]*$"))
+            OPTIONAL { ?p <https://w3id.org/pmd/co/value> ?ID. }
+            OPTIONAL { ?m <https://w3id.org/pmd/co/value> ?Mixture. }
+            OPTIONAL { ?d <https://w3id.org/pmd/co/value> ?Name. }
+            OPTIONAL { ?s <https://w3id.org/pmd/co/value> ?EModule. }
+        }`;
+        history.pushState({ view: "EModule" }, "");
+    }
+
+    // Show all Info from a specific Emodule
+    if (selectedQueryType === "EModule" && enteredName !== ""){
+        query = `
+        SELECT ?Bestandteil ?Wert ?Einheit WHERE {
+        ?g ?p "${enteredName}".
+        BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
+        ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
+        OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
+        FILTER(STRENDS(STR(?Bestandteil), ?suffix))
+        }`;
+        history.pushState({ view: "EModule", name: enteredName }, "");
+    }
+
+    // main logic for not extended queries
+    try {
+        const tableData = await executeSparqlQuery(query);
+        createTable(tableData);
+    } catch (error) {
+        document.getElementById('queryResults').textContent = error.message;
+    }
 }
 
 
 // parses, cleans  data and creates table
 function createTable(tableData){
-
     // Generates the columns for Tabulator
+   
     function generateColumns(vars) {
-        return vars.map(varName => ({
-            title: varName.toUpperCase(),  // Spaltentitel als Großbuchstaben der Variablennamen
-            field: varName,
-            sorter: "string",
-            headerFilter: true  // Optional: Fügt Filtermöglichkeiten zu jeder Spalte hinzu
-        }));
+        return vars.map(varName => {
+            let column = {
+                title: varName.toUpperCase(),  // Spaltentitel als Großbuchstaben der Variablennamen
+                field: varName,
+                sorter: "string",
+                headerFilter: true  // Optional: Fügt Filtermöglichkeiten zu jeder Spalte hinzu
+            };
+
+            // Add formatter to specific columns
+            if (varName == "Name" || varName == "ID" || varName == "Einheit" || varName == "Wert") {
+                column.formatter = function(cell) {
+                    var value = cell.getValue();
+                    if (value == "Download" || varName == "Einheit") {
+                        return "<span class='text-primary'><u>" + value + "</u></span>";
+                    } else {
+                        return value;
+                    }
+                };
+            }
+
+            return column;
+        });
     }
 
+
+    
     // Transforms JSON response data from Backend for Tabulator
     function transformData(bindings, vars) {
         return bindings.map(binding => {
@@ -290,14 +267,15 @@ function runQuery(e) {
         var field = cell.getField(); // Holt den Feldnamen der Spalte
 
         if (field == "Name" || field == "ID") { // Überprüft, ob die Spalte 'Name' ist
-            document.getElementById('nameInput').value = value;  // Setzt den Wert ins Eingabefeld
-            document.getElementById('submit').click(); // Automatisches Auslösen des Query-Buttons
+            document.getElementById('fileID').value = value;
+            enteredName = value
+            create_query("Details", enteredName);
         } else if (field == "Einheit") {
             var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
             window.open(url, "_blank");
         } else if (field == "Wert" && value == "Download") {
             // zuerst ID der mischung bekommen
-            var id = document.getElementById('nameInput').value
+            var id = document.getElementById('fileID').value
             // Sendet eine Anfrage an das Backend
             fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
                 method: 'GET'
@@ -333,5 +311,11 @@ window.onload = runQuery;
 // Run the function when the dropdown value is changed
 document.getElementById('queryType').addEventListener('change', runQuery);
 
-// Run the function when the checkbox is checked or unchecked
-document.getElementById('extendedCheckbox').addEventListener('change', runQuery);
+
+// Enable Browser back
+window.onpopstate = function(event) {
+   if (event.state) {
+        create_query(event.state.view, event.state.name || "");
+    }
+};
+

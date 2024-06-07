@@ -17,9 +17,9 @@
             </div>
             
             <div>
-                <label class="clr-theme text-small"  for="nameInput">Search by Name or ID</label>
+                <label class="clr-theme text-small"  for="nameInput">Search by Name</label>
                 <div class="input-group mb-3"  style="min-width: 350px;">
-                    <input id="nameInput" type="text" class="form-control" placeholder="e.g. 20240220_7188_M02">
+                    <input id="nameInput" type="text" class="form-control" placeholder="e.g. 7188, M01 etc.">
                     <div class="input-group-append">
                         <button id="submit" type="submit" class="btn btn-theme">
                             <i class="fa fa-search"></i> <!-- Search icon -->
@@ -30,22 +30,21 @@
             
         </form>
     </div>
-    <label>
-        <input type="checkbox" id="extendedCheckbox">
-            Detailed (!!! approx. 1 second per mixture)
-    </label>
     
-    <div id="queryResults" style="min-height: 50px;">
-        <div class="d-md-flex justify-content-between pt-5 pb-3">
-            <h5 class="clr-theme" id="result"></h5>
-            <div style="text-align: right;">
-                <button class="btn btn-theme" onclick="downloadTable()">Download as CSV</button>
+    <div id="queryResults" class="pt-1" style="min-height: 50px;">
+        <div class="d-none justify-content-between" id="heading" style="height: 0px;">
+            <h6 id="selectedName" class="clr-theme mb-0 fw-normal pt-2"></h6>
+            <div>
+                <button id="backButton" class="btn btn-sm btn-outline-theme" onclick="goBack()"><i class="fas fa-chevron-left"></i></i>&nbsp;Back</button>
+                <button class="btn btn-sm btn-theme" onclick="downloadTable()"><i class="fas fa-file-download"></i>&nbsp;Download as CSV</button>
             </div>
         </div>
         
         <!-- Query results will be displayed here -->
     </div>
-    <div id="resultsTable"></div>
+    <div id="resultsTable" class="mt-0 text-small"></div>
+    
+    <input id="fileID" hidden></input>
 </div>
 <script src="static/js/querypage-simple.js"></script>
 {% endblock %}

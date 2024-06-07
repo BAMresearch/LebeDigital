@@ -19,10 +19,10 @@
     <p>Here you can find all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
 
     {% if unmapped_files %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Your files are being processed.</strong> This may take a while. 
-            <br>If your files are <strong>not processed</strong> and not in the Database, it could be due to format issues. 
-            Please correct these and try again.
+        <div class="alert alert-warning alert-dismissible fade show text-small" role="alert">
+            <strong>Your files are being processed.</strong> This may take a while. Refresh the page to see changes.
+            <br>If it's <strong>not processed</strong> and cannot be found in the Database, it could be due to formatting issues. 
+            Please fix and re-upload.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>   
     {% endif %}
@@ -41,19 +41,17 @@
             </thead>
             <tbody>
                 {% for upload in uploads %}
-                <tr class="row small">
+                <tr class="row text-small">
                     <td class="col-4" style=" word-wrap: break-word;">
 
                         {% if upload['mapped'] == 0 %}
-                            <div title="File couldn't be processed">
+                            <span title="File couldn't be processed">
                                 <a href="#" onclick="return false;" class="text-muted">{{ upload['filename'] }}</a>
                                 <i class="fas fa-exclamation-triangle text-warning"></i> <!-- Warning icon -->
-                            </div>
+                            </span>
                         {% else %}
                             <a href="#" onclick="downloadFile('{{ upload['Unique_ID'] }}')" title="Click to download">{{ upload['filename'] }}</a>
                         {% endif %}
-
-
 
                         {% if upload['deletedByUser'] == 1 %}
                             <span class="badge rounded-pill text-danger bg-light-red">Deleted</span>                         
@@ -62,10 +60,12 @@
                     <td class="col-2">{{ upload['type'] }}</td>
                     <td class="col-4">{{ upload['Unique_ID'] }}</td>
                     <td class="col-2">
-                        {{ upload['uploadDate'] }}  &nbsp; &nbsp;
-                        <a href="#" class="light-red" onclick="deleteFile('{{ upload['Unique_ID'] }}')">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        <div class="d-flex justify-content-between">
+                            {{ upload['uploadDate'] }}  
+                            <a href="#" class="light-red" onclick="deleteFile('{{ upload['Unique_ID'] }}')">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>                
                 {% endfor %}

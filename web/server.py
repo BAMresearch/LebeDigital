@@ -819,6 +819,7 @@ def raw_download():
 
     # Get the file ID from the URL parameters
     mixture_id = request.args.get('id')
+    print(mixture_id)
 
     if not mixture_id:
         abort(400, description="No file ID provided.")
