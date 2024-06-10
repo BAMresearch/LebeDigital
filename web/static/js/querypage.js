@@ -67,7 +67,10 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
 
     table = new Tabulator("#resultsTable", {
     layout: "fitColumns",
-    placeholder: "Daten werden geladen..."
+    placeholder: "Loading Data...",
+    pagination:"local",
+    paginationSize:10,
+    paginationSizeSelector:[10, 50, 100],
     });
 
     // Führen Sie die Abfrage mit der definierten Funktion aus

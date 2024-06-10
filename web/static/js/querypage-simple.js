@@ -161,14 +161,24 @@ function createTable(tableData){
     // Generates the columns for Tabulator
    
     function generateColumns(vars) {
-        return vars.map(varName => {
+        // Add row number column
+        let columns = [{
+            title: "#",
+            field: "_row",
+            formatter: "rownum",
+            width: 40,
+            headerSort: false
+        }];
+    
+        // Generate columns for the rest of the variables
+        columns.push(...vars.map(varName => {
             let column = {
-                title: varName.toUpperCase(),  // Spaltentitel als Großbuchstaben der Variablennamen
+                title: varName.toUpperCase(),
                 field: varName,
                 sorter: "string",
-                headerFilter: true  // Optional: Fügt Filtermöglichkeiten zu jeder Spalte hinzu
+                headerFilter: true,
             };
-
+    
             // Add formatter to specific columns
             if (varName == "Name" || varName == "ID" || varName == "Einheit" || varName == "Wert") {
                 column.formatter = function(cell) {
@@ -180,12 +190,12 @@ function createTable(tableData){
                     }
                 };
             }
-
+    
             return column;
-        });
+        }));
+    
+        return columns;
     }
-
-
     
     // Transforms JSON response data from Backend for Tabulator
     function transformData(bindings, vars) {
@@ -254,6 +264,9 @@ function runQuery(e) {
     table = new Tabulator("#resultsTable", {
     layout: "fitColumns",
     placeholder: "Loading Data...",
+    pagination:"local",
+    paginationSize:10,
+    paginationSizeSelector:[10, 50, 100],
     });
 
 
