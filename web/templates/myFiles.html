@@ -16,12 +16,12 @@
     </h5>
     <input type="hidden" id="username" value="{{ session['username'] }}">
 
-    <p>Here you can find all the files (i.e. Mixture, Compressive Strength, E-Modul) that you have uploaded before.</p>
+    <p>Here you can find all the files (i.e. Mixture, Compressive Strength, E-Module) that you have uploaded before.</p>
 
     {% if unmapped_files %}
         <div class="alert alert-warning alert-dismissible fade show text-small" role="alert">
             <strong>Your files are being processed.</strong> This may take a while. Refresh the page to see changes.
-            <br>If it's <strong>not processed</strong> and cannot be found in the Database, it could be due to formatting issues. 
+            <br>If it's <strong>not processed</strong> or cannot be found in the Database, it could be due to formatting issues. 
             Please fix and re-upload.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>   

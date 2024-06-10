@@ -688,7 +688,7 @@ def data_upload():
                 # If data is not None, then the file exist in the database
                 if data is not None:
                     conn.close()
-                    return jsonify({'message': "This file already exists: " + file_name,
+                    return jsonify({'message': "File " + file_name + " already exists! ",
                                     'status': 409}), 200
                 else:
                     # extract file extension
