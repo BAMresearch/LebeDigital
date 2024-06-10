@@ -265,8 +265,8 @@ function runQuery(e) {
     layout: "fitColumns",
     placeholder: "Loading Data...",
     pagination:"local",
-    paginationSize:10,
-    paginationSizeSelector:[10, 50, 100],
+    paginationSize:20,
+    paginationSizeSelector:[10, 20, 50, 100],
     });
 
 

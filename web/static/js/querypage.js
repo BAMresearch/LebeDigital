@@ -43,7 +43,7 @@ function executeSparqlQuery(query, table) {
                 table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
                 table.setData(data);        // Setzt die transformierten Daten
 
-                document.getElementById('downloadBtn').style.display = 'block'; //show download button
+                document.getElementById('downloadBtn').classList.replace("d-none", "d-md-flex"); //show download button
             } catch (error) {
                 document.getElementById('queryResults').innerHTML = 'Please insert a valid query. ' + error.message;
             }
