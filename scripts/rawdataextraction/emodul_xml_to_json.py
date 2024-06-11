@@ -29,15 +29,16 @@ def xml_to_json(xml_binary, mix_json):
     # Placeholder UUID for emodul_data
     emoduleID = "00000000-0000-4000-8000-000000000000"
     emodul_data['ID'] = emoduleID
+    specimen_data['ID'] = emoduleID
 
     # ID of this specimen, save to specimen metadata and to emodule metadata
-    emodul_data['SpecimenID'] = specimen_data['ID'] = emoduleID
+    emodul_data['SpecimenID'] = emoduleID
 
     # set experiment lab location to BAM
     emodul_data['Lab'] = 'BAM'
 
     # Add the raw data path to emodul_data
-    emodul_data['RawDataFile'] = "RawDataFilePath"
+    emodul_data['RawDataFile'] = "Download"
 
     # Iterate through each ArrayOfVariableData element
     for array_var_data in root.findall('ArrayOfVariableData'):
@@ -55,6 +56,7 @@ def xml_to_json(xml_binary, mix_json):
                 emodul_data['ExperimentDate'] = str(date_protegeformat)
             elif name == 'Probenname':
                 emodul_data['humanreadableID'] = value
+                specimen_data['humanreadableID'] = value
             elif name == 'TestRunName':
                 emodul_data['TestRunName'] = value
             elif name == 'E_Modul':

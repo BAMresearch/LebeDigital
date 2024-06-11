@@ -593,6 +593,7 @@ def async_function(unique_id):
                 emodule_json['ID'] = row['unique_id']
                 specimen_json['ID'] = row['unique_id']
                 emodule_json['SpecimenID'] = row['unique_id']
+                specimen_json['MixtureID'] = row['Mixture_ID']
                 add_data('Json', json.dumps(emodule_json).encode('utf-8'))
                 add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
 
