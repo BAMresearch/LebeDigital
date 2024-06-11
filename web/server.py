@@ -88,8 +88,43 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 
+# extracts all json information from the database in two lists
+def create_json_file():
+    '''
+    This function extracts all json information from the database.
+    The first list contains the json information of the uploads table.
+    The second list contains the json_specimen information of the uploads table.
+    
+    :return: One Json Object with keys for the types (Mixture eg) and two lists as values containing lists of all info of json and json_specimen.
+    '''
+
+    typeliste = ['Mixture', 'EModule']
+    json_full = {}
+
+    for entry in typeliste:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = "SELECT Json, Json_specimen FROM uploads WHERE type = ?"
+        cursor.execute(query, (entry,))
+    
+        # Fetch the results of the query
+        rows = cursor.fetchall()
+
+        # Unpack the results into two lists
+        json_list, json_specimen_list = zip(*rows)
+
+        # Filter out empty entries
+        json_list = [json.decode('utf-8') for json in json_list if json]
+        json_specimen_list = [json_specimen.decode('utf-8') for json_specimen in json_specimen_list if json_specimen]
+
+        json_full[entry] = [json_list, json_specimen_list]
+
+    return json_full
+
+
 with app.app_context():
     db.create_all()
+
 
 # middleware to log requests
 @app.before_request
@@ -185,6 +220,16 @@ def query_page_simple():
     else:
         # Store the URL the user was trying to access in the session data
         session['next'] = url_for('query_page_simple')
+        return redirect(url_for('login'))
+
+# Plotting page (query page simple version)
+@app.route('/plot')
+def plot_page():
+    if 'username' in session:
+        return render_template('plot.html')
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('plot_page')
         return redirect(url_for('login'))
 
 
@@ -299,10 +344,11 @@ def get_admin_data():
 
     # GET-Request
     if request.method == 'GET':
-        # return config and all users
+        # return config without 'DOCKER_TOKEN' key
+        filtered_config = {key: value for key, value in config.items() if key != 'DOCKER_TOKEN' and key != 'SECRET_KEY'}
         users = User.query.all()
         usernames = [user.username for user in users]
-        return jsonify({"config": config, "users": usernames})
+        return jsonify({"config": filtered_config, "users": usernames})
     
     # POST-Request
     elif request.method == 'POST':
@@ -766,6 +812,13 @@ def data_upload():
                     'uniqueID': unique_id,
                     'status': 200}), 200
 
+@app.route('/getJson', methods=['GET'])
+def get_json():
+    if 'username' in session:
+        json_list = create_json_file()
+        return jsonify({'json': json_list})
+    else:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
 
 @app.route('/rawdownload')
 def raw_download():
