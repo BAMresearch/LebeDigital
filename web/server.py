@@ -222,6 +222,56 @@ def query_page_simple():
         session['next'] = url_for('query_page_simple')
         return redirect(url_for('login'))
 
+
+@app.route('/database_new', methods=['GET', 'POST'])
+def database():
+    if 'username' in session:
+        conn = get_db_connection() 
+        cursor = conn.cursor()
+
+        # Check if the request method is POST
+        if request.method == 'POST':
+            # Get the search term from the form
+            search_term = request.form.get('nameInput')
+
+            # Modify the query to include the search term
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 and filename LIKE ? ORDER BY filename"
+            cursor.execute(query, (f"%{search_term}%",)) # Execute the query
+        else:
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 ORDER BY filename"
+            cursor.execute(query,) # Execute the query
+
+        # Fetch the results of the query
+        rows = cursor.fetchall()
+
+        # Convert rows to dictionaries and format uploadDate
+        allData = []
+
+        for row in rows:
+            result = {
+                'Unique_ID': row[0],
+                'filename': row[1],
+                'type': row[2]
+            }
+
+            allData.append(result)
+
+        # Close the connection
+        conn.close()
+   
+        if request.method == 'POST':
+            # If it's arequest, return the data in JSON format
+            return jsonify(allData)
+        else:
+            # If it's not a request, render the template
+            return render_template('database.html', data=allData)
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('database')
+        return redirect(url_for('login'))
+
+
+
 # Plotting page (query page simple version)
 @app.route('/plot')
 def plot_page():
