@@ -248,9 +248,10 @@ def database():
         allData = []
 
         for row in rows:
+            filename_without_extension = os.path.splitext(row[1])[0]
             result = {
                 'Unique_ID': row[0],
-                'filename': row[1],
+                'filename': filename_without_extension,
                 'type': row[2]
             }
 
@@ -373,7 +374,6 @@ def logout():
 def update_deleted_by_user():
     data = request.json
     unique_id = data.get('removeFile')
-    print(unique_id)
     if unique_id:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -923,7 +923,6 @@ def raw_download():
 
     # Get the file ID from the URL parameters
     mixture_id = request.args.get('id')
-    print(mixture_id)
 
     if not mixture_id:
         abort(400, description="No file ID provided.")

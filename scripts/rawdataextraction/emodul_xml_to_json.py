@@ -37,7 +37,7 @@ def xml_to_json(xml_binary, mix_json):
     emodul_data['Lab'] = 'BAM'
 
     # Add the raw data path to emodul_data
-    emodul_data['RawDataFile'] = "RawDataFilePath"
+    emodul_data['RawDataFile'] = "Download"
 
     # Iterate through each ArrayOfVariableData element
     for array_var_data in root.findall('ArrayOfVariableData'):

@@ -24,13 +24,13 @@ table.on("cellClick", function(e, cell) {
         var enteredType = rowData["type"];
 
         // Remove file extension from filename
-        var filenameWithoutExtension = enteredName.split('.').slice(0, -1).join('.');  
+        //var filenameWithoutExtension = enteredName.split('.').slice(0, -1).join('.');  
         
         if(enteredType !== "Mixture"){
             create_query(rowData["Unique_ID"], enteredType);
         }
         else{
-            create_query(filenameWithoutExtension, enteredType);
+            create_query(enteredName, enteredType);
         }
 
         // Show the heading div after a delay so that data loading is complete
