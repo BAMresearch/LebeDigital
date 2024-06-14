@@ -1,0 +1,28 @@
+operator_date: '2014-06-30'
+tester_name: Werner
+specimen_name: BA-Losert MII
+cement--QuantityInMix: 330.0
+cement--BulkDensity: 3.123
+cement--Volume: 105.7
+cement--Annotation: CEM I 42.5 R
+water_total--QuantityInMix: 175.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 175.0
+water_cement_ratio: 0.5303030303030303
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 212.0
+addition1--BulkDensity: 2.74
+addition1--Volume: 77.4
+addition1--Annotation: Medenbach - Kalksteinmehl
+admixture--QuantityInMix: 6.6
+admixture--BulkDensity: 1.05
+admixture--Volume: 6.3
+admixture--Annotation: FM 595 BASF
+aggregate--QuantityInMix: 1618.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 615.5999999999999

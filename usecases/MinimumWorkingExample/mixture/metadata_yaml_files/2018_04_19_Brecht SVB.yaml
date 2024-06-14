@@ -1,0 +1,28 @@
+operator_date: '2018-04-19'
+tester_name: Haamkens
+specimen_name: SCC
+cement--QuantityInMix: 300.0
+cement--BulkDensity: 3.125
+cement--Volume: 96.0
+cement--Annotation: CEM I 42.5 R (Rüdersdorf)
+water_total--QuantityInMix: 180.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 180.0
+water_cement_ratio: 0.6
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 301.0
+addition1--BulkDensity: 2.735
+addition1--Volume: 110.1
+addition1--Annotation: Medenbach -   Kalksteinmehl
+admixture--QuantityInMix: 8.55
+admixture--BulkDensity: 1.05
+admixture--Volume: 8.1
+admixture--Annotation: FM 591 BASF
+aggregate--QuantityInMix: 1552.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 585.8
