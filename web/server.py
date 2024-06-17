@@ -226,6 +226,57 @@ def query_page_simple():
         session['next'] = url_for('query_page_simple')
         return redirect(url_for('login'))
 
+
+@app.route('/database_new', methods=['GET', 'POST'])
+def database():
+    if 'username' in session:
+        conn = get_db_connection() 
+        cursor = conn.cursor()
+
+        # Check if the request method is POST
+        if request.method == 'POST':
+            # Get the search term from the form
+            search_term = request.form.get('nameInput')
+
+            # Modify the query to include the search term
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 and filename LIKE ? ORDER BY filename"
+            cursor.execute(query, (f"%{search_term}%",)) # Execute the query
+        else:
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 ORDER BY filename"
+            cursor.execute(query,) # Execute the query
+
+        # Fetch the results of the query
+        rows = cursor.fetchall()
+
+        # Convert rows to dictionaries and format uploadDate
+        allData = []
+
+        for row in rows:
+            filename_without_extension = os.path.splitext(row[1])[0]
+            result = {
+                'Unique_ID': row[0],
+                'filename': filename_without_extension,
+                'type': row[2]
+            }
+
+            allData.append(result)
+
+        # Close the connection
+        conn.close()
+   
+        if request.method == 'POST':
+            # If it's arequest, return the data in JSON format
+            return jsonify(allData)
+        else:
+            # If it's not a request, render the template
+            return render_template('database.html', data=allData)
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('database')
+        return redirect(url_for('login'))
+
+
+
 # Plotting page (query page simple version)
 @app.route('/plot')
 def plot_page():
@@ -327,7 +378,6 @@ def logout():
 def update_deleted_by_user():
     data = request.json
     unique_id = data.get('removeFile')
-    print(unique_id)
     if unique_id:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -770,6 +820,12 @@ def data_upload():
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
         response = requests.get(url)
+
+        # Check if the response is HTML
+        if 'text/html' in response.headers['Content-Type']:
+            return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
+                            'status': 400}), 200
+    
         file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
         file_name = url.split('/')[-1]
         file_blob = file.read()
@@ -778,7 +834,8 @@ def data_upload():
         _, file_extension = os.path.splitext(file.filename)
         filetype = file_extension.lstrip('.')
         if filetype not in file_types:
-            return jsonify({'error': 'Unsupported Type'}), 400
+            return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
+                            'status': 400}), 200
         
         # Check if the file already exists in the database
         cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
@@ -802,19 +859,22 @@ def data_upload():
             cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
                         (unique_id, file_name.split(".")[0]))
             conn.commit()
+
+            # start async function
+            thread = threading.Thread(target=async_function, args=(unique_id,))
+            thread.start()
+
     else:
         return jsonify({'error': 'No Data found'}), 400
 
     conn.close()
 
-    # start async function
-    #thread = threading.Thread(target=async_function, args=(unique_id,))
-    #thread.start()
-
+    
 
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
                     'status': 200}), 200
+
 
 @app.route('/getJson', methods=['GET'])
 def get_json():
@@ -877,7 +937,6 @@ def raw_download():
 
     # Get the file ID from the URL parameters
     mixture_id = request.args.get('id')
-    print(mixture_id)
 
     if not mixture_id:
         abort(400, description="No file ID provided.")
