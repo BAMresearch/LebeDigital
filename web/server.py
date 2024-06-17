@@ -106,20 +106,24 @@ def create_json_file():
     for entry in typeliste:
         conn = get_db_connection()
         cursor = conn.cursor()
-        query = "SELECT Json, Json_specimen FROM uploads WHERE type = ?"
-        cursor.execute(query, (entry,))
-    
-        # Fetch the results of the query
-        rows = cursor.fetchall()
+        if entry == 'Mixture':
+            query = "SELECT Json FROM uploads WHERE type = ?"
+            cursor.execute(query, (entry,))
+            # Fetch the results of the query
+            rows = cursor.fetchall()
+            conn.close()
+            # Convert the BLOB data to JSON dicts
+            json_full[entry] = [json.loads(row['Json'].decode('utf-8')) for row in rows]
 
-        # Unpack the results into two lists
-        json_list, json_specimen_list = zip(*rows)
+        else:
+            query = "SELECT u1.Json, u1.Json_specimen, u2.Json FROM uploads u1 INNER JOIN uploads u2 ON u1.Mixture_ID = u2.Unique_ID WHERE u1.type = ?"
+            cursor.execute(query, (entry,))
+            # Fetch the results of the query
+            rows = cursor.fetchall()
+            conn.close()
+            # Convert the BLOB data to JSON dicts
+            json_full[entry] = [[json.loads(row[0].decode('utf-8')), json.loads(row[1].decode('utf-8')), json.loads(row[2].decode('utf-8'))] for row in rows]
 
-        # Filter out empty entries
-        json_list = [json.decode('utf-8') for json in json_list if json]
-        json_specimen_list = [json_specimen.decode('utf-8') for json_specimen in json_specimen_list if json_specimen]
-
-        json_full[entry] = [json_list, json_specimen_list]
 
     return json_full
 

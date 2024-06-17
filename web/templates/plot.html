@@ -4,6 +4,20 @@
 
 {% block content %}
 <!-- Page-specific content goes here -->
+<div>
+    <input type="text" id="type1" placeholder="type x">
+</div>
+<div>
+    <input type="text" id="input1" placeholder="x">
+</div>
+<div>
+    <input type="text" id="type2" placeholder="type y">
+</div>
+<div>
+    <input type="text" id="input2" placeholder="y">
+</div>
+<button onclick=create_plot() id="myButton">Submit</button>
+
 <div id="myDiv"></div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="static/js/plot.js"></script>
