@@ -16,6 +16,8 @@ from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
+from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
+#from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify, abort, send_file
 from loguru import logger
@@ -305,7 +307,7 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename DESC"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
@@ -612,7 +614,8 @@ def async_function(unique_id):
 
     # Lookup table for path
     paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
-             'Specimen': '../cpto/Specimen_KG_Template.ttl'}
+             'Specimen': '../cpto/Specimen_KG_Template.ttl',
+             'CompressiveStrength': '../cpto/CompressiveStrength_KG_Template.ttl'}
 
     def add_data(rowname, data):
         conn = get_db_connection()
@@ -692,6 +695,15 @@ def async_function(unique_id):
                 specimen_json['MixtureID'] = row['Mixture_ID']
                 add_data('Json', json.dumps(emodule_json).encode('utf-8'))
                 add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+        elif row['type'] == 'CompressiveStrength':
+            if row['filetype'] == 'dat':
+                # Process the raw data
+                processed_data = processed_rawdata(row['blob'])
+
+                # Convert the processed data to a CSV and store it to the database
+                csv_data = processed_data.to_csv(index=False)
+                print(csv_data)
+                #add_data('Json', json.dumps(emodule_json).encode('utf-8'))
 
     # Set ID and mixtureID in json!
     # Mapping
