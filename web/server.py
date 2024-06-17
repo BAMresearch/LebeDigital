@@ -816,6 +816,12 @@ def data_upload():
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
         response = requests.get(url)
+
+        # Check if the response is HTML
+        if 'text/html' in response.headers['Content-Type']:
+            return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
+                            'status': 400}), 200
+    
         file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
         file_name = url.split('/')[-1]
         file_blob = file.read()
@@ -824,7 +830,8 @@ def data_upload():
         _, file_extension = os.path.splitext(file.filename)
         filetype = file_extension.lstrip('.')
         if filetype not in file_types:
-            return jsonify({'error': 'Unsupported Type'}), 400
+            return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
+                            'status': 400}), 200
         
         # Check if the file already exists in the database
         cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
@@ -848,19 +855,22 @@ def data_upload():
             cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
                         (unique_id, file_name.split(".")[0]))
             conn.commit()
+
+            # start async function
+            thread = threading.Thread(target=async_function, args=(unique_id,))
+            thread.start()
+
     else:
         return jsonify({'error': 'No Data found'}), 400
 
     conn.close()
 
-    # start async function
-    #thread = threading.Thread(target=async_function, args=(unique_id,))
-    #thread.start()
-
+    
 
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
                     'status': 200}), 200
+
 
 @app.route('/getJson', methods=['GET'])
 def get_json():
