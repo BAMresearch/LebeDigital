@@ -1,6 +1,5 @@
 import pandas as pd
 import os
-import io
 import numpy as np
 from pathlib import Path
 
@@ -14,12 +13,12 @@ def convert_string_to_number(listStrings):
 
 def processed_rawdata(blob):
     """
-    Extracts relevant information from the raw data files and returns a csv file
+    Extracts relevant information from the raw data files and returns a dataframe
     Args:
-        blob : BLOB file from db
+        blob : file from database
         
     Returns:
-        processed CSV file
+        DataFrame : processed file
     """
     # Write the blob data to a .dat file
     filename = 'specimen.dat'
@@ -30,7 +29,6 @@ def processed_rawdata(blob):
     with open(filename, 'r', encoding="utf8", errors='ignore') as file:
         lines = file.readlines()
 
-    #lines = data.readlines()
     print(len(lines))
     emptyLineIndex = []
     for lineIndex in range(len(lines)):
@@ -75,6 +73,10 @@ def processed_rawdata(blob):
                                                    ],
                                           data=rawDataDataFrame[['5']].values
                                           )
+    
+    # Clean up the temporary file 
+    os.remove(filename)
+
     return processedDataDataFrame
     #processedDataDataFrame.to_csv(locationOfProcessedData, index=False)
 
