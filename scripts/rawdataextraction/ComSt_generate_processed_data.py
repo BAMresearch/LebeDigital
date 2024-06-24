@@ -12,22 +12,25 @@ def convert_string_to_number(listStrings):
     return listNumbers
 
 
-def processed_rawdata(dat):
+def processed_rawdata(blob):
     """
     Extracts relevant information from the raw data files and returns a csv file
     Args:
-        dat (): dat BLOB from db
+        blob : BLOB file from db
         
     Returns:
         processed CSV file
     """
-    raw_data = io.BytesIO(dat)
-    data = pd.read_csv(raw_data, sep='\t', header=None)
-    #data = open(os.path.join(locationOfRawData, 'specimen.dat'), encoding="utf8", errors='ignore')
+    # Write the blob data to a .dat file
+    filename = 'specimen.dat'
+    with open(filename, 'wb') as file:
+        file.write(blob)
 
+    # Open the .dat file in read mode
+    with open(filename, 'r', encoding="utf8", errors='ignore') as file:
+        lines = file.readlines()
 
-    #experimentName = os.path.basename(locationOfRawData)
-    lines = data.readlines()
+    #lines = data.readlines()
     print(len(lines))
     emptyLineIndex = []
     for lineIndex in range(len(lines)):
@@ -72,9 +75,10 @@ def processed_rawdata(dat):
                                                    ],
                                           data=rawDataDataFrame[['5']].values
                                           )
-    processedDataDataFrame.to_csv(locationOfProcessedData, index=False)
+    return processedDataDataFrame
+    #processedDataDataFrame.to_csv(locationOfProcessedData, index=False)
 
 
 
 
-processed_rawdata('../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit_BAM/20240220_7188_M01/Druckfestigkeiten_7Tage/20240220_7188_M01_W01', '../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')
+#processed_rawdata('../../../usecases/MinimumWorkingExample/Data/Druckfestigkeit_BAM/20240220_7188_M01/Druckfestigkeiten_7Tage/20240220_7188_M01_W01', '../../../usecases/MinimumWorkingExample/Druckfestigkeit/processeddata')

@@ -124,7 +124,8 @@ def create_json_file():
             # Convert the BLOB data to JSON dicts
             json_full[entry] = [[json.loads(row[0].decode('utf-8')), json.loads(row[1].decode('utf-8')), json.loads(row[2].decode('utf-8'))] for row in rows]
 
-
+    logger.debug(2)
+    logger.debug(json_full)
     return json_full
 
 
@@ -703,11 +704,10 @@ def async_function(unique_id):
             if row['filetype'] == 'dat':
                 # Process the raw data
                 processed_data = processed_rawdata(row['blob'])
+                print(processed_data)
 
-                # Convert the processed data to a CSV and store it to the database
-                csv_data = processed_data.to_csv(index=False)
-                print(csv_data)
-                #add_data('Json', json.dumps(emodule_json).encode('utf-8'))
+                # Convert the processed data to a CSV 
+                #csv_data = processed_data.to_csv(index=False)
 
     # Set ID and mixtureID in json!
     # Mapping
@@ -892,6 +892,8 @@ def data_upload():
 def get_json():
     if 'username' in session:
         json_list = create_json_file()
+        logger.debug(1)
+        logger.debug(json_list)
         return jsonify({'json': json_list})
     else:
         return jsonify({'error': 'Nicht angemeldet'}), 403
