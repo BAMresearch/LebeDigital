@@ -1,18 +1,18 @@
 <h1 align="center">LeBeDigital</h1>
+<h4 align="center">Life Cycle of Concrete</h4>
 
-<hr>
 
 <p align="center">
   <a href="#dart-project-objective">Objective</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#sparkles-key-features">Features</a> &#xa0; | &#xa0;
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
-  <a href="#white_check_mark-installation">Installation & Setup</a> &#xa0; | &#xa0;
-  <a href="#memo-license">License</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-installation">Installation</a> &#xa0; | &#xa0;
+  <a href="#memo-license">License</a> 
 </p>
 
 <br>
 
-# :dart: Project Objective #
+## :dart: Project Objective ##
 
 The aim of the joint project LeBeDigital, a part of the initiative Plattform Material Digital, is to develop a structure for concrete material data following the FAIR principle and being flexible enough to fulfill requirements of future developments in concrete research and production. The expected outcome is a material database, where Concrete-specific characteristic values and models are structurally integrated.
 
@@ -24,8 +24,6 @@ The aim of the joint project LeBeDigital, a part of the initiative Plattform Mat
 :heavy_check_mark: Data Retrieval;
 
 ## :rocket: Technologies ##
-
-The following tools were used in this project:
 
 - [Python](https://www.python.org)
 - [Flask](https://flask.palletsprojects.com/)

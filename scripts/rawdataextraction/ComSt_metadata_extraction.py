@@ -2,6 +2,7 @@ import re
 import json
 import uuid
 import datetime
+import os
 
 
 # the function read each line and return metadata as key and value
@@ -157,6 +158,9 @@ def extract_metadata_ComSt(blob,mix_json,processed_data):
             raise Exception("No processed_file found!")
 
         metadata_ComSt['CompressiveStrength_Unit'] = "GPa"
+
+    # Clean up the temporary file 
+    os.remove(specimen_file)
 
     return [metadata_ComSt, metadata_specimen_ComSt]
 
