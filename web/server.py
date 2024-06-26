@@ -17,7 +17,7 @@ from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
-#from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
+from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify, abort, send_file
 from loguru import logger
@@ -704,10 +704,14 @@ def async_function(unique_id):
             if row['filetype'] == 'dat':
                 # Process the raw data
                 processed_data = processed_rawdata(row['blob'])
-                print(processed_data)
 
-                # Convert the processed data to a CSV 
-                #csv_data = processed_data.to_csv(index=False)
+                # metadata extraction
+                mix_data = get_data(row['Mixture_ID'])
+                comSt_data= extract_metadata_ComSt(row['blob'],mix_data['Json'],processed_data)
+                comSt_json = comSt_data[0]
+                specimen_json = comSt_data[1]
+                add_data('Json', json.dumps(comSt_json).encode('utf-8'))
+                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
 
     # Set ID and mixtureID in json!
     # Mapping

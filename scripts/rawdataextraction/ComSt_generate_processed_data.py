@@ -29,7 +29,7 @@ def processed_rawdata(blob):
     with open(filename, 'r', encoding="utf8", errors='ignore') as file:
         lines = file.readlines()
 
-    print(len(lines))
+    #print(len(lines))
     emptyLineIndex = []
     for lineIndex in range(len(lines)):
         if len(lines[lineIndex]) == 1:
