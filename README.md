@@ -1,55 +1,77 @@
-## Here are the steps to set up the Flask project:
+<h1 align="center">LeBeDigital</h1>
 
-1. **Clone the Repository:** Clone the project repository from GitHub to your machine.
-   ``` 
-   git clone https://github.com/BAMresearch/LebeDigital.git
-   ```
+<hr>
 
-    After cloning successfully, change to the target branch.
-    ``` 
-    git checkout workflowTest 
-    ```
+<p align="center">
+  <a href="#dart-project-objective">Objective</a> &#xa0; | &#xa0; 
+  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-installation">Installation & Setup</a> &#xa0; | &#xa0;
+  <a href="#memo-license">License</a> &#xa0; | &#xa0;
+</p>
 
-2. **Navigate to the Project Directory:** Go to the web folder inside the project directory.
-    ```
-    cd web
-    ```
+<br>
 
-3. **Set Up a Virtual Environment:** It’s a good practice to create a virtual environment for your Python projects to isolate dependencies. You can use venv module which is included in standard Python library.
-    ```
-    python3 -m venv venv
-    ```
+# :dart: Project Objective #
 
-4. **Activate the Virtual Environment:** Activate corresponding environment.
+The aim of the joint project LeBeDigital, a part of the initiative Plattform Material Digital, is to develop a structure for concrete material data following the FAIR principle and being flexible enough to fulfill requirements of future developments in concrete research and production. The expected outcome is a material database, where Concrete-specific characteristic values and models are structurally integrated.
 
-    For Linux:
-        ``` 
-        source venv/bin/activate 
-        ```
+## :sparkles: Key Features ##
+
+:heavy_check_mark: Raw Data Upload;\
+:heavy_check_mark: Metadata Extraction;\
+:heavy_check_mark: Knowledge Graph Mapping;\
+:heavy_check_mark: Data Retrieval;
+
+## :rocket: Technologies ##
+
+The following tools were used in this project:
+
+- [Python](https://www.python.org)
+- [Flask](https://flask.palletsprojects.com/)
+- [SPARQL](https://www.w3.org/TR/sparql11-query/)
+- [Ontodocker](https://materialdigital.github.io/pmd-server/pages/services/onto-docker/)
+
+
+## :white_check_mark: Installation ##
+
+Before starting, you need to have [Git](https://git-scm.com) and [Python](https://www.python.org) installed.
+
+
+```bash
+# Clone this project
+$ git clone https://github.com/BAMresearch/LebeDigital.git
+
+# Change branch
+$ git checkout workflowTest 
+
+# Activate virtual environment
+
+    #For Linux:
+    $ source venv/bin/activate 
   
-    For Windows:
-        ``` 
-        .\venv\Scripts\activate 
-        ```
+    # For Windows:
+    $ .\venv\Scripts\activate 
+    
+# Access
+$ cd web
 
-5. **Install Dependencies:** Install necessary dependencies using requirements.txt file.
-    ``` 
-    pip install -r requirements.txt
-    ```
+# Install dependencies
+$ pip install -r requirements.txt
 
-6. **Set Up Configuration:** Make copy of config.json.sample file, rename it config.json, and fill in necessary credentials and tokens.
+# Set up configuration
 
-    Copy command:
-    ``` 
-    cp config.json.sample config.json 
-    ```
-   
-   Open `config.json` and replace placeholders with actual credentials.
+$ cp config.json.sample config.json 
+# Open `config.json` and replace placeholders with actual credentials.
 
-7. **Run Application:** Start Flask application which is defined in server.py file.
- 
-    Run command:
-        ``` 
-        python server.py  
-        ```
+# Run the project
+$ python server.py
 
+```
+
+## :memo: License ##
+
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
+
+
+<a href="#top">Back to top</a>
