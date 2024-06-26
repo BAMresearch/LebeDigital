@@ -1,5 +1,5 @@
 <h1 align="center">LeBeDigital</h1>
-<h4 align="center">Life Cycle of Concrete</h4>
+<h3 align="center">Life Cycle of Concrete</h3>
 
 
 <p align="center">
@@ -44,12 +44,11 @@ $ git clone https://github.com/BAMresearch/LebeDigital.git
 $ git checkout workflowTest 
 
 # Activate virtual environment
+#For Linux:
+$ source venv/bin/activate 
 
-    #For Linux:
-    $ source venv/bin/activate 
-  
-    # For Windows:
-    $ .\venv\Scripts\activate 
+# For Windows:
+$ .\venv\Scripts\activate 
     
 # Access
 $ cd web
