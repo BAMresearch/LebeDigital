@@ -26,11 +26,11 @@ table.on("cellClick", function(e, cell) {
         // Remove file extension from filename
         //var filenameWithoutExtension = enteredName.split('.').slice(0, -1).join('.');  
         
-        if(enteredType !== "Mixture"){
-            create_query(rowData["Unique_ID"], enteredType);
+        if(enteredType == "Mixture"){
+            create_query(enteredName, enteredType);
         }
         else{
-            create_query(enteredName, enteredType);
+            create_query(rowData["Unique_ID"], enteredType);
         }
 
         // Show the heading div after a delay so that data loading is complete
@@ -40,7 +40,7 @@ table.on("cellClick", function(e, cell) {
         }, 1000);
 
         var selectedName = document.getElementById('selectedName');
-        selectedName.textContent = filenameWithoutExtension; 
+        selectedName.textContent = enteredName; 
         
     } else if (field == "Einheit") {
         var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
@@ -74,8 +74,8 @@ table.on("cellClick", function(e, cell) {
 async function create_query(enteredName, fileType){
     let query = null;
 
-    // Show all Info from a specific Mixture
-    if (fileType === "Mixture" && enteredName !== ""){
+    // Show all Info from a specific file
+    if (enteredName !== ""){
         query = `
         SELECT ?Bestandteil ?Wert ?Einheit WHERE {
         ?g ?p "${enteredName}".
@@ -84,20 +84,9 @@ async function create_query(enteredName, fileType){
         OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
         FILTER(STRENDS(STR(?Bestandteil), ?suffix))
         }`;
-        
+        console.log(query)
     }
 
-    // Show all Info from a specific Emodule
-    if (fileType === "EModule" && enteredName !== ""){
-        query = `
-        SELECT ?Bestandteil ?Wert ?Einheit WHERE {
-        ?g ?p "${enteredName}".
-        BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-        ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
-        OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
-        FILTER(STRENDS(STR(?Bestandteil), ?suffix))
-        }`;
-    }
 
     // main logic for not extended queries
     try {

@@ -18,15 +18,16 @@ The aim of the joint project LeBeDigital, a part of the initiative Plattform Mat
 
 ## :sparkles: Key Features ##
 
-:heavy_check_mark: Raw Data Upload;\
-:heavy_check_mark: Metadata Extraction;\
-:heavy_check_mark: Knowledge Graph Mapping;\
-:heavy_check_mark: Data Retrieval;
+:heavy_check_mark: Raw Data Upload\
+:heavy_check_mark: Metadata Extraction\
+:heavy_check_mark: Knowledge Graph Mapping\
+:heavy_check_mark: Data Retrieval
 
 ## :rocket: Technologies ##
 
 - [Python](https://www.python.org)
 - [Flask](https://flask.palletsprojects.com/)
+- [PMD Core Ontology](https://github.com/materialdigital/core-ontology)
 - [SPARQL](https://www.w3.org/TR/sparql11-query/)
 - [Ontodocker](https://materialdigital.github.io/pmd-server/pages/services/onto-docker/)
 
@@ -44,7 +45,7 @@ $ git clone https://github.com/BAMresearch/LebeDigital.git
 $ git checkout workflowTest 
 
 # Activate virtual environment
-#For Linux:
+# For Linux:
 $ source venv/bin/activate 
 
 # For Windows:
