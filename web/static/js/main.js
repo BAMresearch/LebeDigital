@@ -138,9 +138,16 @@ function onUrlEntered(urlInput,fileLabel) {
     } else {
         alert("Please enter a valid URL.");
     }
-    var modalElement = document.getElementById('exampleModal');
-    var modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
+
+    // Hide the url input modal
+    var modalId = ['exampleModal', 'exampleModal2', 'exampleModal3'];
+    modalId.forEach(function(modalId) {
+        var modalElement = document.getElementById(modalId);
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+    });
 }
 
 // This function checks if a URL is valid
