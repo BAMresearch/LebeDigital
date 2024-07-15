@@ -4,6 +4,18 @@ var mixtureID = null;
 var mixtureName = null;
 var institute = 'BAM';
 
+function enableUploadButton() {
+    document.querySelectorAll('.uploadbtn').forEach(button => {
+        button.disabled = false;
+    });
+}
+
+function disableUploadButton() {
+    document.querySelectorAll('.uploadbtn').forEach(button => {
+        button.disabled = true;
+    });
+}
+
 function showMixtureName() {
     console.log(mixtureName)
     if (mixtureID !== null) {
@@ -95,6 +107,7 @@ function uploadData(type, fileID, urlID, label) {
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
             toastBootstrap.show()
         }
+        disableUploadButton();
     })
     .catch((error) => {
         console.error('Fehler beim Hochladen:', error);
@@ -104,6 +117,7 @@ function uploadData(type, fileID, urlID, label) {
 // This function is called when the upload button is clicked
 function clearFileInput(fileID) {
     document.getElementById(fileID).value = '';
+    disableUploadButton();
 }
 
 // This function is called when multiple files are selected
@@ -126,6 +140,7 @@ function onFileSelected(event, fileLabel) {
 
     // Display the names of valid files
     document.getElementById(fileLabel).textContent = fileNames.join(', ');
+    enableUploadButton();
     //event.target.value = '';  // Reset the value
 }
 
@@ -148,6 +163,7 @@ function onUrlEntered(urlInput,fileLabel) {
             modalInstance.hide();
         }
     });
+    enableUploadButton();
 }
 
 // This function checks if a URL is valid
