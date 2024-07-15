@@ -11,7 +11,7 @@ def convert_string_to_number(listStrings):
     return listNumbers
 
 
-def processed_rawdata(blob):
+def processed_rawdata(blob, unique_id):
     """
     Extracts relevant information from the raw data files and returns a dataframe
     Args:
@@ -21,7 +21,7 @@ def processed_rawdata(blob):
         DataFrame : processed file
     """
     # Write the blob data to a .dat file
-    filename = 'specimen.dat'
+    filename = filename = f'specimen_{unique_id}.dat'
     with open(filename, 'wb') as file:
         file.write(blob)
 

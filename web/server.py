@@ -704,7 +704,7 @@ def async_function(unique_id):
         elif row['type'] == 'CompressiveStrength':
             if row['filetype'] == 'dat':
                 # Process the raw data
-                processed_data = processed_rawdata(row['blob'])
+                processed_data = processed_rawdata(row['blob'], row['unique_id'])
 
                 # metadata extraction
                 mix_data = get_data(row['Mixture_ID'])
