@@ -218,7 +218,8 @@ def extract_metadata_mixdesign(RawData, filename):
         # Water cement ratio value
         if 'Wasserzementwert' not in missing_labels:
             idx = labelidx['Wasserzementwert']
-            metadata['WaterCementRatio'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            raw_value = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['WaterCementRatio'] = round(raw_value, 3)
         else:
             logger.error('WaterCementRatio not included in json-file')
 
