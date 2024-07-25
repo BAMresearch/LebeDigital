@@ -112,7 +112,7 @@ def extract_metadata_ComSt(blob,mix_json,processed_data):
 
         # ID of this specimen
         #specimenID = str(uuid.uuid4())
-        metadata_ComSt['specimenID'] = metadata_specimen_ComSt['ID'] = ComStID
+        metadata_ComSt['SpecimenID'] = metadata_specimen_ComSt['ID'] = ComStID
         # save Mixdesign ID to specimen metadata
         try:
             mixdesign = json.loads(mix_json.decode('utf-8'))
