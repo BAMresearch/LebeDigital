@@ -262,3 +262,12 @@ function toggleSections() {
         fileUpload.style.display = "block";
     }
 }
+
+function GoToMixtureForm() {
+    // Unselect all radio buttons
+    const radioButtons = document.querySelectorAll('input[name="mixtureOption"]');
+    radioButtons.forEach(radio => radio.checked = false);
+
+    // Redirect to the new mixture page
+    window.location.href = '/new_mixture';  
+}

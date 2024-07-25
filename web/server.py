@@ -931,6 +931,20 @@ def data_upload():
                     'status': 200}), 200
 
 
+#manually upload mixture
+@app.route('/new_mixture')
+def new_mixture():
+    return render_template('newMixture.html')
+
+@app.route('/submit_mixture', methods=['POST'])
+def submit_mixture():
+    mixture_name = request.form['mixtureName']
+    mixture_details = request.form['mixtureDetails']
+    # Process the mixture data here
+    # For example, save to a database or perform some action
+    return redirect(url_for('success_page'))
+
+
 @app.route('/getJson', methods=['GET'])
 def get_json():
     if 'username' in session:

@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}New Mixture{% endblock %}
+
+{% block content %}
+<div class="content col-12 p-2">
+    <h5>Input your Mixture manually</h5>
+    <form id="mixtureForm" class="pt-2 pb-4">
+        <!-- Mixing Date and Lab -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <h6 class="clr-theme">Lab</h6>
+                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
+            </div>
+            <div class="col-md-3">
+                <h6 class="clr-theme">Mixing Date</h6>
+                <input type="date" id="MixingDate" class="form-control" placeholder="dd/mm/yyyy">
+            </div>
+        </div>
+    
+        <div class="card bg-extra-light-blue p-4" style="border: 0;">
+        <!-- Cement -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h6>Cement</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Cement1_Content" class="form-control" placeholder="Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Cement1_Density" class="form-control" placeholder="Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="Cement1_Type" class="form-control" placeholder="Type">
+            </div>
+        </div>
+    
+        <!-- Water -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h6>Water</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Water_Content" class="form-control" placeholder="Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Water_Density" class="form-control" placeholder="Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Admixture -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h6>Admixture</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Admixture1_Content" class="form-control" placeholder="Admixture 1 Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Admixture1_Density" class="form-control" placeholder="Admixture 1 Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="Admixture1_Type" class="form-control" placeholder="Admixture 1 Type">
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="input-group">
+                    <input type="number" step="any" id="Admixture2_Content" class="form-control" placeholder="Admixture 2 Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="input-group">
+                    <input type="number" step="any" id="Admixture2_Density" class="form-control" placeholder="Admixture 2 Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input type="text" id="Admixture2_Type" class="form-control" placeholder="Admixture 2 Type">
+            </div>
+        </div>
+    
+        <!-- Addition -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h6>Addition</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Addition1_Content" class="form-control" placeholder="Addition 1 Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Addition1_Density" class="form-control" placeholder="Addition 1 Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="Addition1_Type" class="form-control" placeholder="Addition 1 Type">
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="input-group">
+                    <input type="number" step="any" id="Addition2_Content" class="form-control" placeholder="Addition 2 Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="input-group">
+                    <input type="number" step="any" id="Addition2_Density" class="form-control" placeholder="Addition 2 Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3">
+                <input type="text" id="Addition2_Type" class="form-control" placeholder="Addition 2 Type">
+            </div>
+        </div>
+    
+        <!-- Aggregate -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h6>Aggregate</h6>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Aggregate1_Content" class="form-control" placeholder="Content">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="number" step="any" id="Aggregate1_Density" class="form-control" placeholder="Density">
+                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="Aggregate1_Size" class="form-control" placeholder="Size">
+            </div>
+        </div>
+        </div>
+    
+        <div class="pt-4">
+            <button type="button" class="btn btn-theme" onclick="submitForm(event)">Submit</button>
+        </div>
+    </form>    
+</div>
+
+<!-- Notification Toasts -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #e9fef7; z-index: 1000;">
+        <div class="toast-body">
+            <i class="fas fa-check-circle text-success"></i>&nbsp;<span id="message"></span>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToastError" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #ffcccb; z-index: 1000;">
+        <div class="toast-body">
+            <i class="fas fa-exclamation-circle text-danger"></i>&nbsp; <span id="error-message"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        const jsonData = {
+                RawDataFile: "Download",
+                MixingDate: `${document.getElementById('MixingDate').value}T12:00:00`, // Append fixed time
+                Lab: document.getElementById('Lab').value,
+                //humanreadableID: document.getElementById('humanreadableID').value,
+                Cement1_Content: parseFloat(document.getElementById('Cement1_Content').value) || 0,
+                Cement1_Content_Unit: "kg/m³",
+                Cement1_Density: parseFloat(document.getElementById('Cement1_Density').value) || 0,
+                Cement1_Density_Unit: "kg/dm³",
+                Cement1_Type: document.getElementById('Cement1_Type').value || "gesamt", // Use fixed type if not provided
+                Water_Content: parseFloat(document.getElementById('Water_Content').value) || 0,
+                Water_Content_Unit: "kg/m³",
+                Water_Density: parseFloat(document.getElementById('Water_Density').value) || 0,
+                Water_Density_Unit: "kg/dm³",
+                WaterCementRatio: (parseFloat(document.getElementById('Water_Content').value) / (parseFloat(document.getElementById('Cement1_Content').value) || 1)).toFixed(2),
+                Admixture1_Content: parseFloat(document.getElementById('Admixture1_Content').value) || 0,
+                Admixture1_Content_Unit: "kg/m³",
+                Admixture1_Density: parseFloat(document.getElementById('Admixture1_Density').value) || 0,
+                Admixture1_Density_Unit: "kg/dm³",
+                Admixture1_Type: document.getElementById('Admixture1_Type').value || "MasterRheobuild 1021 Fließmittel", // Use fixed type if not provided
+                Admixture2_Content: parseFloat(document.getElementById('Admixture2_Content').value) || 0,
+                Admixture2_Content_Unit: "kg/m³",
+                Admixture2_Density: parseFloat(document.getElementById('Admixture2_Density').value) || 0,
+                Admixture2_Density_Unit: "kg/dm³",
+                Admixture2_Type: document.getElementById('Admixture2_Type').value || "LP-Mittel", // Use fixed type if not provided
+                Addition1_Content: parseFloat(document.getElementById('Addition1_Content').value) || 0,
+                Addition1_Content_Unit: "kg/m³",
+                Addition1_Density: parseFloat(document.getElementById('Addition1_Density').value) || 2.33, // Use fixed density if not provided
+                Addition1_Density_Unit: "kg/dm³",
+                Addition1_Type: document.getElementById('Addition1_Type').value || "gesamt", // Use fixed type if not provided
+                Addition2_Content: parseFloat(document.getElementById('Addition2_Content').value) || 0,
+                Addition2_Content_Unit: "kg/m³",
+                Addition2_Density: parseFloat(document.getElementById('Addition2_Density').value) || 0,
+                Addition2_Density_Unit: "kg/dm³",
+                Addition2_Type: document.getElementById('Addition2_Type').value || "",
+                Aggregate1_Content: parseFloat(document.getElementById('Aggregate1_Content').value) || 0,
+                Aggregate1_Content_Unit: "kg/m³",
+                Aggregate1_Density: parseFloat(document.getElementById('Aggregate1_Density').value) || 0,
+                Aggregate1_Density_Unit: "kg/dm³",
+                Aggregate1_Size: document.getElementById('Aggregate1_Size').value || null, // Placeholder; adjust as needed
+                //Aggregate1_Size_Unit: document.getElementById('Aggregate1_Size_Unit').value || null, // Placeholder; adjust as needed
+            };
+
+        console.log(JSON.stringify(jsonData)); // Print JSON to console or send it to a server
+        // Example: fetch('/your-endpoint', { method: 'POST', body: JSON.stringify(jsonData) });
+    }
+</script>
+
+
+{% endblock %}

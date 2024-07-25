@@ -16,14 +16,14 @@
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="radio" name="mixtureOption" id="existingMixture" value="existing" onclick="toggleSections()">
                                 <label class="form-check-label" for="existingMixture">
-                            This mixture is uploaded before
-                        </label>
+                                    This mixture is uploaded before
+                                </label>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="radio" name="mixtureOption" id="newMixture" value="new" onclick="toggleSections()">
                                 <label class="form-check-label" for="newMixture">
-                            This is a new mixture
-                        </label>
+                                    This is a new mixture
+                                </label>
                             </div>
                             <div id="mixtureDetails" style="display: none;">
                                 <p class="pt-4">Which Concrete Mixture did you use?</p>
@@ -40,17 +40,24 @@
                                     <div class="d-md-flex justify-content-center">
                                         <div class="px-2 text-center">
                                             <button class="btn btn-outline-theme icon-42" onclick="clearFileInput('fileInput1'); document.getElementById('fileInput1').click()">
-                                        <i class="fas fa-upload"></i>
-                                    </button> <br>
+                                                <i class="fas fa-upload"></i>
+                                            </button> <br>
                                             <span class="clr-theme text-small">Device </span>
                                             <input type="file" id="fileInput1" style="display: none;" onchange="onFileSelected(event,'fileLabel1')">
                                         </div>
 
                                         <div class="px-2 text-center">
                                             <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fas fa-link"></i> 
-                                    </button>
+                                                <i class="fas fa-link"></i> 
+                                            </button>
                                             <br> <span class="clr-theme text-small">URL</span>
+                                        </div>
+
+                                        <div class="px-2 text-center">
+                                            <button class="btn btn-outline-theme icon-42" onclick="GoToMixtureForm()">
+                                                <i class="fas fa-keyboard"></i> 
+                                            </button>
+                                            <br> <span class="clr-theme text-small">Input</span>
                                         </div>
 
                                     </div>
