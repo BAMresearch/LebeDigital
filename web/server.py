@@ -152,8 +152,6 @@ def index():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    #if 'username' in session:
-    #    return redirect(url_for('query_page'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -163,7 +161,7 @@ def login():
             session['username'] = user.username
             # set session for user
             # After successful login, redirect to the stored URL
-            next_page = session.get('next', url_for('query_page'))  # Use a default if 'next' doesn't exist
+            next_page = session.get('next', url_for('database'))  # Use a default if 'next' doesn't exist
             return redirect(next_page)
         else:
             error_message = 'Incorrect Username or Password'
@@ -938,12 +936,58 @@ def new_mixture():
 
 @app.route('/submit_mixture', methods=['POST'])
 def submit_mixture():
-    mixture_name = request.form['mixtureName']
-    mixture_details = request.form['mixtureDetails']
-    # Process the mixture data here
-    # For example, save to a database or perform some action
-    return redirect(url_for('success_page'))
+    try:
+        user = session.get('username')  # get username
+        if not user:
+            return jsonify({"status": 403, "message": "User not authenticated"}), 403
+    
+        mix_json = request.get_json()
+        if not mix_json:
+            return jsonify({"status": 400, "message": "No JSON data provided"}), 400
 
+        type = "Mixture" 
+        mixtureID = str(uuid.uuid4())
+        
+        try:
+            mixing_date = datetime.fromisoformat(mix_json['MixingDate'])
+        except KeyError:
+            return jsonify({"status": 400, "message": "MixingDate is required in the JSON data"}), 400
+        except ValueError:
+            return jsonify({"status": 400, "message": "Invalid MixingDate format"}), 400
+
+        date_part = mixing_date.strftime('%Y%m%d')
+        filename = f"{date_part}_{mixtureID[:4]}_M(input)"
+        mix_json['humanreadableID'] = filename
+        
+        # current time
+        upload_date = datetime.now().isoformat()
+        
+        # Convert mix_json to a JSON string and then to bytes
+        json_blob = json.dumps(mix_json).encode('utf-8')
+
+        # Connect to the database
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO uploads 
+                (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (user, "json", filename, type, json_blob, mixtureID, mixtureID, upload_date, 0, 0))
+            conn.commit()
+            # start async function
+            thread = threading.Thread(target=async_function, args=(mixtureID,))
+            thread.start()
+        except Exception as e:
+            conn.rollback()
+            return jsonify({"status": 500, "message": f"Database error: {str(e)}"}), 500
+        finally:
+            conn.close()
+
+        return jsonify({"status": 200, "message": "Mixture submitted successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"status": 500, "message": f"An error occurred: {str(e)}"}), 500
 
 @app.route('/getJson', methods=['GET'])
 def get_json():

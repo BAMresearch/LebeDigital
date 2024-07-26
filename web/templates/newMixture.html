@@ -10,7 +10,7 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <h6 class="clr-theme">Lab</h6>
-                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
+                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name" required>
             </div>
             <div class="col-md-3">
                 <h6 class="clr-theme">Mixing Date</h6>
@@ -36,7 +36,9 @@
                 <div class="input-group">
                     <input type="number" step="any" id="Cement1_Density" class="form-control" placeholder="Density">
                     <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                        <span class="input-group-text unit-link clr-theme">
+                            kg/dm³
+                        </span>
                     </a>
                 </div>
             </div>
@@ -54,7 +56,9 @@
                 <div class="input-group">
                     <input type="number" step="any" id="Water_Content" class="form-control" placeholder="Content">
                     <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                        <span class="input-group-text unit-link clr-theme">
+                            kg/m³
+                        </span>
                     </a>
                 </div>
             </div>
@@ -62,7 +66,9 @@
                 <div class="input-group">
                     <input type="number" step="any" id="Water_Density" class="form-control" placeholder="Density">
                     <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                        <span class="input-group-text unit-link clr-theme">
+                            kg/dm³
+                        </span>
                     </a>
                 </div>
             </div>
@@ -212,51 +218,85 @@
     function submitForm(event) {
         event.preventDefault();
 
+        const mixingDateValue = document.getElementById('MixingDate').value;
+        const currentDateTime = new Date().toISOString().split('.')[0]; // Current date and time in ISO format without milliseconds
+
         const jsonData = {
                 RawDataFile: "Download",
-                MixingDate: `${document.getElementById('MixingDate').value}T12:00:00`, // Append fixed time
+                MixingDate: mixingDateValue ? `${mixingDateValue}` : currentDateTime,
                 Lab: document.getElementById('Lab').value,
-                //humanreadableID: document.getElementById('humanreadableID').value,
                 Cement1_Content: parseFloat(document.getElementById('Cement1_Content').value) || 0,
-                Cement1_Content_Unit: "kg/m³",
+                Cement1_Content_Unit: "kg/m^3",
                 Cement1_Density: parseFloat(document.getElementById('Cement1_Density').value) || 0,
-                Cement1_Density_Unit: "kg/dm³",
-                Cement1_Type: document.getElementById('Cement1_Type').value || "gesamt", // Use fixed type if not provided
+                Cement1_Density_Unit: "kg/dm^3",
+                Cement1_Type: document.getElementById('Cement1_Type').value || null, 
                 Water_Content: parseFloat(document.getElementById('Water_Content').value) || 0,
-                Water_Content_Unit: "kg/m³",
+                Water_Content_Unit: "kg/m^3",
                 Water_Density: parseFloat(document.getElementById('Water_Density').value) || 0,
-                Water_Density_Unit: "kg/dm³",
+                Water_Density_Unit: "kg/dm^3",
                 WaterCementRatio: (parseFloat(document.getElementById('Water_Content').value) / (parseFloat(document.getElementById('Cement1_Content').value) || 1)).toFixed(2),
                 Admixture1_Content: parseFloat(document.getElementById('Admixture1_Content').value) || 0,
-                Admixture1_Content_Unit: "kg/m³",
+                Admixture1_Content_Unit: "kg/m^3",
                 Admixture1_Density: parseFloat(document.getElementById('Admixture1_Density').value) || 0,
-                Admixture1_Density_Unit: "kg/dm³",
-                Admixture1_Type: document.getElementById('Admixture1_Type').value || "MasterRheobuild 1021 Fließmittel", // Use fixed type if not provided
+                Admixture1_Density_Unit: "kg/dm^3",
+                Admixture1_Type: document.getElementById('Admixture1_Type').value || null, 
                 Admixture2_Content: parseFloat(document.getElementById('Admixture2_Content').value) || 0,
-                Admixture2_Content_Unit: "kg/m³",
+                Admixture2_Content_Unit: "kg/m^3",
                 Admixture2_Density: parseFloat(document.getElementById('Admixture2_Density').value) || 0,
-                Admixture2_Density_Unit: "kg/dm³",
-                Admixture2_Type: document.getElementById('Admixture2_Type').value || "LP-Mittel", // Use fixed type if not provided
+                Admixture2_Density_Unit: "kg/dm^3",
+                Admixture2_Type: document.getElementById('Admixture2_Type').value || null, 
                 Addition1_Content: parseFloat(document.getElementById('Addition1_Content').value) || 0,
-                Addition1_Content_Unit: "kg/m³",
-                Addition1_Density: parseFloat(document.getElementById('Addition1_Density').value) || 2.33, // Use fixed density if not provided
-                Addition1_Density_Unit: "kg/dm³",
-                Addition1_Type: document.getElementById('Addition1_Type').value || "gesamt", // Use fixed type if not provided
+                Addition1_Content_Unit: "kg/m^3",
+                Addition1_Density: parseFloat(document.getElementById('Addition1_Density').value) || 0, 
+                Addition1_Density_Unit: "kg/dm^3",
+                Addition1_Type: document.getElementById('Addition1_Type').value || null, 
                 Addition2_Content: parseFloat(document.getElementById('Addition2_Content').value) || 0,
-                Addition2_Content_Unit: "kg/m³",
+                Addition2_Content_Unit: "kg/m^3",
                 Addition2_Density: parseFloat(document.getElementById('Addition2_Density').value) || 0,
-                Addition2_Density_Unit: "kg/dm³",
-                Addition2_Type: document.getElementById('Addition2_Type').value || "",
+                Addition2_Density_Unit: "kg/dm^3",
+                Addition2_Type: document.getElementById('Addition2_Type').value || null,
                 Aggregate1_Content: parseFloat(document.getElementById('Aggregate1_Content').value) || 0,
-                Aggregate1_Content_Unit: "kg/m³",
+                Aggregate1_Content_Unit: "kg/m^3",
                 Aggregate1_Density: parseFloat(document.getElementById('Aggregate1_Density').value) || 0,
-                Aggregate1_Density_Unit: "kg/dm³",
-                Aggregate1_Size: document.getElementById('Aggregate1_Size').value || null, // Placeholder; adjust as needed
-                //Aggregate1_Size_Unit: document.getElementById('Aggregate1_Size_Unit').value || null, // Placeholder; adjust as needed
+                Aggregate1_Density_Unit: "kg/dm^3",
+                Aggregate1_Size: document.getElementById('Aggregate1_Size').value || null, 
+                Aggregate1_Size_Unit: null, 
             };
 
         console.log(JSON.stringify(jsonData)); // Print JSON to console or send it to a server
         // Example: fetch('/your-endpoint', { method: 'POST', body: JSON.stringify(jsonData) });
+
+        fetch('/submit_mixture', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify(jsonData), 
+})
+.then(response => {
+    if (!response.ok) {
+        return response.json().then(err => Promise.reject(err));
+    }
+    return response.json();
+})
+.then(data => {
+    if (data.status === 200) {
+        document.getElementById("message").innerHTML = data.message;
+        const toastLiveExample = document.getElementById('liveToast');
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();  
+    } else {
+        throw new Error(data.message);
+    }
+})
+.catch((error) => {
+    console.error('Failed:', error);
+    document.getElementById("error-message").innerHTML = error.message || "An error occurred";
+    const toastLiveExample = document.getElementById('liveToastError');
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastBootstrap.show();
+});
     }
 </script>
 
