@@ -5,17 +5,27 @@
 {% block content %}
 <div class="content col-12 p-2">
     <h5>Enter Your Compressive Strength Details</h5>
+    <div class="callout">
+        <p><strong>Pro Tip:</strong> For a quicker process, please upload your Compressive Strength from the <a style="text-decoration: none;" href="/upload">Upload Data</a> page.</p>
+        <p class="mb-0">Note that on this page, you can only enter basic details manually. <br>If you have more details, we recommend you to <a style="text-decoration: none;" href="">Download</a> the standard template for Compressive Strength, 
+            fill it out and upload.</p>
+    </div>
+
     <form id="form" class="pt-2 pb-4">
 
-        <!-- Mixing Date and Lab -->
+        <!-- Mixing Date, Lab, human readable id -->
         <div class="row mb-4">
             <div class="col-md-4">
-                <h6 class="clr-theme">Lab</h6>
+                <h6 class="clr-theme">Lab <span class="text-danger"> *</span></h6>
                 <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
             </div>
             <div class="col-md-3">
-                <h6 class="clr-theme">Mixing Date</h6>
+                <h6 class="clr-theme">Mixing Date <span class="text-danger"> *</span></h6>
                 <input type="date" id="MixingDate" class="form-control" placeholder="dd/mm/yyyy">
+            </div>
+            <div class="col-md-5">
+                <h6 class="clr-theme">Human-readable ID<span class="text-danger"> *</span></h6>
+                <input type="text" id="HumanReadableID" class="form-control" placeholder="date_project_name (e.g. 20241231_123_M123)">
             </div>
         </div>
     
@@ -33,6 +43,34 @@
                                 <span class="input-group-text unit-link clr-theme">day</span>
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Specimen Mass -->
+                    <div class="col-md-10 mb-2">
+                     
+                        <p class="mb-1">Mass</p>
+                  
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenMass" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">g</span>
+                            </a>
+                        </div>
+                  
+                    </div>
+
+                    <!-- Specimen Shape -->
+                    <div class="col-md-10 mb-2">
+                      
+                        <p class="mb-1">Shape</h6>
+                  
+                        <select class="form-select" id="SpecimenShape">
+                            <option selected>Select a Shape</option>
+                            <option value="cube">cube</option>
+                            <option value="cylindrical">cylindrical</option>
+                            <option value="prism">prism</option>
+                        </select>
+              
                     </div>
         
                     <!-- Specimen Height -->
@@ -63,35 +101,6 @@
                        
                     </div>
         
-                    <!-- Specimen Mass -->
-                    <div class="col-md-10 mb-2">
-                     
-                            <p class="mb-1">Mass</p>
-                      
-                            <div class="input-group">
-                                <input type="number" step="any" id="SpecimenMass" class="form-control" placeholder="">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">g</span>
-                                </a>
-                            </div>
-                      
-                    </div>
-        
-                    <!-- Specimen Shape -->
-                    <div class="col-md-10 mb-2">
-                      
-                            <p class="mb-1">Shape</h6>
-                      
-                            <select class="form-select" id="SpecimenShape">
-                                <option selected>Select a Shape</option>
-                                <option value="cube">cube</option>
-                                <option value="cylindrical">cylindrical</option>
-                            </select>
-                  
-                    </div>
-                
-                    
-           
                 </div>
             </div>
 
@@ -105,8 +114,26 @@
                             <!-- Options will be populated here by JavaScript -->
                         </select>
 
-                        <p class="small pt-2">* You must select a mixture before uploading Compressive Strength. <br>
+                        <p class="small pt-2">You must select a mixture before uploading Compressive Strength. <br>
                             If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
+                    </div>
+
+                    <!-- Input Compressive Strength -->
+                    <div class="mb-4">
+                        <div class="col-md-12">
+                            <h6>Input Compressive Strength</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="number" step="any" id="InputCompressiveStrength" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">
+                                        N/mm2
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    
                     </div>
         
                     <!-- Compressive Strength -->
@@ -128,7 +155,7 @@
                     </div>
 
                     <div class="mb-2 col-md-8">
-                        <h6>Upload File</h6>
+                        <h6>Additional File</h6>
                         <input class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
         
