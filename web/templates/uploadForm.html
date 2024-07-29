@@ -135,9 +135,16 @@
 
                                     <div class="px-2 text-center">
                                         <button class="btn btn-outline-theme icon-42" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                                        <i class="fas fa-link"></i> 
-                                    </button>
+                                            <i class="fas fa-link"></i> 
+                                        </button>
                                         <br> <span class="clr-theme text-small">URL</span>
+                                    </div>
+
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" onclick="GoToComStForm()">
+                                            <i class="fas fa-keyboard"></i> 
+                                        </button>
+                                        <br> <span class="clr-theme text-small">Input</span>
                                     </div>
 
                                 </div>
@@ -214,6 +221,13 @@
                                         <br> <span class="clr-theme text-small">URL</span>
                                     </div>
 
+                                    <div class="px-2 text-center">
+                                        <button class="btn btn-outline-theme icon-42" onclick="GoToEModuleForm()">
+                                            <i class="fas fa-keyboard"></i> 
+                                        </button>
+                                        <br> <span class="clr-theme text-small">Input</span>
+                                    </div>
+
                                 </div>
                                 <div id="fileLabel3" class="text-center">&nbsp;</div>
 
@@ -272,6 +286,37 @@
     </div>
 </div>
 
+<!-- mixture upload warning -->
+<div class="modal fade" id="mixtureWarningModal" tabindex="-1" aria-labelledby="mixtureWarningModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mixtureWarningModalLabel">Mixture Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>You need to provide a <strong>Mixture</strong> first.</p>
+
+            <p>
+                Please choose one of the following options:
+                <ul>
+                    <li>Upload Mixture - Upload a file containing the mixture details. </li>
+                    <li>Input Manually - Manually enter the mixture details.</li>
+                </ul>
+    
+                <em>Note: If you do not have a mixture, you can submit an empty form using the manual input option.</em>
+            </p>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-theme" onclick="goToMixtureUpload()">Upload Mixture</button>
+          <button type="button" class="btn btn-outline-theme" onclick="GoToMixtureForm()">Input Manually</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="/static/js/getMixtures.js"></script>
 <script src="/static/js/main.js"></script>
 
 {% endblock %}

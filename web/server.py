@@ -955,9 +955,11 @@ def submit_mixture():
         except ValueError:
             return jsonify({"status": 400, "message": "Invalid MixingDate format"}), 400
 
+        # set human readable id and filename
         date_part = mixing_date.strftime('%Y%m%d')
-        filename = f"{date_part}_{mixtureID[:4]}_M(input)"
-        mix_json['humanreadableID'] = filename
+        humanreadableID = f"{date_part}_{mixtureID[:4]}_M(input)"
+        mix_json['humanreadableID'] = humanreadableID
+        filename = f"{humanreadableID}.json"
         
         # current time
         upload_date = datetime.now().isoformat()
@@ -988,6 +990,17 @@ def submit_mixture():
 
     except Exception as e:
         return jsonify({"status": 500, "message": f"An error occurred: {str(e)}"}), 500
+
+#manually upload compressiveStrength
+@app.route('/new_compressive_strength')
+def new_compressive_strength():
+    return render_template('newCompressiveStrength.html')
+
+#manually upload emodule
+@app.route('/new_emodule')
+def new_emodule():
+    return render_template('newEmodule.html')
+
 
 @app.route('/getJson', methods=['GET'])
 def get_json():

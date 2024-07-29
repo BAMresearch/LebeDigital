@@ -181,4 +181,12 @@ body {
             position: absolute;
             top: 35%;
         }   
+    }
+    .callout {
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+      color: #664d03;
+      background-color: #fff3cd;
+      border-left: 0.25rem solid #ffe69c;
     } 

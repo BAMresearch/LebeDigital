@@ -4,18 +4,28 @@
 
 {% block content %}
 <div class="content col-12 p-2">
-    <h5>Input your Mixture manually</h5>
+    <h5>Enter Your Mixture Details</h5>
+    <div class="callout">
+        <p><strong>Pro Tip:</strong> For a quicker process, please upload your mixture file from the <a style="text-decoration: none;" href="/upload">Upload Data</a> page.</p>
+        <p class="mb-0">Note that on this page, you can only enter basic details manually. <br>If you have more details, we recommend you to <a style="text-decoration: none;" href="">Download</a> the standard template for Mixture, 
+            fill it out and upload.</p>
+    </div>
     <form id="mixtureForm" class="pt-2 pb-4">
         <!-- Mixing Date and Lab -->
         <div class="row mb-4">
             <div class="col-md-4">
-                <h6 class="clr-theme">Lab</h6>
-                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name" required>
+                <h6 class="clr-theme">Lab<span class="text-danger"> *</span></h6>
+                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
             </div>
             <div class="col-md-3">
-                <h6 class="clr-theme">Mixing Date</h6>
+                <h6 class="clr-theme">Mixing Date<span class="text-danger"> *</span></h6>
                 <input type="date" id="MixingDate" class="form-control" placeholder="dd/mm/yyyy">
             </div>
+            <div class="col-md-5">
+                <h6 class="clr-theme">Human-readable ID<span class="text-danger"> *</span></h6>
+                <input type="text" id="HumanReadableID" class="form-control" placeholder="date_project_name (e.g. 20241231_123_M123)">
+            </div>
+
         </div>
     
         <div class="card bg-extra-light-blue p-4" style="border: 0;">
@@ -218,13 +228,13 @@
     function submitForm(event) {
         event.preventDefault();
 
-        const mixingDateValue = document.getElementById('MixingDate').value;
-        const currentDateTime = new Date().toISOString().split('.')[0]; // Current date and time in ISO format without milliseconds
+      
 
         const jsonData = {
-                RawDataFile: "Download",
-                MixingDate: mixingDateValue ? `${mixingDateValue}` : currentDateTime,
                 Lab: document.getElementById('Lab').value,
+                MixingDate: document.getElementById('MixingDate').value,
+                humanreadableID: document.getElementById('HumanReadableID').value,
+                RawDataFile: "Download",
                 Cement1_Content: parseFloat(document.getElementById('Cement1_Content').value) || 0,
                 Cement1_Content_Unit: "kg/m^3",
                 Cement1_Density: parseFloat(document.getElementById('Cement1_Density').value) || 0,
@@ -267,36 +277,36 @@
         // Example: fetch('/your-endpoint', { method: 'POST', body: JSON.stringify(jsonData) });
 
         fetch('/submit_mixture', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
-    body: JSON.stringify(jsonData), 
-})
-.then(response => {
-    if (!response.ok) {
-        return response.json().then(err => Promise.reject(err));
-    }
-    return response.json();
-})
-.then(data => {
-    if (data.status === 200) {
-        document.getElementById("message").innerHTML = data.message;
-        const toastLiveExample = document.getElementById('liveToast');
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-        toastBootstrap.show();  
-    } else {
-        throw new Error(data.message);
-    }
-})
-.catch((error) => {
-    console.error('Failed:', error);
-    document.getElementById("error-message").innerHTML = error.message || "An error occurred";
-    const toastLiveExample = document.getElementById('liveToastError');
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-    toastBootstrap.show();
-});
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(jsonData), 
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => Promise.reject(err));
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 200) {
+                document.getElementById("message").innerHTML = data.message;
+                const toastLiveExample = document.getElementById('liveToast');
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+                toastBootstrap.show();  
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Failed:', error);
+            document.getElementById("error-message").innerHTML = error.message || "An error occurred";
+            const toastLiveExample = document.getElementById('liveToastError');
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+            toastBootstrap.show();
+        });
     }
 </script>
 

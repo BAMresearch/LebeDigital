@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block title %}New Compressive Strength{% endblock %}
+
+{% block content %}
+<div class="content col-12 p-2">
+    <h5>Enter Your Compressive Strength Details</h5>
+    <form id="form" class="pt-2 pb-4">
+
+        <!-- Mixing Date and Lab -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <h6 class="clr-theme">Lab</h6>
+                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
+            </div>
+            <div class="col-md-3">
+                <h6 class="clr-theme">Mixing Date</h6>
+                <input type="date" id="MixingDate" class="form-control" placeholder="dd/mm/yyyy">
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card bg-extra-light-blue p-4" style="border: 0;">
+                    <h6>Specimen Details</h6>
+                    <!-- Specimen Age -->
+                    <div class="col-md-10 mb-2">
+                        <p class="mb-1">Age</p>
+                    
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenAge" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">day</span>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- Specimen Height -->
+                    <div class="col-md-10 mb-2">
+                   
+                        <p class="mb-1">Height</p>
+                    
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">mm</span>
+                            </a>
+                        </div>
+                    
+                    </div>
+        
+                    <!-- Specimen Length -->
+                    <div class="col-md-10 mb-2">
+                       
+                            <p class="mb-1">Length</p>
+        
+                            <div class="input-group">
+                                <input type="number" step="any" id="SpecimenLength" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">mm</span>
+                                </a>
+                            </div>
+                       
+                    </div>
+        
+                    <!-- Specimen Mass -->
+                    <div class="col-md-10 mb-2">
+                     
+                            <p class="mb-1">Mass</p>
+                      
+                            <div class="input-group">
+                                <input type="number" step="any" id="SpecimenMass" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">g</span>
+                                </a>
+                            </div>
+                      
+                    </div>
+        
+                    <!-- Specimen Shape -->
+                    <div class="col-md-10 mb-2">
+                      
+                            <p class="mb-1">Shape</h6>
+                      
+                            <select class="form-select" id="SpecimenShape">
+                                <option selected>Select a Shape</option>
+                                <option value="cube">cube</option>
+                                <option value="cylindrical">cylindrical</option>
+                            </select>
+                  
+                    </div>
+                
+                    
+           
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card bg-extra-light-blue p-4" style="border: 0;">
+                    <div id="mixtureDetails" class="mb-4">
+                        <h6 class="mb-2">Which Concrete Mixture did you use? <span class="text-danger">*</span></h6>
+                       
+                        <select id="mixtures" style="width: 65%;">
+                            <option selected disabled hidden>Select a mixture</option>
+                            <!-- Options will be populated here by JavaScript -->
+                        </select>
+
+                        <p class="small pt-2">* You must select a mixture before uploading Compressive Strength. <br>
+                            If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
+                    </div>
+        
+                    <!-- Compressive Strength -->
+                    <div class="mb-4">
+                        <div class="col-md-12">
+                            <h6>Compressive Strength</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="number" step="any" id="CompressiveStrength" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">
+                                        N/mm2
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="mb-2 col-md-8">
+                        <h6>Upload File</h6>
+                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    </div>
+        
+                </div>
+            </div>
+
+            
+        </div>
+        
+        <div class="pt-4">
+            <button type="button" class="btn btn-theme" onclick="submitForm(event)">Submit</button>
+        </div>
+    </form>    
+</div>
+
+<!-- Notification Toasts -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #e9fef7; z-index: 1000;">
+        <div class="toast-body">
+            <i class="fas fa-check-circle text-success"></i>&nbsp;<span id="message"></span>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToastError" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #ffcccb; z-index: 1000;">
+        <div class="toast-body">
+            <i class="fas fa-exclamation-circle text-danger"></i>&nbsp; <span id="error-message"></span>
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/js/getMixtures.js"></script>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+    }
+</script>
+
+
+{% endblock %}
