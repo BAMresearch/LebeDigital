@@ -157,7 +157,7 @@ def extract_metadata_ComSt(blob,mix_json,processed_data):
 
             raise Exception("No processed_file found!")
 
-        metadata_ComSt['CompressiveStrength_Unit'] = "GPa"
+        metadata_ComSt['CompressiveStrength_Unit'] = "MPa"
 
     # Clean up the temporary file 
     os.remove(specimen_file)

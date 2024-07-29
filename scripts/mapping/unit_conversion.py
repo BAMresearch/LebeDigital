@@ -18,7 +18,7 @@ def unit_conversion(input_metadata):
                      "kg/dm^3": "http://qudt.org/vocab/unit/KiloGM-PER-DeciM3",
                      "dm^3": "http://qudt.org/vocab/unit/DeciM3",
                      "day": "https://qudt.org/vocab/unit/DAY",
-                     "GPa": "https://qudt.org/vocab/unit/GigaPA",
+                     "MPa": "http://qudt.org/vocab/unit/MegaPA",
                      "cylindrical": "https://w3id.org/cpto/Cylinder",
                      "cubical":  "https://w3id.org/cpto/Cube",
                      "N/mm^2": "http://qudt.org/vocab/unit/N-PER-MilliM2",
