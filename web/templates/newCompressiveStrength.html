@@ -253,34 +253,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         console.log('Preparing to send data');
 
-        // Create general info JSON object
+        // Create comst JSON object
         var comStJson = {
-            HumanReadableID: document.getElementById('HumanReadableID').value,
+            humanreadableID: document.getElementById('HumanReadableID').value,
             Lab: document.getElementById('Lab').value,
             ExperimentDate: document.getElementById('ExperimentDate').value,
             RawDataFile: "Download",
             InputCompressiveStrength: document.getElementById('InputCompressiveStrength').value || 0,
             InputCompressiveStrength_Unit: "MPa",
-            CompressiveStrength: document.getElementById('CompressiveStrength').value || 0,
-            CompressiveStrength_Unit: "MPa"
+            CompressionColumn: [4], 
+            CompressionForce_Unit: "kN", 
+            TransducerColumn: [5], 
+            Extensometer_Unit: "mm", 
+            CompressiveStrength: document.getElementById('CompressiveStrength').value || null,
+            CompressiveStrength_Unit: "MPa",
+            SpecimenAge: document.getElementById('SpecimenAge').value || null,
+            SpecimenAge_Unit: "day"
         };
 
         // Create specimen details JSON object
         var specimenJson = {
-            HumanReadableID: document.getElementById('HumanReadableID').value,
+            humanreadableID: document.getElementById('HumanReadableID').value,
             MixtureID: mixtureID,
-            SpecimenAge: document.getElementById('SpecimenAge').value || 0,
-            SpecimenAge_Unit: "day",
-            SpecimenMass: document.getElementById('SpecimenMass').value || 0,
+            SpecimenMass: document.getElementById('SpecimenMass').value || null,
             SpecimenMass_Unit: "g",
-            SpecimenShape: document.getElementById('SpecimenShape').value || 0,
-            SpecimenHeight: document.getElementById('SpecimenHeight').value || 0,
+            SpecimenShape: document.getElementById('SpecimenShape').value || null,
+            SpecimenHeight: document.getElementById('SpecimenHeight').value || null,
             SpecimenHeight_Unit: "mm",
-            SpecimenDiameter: document.getElementById('SpecimenDiameter').value || 0,
+            SpecimenDiameter: document.getElementById('SpecimenDiameter').value || null,
             SpecimenDiameter_Unit: "mm",
-            SpecimenLength: document.getElementById('SpecimenLength').value || 0,
+            SpecimenLength: document.getElementById('SpecimenLength').value || null,
             SpecimenLength_Unit: "mm",
-            SpecimenWidth: document.getElementById('SpecimenWidth').value || 0,
+            SpecimenWidth: document.getElementById('SpecimenWidth').value || null,
             SpecimenWidth_Unit: "mm"
         };
 

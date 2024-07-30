@@ -677,11 +677,12 @@ def async_function(unique_id):
 
     # if json was uploaded
     if row['filetype'] == 'json':
-        json_data = json.loads(row['blob'].decode('utf-8'))
-        json_data['ID'] = unique_id
-        if row['type'] != 'Mixture':
-            json_data['mixtureID'] = row['Mixture_ID']
-        add_data('Json', json.dumps(json_data).encode('utf-8'))
+        if row['Json'] is None:
+            json_data = json.loads(row['blob'].decode('utf-8'))
+            json_data['ID'] = unique_id
+            if row['type'] != 'Mixture':
+                json_data['mixtureID'] = row['Mixture_ID']
+            add_data('Json', json.dumps(json_data).encode('utf-8'))
     else:
         if row['type'] == 'Mixture':
             json_data = mix_metadata(row['blob'], row['filename'])
@@ -1013,10 +1014,11 @@ def submit_compressive_strength():
     upload_date = datetime.now().isoformat()
 
     UniqueID = str(uuid.uuid4())
-    comst['ID'] = UniqueID
+    comst['ID'] = comst['specimenID'] = UniqueID
     specimen['ID'] = UniqueID
 
-    filename = f"{comst['HumanReadableID']}.json"
+    print(comst)
+    filename = f"{comst['humanreadableID']}.json"
     type = 'CompressiveStrength'
 
     # Convert jsons to a JSON string and then to bytes
@@ -1036,8 +1038,8 @@ def submit_compressive_strength():
         ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
         conn.commit()
         # start async function
-        #thread = threading.Thread(target=async_function, args=(mixtureID,))
-        #thread.start()
+        thread = threading.Thread(target=async_function, args=(UniqueID,))
+        thread.start()
     except Exception as e:
         logger.debug(e)
         conn.rollback()
