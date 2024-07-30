@@ -32,7 +32,7 @@
             <div class="col-md-5">
                 <h6 class="clr-theme">Human-readable ID</h6>
                 <input type="text" id="HumanReadableID" class="form-control" placeholder="date_project_name (e.g. 20241231_123_M123)" required>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" id="IDFeedback">
                     Please provide a unique human-readable ID.
                 </div>
             </div>
@@ -234,10 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     form.addEventListener('submit', function(event) {
-        console.log('Form submitted');
         event.preventDefault();
         
-        console.log('Form validity:', this.checkValidity());
         if (!this.checkValidity()) {
             console.log('Form is invalid');
             event.stopPropagation();
@@ -245,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        console.log('mixtureID:', mixtureID);
         if (mixtureID == null) {
             console.log('mixtureID is null');
             document.getElementById("mixture-error").style.display = 'block';
@@ -307,8 +304,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('message').textContent = "Compressive strength data submitted successfully!";
                 new bootstrap.Toast(document.getElementById('liveToast')).show();
             } else {
+                if (data.status == 409) {
+                    //focus on the Human-readable ID field
+                    console.log(2)
+                    document.getElementById('HumanReadableID').style.borderColor = 'red';
+                    document.getElementById('IDFeedback').style.display = 'block'
+                }
                 // Show error toast
-                document.getElementById('error-message').textContent = "Error submitting data. Please try again.";
+                const errorMessage = data.message || "Error submitting data. Please try again.";
+                document.getElementById('error-message').textContent = errorMessage;
                 new bootstrap.Toast(document.getElementById('liveToastError')).show();
             }
         })

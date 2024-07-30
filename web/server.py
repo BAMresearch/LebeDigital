@@ -832,11 +832,7 @@ def data_upload():
                 file_name = file.filename
 
                 # Check if the file already exists in the database
-                cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
-                data = cursor.fetchone()
-
-                # If data is not None, then the file exist in the database
-                if data is not None:
+                if check_file_exists(file_name, cursor):
                     conn.close()
                     return jsonify({'message': "File " + file_name + " already exists! ",
                                     'status': 409}), 200
@@ -892,11 +888,7 @@ def data_upload():
                             'status': 400}), 200
         
         # Check if the file already exists in the database
-        cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
-        data = cursor.fetchone()
-
-        # If data is not None, then the file exists in the database
-        if data is not None:
+        if check_file_exists(file_name, cursor):
             conn.close()
             return jsonify({'message': "This file already exists.",
                             'status': 409}), 200
@@ -1031,6 +1023,12 @@ def submit_compressive_strength():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        # Check if the filename already exists
+        if check_file_exists(filename, cursor):
+            conn.close()
+            return jsonify({'message': f"Human-readable ID {comst['humanreadableID']} already exists!", 'status': 409}), 409
+        
         cursor.execute('''
             INSERT INTO uploads 
             (user, filetype, filename, type, blob, Json, Json_Specimen, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
@@ -1196,6 +1194,23 @@ def raw_download():
     else:
         # if no id found
         abort(400, description="No file ID provided.")
+
+
+def check_file_exists(filename, cursor):
+    """
+    Check if the file already exists in the database.
+
+    Args:
+    - filename (str): The name of the file to check.
+    - cursor (sqlite3.Cursor): The database cursor to execute the query.
+
+    Returns:
+    - bool: True if the file exists, False otherwise.
+    """
+    cursor.execute('SELECT * FROM uploads WHERE filename = ? AND deleted_by_user = 0', (filename,))
+    data = cursor.fetchone()
+    return data is not None
+
 
 if __name__ == '__main__':
     app.run(debug=True)
