@@ -996,6 +996,58 @@ def submit_mixture():
 def new_compressive_strength():
     return render_template('newCompressiveStrength.html')
 
+@app.route('/submit_compressive_strength', methods=['POST'])
+def submit_compressive_strength():
+    user = session.get('username')  # get username
+    if not user:
+        return jsonify({"status": 403, "message": "User not authenticated"}), 403
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({"status": 400, "message": "No JSON data provided"}), 400
+    
+    comst = data['comst']
+    specimen = data['specimen']
+
+    # current time
+    upload_date = datetime.now().isoformat()
+
+    UniqueID = str(uuid.uuid4())
+    comst['ID'] = UniqueID
+    specimen['ID'] = UniqueID
+
+    filename = f"{comst['HumanReadableID']}.json"
+    type = 'CompressiveStrength'
+
+    # Convert jsons to a JSON string and then to bytes
+    comst_json = json.dumps(comst).encode('utf-8')
+    specimen_json = json.dumps(specimen).encode('utf-8')
+
+    print(UniqueID)
+
+    # Connect to the database
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO uploads 
+            (user, filetype, filename, type, blob, Json, Json_Specimen, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
+        conn.commit()
+        # start async function
+        #thread = threading.Thread(target=async_function, args=(mixtureID,))
+        #thread.start()
+    except Exception as e:
+        logger.debug(e)
+        conn.rollback()
+        return jsonify({"status": 500, "message": f"Database error: {str(e)}"}), 500
+    finally:
+        conn.close()
+    
+    return jsonify({"success": True})
+
+
 #manually upload emodule
 @app.route('/new_emodule')
 def new_emodule():
