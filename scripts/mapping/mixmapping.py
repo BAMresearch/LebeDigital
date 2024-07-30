@@ -371,7 +371,7 @@ def mappingmixture(blob_data):
     g.add((wz_individual, RDF.type, cpto.WaterCementRatio))
     g.add((wz_individual, RDF.type, owl.NamedIndividual))
     if metadata.get('WaterCementRatio'):
-        g.add((wz_individual, co.value, Literal(f"{metadata['WaterCementRatio']}", datatype=xsd.string)))
+        g.add((wz_individual, co.value, Literal(f"{metadata['WaterCementRatio']}", datatype=xsd.float)))
 
     # rawdata file
 
