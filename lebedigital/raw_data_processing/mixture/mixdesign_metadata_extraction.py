@@ -125,7 +125,7 @@ def extract_metadata_mixdesign(locationOfRawData):
                 raise Exception('More than two admixtures found in raw data.')
         # Check for missing labels; the following labels should exist (except
         # Zusatzstoff 2, not all raw files have two additions/Zusatzstoffe)
-        default_labels = ['Bezeichnung der Proben:', 'Zement', 'Wasser (gesamt)',
+        default_labels = ['Bezeichnung der Proben:', 'Wasserzementwert', 'Zement', 'Wasser (wirksam)',
                           'Zusatzmittel1', 'Zusatzmittel2', 'Zuschlag (gesamt)', 'Zusatzstoff1', 'Zusatzstoff2']
         missing_labels = [i for i in default_labels if i not in labelidx.keys()]
         if len(missing_labels) != 0:
@@ -207,9 +207,9 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('cement not included in json-file')
 
-        # total water data ('Wasser (gesamt)')
-        if 'Wasser (gesamt)' not in missing_labels:
-            idx = labelidx['Wasser (gesamt)']
+        # total water data ('Wasser (wirksam)')
+        if 'Wasser (wirksam)' not in missing_labels:
+            idx = labelidx['Wasser (wirksam)']
             metadata['Water_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
             metadata['Water_Content_Unit'] = 'kg/m^3'
             metadata['Water_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
@@ -218,12 +218,13 @@ def extract_metadata_mixdesign(locationOfRawData):
         else:
             logger.error('Water not included in json-file')
 
-        # water cement ratio ('Wasserzementwert')
-        try:
-            water_cement_ratio = float(metadata['Water_Content'] / metadata['Cement1_Content'])
-            metadata['WaterCementRatio'] = round(water_cement_ratio, 1)
-        except:
-            raise Exception("Can not calculate water-cement-ratio! No values found!")
+        # Water cement ratio value
+        if 'Wasserzementwert' not in missing_labels:
+            idx = labelidx['Wasserzementwert']
+            raw_value = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['WaterCementRatio'] = round(raw_value, 3)
+        else:
+            logger.error('WaterCementRatio not included in json-file')
 
         # Admixture/Plasticizer ('Zusatzmittel')
         if 'Zusatzmittel1' not in missing_labels:
