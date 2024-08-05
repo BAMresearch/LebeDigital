@@ -87,7 +87,7 @@
                     
                     <!-- Specimen Height -->
                     <div class="col-md-10 mb-2" id="SpecimenHeightDiv" style="display: none;">
-                        <p class="mb-1">Height</p>
+                        <p class="mb-1">Height/Thickness</p>
                         <div class="input-group">
                             <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="" required>
                             <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("mixture-error").style.display = 'none';
     });
 
-    // File size validation (3MB limit)
+    // File size validation (2MB limit)
     $('#fileInput').on('change', function() {
         var file = this.files[0];
         if (file && file.size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
