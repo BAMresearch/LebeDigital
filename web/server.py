@@ -28,6 +28,9 @@ from io import BytesIO
 import zipfile
 import shutil
 from urllib.parse import urlparse, parse_qs
+import base64
+import mimetypes
+import magic
 
 
 app = Flask(__name__)
@@ -595,6 +598,7 @@ def init_db():
                 ttl BLOB,
                 Json_Specimen BLOB,
                 ttl_Specimen BLOB,
+                additional_file BLOB,
                 UploadDate TEXT,
                 Mapped INTEGER,
                 deleted_by_user BOOLEAN DEFAULT 0 NOT NULL,
@@ -995,12 +999,17 @@ def submit_compressive_strength():
     if not user:
         return jsonify({"status": 403, "message": "User not authenticated"}), 403
     
-    data = request.get_json()
-    if not data:
+    # Retrieve the file and JSON data from the form
+    file = request.files.get('file')
+    comst_json = request.form.get('comst')
+    specimen_json = request.form.get('specimen')
+
+    # Check if JSON data is provided
+    if not comst_json or not specimen_json:
         return jsonify({"status": 400, "message": "No JSON data provided"}), 400
     
-    comst = data['comst']
-    specimen = data['specimen']
+    comst = json.loads(comst_json)
+    specimen = json.loads(specimen_json)
 
     # current time
     upload_date = datetime.now().isoformat()
@@ -1009,7 +1018,6 @@ def submit_compressive_strength():
     comst['ID'] = comst['specimenID'] = UniqueID
     specimen['ID'] = UniqueID
 
-    print(comst)
     filename = f"{comst['humanreadableID']}.json"
     type = 'CompressiveStrength'
 
@@ -1017,7 +1025,17 @@ def submit_compressive_strength():
     comst_json = json.dumps(comst).encode('utf-8')
     specimen_json = json.dumps(specimen).encode('utf-8')
 
-    print(UniqueID)
+    # Handle file upload and save as BLOB in the database
+    additional_file_blob = None
+    if file:
+        additional_file_blob = file.read()  # Read file content as binary
+        file_info = {
+            'filename': file.filename,
+            'content': base64.b64encode(additional_file_blob).decode('utf-8')
+
+        }
+        additional_file_blob = json.dumps(file_info).encode('utf-8')
+
 
     # Connect to the database
     try:
@@ -1031,9 +1049,9 @@ def submit_compressive_strength():
         
         cursor.execute('''
             INSERT INTO uploads 
-            (user, filetype, filename, type, blob, Json, Json_Specimen, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
+            (user, filetype, filename, type, blob, Json, Json_Specimen, additional_file, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, additional_file_blob, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
         conn.commit()
         # start async function
         thread = threading.Thread(target=async_function, args=(UniqueID,))
@@ -1170,6 +1188,26 @@ def raw_download():
             # Schreibe BLOB-Daten in eine Datei
             with open(output_path, 'wb') as file:
                 file.write(row["ttl_Specimen"])
+
+        if row["additional_file"]:
+            file_info = json.loads(row["additional_file"].decode('utf-8'))
+            file_content = base64.b64decode(file_info['content'])
+            original_filename = file_info['filename']
+
+            # Detect file type
+            file_type = magic.from_buffer(file_content, mime=True)
+            
+            # Ensure the filename has the correct extension
+            file_extension = mimetypes.guess_extension(file_type)
+            if file_extension and not original_filename.lower().endswith(file_extension.lower()):
+                original_filename += file_extension
+
+            # Path where the additional file will be saved
+            output_path = os.path.join(temp_directory, original_filename)
+
+            # Write additional_file data to a file
+            with open(output_path, 'wb') as file:
+                file.write(file_content)
 
         if row["Mixture_ID"] and row["Mixture_ID"] != row["Unique_ID"]:
             row2 = get_data(row["Mixture_ID"])

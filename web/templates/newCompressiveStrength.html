@@ -191,7 +191,10 @@
 
                     <div class="mb-2 col-md-8">
                         <h6>Additional File</h6>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" id="fileInput">
+                        <div class="invalid-feedback" id="file-error">
+                            File size exceeds 2MB. Please choose a smaller file.
+                        </div>
                     </div>
         
                 </div>
@@ -227,10 +230,23 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var mixtureID = null;
+    // Get the mixtureId from the URL if it exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMixtureId = urlParams.get('mixtureId');
+    var mixtureID = urlMixtureId
+
     $('#mixtures').on('change', function() {
         mixtureID = this.value;
         document.getElementById("mixture-error").style.display = 'none';
+    });
+
+    // File size validation (3MB limit)
+    $('#fileInput').on('change', function() {
+        var file = this.files[0];
+        if (file && file.size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+            document.getElementById("file-error").style.display = 'block';
+            this.value = ''; // Clear the input
+        }
     });
 
     form.addEventListener('submit', function(event) {
@@ -276,26 +292,43 @@ document.addEventListener('DOMContentLoaded', function() {
             SpecimenMass_Unit: "g",
             SpecimenShape: document.getElementById('SpecimenShape').value || null,
             SpecimenHeight: document.getElementById('SpecimenHeight').value || null,
-            SpecimenHeight_Unit: "mm",
-            SpecimenDiameter: document.getElementById('SpecimenDiameter').value || null,
-            SpecimenDiameter_Unit: "mm",
-            SpecimenLength: document.getElementById('SpecimenLength').value || null,
-            SpecimenLength_Unit: "mm",
-            SpecimenWidth: document.getElementById('SpecimenWidth').value || null,
-            SpecimenWidth_Unit: "mm"
+            SpecimenHeight_Unit: "mm"
         };
+
+        var specimenDiameter = document.getElementById('SpecimenDiameter').value;
+        if (specimenDiameter) {
+            specimenJson.SpecimenDiameter = specimenDiameter;
+            specimenJson.SpecimenDiameter_Unit = "mm";
+        }
+
+        var specimenLength = document.getElementById('SpecimenLength').value;
+        if (specimenLength) {
+            specimenJson.SpecimenLength = specimenLength;
+            specimenJson.SpecimenLength_Unit = "mm";
+        }
+
+        var specimenWidth = document.getElementById('SpecimenWidth').value;
+        if (specimenWidth) {
+            specimenJson.SpecimenWidth = specimenWidth;
+            specimenJson.SpecimenWidth_Unit = "mm";
+        }
+
+        // Create FormData object to handle file and JSON data
+        var formData = new FormData();
+        formData.append('comst', JSON.stringify(comStJson));
+        formData.append('specimen', JSON.stringify(specimenJson));
+
+        // Get the file input element and add the file to FormData
+        var fileInput = document.getElementById('fileInput');
+        if (fileInput.files.length > 0) {
+            formData.append('file', fileInput.files[0]);
+        }
+        
 
         // Send data to server
         fetch('/submit_compressive_strength', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                comst: comStJson,
-                specimen: specimenJson
-            }),
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
@@ -306,7 +339,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 if (data.status == 409) {
                     //focus on the Human-readable ID field
-                    console.log(2)
                     document.getElementById('HumanReadableID').style.borderColor = 'red';
                     document.getElementById('IDFeedback').style.display = 'block'
                 }
