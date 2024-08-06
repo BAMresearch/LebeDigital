@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Database{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+<div class="content col-12 p-2">
+    <h5 class="mb-3">Database</h5>
+    <div class="form-container">
+        <form id="sparqlForm" class="form-inline d-md-flex justify-content-between">
+            <div>
+                <label class="clr-theme text-small"  for="nameInput">Search by Name</label>
+                <div class="input-group mb-3"  style="min-width: 350px;">
+                    <input id="nameInput" type="text" class="form-control" placeholder="e.g. 7188, M01 etc.">
+                    <div class="input-group-append">
+                        <button id="submit" type="submit" class="btn btn-theme">
+                            <i class="fa fa-search"></i> <!-- Search icon -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    
+    <div id="queryResults" class="pt-1">
+        <div class="d-none justify-content-between" id="heading" style="min-height: 60px;">
+            <h6 id="selectedName" class="clr-theme mb-0 fw-normal pt-2"></h6>
+            <div>
+                <button id="backButton" class="btn btn-sm btn-outline-theme" onclick="goBack()"><i class="fas fa-chevron-left"></i></i>&nbsp;Back</button>
+                <button class="btn btn-sm btn-theme" onclick="downloadTable()"><i class="fas fa-file-download"></i>&nbsp;Download as CSV</button>
+            </div>
+        </div>
+        
+        <!-- Query results will be displayed here -->
+    </div>
+    <div id="resultsTable" class="mt-0 text-small"></div>
+    
+    <input id="fileID" hidden></input>
+</div>
+<script>
+    // Define the data variable
+    var data = JSON.parse('{{ data | tojson | safe}}');
+</script>
+<script src="{{ url_for('static', filename='js/database-page.js') }}"></script>
+
+{% endblock %}

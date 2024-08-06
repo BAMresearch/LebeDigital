@@ -16,6 +16,8 @@ from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
+from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
+from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify, abort, send_file
 from loguru import logger
@@ -25,6 +27,10 @@ from werkzeug.datastructures import FileStorage
 from io import BytesIO
 import zipfile
 import shutil
+from urllib.parse import urlparse, parse_qs
+import base64
+import mimetypes
+import magic
 
 
 app = Flask(__name__)
@@ -88,8 +94,48 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 
+# extracts all json information from the database in two lists
+def create_json_file():
+    '''
+    This function extracts all json information from the database.
+    The first list contains the json information of the uploads table.
+    The second list contains the json_specimen information of the uploads table.
+    
+    :return: One Json Object with keys for the types (Mixture eg) and two lists as values containing lists of all info of json and json_specimen.
+    '''
+
+    typeliste = ['Mixture', 'EModule']
+    json_full = {}
+
+    for entry in typeliste:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        if entry == 'Mixture':
+            query = "SELECT Json FROM uploads WHERE type = ?"
+            cursor.execute(query, (entry,))
+            # Fetch the results of the query
+            rows = cursor.fetchall()
+            conn.close()
+            # Convert the BLOB data to JSON dicts
+            json_full[entry] = [json.loads(row['Json'].decode('utf-8')) for row in rows]
+
+        else:
+            query = "SELECT u1.Json, u1.Json_specimen, u2.Json FROM uploads u1 INNER JOIN uploads u2 ON u1.Mixture_ID = u2.Unique_ID WHERE u1.type = ?"
+            cursor.execute(query, (entry,))
+            # Fetch the results of the query
+            rows = cursor.fetchall()
+            conn.close()
+            # Convert the BLOB data to JSON dicts
+            json_full[entry] = [[json.loads(row[0].decode('utf-8')), json.loads(row[1].decode('utf-8')), json.loads(row[2].decode('utf-8'))] for row in rows]
+
+    logger.debug(2)
+    logger.debug(json_full)
+    return json_full
+
+
 with app.app_context():
     db.create_all()
+
 
 # middleware to log requests
 @app.before_request
@@ -109,8 +155,6 @@ def index():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    #if 'username' in session:
-    #    return redirect(url_for('query_page'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -120,7 +164,7 @@ def login():
             session['username'] = user.username
             # set session for user
             # After successful login, redirect to the stored URL
-            next_page = session.get('next', url_for('query_page'))  # Use a default if 'next' doesn't exist
+            next_page = session.get('next', url_for('database'))  # Use a default if 'next' doesn't exist
             return redirect(next_page)
         else:
             error_message = 'Incorrect Username or Password'
@@ -188,6 +232,67 @@ def query_page_simple():
         return redirect(url_for('login'))
 
 
+@app.route('/database_new', methods=['GET', 'POST'])
+def database():
+    if 'username' in session:
+        conn = get_db_connection() 
+        cursor = conn.cursor()
+
+        # Check if the request method is POST
+        if request.method == 'POST':
+            # Get the search term from the form
+            search_term = request.form.get('nameInput')
+
+            # Modify the query to include the search term
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 and filename LIKE ? ORDER BY filename"
+            cursor.execute(query, (f"%{search_term}%",)) # Execute the query
+        else:
+            query = "SELECT Unique_ID, filename, type FROM uploads WHERE deleted_by_user = 0 and mapped = 1 ORDER BY filename"
+            cursor.execute(query,) # Execute the query
+
+        # Fetch the results of the query
+        rows = cursor.fetchall()
+
+        # Convert rows to dictionaries and format uploadDate
+        allData = []
+
+        for row in rows:
+            filename_without_extension = os.path.splitext(row[1])[0]
+            result = {
+                'Unique_ID': row[0],
+                'filename': filename_without_extension,
+                'type': row[2]
+            }
+
+            allData.append(result)
+
+        # Close the connection
+        conn.close()
+   
+        if request.method == 'POST':
+            # If it's arequest, return the data in JSON format
+            return jsonify(allData)
+        else:
+            # If it's not a request, render the template
+            return render_template('database.html', data=allData)
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('database')
+        return redirect(url_for('login'))
+
+
+
+# Plotting page (query page simple version)
+@app.route('/plot')
+def plot_page():
+    if 'username' in session:
+        return render_template('plot.html')
+    else:
+        # Store the URL the user was trying to access in the session data
+        session['next'] = url_for('plot_page')
+        return redirect(url_for('login'))
+
+
 # Upload page
 @app.route('/upload')
 def upload_page():
@@ -209,11 +314,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY uploadDate DESC"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and deleted_by_user = 0 ORDER BY uploadDate DESC"
+            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and deleted_by_user = 0 ORDER BY filename"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -278,7 +383,6 @@ def logout():
 def update_deleted_by_user():
     data = request.json
     unique_id = data.get('removeFile')
-    print(unique_id)
     if unique_id:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -299,10 +403,11 @@ def get_admin_data():
 
     # GET-Request
     if request.method == 'GET':
-        # return config and all users
+        # return config without 'DOCKER_TOKEN' key
+        filtered_config = {key: value for key, value in config.items() if key != 'DOCKER_TOKEN' and key != 'SECRET_KEY'}
         users = User.query.all()
         usernames = [user.username for user in users]
-        return jsonify({"config": config, "users": usernames})
+        return jsonify({"config": filtered_config, "users": usernames})
     
     # POST-Request
     elif request.method == 'POST':
@@ -493,6 +598,7 @@ def init_db():
                 ttl BLOB,
                 Json_Specimen BLOB,
                 ttl_Specimen BLOB,
+                additional_file BLOB,
                 UploadDate TEXT,
                 Mapped INTEGER,
                 deleted_by_user BOOLEAN DEFAULT 0 NOT NULL,
@@ -516,7 +622,8 @@ def async_function(unique_id):
 
     # Lookup table for path
     paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
-             'Specimen': '../cpto/Specimen_KG_Template.ttl'}
+             'Specimen': '../cpto/Specimen_KG_Template.ttl',
+             'CompressiveStrength': '../cpto/CompressiveStrength_KG_Template.ttl'}
 
     def add_data(rowname, data):
         conn = get_db_connection()
@@ -574,11 +681,12 @@ def async_function(unique_id):
 
     # if json was uploaded
     if row['filetype'] == 'json':
-        json_data = json.loads(row['blob'].decode('utf-8'))
-        json_data['ID'] = unique_id
-        if row['type'] != 'Mixture':
-            json_data['mixtureID'] = row['Mixture_ID']
-        add_data('Json', json.dumps(json_data).encode('utf-8'))
+        if row['Json'] is None:
+            json_data = json.loads(row['blob'].decode('utf-8'))
+            json_data['ID'] = unique_id
+            if row['type'] != 'Mixture':
+                json_data['mixtureID'] = row['Mixture_ID']
+            add_data('Json', json.dumps(json_data).encode('utf-8'))
     else:
         if row['type'] == 'Mixture':
             json_data = mix_metadata(row['blob'], row['filename'])
@@ -593,7 +701,24 @@ def async_function(unique_id):
                 emodule_json['ID'] = row['unique_id']
                 specimen_json['ID'] = row['unique_id']
                 emodule_json['SpecimenID'] = row['unique_id']
+                specimen_json['MixtureID'] = row['Mixture_ID']
                 add_data('Json', json.dumps(emodule_json).encode('utf-8'))
+                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+        elif row['type'] == 'CompressiveStrength':
+            if row['filetype'] == 'dat':
+                # Process the raw data
+                processed_data = processed_rawdata(row['blob'], row['unique_id'])
+
+                # metadata extraction
+                mix_data = get_data(row['Mixture_ID'])
+                comSt_data= extract_metadata_ComSt(row['blob'],mix_data['Json'],processed_data)
+                comSt_json = comSt_data[0]
+                specimen_json = comSt_data[1]
+                comSt_json['ID'] = row['unique_id']
+                specimen_json['ID'] = row['unique_id']
+                comSt_json['SpecimenID'] = row['unique_id']
+                specimen_json['MixtureID'] = row['Mixture_ID']
+                add_data('Json', json.dumps(comSt_json).encode('utf-8'))
                 add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
 
     # Set ID and mixtureID in json!
@@ -648,6 +773,35 @@ def async_function(unique_id):
     add_data('Mapped', 1)
 
 
+def download_file_from_url(url):
+    parsed_url = urlparse(url)
+    
+    if 'view.officeapps.live.com' in parsed_url.netloc:
+        # Extract the actual file URL from the 'src' parameter
+        query_params = parse_qs(parsed_url.query)
+        if 'src' in query_params:
+            url = query_params['src'][0]
+    
+    domain = urlparse(url).netloc
+
+    if domain == 'github.com':
+        # Modify the URL to get the raw content URL for GitHub
+        url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
+
+    response = requests.get(url)
+    
+    logger.debug(f"URL: {url}")
+    logger.debug(f"Content-Type: {response.headers.get('Content-Type')}")
+    logger.debug(f"Content length: {len(response.content)}")
+
+    # Check if the response is HTML
+    if 'text/html' in response.headers.get('Content-Type', ''):
+        return None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
+
+    file_name = url.split('/')[-1]
+    file = FileStorage(BytesIO(response.content), filename=file_name)
+    return file, file_name, None
+
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
@@ -682,13 +836,9 @@ def data_upload():
                 file_name = file.filename
 
                 # Check if the file already exists in the database
-                cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
-                data = cursor.fetchone()
-
-                # If data is not None, then the file exist in the database
-                if data is not None:
+                if check_file_exists(file_name, cursor):
                     conn.close()
-                    return jsonify({'message': "This file already exists: " + file_name,
+                    return jsonify({'message': "File " + file_name + " already exists! ",
                                     'status': 409}), 200
                 else:
                     # extract file extension
@@ -718,23 +868,31 @@ def data_upload():
 
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
-        response = requests.get(url)
-        file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
-        file_name = url.split('/')[-1]
+
+        file, file_name, error_message = download_file_from_url(url)
+    
+        if error_message:
+            return jsonify({'message': error_message, 'status': 400}), 200
+        
+
+        # Check if the response is HTML
+        #if 'text/html' in response.headers['Content-Type']:
+        #   return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
+        #                   'status': 400}), 200
+    
+        #file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
+        #file_name = url.split('/')[-1]
         file_blob = file.read()
 
         # extract file extension
         _, file_extension = os.path.splitext(file.filename)
         filetype = file_extension.lstrip('.')
         if filetype not in file_types:
-            return jsonify({'error': 'Unsupported Type'}), 400
+            return jsonify({'message': "Invalid file type. Please provide a xls, csv, txt or dat file.",
+                            'status': 400}), 200
         
         # Check if the file already exists in the database
-        cursor.execute('SELECT * FROM uploads WHERE filename = ? and deleted_by_user = 0', (file_name,))
-        data = cursor.fetchone()
-
-        # If data is not None, then the file exists in the database
-        if data is not None:
+        if check_file_exists(file_name, cursor):
             conn.close()
             return jsonify({'message': "This file already exists.",
                             'status': 409}), 200
@@ -751,20 +909,178 @@ def data_upload():
             cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
                         (unique_id, file_name.split(".")[0]))
             conn.commit()
+
+            # start async function
+            thread = threading.Thread(target=async_function, args=(unique_id,))
+            thread.start()
+
     else:
         return jsonify({'error': 'No Data found'}), 400
 
     conn.close()
 
-    # start async function
-    #thread = threading.Thread(target=async_function, args=(unique_id,))
-    #thread.start()
-
+    
 
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
                     'status': 200}), 200
 
+
+#manually upload mixture
+@app.route('/new_mixture')
+def new_mixture():
+    return render_template('newMixture.html')
+
+@app.route('/submit_mixture', methods=['POST'])
+def submit_mixture():
+    try:
+        user = session.get('username')  # get username
+        if not user:
+            return jsonify({"status": 403, "message": "User not authenticated"}), 403
+    
+        mix_json = request.get_json()
+        if not mix_json:
+            return jsonify({"status": 400, "message": "No JSON data provided"}), 400
+
+        type = "Mixture" 
+        mixtureID = str(uuid.uuid4())
+        
+        try:
+            mixing_date = datetime.fromisoformat(mix_json['MixingDate'])
+        except KeyError:
+            return jsonify({"status": 400, "message": "MixingDate is required in the JSON data"}), 400
+        except ValueError:
+            return jsonify({"status": 400, "message": "Invalid MixingDate format"}), 400
+
+        # set human readable id and filename
+        date_part = mixing_date.strftime('%Y%m%d')
+        humanreadableID = f"{date_part}_{mixtureID[:4]}_M(input)"
+        mix_json['humanreadableID'] = humanreadableID
+        filename = f"{humanreadableID}.json"
+        
+        # current time
+        upload_date = datetime.now().isoformat()
+        
+        # Convert mix_json to a JSON string and then to bytes
+        json_blob = json.dumps(mix_json).encode('utf-8')
+
+        # Connect to the database
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO uploads 
+                (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (user, "json", filename, type, json_blob, mixtureID, mixtureID, upload_date, 0, 0))
+            conn.commit()
+            # start async function
+            thread = threading.Thread(target=async_function, args=(mixtureID,))
+            thread.start()
+        except Exception as e:
+            conn.rollback()
+            return jsonify({"status": 500, "message": f"Database error: {str(e)}"}), 500
+        finally:
+            conn.close()
+
+        return jsonify({"status": 200, "message": "Mixture submitted successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"status": 500, "message": f"An error occurred: {str(e)}"}), 500
+
+#manually upload compressiveStrength
+@app.route('/new_compressive_strength')
+def new_compressive_strength():
+    return render_template('newCompressiveStrength.html')
+
+@app.route('/submit_compressive_strength', methods=['POST'])
+def submit_compressive_strength():
+    user = session.get('username')  # get username
+    if not user:
+        return jsonify({"status": 403, "message": "User not authenticated"}), 403
+    
+    # Retrieve the file and JSON data from the form
+    file = request.files.get('file')
+    comst_json = request.form.get('comst')
+    specimen_json = request.form.get('specimen')
+
+    # Check if JSON data is provided
+    if not comst_json or not specimen_json:
+        return jsonify({"status": 400, "message": "No JSON data provided"}), 400
+    
+    comst = json.loads(comst_json)
+    specimen = json.loads(specimen_json)
+
+    # current time
+    upload_date = datetime.now().isoformat()
+
+    UniqueID = str(uuid.uuid4())
+    comst['ID'] = comst['specimenID'] = UniqueID
+    specimen['ID'] = UniqueID
+
+    filename = f"{comst['humanreadableID']}.json"
+    type = 'CompressiveStrength'
+
+    # Convert jsons to a JSON string and then to bytes
+    comst_json = json.dumps(comst).encode('utf-8')
+    specimen_json = json.dumps(specimen).encode('utf-8')
+
+    # Handle file upload and save as BLOB in the database
+    additional_file_blob = None
+    if file:
+        additional_file_blob = file.read()  # Read file content as binary
+        file_info = {
+            'filename': file.filename,
+            'content': base64.b64encode(additional_file_blob).decode('utf-8')
+
+        }
+        additional_file_blob = json.dumps(file_info).encode('utf-8')
+
+
+    # Connect to the database
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Check if the filename already exists
+        if check_file_exists(filename, cursor):
+            conn.close()
+            return jsonify({'message': f"Human-readable ID {comst['humanreadableID']} already exists!", 'status': 409}), 409
+        
+        cursor.execute('''
+            INSERT INTO uploads 
+            (user, filetype, filename, type, blob, Json, Json_Specimen, additional_file, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, additional_file_blob, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
+        conn.commit()
+        # start async function
+        thread = threading.Thread(target=async_function, args=(UniqueID,))
+        thread.start()
+    except Exception as e:
+        logger.debug(e)
+        conn.rollback()
+        return jsonify({"status": 500, "message": f"Database error: {str(e)}"}), 500
+    finally:
+        conn.close()
+    
+    return jsonify({"success": True})
+
+
+#manually upload emodule
+@app.route('/new_emodule')
+def new_emodule():
+    return render_template('newEmodule.html')
+
+
+@app.route('/getJson', methods=['GET'])
+def get_json():
+    if 'username' in session:
+        json_list = create_json_file()
+        logger.debug(1)
+        logger.debug(json_list)
+        return jsonify({'json': json_list})
+    else:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
 
 @app.route('/rawdownload')
 def raw_download():
@@ -819,7 +1135,6 @@ def raw_download():
 
     # Get the file ID from the URL parameters
     mixture_id = request.args.get('id')
-    print(mixture_id)
 
     if not mixture_id:
         abort(400, description="No file ID provided.")
@@ -874,6 +1189,26 @@ def raw_download():
             with open(output_path, 'wb') as file:
                 file.write(row["ttl_Specimen"])
 
+        if row["additional_file"]:
+            file_info = json.loads(row["additional_file"].decode('utf-8'))
+            file_content = base64.b64decode(file_info['content'])
+            original_filename = file_info['filename']
+
+            # Detect file type
+            file_type = magic.from_buffer(file_content, mime=True)
+            
+            # Ensure the filename has the correct extension
+            file_extension = mimetypes.guess_extension(file_type)
+            if file_extension and not original_filename.lower().endswith(file_extension.lower()):
+                original_filename += file_extension
+
+            # Path where the additional file will be saved
+            output_path = os.path.join(temp_directory, original_filename)
+
+            # Write additional_file data to a file
+            with open(output_path, 'wb') as file:
+                file.write(file_content)
+
         if row["Mixture_ID"] and row["Mixture_ID"] != row["Unique_ID"]:
             row2 = get_data(row["Mixture_ID"])
 
@@ -897,6 +1232,23 @@ def raw_download():
     else:
         # if no id found
         abort(400, description="No file ID provided.")
+
+
+def check_file_exists(filename, cursor):
+    """
+    Check if the file already exists in the database.
+
+    Args:
+    - filename (str): The name of the file to check.
+    - cursor (sqlite3.Cursor): The database cursor to execute the query.
+
+    Returns:
+    - bool: True if the file exists, False otherwise.
+    """
+    cursor.execute('SELECT * FROM uploads WHERE filename = ? AND deleted_by_user = 0', (filename,))
+    data = cursor.fetchone()
+    return data is not None
+
 
 if __name__ == '__main__':
     app.run(debug=True)

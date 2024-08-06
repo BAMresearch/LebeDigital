@@ -43,7 +43,7 @@ function executeSparqlQuery(query, table) {
                 table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
                 table.setData(data);        // Setzt die transformierten Daten
 
-                document.getElementById('downloadBtn').style.display = 'block'; //show download button
+                document.getElementById('downloadBtn').classList.replace("d-none", "d-md-flex"); //show download button
             } catch (error) {
                 document.getElementById('queryResults').innerHTML = 'Please insert a valid query. ' + error.message;
             }
@@ -67,7 +67,10 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
 
     table = new Tabulator("#resultsTable", {
     layout: "fitColumns",
-    placeholder: "Daten werden geladen..."
+    placeholder: "Loading Data...",
+    pagination:"local",
+    paginationSize:10,
+    paginationSizeSelector:[10, 50, 100],
     });
 
     // Führen Sie die Abfrage mit der definierten Funktion aus
