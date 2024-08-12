@@ -11,24 +11,33 @@
             fill it out and upload.</p>
     </div>
 
-    <form id="form" class="pt-2 pb-4">
+    <form id="form" class="row g-3 needs-validation pt-2 pb-4" novalidate>
 
-        <!-- Mixing Date, Lab, human readable id -->
+        <!-- Date, Lab, human readable id -->
         <div class="row mb-4">
             <div class="col-md-4">
-                <h6 class="clr-theme">Lab <span class="text-danger"> *</span></h6>
-                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name">
+                <h6 class="clr-theme">Lab </h6>
+                <input type="text" id="Lab" class="form-control" placeholder="Enter Lab Name" required>
+                <div class="invalid-feedback">
+                    Please provide a lab name.
+                </div>
             </div>
             <div class="col-md-3">
-                <h6 class="clr-theme">Mixing Date <span class="text-danger"> *</span></h6>
-                <input type="date" id="MixingDate" class="form-control" placeholder="dd/mm/yyyy">
+                <h6 class="clr-theme">Experiment Date </h6>
+                <input type="date" id="ExperimentDate" class="form-control" placeholder="dd/mm/yyyy" required>
+                <div class="invalid-feedback">
+                    Please provide a experiment date.
+                </div>
             </div>
             <div class="col-md-5">
-                <h6 class="clr-theme">Human-readable ID<span class="text-danger"> *</span></h6>
-                <input type="text" id="HumanReadableID" class="form-control" placeholder="date_project_name (e.g. 20241231_123_M123)">
+                <h6 class="clr-theme">Human-readable ID</h6>
+                <input type="text" id="HumanReadableID" class="form-control" placeholder="date_project_name (e.g. 20241231_123_M123)" required>
+                <div class="invalid-feedback" id="IDFeedback">
+                    Please provide a unique human-readable ID.
+                </div>
             </div>
         </div>
-
+    
         <div class="row">
             <div class="col-md-5">
                 <div class="card bg-extra-light-blue p-4" style="border: 0;">
@@ -36,101 +45,130 @@
                     <!-- Specimen Age -->
                     <div class="col-md-10 mb-2">
                         <p class="mb-1">Age</p>
-                    
                         <div class="input-group">
-                            <input type="number" step="any" id="SpecimenAge" class="form-control" placeholder="">
+                            <input type="number" step="any" id="SpecimenAge" class="form-control" placeholder="" required>
                             <a href="https://qudt.org/vocab/unit/DAY" target="_blank" style="text-decoration: none;">
-                                <span class="input-group-text unit-link clr-theme">day</span>
+                                <span class="input-group-text unit-link clr-theme">Day</span>
                             </a>
+                            <div class="invalid-feedback">
+                                Please provide an age.
+                            </div>
                         </div>
                     </div>
 
                     <!-- Specimen Mass -->
                     <div class="col-md-10 mb-2">
-                     
                         <p class="mb-1">Mass</p>
-                  
                         <div class="input-group">
-                            <input type="number" step="any" id="SpecimenMass" class="form-control" placeholder="">
+                            <input type="number" step="any" id="SpecimenMass" class="form-control" placeholder="" required>
                             <a href="https://qudt.org/vocab/unit/GM" target="_blank" style="text-decoration: none;">
                                 <span class="input-group-text unit-link clr-theme">g</span>
                             </a>
+                            <div class="invalid-feedback">
+                                Please provide a mass.
+                            </div>
                         </div>
-                  
                     </div>
 
-                     <!-- Specimen Shape -->
-                     <div class="col-md-10 mb-2">
-                      
-                        <p class="mb-2">Shape</h6>
-                  
-                        <select class="form-select" id="SpecimenShape">
-                            <option selected>Select a Shape</option>
+                    <!-- Specimen Shape -->
+                    <div class="col-md-10 mb-2">
+                        <p class="mb-1">Shape</p>
+                        <select class="form-select" id="SpecimenShape" required onchange="toggleSpecimenDimensions()">
+                            <option value="" disabled selected hidden>Select a Shape</option>
                             <option value="cylindrical">cylindrical</option>
                             <option value="prism">prism</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Please select a shape.
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- Specimen Height -->
+                    <div class="col-md-10 mb-2" id="SpecimenHeightDiv" style="display: none;">
+                        <p class="mb-1">Height/Thickness</p>
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="" required>
+                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">mm</span>
+                            </a>
+                            <div class="invalid-feedback">
+                                Please provide a height.
+                            </div>
+                        </div>
                     </div>
         
-                    <!-- Specimen Height -->
-                    <div class="col-md-10 mb-2">
-                   
-                        <p class="mb-1">Height</p>
-                    
+                    <!-- Specimen Diameter (only for cylindrical) -->
+                    <div class="col-md-10 mb-2" id="SpecimenDiameterDiv" style="display: none;">
+                        <p class="mb-1">Diameter</p>
                         <div class="input-group">
-                            <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="">
-                            <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                            <input type="number" step="any" id="SpecimenDiameter" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
                                 <span class="input-group-text unit-link clr-theme">mm</span>
                             </a>
                         </div>
+                    </div>
                     
+                    <!-- Specimen Length (for cube and prism) -->
+                    <div class="col-md-10 mb-2" id="SpecimenLengthDiv" style="display: none;">
+                        <p class="mb-1">Length</p>
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenLength" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">mm</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Specimen Width (for cube and prism) -->
+                    <div class="col-md-10 mb-2" id="SpecimenWidthDiv" style="display: none;">
+                        <p class="mb-1">Width</p>
+                        <div class="input-group">
+                            <input type="number" step="any" id="SpecimenWidth" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">mm</span>
+                            </a>
+                        </div>
                     </div>
         
-                    <!-- Specimen Length -->
-                    <div class="col-md-10 mb-2">
-                       
-                            <p class="mb-1">Length</p>
-        
-                            <div class="input-group">
-                                <input type="number" step="any" id="SpecimenLength" class="form-control" placeholder="">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">mm</span>
-                                </a>
-                            </div>
-                       
-                    </div>
                 </div>
             </div>
 
             <div class="col-md-7">
                 <div class="card bg-extra-light-blue p-4" style="border: 0;">
-                    <div id="mixtureDetails" class="mb-2">
-                        <h6 class="mb-2">Which Concrete Mixture did you use? <span class="text-danger">*</span></h6>
+                    <div id="mixtureDetails" class="mb-4">
+                        <h6 class="mb-2">Which Concrete Mixture did you use? </h6>
                        
-                        <select id="mixtures" style="width: 65%;">
+                        <select id="mixtures" class="form-select" style="width: 65%;" required>
                             <option selected disabled hidden>Select a mixture</option>
                             <!-- Options will be populated here by JavaScript -->
                         </select>
+                        <div class="invalid-feedback" id="mixture-error">
+                            Please select a mixture.
+                        </div>
 
-                        <p class="small pt-2">* You must select a mixture before uploading Compressive Strength. <br>
+                        <p class="small pt-2">
                             If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
                     </div>
 
                     <!-- E-Module -->
-                    <div class="row mb-4">
+                    <div class="mb-4">
                         <div class="col-md-12">
-                            <h6>E-Module</h6>
+                            <h6>Input E-Module</h6>
                         </div>
                         <div class="col-md-8">
                             <div class="input-group">
-                                <input type="number" step="any" id="EModule" class="form-control" placeholder="">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                <input type="number" step="any" id="EModule" class="form-control" placeholder="" required>
+                                <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
                                     <span class="input-group-text unit-link clr-theme">
-                                        N/mm2
+                                        N/mm²
                                     </span>
                                 </a>
+                                <div class="invalid-feedback">
+                                    Please provide E-Module.
+                                </div>
                             </div>
                         </div>
-                    
                     </div>
         
                     <!-- Compressive Strength -->
@@ -140,30 +178,33 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group">
-                                <input type="number" step="any" id="CompressiveStrength" class="form-control" placeholder="">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                <input type="number" step="any" id="CompressiveStrength" class="form-control" placeholder="" required>
+                                <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
                                     <span class="input-group-text unit-link clr-theme">
-                                        N/mm2
+                                        N/mm²
                                     </span>
                                 </a>
+                                <div class="invalid-feedback">
+                                    Please provide Compressive Strength.
+                                </div>
                             </div>
                         </div>
-                    
                     </div>
 
                     <div class="mb-2 col-md-8">
                         <h6>Additional File</h6>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" id="fileInput">
+                        <div class="invalid-feedback" id="file-error">
+                            File size exceeds 2MB. Please choose a smaller file.
+                        </div>
                     </div>
         
                 </div>
             </div>
-
-            
         </div>
-    
+        
         <div class="pt-4">
-            <button type="button" class="btn btn-theme" onclick="submitForm(event)">Submit</button>
+            <button class="btn btn-theme" type="submit">Submit</button>
         </div>
     </form>    
 </div>
@@ -184,14 +225,138 @@
         </div>
     </div>
 </div>
+
+
 <script src="/static/js/getMixtures.js"></script>
+<script src="/static/js/specimenShape.js"></script>
+
 <script>
-    function submitForm(event) {
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the mixtureId from the URL if it exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMixtureId = urlParams.get('mixtureId');
+    var mixtureID = urlMixtureId
+
+    $('#mixtures').on('change', function() {
+        mixtureID = this.value;
+        document.getElementById("mixture-error").style.display = 'none';
+    });
+
+    // File size validation (2MB limit)
+    $('#fileInput').on('change', function() {
+        var file = this.files[0];
+        if (file && file.size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+            document.getElementById("file-error").style.display = 'block';
+            this.value = ''; // Clear the input
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
         event.preventDefault();
-
         
-    }
-</script>
+        if (!this.checkValidity()) {
+            console.log('Form is invalid');
+            event.stopPropagation();
+            this.classList.add('was-validated');
+            return;
+        }
 
+        if (mixtureID == null) {
+            console.log('mixtureID is null');
+            document.getElementById("mixture-error").style.display = 'block';
+            return;
+        }
+        console.log('Preparing to send data');
+
+        // Create emodule JSON object
+        var emoduleJson = {
+            humanreadableID: document.getElementById('HumanReadableID').value,
+            Lab: document.getElementById('Lab').value,
+            ExperimentDate: document.getElementById('ExperimentDate').value,
+            RawDataFile: "Download",
+            EModule: document.getElementById('EModule').value || 0,
+            EModule_Unit: "N/mm^2", 
+            CompressiveStrength: document.getElementById('CompressiveStrength').value || null,
+            CompressiveStrength_Unit: "N/mm^2",
+            SpecimenAge: document.getElementById('SpecimenAge').value || null,
+            SpecimenAge_Unit: "day"
+        };
+
+        // Create specimen details JSON object
+        var specimenJson = {
+            humanreadableID: document.getElementById('HumanReadableID').value,
+            MixtureID: mixtureID,
+            SpecimenMass: document.getElementById('SpecimenMass').value || null,
+            SpecimenMass_Unit: "g",
+            SpecimenShape: document.getElementById('SpecimenShape').value || null,
+            SpecimenHeight: document.getElementById('SpecimenHeight').value || null,
+            SpecimenHeight_Unit: "mm"
+        };
+
+        var specimenDiameter = document.getElementById('SpecimenDiameter').value;
+        if (specimenDiameter) {
+            specimenJson.SpecimenDiameter = specimenDiameter;
+            specimenJson.SpecimenDiameter_Unit = "mm";
+            specimenJson.HeightDiameterRatio = document.getElementById('SpecimenHeight').value / specimenDiameter;
+        }
+
+        var specimenLength = document.getElementById('SpecimenLength').value;
+        if (specimenLength) {
+            specimenJson.SpecimenLength = specimenLength;
+            specimenJson.SpecimenLength_Unit = "mm";
+            specimenJson.HeightLengthRatio = document.getElementById('SpecimenHeight').value / specimenLength;
+        }
+
+        var specimenWidth = document.getElementById('SpecimenWidth').value;
+        if (specimenWidth) {
+            specimenJson.SpecimenWidth = specimenWidth;
+            specimenJson.SpecimenWidth_Unit = "mm";
+        }
+
+        // Create FormData object to handle file and JSON data
+        var formData = new FormData();
+        formData.append('emodule', JSON.stringify(emoduleJson));
+        formData.append('specimen', JSON.stringify(specimenJson));
+
+        // Get the file input element and add the file to FormData
+        var fileInput = document.getElementById('fileInput');
+        if (fileInput.files.length > 0) {
+            formData.append('file', fileInput.files[0]);
+        }
+        
+
+        // Send data to server
+        fetch('/submit_emodule', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success toast
+                document.getElementById('message').textContent = "E-Module submitted successfully!";
+                new bootstrap.Toast(document.getElementById('liveToast')).show();
+            } else {
+                if (data.status == 409) {
+                    //focus on the Human-readable ID field
+                    document.getElementById('HumanReadableID').style.borderColor = 'red';
+                    document.getElementById('IDFeedback').style.display = 'block'
+                }
+                // Show error toast
+                const errorMessage = data.message || "Error submitting data. Please try again.";
+                document.getElementById('error-message').textContent = errorMessage;
+                new bootstrap.Toast(document.getElementById('liveToastError')).show();
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Show error toast
+            document.getElementById('error-message').textContent = "An error occurred. Please try again.";
+            new bootstrap.Toast(document.getElementById('liveToastError')).show();
+        });
+
+    });
+});
+</script>
 
 {% endblock %}

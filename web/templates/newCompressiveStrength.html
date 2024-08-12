@@ -299,12 +299,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (specimenDiameter) {
             specimenJson.SpecimenDiameter = specimenDiameter;
             specimenJson.SpecimenDiameter_Unit = "mm";
+            specimenJson.HeightDiameterRatio = document.getElementById('SpecimenHeight').value / specimenDiameter;
         }
 
         var specimenLength = document.getElementById('SpecimenLength').value;
         if (specimenLength) {
             specimenJson.SpecimenLength = specimenLength;
             specimenJson.SpecimenLength_Unit = "mm";
+            specimenJson.HeightLengthRatio = document.getElementById('SpecimenHeight').value / specimenLength;
         }
 
         var specimenWidth = document.getElementById('SpecimenWidth').value;
