@@ -54,7 +54,7 @@ def xml_to_json(xml_binary, mix_json):
                 date_protegeformat = date_only.strftime('%Y-%m-%d') + "T" + value.split(" ")[1]
                 emodul_data['ExperimentDate'] = str(date_protegeformat)
             elif name == 'Probenname':
-                emodul_data['humanreadableID'] = value
+                specimen_data['humanreadableID'] = value
             elif name == 'TestRunName':
                 emodul_data['TestRunName'] = value
             elif name == 'E_Modul':

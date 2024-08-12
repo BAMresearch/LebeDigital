@@ -181,28 +181,28 @@ def placeholderreplacement(kgPath, metadata):
     else:
         logger.debug('All ' + str(len(kgPHcounter)) + ' placeholders within the KG template received metadata.')
 
-    mappedKG_content = ''.join(lines)  # Konvertiere die Liste in einen einzigen String
+    mappedKG_content = ''.join(lines)  # Convert the list into a single string
 
     if remainingPH:
         # Remove not mapped data
         g = Graph()
         g.parse(data=mappedKG_content, format='turtle')
 
-        # Liste der zu löschenden Tripel vorbereiten
+        # Prepare list of triples to be deleted
         to_remove = []
 
-        # Kriterium für das Löschen festlegen
+        # Set criterion for deletion
         for text_to_search in remainingPH:
-            # Tripel finden, die gelöscht werden sollen
+            # Find triples to be deleted
             for s, p, o in g:
                 if text_to_search in str(o) or text_to_search in str(s):
                     to_remove.append((s, p, o))
 
-        # Tripel löschen
+        # Delete triple
         for s, p, o in to_remove:
             g.remove((s, p, o))
 
-        # Änderungen speichern: Den Graph wieder in eine TTL-Datei schreiben
+        # Save changes: Write the graph back to a TTL file
         mappedKG_bytes = g.serialize(format="turtle").encode('UTF-8')
     else:
         mappedKG_bytes = mappedKG_content.encode('utf-8')
