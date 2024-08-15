@@ -42,10 +42,10 @@ table.on("cellClick", function(e, cell) {
         var selectedName = document.getElementById('selectedName');
         selectedName.textContent = enteredName; 
         
-    } else if (field == "Einheit") {
+    } else if (field == "Unit") {
         var url = "https://qudt.org/vocab/unit/" + encodeURIComponent(value);
         window.open(url, "_blank");
-    } else if (field == "Wert" && value == "Download") {
+    } else if (field == "Value" && value == "Download") {
         var id = document.getElementById('fileID').value;
         fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
             method: 'GET'
@@ -66,7 +66,7 @@ table.on("cellClick", function(e, cell) {
             console.error('There has been a problem with your fetch operation:', error);
         });
     } else {
-        console.log(`Geklickt auf Spalte: ${field} mit Wert: ${value}`);
+        console.log(`Geklickt auf Spalte: ${field} mit Value: ${value}`);
     }
 });
 
@@ -77,12 +77,12 @@ async function create_query(enteredName, fileType){
     // Show all Info from a specific file
     if (enteredName !== ""){
         query = `
-        SELECT ?Bestandteil ?Wert ?Einheit WHERE {
+        SELECT ?Component ?Value ?Unit WHERE {
         ?g ?p "${enteredName}".
         BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-        ?Bestandteil <https://w3id.org/pmd/co/value> ?Wert.
-        OPTIONAL { ?Bestandteil <https://w3id.org/pmd/co/unit> ?Einheit. }
-        FILTER(STRENDS(STR(?Bestandteil), ?suffix))
+        ?Component <https://w3id.org/pmd/co/value> ?Value.
+        OPTIONAL { ?Component <https://w3id.org/pmd/co/unit> ?Unit. }
+        FILTER(STRENDS(STR(?Component), ?suffix))
         }`;
         console.log(query)
     }
@@ -143,10 +143,10 @@ function createTable(tableData){
             };
     
             // Add formatter to specific columns
-            if (varName == "Name" || varName == "ID" || varName == "Einheit" || varName == "Wert") {
+            if (varName == "Name" || varName == "ID" || varName == "Unit" || varName == "Value") {
                 column.formatter = function(cell) {
                     var value = cell.getValue();
-                    if (value == "Download" || varName == "Einheit") {
+                    if (value == "Download" || varName == "Unit") {
                         return "<span class='text-primary'><u>" + value + "</u></span>";
                     } else {
                         return value;
@@ -167,7 +167,7 @@ function createTable(tableData){
             vars.forEach(varName => {
                 // Prüft, ob das Objekt existiert, bevor auf .value zugegriffen wird
                 let rawValue = binding[varName] ? binding[varName].value : "";
-                // Reinigt den Wert vor der Zuweisung zum row-Objekt
+                // Reinigt den Value vor der Zuweisung zum row-Objekt
                 let cleanedValue = cleanEntry(rawValue);
                 row[varName] = cleanedValue;
             });

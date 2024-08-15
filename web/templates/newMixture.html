@@ -5,7 +5,7 @@
 {% block content %}
 <div class="content col-12 p-2">
     <h5>Enter Your Mixture Details</h5>
-    <div class="callout">
+    <div class="callout small">
         <p><strong>Pro Tip:</strong> For a quicker process, please upload your Mixture from the <a style="text-decoration: none;" href="/upload">Upload Data</a> page.</p>
         <p class="mb-0">Note that on this page, you can only enter basic details manually. <br>If you have more details, we recommend you to <a style="text-decoration: none;" href="">Download</a> the standard template for Mixture, 
             fill it out and upload.</p>
@@ -27,178 +27,299 @@
             </div>
 
         </div>
-    
+
+        <!-- Binder -->
         <div class="card bg-extra-light-blue p-4" style="border: 0;">
-        <!-- Cement -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h6>Cement</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Cement1_Content" class="form-control" placeholder="Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
+            <div id="binder-container">
+                <h6>Binders</h6>
+                <div id="binder-list"  >
+                    <div class="row g-3 binder-entry pb-3">
+                        
+                        <div class="col-md-3">
+                            <input type="text" class="form-control binder-art" placeholder="Art (e.g. Cement)">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control binder-type" placeholder="Type (e.g. CEM 1)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control binder-manufacturer" placeholder="Manufacturer">
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control binder-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control binder-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Cement1_Density" class="form-control" placeholder="Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">
-                            kg/dm³
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="Cement1_Type" class="form-control" placeholder="Type">
+                
+                <a href="" style="text-decoration: none;" class="add-binder">
+                    + Add another Binder
+                </a>
             </div>
         </div>
-    
+
         <!-- Water -->
-        <div class="row mb-4">
-            <div class="col-md-12">
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="water-container">
                 <h6>Water</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Water_Content" class="form-control" placeholder="Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">
-                            kg/m³
-                        </span>
-                    </a>
+                <div id="water-list"  >
+                    <div class="row g-3 water-entry pb-3">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control water-total" placeholder="Total">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control water-effective" placeholder="Effective">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control water-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Water_Density" class="form-control" placeholder="Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">
-                            kg/dm³
-                        </span>
-                    </a>
-                </div>
+                    
             </div>
         </div>
     
-        <!-- Admixture -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h6>Admixture</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Admixture1_Content" class="form-control" placeholder="Admixture 1 Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Admixture1_Density" class="form-control" placeholder="Admixture 1 Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="Admixture1_Type" class="form-control" placeholder="Admixture 1 Type">
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="input-group">
-                    <input type="number" step="any" id="Admixture2_Content" class="form-control" placeholder="Admixture 2 Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="input-group">
-                    <input type="number" step="any" id="Admixture2_Density" class="form-control" placeholder="Admixture 2 Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <input type="text" id="Admixture2_Type" class="form-control" placeholder="Admixture 2 Type">
-            </div>
-        </div>
-    
-        <!-- Addition -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h6>Addition</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Addition1_Content" class="form-control" placeholder="Addition 1 Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Addition1_Density" class="form-control" placeholder="Addition 1 Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="Addition1_Type" class="form-control" placeholder="Addition 1 Type">
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="input-group">
-                    <input type="number" step="any" id="Addition2_Content" class="form-control" placeholder="Addition 2 Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="input-group">
-                    <input type="number" step="any" id="Addition2_Density" class="form-control" placeholder="Addition 2 Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <input type="text" id="Addition2_Type" class="form-control" placeholder="Addition 2 Type">
-            </div>
-        </div>
-    
+
         <!-- Aggregate -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h6>Aggregate</h6>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Aggregate1_Content" class="form-control" placeholder="Content">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                    </a>
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="aggregate-container">
+                <h6>Aggregates</h6>
+                <div id="aggregate-list"  >
+                    <div class="row g-3 aggregate-entry pb-3">
+                        
+                        <div class="col-md-2">
+                            <input type="text" class="form-control aggregate-art" placeholder="Art (e.g. Sand)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control aggregate-fraction" placeholder="Fraction (e.g. 0/0.3)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control aggregate-type" placeholder="Type (e.g. Quarz)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control aggregate-manufacturer" placeholder="Manufacturer">
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control aggregate-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control aggregate-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <input type="number" step="any" id="Aggregate1_Density" class="form-control" placeholder="Density">
-                    <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                        <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="Aggregate1_Size" class="form-control" placeholder="Size">
+                
+                <a href="" style="text-decoration: none;" class="add-aggregate">
+                    + Add another Aggregate
+                </a>
             </div>
         </div>
+
+        <!-- Addition -->
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="addition-container">
+                <h6>Additions</h6>
+                <div id="addition-list"  >
+                    <div class="row g-3 addition-entry pb-4">
+                        
+                        <div class="col-md-3">
+                            <input type="text" class="form-control addition-art" placeholder="Art (e.g. Inert)">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control addition-type" placeholder="Type (e.g. FA)">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control addition-product" placeholder="Product Name">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control addition-manufacturer" placeholder="Manufacturer">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control addition-solid" placeholder="Solid Content">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control addition-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control addition-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <a href="" style="text-decoration: none;" class="add-addition">
+                    + Add another Addition
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Admixture -->
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="admixture-container">
+                <h6>Admixtures</h6>
+                <div id="admixture-list">
+                    <div class="row g-3 admixture-entry pb-3">
+                        
+                        <div class="col-md-2">
+                            <input type="text" class="form-control admixture-art" placeholder="Art (e.g. FM)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control admixture-type" placeholder="Type (e.g. Chemie)">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control admixture-product" placeholder="Product Name">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control admixture-manufacturer" placeholder="Manufacturer">
+                        </div>
+                    
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control admixture-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control admixture-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <a href="" style="text-decoration: none;" class="add-admixture">
+                    + Add another Admixture
+                </a>
+            </div>
+        </div>
+
+        <!-- Fiber -->
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="fiber-container">
+                <h6>Fibers</h6>
+                <div id="fiber-list">
+                    <div class="row g-3 fiber-entry pb-3">
+                        
+                        <div class="col-md-2">
+                            <input type="text" class="form-control fiber-art" placeholder="Art">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control fiber-type" placeholder="Type">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control fiber-name" placeholder="Name">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control fiber-manufacturer" placeholder="Manufacturer">
+                        </div>
+                    
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control fiber-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control fiber-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <a href="" style="text-decoration: none;" class="add-fiber">
+                    + Add another Fiber
+                </a>
+            </div>
+        </div>
+
+        <!-- Air Content -->
+        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+            <div id="air-container">
+                <h6>Air Content</h6>
+                <div id="air-list">
+                    <div class="row g-3 air-entry pb-3">
+                    
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control air-density" placeholder="Density">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="number" step="any" class="form-control air-amount" placeholder="Amount">
+                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     
         <div class="pt-4">
@@ -225,89 +346,43 @@
 </div>
 
 <script>
-    function submitForm(event) {
-        event.preventDefault();
 
-      
-
-        const jsonData = {
-                Lab: document.getElementById('Lab').value,
-                MixingDate: document.getElementById('MixingDate').value,
-                humanreadableID: document.getElementById('HumanReadableID').value,
-                RawDataFile: "Download",
-                Cement1_Content: parseFloat(document.getElementById('Cement1_Content').value) || 0,
-                Cement1_Content_Unit: "kg/m^3",
-                Cement1_Density: parseFloat(document.getElementById('Cement1_Density').value) || 0,
-                Cement1_Density_Unit: "kg/dm^3",
-                Cement1_Type: document.getElementById('Cement1_Type').value || null, 
-                Water_Content: parseFloat(document.getElementById('Water_Content').value) || 0,
-                Water_Content_Unit: "kg/m^3",
-                Water_Density: parseFloat(document.getElementById('Water_Density').value) || 0,
-                Water_Density_Unit: "kg/dm^3",
-                WaterCementRatio: (parseFloat(document.getElementById('Water_Content').value) / (parseFloat(document.getElementById('Cement1_Content').value) || 1)).toFixed(2),
-                Admixture1_Content: parseFloat(document.getElementById('Admixture1_Content').value) || 0,
-                Admixture1_Content_Unit: "kg/m^3",
-                Admixture1_Density: parseFloat(document.getElementById('Admixture1_Density').value) || 0,
-                Admixture1_Density_Unit: "kg/dm^3",
-                Admixture1_Type: document.getElementById('Admixture1_Type').value || null, 
-                Admixture2_Content: parseFloat(document.getElementById('Admixture2_Content').value) || 0,
-                Admixture2_Content_Unit: "kg/m^3",
-                Admixture2_Density: parseFloat(document.getElementById('Admixture2_Density').value) || 0,
-                Admixture2_Density_Unit: "kg/dm^3",
-                Admixture2_Type: document.getElementById('Admixture2_Type').value || null, 
-                Addition1_Content: parseFloat(document.getElementById('Addition1_Content').value) || 0,
-                Addition1_Content_Unit: "kg/m^3",
-                Addition1_Density: parseFloat(document.getElementById('Addition1_Density').value) || 0, 
-                Addition1_Density_Unit: "kg/dm^3",
-                Addition1_Type: document.getElementById('Addition1_Type').value || null, 
-                Addition2_Content: parseFloat(document.getElementById('Addition2_Content').value) || 0,
-                Addition2_Content_Unit: "kg/m^3",
-                Addition2_Density: parseFloat(document.getElementById('Addition2_Density').value) || 0,
-                Addition2_Density_Unit: "kg/dm^3",
-                Addition2_Type: document.getElementById('Addition2_Type').value || null,
-                Aggregate1_Content: parseFloat(document.getElementById('Aggregate1_Content').value) || 0,
-                Aggregate1_Content_Unit: "kg/m^3",
-                Aggregate1_Density: parseFloat(document.getElementById('Aggregate1_Density').value) || 0,
-                Aggregate1_Density_Unit: "kg/dm^3",
-                Aggregate1_Size: document.getElementById('Aggregate1_Size').value || null, 
-                Aggregate1_Size_Unit: null, 
-            };
-
-        console.log(JSON.stringify(jsonData)); // Print JSON to console or send it to a server
-        // Example: fetch('/your-endpoint', { method: 'POST', body: JSON.stringify(jsonData) });
-
-        fetch('/submit_mixture', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(jsonData), 
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => Promise.reject(err));
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.status === 200) {
-                document.getElementById("message").innerHTML = data.message;
-                const toastLiveExample = document.getElementById('liveToast');
-                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-                toastBootstrap.show();  
-            } else {
-                throw new Error(data.message);
-            }
-        })
-        .catch((error) => {
-            console.error('Failed:', error);
-            document.getElementById("error-message").innerHTML = error.message || "An error occurred";
-            const toastLiveExample = document.getElementById('liveToastError');
-            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-            toastBootstrap.show();
+    function createDynamicInput(list, clone, link){
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default link behavior
+            const newInputs = clone.cloneNode(true);
+            newInputs.querySelectorAll('input').forEach(input => input.value = '');
+            list.appendChild(newInputs);
         });
+
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let binderList = document.getElementById('binder-list');
+        let binderClone = binderList.querySelector('.binder-entry');
+        let binderLink = document.querySelector('.add-binder');
+        createDynamicInput(binderList, binderClone, binderLink);
+
+        let aggregateList = document.getElementById('aggregate-list');
+        let aggregateClone = aggregateList.querySelector('.aggregate-entry');
+        let aggregateLink = document.querySelector('.add-aggregate');
+        createDynamicInput(aggregateList, aggregateClone, aggregateLink);
+
+        let additionList = document.getElementById('addition-list');
+        let additionClone = additionList.querySelector('.addition-entry');
+        let additionLink = document.querySelector('.add-addition');
+        createDynamicInput(additionList, additionClone, additionLink);
+
+        let admixtureList = document.getElementById('admixture-list');
+        let admixtureClone = admixtureList.querySelector('.admixture-entry');
+        let admixtureLink = document.querySelector('.add-admixture');
+        createDynamicInput(admixtureList, admixtureClone, admixtureLink);
+
+        let fiberList = document.getElementById('fiber-list');
+        let fiberClone = fiberList.querySelector('.fiber-entry');
+        let fiberLink = document.querySelector('.add-fiber');
+        createDynamicInput(fiberList, fiberClone, fiberLink);
+    });
 </script>
 
 

@@ -91,11 +91,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ '/Settings' in active_page and 'active' or '' }}" href="/settings">
-                                <i class="clr-theme fas fa-cog"></i>&nbsp;&nbsp; Settings
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             {% if session['username'] %}
                                 <a class="nav-link" href="/logout"><i class="clr-theme fas fa-sign-out-alt"></i>&nbsp;  Sign out</a>
                             {% else %}
