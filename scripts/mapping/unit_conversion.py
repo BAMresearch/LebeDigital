@@ -19,8 +19,6 @@ def unit_conversion(input_metadata):
                      "dm^3": "http://qudt.org/vocab/unit/DeciM3",
                      "day": "https://qudt.org/vocab/unit/DAY",
                      "MPa": "http://qudt.org/vocab/unit/MegaPA",
-                     "cylindrical": "https://w3id.org/cpto/Cylinder",
-                     "cubical":  "https://w3id.org/cpto/Cube",
                      "N/mm^2": "http://qudt.org/vocab/unit/N-PER-MilliM2",
                      "mm^2": "http://qudt.org/vocab/unit/MilliM2",
                      "g/mm^3": "http://qudt.org/vocab/unit/GM-PER-CentiM3",

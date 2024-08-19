@@ -19,7 +19,7 @@ ns1:TestSpecimen_ a owl:NamedIndividual,
     ns4:hasIdentifier ns1:ID_,
         ns1:MixtureID_,
         ns1:humanreadableID_ ;
-    co:characteristic <https://w3id.org/cpto/##SpecimenShape_Unit##>,
+    co:characteristic <https://w3id.org/cpto/##SpecimenShape##>,
         ns1:SpecimenDiameter_,
         ns1:SpecimenLength_,
         ns1:SpecimenMass_,
@@ -44,7 +44,7 @@ co:value a owl:DatatypeProperty .
 <https://w3id.org/cpto/##SpecimenMass_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/##SpecimenShape_Unit##> a owl:NamedIndividual,
+<https://w3id.org/cpto/##SpecimenShape##> a owl:NamedIndividual,
         co:GeometryShape .
 
 <https://w3id.org/cpto/##SpecimenWidth_Unit##> a ns3:Unit,

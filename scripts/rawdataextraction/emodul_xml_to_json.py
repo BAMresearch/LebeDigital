@@ -66,15 +66,17 @@ def xml_to_json(xml_binary, mix_json):
             elif name == 'Durchmesser':
                 specimen_data['SpecimenDiameter'] = float(value)
                 specimen_data['SpecimenDiameter_Unit'] = var_data.find('Unit').text
+                has_diameter = True
             elif name == 'Länge':
                 specimen_data['SpecimenLength'] = float(value)
                 specimen_data['SpecimenLength_Unit'] = var_data.find('Unit').text
+                has_length = True
             elif name == 'Masse':
                 specimen_data['SpecimenMass'] = float(value)
                 specimen_data['SpecimenMass_Unit'] = var_data.find('Unit').text
             elif name == 'Grundfläche':
-                specimen_data['SpecimenArea'] = float(value)
-                specimen_data['SpecimenArea_Unit'] = var_data.find('Unit').text
+                specimen_data['SpecimenBaseArea'] = float(value)
+                specimen_data['SpecimenBaseArea_Unit'] = var_data.find('Unit').text
             elif name == 'Rohdichte':
                 specimen_data['SpecimenRawDensity'] = float(value)
                 specimen_data['SpecimenRawDensity_Unit'] = var_data.find('Unit').text
@@ -82,8 +84,14 @@ def xml_to_json(xml_binary, mix_json):
                 emodul_data['ExtensometerLength'] = float(value)
                 emodul_data['ExtensometerLength_Unit'] = var_data.find('Unit').text
             elif name == 'Dehnung':
-                emodul_data['SpecimenStrain'] = float(value)
-                emodul_data['SpecimenStrain_Unit'] = var_data.find('Unit').text
+                emodul_data['Strain'] = float(value)
+                emodul_data['Strain_Unit'] = var_data.find('Unit').text
+
+    # Set specimen shape based on presence of diameter and length
+    if has_diameter and has_length:
+        specimen_data['SpecimenShape'] = 'Cylinder'
+    else:
+        specimen_data['SpecimenShape'] = 'Cube'
 
     json_data = json.loads(mix_json.decode('utf-8'))
 
@@ -120,8 +128,5 @@ def xml_to_json(xml_binary, mix_json):
             decoded_value = re.sub(r'³', '^3', decoded_value)
 
             specimen_data[key] = decoded_value
-
-    # !!!! ONLY FOR TESTING
-    specimen_data['SpecimenShape_Unit'] = "cylindrical"
 
     return [emodul_data, specimen_data]
