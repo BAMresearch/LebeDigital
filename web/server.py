@@ -944,16 +944,16 @@ def submit_mixture():
         # Filter out keys with empty values
         filtered_form_data = {key: value for key, value in form_data.items() if value}
         
-        # Convert the filtered form data to JSON
-        mix_json = json.dumps(filtered_form_data)
-        
         # current time
         upload_date = datetime.now().isoformat()
         type = "Mixture" 
         mixtureID = str(uuid.uuid4())
-        filename = f"{mix_json['HumanReadableID']}.json"
+        filename = f"{filtered_form_data['HumanReadableID']}.json"
+        fileType = 'json'
+        print(filename)
 
-        json_blob = mix_json.encode('utf-8')
+        json_blob = json.dumps(filtered_form_data).encode('utf-8')
+        print("JSON Blob size:", len(json_blob))  # For debugging
 
         # Connect to the database
         try:
@@ -963,13 +963,13 @@ def submit_mixture():
             # Check if the filename already exists
             if check_file_exists(filename, cursor):
                 conn.close()
-                return jsonify({'message': f"Human-readable ID {mix_json['HumanReadableID']} already exists!", 'status': 409}), 409
+                return jsonify({'message': f"Human-readable ID {filtered_form_data['HumanReadableID']} already exists!", 'status': 409}), 409
         
             cursor.execute('''
                 INSERT INTO uploads 
                 (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (user, "json", filename, type, json_blob, mixtureID, mixtureID, upload_date, 0, 0))
+            ''', (user, fileType, filename, type, json_blob, mixtureID, mixtureID, upload_date, 0, 0))
             conn.commit()
             # start async function
             # thread = threading.Thread(target=async_function, args=(mixtureID,))
