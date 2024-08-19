@@ -19,7 +19,7 @@ def replace_comma(string):
     return string
 
 
-def extract_metadata_ComSt(blob,mix_json,processed_data):
+def extract_metadata_ComSt(blob, mix_json, processed_data):
     """Returns two dictionaries: one with extracted emodule-metadata and one with
     extracted specimen metadata.
 

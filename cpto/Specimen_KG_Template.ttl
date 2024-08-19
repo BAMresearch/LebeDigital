@@ -104,4 +104,3 @@ co:Width a owl:Class .
 co:ProvidedIdentifier a owl:Class .
 
 ns3:Unit a owl:Class .
-

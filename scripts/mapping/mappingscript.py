@@ -51,7 +51,7 @@ def placeholderreplacement(kgPath, metadata):
     '''
         Maps the values of one given metadata file (for one specimen or
         experiment) to a given knowledge graph (KG) template, by searching through
-        it linewise for all metadata keys and replacing placeholders with values 
+        it linewise for all metadata keys and replacing placeholders with values
         from the metadata. Also appends an ID for the specimen.
 
         Parameter:
@@ -66,7 +66,7 @@ def placeholderreplacement(kgPath, metadata):
         Returns list of lines that consist of the template with mapped metadata.
 
     '''
-    # Lade den JSON-String als Python-Objekt
+    # Load the JSON string as a Python object
     metadata = json.loads(metadata.decode('utf-8'))
 
     # load metadata, convert the units through module and get the keys
@@ -138,14 +138,14 @@ def placeholderreplacement(kgPath, metadata):
                     usedKeys.append(key)
 
 
-            # append the specimen-ID name to the exceptions 
+            # append the specimen-ID name to the exceptions
             if "_," in lines[i]:
                 #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
-                #             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')    
+                #             + ' to ' + str(lines[i].split("_,")[0] + "_,") + '".')
                 lines[i] = lines[i].replace("_,", "_" + str(metadataID) + ",")
             if "_ " in lines[i]:
                 #logger.debug('Appended specimen-ID in line ' + str(i + 1) \
-                #             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')    
+                #             + ' to ' + str(lines[i].split("_ ")[0] + "_ ") + '".')
                 lines[i] = lines[i].replace("_ ", "_" + str(metadataID) + " ")
 
             # Handling SpecimenShape
@@ -154,8 +154,7 @@ def placeholderreplacement(kgPath, metadata):
                                 + str(metadata["SpecimenShape"]) + '".')
                 lines[i] = lines[i].replace("##SpecimenShape##", str(metadata["SpecimenShape"]))
 
-
-    ############################ L O G G I N G #############################        
+    ############################ L O G G I N G #############################
 
             # create a list of leftover placeholders to see which ones didn't receive a value
             if '_Value$$' in lines[i]:
@@ -264,7 +263,7 @@ def main():
                        '../../lebedigital/ConcreteOntology/MixtureDesign_KG_Template_modified.ttl']
 
     # Check mix metadata and generate additional placeholders
-    check_mix_metadata(args.input[5], args.input[4], args.output[3])
+    #check_mix_metadata(args.input[5], args.input[4], args.output[3])
 
     # run extraction and write metadata file
     #emodule

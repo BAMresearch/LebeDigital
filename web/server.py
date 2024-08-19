@@ -337,8 +337,8 @@ def my_files():
                 'filename': filename,
                 'type': row[2],
                 'uploadDate': row[3],
-                'mapped':row[4],
-                'deletedByUser':row[5]
+                'mapped': row[4],
+                'deletedByUser': row[5]
             }
 
             if upload['mapped'] == 0:
@@ -711,7 +711,7 @@ def async_function(unique_id):
 
                 # metadata extraction
                 mix_data = get_data(row['Mixture_ID'])
-                comSt_data= extract_metadata_ComSt(row['blob'],mix_data['Json'],processed_data)
+                comSt_data= extract_metadata_ComSt(row['blob'], mix_data['Json'], processed_data)
                 comSt_json = comSt_data[0]
                 specimen_json = comSt_data[1]
                 comSt_json['ID'] = row['unique_id']

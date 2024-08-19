@@ -40,6 +40,8 @@ def xml_to_json(xml_binary, mix_json):
     emodul_data['RawDataFile'] = "Download"
 
     # Iterate through each ArrayOfVariableData element
+    has_diameter = False
+    has_length = False
     for array_var_data in root.findall('ArrayOfVariableData'):
         # Iterate through each VariableData element
         for var_data in array_var_data.findall('VariableData'):
@@ -128,5 +130,6 @@ def xml_to_json(xml_binary, mix_json):
             decoded_value = re.sub(r'³', '^3', decoded_value)
 
             specimen_data[key] = decoded_value
+
 
     return [emodul_data, specimen_data]
