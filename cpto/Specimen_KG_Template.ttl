@@ -20,6 +20,7 @@ ns1:TestSpecimen_ a owl:NamedIndividual,
         ns1:MixtureID_,
         ns1:humanreadableID_ ;
     co:characteristic <https://w3id.org/cpto/##SpecimenShape##>,
+        ns1:SpecimenShape_,
         ns1:SpecimenDiameter_,
         ns1:SpecimenLength_,
         ns1:SpecimenMass_,
@@ -57,6 +58,10 @@ ns1:ID_ a owl:NamedIndividual,
 ns1:MixtureID_ a owl:NamedIndividual,
         co:ProvidedIdentifier ;
     co:value "$$MixtureID_Value$$"^^xsd:string .
+
+ns1:SpecimenShape_ a owl:NamedIndividual,
+        co:GeometryShape ;
+    co:value "$$SpecimenShape_Value$$"^^xsd:string .
 
 ns1:SpecimenDiameter_ a owl:NamedIndividual,
         co:Diameter ;

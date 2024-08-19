@@ -3,19 +3,16 @@
 @prefix ns2: <http://purl.org/spar/datacite/> .
 @prefix ns8: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ns2:hasIdentifier a owl:ObjectProperty .
 
-xsd:dateTimeStamp a rdfs:Datatype .
-
 xsd:decimal a rdfs:Datatype .
 
-xsd:string a rdfs:Datatype .
+xsd:dateTimeStamp a rdfs:Datatype .
 
-prov:startedAtTime a owl:DatatypeProperty .
+xsd:string a rdfs:Datatype .
 
 ns1:TestSpecimen_ a owl:NamedIndividual,
         co:Specimen ;
@@ -75,7 +72,7 @@ ns1:DeterminationOfCompressiveStrength a owl:Class .
 
 ns1:ExperimentDate_ a owl:NamedIndividual,
         co:Date ;
-    prov:startedAtTime "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
+    co:value "$$ExperimentDate_Value$$"^^xsd:dateTimeStamp .
 
 ns1:ExperimentInfo_ a owl:NamedIndividual,
         ns1:DeterminationOfCompressiveStrength ;
