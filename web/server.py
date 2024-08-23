@@ -943,7 +943,30 @@ def submit_mixture():
         
         # Filter out keys with empty values
         filtered_form_data = {key: value for key, value in form_data.items() if value}
-        
+
+        # Additional fixed values
+        additional = {
+            "BinderDensityUnit": "kg/dm^3",
+            "BinderAmountUnit": "kg/m^3",
+            "WaterDensityUnit": "kg/dm^3",
+            "WaterTotalUnit": "kg/m^3",
+            "WaterEffectiveUnit": "kg/m^3",
+            "AggregateDensityUnit": "kg/dm^3",
+            "AggregateAmountUnit": "kg/m^3",
+            "AdditionDensityUnit": "kg/dm^3",
+            "AdditionAmountUnit": "kg/m^3",
+            "AdmixtureDensityUnit": "kg/dm^3",
+            "AdmixtureAmountUnit": "kg/m^3",
+            "FiberDensityUnit": "kg/dm^3",
+            "FiberAmountUnit": "kg/m^3",
+            "AirDensityUnit": "kg/dm^3",
+            "AirAmountUnit": "kg/m^3",
+            "RawDataFile": "Download",
+        }
+
+        # Update the filtered_form_data with unit values
+        filtered_form_data.update(additional)
+
         # current time
         upload_date = datetime.now().isoformat()
         type = "Mixture" 
@@ -952,8 +975,45 @@ def submit_mixture():
         fileType = 'json'
         print(filename)
 
-        json_blob = json.dumps(filtered_form_data).encode('utf-8')
-        print("JSON Blob size:", len(json_blob))  # For debugging
+        # sort the JSON keys
+        def custom_sort_key(key):
+            # Prioritize Lab, MixingDate, and HumanReadableID
+            priority_keys = ["Lab", "MixingDate", "HumanReadableID", "RawDataFile"]
+            if key in priority_keys:
+                return (priority_keys.index(key), key)
+            # Custom sorting for Binder, Water, etc.
+            elif key.startswith("Binder"):
+                return (len(priority_keys) + 1, key)
+            elif key.startswith("Water"):
+                return (len(priority_keys) + 2, key)
+            elif key.startswith("Aggregate"):
+                return (len(priority_keys) + 3, key)
+            elif key.startswith("Addition"):
+                return (len(priority_keys) + 4, key)
+            elif key.startswith("Admixture"):
+                return (len(priority_keys) + 5, key)
+            elif key.startswith("Fiber"):
+                return (len(priority_keys) + 6, key)
+            elif key.startswith("Air"):
+                return (len(priority_keys) + 7, key)
+            else:
+                return (len(priority_keys) + 8, key)  # Other keys come last
+
+        mix_dict = dict(sorted(filtered_form_data.items(), key=lambda item: custom_sort_key(item[0])))
+        json_blob = json.dumps(mix_dict).encode('utf-8')
+        
+        # Handle file upload and save as BLOB in the database
+        additional_file_blob = None
+        file = request.files.get('file')
+        
+        if file:
+            additional_file_blob = file.read()  # Read file content as binary
+            file_info = {
+                'filename': file.filename,
+                'content': base64.b64encode(additional_file_blob).decode('utf-8')
+
+            }
+            additional_file_blob = json.dumps(file_info).encode('utf-8')
 
         # Connect to the database
         try:
@@ -967,9 +1027,9 @@ def submit_mixture():
         
             cursor.execute('''
                 INSERT INTO uploads 
-                (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, UploadDate, Mapped, Error) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (user, fileType, filename, type, json_blob, mixtureID, mixtureID, upload_date, 0, 0))
+                (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, additional_file, UploadDate, Mapped, Error) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (user, fileType, filename, type, json_blob, mixtureID, mixtureID, additional_file_blob,  upload_date, 1, 0))
             conn.commit()
             # start async function
             # thread = threading.Thread(target=async_function, args=(mixtureID,))

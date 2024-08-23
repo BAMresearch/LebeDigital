@@ -302,34 +302,49 @@
             </div>
         </div>
 
-        <!-- Air Content -->
-        <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
-            <div id="air-container">
-                <h6>Air Content</h6>
-                <div id="air-list">
-                    <div class="row g-3 air-entry pb-3">
-                    
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="number" step="any" class="form-control Air-Density" data-type="Air" placeholder="Density">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">kg/dm³</span>
-                                </a>
+        <div class="row">
+            <div class="col-md-7">
+                <!-- Air Content -->
+                <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+                    <div id="air-container">
+                        <h6>Air Content</h6>
+                        <div id="air-list">
+                            <div class="row g-3 air-entry">
+                            
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="number" step="any" class="form-control Air-Density" data-type="Air" placeholder="Density">
+                                        <a href="https://qudt.org/vocab/unit/KiloGM-PER-DeciM3" target="_blank" style="text-decoration: none;">
+                                            <span class="input-group-text unit-link clr-theme">kg/dm³</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="number" step="any" class="form-control Air-Amount" data-type="Air" placeholder="Amount">
+                                        <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
+                                            <span class="input-group-text unit-link clr-theme">kg/m³</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="number" step="any" class="form-control Air-Amount" data-type="Air" placeholder="Amount">
-                                <a href="https://qudt.org/vocab/unit/KiloGM-PER-M3" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">kg/m³</span>
-                                </a>
-                            </div>
-                        </div>
-                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <!-- Additional file -->
+                <div class="card bg-extra-light-blue p-4 mt-4" style="border: 0;">
+                    <h6>Additional File</h6>
+                    <input class="form-control " type="file" id="fileInput">
+                    <div class="invalid-feedback" id="file-error">
+                        File size exceeds 2MB. Please choose a smaller file.
                     </div>
                 </div>
             </div>
         </div>
+        
     
         <div class="pt-4">
             <button class="btn btn-theme" type="submit">Submit</button>
@@ -384,6 +399,15 @@
 
         updateNames();
 
+        // Additional File size validation (2MB limit)
+        $('#fileInput').on('change', function() {
+            var file = this.files[0];
+            if (file && file.size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+                document.getElementById("file-error").style.display = 'block';
+                this.value = ''; // Clear the input
+            }
+        });
+
         document.getElementById('mixtureForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
@@ -396,6 +420,12 @@
 
             // Capture form data
             const formData = new FormData(this);
+
+            // Get the file input element and add the file to FormData
+            var fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                formData.append('file', fileInput.files[0]);
+            }
 
             // Send data to server
             fetch('/submit_mixture', {
