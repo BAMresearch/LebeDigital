@@ -38,6 +38,81 @@
         </div>
     
         <div class="row">
+            <div class="col-md-7">
+                <div class="card bg-extra-light-blue p-4" style="border: 0;">
+                    <div id="mixtureDetails" class="mb-2">
+                        <h6 class="mb-2">Which Concrete Mixture did you use? </h6>
+                       
+                        <select id="mixtures" class="form-select" style="width: 65%;" required>
+                            <option selected disabled hidden>Select a mixture</option>
+                            <!-- Options will be populated here by JavaScript -->
+                        </select>
+                        <div class="invalid-feedback" id="mixture-error">
+                            Please select a mixture.
+                        </div>
+
+                        <p class="small pt-2">
+                            If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
+                    </div>
+
+                    <!-- E-Module -->
+                    <div class="mb-2">
+                        <div class="col-md-12">
+                            <h6>E-Module</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="number" step="any" id="EModule" class="form-control" placeholder="" required>
+                                <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">
+                                        N/mm²
+                                    </span>
+                                </a>
+                                <div class="invalid-feedback">
+                                    Please provide E-Module.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                    <!-- Input Compressive Strength -->
+                    <div class="mb-2 col-md-8">
+                    
+                        <h6>Input Compressive Strength</h6>
+                        
+                        <div class="input-group">
+                            <input type="number" step="any" id="InputCompressiveStrength" class="form-control" placeholder="" required>
+                            <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">
+                                    N/mm²
+                                </span>
+                            </a>
+                            <div class="invalid-feedback">
+                                Please provide an input Compressive Strength.
+                            </div>
+                        </div>
+                        
+                    </div>
+                        
+                    <!-- Measured Compressive Strength -->
+                    <div class="mb-2 col-md-8">
+                        
+                        <h6>Measured Compressive Strength <span class="text-small fw-normal">(optional)</span></h6>
+                        
+                        <div class="input-group">
+                            <input type="number" step="any" id="CompressiveStrength" class="form-control" placeholder="">
+                            <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
+                                <span class="input-group-text unit-link clr-theme">
+                                    N/mm²
+                                </span>
+                            </a>
+                        </div>
+                        
+                    </div>
+        
+                </div>
+            </div>
             <div class="col-md-5">
                 <div class="card bg-extra-light-blue p-4" style="border: 0;">
                     <h6>Specimen Details</h6>
@@ -82,115 +157,56 @@
                         </div>
                     </div>
                     
-                    
-                    <!-- Specimen Height -->
-                    <div class="col-md-10 mb-2" id="SpecimenHeightDiv" style="display: none;">
-                        <p class="mb-1">Height/Thickness</p>
-                        <div class="input-group">
-                            <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="" required>
-                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
-                                <span class="input-group-text unit-link clr-theme">mm</span>
-                            </a>
-                            <div class="invalid-feedback">
-                                Please provide a height.
-                            </div>
-                        </div>
-                    </div>
-        
-                    <!-- Specimen Diameter (only for cylindrical) -->
-                    <div class="col-md-10 mb-2" id="SpecimenDiameterDiv" style="display: none;">
-                        <p class="mb-1">Diameter</p>
-                        <div class="input-group">
-                            <input type="number" step="any" id="SpecimenDiameter" class="form-control" placeholder="">
-                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
-                                <span class="input-group-text unit-link clr-theme">mm</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Specimen Length (for cube and prism) -->
-                    <div class="col-md-10 mb-2" id="SpecimenLengthDiv" style="display: none;">
-                        <p class="mb-1">Length</p>
-                        <div class="input-group">
-                            <input type="number" step="any" id="SpecimenLength" class="form-control" placeholder="">
-                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
-                                <span class="input-group-text unit-link clr-theme">mm</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Specimen Width (for cube and prism) -->
-                    <div class="col-md-10 mb-2" id="SpecimenWidthDiv" style="display: none;">
-                        <p class="mb-1">Width</p>
-                        <div class="input-group">
-                            <input type="number" step="any" id="SpecimenWidth" class="form-control" placeholder="">
-                            <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
-                                <span class="input-group-text unit-link clr-theme">mm</span>
-                            </a>
-                        </div>
-                    </div>
-        
-                </div>
-            </div>
-
-            <div class="col-md-7">
-                <div class="card bg-extra-light-blue p-4" style="border: 0;">
-                    <div id="mixtureDetails" class="mb-4">
-                        <h6 class="mb-2">Which Concrete Mixture did you use? </h6>
-                       
-                        <select id="mixtures" class="form-select" style="width: 65%;" required>
-                            <option selected disabled hidden>Select a mixture</option>
-                            <!-- Options will be populated here by JavaScript -->
-                        </select>
-                        <div class="invalid-feedback" id="mixture-error">
-                            Please select a mixture.
-                        </div>
-
-                        <p class="small pt-2">
-                            If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
-                    </div>
-
-                    <!-- E-Module -->
-                    <div class="mb-4">
-                        <div class="col-md-12">
-                            <h6>E-Module</h6>
-                        </div>
-                        <div class="col-md-8">
+                    <div class="row">
+                        <!-- Specimen Height -->
+                        <div class="col-md-4 mb-2" id="SpecimenHeightDiv" style="display: none;">
+                            <p class="mb-1">Height</p>
                             <div class="input-group">
-                                <input type="number" step="any" id="EModule" class="form-control" placeholder="" required>
-                                <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">
-                                        N/mm²
-                                    </span>
+                                <input type="number" step="any" id="SpecimenHeight" class="form-control" placeholder="" required>
+                                <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">mm</span>
                                 </a>
                                 <div class="invalid-feedback">
-                                    Please provide E-Module.
+                                    Please provide a height.
                                 </div>
                             </div>
                         </div>
-                    </div>
-        
-                    <!-- Compressive Strength -->
-                    <div class="mb-4">
-                        <div class="col-md-12">
-                            <h6>Compressive Strength</h6>
-                        </div>
-                        <div class="col-md-8">
+            
+                        <!-- Specimen Diameter (only for cylindrical) -->
+                        <div class="col-md-4 px-md-0 mb-2" id="SpecimenDiameterDiv" style="display: none;">
+                            <p class="mb-1">Diameter</p>
                             <div class="input-group">
-                                <input type="number" step="any" id="CompressiveStrength" class="form-control" placeholder="" required>
-                                <a href="https://qudt.org/vocab/unit/N-PER-MilliM2" target="_blank" style="text-decoration: none;">
-                                    <span class="input-group-text unit-link clr-theme">
-                                        N/mm²
-                                    </span>
+                                <input type="number" step="any" id="SpecimenDiameter" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">mm</span>
                                 </a>
-                                <div class="invalid-feedback">
-                                    Please provide Compressive Strength.
-                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Specimen Length (for cube and prism) -->
+                        <div class="col-md-4 px-md-0 mb-2" id="SpecimenLengthDiv" style="display: none;">
+                            <p class="mb-1">Length</p>
+                            <div class="input-group">
+                                <input type="number" step="any" id="SpecimenLength" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">mm</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Specimen Width (for cube and prism) -->
+                        <div class="col-md-4 mb-2" id="SpecimenWidthDiv" style="display: none;">
+                            <p class="mb-1">Width</p>
+                            <div class="input-group">
+                                <input type="number" step="any" id="SpecimenWidth" class="form-control" placeholder="">
+                                <a href="https://qudt.org/vocab/unit/MilliM" target="_blank" style="text-decoration: none;">
+                                    <span class="input-group-text unit-link clr-theme">mm</span>
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mb-2 col-md-8">
+                    <div class="my-2 col-md-8">
                         <h6>Additional File</h6>
                         <input class="form-control" type="file" id="fileInput">
                         <div class="invalid-feedback" id="file-error">
@@ -202,7 +218,7 @@
             </div>
         </div>
         
-        <div class="pt-4">
+        <div class="pt-2">
             <button class="btn btn-theme" type="submit">Submit</button>
         </div>
     </form>    
@@ -273,8 +289,10 @@ document.addEventListener('DOMContentLoaded', function() {
             Lab: document.getElementById('Lab').value,
             ExperimentDate: document.getElementById('ExperimentDate').value,
             RawDataFile: "Download",
-            EModule: document.getElementById('EModule').value || 0,
+            EModule: document.getElementById('EModule').value || null,
             EModule_Unit: "N/mm^2", 
+            InputCompressiveStrength: document.getElementById('InputCompressiveStrength').value || null,
+            InputCompressiveStrength_Unit: "N/mm^2",
             CompressiveStrength: document.getElementById('CompressiveStrength').value || null,
             CompressiveStrength_Unit: "N/mm^2",
             SpecimenAge: document.getElementById('SpecimenAge').value || null,
