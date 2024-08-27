@@ -1,3 +1,19 @@
+/* Declare CSS Variables */
+:root {
+  --color-primary: #0068b6;
+  --color-secondary: #333;
+  --color-light: #e0e0e0;
+  --color-light-blue: #e4f4fc;
+  --color-extra-light-blue: #F1F9FD;
+  --color-light-red: #ffcccb;
+  --color-red: #CA0B00;
+  --color-border: #e5e5e5;
+  --color-bg-callout: #fff3cd;
+  --color-border-callout: #ffe69c;
+  --color-callout: #664d03;
+}
+
+/* Body */
 body {
   font-size: 1rem;
 }
@@ -27,17 +43,17 @@ body {
 
 /* Navigation Links */
 .nav-link {
-  color: #333;
+  color: var(--color-secondary);
 }
 
 .nav-link:hover {
   font-weight: 500;
-  color: #333;
+  color: var(--color-secondary);
 }
 
 .nav-link.active {
-  background-color: #e0e0e0 !important;
-  color: #333 !important;
+  background-color: var(--color-light) !important;
+  color: var(--color-secondary) !important;
   font-weight: 500;
 }
 
@@ -74,11 +90,11 @@ body {
 
 /* Utilities */
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--color-border);
 }
 
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .bd-placeholder-img {
@@ -129,18 +145,18 @@ body {
 .btn-theme:active, 
 .btn-outline-theme:active, 
 .btn-outline-theme:hover {
-  background-color: #0068b6;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .btn-outline-theme {
-  color: #0068b6;
-  border-color: #0068b6;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 /* Accordion */
 .accordion-button:not(.collapsed) {
-  color: #0068b6 !important;
+  color: var(--color-primary) !important;
   background-color: white;
 }
 
@@ -151,27 +167,27 @@ body {
 
 /* Colors */
 .clr-theme {
-  color: #0068b6;
+  color: var(--color-primary);
 }
 
 .bg-light-blue {
-  background-color: #e4f4fc;
+  background-color: var(--color-light-blue);
 }
 
 .bg-extra-light-blue {
-  background-color: #F1F9FD;
+  background-color: var(--color-extra-light-blue);
 }
 
 .light-red {
-  color: #ffcccb;
+  color: var(--color-light-red);
 }
 
 .bg-light-red {
-  background-color: #ffcccb;
+  background-color: var(--color-light-red);
 }
 
 a.light-red:hover {
-  color: #CA0B00;
+  color: var(--color-red);
 }
 
 /* Text */
@@ -210,9 +226,9 @@ a.light-red:hover {
   padding: 1.25rem;
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-  color: #664d03;
-  background-color: #fff3cd;
-  border-left: 0.25rem solid #ffe69c;
+  color: var(--color-callout);
+  background-color: var(--color-bg-callout);
+  border-left: 0.25rem solid var(--color-border-callout);
 }
 
 /* Media Queries */
