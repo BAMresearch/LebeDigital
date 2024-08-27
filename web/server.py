@@ -1,23 +1,18 @@
-import os
-import sys
+import os, sys
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(script_directory, '..'))  # Add the parent directory to the path
 
-import threading
-import json
-import uuid
-import sqlite3
-import time
+import threading, json, uuid, sqlite3, time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset, delete_specific_triples_from_endpoint
+from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
-from scripts.rawdataextraction.mixdesign_metadata_extraction import mix_metadata
 from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
 from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
+from scripts.rawdataextraction.mixture_xml_to_json import mix_metadata
 from datetime import timedelta, datetime
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify, abort, send_file
 from loguru import logger
@@ -32,54 +27,64 @@ import base64
 import mimetypes
 import magic
 
+# --------------------------------- Setup --------------------------------- #
+
+
+# --- Setup Flask --- #
 
 app = Flask(__name__)
-
-# Load config.json
-with open('config.json', 'r') as file:
-    config = json.load(file)
-    app.config['SECRET_KEY'] = config['SECRET_KEY']
-
-# clear users.db before deployment !!!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
 app.config['SESSION_TYPE'] = "filesystem"
 
-db = SQLAlchemy(app)
+# Load config.json and create Session Key if not present
+with open('config.json', 'r') as file:
+    config = json.load(file)
+    if config['SECRET_KEY'] == 'Your Secret Key (Gets created first run)':
+        config['SECRET_KEY'] = base64.b64encode(os.urandom(24)).decode('utf-8')
+        with open('config.json', 'w') as file:
+            json.dump(config, file, indent=4)
+        app.config['SECRET_KEY'] = config['SECRET_KEY']
+    else:
+        app.config['SECRET_KEY'] = config['SECRET_KEY']
 
-# Upload Database
-upload_db = 'upload.db'
 
+# --- Setup Logging --- #
 
-# path to the logs directory
+# Path to the logs directory
 baseDir = Path(__file__).parent
 logDir = os.path.join(baseDir, "logs")
 
 # make sure the logs directory exists
 os.makedirs(logDir, exist_ok=True)
 
-# path to the log files
+# Path to the log files
 debugLogPath = os.path.join(logDir, "debug_{time}.log")
 infoLogPath = os.path.join(logDir, "info_{time}.log")
 
-# configure the logger
+# Configure the logger
 logger.configure(handlers=[
     {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "5 days"},
     {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
 ])
 
-# delete empty log files older than two days
+# Delete empty log files older than two days
 def delete_empty_logs(directory):
     for filename in os.listdir(directory):
         filepath = os.path.join(directory, filename)
         # check if the file is empty
         if os.path.isfile(filepath) and os.path.getsize(filepath) == 0:
             # check if the file is older than two days
-            if time.time() - os.path.getmtime(filepath) > 2 * 24 * 60 * 60:
+            if time.time() - os.path.getmtime(filepath) > 60:
                 os.remove(filepath)
 
 delete_empty_logs(logDir)
+
+
+# --- Setup User db --- #
+
+db = SQLAlchemy(app)
 
 # Create password db
 class User(db.Model):
@@ -92,7 +97,65 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+with app.app_context():
+    db.create_all()
 
+
+# -- Setup Main db -- #
+
+# Main Database
+upload_db = 'main.db'
+
+def get_db_connection():
+    try:
+        conn = sqlite3.connect(upload_db)
+        conn.row_factory = sqlite3.Row
+    except sqlite3.Error as e:
+        logger.error(f"Database connection error: {e}")
+        conn = None
+    return conn
+
+
+def init_db():
+    with sqlite3.connect(upload_db) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS uploads (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Unique_ID TEXT,
+                Mixture_ID TEXT,
+                user TEXT,
+                filetype TEXT,
+                filename TEXT,
+                type TEXT,
+                url TEXT,
+                blob BLOB,
+                Json BLOB,
+                ttl BLOB,
+                Json_Specimen BLOB,
+                ttl_Specimen BLOB,
+                additional_file BLOB,
+                UploadDate TEXT,
+                Mapped INTEGER,
+                deleted_by_user BOOLEAN DEFAULT 0 NOT NULL,
+                Error INTEGER
+            );
+        ''')
+        conn.commit()
+        cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS uidlookup (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Unique_ID TEXT,
+                        Name TEXT
+                    );
+                ''')
+        conn.commit()
+
+init_db()
+
+
+# --------------------------------- Functions --------------------------------- #
 
 # extracts all json information from the database in two lists
 def create_json_file():
@@ -128,14 +191,211 @@ def create_json_file():
             # Convert the BLOB data to JSON dicts
             json_full[entry] = [[json.loads(row[0].decode('utf-8')), json.loads(row[1].decode('utf-8')), json.loads(row[2].decode('utf-8'))] for row in rows]
 
-    logger.debug(2)
-    logger.debug(json_full)
+    logger.debug("--- Created Json Files ---")
     return json_full
 
 
-with app.app_context():
-    db.create_all()
+# Mapping function
+def async_function(unique_id):
 
+    # Paths to the templates
+    paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
+             'Specimen': '../cpto/Specimen_KG_Template.ttl',
+             'CompressiveStrength': '../cpto/CompressiveStrength_KG_Template.ttl'}
+
+    # ----- Functions ----- #
+
+    # add data to the database
+    def add_data(rowname, data):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        # update data
+        query = f"UPDATE uploads SET {rowname} = ? WHERE Unique_ID = ?"
+        try:
+            cursor.execute(query, (data, unique_id))
+            conn.commit()
+            logger.debug(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
+            success = 1
+
+        # Error handling
+        except Exception as ex:
+            logger.error(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
+            conn.rollback()
+            success = 0
+        finally:
+            conn.close()
+
+        return success
+
+    # gets the data from the database
+    def get_data(uid=None):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        if uid is None:
+            uid = unique_id
+
+        # sql query to get data
+        query = "SELECT * FROM uploads WHERE Unique_ID = ?"
+        cursor.execute(query, (uid,))
+
+        # fetch the results of the query
+        rowdata = cursor.fetchone()
+        conn.close()
+
+        return rowdata
+
+    # update the ttl in the dataset
+    def upload_to_docker(data):
+        success = upload_binary_to_existing_docker(data, config)
+        if success != 0:
+            add_data('Error', 1)
+
+
+    # ------ Processing ------ #
+
+    logger.debug(f"Started processing data for: {unique_id}")
+
+    # fetch data
+    row = get_data()
+
+    # check if data is already mapped
+    if row['Mapped'] != 0:
+        logger.error(f'Error already mapped with {unique_id}')
+        return
+
+
+    # -- Extracting the data to json -- #
+
+    # check what filetype was uploaded (json or other)
+    if row['filetype'] == 'json':
+        if row['Json'] is None:
+            json_data = json.loads(row['blob'].decode('utf-8'))
+            json_data['ID'] = unique_id
+            if row['type'] != 'Mixture':
+                json_data['mixtureID'] = row['Mixture_ID']
+            add_data('Json', json.dumps(json_data).encode('utf-8'))
+
+    # if its not a json file
+    else:
+        # mixture xml extraction
+        if row['type'] == 'Mixture':
+            json_data = mix_metadata(row['blob'], row['filename'])
+            json_data['ID'] = row['unique_id']
+            add_data('Json', json.dumps(json_data).encode('utf-8'))
+        # emodule xml extraction
+        elif row['type'] == 'EModule':
+            mix_data = get_data(row['Mixture_ID'])
+            json_data = xml_to_json(row['blob'], mix_data['Json'])
+            emodule_json = json_data[0]
+            specimen_json = json_data[1]
+            emodule_json['ID'] = row['unique_id']
+            specimen_json['ID'] = row['unique_id']
+            emodule_json['SpecimenID'] = row['unique_id']
+            specimen_json['MixtureID'] = row['Mixture_ID']
+            add_data('Json', json.dumps(emodule_json).encode('utf-8'))
+            add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+        # compressive strength dat extraction
+        elif row['type'] == 'CompressiveStrength':
+            if row['filetype'] == 'dat':
+                # Process the raw data
+                processed_data = processed_rawdata(row['blob'], row['unique_id'])
+                # metadata extraction
+                mix_data = get_data(row['Mixture_ID'])
+                comSt_data= extract_metadata_ComSt(row['blob'], mix_data['Json'], processed_data)
+                comSt_json = comSt_data[0]
+                specimen_json = comSt_data[1]
+                comSt_json['ID'] = row['unique_id']
+                specimen_json['ID'] = row['unique_id']
+                comSt_json['SpecimenID'] = row['unique_id']
+                specimen_json['MixtureID'] = row['Mixture_ID']
+                add_data('Json', json.dumps(comSt_json).encode('utf-8'))
+                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+
+
+    # ---- Mapping the json to ttl ---- #
+
+    row = get_data()
+
+    if row['Json'] == '':
+        logger.error(f"No Json for {unique_id}")
+        add_data('Error', 1)
+
+    if row['type'] == 'Mixture':
+        try:
+            ttl_blob = mappingmixture(row['Json'])
+            status = add_data('ttl', ttl_blob)
+            # if error set error
+            if status != 1:
+                add_data('Error', 1)
+                return
+            else:
+                upload_to_docker(ttl_blob)
+        except Exception as e:
+            logger.error(f'Error in Mixture mapping: {e}')
+    else:
+        try:
+            ttl_blob = placeholderreplacement(paths[row['type']], row['Json'])
+            status = add_data('ttl', ttl_blob)
+            if status != 1:
+                add_data('Error', 1)
+                return
+            else:
+                upload_to_docker(ttl_blob)
+        except Exception as e:
+            logger.error(f'Error in Placeholderreplacement: {e}')
+            add_data('Error', 1)
+            return
+        if row['Json_Specimen'] != '':
+            try:
+                ttl_blob = placeholderreplacement(paths['Specimen'], row['Json_Specimen'])
+                status = add_data('ttl_Specimen', ttl_blob)
+                if status != 1:
+                    add_data('Error', 1)
+                    return
+                else:
+                    upload_to_docker(ttl_blob)
+            except Exception as e:
+                logger.error(f'Error in Placeholderreplacement: {e}')
+                add_data('Error', 1)
+                return
+
+    logger.debug(f"Verarbeitung für {unique_id} abgeschlossen.")
+    add_data('Mapped', 1)
+
+
+# download files from URL
+#def download_file_from_url(url):
+#    parsed_url = urlparse(url)
+#    
+#    if 'view.officeapps.live.com' in parsed_url.netloc:
+#        # Extract the actual file URL from the 'src' parameter
+#        query_params = parse_qs(parsed_url.query)
+#        if 'src' in query_params:
+#            url = query_params['src'][0]
+#    
+#    domain = urlparse(url).netloc
+#
+#    if domain == 'github.com':
+#        # Modify the URL to get the raw content URL for GitHub
+#        url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
+#
+#    response = requests.get(url)
+#    
+#    logger.debug(f"URL: {url}")
+#    logger.debug(f"Content-Type: {response.headers.get('Content-Type')}")
+#    logger.debug(f"Content length: {len(response.content)}")
+#
+#    # Check if the response is HTML
+#    if 'text/html' in response.headers.get('Content-Type', ''):
+#        return None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
+#
+#    file_name = url.split('/')[-1]
+#    file = FileStorage(BytesIO(response.content), filename=file_name)
+#    return file, file_name, None
+
+
+# --------------------------------- Routes --------------------------------- #
 
 # middleware to log requests
 @app.before_request
@@ -419,7 +679,7 @@ def get_admin_data():
                 clear_dataset(config)
                 logger.info("Ontodocker cleared")
                 try:
-                    os.remove("upload.db")
+                    os.remove(upload_db)
                     logger.info("db cleared")
                     init_db()
                     logger.info("db initialized")
@@ -443,37 +703,6 @@ def get_admin_data():
                 query = "SELECT * FROM uidlookup WHERE Unique_ID = ?"
                 cursor.execute(query, (data["removeFile"],))
                 rowdata2 = cursor.fetchone()
-
-                # check if file exists in Ontodocker
-                query = f'''
-                SELECT ?g WHERE {{
-                    ?g ?p "{data["removeFile"]}".
-                }}'''
-                # send query
-                results = send_sparql_query(query, config)
-
-                def check_if_key_has_empty_value(d, key):
-                    """
-                    Checks if a key in a potentially nested dictionary has an empty value.
-                
-                    :param d: The dictionary to check
-                    :param key: The key to check
-                    :return: True if the key has an empty value, False otherwise
-                    """
-                
-                    for k, v in d.items():
-                        if k == key:
-                            return not bool(v)
-                        elif isinstance(v, dict):
-                            if check_if_key_has_empty_value(v, key):
-                                return True
-                    return False
-                
-                # if results is not empty, delete from Ontodocker
-                if not check_if_key_has_empty_value(results, "g"):
-                    if rowdata:
-                        delete_specific_triples_from_endpoint(rowdata["ttl"], config)
-                        logger.info(f"File {data['removeFile']} deleted from Ontodocker")
     
                 # remove from both tables
                 if rowdata:
@@ -495,9 +724,6 @@ def get_admin_data():
         # update config
         else:
             logger.info("Updating config")
-            config['ontodocker_url'] = data["config"]["ontodocker_url"]
-            config["DOCKER_TOKEN"] = data["config"]["DOCKER_TOKEN"]
-            config["triplestore_server"] = data["config"]["triplestore_server"]
             config["dataset_name"] = data["config"]["dataset_name"]
 
             with open('config.json', 'w') as file:
@@ -521,30 +747,6 @@ def get_admin_data():
     else:
         return jsonify({"error": "Method Not Allowed"}), 405
 
-
-# query mixture (in upload page)
-@app.route('/search-mixture', methods=['POST'])
-def search_mixture():
-    if 'username' in session:
-        data = request.json
-        uid = data['mixtureName']
-        # Search, if the mixture exists in the database
-        conn = get_db_connection()
-        cursor = conn.cursor()
-
-        # Sql query to search for the mixture
-        query = "SELECT * FROM uidlookup WHERE Name = ? OR Unique_ID = ?"
-        cursor.execute(query, (uid, uid))
-
-        # Fetch the results of the query
-        rowdata = cursor.fetchone()
-        conn.close()
-
-        if rowdata:
-            return jsonify({'message': f'Mischung {uid} erfolgreich gefunden!', 'mixtureID': rowdata['Unique_ID']})
-        else:
-            # If the mixture does not exist in the database
-            return jsonify({'message': 'Mischung nicht gefunden.'})
         
 @app.route('/get-mixtures', methods=['GET'])
 def get_mixtures():
@@ -570,243 +772,11 @@ def get_mixtures():
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
 
-def get_db_connection():
-    try:
-        conn = sqlite3.connect(upload_db)
-        conn.row_factory = sqlite3.Row
-    except sqlite3.Error as e:
-        logger.error(f"Database connection error: {e}")
-        conn = None
-    return conn
-
-
-def init_db():
-    with sqlite3.connect(upload_db) as conn:
-        cursor = conn.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS uploads (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Unique_ID TEXT,
-                Mixture_ID TEXT,
-                user TEXT,
-                filetype TEXT,
-                filename TEXT,
-                type TEXT,
-                url TEXT,
-                blob BLOB,
-                Json BLOB,
-                ttl BLOB,
-                Json_Specimen BLOB,
-                ttl_Specimen BLOB,
-                additional_file BLOB,
-                UploadDate TEXT,
-                Mapped INTEGER,
-                deleted_by_user BOOLEAN DEFAULT 0 NOT NULL,
-                Error INTEGER
-            );
-        ''')
-        conn.commit()
-        cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS uidlookup (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Unique_ID TEXT,
-                        Name TEXT
-                    );
-                ''')
-        conn.commit()
-
-
-
-# Mapping function
-def async_function(unique_id):
-
-    # Lookup table for path
-    paths = {'EModule': '../cpto/EModuleOntology_KG_Template.ttl',
-             'Specimen': '../cpto/Specimen_KG_Template.ttl',
-             'CompressiveStrength': '../cpto/CompressiveStrength_KG_Template.ttl'}
-
-    def add_data(rowname, data):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        # update data
-        query = f"UPDATE uploads SET {rowname} = ? WHERE Unique_ID = ?"
-        try:
-            cursor.execute(query, (data, unique_id))
-            conn.commit()
-            logger.debug(f"{rowname}-Wert für {unique_id} erfolgreich aktualisiert.")
-            success = 1
-
-        # Error handling
-        except Exception as ex:
-            logger.error(f"Fehler beim Aktualisieren des {rowname}-Werts für {unique_id}: {ex}")
-            conn.rollback()
-            success = 0
-        finally:
-            conn.close()
-
-        return success
-
-    def get_data(uid=None):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-
-        if uid is None:
-            uid = unique_id
-
-        # sql query to get data
-        query = "SELECT * FROM uploads WHERE Unique_ID = ?"
-        cursor.execute(query, (uid,))
-
-        # fetch the results of the query
-        rowdata = cursor.fetchone()
-        conn.close()
-
-        return rowdata
-
-    def upload_to_docker(data):
-        success = upload_binary_to_existing_docker(data, config)
-        if success != 0:
-            add_data('Error', 1)
-
-    # start of the processing
-    logger.debug(f"Starte die Verarbeitung für {unique_id}")
-
-    # fetch data
-    row = get_data()
-
-    # check if data is already mapped
-    if row['Mapped'] != 0:
-        logger.error(f'Error already mapped with {unique_id}')
-        return
-
-    # if json was uploaded
-    if row['filetype'] == 'json':
-        if row['Json'] is None:
-            json_data = json.loads(row['blob'].decode('utf-8'))
-            json_data['ID'] = unique_id
-            if row['type'] != 'Mixture':
-                json_data['mixtureID'] = row['Mixture_ID']
-            add_data('Json', json.dumps(json_data).encode('utf-8'))
-    else:
-        if row['type'] == 'Mixture':
-            json_data = mix_metadata(row['blob'], row['filename'])
-            json_data['ID'] = row['unique_id']
-            add_data('Json', json.dumps(json_data).encode('utf-8'))
-        elif row['type'] == 'EModule':
-            if row['filetype'] == 'xml':
-                mix_data = get_data(row['Mixture_ID'])
-                json_data = xml_to_json(row['blob'], mix_data['Json'])
-                emodule_json = json_data[0]
-                specimen_json = json_data[1]
-                emodule_json['ID'] = row['unique_id']
-                specimen_json['ID'] = row['unique_id']
-                emodule_json['SpecimenID'] = row['unique_id']
-                specimen_json['MixtureID'] = row['Mixture_ID']
-                add_data('Json', json.dumps(emodule_json).encode('utf-8'))
-                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
-        elif row['type'] == 'CompressiveStrength':
-            if row['filetype'] == 'dat':
-                # Process the raw data
-                processed_data = processed_rawdata(row['blob'], row['unique_id'])
-
-                # metadata extraction
-                mix_data = get_data(row['Mixture_ID'])
-                comSt_data= extract_metadata_ComSt(row['blob'], mix_data['Json'], processed_data)
-                comSt_json = comSt_data[0]
-                specimen_json = comSt_data[1]
-                comSt_json['ID'] = row['unique_id']
-                specimen_json['ID'] = row['unique_id']
-                comSt_json['SpecimenID'] = row['unique_id']
-                specimen_json['MixtureID'] = row['Mixture_ID']
-                add_data('Json', json.dumps(comSt_json).encode('utf-8'))
-                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
-
-    # Set ID and mixtureID in json!
-    # Mapping
-    # Aktualisierten Daten abfragen
-    row = get_data()
-
-    if row['Json'] == '':
-        logger.error(f"No Json for {unique_id}")
-        add_data('Error', 1)
-
-    if row['type'] == 'Mixture':
-        try:
-            ttl_blob = mappingmixture(row['Json'])
-            status = add_data('ttl', ttl_blob)
-            # if error set error
-            if status != 1:
-                add_data('Error', 1)
-                return
-            else:
-                upload_to_docker(ttl_blob)
-        except Exception as e:
-            logger.error(f'Error in Mixture mapping: {e}')
-    else:
-        try:
-            ttl_blob = placeholderreplacement(paths[row['type']], row['Json'])
-            status = add_data('ttl', ttl_blob)
-            if status != 1:
-                add_data('Error', 1)
-                return
-            else:
-                upload_to_docker(ttl_blob)
-        except Exception as e:
-            logger.error(f'Error in Placeholderreplacement: {e}')
-            add_data('Error', 1)
-            return
-        if row['Json_Specimen'] != '':
-            try:
-                ttl_blob = placeholderreplacement(paths['Specimen'], row['Json_Specimen'])
-                status = add_data('ttl_Specimen', ttl_blob)
-                if status != 1:
-                    add_data('Error', 1)
-                    return
-                else:
-                    upload_to_docker(ttl_blob)
-            except Exception as e:
-                logger.error(f'Error in Placeholderreplacement: {e}')
-                add_data('Error', 1)
-                return
-
-    logger.debug(f"Verarbeitung für {unique_id} abgeschlossen.")
-    add_data('Mapped', 1)
-
-
-def download_file_from_url(url):
-    parsed_url = urlparse(url)
-    
-    if 'view.officeapps.live.com' in parsed_url.netloc:
-        # Extract the actual file URL from the 'src' parameter
-        query_params = parse_qs(parsed_url.query)
-        if 'src' in query_params:
-            url = query_params['src'][0]
-    
-    domain = urlparse(url).netloc
-
-    if domain == 'github.com':
-        # Modify the URL to get the raw content URL for GitHub
-        url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
-
-    response = requests.get(url)
-    
-    logger.debug(f"URL: {url}")
-    logger.debug(f"Content-Type: {response.headers.get('Content-Type')}")
-    logger.debug(f"Content length: {len(response.content)}")
-
-    # Check if the response is HTML
-    if 'text/html' in response.headers.get('Content-Type', ''):
-        return None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
-
-    file_name = url.split('/')[-1]
-    file = FileStorage(BytesIO(response.content), filename=file_name)
-    return file, file_name, None
-
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml']
+    file_types = ['dat', 'json', 'xml']
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
@@ -862,17 +832,18 @@ def data_upload():
                                 (unique_id, file_name.split(".")[0]))
                     conn.commit()
 
+                    conn.close()
                     # start async function for each file
                     thread = threading.Thread(target=async_function, args=(unique_id,))
                     thread.start()
 
-    elif 'url' in request.form and request.form['url'] != '':
-        url = request.form['url']
-
-        file, file_name, error_message = download_file_from_url(url)
-    
-        if error_message:
-            return jsonify({'message': error_message, 'status': 400}), 200
+    #elif 'url' in request.form and request.form['url'] != '':
+    #    url = request.form['url']
+    #
+    #    file, file_name, error_message = download_file_from_url(url)
+    #
+    #    if error_message:
+    #        return jsonify({'message': error_message, 'status': 400}), 200
         
 
         # Check if the response is HTML
@@ -882,45 +853,41 @@ def data_upload():
     
         #file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
         #file_name = url.split('/')[-1]
-        file_blob = file.read()
+    #    file_blob = file.read()
 
         # extract file extension
-        _, file_extension = os.path.splitext(file.filename)
-        filetype = file_extension.lstrip('.')
-        if filetype not in file_types:
-            return jsonify({'message': "Invalid file type. Please provide a xls, csv, txt or dat file.",
-                            'status': 400}), 200
+    #    _, file_extension = os.path.splitext(file.filename)
+    #    filetype = file_extension.lstrip('.')
+    #    if filetype not in file_types:
+    #        return jsonify({'message': "Invalid file type. Please provide a xls, csv, txt or dat file.",
+    #                        'status': 400}), 200
         
         # Check if the file already exists in the database
-        if check_file_exists(file_name, cursor):
-            conn.close()
-            return jsonify({'message': "This file already exists.",
-                            'status': 409}), 200
-        else:
-            if type == 'Mixture':
-                unique_id = mixtureID
-            else:
-                unique_id = str(uuid.uuid4())
+    #    if check_file_exists(file_name, cursor):
+    #        conn.close()
+    #        return jsonify({'message': "This file already exists.",
+    #                        'status': 409}), 200
+    #    else:
+    #        if type == 'Mixture':
+    #            unique_id = mixtureID
+    #        else:
+    #            unique_id = str(uuid.uuid4())
             # insert data into the database
-            cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
-                        'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
-                        (user, filetype, file_name, url, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
-            conn.commit()
-            cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
-                        (unique_id, file_name.split(".")[0]))
-            conn.commit()
+    #        cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
+    #                    'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
+    #                    (user, filetype, file_name, url, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+    #        conn.commit()
+    #        cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+    #                    (unique_id, file_name.split(".")[0]))
+    #        conn.commit()
 
             # start async function
-            thread = threading.Thread(target=async_function, args=(unique_id,))
-            thread.start()
+    #        thread = threading.Thread(target=async_function, args=(unique_id,))
+    #        thread.start()
 
     else:
         return jsonify({'error': 'No Data found'}), 400
-
-    conn.close()
-
     
-
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,
                     'status': 200}), 200
@@ -930,6 +897,7 @@ def data_upload():
 @app.route('/new_mixture')
 def new_mixture():
     return render_template('newMixture.html')
+
 
 @app.route('/submit_mixture', methods=['POST'])
 def submit_mixture():
@@ -1380,6 +1348,8 @@ def check_file_exists(filename, cursor):
     data = cursor.fetchone()
     return data is not None
 
+
+# ---------------------------- #
 
 if __name__ == '__main__':
     app.run(debug=True)

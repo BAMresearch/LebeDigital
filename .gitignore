@@ -132,10 +132,10 @@ cython_debug/
 # config file with tokens
 config.json
 # database for uploaded data
-upload.db
+main.db
 temp/
 zip/
 
 # files downloaded from db
-*/upload.db-*
-*/upload.db-*
+*/main.db-*
+*/main.db-*

@@ -4,7 +4,7 @@ import json
 import datetime
 import re
 import uuid
-from pathlib import Path
+
 def xml_to_json(xml_file, ComSt_json_file, specimen_json_file):
     # Parse the XML file
     tree = ET.parse(xml_file)

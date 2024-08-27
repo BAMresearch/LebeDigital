@@ -1,7 +1,4 @@
 {
-    "DOCKER_TOKEN": "Your Docker Token",
-    "SECRET_KEY": "Your Secret Key",
-    "ontodocker_url": "https://ontodocker-pmd.bam.de",
-    "dataset_name": "Test",
-    "triplestore_server": "jena"
+    "SECRET_KEY": "Your Secret Key (Gets created first run)",
+    "dataset_name": "dataset.ttl",
 }

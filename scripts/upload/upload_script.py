@@ -1,145 +1,100 @@
-import requests
 from loguru import logger
-from SPARQLWrapper import SPARQLWrapper, POST
+from rdflib import Graph
 
-from rdflib import Graph, URIRef
+# Scripts for handling the ttl dataset
 
-def extract_specific_triples_from_ttl(binary_data):
-    """
-    Extracts specific triples from a ttl triple file in binary format.
+def check_if_file_exists(config):
 
-    :param binary_data: ttl triple file in binary format
-    :param triples_to_extract: List of triples to extract
-    :return: List of extracted triples
-    """
+    try:
+        with open(config["dataset_name"], "r") as file:
+            return True
+    except FileNotFoundError:
+        # create empty file
+        with open(config["dataset_name"], "w") as file:
+            file.write("")
 
-    # Parse the ttl file
-    g = Graph()
-    g.parse(data=binary_data, format="turtle")
-
-    # extract all triples from the ttl file
-    triples_to_extract = [(str(s), str(p), str(o)) for s, p, o in g]
-
-    return triples_to_extract
-
-def delete_specific_triples_from_endpoint(ttl_binary, config):
-    """
-    Deletes specific triples from a SPARQL endpoint.
-
-    :param ttl_binary: ttl triple file in binary format
-    :param config: Config-File, containing configurations: SPARQL_ENDPOINT, DOCKER_TOKEN
-    :return: if success 0, else 1
-    """
-    # Set Authorization Header with token
-    headers = {
-        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
-    }
-
-    triples_to_delete = extract_specific_triples_from_ttl(ttl_binary)
-
-    # Prepare the SPARQL DELETE DATA query
-    triples_str = "\n".join(f"<{s}> <{p}> <{o}> ." for s, p, o in triples_to_delete)
-    query = f"""
-        DELETE DATA {{
-            GRAPH <{config['dataset_name']}> {{
-                {triples_str}
-            }}
-        }}
-    """
-
-    logger.info(query)
-    # Post the deletion request to the server
-    response = requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
-                  f'/update',
-                  headers=headers, params={"update": query}).content.decode()
-
-    # Send the SPARQL DELETE DATA query to the endpoint
-    #sparql = SPARQLWrapper(config['SPARQL_ENDPOINT'])
-    #sparql.setMethod(POST)
-    #sparql.setQuery(query)
-    #sparql.addParameter("Authorization", f"Bearer {config['DOCKER_TOKEN']}")
-    logger.debug(response)
-
-    return 0
 
 def upload_binary_to_existing_docker(binary_data, config):
     """
-    Uploads a ttl triple file in binary format to the dataset on the ontodocker,
-    configured in the config file.
+    Adds a ttl triple file in binary format to the dataset "datastore.ttl"
 
     :param binary_data: ttl triple file in binary format
-    :param config: Config-File, containing configurations: DOCKER_TOKEN, ontodocker_url,
-                    dataset_name and triplestore_server
     :return: if success 0, else 1
     """
 
+    check_if_file_exists(config)
+
     logger.debug("-" * 20)
-    logger.debug(f"Startet uploading to: {config['ontodocker_url']} for file with length: {len(binary_data)}")
-    logger.debug(
-        f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}')
 
-    # Set Authorization Header with token
-    headers = {"Authorization": f"Bearer {config['DOCKER_TOKEN']}", "Content-Type": "text/turtle"}
+    try:
+        # Create a Fraph for the current dataset
+        dataset_graph = Graph()
+        
+        # Load the current dataset from the file
+        dataset_graph.parse(config["dataset_name"], format="turtle")
+        
+        # Create a new Graph for the new data
+        new_graph = Graph()
+        
+        # Load the new data from the binary file
+        new_graph.parse(data=binary_data, format="turtle")
+        
+        # Add the new data to the current dataset
+        dataset_graph += new_graph
+        
+        # Save the updated dataset to the file
+        dataset_graph.serialize(destination=config["dataset_name"], format="turtle")
+        
+        logger.debug("Data successfully added to the dataset.")
 
-    # Prepare URL's for upload
-    upload_url = f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}/upload'
-
-    # Upload the binary data to the dataset
-    upload_response = requests.post(upload_url, headers=headers, data=binary_data)
-    logger.debug(upload_response.content.decode())
-
-    # Status based on response code
-    if upload_response.status_code == 200:
-        logger.debug("Data successfully uploaded.")
-        logger.debug("-" * 20)
         return 0
-    else:
-        logger.error("Failed to upload data to Ontodocker.")
-        logger.debug("-" * 20)
+    
+    except Exception as e:
+        logger.error(f"Failed to add data to the dataset: {e}")
+
         return 1
 
 
 def send_sparql_query(query, config):
     """
-    Sends a SPARQL query to a Jena Fuseki server (Ontodocker at BAM) and checks
-    whether the search was successful. If so, the search result is transferred.
+    Query the dataset with a SPARQL-Query
 
     :param query: The SPARQL-Query as String
-    :param config: Config-File, containing configurations: DOCKER_TOKEN, ontodocker_url,
-                    dataset_name and triplestore_server
+    :param config: Config-File, containing the dataset name
     :return: result of Query if successful, else error
     """
 
+    check_if_file_exists(config)
+
     logger.debug("-" * 20)
-    logger.debug(f'Sending Sparql-Query to Ontodocker: {query}')
-    logger.debug(f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/'
-                 f'{config["dataset_name"]}'
-                 f'/sparql')
+    logger.debug(f'Sending Sparql-Query: {query}')
 
-    # Set Authorization Header with token
-    headers = {
-        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
-    }
-
-    # Add the Query to data
-    data = {
-        'query': query
-    }
-
-    # Send request to the server
-    response = requests.get(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
-                            f'/sparql',
-                            headers=headers, params=data)
-
-    # Return based on response code
-    if response.status_code == 200:
+    try:
+        # Erstellen eines Graphen für das bestehende Dataset
+        dataset_graph = Graph()
+        
+        # Laden des bestehenden Datasets
+        dataset_graph.parse(config["dataset_name"], format="turtle")
+        
+        # Ausführen der SPARQL-Abfrage
+        results = dataset_graph.query(query)
+        
+        # Ergebnisse in einer Liste speichern
+        # Konvertieren Sie die Ergebnisse in ein Dictionary
+        results_dict = []
+        for row in results:
+            row_dict = {str(var): str(row[var]) for var in results.vars}
+            results_dict.append(row_dict)
+        
         logger.debug("Query successful.")
-        logger.debug("-" * 20)
-        results = response.json()
-        return results
-    else:
-        logger.error(f"Error in the query request for the Ontodocker: HTTP {response.status_code}, {response.text}")
-        return f"Fehler bei der Anfrage: HTTP {response.status_code}"
+        logger.debug(results_dict)
+        # Rückgabe der Ergebnisse
+        return results_dict
+    
+    except Exception as e:
+        logger.error(f"Error in the query request: {e}")
+
+        return None
 
 
 def clear_dataset(config):
@@ -151,30 +106,18 @@ def clear_dataset(config):
     :return: true
     """
 
+    check_if_file_exists(config)
+
     logger.debug("-" * 20)
     logger.debug("Clearing Dataset and Ontodocker.")
-    logger.debug(f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/'
-                 f'{config["dataset_name"]}/update')
 
-    # Set Authorization Header with token
-    headers = {
-        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
-    }
-
-    # Set the deletion Query
-    del_query = """
-        DELETE WHERE
-        {
-          ?s ?p ?o .
-        }
-        """
-
-    # Post the deletion request to the server
-    requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
-                  f'/update',
-                  headers=headers, params={"update": del_query}).content.decode()
-
-    logger.debug("Deletion request successfully sent.")
-    logger.debug("-" * 20)
+    try:
+        with open (config["dataset_name"], "w") as file:
+            file.write("")
+        
+        logger.debug("Deletion successfull.")
+        logger.debug("-" * 20)
+    except Exception as e:
+        logger.error(f"Error in clearing the dataset: {e}")
 
     return

@@ -19,7 +19,7 @@ function transformData(bindings, vars) {
         let row = {};
         vars.forEach(varName => {
             // Extrahiert den Wert für jede Variable in jeder Bindung
-            row[varName] = binding[varName] ? binding[varName].value : "";
+            row[varName] = binding[varName] || "";
         });
         return row;
     });
@@ -34,12 +34,14 @@ function executeSparqlQuery(query, table) {
         if (xhr.status >= 200 && xhr.status < 300) {
             try {
                 var response = JSON.parse(xhr.responseText);
-                var vars = response.message.head.vars;
-                var bindings = response.message.results.bindings;
+                console.log(response.message);
+                var vars = Object.keys(response.message[0]);
+                console.log(vars);
 
                 var columns = generateColumns(vars);
-                var data = transformData(bindings, vars);
-
+                var data = transformData(response.message, vars);
+                console.log(data);
+                console.log(columns);
                 table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
                 table.setData(data);        // Setzt die transformierten Daten
 
