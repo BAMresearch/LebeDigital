@@ -78,7 +78,7 @@ ns1:SpecimenMass_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##SpecimenMass_Unit##> ;
     co:value "$$SpecimenMass_Value$$"^^xsd:decimal .
 
-ns1:SpecimenHeight a owl:NamedIndividual,
+ns1:SpecimenHeight_ a owl:NamedIndividual,
         co:Height ;
     co:unit <https://w3id.org/cpto/##SpecimenHeight_Unit##> ;
     co:value "$$SpecimenHeight_Value$$"^^xsd:decimal .
