@@ -221,18 +221,7 @@ def query_page():
         return redirect(url_for('login'))
 
 
-# Database page (query page simple version)
-@app.route('/database')
-def query_page_simple():
-    if 'username' in session:
-        return render_template('queryPageSimple.html')
-    else:
-        # Store the URL the user was trying to access in the session data
-        session['next'] = url_for('query_page_simple')
-        return redirect(url_for('login'))
-
-
-@app.route('/database_new', methods=['GET', 'POST'])
+@app.route('/database', methods=['GET', 'POST'])
 def database():
     if 'username' in session:
         conn = get_db_connection() 

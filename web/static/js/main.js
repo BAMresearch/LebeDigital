@@ -130,13 +130,25 @@ function onFileSelected(event, fileLabel) {
     var fileNames = []; // Initialize an array to store the names of valid files
 
     // Check the file format (extension) for each file
-    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml'];
+    var allowedFormats = ['json']
+    if(fileLabel == 'fileLabel1'){
+        // for mixture
+        allowedFormats.push('xls', 'xlsx');
+    }
+    else if(fileLabel == 'fileLabel2'){
+        // for comSt
+        allowedFormats.push('dat')
+    }
+    else{
+        allowedFormats.push('xml')
+    }
+    
     for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         const fileExtension = fileName.split('.').pop().toLowerCase();
 
         if (!allowedFormats.includes(fileExtension)) {
-            alert('Invalid file: ' + fileName + '. Please select a xlsx, xls, csv, dat, txt, json, or xml file.');
+            alert('Sorry! The file type is not supported!');
             continue; // Skip this file and move to the next one
         }
         fileNames.push(fileName); // Add the valid file name to the array

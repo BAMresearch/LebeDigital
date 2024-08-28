@@ -1,5 +1,9 @@
+{% extends 'base.html' %} 
 
-{% extends 'base.html' %} {% block title %}Upload Data{% endblock %} {% block content %}
+{% block title %}Upload Data{% endblock %} 
+
+{% block content %}
+
 <div class="content col-12">
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
@@ -63,7 +67,7 @@
                                     </div>
                                     <div id="fileLabel1" class="text-center">&nbsp;</div>
 
-                                    <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                    <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, json</small></p>
                                     <div class="text-center">
                                         <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('Mixture', 'fileInput1', 'urlInput1','fileLabel1')" disabled>Upload</button>
                                     </div>
@@ -150,7 +154,7 @@
                                 </div>
                                 <div id="fileLabel2" class="text-center">&nbsp;</div>
 
-                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <p class="text-muted text-center"><small>Supported file formats: dat, json</small></p>
                                 <div class="text-center">
                                     <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2', 'urlInput2','fileLabel2')" disabled>Upload</button>
                                 </div>
@@ -231,7 +235,7 @@
                                 </div>
                                 <div id="fileLabel3" class="text-center">&nbsp;</div>
 
-                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <p class="text-muted text-center"><small>Supported file formats: xml, json</small></p>
                                 <div class="text-center">
                                     <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('EModule', 'fileInput3', 'urlInput3','fileLabel3')" disabled>Upload</button>
                                 </div>
