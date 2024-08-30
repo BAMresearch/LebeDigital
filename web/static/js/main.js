@@ -16,6 +16,8 @@ function disableUploadButton() {
     });
 }
 
+
+// Function to display the selected mixture name on the UI
 function showMixtureName() {
     console.log(mixtureName)
     if (mixtureID !== null) {
@@ -26,6 +28,7 @@ function showMixtureName() {
     }    
 }
 
+// Function to remove the mixture ID and clear related UI elements
 function removeMixtureId() {
     mixtureID = null
     mixtureName = null
@@ -35,20 +38,23 @@ function removeMixtureId() {
     }   
 }
 
+
+// Function to generate unique id
 function generateUUIDv4() {
 return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
 );
 }
 
+
 function uploadData(type, fileID, urlID, label) {
     if (type === 'Mixture') {
-        mixtureID = generateUUIDv4(); // Generate a new UUID for `mixtureID` 
-        console.log(`Neue Mixture ID: ${mixtureID}`); 
+        mixtureID = generateUUIDv4(); 
+        console.log(`New Mixture ID: ${mixtureID}`); 
     } else {
         console.log(`Type ist not Mixture, No ID generated. Mixture ID is: ${mixtureID}`);
         if (mixtureID == null) {
-            //if no mixture is selcted show error
+            // Show error if no mixture is selected
             $('#mixtureWarningModal').modal('show');
             return;
         }
@@ -58,10 +64,10 @@ function uploadData(type, fileID, urlID, label) {
     formData.append('type', type);
     formData.append('Mixture_ID', mixtureID);
 
-     // Check if the input is a file or a URL
+    // Check if the input is a file or a URL
     var fileLabel = document.getElementById(label).textContent;
     if (fileLabel.startsWith('http')) {
-        // It's a URL, append it to the form data
+        // Handle URL input
         var urlInput = document.getElementById(urlID).value;
         formData.append('url', urlInput);
 
@@ -74,7 +80,7 @@ function uploadData(type, fileID, urlID, label) {
         }
 
     } else {
-        // It's a file
+        // Handle file input
         var fileInput = document.getElementById(fileID);
         for (var i = 0; i < fileInput.files.length; i++) {
            formData.append('file' + i, fileInput.files[i]); 
@@ -96,7 +102,6 @@ function uploadData(type, fileID, urlID, label) {
         return response.json();
     })
     .then(data => {
-        console.log(data.status)
         if (data.status === 200) {
             document.getElementById("message").innerHTML = data.message
             const toastLiveExample = document.getElementById('liveToast')
@@ -115,10 +120,14 @@ function uploadData(type, fileID, urlID, label) {
     })
     .catch((error) => {
         console.error('Failed to upload:', error);
+        document.getElementById("error-message").innerHTML = "Failed to upload!"
+        const toastLiveExample = document.getElementById('liveToastError')
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastBootstrap.show()
     });
 }
 
-// restrict user to click upload btn more than once
+// Function to restrict user clicking upload btn more than once
 function clearFileInput(fileID) {
     document.getElementById(fileID).value = '';
     disableUploadButton();
@@ -211,6 +220,7 @@ function toggleSections() {
     }
 }
 
+// Function to redirect user to the mixture upload section
 function goToMixtureUpload() {
     $('#mixtureWarningModal').modal('hide');
     // Scroll to and open the mixture accordion
@@ -220,15 +230,17 @@ function goToMixtureUpload() {
     }, 1000);
 }
 
+// Redirect user to the mixture form
 function GoToMixtureForm() {
     // Unselect all radio buttons
     const radioButtons = document.querySelectorAll('input[name="mixtureOption"]');
     radioButtons.forEach(radio => radio.checked = false);
 
-    // Redirect to the new mixture page
+    // Redirect
     window.location.href = '/new_mixture';  
 }
 
+// Function to check if a mixture is selected before redirecting to another page
 function checkMixtureAndRedirect(targetPage) {
     if (mixtureID == null) {
         $('#mixtureWarningModal').modal('show');
@@ -237,16 +249,20 @@ function checkMixtureAndRedirect(targetPage) {
     }
 }
 
+
+// Function to handle page redirection with mixture ID as a query parameter
 function redirectToPage(page) {
     let url = new URL(page, window.location.origin);
     url.searchParams.append('mixtureId', mixtureID);
     window.location.href = url.toString();
 }
 
+// Redirect user to the compressive strength form
 function GoToComStForm() {
     checkMixtureAndRedirect('/new_compressive_strength');
 }
 
+// Redirect user to the E-Module form
 function GoToEModuleForm() {
     checkMixtureAndRedirect('/new_emodule');
 }

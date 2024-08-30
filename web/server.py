@@ -31,7 +31,7 @@ from urllib.parse import urlparse, parse_qs
 import base64
 import mimetypes
 import magic
-
+import re
 
 app = Flask(__name__)
 
@@ -764,32 +764,65 @@ def async_function(unique_id):
 
 def download_file_from_url(url):
     parsed_url = urlparse(url)
-    
-    if 'view.officeapps.live.com' in parsed_url.netloc:
-        # Extract the actual file URL from the 'src' parameter
+    domain = parsed_url.netloc
+
+    if 'view.officeapps.live.com' in domain:
         query_params = parse_qs(parsed_url.query)
         if 'src' in query_params:
             url = query_params['src'][0]
-    
-    domain = urlparse(url).netloc
-
-    if domain == 'github.com':
-        # Modify the URL to get the raw content URL for GitHub
+    elif domain == 'github.com':
         url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
-
-    response = requests.get(url)
+    elif 'dropbox.com' in domain:
+        if 'dl=0' in url:
+            url = url.replace('dl=0', 'dl=1')
+        elif '?dl=0' not in url and '?raw=1' not in url:
+            url += '?dl=1'
     
-    logger.debug(f"URL: {url}")
-    logger.debug(f"Content-Type: {response.headers.get('Content-Type')}")
-    logger.debug(f"Content length: {len(response.content)}")
+    response = requests.get(url, allow_redirects=True)
+    
+    content_type = response.headers.get('Content-Type', '')
+    if 'text/html' in content_type:
+        return None, None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
 
-    # Check if the response is HTML
-    if 'text/html' in response.headers.get('Content-Type', ''):
-        return None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
-
-    file_name = url.split('/')[-1]
+    file_name = get_filename_from_response(response, url)
     file = FileStorage(BytesIO(response.content), filename=file_name)
     return file, file_name, None
+
+def get_filename_from_response(response, url):
+    # Try to get the filename from the Content-Disposition header
+    content_disposition = response.headers.get('Content-Disposition')
+    if content_disposition:
+        # Check for both standard and extended filename formats
+        fname = re.findall(r'filename\*?=(?:UTF-8\'\')?(.+?)(?:;|$)', content_disposition)
+        if len(fname) > 0:
+            # Decode filename if it's encoded (e.g., UTF-8)
+            file_name = fname[0].strip().strip('"').strip("'")
+            return file_name
+    
+    # If not found, use the last part of the URL
+    file_name = url.split('/')[-1].split('?')[0]
+    
+    # If filename is still empty, use a default name
+    if not file_name:
+        file_name = 'downloaded_file'
+    
+    return file_name
+
+
+def get_file_extension(file_name, content_type):
+    # Try to get extension from filename
+    _, extension = os.path.splitext(file_name)
+    if extension:
+        return extension.lstrip('.').lower()
+    
+    # If no extension in filename, try to guess from content type
+    extension = mimetypes.guess_extension(content_type)
+    if extension:
+        return extension.lstrip('.').lower()
+    
+    # If still no extension, return None
+    return None
+
 
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
@@ -857,27 +890,20 @@ def data_upload():
 
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
-
         file, file_name, error_message = download_file_from_url(url)
-    
+        print(file_name)
+
         if error_message:
             return jsonify({'message': error_message, 'status': 400}), 200
-        
 
-        # Check if the response is HTML
-        #if 'text/html' in response.headers['Content-Type']:
-        #   return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
-        #                   'status': 400}), 200
-    
-        #file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
-        #file_name = url.split('/')[-1]
         file_blob = file.read()
+        file.seek(0)  # Reset file pointer to the beginning
 
-        # extract file extension
-        _, file_extension = os.path.splitext(file.filename)
-        filetype = file_extension.lstrip('.')
+        content_type = file.content_type or 'application/octet-stream'
+        filetype = get_file_extension(file_name, content_type)
+
         if filetype not in file_types:
-            return jsonify({'message': "Invalid file type. Please provide a xls, csv, txt or dat file.",
+            return jsonify({'message': f"Invalid file type: {filetype}. Please provide a xls, csv, txt or dat file.",
                             'status': 400}), 200
         
         # Check if the file already exists in the database
