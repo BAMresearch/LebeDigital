@@ -232,6 +232,31 @@ a.light-red:hover {
   border-left: 0.25rem solid var(--color-border-callout);
 }
 
+/* Sidebar slide-in effect */
+#sidebarMenu.slide-in {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+#sidebarMenu {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  min-height: 100vh;
+  z-index: 105;
+}
+
+@media (min-width: 768px) {
+  #sidebarMenu {
+      transform: translateX(0);
+  }
+}
+
+@media (max-width: 426px) {
+  main{
+      position: absolute;
+  }
+}
+
 /* Media Queries */
 @media (min-width: 768px) {
   .align-middle {
