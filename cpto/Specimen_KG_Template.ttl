@@ -24,7 +24,7 @@ ns1:TestSpecimen_ a owl:NamedIndividual,
         ns1:SpecimenDiameter_,
         ns1:SpecimenLength_,
         ns1:SpecimenMass_,
-        ns1:SpecimenThickness_,
+        ns1:SpecimenHeight_,
         ns1:SpecimenWidth_ .
 
 co:characteristic a owl:ObjectProperty .
@@ -78,8 +78,8 @@ ns1:SpecimenMass_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##SpecimenMass_Unit##> ;
     co:value "$$SpecimenMass_Value$$"^^xsd:decimal .
 
-ns1:SpecimenThickness_ a owl:NamedIndividual,
-        co:Thickness ;
+ns1:SpecimenHeight_ a owl:NamedIndividual,
+        co:Height ;
     co:unit <https://w3id.org/cpto/##SpecimenHeight_Unit##> ;
     co:value "$$SpecimenHeight_Value$$"^^xsd:decimal .
 
@@ -100,7 +100,7 @@ co:Length a owl:Class .
 
 co:Specimen a owl:Class .
 
-co:Thickness a owl:Class .
+co:Height a owl:Class .
 
 co:Weight a owl:Class .
 
