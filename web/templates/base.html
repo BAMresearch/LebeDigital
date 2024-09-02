@@ -100,6 +100,10 @@
                     
                     </ul>
                 </div>
+                <!-- Copyright Section -->
+                <div style="position: fixed; top: 96vh;">
+                    <div class="text-muted small text-center px-2">&copy; <span id="currentYear"></span> BAM</div>
+                </div>
             </nav>
             <main role="main" class="col-md-10 col-7 ml-sm-auto pt-3 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
@@ -110,19 +114,17 @@
             </main>
         </div>
     </div>
-    
-
-    
-
-    <footer>
-        <!-- Your footer content -->
-        
-    </footer>
-
     <!-- JavaScript -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
    
     <script src="/static/js/select2.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var year = new Date().getFullYear();
+            document.getElementById('currentYear').textContent = year;
+        });
+    </script>    
 
 </body>
 </html>

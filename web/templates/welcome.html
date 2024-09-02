@@ -252,12 +252,21 @@
       <footer class="container-fluid bg-light py-3 px-md-5 px-3">
 
         <h4 class="float-end mb-0 mt-3 mt-md-0"><a href="#" class="clr-theme"><i class="fas fa-arrow-circle-up"></i></a></h4>
-        <p class="mb-0 text-muted ">&copy; <small>Bundesanstalt für Materialforschung und -prüfung (BAM) 2024</small></p>
+        <p class="mb-0 text-muted ">&copy; <small>Bundesanstalt für Materialforschung und -prüfung (BAM) <span id="currentYear"></span></small></p>
       </footer>
 
     </main>
 
     <!-- JavaScript files -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var year = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = year;
+      });
+    </script>
+
+
   </body>
 </html>
