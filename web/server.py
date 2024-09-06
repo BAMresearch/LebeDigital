@@ -766,10 +766,13 @@ def download_file_from_url(url):
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
 
+    # Handle specific cases for GitHub, Dropbox, SharePoint, Google Drive, etc.
     if 'view.officeapps.live.com' in domain:
         query_params = parse_qs(parsed_url.query)
         if 'src' in query_params:
             url = query_params['src'][0]
+        else:
+            return None, None, None, "Invalid URL. Please provide a valid link."
     elif domain == 'github.com':
         url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
     elif 'dropbox.com' in domain:
@@ -777,16 +780,50 @@ def download_file_from_url(url):
             url = url.replace('dl=0', 'dl=1')
         elif '?dl=0' not in url and '?raw=1' not in url:
             url += '?dl=1'
+        else:
+            return None, None, None, "Invalid Dropbox URL. Please provide a valid link."
+    elif 'drive.google.com' in domain or 'docs.google.com' in domain:   
+        if 'edit' in url:
+            url = url.replace('edit', 'export')
+        elif 'edit' not in url:
+            url += '/export'
+        else:
+            return None, None, None, "Invalid Google Drive URL. Please provide a valid link."
+    else:
+        # Handle other URLs
+        return None, None, None, "Sorry! Please provide a valid link from GitHub, Dropbox or Google Drive."
     
     response = requests.get(url, allow_redirects=True)
     
     content_type = response.headers.get('Content-Type', '')
     if 'text/html' in content_type:
-        return None, None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
+        return None, None, None, "Sorry! We could not access your file. Please download it and upload the file from your device."
 
-    file_name = get_filename_from_response(response, url)
+    # Correctly unpack the filename and extension returned from `get_filename_from_response`
+    file_name, extension = get_filename_from_response(response, url)
+    
+    # Create the file storage object
     file = FileStorage(BytesIO(response.content), filename=file_name)
-    return file, file_name, None
+    
+    return file, file_name, extension, None
+
+
+def clean_filename(file_name):
+    # First, split the filename and extension
+    base_name, extension = os.path.splitext(file_name)
+
+    # If the base_name itself contains multiple dots, keep only the first part
+    if '.' in base_name:
+        base_name = base_name.split('.')[0]
+
+    # Remove any leading dot from the extension
+    extension = extension.lstrip('.')
+    
+    # Reassemble the cleaned filename with its valid extension
+    cleaned_filename = f"{base_name}.{extension}" if extension else base_name
+    
+    return cleaned_filename, extension
+
 
 def get_filename_from_response(response, url):
     # Try to get the filename from the Content-Disposition header
@@ -797,32 +834,15 @@ def get_filename_from_response(response, url):
         if len(fname) > 0:
             # Decode filename if it's encoded (e.g., UTF-8)
             file_name = fname[0].strip().strip('"').strip("'")
-            return file_name
+
+            # Clean the filename to remove extra parts after the extension
+            return clean_filename(file_name)
     
     # If not found, use the last part of the URL
     file_name = url.split('/')[-1].split('?')[0]
     
-    # If filename is still empty, use a default name
-    if not file_name:
-        file_name = 'downloaded_file'
-    
-    return file_name
-
-
-def get_file_extension(file_name, content_type):
-    # Try to get extension from filename
-    _, extension = os.path.splitext(file_name)
-    if extension:
-        return extension.lstrip('.').lower()
-    
-    # If no extension in filename, try to guess from content type
-    extension = mimetypes.guess_extension(content_type)
-    if extension:
-        return extension.lstrip('.').lower()
-    
-    # If still no extension, return None
-    return None
-
+    # Clean the filename to remove extra parts after the extension
+    return clean_filename(file_name)
 
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
@@ -890,8 +910,7 @@ def data_upload():
 
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
-        file, file_name, error_message = download_file_from_url(url)
-        print(file_name)
+        file, file_name, extension, error_message = download_file_from_url(url)
 
         if error_message:
             return jsonify({'message': error_message, 'status': 400}), 200
@@ -899,8 +918,7 @@ def data_upload():
         file_blob = file.read()
         file.seek(0)  # Reset file pointer to the beginning
 
-        content_type = file.content_type or 'application/octet-stream'
-        filetype = get_file_extension(file_name, content_type)
+        filetype = extension
 
         if filetype not in file_types:
             return jsonify({'message': f"Invalid file type: {filetype}. Please provide a xls, csv, txt or dat file.",
