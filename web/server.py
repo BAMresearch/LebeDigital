@@ -422,64 +422,17 @@ def get_admin_data():
                 logger.info(f"Removing file {data['removeFile']}")
                 conn = get_db_connection()
                 cursor = conn.cursor()
-
-                # check if file exists in uploads
-                query = "SELECT * FROM uploads WHERE Unique_ID = ?"
-                cursor.execute(query, (data["removeFile"],))
-                rowdata = cursor.fetchone()
-
-                # check if file exists in uidlookup
-                query = "SELECT * FROM uidlookup WHERE Unique_ID = ?"
-                cursor.execute(query, (data["removeFile"],))
-                rowdata2 = cursor.fetchone()
-
-                # check if file exists in Ontodocker
-                query = f'''
-                SELECT ?g WHERE {{
-                    ?g ?p "{data["removeFile"]}".
-                }}'''
-                # send query
-                results = send_sparql_query(query, config)
-
-                def check_if_key_has_empty_value(d, key):
-                    """
-                    Checks if a key in a potentially nested dictionary has an empty value.
                 
-                    :param d: The dictionary to check
-                    :param key: The key to check
-                    :return: True if the key has an empty value, False otherwise
-                    """
-                
-                    for k, v in d.items():
-                        if k == key:
-                            return not bool(v)
-                        elif isinstance(v, dict):
-                            if check_if_key_has_empty_value(v, key):
-                                return True
-                    return False
-                
-                # if results is not empty, delete from Ontodocker
-                if not check_if_key_has_empty_value(results, "g"):
-                    if rowdata:
-                        delete_specific_triples_from_endpoint(rowdata["ttl"], config)
-                        logger.info(f"File {data['removeFile']} deleted from Ontodocker")
-    
-                # remove from both tables
-                if rowdata:
-                    cursor.execute("DELETE FROM uploads WHERE Unique_ID = ?", (data["removeFile"],))
-                    conn.commit()
-                    logger.info(f"File {data['removeFile']} deleted from uploads")
-                if rowdata2:
-                    cursor.execute("DELETE FROM uidlookup WHERE Unique_ID = ?", (data["removeFile"],))
-                    conn.commit()
-                    logger.info(f"File {data['removeFile']} deleted from uidlookup")
+                cursor.execute("DELETE FROM uploads WHERE Unique_ID = ?", (data["removeFile"],))
+                conn.commit()
+                logger.info(f"File {data['removeFile']} deleted from uploads")
+            
+                cursor.execute("DELETE FROM uidlookup WHERE Unique_ID = ?", (data["removeFile"],))
+                conn.commit()
+                logger.info(f"File {data['removeFile']} deleted from uidlookup")
                 conn.close()
 
-                # if file not found
-                if not rowdata and not rowdata2:
-                    logger.error(f"File {data['removeFile']} not found")
-                    return jsonify({"error": "File not found"}), 404
-                return jsonify({"message": "File removed"})
+                return jsonify({"message": "The file has been deleted permanently."})
             
         # update config
         else:
