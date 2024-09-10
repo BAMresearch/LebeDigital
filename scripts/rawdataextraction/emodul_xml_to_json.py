@@ -63,8 +63,8 @@ def xml_to_json(xml_binary, mix_json):
                 emodul_data['EModule'] = float(value)
                 emodul_data['EModule_Unit'] = var_data.find('Unit').text
             elif name == 'Druckfestigkeit':
-                emodul_data['CompressiveStrength'] = float(value)
-                emodul_data['CompressiveStrength_Unit'] = var_data.find('Unit').text
+                emodul_data['InputCompressiveStrength'] = float(value)
+                emodul_data['InputCompressiveStrength_Unit'] = var_data.find('Unit').text
             elif name == 'Durchmesser':
                 specimen_data['SpecimenDiameter'] = float(value)
                 specimen_data['SpecimenDiameter_Unit'] = var_data.find('Unit').text
