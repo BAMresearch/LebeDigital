@@ -73,7 +73,8 @@ ns1:ExperimentInfo_ a owl:NamedIndividual,
         ns1:ExtensometerLength_,
         ns1:Lab_,
         ns1:ProcessedFile_,
-        ns1:CompressiveStrength_.
+        ns1:MeasuredCompressiveStrength_,
+        ns1:InputCompressiveStrength_.
 
 ns1:ExtensometerLength_ a owl:NamedIndividual,
         co:ExtensometerLength ;
@@ -112,10 +113,15 @@ ns1:SpecimenAge_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
-ns1:CompressiveStrength_ a owl:NamedIndividual,
-        co:CompressiveStrength ;
-    co:unit <https://w3id.org/cpto/##CompressiveStrength_Unit##> ;
-    co:value "$$CompressiveStrength_Value$$"^^xsd:string .
+ns1:InputCompressiveStrength_ a owl:NamedIndividual,
+        co:InputCompressiveStrength ;
+    co:unit <https://w3id.org/cpto/##InputCompressiveStrength_Unit##> ;
+    co:value "$$InputCompressiveStrength_Value$$"^^xsd:string .
+
+ns1:MeasuredCompressiveStrength_ a owl:NamedIndividual,
+        co:MeasuredCompressiveStrength ;
+    co:unit <https://w3id.org/cpto/##MeasuredCompressiveStrength_Unit##> ;
+    co:value "$$MeasuredCompressiveStrength_Value$$"^^xsd:string .
 
 co:ComputingNode a owl:Class .
 
