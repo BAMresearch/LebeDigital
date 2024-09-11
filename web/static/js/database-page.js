@@ -17,21 +17,13 @@ table.on("cellClick", function(e, cell) {
     var value = cell.getValue();
     var field = cell.getField();
 
-    if (field == "filename" || field == "Unique_ID" || field == "type") {
+    if (field == "filename" || field == "Unique_ID") {
         rowData = cell.getRow().getData();
         document.getElementById('fileID').value = rowData["Unique_ID"];
         var enteredName = rowData["filename"];
         var enteredType = rowData["type"];
 
-        // Remove file extension from filename
-        //var filenameWithoutExtension = enteredName.split('.').slice(0, -1).join('.');  
-        
-        if(enteredType == "Mixture"){
-            create_query(enteredName, enteredType);
-        }
-        else{
-            create_query(rowData["Unique_ID"], enteredType);
-        }
+        create_query(rowData["Unique_ID"]);
 
         // Show the heading div after a delay so that data loading is complete
         setTimeout(function() {
@@ -71,26 +63,11 @@ table.on("cellClick", function(e, cell) {
 });
 
 // Creates a Query based on the specific input from the user and executes it
-async function create_query(enteredName, fileType){
-    let query = null;
-
-    // Show all Info from a specific file
-    if (enteredName !== ""){
-        query = `
-        SELECT ?Component ?Value ?Unit WHERE {
-        ?g ?p "${enteredName}".
-        BIND(SUBSTR(STR(?g), STRLEN(STR(?g)) - 35) AS ?suffix)
-        ?Component <https://w3id.org/pmd/co/value> ?Value.
-        OPTIONAL { ?Component <https://w3id.org/pmd/co/unit> ?Unit. }
-        FILTER(STRENDS(STR(?Component), ?suffix))
-        }`;
-        console.log(query)
-    }
-
-
+async function create_query(enteredName){
+    
     // main logic for not extended queries
     try {
-        const tableData = await executeSparqlQuery(query);
+        const tableData = await executeSparqlQuery(enteredName);
         createTable(tableData);
     } catch (error) {
         document.getElementById('queryResults').textContent = error.message;
@@ -98,12 +75,15 @@ async function create_query(enteredName, fileType){
 }
 
 // executes the sparql query and returns result as a promise
-async function executeSparqlQuery(query) {
-    const url = '/queryexec';
+async function executeSparqlQuery(unique_id) {
+    const url = '/database_individual';
+
+    var data = {id: unique_id};
+
     const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'query=' + encodeURIComponent(query)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
     };
 
     try {
@@ -159,53 +139,115 @@ function createTable(tableData){
     
         return columns;
     }
+
+    function filterAndRemoveTuplesByUnit(tuplesList) {
+    let filteredList = [];
+    let remainingList = [];
+
+    // Durchlaufen der Liste von Tupeln
+    for (let i = 0; i < tuplesList.length; i++) {
+        // Überprüfen, ob der erste Eintrag des Tupels auf "Unit" endet
+        if (tuplesList[i][0].endsWith("Unit")) {
+            filteredList.push(tuplesList[i]);  // Tupel in die gefilterte Liste packen
+        } else {
+            remainingList.push(tuplesList[i]);  // Tupel in die verbleibende Liste packen
+        }
+    }
+
+    return { filteredList, remainingList };  // Beide Listen zurückgeben
+    }
+
+    function jsonToKeyValueTuples(jsonData) {
+        let tupleList = [];
     
+        // Durchlaufe alle Schlüssel im JSON-Objekt
+        for (let key in jsonData) {
+            if (jsonData.hasOwnProperty(key)) {
+                // Erstelle ein Tupel [Schlüssel, Wert]
+                let tuple = [key, jsonData[key]];
+                tupleList.push(tuple);
+            }
+        }
+        console.log(tupleList);
+        return tupleList;
+    }
+
+    function appendUnitValues(filteredList, remainingList) {
+        let updatedList = [...remainingList];  // Kopiere die verbleibende Liste
+    
+        // Hilfsfunktion, um Zahlen und Unterstriche zu entfernen
+        function normalizeKey(key) {
+            return key.replace(/[\d_]/g, "");  // Entfernt alle Unterstriche und Zahlen
+        }
+    
+        // Durchlaufe alle Unit-Einträge
+        for (let i = 0; i < filteredList.length; i++) {
+            let unitKey = filteredList[i][0].replace("Unit", "");  // Entferne das "Unit"
+            let normalizedUnitKey = normalizeKey(unitKey);  // Entferne Zahlen und Unterstriche
+            let unitValue = filteredList[i][1];  // Der Wert der Unit
+    
+            // Durchlaufe die verbleibenden Einträge und prüfe, ob der Anfang des Schlüssels übereinstimmt
+            for (let j = 0; j < updatedList.length; j++) {
+                let normalizedRemainingKey = normalizeKey(updatedList[j][0]);  // Normalisiere den Schlüssel
+    
+                // Prüfen, ob die Schlüssel übereinstimmen, nachdem Zahlen und Unterstriche entfernt wurden
+                if (normalizedRemainingKey.startsWith(normalizedUnitKey)) {
+                    // Füge den Unit-Wert als drittes Element in das verbleibende Tupel ein
+                    updatedList[j].push(unitValue);
+                }
+            }
+        }
+    
+        return updatedList;
+    }
+
+    function formatTuples(triplesOrTuplesList, vars) {
+        let formattedList = [];
+    
+        // Durchlaufe die Liste von Tupeln/Triples
+        for (let i = 0; i < triplesOrTuplesList.length; i++) {
+            let current = triplesOrTuplesList[i];
+            
+            // Überprüfen, ob es sich um ein Tupel oder Triple handelt
+            if (current.length === 2) {
+                // Falls es ein Tupel ist, füge eine leere Zeichenkette als drittes Element hinzu
+                current.push("");
+            }
+    
+            // Erstelle das Objekt mit den entsprechenden Variablen (var1, var2, var3)
+            let formattedEntry = {
+                [vars[0]]: current[0],
+                [vars[1]]: current[1],
+                [vars[2]]: current[2]
+            };
+    
+            // Füge das formatierte Objekt zur Liste hinzu
+            formattedList.push(formattedEntry);
+        }
+    
+        return formattedList;
+    }
+
     // Transforms JSON response data from Backend for Tabulator
-    function transformData(bindings, vars) {
-        return bindings.map(binding => {
-            let row = {};
-            vars.forEach(varName => {
-                // Prüft, ob das Objekt existiert, bevor auf .value zugegriffen wird
-                let rawValue = binding[varName] ? binding[varName].value : "";
-                // Reinigt den Value vor der Zuweisung zum row-Objekt
-                let cleanedValue = cleanEntry(rawValue);
-                row[varName] = cleanedValue;
-            });
-            return row;
-        });
+    function transformData(tableData, vars) {
+        let tupel_data = filterAndRemoveTuplesByUnit(jsonToKeyValueTuples(tableData));
+        let jsondata = tupel_data.remainingList;
+        let unitdata = tupel_data.filteredList;
+
+        let data = appendUnitValues(unitdata, jsondata);
+        console.log(data);
+        return formatTuples(data, vars);
     }
 
     try {
-        var vars = tableData.message.head.vars;
-        var bindings = tableData.message.results.bindings;
+        var columns = generateColumns(['Name', 'Value', 'Unit']);
+        var data = transformData(tableData, ['Name', 'Value', 'Unit']);
 
-        var columns = generateColumns(vars);
-        var data = transformData(bindings, vars);
         table.setColumns(columns);  // Setzt die dynamisch erzeugten Spalten
         table.setData(data);        // Setzt die transformierten Daten
     } catch (error) {
         document.getElementById('queryResults').textContent = 'Fehler beim Parsen der Daten: ' + error.message;
     }
-}
-
-// Cleans the data retrieved from Sparql Query (Removes URI and UUID4)
-function cleanEntry(entry) {
-    // Überprüfung auf UUID4 am Ende und Entfernen
-    const uuidRegex = /_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    if (uuidRegex.test(entry)) {
-        entry = entry.replace(uuidRegex, '');
-    }
-
-    // Überprüfung, ob der Eintrag mit einer URL beginnt und Entfernen bis zum letzten "/"
-    const urlRegex = /^(https?:\/\/[^\/]+\/.*)$/;
-    if (urlRegex.test(entry)) {
-        const lastSlashIndex = entry.lastIndexOf('/');
-        if (lastSlashIndex > -1) {
-            entry = entry.substring(lastSlashIndex + 1);
-        }
-    }
-
-    return entry;
 }
 
 // Functionality for downloading table

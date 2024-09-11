@@ -43,3 +43,46 @@ def unit_conversion(input_metadata):
     output_metadata = input_metadata
 
     return output_metadata
+
+def unit_conversion_json(input_metadata):
+    """
+    Script to convert the units extracted from the raw data into valid ontology
+    instances.
+
+    :param input_metadata: dictionary of metadata
+    :return: dictionary of converted units
+    """
+
+    # Define the unit mappings as a dictionary
+    unit_mappings = {"mm": "MilliM",
+                     "g": "GM",
+                     "kN": "KN",
+                     "kg/m^3": "KiloGM-PER-M3",
+                     "kg/dm^3": "KiloGM-PER-DeciM3",
+                     "dm^3": "DeciM3",
+                     "day": "DAY",
+                     "MPa": "MegaPA",
+                     "N/mm^2": "N-PER-MilliM2",
+                     "mm^2": "MilliM2",
+                     "g/mm^3": "GM-PER-CentiM3",
+                     "mm/mm": "PER-MilliM",
+                     "kg": "KiloGM"}
+
+    # Add more unit mappings as needed
+
+    debug_counter = 0
+    
+    # Check if the unit string exists in the dictionary
+    for key in input_metadata:
+        if key.endswith("Unit"):
+            if input_metadata[key] in unit_mappings:
+                input_metadata[key] = unit_mappings[input_metadata[key]]
+
+            debug_counter += 1
+
+    logger.debug("Replaced units:")
+    logger.debug(str(debug_counter))
+
+    output_metadata = input_metadata
+
+    return output_metadata

@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
+from scripts.mapping.unit_conversion import unit_conversion_json
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
 from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
@@ -167,7 +168,7 @@ def create_json_file():
     :return: One Json Object with keys for the types (Mixture eg) and two lists as values containing lists of all info of json and json_specimen.
     '''
 
-    typeliste = ['Mixture', 'EModule']
+    typeliste = ['Mixture', 'EModule', 'CompressiveStrength']
     json_full = {}
 
     for entry in typeliste:
@@ -180,7 +181,7 @@ def create_json_file():
             rows = cursor.fetchall()
             conn.close()
             # Convert the BLOB data to JSON dicts
-            json_full[entry] = [json.loads(row['Json'].decode('utf-8')) for row in rows]
+            json_full[entry] = [json.loads(row['Json'].decode('utf-8')) for row in rows if row['Json']]
 
         else:
             query = "SELECT u1.Json, u1.Json_specimen, u2.Json FROM uploads u1 INNER JOIN uploads u2 ON u1.Mixture_ID = u2.Unique_ID WHERE u1.type = ?"
@@ -772,6 +773,46 @@ def get_mixtures():
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
 
+@app.route('/database_individual', methods=['POST'])
+def get_individual_data():
+    if 'username' in session:
+        unique_id = request.json.get('id')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Sql query to get the data of the unique_id
+        query = "SELECT Json, Json_Specimen FROM uploads WHERE Unique_ID = ?"
+        cursor.execute(query, (unique_id,))
+
+        # Fetch the results of the query
+        rowdata = cursor.fetchone()
+        # Initialize empty dictionaries for JSON data
+        json_data = {}
+        json_specimen_data = {}
+
+        # Check if rowdata is not None
+        if rowdata:
+            # Load Json data if it exists
+            if rowdata[0]:
+                json_data = json.loads(rowdata[0])
+            
+            # Load Json_Specimen data if it exists
+            if rowdata[1]:
+                json_specimen_data = json.loads(rowdata[1])
+
+        # Merge the two JSON objects
+        merged_json = {**json_data, **json_specimen_data}
+
+        conn.close()
+
+        # Return the data as a JSON response
+        return jsonify(merged_json)
+
+    else:
+        return jsonify({'error': 'Nicht angemeldet'}), 403
+    
+
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
@@ -914,21 +955,21 @@ def submit_mixture():
 
         # Additional fixed values
         additional = {
-            "BinderDensityUnit": "kg/dm^3",
-            "BinderAmountUnit": "kg/m^3",
-            "WaterDensityUnit": "kg/dm^3",
-            "WaterTotalUnit": "kg/m^3",
-            "WaterEffectiveUnit": "kg/m^3",
-            "AggregateDensityUnit": "kg/dm^3",
-            "AggregateAmountUnit": "kg/m^3",
-            "AdditionDensityUnit": "kg/dm^3",
-            "AdditionAmountUnit": "kg/m^3",
-            "AdmixtureDensityUnit": "kg/dm^3",
-            "AdmixtureAmountUnit": "kg/m^3",
-            "FiberDensityUnit": "kg/dm^3",
-            "FiberAmountUnit": "kg/m^3",
-            "AirDensityUnit": "kg/dm^3",
-            "AirAmountUnit": "kg/m^3",
+            "BinderDensity_Unit": "kg/dm^3",
+            "BinderAmount_Unit": "kg/m^3",
+            "WaterDensity_Unit": "kg/dm^3",
+            "WaterTotal_Unit": "kg/m^3",
+            "WaterEffective_Unit": "kg/m^3",
+            "AggregateDensity_Unit": "kg/dm^3",
+            "AggregateAmount_Unit": "kg/m^3",
+            "AdditionDensity_Unit": "kg/dm^3",
+            "AdditionAmount_Unit": "kg/m^3",
+            "AdmixtureDensity_Unit": "kg/dm^3",
+            "AdmixtureAmount_Unit": "kg/m^3",
+            "FiberDensity_Unit": "kg/dm^3",
+            "FiberAmount_Unit": "kg/m^3",
+            "AirDensity_Unit": "kg/dm^3",
+            "AirAmount_Unit": "kg/m^3",
             "RawDataFile": "Download",
         }
 
@@ -968,6 +1009,7 @@ def submit_mixture():
                 return (len(priority_keys) + 8, key)  # Other keys come last
 
         mix_dict = dict(sorted(filtered_form_data.items(), key=lambda item: custom_sort_key(item[0])))
+        mix_dict = unit_conversion_json(mix_dict)
         json_blob = json.dumps(mix_dict).encode('utf-8')
         
         # Handle file upload and save as BLOB in the database
@@ -983,6 +1025,7 @@ def submit_mixture():
             }
             additional_file_blob = json.dumps(file_info).encode('utf-8')
 
+
         # Connect to the database
         try:
             conn = get_db_connection()
@@ -995,9 +1038,9 @@ def submit_mixture():
         
             cursor.execute('''
                 INSERT INTO uploads 
-                (user, filetype, filename, type, blob, Mixture_ID, Unique_ID, additional_file, UploadDate, Mapped, Error) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (user, fileType, filename, type, json_blob, mixtureID, mixtureID, additional_file_blob,  upload_date, 1, 0))
+                (user, filetype, filename, type, blob, Json, Mixture_ID, Unique_ID, additional_file, UploadDate, Mapped, Error) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (user, fileType, filename, type, json_blob, json_blob, mixtureID, mixtureID, additional_file_blob,  upload_date, 1, 0))
             conn.commit()
             # start async function
             # thread = threading.Thread(target=async_function, args=(mixtureID,))
@@ -1047,6 +1090,9 @@ def submit_compressive_strength():
 
     filename = f"{comst['humanreadableID']}.json"
     type = 'CompressiveStrength'
+
+    comst = unit_conversion_json(comst)
+    specimen = unit_conversion_json(specimen)
 
     # Convert jsons to a JSON string and then to bytes
     comst_json = json.dumps(comst).encode('utf-8')
@@ -1126,6 +1172,9 @@ def submit_emodule():
     filename = f"{emodule['humanreadableID']}.json"
     type = 'EModule'
 
+    emodule = unit_conversion_json(emodule)
+    specimen = unit_conversion_json(specimen)
+    
     # Convert jsons to a JSON string and then to bytes
     emodule_json = json.dumps(emodule).encode('utf-8')
     specimen_json = json.dumps(specimen).encode('utf-8')
