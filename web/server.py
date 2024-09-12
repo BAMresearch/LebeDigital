@@ -574,7 +574,7 @@ def my_files():
         cursor = conn.cursor()
 
         # admin sees all files
-        if user == 'admin':
+        if user == 'admin@admin.com':
             query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
             cursor.execute(query) # Execute the query
         else:
@@ -623,7 +623,7 @@ def my_files():
 # Admin page
 @app.route('/admin')
 def admin_page():
-    if session['username'] == 'admin':
+    if session['username'] == 'admin@admin.com':
         return render_template('admin.html')
     else:
         return redirect(url_for('login'))
@@ -659,7 +659,7 @@ def update_deleted_by_user():
 @app.route('/adminData', methods=['POST', 'GET'])
 def get_admin_data():
     # if user is not admin, return unauthorized
-    if session['username'] != 'admin':
+    if session['username'] != 'admin@admin.com':
         return jsonify({"error": "Unauthorized"}), 401
 
     # GET-Request
@@ -817,7 +817,7 @@ def get_individual_data():
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['dat', 'json', 'xml']
+    file_types = ['dat', 'json', 'xml', 'xls']
     if 'username' not in session:
         return jsonify({'error': 'Nicht angemeldet'}), 403
 
@@ -1174,7 +1174,7 @@ def submit_emodule():
 
     emodule = unit_conversion_json(emodule)
     specimen = unit_conversion_json(specimen)
-    
+
     # Convert jsons to a JSON string and then to bytes
     emodule_json = json.dumps(emodule).encode('utf-8')
     specimen_json = json.dumps(specimen).encode('utf-8')
