@@ -1,4 +1,4 @@
 {
     "SECRET_KEY": "Your Secret Key (Gets created first run)",
-    "dataset_name": "dataset.ttl",
+    "dataset_name": "dataset.ttl"
 }
