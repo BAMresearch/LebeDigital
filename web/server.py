@@ -27,6 +27,7 @@ from urllib.parse import urlparse, parse_qs
 import base64
 import mimetypes
 import magic
+import re
 
 # --------------------------------- Setup --------------------------------- #
 
@@ -80,7 +81,7 @@ def delete_empty_logs(directory):
             if time.time() - os.path.getmtime(filepath) > 60:
                 os.remove(filepath)
 
-delete_empty_logs(logDir)
+#delete_empty_logs(logDir)
 
 
 # --- Setup User db --- #
@@ -365,37 +366,6 @@ def async_function(unique_id):
     add_data('Mapped', 1)
 
 
-# download files from URL
-#def download_file_from_url(url):
-#    parsed_url = urlparse(url)
-#    
-#    if 'view.officeapps.live.com' in parsed_url.netloc:
-#        # Extract the actual file URL from the 'src' parameter
-#        query_params = parse_qs(parsed_url.query)
-#        if 'src' in query_params:
-#            url = query_params['src'][0]
-#    
-#    domain = urlparse(url).netloc
-#
-#    if domain == 'github.com':
-#        # Modify the URL to get the raw content URL for GitHub
-#        url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
-#
-#    response = requests.get(url)
-#    
-#    logger.debug(f"URL: {url}")
-#    logger.debug(f"Content-Type: {response.headers.get('Content-Type')}")
-#    logger.debug(f"Content length: {len(response.content)}")
-#
-#    # Check if the response is HTML
-#    if 'text/html' in response.headers.get('Content-Type', ''):
-#        return None, "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file."
-#
-#    file_name = url.split('/')[-1]
-#    file = FileStorage(BytesIO(response.content), filename=file_name)
-#    return file, file_name, None
-
-
 # --------------------------------- Routes --------------------------------- #
 
 # middleware to log requests
@@ -482,18 +452,7 @@ def query_page():
         return redirect(url_for('login'))
 
 
-# Database page (query page simple version)
-@app.route('/database')
-def query_page_simple():
-    if 'username' in session:
-        return render_template('queryPageSimple.html')
-    else:
-        # Store the URL the user was trying to access in the session data
-        session['next'] = url_for('query_page_simple')
-        return redirect(url_for('login'))
-
-
-@app.route('/database_new', methods=['GET', 'POST'])
+@app.route('/database', methods=['GET', 'POST'])
 def database():
     if 'username' in session:
         conn = get_db_connection() 
@@ -543,7 +502,7 @@ def database():
 
 
 
-# Plotting page (query page simple version)
+# Plotting page
 @app.route('/plot')
 def plot_page():
     if 'username' in session:
@@ -574,7 +533,7 @@ def my_files():
         cursor = conn.cursor()
 
         # admin sees all files
-        if user == 'admin@admin.com':
+        if user == 'admin':
             query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
             cursor.execute(query) # Execute the query
         else:
@@ -623,7 +582,7 @@ def my_files():
 # Admin page
 @app.route('/admin')
 def admin_page():
-    if session['username'] == 'admin@admin.com':
+    if session['username'] == 'admin':
         return render_template('admin.html')
     else:
         return redirect(url_for('login'))
@@ -659,7 +618,7 @@ def update_deleted_by_user():
 @app.route('/adminData', methods=['POST', 'GET'])
 def get_admin_data():
     # if user is not admin, return unauthorized
-    if session['username'] != 'admin@admin.com':
+    if session['username'] != 'admin':
         return jsonify({"error": "Unauthorized"}), 401
 
     # GET-Request
@@ -694,33 +653,17 @@ def get_admin_data():
                 logger.info(f"Removing file {data['removeFile']}")
                 conn = get_db_connection()
                 cursor = conn.cursor()
-
-                # check if file exists in uploads
-                query = "SELECT * FROM uploads WHERE Unique_ID = ?"
-                cursor.execute(query, (data["removeFile"],))
-                rowdata = cursor.fetchone()
-
-                # check if file exists in uidlookup
-                query = "SELECT * FROM uidlookup WHERE Unique_ID = ?"
-                cursor.execute(query, (data["removeFile"],))
-                rowdata2 = cursor.fetchone()
-    
-                # remove from both tables
-                if rowdata:
-                    cursor.execute("DELETE FROM uploads WHERE Unique_ID = ?", (data["removeFile"],))
-                    conn.commit()
-                    logger.info(f"File {data['removeFile']} deleted from uploads")
-                if rowdata2:
-                    cursor.execute("DELETE FROM uidlookup WHERE Unique_ID = ?", (data["removeFile"],))
-                    conn.commit()
-                    logger.info(f"File {data['removeFile']} deleted from uidlookup")
+                
+                cursor.execute("DELETE FROM uploads WHERE Unique_ID = ?", (data["removeFile"],))
+                conn.commit()
+                logger.info(f"File {data['removeFile']} deleted from uploads")
+            
+                cursor.execute("DELETE FROM uidlookup WHERE Unique_ID = ?", (data["removeFile"],))
+                conn.commit()
+                logger.info(f"File {data['removeFile']} deleted from uidlookup")
                 conn.close()
 
-                # if file not found
-                if not rowdata and not rowdata2:
-                    logger.error(f"File {data['removeFile']} not found")
-                    return jsonify({"error": "File not found"}), 404
-                return jsonify({"message": "File removed"})
+                return jsonify({"message": "The file has been deleted permanently."})
             
         # update config
         else:
@@ -813,19 +756,101 @@ def get_individual_data():
         return jsonify({'error': 'Nicht angemeldet'}), 403
     
 
+def download_file_from_url(url):
+    parsed_url = urlparse(url)
+    domain = parsed_url.netloc
+
+    # Handle specific cases for GitHub, Dropbox, SharePoint, Google Drive, etc.
+    if 'view.officeapps.live.com' in domain:
+        query_params = parse_qs(parsed_url.query)
+        if 'src' in query_params:
+            url = query_params['src'][0]
+        else:
+            return None, None, None, "Invalid URL. Please provide a valid link."
+    elif domain == 'github.com':
+        url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob', '')
+    elif 'dropbox.com' in domain:
+        if 'dl=0' in url:
+            url = url.replace('dl=0', 'dl=1')
+        elif '?dl=0' not in url and '?raw=1' not in url:
+            url += '?dl=1'
+        else:
+            return None, None, None, "Invalid Dropbox URL. Please provide a valid link."
+    elif 'drive.google.com' in domain or 'docs.google.com' in domain:   
+        if 'edit' in url:
+            url = url.replace('edit', 'export')
+        elif 'edit' not in url:
+            url += '/export'
+        else:
+            return None, None, None, "Invalid Google Drive URL. Please provide a valid link."
+    else:
+        # Handle other URLs
+        return None, None, None, "Sorry! Please provide a valid link from GitHub, Dropbox or Google Drive."
+    
+    response = requests.get(url, allow_redirects=True)
+    
+    content_type = response.headers.get('Content-Type', '')
+    if 'text/html' in content_type:
+        return None, None, None, "Sorry! We could not access your file. Please download it and upload the file from your device."
+
+    # Correctly unpack the filename and extension returned from `get_filename_from_response`
+    file_name, extension = get_filename_from_response(response, url)
+    
+    # Create the file storage object
+    file = FileStorage(BytesIO(response.content), filename=file_name)
+    
+    return file, file_name, extension, None
+
+
+def clean_filename(file_name):
+    # First, split the filename and extension
+    base_name, extension = os.path.splitext(file_name)
+
+    # If the base_name itself contains multiple dots, keep only the first part
+    if '.' in base_name:
+        base_name = base_name.split('.')[0]
+
+    # Remove any leading dot from the extension
+    extension = extension.lstrip('.')
+    
+    # Reassemble the cleaned filename with its valid extension
+    cleaned_filename = f"{base_name}.{extension}" if extension else base_name
+    
+    return cleaned_filename, extension
+
+
+def get_filename_from_response(response, url):
+    # Try to get the filename from the Content-Disposition header
+    content_disposition = response.headers.get('Content-Disposition')
+    if content_disposition:
+        # Check for both standard and extended filename formats
+        fname = re.findall(r'filename\*?=(?:UTF-8\'\')?(.+?)(?:;|$)', content_disposition)
+        if len(fname) > 0:
+            # Decode filename if it's encoded (e.g., UTF-8)
+            file_name = fname[0].strip().strip('"').strip("'")
+
+            # Clean the filename to remove extra parts after the extension
+            return clean_filename(file_name)
+    
+    # If not found, use the last part of the URL
+    file_name = url.split('/')[-1].split('?')[0]
+    
+    # Clean the filename to remove extra parts after the extension
+    return clean_filename(file_name)
+
 # handle uploaded data
 @app.route('/dataUpload', methods=['POST'])
 def data_upload():
     init_db()
-    file_types = ['dat', 'json', 'xml', 'xls']
+    file_types = ['dat', 'json', 'xml', 'xls', 'xlsx']
     if 'username' not in session:
-        return jsonify({'error': 'Nicht angemeldet'}), 403
+        return jsonify({'error': 'Please Login first.'}), 403
 
     if 'type' not in request.form:
-        return jsonify({'error': 'Kein Typ angegeben'}), 400
+        return jsonify({'error': 'Please select a type.'}), 400
 
     if 'Mixture_ID' not in request.form:
-        return jsonify({'error': 'Keine Mixture ID angegeben'}), 400
+        return jsonify({'error': 'No Mixture ID found!'}), 400
 
     type = request.form['type']
     mixtureID = str(request.form['Mixture_ID'])
@@ -873,61 +898,51 @@ def data_upload():
                                 (unique_id, file_name.split(".")[0]))
                     conn.commit()
 
-                    conn.close()
                     # start async function for each file
                     thread = threading.Thread(target=async_function, args=(unique_id,))
                     thread.start()
 
-    #elif 'url' in request.form and request.form['url'] != '':
-    #    url = request.form['url']
-    #
-    #    file, file_name, error_message = download_file_from_url(url)
-    #
-    #    if error_message:
-    #        return jsonify({'message': error_message, 'status': 400}), 200
-        
+    elif 'url' in request.form and request.form['url'] != '':
+        url = request.form['url']
+        file, file_name, extension, error_message = download_file_from_url(url)
 
-        # Check if the response is HTML
-        #if 'text/html' in response.headers['Content-Type']:
-        #   return jsonify({'message': "Invalid file type. Please provide a direct link to a xls, csv, txt or dat file.",
-        #                   'status': 400}), 200
-    
-        #file = FileStorage(BytesIO(response.content), filename=url.split('/')[-1])
-        #file_name = url.split('/')[-1]
-    #    file_blob = file.read()
+        if error_message:
+            return jsonify({'message': error_message, 'status': 400}), 200
 
-        # extract file extension
-    #    _, file_extension = os.path.splitext(file.filename)
-    #    filetype = file_extension.lstrip('.')
-    #    if filetype not in file_types:
-    #        return jsonify({'message': "Invalid file type. Please provide a xls, csv, txt or dat file.",
-    #                        'status': 400}), 200
+        file_blob = file.read()
+        file.seek(0)  # Reset file pointer to the beginning
+
+        filetype = extension
+        if filetype not in file_types:
+            return jsonify({'message': f"Invalid file type: {filetype}. Please provide a xls, csv, txt or dat file.",
+                            'status': 400}), 200
         
         # Check if the file already exists in the database
-    #    if check_file_exists(file_name, cursor):
-    #        conn.close()
-    #        return jsonify({'message': "This file already exists.",
-    #                        'status': 409}), 200
-    #    else:
-    #        if type == 'Mixture':
-    #            unique_id = mixtureID
-    #        else:
-    #            unique_id = str(uuid.uuid4())
+        if check_file_exists(file_name, cursor):
+            conn.close()
+            return jsonify({'message': "This file already exists.",
+                            'status': 409}), 200
+        else:
+            if type == 'Mixture':
+                unique_id = mixtureID
+            else:
+                unique_id = str(uuid.uuid4())
             # insert data into the database
-    #        cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
-    #                    'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
-    #                    (user, filetype, file_name, url, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
-    #        conn.commit()
-    #        cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
-    #                    (unique_id, file_name.split(".")[0]))
-    #        conn.commit()
+            cursor.execute('INSERT INTO uploads (user, filetype, filename, url, type, blob, Mixture_ID, Unique_ID, UploadDate, '
+                        'Mapped, Error) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)',
+                        (user, filetype, file_name, url, type, file_blob, mixtureID, unique_id, uploaddate, 0, 0))
+            conn.commit()
+            cursor.execute('INSERT INTO uidlookup (Unique_ID, Name) VALUES (?, ?)',
+                        (unique_id, file_name.split(".")[0]))
+            conn.commit()
 
             # start async function
-    #        thread = threading.Thread(target=async_function, args=(unique_id,))
-    #        thread.start()
-
+            thread = threading.Thread(target=async_function, args=(unique_id,))
+            thread.start()
     else:
         return jsonify({'error': 'No Data found'}), 400
+    
+    conn.close()
     
     return jsonify({'message': "Your files have been uploaded successfully.",
                     'uniqueID': unique_id,

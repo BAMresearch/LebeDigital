@@ -85,18 +85,14 @@ def extract_metadata_ComSt(blob, mix_json, processed_data):
         # set experiment lab location to BAM
         metadata_ComSt['Lab'] = 'BAM'
 
-        # set Compression and Transducer Column
-        metadata_ComSt['CompressionColumn'] = [4]
+        # set CompressionForce unit
         metadata_ComSt['CompressionForce_Unit'] = "kN"
-        metadata_ComSt['TransducerColumn'] = [5]
-        metadata_ComSt['Extensometer_Unit'] = "mm"  # Transducer messen eine Verschiebung.
-
 
         # name of specimen (humanreadable)
         metadata_specimen_ComSt['humanreadableID'] = serviceInformation[3][1]
         # set size of specimen
-        metadata_specimen_ComSt['SpecimenDiameter'] = float(replace_comma(serviceInformation[5][1]))  # diameter
-        metadata_specimen_ComSt['SpecimenDiameter_Unit'] = 'mm'
+        metadata_specimen_ComSt['SpecimenWidth'] = float(replace_comma(serviceInformation[5][1]))  # Width
+        metadata_specimen_ComSt['SpecimenWidth_Unit'] = 'mm'
         metadata_specimen_ComSt['SpecimenHeight'] = float(replace_comma(serviceInformation[6][1]))  # Height
         metadata_specimen_ComSt['SpecimenHeight_Unit'] = 'mm'
 
@@ -149,7 +145,7 @@ def extract_metadata_ComSt(blob, mix_json, processed_data):
             min_force = processed_data['Force [kN]'].min()
             #diameter = 100.0
             #height = 100.3
-            area = metadata_specimen_ComSt['SpecimenDiameter'] ** 2
+            area = metadata_specimen_ComSt['SpecimenLength'] ** 2
             normalValue = (min_force * -1)
             CompressiveStrength = (normalValue / area) * 1000
             metadata_ComSt['CompressiveStrength'] = CompressiveStrength

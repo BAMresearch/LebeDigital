@@ -51,7 +51,7 @@
                 <img class="carousel-img" src="{{ url_for('static', filename='images/welcome2.jpg') }}" alt="Slide 1">
                 <div class="carousel-caption pt-0 align-middle">
                     <h3 class="display-6">A material database, where concrete-specific characteristic values & models are integrated</h3>
-                    <a href="/database_new"><button class="btn btn-lg btn-theme mt-4">Open Database</button></a>
+                    <a href="/database"><button class="btn btn-lg btn-theme mt-4">Open Database</button></a>
                 </div>    
             </div>
             <!-- Second Slide -->
@@ -230,19 +230,29 @@
           <h2 class="featurette-heading pb-4">Our Team</h2>
           <div class="d-md-flex justify-content-between">
             <div class="py-3">
-              <img src="/static/images/team1.png" alt="logo" class="icon-72"> 
+              <a href="https://www.bmbf.de/bmbf/de/home/home_node.html" target="_blank" rel="noopener noreferrer">
+                <img src="/static/images/team1.png" alt="logo" class="icon-72"> 
+              </a>
             </div>
             <div class="py-3">
-              <img src="/static/images/team3.png" alt="materialdigital" class="icon-72">   
+              <a href="https://www.materialdigital.de/" target="_blank" rel="noopener noreferrer">
+                <img src="/static/images/team3.png" alt="materialdigital" class="icon-72">
+              </a>   
             </div>
             <div class="py-3">
-              <img src="/static/images/team2.png" alt="bam" class="icon-72">
+              <a href="https://www.bam.de/" target="_blank" rel="noopener noreferrer">
+                <img src="/static/images/team2.png" alt="bam" class="icon-72">
+              </a>
             </div>
             <div class="py-3">
-              <img src="/static/images/team4.png" alt="kit" class="icon-72">
+              <a href="https://www.kit.edu/" target="_blank" rel="noopener noreferrer">
+                <img src="/static/images/team4.png" alt="kit" class="icon-72">
+              </a>
             </div>
             <div class="py-3">
-              <img src="/static/images/team5.png" alt="tum" class="icon-72">
+              <a href="https://www.tum.de/" target="_blank" rel="noopener noreferrer">
+                <img src="/static/images/team5.png" alt="tum" class="icon-72">
+              </a>
             </div>
           </div>
         </div>
@@ -252,12 +262,21 @@
       <footer class="container-fluid bg-light py-3 px-md-5 px-3">
 
         <h4 class="float-end mb-0 mt-3 mt-md-0"><a href="#" class="clr-theme"><i class="fas fa-arrow-circle-up"></i></a></h4>
-        <p class="mb-0 text-muted ">&copy; <small>Bundesanstalt für Materialforschung und -prüfung (BAM) 2024</small></p>
+        <p class="mb-0 text-muted ">&copy; <small>Bundesanstalt für Materialforschung und -prüfung (BAM) <span id="currentYear"></span></small></p>
       </footer>
 
     </main>
 
     <!-- JavaScript files -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var year = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = year;
+      });
+    </script>
+
+
   </body>
 </html>

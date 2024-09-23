@@ -1,5 +1,5 @@
 //js for upload data page
-// Globale Variable
+// Global Variable
 var mixtureID = null;
 var mixtureName = null;
 var institute = 'BAM';
@@ -16,6 +16,8 @@ function disableUploadButton() {
     });
 }
 
+
+// Function to display the selected mixture name on the UI
 function showMixtureName() {
     console.log(mixtureName)
     if (mixtureID !== null) {
@@ -26,41 +28,46 @@ function showMixtureName() {
     }    
 }
 
-function hideMixtureId() {
-    if (mixtureID == null) {
-        var elements = document.getElementsByClassName('show-mixture-id');
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].innerHTML = "";
-        }
-    }    
+// Function to remove the mixture ID and clear related UI elements
+function removeMixtureId() {
+    mixtureID = null
+    mixtureName = null
+    var elements = document.getElementsByClassName('show-mixture-id');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].innerHTML = "";
+    }   
 }
 
+
+// Function to generate unique id
 function generateUUIDv4() {
 return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
 );
 }
 
+
 function uploadData(type, fileID, urlID, label) {
     if (type === 'Mixture') {
-        mixtureID = generateUUIDv4(); // Generiere eine neue UUID v4 und weise sie `mixtureID` zu
-        console.log(`Neue Mixture ID: ${mixtureID}`); // Zeige die generierte ID an
+        mixtureID = generateUUIDv4(); 
+        console.log(`New Mixture ID: ${mixtureID}`); 
     } else {
-        console.log(`Type ist nicht Mixture, keine ID generiert. Mixture ID ist: ${mixtureID}`);
+        console.log(`Type ist not Mixture, No ID generated. Mixture ID is: ${mixtureID}`);
         if (mixtureID == null) {
+            // Show error if no mixture is selected
             $('#mixtureWarningModal').modal('show');
             return;
         }
     }
 
     var formData = new FormData();
-    formData.append('type', type); // Fügt den übergebenen Typ hinzu
-    formData.append('Mixture_ID', mixtureID); // Übergibt die Mixture ID
+    formData.append('type', type);
+    formData.append('Mixture_ID', mixtureID);
 
-     // Check if the input is a file or a URL
+    // Check if the input is a file or a URL
     var fileLabel = document.getElementById(label).textContent;
     if (fileLabel.startsWith('http')) {
-        // It's a URL, append it to the form data
+        // Handle URL input
         var urlInput = document.getElementById(urlID).value;
         formData.append('url', urlInput);
 
@@ -73,29 +80,24 @@ function uploadData(type, fileID, urlID, label) {
         }
 
     } else {
-        // It's a file
+        // Handle file input
         var fileInput = document.getElementById(fileID);
         for (var i = 0; i < fileInput.files.length; i++) {
-           formData.append('file' + i, fileInput.files[i]); // Fügt jede Datei hinzu
+           formData.append('file' + i, fileInput.files[i]); 
         }
         if (type === 'Mixture') {
-            mixtureName = fileInput.files[0].name; // Use the name of the first file
+            mixtureName = fileInput.files[0].name; 
         }
     }
     showMixtureName();
 
-    // Log each key-value pair in formData
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
-
     fetch('/dataUpload', {
         method: 'POST',
-        body: formData, // Sendet FormData, das Datei und Typ enthält
+        body: formData,
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Netzwerkantwort war nicht ok');
+            throw new Error('Network was not Okay!');
         }
         return response.json();
     })
@@ -106,6 +108,9 @@ function uploadData(type, fileID, urlID, label) {
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
             toastBootstrap.show()  
         } else {
+            if(type === 'Mixture' && data.status === 409){
+                removeMixtureId()
+            }
             document.getElementById("error-message").innerHTML = data.message
             const toastLiveExample = document.getElementById('liveToastError')
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -114,11 +119,15 @@ function uploadData(type, fileID, urlID, label) {
         disableUploadButton();
     })
     .catch((error) => {
-        console.error('Fehler beim Hochladen:', error);
+        console.error('Failed to upload:', error);
+        document.getElementById("error-message").innerHTML = "Failed to upload!"
+        const toastLiveExample = document.getElementById('liveToastError')
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastBootstrap.show()
     });
 }
 
-// This function is called when the upload button is clicked
+// Function to restrict user clicking upload btn more than once
 function clearFileInput(fileID) {
     document.getElementById(fileID).value = '';
     disableUploadButton();
@@ -130,13 +139,25 @@ function onFileSelected(event, fileLabel) {
     var fileNames = []; // Initialize an array to store the names of valid files
 
     // Check the file format (extension) for each file
-    const allowedFormats = ['xlsx', 'xls', 'csv', 'dat', 'txt', 'json', 'xml'];
+    var allowedFormats = ['json']
+    if(fileLabel == 'fileLabel1'){
+        // for mixture
+        allowedFormats.push('xls', 'xlsx');
+    }
+    else if(fileLabel == 'fileLabel2'){
+        // for comSt
+        allowedFormats.push('dat')
+    }
+    else{
+        allowedFormats.push('xml')
+    }
+    
     for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         const fileExtension = fileName.split('.').pop().toLowerCase();
 
         if (!allowedFormats.includes(fileExtension)) {
-            alert('Invalid file: ' + fileName + '. Please select a xlsx, xls, csv, dat, txt, json, or xml file.');
+            alert('Sorry! The file type is not supported!');
             continue; // Skip this file and move to the next one
         }
         fileNames.push(fileName); // Add the valid file name to the array
@@ -185,36 +206,6 @@ $('#mixtures').on('change', function() {
 });
 
 
-// Nächste Seite
-function nextSiteOne(page) {
-    // Dictionary für seiten Namen
-    let pageMap = new Map();
-
-    pageMap.set(1, 'mainContent');
-    pageMap.set(2, 'newContent');
-    pageMap.set(3, 'last');
-    
-    // Verbirgt den aktuellen Hauptinhalt
-    document.getElementById(pageMap.get(page)).style.display = 'none';
-
-    // Zeigt den neuen Inhalt an
-    document.getElementById(pageMap.get(page + 1)).style.display = 'block';
-}
-
-// previous page
-function previousSiteOne(page) {
-    // Dictionary für seiten Namen
-    let pageMap = new Map();
-
-    pageMap.set(1, 'mainContent');
-    pageMap.set(2, 'newContent');
-    pageMap.set(3, 'last');
-
-    document.getElementById(pageMap.get(page)).style.display = 'block';
-
-    document.getElementById(pageMap.get(page + 1)).style.display = 'none';
-}
-
 function toggleSections() {
     const existingMixture = document.getElementById("existingMixture");
     const mixtureDetails = document.getElementById("mixtureDetails");
@@ -229,6 +220,7 @@ function toggleSections() {
     }
 }
 
+// Function to redirect user to the mixture upload section
 function goToMixtureUpload() {
     $('#mixtureWarningModal').modal('hide');
     // Scroll to and open the mixture accordion
@@ -238,15 +230,17 @@ function goToMixtureUpload() {
     }, 1000);
 }
 
+// Redirect user to the mixture form
 function GoToMixtureForm() {
     // Unselect all radio buttons
     const radioButtons = document.querySelectorAll('input[name="mixtureOption"]');
     radioButtons.forEach(radio => radio.checked = false);
 
-    // Redirect to the new mixture page
+    // Redirect
     window.location.href = '/new_mixture';  
 }
 
+// Function to check if a mixture is selected before redirecting to another page
 function checkMixtureAndRedirect(targetPage) {
     if (mixtureID == null) {
         $('#mixtureWarningModal').modal('show');
@@ -255,16 +249,20 @@ function checkMixtureAndRedirect(targetPage) {
     }
 }
 
+
+// Function to handle page redirection with mixture ID as a query parameter
 function redirectToPage(page) {
     let url = new URL(page, window.location.origin);
     url.searchParams.append('mixtureId', mixtureID);
     window.location.href = url.toString();
 }
 
+// Redirect user to the compressive strength form
 function GoToComStForm() {
     checkMixtureAndRedirect('/new_compressive_strength');
 }
 
+// Redirect user to the E-Module form
 function GoToEModuleForm() {
     checkMixtureAndRedirect('/new_emodule');
 }

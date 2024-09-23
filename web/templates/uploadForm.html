@@ -1,5 +1,9 @@
+{% extends 'base.html' %} 
 
-{% extends 'base.html' %} {% block title %}Upload Data{% endblock %} {% block content %}
+{% block title %}Upload Data{% endblock %} 
+
+{% block content %}
+
 <div class="content col-12">
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
@@ -63,7 +67,12 @@
                                     </div>
                                     <div id="fileLabel1" class="text-center">&nbsp;</div>
 
-                                    <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                    <p class="text-muted text-center mb-0"><small>Supported file formats: xlsx, xls, json</small></p>
+                                    <p class="text-muted text-center"><small>
+                                        You can also
+                                        <a style="text-decoration: none;" href="/static/MixtureTemplate.xlsx" download="MixtureTemplate.xlsx">Download</a> 
+                                        the template, fill it out and upload.
+                                    </small></p>
                                     <div class="text-center">
                                         <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('Mixture', 'fileInput1', 'urlInput1','fileLabel1')" disabled>Upload</button>
                                     </div>
@@ -74,10 +83,17 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h6>Upload your Mixture</h6>
+                                                    <h6>Upload Mixture</h6>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" id="urlInput1" class="form-control" placeholder="Enter URL">
+                                                    <p class="mb-1">
+                                                        Please enter a full URL link
+                                                    </p>
+                                                    <input type="text" id="urlInput1" class="form-control" placeholder="https://github.com/username/repository/file">
+                                                    <p class="pt-4 text-muted">
+                                                        <em>
+                                                        Note: Ensure the link is <strong>publicly accessible</strong>. You can use URLs from platforms like GitHub, Google Drive, Dropbox, etc.
+                                                    </em></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
@@ -150,7 +166,7 @@
                                 </div>
                                 <div id="fileLabel2" class="text-center">&nbsp;</div>
 
-                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <p class="text-muted text-center"><small>Supported file formats: dat, json</small></p>
                                 <div class="text-center">
                                     <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('CompressiveStrength', 'fileInput2', 'urlInput2','fileLabel2')" disabled>Upload</button>
                                 </div>
@@ -161,10 +177,17 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h6>Upload your Compressive Strength</h6>
+                                                <h6>Upload Compressive Strength</h6>
                                             </div>
                                             <div class="modal-body">
-                                                <input type="text" id="urlInput2" class="form-control" placeholder="Enter URL">
+                                                <p class="mb-1">
+                                                    Please enter a full URL link
+                                                </p>
+                                                <input type="text" id="urlInput2" class="form-control" placeholder="https://github.com/username/repository/file">
+                                                <p class="pt-4 text-muted">
+                                                    <em>
+                                                    Note: Ensure the link is <strong>publicly accessible</strong>. You can use URLs from platforms like GitHub, Google Drive, Dropbox, etc.
+                                                </em></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
@@ -231,7 +254,7 @@
                                 </div>
                                 <div id="fileLabel3" class="text-center">&nbsp;</div>
 
-                                <p class="text-muted text-center"><small>Supported file formats: xlsx, xls, csv, dat, txt, xml</small></p>
+                                <p class="text-muted text-center"><small>Supported file formats: xml, json</small></p>
                                 <div class="text-center">
                                     <button class="btn btn-theme uploadbtn" type="button" onclick="uploadData('EModule', 'fileInput3', 'urlInput3','fileLabel3')" disabled>Upload</button>
                                 </div>
@@ -242,10 +265,16 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h6>Upload your E-Module</h6>
+                                                <h6>Upload E-Module</h6>
                                             </div>
                                             <div class="modal-body">
-                                                <input type="text" id="urlInput3" class="form-control" placeholder="Enter URL">
+                                                <p class="mb-1">
+                                                    Please enter a full URL link
+                                                </p>
+                                                <input type="text" id="urlInput3" class="form-control" placeholder="https://github.com/username/repository/file">
+                                                <p class="pt-4 text-muted"><em>
+                                                    Note: Ensure the link is <strong>publicly accessible</strong>. You can use URLs from platforms like GitHub, Google Drive, Dropbox, etc.
+                                                </em></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Close</button>
@@ -304,7 +333,9 @@
                     <li>Input Manually - Manually enter the mixture details.</li>
                 </ul>
     
-                <em>Note: If you do not have a mixture, you can submit an empty form using the manual input option.</em>
+                <span class="text-muted">
+                    <em>Note: If you do not have a mixture, you can submit an empty form using the manual input option.</em>
+                </span>
             </p>
          
         </div>

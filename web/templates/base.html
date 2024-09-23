@@ -25,28 +25,23 @@
 <body>
     <nav class="navbar sticky-top shadow-sm flex-md-nowrap p-0 bg-white">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0 py-2 text-dark" href="/">
-            <h4 class="mb-0 mx-md-3"><img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> <span style="vertical-align: text-bottom;">LeBeDigital</span></h4>
+            <h4 class="mb-0 mx-3"><img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> <span style="vertical-align: text-bottom;">LeBeDigital</span></h4>
         </a>
-        <!--<ul class="navbar-nav px-3">
-          <li class="nav-item text-nowrap">
-            {% if session['username'] %}
-                <a class="nav-link" href="/logout"><i class="clr-theme fas fa-sign-out-alt"></i>  Sign out</a>
-            {% else %}
-                <a class="nav-link" href="/login"><i class="clr-theme fas fa-sign-in-alt"></i>  Sign in</a>
-            {% endif %}
-          </li>
-        </ul>-->
+        <!-- Hamburger menu button -->
+        <button class="navbar-toggler d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
     </nav>
 
     <div class="container-fluid">
         <div class="row">
             {% set active_page = request.path %}
-            <nav class="col-md-2 col-5 bg-light px-0" style="min-height: 100vh;">
+            <nav id="sidebarMenu" class="col-lg-2 col-md-3 bg-light px-0 collapse d-md-block">
                 <div class="sticky-top" style="top: 65px;">
                     <ul class="nav nav-pills flex-column mb-auto pt-1">
                         <li class="px-3 pb-2 small clr-theme">Data Management</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ active_page == '/database_new' and 'active' or '' }}" href="/database_new">
+                            <a class="nav-link {{ active_page == '/database' and 'active' or '' }}" href="/database">
                                 <i class="clr-theme fas fa-database"></i>&nbsp;&nbsp; Database
                             </a>
                         </li>
@@ -100,8 +95,9 @@
                     
                     </ul>
                 </div>
+                
             </nav>
-            <main role="main" class="col-md-10 col-7 ml-sm-auto pt-3 px-4">
+            <main role="main" class="col-lg-10 col-md-9 ml-sm-auto pt-3 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
                     {% block content %}
                     <!-- Content specific to each page will go here -->
@@ -110,19 +106,23 @@
             </main>
         </div>
     </div>
-    
-
-    
-
-    <footer>
-        <!-- Your footer content -->
-        
-    </footer>
-
     <!-- JavaScript -->
     <script src="/static/js/bootstrap.bundle.min.js"></script>
    
     <script src="/static/js/select2.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebarMenu = document.getElementById('sidebarMenu');
+
+            // Toggle the sidebar when the hamburger icon is clicked
+            document.querySelector('.navbar-toggler').addEventListener('click', function() {
+                sidebarMenu.classList.toggle('show');
+                sidebarMenu.classList.toggle('slide-in');
+                console.log(1)
+            });
+        });
+    </script>    
 
 </body>
 </html>

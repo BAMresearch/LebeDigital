@@ -31,7 +31,7 @@ co:unit a owl:ObjectProperty .
 
 co:value a owl:DatatypeProperty .
 
-<https://w3id.org/cpto/##CompressionForce_Unit##> a ns3:Unit,
+<https://w3id.org/cpto/##Strain_Unit##> a ns3:Unit,
         owl:NamedIndividual .
 
 <https://w3id.org/cpto/##EModule_Unit##> a ns3:Unit,
@@ -45,10 +45,10 @@ co:value a owl:DatatypeProperty .
 
 <https://w3id.org/cpto/##SpecimenAge_Unit##> a owl:NamedIndividual .
 
-ns1:CompressionForce_ a owl:NamedIndividual,
-        co:MaximumForce ;
-    co:unit <https://w3id.org/cpto/##CompressionForce_Unit##> ;
-    co:value "$$CompressionColumn_Value$$"^^xsd:string .
+ns1:Strain_ a owl:NamedIndividual,
+        co:Strain ;
+    co:unit <https://w3id.org/cpto/##Strain_Unit##> ;
+    co:value "$$Strain_Value$$"^^xsd:string .
 
 ns1:Computation_ a owl:NamedIndividual,
         co:ComputingNode .
@@ -68,15 +68,16 @@ ns1:ExperimentInfo_ a owl:NamedIndividual,
         ns1:DeterminationOfSecantModulusOfElasticity ;
     co:input ns1:OpenBisDataFile_,
         ns1:RawDataFile_ ;
-    co:output ns1:CompressionForce_,
+    co:output ns1:Strain_,
         ns1:ExperimentDate_,
-        ns1:ExtensometerGaugeLength_,
+        ns1:ExtensometerLength_,
         ns1:Lab_,
         ns1:ProcessedFile_,
-        ns1:Transducer_ .
+        ns1:MeasuredCompressiveStrength_,
+        ns1:InputCompressiveStrength_.
 
-ns1:ExtensometerGaugeLength_ a owl:NamedIndividual,
-        co:ExtensometerGaugeLength ;
+ns1:ExtensometerLength_ a owl:NamedIndividual,
+        co:ExtensometerLength ;
     co:unit <https://w3id.org/cpto/##ExtensometerLength_Unit##> ;
     co:value "$$ExtensometerLength_Value$$"^^xsd:string .
 
@@ -112,10 +113,15 @@ ns1:SpecimenAge_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##SpecimenAge_Unit##> ;
     co:value "$$SpecimenAge_Value$$"^^xsd:decimal .
 
-ns1:Transducer_ a owl:NamedIndividual,
-        co:Extension ;
-    co:unit <https://w3id.org/cpto/##Extensometer_Unit##> ;
-    co:value "$$TransducerColumn_Value$$"^^xsd:string .
+ns1:InputCompressiveStrength_ a owl:NamedIndividual,
+        co:InputCompressiveStrength ;
+    co:unit <https://w3id.org/cpto/##InputCompressiveStrength_Unit##> ;
+    co:value "$$InputCompressiveStrength_Value$$"^^xsd:string .
+
+ns1:MeasuredCompressiveStrength_ a owl:NamedIndividual,
+        co:MeasuredCompressiveStrength ;
+    co:unit <https://w3id.org/cpto/##MeasuredCompressiveStrength_Unit##> ;
+    co:value "$$MeasuredCompressiveStrength_Value$$"^^xsd:string .
 
 co:ComputingNode a owl:Class .
 
@@ -123,7 +129,7 @@ co:Date a owl:Class .
 
 co:Extension a owl:Class .
 
-co:ExtensometerGaugeLength a owl:Class .
+co:ExtensometerLength a owl:Class .
 
 co:Laboratory a owl:Class .
 

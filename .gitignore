@@ -133,9 +133,10 @@ cython_debug/
 config.json
 # database for uploaded data
 main.db
+upload.db
 temp/
 zip/
 
 # files downloaded from db
 */main.db-*
-*/main.db-*
+*/upload.db-*

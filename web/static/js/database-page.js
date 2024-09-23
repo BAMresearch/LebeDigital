@@ -283,7 +283,7 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
     var search_term = document.getElementById('nameInput').value;
 
     // Define the URL and options for the fetch request
-    const url = '/database_new';
+    const url = '/database';
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
