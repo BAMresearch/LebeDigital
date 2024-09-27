@@ -166,6 +166,13 @@ body {
   box-shadow: none;
 }
 
+.list-group-item.active {
+  z-index: 2;
+  color: black;
+  background-color: var(--color-light-blue);
+  border-color: var(--color-light-blue);
+}
+
 /* Colors */
 .clr-theme {
   color: var(--color-primary);

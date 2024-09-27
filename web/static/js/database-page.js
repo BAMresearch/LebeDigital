@@ -168,7 +168,6 @@ function createTable(tableData){
                 tupleList.push(tuple);
             }
         }
-        console.log(tupleList);
         return tupleList;
     }
 
@@ -235,7 +234,6 @@ function createTable(tableData){
         let unitdata = tupel_data.filteredList;
 
         let data = appendUnitValues(unitdata, jsondata);
-        console.log(data);
         return formatTuples(data, vars);
     }
 
@@ -300,7 +298,6 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
             return response.json();
         })
         .then(data => {
-            console.log(data)
             // Update the table with the new data
             table.replaceData(data); 
         })

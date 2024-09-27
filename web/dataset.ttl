@@ -93,6 +93,34 @@ xsd:string a rdfs:Datatype .
         <https://w3id.org/cpto/SpecimenWidth_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> ;
     ns1:input <https://w3id.org/cpto/CompressiveStrength_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> .
 
+<https://w3id.org/cpto/TestSpecimen_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Specimen ;
+    ns2:hasIdentifier <https://w3id.org/cpto/ID_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/MixtureID_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/humanreadableID_49c66fb0-93b4-4185-9f32-20d278841835> ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenDiameter_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/SpecimenHeight_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/SpecimenLength_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/SpecimenMass_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/SpecimenShape_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/SpecimenWidth_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/cube> ;
+    ns1:input <https://w3id.org/cpto/CompressiveStrength_49c66fb0-93b4-4185-9f32-20d278841835> .
+
+<https://w3id.org/cpto/TestSpecimen_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Specimen ;
+    ns2:hasIdentifier <https://w3id.org/cpto/ID_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/MixtureID_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/humanreadableID_4c617ff2-02d4-4812-b209-3dfb78d7aebf> ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenDiameter_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/SpecimenHeight_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/SpecimenLength_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/SpecimenMass_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/SpecimenShape_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/SpecimenWidth_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/cylindrical> ;
+    ns1:input <https://w3id.org/cpto/CompressiveStrength_4c617ff2-02d4-4812-b209-3dfb78d7aebf> .
+
 <https://w3id.org/cpto/TestSpecimen_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Specimen ;
     ns2:hasIdentifier <https://w3id.org/cpto/ID_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9>,
@@ -163,6 +191,20 @@ xsd:string a rdfs:Datatype .
         <https://w3id.org/cpto/cylindrical> ;
     ns1:input <https://w3id.org/cpto/SecantModulusOfElasticty_9ec7f47d-cc52-48ed-b493-7bb376a07505> .
 
+<https://w3id.org/cpto/TestSpecimen_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Specimen ;
+    ns2:hasIdentifier <https://w3id.org/cpto/ID_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/MixtureID_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/humanreadableID_dca2a354-697b-4c33-ace7-c68aeb0d775d> ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenDiameter_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/SpecimenHeight_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/SpecimenLength_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/SpecimenMass_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/SpecimenShape_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/SpecimenWidth_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/cylindrical> ;
+    ns1:input <https://w3id.org/cpto/SecantModulusOfElasticty_dca2a354-697b-4c33-ace7-c68aeb0d775d> .
+
 <https://w3id.org/cpto/TestSpecimen_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Specimen ;
     ns2:hasIdentifier <https://w3id.org/cpto/ID_ebe5bef2-c9be-404a-a1e8-ad8217b2749b>,
@@ -217,9 +259,6 @@ ns1:unit a owl:ObjectProperty .
 
 ns1:value a owl:DatatypeProperty,
         owl:ObjectProperty .
-
-<file:///M:/LebeDigital/LebeDigital-main/web/MegaPA> a <http://qudt.org/schema/qudt/Unit>,
-        owl:NamedIndividual .
 
 <https://w3id.org/cpto/Addition1_168936ad-a07b-4ff9-952f-b3936cf23451> a owl:NamedIndividual,
         ns1:BaseMaterial ;
@@ -632,6 +671,28 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <http://qudt.org/vocab/unit/MegaPA> ;
     ns1:value 52.05002477365885 .
 
+<https://w3id.org/cpto/CompressiveStrength_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+    ns2:hasIdentifier <https://w3id.org/cpto/humanreadableID_49c66fb0-93b4-4185-9f32-20d278841835> ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenAge_49c66fb0-93b4-4185-9f32-20d278841835> ;
+    ns1:input <https://w3id.org/cpto/OpenBisRawDataFile_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/RawDataFile_49c66fb0-93b4-4185-9f32-20d278841835> ;
+    ns1:output <https://w3id.org/cpto/ExperimentInfo_49c66fb0-93b4-4185-9f32-20d278841835> ;
+    ns1:resource <https://w3id.org/cpto/DINEN12390-3:2019> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MegaPA> ;
+    ns1:value 100.0 .
+
+<https://w3id.org/cpto/CompressiveStrength_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+    ns2:hasIdentifier <https://w3id.org/cpto/humanreadableID_4c617ff2-02d4-4812-b209-3dfb78d7aebf> ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenAge_4c617ff2-02d4-4812-b209-3dfb78d7aebf> ;
+    ns1:input <https://w3id.org/cpto/OpenBisRawDataFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/RawDataFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf> ;
+    ns1:output <https://w3id.org/cpto/ExperimentInfo_4c617ff2-02d4-4812-b209-3dfb78d7aebf> ;
+    ns1:resource <https://w3id.org/cpto/DINEN12390-3:2019> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MegaPA> ;
+    ns1:value 100.0 .
+
 <https://w3id.org/cpto/CompressiveStrength_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
     ns2:hasIdentifier <https://w3id.org/cpto/humanreadableID_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> ;
@@ -696,6 +757,9 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/Computation_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
         ns1:ComputingNode .
 
+<https://w3id.org/cpto/Computation_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ComputingNode .
+
 <https://w3id.org/cpto/ExperimentDate_1d902ccb-ee83-4297-83a4-66896bb37c5a> a owl:NamedIndividual,
         ns1:Date ;
     ns1:value "2024-03-19T10:08:34"^^xsd:dateTimeStamp .
@@ -703,6 +767,14 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/ExperimentDate_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:Date ;
     ns1:value "2024-03-13T10:04:05"^^xsd:dateTimeStamp .
+
+<https://w3id.org/cpto/ExperimentDate_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Date ;
+    ns1:value "2024-09-01"^^xsd:dateTimeStamp .
+
+<https://w3id.org/cpto/ExperimentDate_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Date ;
+    ns1:value "2024-09-01"^^xsd:dateTimeStamp .
 
 <https://w3id.org/cpto/ExperimentDate_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Date ;
@@ -723,6 +795,10 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/ExperimentDate_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
         ns1:Date ;
     ns1:value "2024-09-04"^^xsd:dateTimeStamp .
+
+<https://w3id.org/cpto/ExperimentDate_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Date ;
+    ns1:value "2024-09-01"^^xsd:dateTimeStamp .
 
 <https://w3id.org/cpto/ExperimentDate_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Date ;
@@ -755,6 +831,20 @@ ns1:value a owl:DatatypeProperty,
         <https://w3id.org/cpto/ExperimentDate_43a93744-f2bd-44e3-a87b-d1aafa7f0d84>,
         <https://w3id.org/cpto/Lab_43a93744-f2bd-44e3-a87b-d1aafa7f0d84>,
         <https://w3id.org/cpto/ProcessedFile_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> .
+
+<https://w3id.org/cpto/ExperimentInfo_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        <https://w3id.org/cpto/DeterminationOfCompressiveStrength> ;
+    ns1:output <https://w3id.org/cpto/CompressionForce_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/ExperimentDate_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/Lab_49c66fb0-93b4-4185-9f32-20d278841835>,
+        <https://w3id.org/cpto/ProcessedFile_49c66fb0-93b4-4185-9f32-20d278841835> .
+
+<https://w3id.org/cpto/ExperimentInfo_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        <https://w3id.org/cpto/DeterminationOfCompressiveStrength> ;
+    ns1:output <https://w3id.org/cpto/CompressionForce_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/ExperimentDate_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/Lab_4c617ff2-02d4-4812-b209-3dfb78d7aebf>,
+        <https://w3id.org/cpto/ProcessedFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf> .
 
 <https://w3id.org/cpto/ExperimentInfo_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         <https://w3id.org/cpto/DeterminationOfCompressiveStrength> ;
@@ -816,6 +906,18 @@ ns1:value a owl:DatatypeProperty,
     ns1:input <https://w3id.org/cpto/Laboratory_b936eb37-cad5-4d6b-8571-801473766a76>,
         <https://w3id.org/cpto/MixingDate_b936eb37-cad5-4d6b-8571-801473766a76> .
 
+<https://w3id.org/cpto/ExperimentInfo_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        <https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity> ;
+    ns1:input <https://w3id.org/cpto/OpenBisDataFile_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/RawDataFile_dca2a354-697b-4c33-ace7-c68aeb0d775d> ;
+    ns1:output <https://w3id.org/cpto/ExperimentDate_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/ExtensometerLength_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/InputCompressiveStrength_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/Lab_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/MeasuredCompressiveStrength_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/ProcessedFile_dca2a354-697b-4c33-ace7-c68aeb0d775d>,
+        <https://w3id.org/cpto/Strain_dca2a354-697b-4c33-ace7-c68aeb0d775d> .
+
 <https://w3id.org/cpto/ExperimentInfo_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         <https://w3id.org/cpto/DeterminationOfCompressiveStrength> ;
     ns1:output <https://w3id.org/cpto/CompressionForce_ebe5bef2-c9be-404a-a1e8-ad8217b2749b>,
@@ -843,6 +945,9 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/ExtensometerLength_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
         ns1:ExtensometerLength .
 
+<https://w3id.org/cpto/ExtensometerLength_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ExtensometerLength .
+
 <https://w3id.org/cpto/ID_168936ad-a07b-4ff9-952f-b3936cf23451> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "168936ad-a07b-4ff9-952f-b3936cf23451"^^xsd:string .
@@ -854,6 +959,14 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/ID_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "43a93744-f2bd-44e3-a87b-d1aafa7f0d84"^^xsd:string .
+
+<https://w3id.org/cpto/ID_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "49c66fb0-93b4-4185-9f32-20d278841835"^^xsd:string .
+
+<https://w3id.org/cpto/ID_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "4c617ff2-02d4-4812-b209-3dfb78d7aebf"^^xsd:string .
 
 <https://w3id.org/cpto/ID_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
@@ -887,6 +1000,10 @@ ns1:value a owl:DatatypeProperty,
         ns1:ProvidedIdentifier ;
     ns1:value "b936eb37-cad5-4d6b-8571-801473766a76"^^xsd:string .
 
+<https://w3id.org/cpto/ID_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "dca2a354-697b-4c33-ace7-c68aeb0d775d"^^xsd:string .
+
 <https://w3id.org/cpto/ID_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "ebe5bef2-c9be-404a-a1e8-ad8217b2749b"^^xsd:string .
@@ -910,6 +1027,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
     ns1:value "120"^^xsd:string .
 
+<https://w3id.org/cpto/InputCompressiveStrength_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:InputCompressiveStrength ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
+    ns1:value "50"^^xsd:string .
+
 <https://w3id.org/cpto/Lab_1d902ccb-ee83-4297-83a4-66896bb37c5a> a owl:NamedIndividual,
         ns1:Laboratory ;
     ns1:value "BAM"^^xsd:string .
@@ -917,6 +1039,14 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/Lab_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:Laboratory ;
     ns1:value "BAM"^^xsd:string .
+
+<https://w3id.org/cpto/Lab_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Laboratory ;
+    ns1:value "test"^^xsd:string .
+
+<https://w3id.org/cpto/Lab_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Laboratory ;
+    ns1:value "test"^^xsd:string .
 
 <https://w3id.org/cpto/Lab_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Laboratory ;
@@ -935,6 +1065,10 @@ ns1:value a owl:DatatypeProperty,
     ns1:value "BAM"^^xsd:string .
 
 <https://w3id.org/cpto/Lab_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
+        ns1:Laboratory ;
+    ns1:value "test"^^xsd:string .
+
+<https://w3id.org/cpto/Lab_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
         ns1:Laboratory ;
     ns1:value "test"^^xsd:string .
 
@@ -1009,6 +1143,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
     ns1:value "99"^^xsd:string .
 
+<https://w3id.org/cpto/MeasuredCompressiveStrength_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:MeasuredCompressiveStrength ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
+    ns1:value "70"^^xsd:string .
+
 <https://w3id.org/cpto/MixingDate_168936ad-a07b-4ff9-952f-b3936cf23451> a owl:NamedIndividual,
         ns1:Time ;
     ns1:value "2024-03-05T12:00:00"^^xsd:string .
@@ -1033,6 +1172,14 @@ ns1:value a owl:DatatypeProperty,
         ns1:ProvidedIdentifier ;
     ns1:value "b936eb37-cad5-4d6b-8571-801473766a76"^^xsd:string .
 
+<https://w3id.org/cpto/MixtureID_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "bd3fff93-799f-4298-8560-e3b98eeed0e4"^^xsd:string .
+
+<https://w3id.org/cpto/MixtureID_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "c1edd54f-5861-4060-b5ec-ddbc8c93eb02"^^xsd:string .
+
 <https://w3id.org/cpto/MixtureID_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "6d0b8c58-6652-4be5-9301-daae0efad5b5"^^xsd:string .
@@ -1053,6 +1200,10 @@ ns1:value a owl:DatatypeProperty,
         ns1:ProvidedIdentifier ;
     ns1:value "c1edd54f-5861-4060-b5ec-ddbc8c93eb02"^^xsd:string .
 
+<https://w3id.org/cpto/MixtureID_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "c1edd54f-5861-4060-b5ec-ddbc8c93eb02"^^xsd:string .
+
 <https://w3id.org/cpto/MixtureID_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "b936eb37-cad5-4d6b-8571-801473766a76"^^xsd:string .
@@ -1070,7 +1221,16 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/OpenBisDataFile_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
         ns1:Dataset .
 
+<https://w3id.org/cpto/OpenBisDataFile_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Dataset .
+
 <https://w3id.org/cpto/OpenBisRawDataFile_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
+        ns1:Dataset .
+
+<https://w3id.org/cpto/OpenBisRawDataFile_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Dataset .
+
+<https://w3id.org/cpto/OpenBisRawDataFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
         ns1:Dataset .
 
 <https://w3id.org/cpto/OpenBisRawDataFile_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
@@ -1094,6 +1254,12 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/ProcessedFile_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:Dataset .
 
+<https://w3id.org/cpto/ProcessedFile_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Dataset .
+
+<https://w3id.org/cpto/ProcessedFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Dataset .
+
 <https://w3id.org/cpto/ProcessedFile_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Dataset .
 
@@ -1107,6 +1273,9 @@ ns1:value a owl:DatatypeProperty,
         ns1:Dataset .
 
 <https://w3id.org/cpto/ProcessedFile_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
+        ns1:Dataset .
+
+<https://w3id.org/cpto/ProcessedFile_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
         ns1:Dataset .
 
 <https://w3id.org/cpto/ProcessedFile_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
@@ -1124,6 +1293,14 @@ ns1:value a owl:DatatypeProperty,
     ns1:value "Download"^^xsd:string .
 
 <https://w3id.org/cpto/RawDataFile_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
+        ns1:Dataset ;
+    ns1:value "Download"^^xsd:string .
+
+<https://w3id.org/cpto/RawDataFile_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Dataset ;
+    ns1:value "Download"^^xsd:string .
+
+<https://w3id.org/cpto/RawDataFile_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
         ns1:Dataset ;
     ns1:value "Download"^^xsd:string .
 
@@ -1156,6 +1333,10 @@ ns1:value a owl:DatatypeProperty,
     ns1:value "Download"^^xsd:string .
 
 <https://w3id.org/cpto/RawDataFile_b936eb37-cad5-4d6b-8571-801473766a76> a owl:NamedIndividual,
+        ns1:Dataset ;
+    ns1:value "Download"^^xsd:string .
+
+<https://w3id.org/cpto/RawDataFile_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
         ns1:Dataset ;
     ns1:value "Download"^^xsd:string .
 
@@ -1194,6 +1375,15 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
     ns1:value 100.0 .
 
+<https://w3id.org/cpto/SecantModulusOfElasticty_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ModulusOfElasticity ;
+    ns1:characteristic <https://w3id.org/cpto/SpecimenAge_dca2a354-697b-4c33-ace7-c68aeb0d775d> ;
+    ns1:output <https://w3id.org/cpto/ExperimentInfo_dca2a354-697b-4c33-ace7-c68aeb0d775d> ;
+    ns1:process <https://w3id.org/cpto/Computation_dca2a354-697b-4c33-ace7-c68aeb0d775d> ;
+    ns1:resource <https://w3id.org/cpto/DINEN12390-13:2021> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> ;
+    ns1:value 100.0 .
+
 <https://w3id.org/cpto/SpecimenAge_1d902ccb-ee83-4297-83a4-66896bb37c5a> a owl:NamedIndividual,
         <https://w3id.org/cpto/SpecimenAge> ;
     ns1:unit <https://qudt.org/vocab/unit/DAY> ;
@@ -1203,6 +1393,16 @@ ns1:value a owl:DatatypeProperty,
         <https://w3id.org/cpto/SpecimenAge> ;
     ns1:unit <https://qudt.org/vocab/unit/DAY> ;
     ns1:value 7.0 .
+
+<https://w3id.org/cpto/SpecimenAge_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        <https://w3id.org/cpto/SpecimenAge> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/DAY> ;
+    ns1:value 10.0 .
+
+<https://w3id.org/cpto/SpecimenAge_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        <https://w3id.org/cpto/SpecimenAge> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/DAY> ;
+    ns1:value 10.0 .
 
 <https://w3id.org/cpto/SpecimenAge_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         <https://w3id.org/cpto/SpecimenAge> ;
@@ -1229,6 +1429,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/DAY> ;
     ns1:value 11.0 .
 
+<https://w3id.org/cpto/SpecimenAge_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        <https://w3id.org/cpto/SpecimenAge> ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/DAY> ;
+    ns1:value 12.0 .
+
 <https://w3id.org/cpto/SpecimenAge_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         <https://w3id.org/cpto/SpecimenAge> ;
     ns1:unit <https://qudt.org/vocab/unit/DAY> ;
@@ -1246,6 +1451,14 @@ ns1:value a owl:DatatypeProperty,
 
 <https://w3id.org/cpto/SpecimenDiameter_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:Diameter .
+
+<https://w3id.org/cpto/SpecimenDiameter_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Diameter .
+
+<https://w3id.org/cpto/SpecimenDiameter_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Diameter ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 5.0 .
 
 <https://w3id.org/cpto/SpecimenDiameter_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Diameter .
@@ -1266,6 +1479,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
     ns1:value 10.0 .
 
+<https://w3id.org/cpto/SpecimenDiameter_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Diameter ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 8.0 .
+
 <https://w3id.org/cpto/SpecimenDiameter_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Diameter .
 
@@ -1279,6 +1497,16 @@ ns1:value a owl:DatatypeProperty,
         ns1:Height ;
     ns1:unit <http://qudt.org/vocab/unit/MilliM> ;
     ns1:value 150.0 .
+
+<https://w3id.org/cpto/SpecimenHeight_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Height ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 5.0 .
+
+<https://w3id.org/cpto/SpecimenHeight_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Height ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 10.0 .
 
 <https://w3id.org/cpto/SpecimenHeight_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Height ;
@@ -1303,6 +1531,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
     ns1:value 5.0 .
 
+<https://w3id.org/cpto/SpecimenHeight_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Height ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 19.0 .
+
 <https://w3id.org/cpto/SpecimenHeight_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Height ;
     ns1:unit <http://qudt.org/vocab/unit/MilliM> ;
@@ -1322,6 +1555,14 @@ ns1:value a owl:DatatypeProperty,
         ns1:Length ;
     ns1:unit <http://qudt.org/vocab/unit/MilliM> ;
     ns1:value 149.0 .
+
+<https://w3id.org/cpto/SpecimenLength_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Length ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 5.0 .
+
+<https://w3id.org/cpto/SpecimenLength_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Length .
 
 <https://w3id.org/cpto/SpecimenLength_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Length ;
@@ -1346,6 +1587,9 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/SpecimenLength_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
         ns1:Length .
 
+<https://w3id.org/cpto/SpecimenLength_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Length .
+
 <https://w3id.org/cpto/SpecimenLength_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Length ;
     ns1:unit <http://qudt.org/vocab/unit/MilliM> ;
@@ -1365,6 +1609,16 @@ ns1:value a owl:DatatypeProperty,
         ns1:Weight ;
     ns1:unit <http://qudt.org/vocab/unit/GM> ;
     ns1:value 7874.0 .
+
+<https://w3id.org/cpto/SpecimenMass_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Weight ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/GM> ;
+    ns1:value 100.0 .
+
+<https://w3id.org/cpto/SpecimenMass_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Weight ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/GM> ;
+    ns1:value 100.0 .
 
 <https://w3id.org/cpto/SpecimenMass_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Weight ;
@@ -1391,6 +1645,11 @@ ns1:value a owl:DatatypeProperty,
     ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/GM> ;
     ns1:value 120.0 .
 
+<https://w3id.org/cpto/SpecimenMass_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:Weight ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/GM> ;
+    ns1:value 150.0 .
+
 <https://w3id.org/cpto/SpecimenMass_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:Weight ;
     ns1:unit <http://qudt.org/vocab/unit/GM> ;
@@ -1408,6 +1667,14 @@ ns1:value a owl:DatatypeProperty,
 <https://w3id.org/cpto/SpecimenShape_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:GeometryShape ;
     ns1:value "Cube"^^xsd:string .
+
+<https://w3id.org/cpto/SpecimenShape_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:GeometryShape ;
+    ns1:value "cube"^^xsd:string .
+
+<https://w3id.org/cpto/SpecimenShape_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:GeometryShape ;
+    ns1:value "cylindrical"^^xsd:string .
 
 <https://w3id.org/cpto/SpecimenShape_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:GeometryShape ;
@@ -1429,6 +1696,10 @@ ns1:value a owl:DatatypeProperty,
         ns1:GeometryShape ;
     ns1:value "cylindrical"^^xsd:string .
 
+<https://w3id.org/cpto/SpecimenShape_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:GeometryShape ;
+    ns1:value "cylindrical"^^xsd:string .
+
 <https://w3id.org/cpto/SpecimenShape_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
         ns1:GeometryShape ;
     ns1:value "Cube"^^xsd:string .
@@ -1444,6 +1715,14 @@ ns1:value a owl:DatatypeProperty,
         ns1:Width ;
     ns1:unit <http://qudt.org/vocab/unit/MilliM> ;
     ns1:value 150.0 .
+
+<https://w3id.org/cpto/SpecimenWidth_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:Width ;
+    ns1:unit <file:///M:/LebeDigital/LebeDigital-main/web/MilliM> ;
+    ns1:value 5.0 .
+
+<https://w3id.org/cpto/SpecimenWidth_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:Width .
 
 <https://w3id.org/cpto/SpecimenWidth_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:Width ;
@@ -1464,6 +1743,9 @@ ns1:value a owl:DatatypeProperty,
     ns1:value 150.0 .
 
 <https://w3id.org/cpto/SpecimenWidth_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
+        ns1:Width .
+
+<https://w3id.org/cpto/SpecimenWidth_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
         ns1:Width .
 
 <https://w3id.org/cpto/SpecimenWidth_ebe5bef2-c9be-404a-a1e8-ad8217b2749b> a owl:NamedIndividual,
@@ -1487,6 +1769,9 @@ ns1:value a owl:DatatypeProperty,
     ns1:value "-0.000325949098017"^^xsd:string .
 
 <https://w3id.org/cpto/Strain_9ec7f47d-cc52-48ed-b493-7bb376a07505> a owl:NamedIndividual,
+        ns1:Strain .
+
+<https://w3id.org/cpto/Strain_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
         ns1:Strain .
 
 <https://w3id.org/cpto/WaterCementRatio_168936ad-a07b-4ff9-952f-b3936cf23451> a owl:NamedIndividual,
@@ -1581,12 +1866,6 @@ ns1:value a owl:DatatypeProperty,
         <https://w3id.org/cpto/Water_Density_b936eb37-cad5-4d6b-8571-801473766a76> ;
     ns1:composedOf <https://w3id.org/cpto/Water_Type_b936eb37-cad5-4d6b-8571-801473766a76> .
 
-<https://w3id.org/cpto/cube> a owl:NamedIndividual,
-        ns1:GeometryShape .
-
-<https://w3id.org/cpto/cylindrical> a owl:NamedIndividual,
-        ns1:GeometryShape .
-
 <https://w3id.org/cpto/humanreadableID_168936ad-a07b-4ff9-952f-b3936cf23451> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "20240305_7188_M06"^^xsd:string .
@@ -1615,10 +1894,9 @@ ns1:value a owl:DatatypeProperty,
         ns1:ProvidedIdentifier ;
     ns1:value "20240306_7188_M07"^^xsd:string .
 
-<file:///M:/LebeDigital/LebeDigital-main/web/DAY> a owl:NamedIndividual .
-
-<file:///M:/LebeDigital/LebeDigital-main/web/GM> a <http://qudt.org/schema/qudt/Unit>,
-        owl:NamedIndividual .
+<https://w3id.org/cpto/humanreadableID_dca2a354-697b-4c33-ace7-c68aeb0d775d> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "test-emod-2"^^xsd:string .
 
 <http://qudt.org/vocab/unit/KiloGM> a <http://qudt.org/schema/qudt/Unit>,
         owl:NamedIndividual .
@@ -1631,9 +1909,20 @@ ns1:value a owl:DatatypeProperty,
 
 <https://w3id.org/cpto/DINStandard> a owl:Class .
 
+<https://w3id.org/cpto/cube> a owl:NamedIndividual,
+        ns1:GeometryShape .
+
 <https://w3id.org/cpto/humanreadableID_43a93744-f2bd-44e3-a87b-d1aafa7f0d84> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
     ns1:value "20240306_7188_M07_W02"^^xsd:string .
+
+<https://w3id.org/cpto/humanreadableID_49c66fb0-93b4-4185-9f32-20d278841835> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "test-emod-1"^^xsd:string .
+
+<https://w3id.org/cpto/humanreadableID_4c617ff2-02d4-4812-b209-3dfb78d7aebf> a owl:NamedIndividual,
+        ns1:ProvidedIdentifier ;
+    ns1:value "test-com-2"^^xsd:string .
 
 <https://w3id.org/cpto/humanreadableID_5a6b5caa-f14a-4259-b380-ec8b64c1d8e9> a owl:NamedIndividual,
         ns1:ProvidedIdentifier ;
@@ -1655,19 +1944,11 @@ ns1:value a owl:DatatypeProperty,
         ns1:ProvidedIdentifier ;
     ns1:value "20240220_7188_M01_W02"^^xsd:string .
 
-<file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> a <http://qudt.org/schema/qudt/Unit>,
+<file:///M:/LebeDigital/LebeDigital-main/web/MegaPA> a <http://qudt.org/schema/qudt/Unit>,
         owl:NamedIndividual .
 
-<https://w3id.org/cpto/DINEN12390-13:2021> a owl:NamedIndividual,
-        <https://w3id.org/cpto/DINStandard> .
-
-<https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity> a owl:Class .
-
-ns1:ComputingNode a owl:Class .
-
-ns1:ExtensometerLength a owl:Class .
-
-ns1:ModulusOfElasticity a owl:Class .
+<https://w3id.org/cpto/cylindrical> a owl:NamedIndividual,
+        ns1:GeometryShape .
 
 <http://qudt.org/vocab/unit/N-PER-MilliM2> a <http://qudt.org/schema/qudt/Unit>,
         owl:NamedIndividual .
@@ -1676,13 +1957,26 @@ ns1:ModulusOfElasticity a owl:Class .
 
 <https://w3id.org/cpto/Cement> a owl:Class .
 
+<https://w3id.org/cpto/DINEN12390-13:2021> a owl:NamedIndividual,
+        <https://w3id.org/cpto/DINStandard> .
+
+<https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity> a owl:Class .
+
 <https://w3id.org/cpto/WaterCementRatio> a owl:Class .
+
+ns1:ComputingNode a owl:Class .
+
+ns1:ExtensometerLength a owl:Class .
+
+ns1:ModulusOfElasticity a owl:Class .
 
 ns1:NodeInfo a owl:Class .
 
 ns1:Time a owl:Class .
 
-<file:///M:/LebeDigital/LebeDigital-main/web/MilliM> a <http://qudt.org/schema/qudt/Unit>,
+<file:///M:/LebeDigital/LebeDigital-main/web/DAY> a owl:NamedIndividual .
+
+<file:///M:/LebeDigital/LebeDigital-main/web/GM> a <http://qudt.org/schema/qudt/Unit>,
         owl:NamedIndividual .
 
 <http://qudt.org/vocab/unit/GM> a <http://qudt.org/schema/qudt/Unit>,
@@ -1694,12 +1988,8 @@ ns1:Time a owl:Class .
 <https://w3id.org/cpto/Cube> a owl:NamedIndividual,
         ns1:GeometryShape .
 
-<https://w3id.org/cpto/ConcreteCompressiveStrength> a owl:Class .
-
-<https://w3id.org/cpto/DINEN12390-3:2019> a owl:NamedIndividual,
-        <https://w3id.org/cpto/DINStandard> .
-
-<https://w3id.org/cpto/DeterminationOfCompressiveStrength> a owl:Class .
+<file:///M:/LebeDigital/LebeDigital-main/web/N-PER-MilliM2> a <http://qudt.org/schema/qudt/Unit>,
+        owl:NamedIndividual .
 
 <https://qudt.org/vocab/unit/DAY> a owl:NamedIndividual .
 
@@ -1709,7 +1999,17 @@ ns1:Time a owl:Class .
 
 <https://w3id.org/cpto/Aggregate> a owl:Class .
 
+<https://w3id.org/cpto/ConcreteCompressiveStrength> a owl:Class .
+
+<https://w3id.org/cpto/DINEN12390-3:2019> a owl:NamedIndividual,
+        <https://w3id.org/cpto/DINStandard> .
+
+<https://w3id.org/cpto/DeterminationOfCompressiveStrength> a owl:Class .
+
 <https://w3id.org/cpto/MaterialComposition> a owl:Class .
+
+<file:///M:/LebeDigital/LebeDigital-main/web/MilliM> a <http://qudt.org/schema/qudt/Unit>,
+        owl:NamedIndividual .
 
 <https://w3id.org/cpto/SpecimenAge> a owl:Class .
 
@@ -1727,11 +2027,11 @@ ns1:Weight a owl:Class .
 
 ns1:Width a owl:Class .
 
+<http://qudt.org/schema/qudt/Unit> a owl:Class .
+
 ns1:GeometryShape a owl:Class .
 
 ns1:Laboratory a owl:Class .
-
-<http://qudt.org/schema/qudt/Unit> a owl:Class .
 
 ns1:BaseMaterial a owl:Class .
 

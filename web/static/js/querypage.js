@@ -65,22 +65,141 @@ function executeSparqlQuery(query, table) {
 
 document.getElementById('sparqlForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Standard-Formular-Submit unterbrechen
+    runQuery()
+});
+
+// Function to run the query
+function runQuery() {
     var query = document.getElementById('sparqlQuery').value;
 
     table = new Tabulator("#resultsTable", {
-    layout: "fitColumns",
-    placeholder: "Loading Data...",
-    pagination:"local",
-    paginationSize:10,
-    paginationSizeSelector:[10, 50, 100],
+        layout: "fitColumns",
+        placeholder: "Loading Data...",
+        pagination: "local",
+        paginationSize: 10,
+        paginationSizeSelector: [10, 50, 100],
     });
 
-    // Führen Sie die Abfrage mit der definierten Funktion aus
+    // Execute the query using the defined function
     executeSparqlQuery(query, table);
-});
+}
 
 // Event-Handler für den Button, um den vorgefertigten Text einzufügen
 document.getElementById('insertTextBtn').addEventListener('click', function() {
     var predefinedText = 'SELECT ?s ?p ?o WHERE { ?s ?p ?o }';
     document.getElementById('sparqlQuery').value = predefinedText;
 });
+
+// Define the SPARQL queries
+const queries = {
+    query1: `SELECT ?humanReadableID ?waterCementRatio
+        WHERE {
+        ?mixture a <https://w3id.org/cpto/MaterialComposition> .
+        ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
+
+        ?mixture <https://w3id.org/pmd/co/characteristic> ?wcrNode .
+        ?wcrNode a <https://w3id.org/cpto/WaterCementRatio> ;
+                <https://w3id.org/pmd/co/value> ?waterCementRatio .
+        }`,
+    query2: `SELECT ?humanReadableID ?cementContent ?cementType
+        WHERE {
+        ?mixture a <https://w3id.org/cpto/MaterialComposition> .
+        ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
+
+        ?mixture <https://w3id.org/pmd/co/characteristic> ?materialComp .
+        ?materialComp <https://w3id.org/pmd/co/composedOf> ?cement .
+        ?cement <https://w3id.org/pmd/co/composedOf> ?cementTypeNode .
+        ?cementTypeNode a <https://w3id.org/cpto/Cement> ;
+                        <https://w3id.org/pmd/co/value> ?cementType .
+
+        ?cement <https://w3id.org/pmd/co/characteristic> ?contentNode .
+        ?contentNode a <https://w3id.org/cpto/Content> ;
+                    <https://w3id.org/pmd/co/value> ?cementContent .
+        }`,
+    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureContent
+        WHERE {
+        ?mixture a <https://w3id.org/cpto/MaterialComposition> .
+        ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
+        
+        ?mixture <https://w3id.org/pmd/co/characteristic> ?materialComp .
+        ?materialComp <https://w3id.org/pmd/co/composedOf> ?admixture .
+        ?admixture <https://w3id.org/pmd/co/composedOf> ?admixtureTypeNode .
+        ?admixtureTypeNode a <https://w3id.org/cpto/Admixture> ;
+                            <https://w3id.org/pmd/co/value> ?admixtureName .
+        
+        ?admixture <https://w3id.org/pmd/co/characteristic> ?contentNode .
+        ?contentNode a <https://w3id.org/cpto/Content> ;
+                    <https://w3id.org/pmd/co/value> ?admixtureContent .
+        }`,
+    query4: `SELECT ?testType ?experimentDate ?laboratory ?testValue
+        WHERE {
+        ?test a ?testType ;
+                co:value ?testValue ;
+                co:output ?experimentInfo .
+        
+        ?experimentInfo co:output ?dateNode, ?labNode .
+        
+        ?dateNode a co:Date ;
+                    co:value ?experimentDate .
+        
+        ?labNode a co:Laboratory ;
+                co:value ?laboratory .
+        
+        FILTER (?testType IN (cpto:ConcreteCompressiveStrength, co:ModulusOfElasticity))
+        }`,
+    query5: `SELECT ?humanReadableID ?compressiveStrength ?elasticModulus
+        WHERE {
+        ?specimen a <https://w3id.org/pmd/co/Specimen> .
+        ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
+
+        OPTIONAL {
+            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
+            ?csNode a <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                    <https://w3id.org/pmd/co/value> ?compressiveStrength .
+        }
+
+        OPTIONAL {
+            ?specimen <https://w3id.org/pmd/co/input> ?emNode .
+            ?emNode a <https://w3id.org/pmd/co/ModulusOfElasticity> ;
+                    <https://w3id.org/pmd/co/value> ?elasticModulus .
+        }
+        }`,
+    query6: `SELECT ?s ?p ?o WHERE { ?s ?p ?o }`
+};
+
+// Event listener for all query items
+document.querySelectorAll('.query-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();  // Prevent default action of anchor tag
+
+        // Remove 'active' class from all query items
+        document.querySelectorAll('.query-item').forEach(function(el) {
+            el.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked item
+        e.currentTarget.classList.add('active');
+
+        // Get the query key from data attribute and set the query in textarea
+        const queryKey = e.currentTarget.getAttribute('data-query');
+        document.getElementById('sparqlQuery').value = queries[queryKey];
+
+        // Automatically run the query after inserting it
+        runQuery();
+    });
+});
+
+
+
