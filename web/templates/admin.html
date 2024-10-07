@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
     <title>Admin Page</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tabulator-tables@5.0.7/dist/css/tabulator.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar sticky-top shadow-sm flex-md-nowrap p-0 bg-white">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0 py-2 text-dark" href="/">
-            <h4 class="mb-0 mx-md-3"><img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> <span style="vertical-align: text-bottom;">LeBeDigital</span></h4>
+            <h4 class="mb-0 mx-md-3"><img src="static/images/BAM-sign.png" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> <span style="vertical-align: text-bottom;">LeBeDigital</span></h4>
         </a>
         <ul class="navbar-nav px-3">
             {% if session['username'] %}

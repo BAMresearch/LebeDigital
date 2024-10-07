@@ -70,7 +70,7 @@
                                     <p class="text-muted text-center mb-0"><small>Supported file formats: xlsx, xls, json</small></p>
                                     <p class="text-muted text-center"><small>
                                         You can also
-                                        <a style="text-decoration: none;" href="/static/MixtureTemplate.xlsx" download="MixtureTemplate.xlsx">Download</a> 
+                                        <a style="text-decoration: none;" href="static/MixtureTemplate.xlsx" download="MixtureTemplate.xlsx">Download</a> 
                                         the template, fill it out and upload.
                                     </small></p>
                                     <div class="text-center">
@@ -109,7 +109,7 @@
                         </div>
                        
                         <div class="col-md-4">
-                            <img src="{{ url_for('static', filename='images/Concrete_Mixture.jpg') }}" alt="mixture" class="w-100">
+                            <img src="static/images/Concrete_Mixture.jpg" alt="mixture" class="w-100">
                         </div>
                     </div>
                     <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-controls="flush-collapseTwo">Next</button>
@@ -201,7 +201,7 @@
                             <button class="btn btn-outline-theme mt-4" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-controls="flush-collapseThree">Next</button>
                         </div>
                         <div class="col-md-3">
-                            <img src="{{ url_for('static', filename='images/Concrete_Compressive_Strength.jpeg') }}" alt="CompressiveStrength" class="w-100">
+                            <img src="static/images/Concrete_Compressive_Strength.jpeg" alt="CompressiveStrength" class="w-100">
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                             <a href="/files"><button class="btn btn-outline-theme mt-4" >View Files</button></a>
                         </div>
                         <div class="col-md-3">
-                            <img src="{{ url_for('static', filename='images/Concrete_E-Modul.jpeg') }}" alt="E-Module" class="w-100">
+                            <img src="static/images/Concrete_E-Modul.jpeg" alt="E-Module" class="w-100">
                         </div>
                     </div>
 
@@ -347,7 +347,7 @@
     </div>
   </div>
 
-<script src="/static/js/getMixtures.js"></script>
-<script src="/static/js/main.js"></script>
+<script src="static/js/getMixtures.js"></script>
+<script src="static/js/main.js"></script>
 
 {% endblock %}

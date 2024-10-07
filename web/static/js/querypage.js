@@ -47,7 +47,8 @@ function executeSparqlQuery(query, table) {
 
                 document.getElementById('downloadBtn').classList.replace("d-none", "d-md-flex"); //show download button
             } catch (error) {
-                document.getElementById('queryResults').innerHTML = 'Please insert a valid query. ' + error.message;
+                console.log(error.message)
+                //document.getElementById('queryResults').innerHTML = 'Please insert a valid query. ' + error.message;
             }
         } else {
             document.getElementById('queryResults').innerHTML = 'Failed to load data: Status ' + xhr.status;

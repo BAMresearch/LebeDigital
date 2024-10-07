@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="lebedigital, bam lebedigital, Lebenszyklus von Beton, beton, concrete life cycle, concrete production, concrete production lifecycle, lebe, concrete, ontology, concrete ontology, ontology for concrete production ">
     <meta name="description" content="The term “LeBe” from LeBeDigital stands in German for “Lebenszyklus von Beton” and in English for “Concrete life cycle”. LeBeDigital is about developing an ontology for the concrete production process chain. The Project LeBeDigital is sponsored by BMBF and runs under the supervision of the Plattform MaterialDigital. The LeBeDigital-team consist of 3 cooperations partners: The Federal Institute for Materials Research and Testing (BAM), the Karlsruhe Institut of Technologie (KIT) and the Technical University of Munich (TUM).">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
     <title>LeBeDigital</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/main.css">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   </head>
   
@@ -20,7 +20,7 @@
         <nav class="navbar fixed-top bg-light shadow-sm justify-content-between px-md-5 px-3">
             <!-- Logo and Title -->
             <h3 class="mb-0 mx-md-3">
-                <img src="{{ url_for('static', filename='images/BAM-sign.png') }}" class="logo" alt="Logo">
+                <img src="static/images/BAM-sign.png" class="logo" alt="Logo">
                 <span class="fw-light" style="vertical-align: text-bottom;">BAM</span>
             </h3>
             <h3 class="mb-0">LeBeDigital 
@@ -48,7 +48,7 @@
         <div class="carousel-inner">
             <!-- First Slide -->
             <div class="carousel-item active" data-interval="5000">
-                <img class="carousel-img" src="{{ url_for('static', filename='images/welcome2.jpg') }}" alt="Slide 1">
+                <img class="carousel-img" src="static/images/welcome2.jpg" alt="Slide 1">
                 <div class="carousel-caption pt-0 align-middle">
                     <h3 class="display-6">A material database, where concrete-specific characteristic values & models are integrated</h3>
                     <a href="/database"><button class="btn btn-lg btn-theme mt-4">Open Database</button></a>
@@ -56,7 +56,7 @@
             </div>
             <!-- Second Slide -->
             <div class="carousel-item" data-interval="5000">
-                <img class="carousel-img" src="{{ url_for('static', filename='images/welcome1.jpg') }}" alt="Slide 2">
+                <img class="carousel-img" src="static/images/welcome1.jpg" alt="Slide 2">
                 <div class="carousel-caption pt-0 align-middle text-center">
                     <h3 class="display-6">Ontology development for the <br>concrete production process chain</h3>
                     <a href="/upload"><button class="btn btn-lg btn-theme mt-4">Upload Data</button></a>
@@ -89,7 +89,7 @@
           </p>
         </div>
         <div class="col-lg-5 pt-4">
-          <img src="/static/images/overview.png" class="w-100" alt="overview">
+          <img src="static/images/overview.png" class="w-100" alt="overview">
         </div>
       </div>
 
@@ -111,7 +111,7 @@
                     </ul>   
                   </div>
                   <div class="card-footer text-center bg-white pb-4 pt-0 border-top-0">
-                    <img src="{{ url_for('static', filename='images/xlsx.png') }}" alt="excel" class="icon-48">
+                    <img src="static/images/xlsx.png" alt="excel" class="icon-48">
                   </div> 
                 </div>
               </div>
@@ -128,7 +128,7 @@
                     </ul>  
                   </div>
                   <div class="card-footer text-center bg-white pb-3 pt-0 border-top-0">
-                    <img src="{{ url_for('static', filename='images/protege.jpg') }}" alt="protege" class="icon-56">
+                    <img src="static/images/protege.jpg" alt="protege" class="icon-56">
                   </div>  
                 </div>
               </div>
@@ -145,7 +145,7 @@
                     </ul>  
                   </div>
                   <div class="card-footer text-center bg-white pb-4 pt-0 border-top-0">
-                    <img src="{{ url_for('static', filename='images/drawio.png') }}" alt="drawio" class="icon-48">
+                    <img src="static/images/drawio.png" alt="drawio" class="icon-48">
                   </div>  
                 </div>
               </div>
@@ -160,34 +160,34 @@
           <div class="row text-center px-lg-5">
             <!-- First row: 4 images -->
             <div class="col-md-3 py-3">
-                <img src="/static/images/kg1.png" alt="Feature 1" class="icon-96">
+                <img src="static/images/kg1.png" alt="Feature 1" class="icon-96">
                 <h5><span class="clr-theme">01.</span> <span class="fw-normal">Mixture Design</span></h5>
             </div>
             <div class="col-md-3 py-3">
-                <img src="/static/images/kg2.png" alt="Feature 2" class="icon-96">
+                <img src="static/images/kg2.png" alt="Feature 2" class="icon-96">
                 <h5><span class="clr-theme">02.</span> <span class="fw-normal">Mixing Process</span></h5>
             </div>
             <div class="col-md-3 py-3">
-                <img src="/static/images/kg3.png" alt="Heat of Hydration" class="icon-96">
+                <img src="static/images/kg3.png" alt="Heat of Hydration" class="icon-96">
                 <h5><span class="clr-theme">03.</span> <span class="fw-normal">Heat of Hydration</span></h5>
             </div>
             <div class="col-md-3 py-3">
-                <img src="/static/images/kg4.png" alt="Hardening Storage" class="icon-96">
+                <img src="static/images/kg4.png" alt="Hardening Storage" class="icon-96">
                 <h5><span class="clr-theme">04.</span> <span class="fw-normal">Hardening Storage</span></h5>
             </div>
           </div>
           <div class="row text-center px-lg-5">
             <!-- Second row: 3 images -->
             <div class="col-md-4 py-3">
-                <img src="/static/images/kg5.png" alt="Specimen" class="icon-96">
+                <img src="static/images/kg5.png" alt="Specimen" class="icon-96">
                 <h5><span class="clr-theme">05.</span> <span class="fw-normal">Specimen</span></h5>
             </div>
             <div class="col-md-4 py-3">
-                <img src="/static/images/kg6.png" alt="Compressive Strength" class="icon-96">
+                <img src="static/images/kg6.png" alt="Compressive Strength" class="icon-96">
                 <h5><span class="clr-theme">06.</span> <span class="fw-normal">Compressive Strength</span></h5>
             </div>
             <div class="col-md-4 py-3">
-                <img src="/static/images/kg7.png" alt="E-Module" class="icon-96">
+                <img src="static/images/kg7.png" alt="E-Module" class="icon-96">
                 <h5><span class="clr-theme">07.</span> <span class="fw-normal">E-Module</span></h5>
             </div>
           </div>
@@ -198,7 +198,7 @@
       <div class="bg-light-blue">
         <div class="row featurette p-md-5 p-3 max-1440">
           <div class="col-lg-5 py-3">
-            <img src="/static/images/workflow.png" class="w-100" alt="overview">
+            <img src="static/images/workflow.png" class="w-100" alt="overview">
           </div>
           <div class="col-lg-7 pt-3 my-auto text-justify">
             <h2 class="featurette-heading pb-2">Automated Workflow
@@ -231,27 +231,27 @@
           <div class="d-md-flex justify-content-between">
             <div class="py-3">
               <a href="https://www.bmbf.de/bmbf/de/home/home_node.html" target="_blank" rel="noopener noreferrer">
-                <img src="/static/images/team1.png" alt="logo" class="icon-72"> 
+                <img src="static/images/team1.png" alt="logo" class="icon-72"> 
               </a>
             </div>
             <div class="py-3">
               <a href="https://www.materialdigital.de/" target="_blank" rel="noopener noreferrer">
-                <img src="/static/images/team3.png" alt="materialdigital" class="icon-72">
+                <img src="static/images/team3.png" alt="materialdigital" class="icon-72">
               </a>   
             </div>
             <div class="py-3">
               <a href="https://www.bam.de/" target="_blank" rel="noopener noreferrer">
-                <img src="/static/images/team2.png" alt="bam" class="icon-72">
+                <img src="static/images/team2.png" alt="bam" class="icon-72">
               </a>
             </div>
             <div class="py-3">
               <a href="https://www.kit.edu/" target="_blank" rel="noopener noreferrer">
-                <img src="/static/images/team4.png" alt="kit" class="icon-72">
+                <img src="static/images/team4.png" alt="kit" class="icon-72">
               </a>
             </div>
             <div class="py-3">
               <a href="https://www.tum.de/" target="_blank" rel="noopener noreferrer">
-                <img src="/static/images/team5.png" alt="tum" class="icon-72">
+                <img src="static/images/team5.png" alt="tum" class="icon-72">
               </a>
             </div>
           </div>
@@ -268,7 +268,7 @@
     </main>
 
     <!-- JavaScript files -->
-    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
