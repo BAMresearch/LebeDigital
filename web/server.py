@@ -39,7 +39,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
 app.config['SESSION_TYPE'] = "filesystem"
-
+app.config['APPLICATION_ROOT'] = '/lebedigial'
 
 # Load config.json and create Session Key if not present
 with open('config.json', 'r') as file:
