@@ -29,9 +29,9 @@
             
             <!-- Login/Logout Button -->
             {% if session['username'] %}
-                <a href="/logout"><button class="btn btn-outline-theme mx-md-3">Sign out</button></a>
+                <a href="{{ url_for('logout') }}"><button class="btn btn-outline-theme mx-md-3">Sign out</button></a>
             {% else %}
-                <a href="/login"><button class="btn btn-outline-theme mx-md-3">Sign in</button></a>
+                <a href="{{ url_for('login') }}"><button class="btn btn-outline-theme mx-md-3">Sign in</button></a>
             {% endif %}
         </nav>
     </header>
@@ -51,7 +51,7 @@
                 <img class="carousel-img" src="static/images/welcome2.jpg" alt="Slide 1">
                 <div class="carousel-caption pt-0 align-middle">
                     <h3 class="display-6">A material database, where concrete-specific characteristic values & models are integrated</h3>
-                    <a href="/database"><button class="btn btn-lg btn-theme mt-4">Open Database</button></a>
+                    <a href="{{ url_for('database') }}"><button class="btn btn-lg btn-theme mt-4">Open Database</button></a>
                 </div>    
             </div>
             <!-- Second Slide -->
@@ -59,7 +59,7 @@
                 <img class="carousel-img" src="static/images/welcome1.jpg" alt="Slide 2">
                 <div class="carousel-caption pt-0 align-middle text-center">
                     <h3 class="display-6">Ontology development for the <br>concrete production process chain</h3>
-                    <a href="/upload"><button class="btn btn-lg btn-theme mt-4">Upload Data</button></a>
+                    <a href="{{ url_for('upload_page') }}"><button class="btn btn-lg btn-theme mt-4">Upload Data</button></a>
                 </div>
             </div>
         </div>

@@ -41,42 +41,44 @@
                     <ul class="nav nav-pills flex-column mb-auto pt-1">
                         <li class="px-3 pb-2 small clr-theme">Data Management</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ active_page == '/database' and 'active' or '' }}" href="/database">
+                            <a class="nav-link {{ 'database' in active_page and 'active' or '' }}" href="{{ url_for('database') }}">
                                 <i class="clr-theme fas fa-database"></i>&nbsp;&nbsp; Database
                             </a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link {{ '/query' in active_page and 'active' or '' }}" href="/query">
+                            <a class="nav-link {{ 'query' in active_page and 'active' or '' }}" href="{{ url_for('query_page') }}">
                                 <i class="clr-theme fas fa-code"></i>&nbsp; SPARQL Query
                             </a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link {{ '/upload' in active_page and 'active' or '' }}" href="/upload">
+                            <a class="nav-link {{ 'upload' in active_page and 'active' or '' }}" href="{{ url_for('upload_page') }}">
                                 <i class="clr-theme fas fa-upload"></i>&nbsp;&nbsp; Upload Data
                             </a>
                         </li>
                         
+                        
                         <li class="px-3 pt-4 pb-2 small clr-theme">Input Forms</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ '/new_mixture' in active_page and 'active' or '' }}" href="/new_mixture">
+                            <a class="nav-link {{ 'new_mixture' in active_page and 'active' or '' }}" href="{{ url_for('new_mixture') }}">
                                 <i class="clr-theme fas fa-flask"></i>&nbsp;&nbsp; Mixture
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ '/new_compressive_strength' in active_page and 'active' or '' }}" href="/new_compressive_strength">
+                            <a class="nav-link {{ 'new_compressive_strength' in active_page and 'active' or '' }}" href="{{ url_for('new_compressive_strength') }}">
                                 <i class="clr-theme fas fa-compress-arrows-alt"></i>&nbsp;&nbsp; Compressive Strength
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ '/new_emodule' in active_page and 'active' or '' }}" href="/new_emodule">
+                            <a class="nav-link {{ 'new_emodule' in active_page and 'active' or '' }}" href="{{ url_for('new_emodule') }}">
                                 <i class="clr-theme fas fa-ruler"></i>&nbsp; E-Module
                             </a>
                         </li>
 
                         <li class="px-3 pt-4 pb-2 small clr-theme">Others</li>
                         <li class="nav-item">
-                            <a class="nav-link {{ '/files' in active_page and 'active' or '' }}" href="/files">
+                            <a class="nav-link {{ 'files' in active_page and 'active' or '' }}" href="{{ url_for('my_files') }}">
                                 <i class="clr-theme fas fa-file"></i>&nbsp; &nbsp;
                                 {% if session['username'] == 'admin' %}
                                     All files
@@ -87,9 +89,9 @@
                         </li>
                         <li class="nav-item">
                             {% if session['username'] %}
-                                <a class="nav-link" href="/logout"><i class="clr-theme fas fa-sign-out-alt"></i>&nbsp;  Sign out</a>
+                                <a class="nav-link" href="{{ url_for('logout') }}"><i class="clr-theme fas fa-sign-out-alt"></i>&nbsp;  Sign out</a>
                             {% else %}
-                                <a class="nav-link" href="/login"><i class="clr-theme fas fa-sign-in-alt"></i>  Sign in</a>
+                                <a class="nav-link" href="{{ url_for('login') }}"><i class="clr-theme fas fa-sign-in-alt"></i>  Sign in</a>
                             {% endif %}
                         </li>
                     

@@ -6,7 +6,7 @@
 <div class="content col-12 p-2">
     <h5>Enter Your Compressive Strength Details</h5>
     <div class="callout small">
-        <p class="mb-0"><strong>Pro Tip:</strong> For a quicker process, please upload your Compressive Strength from the <a style="text-decoration: none;" href="/upload">Upload Data</a> page.</p>
+        <p class="mb-0"><strong>Pro Tip:</strong> For a quicker process, please upload your Compressive Strength from the <a style="text-decoration: none;" href="{{ url_for('upload_page') }}">Upload Data</a> page.</p>
     </div>
 
     <form id="form" class="row g-3 needs-validation pt-2 pb-4" novalidate>
@@ -51,7 +51,7 @@
                         </div>
 
                         <p class="small pt-2">
-                            If your mixture is not on the list, you can <a href="/upload">upload your file</a> or <a href="/new_mixture">manually enter the details</a>.</p>
+                            If your mixture is not on the list, you can <a href="{{ url_for('upload_page') }}">upload your file</a> or <a href="{{ url_for('new_mixture') }}">manually enter the details</a>.</p>
                     </div>
 
                     
