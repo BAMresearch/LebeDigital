@@ -240,7 +240,15 @@
         </div>
     </div>
 </div>
-
+<script>
+    window.appConfig = {
+      urls: {
+        getIndividualData: "{{ url_for('get_individual_data') }}",
+        database: "{{ url_for('database') }}",
+        getMixtures: "{{ url_for('get_mixtures') }}",
+      }
+    };
+</script>
 
 <script src="/static/js/getMixtures.js"></script>
 <script src="/static/js/specimenShape.js"></script>
@@ -341,9 +349,9 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('file', fileInput.files[0]);
         }
         
-
+        const endpoint = "{{ url_for('submit_emodule') }}"
         // Send data to server
-        fetch('/submit_emodule', {
+        fetch(endpoint, {
             method: 'POST',
             body: formData,
         })

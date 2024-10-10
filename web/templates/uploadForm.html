@@ -347,6 +347,19 @@
     </div>
   </div>
 
+<script>
+    window.appConfig = {
+      urls: {
+        getIndividualData: "{{ url_for('get_individual_data') }}",
+        database: "{{ url_for('database') }}",
+        getMixtures: "{{ url_for('get_mixtures') }}",
+        dataUpload: "{{ url_for('data_upload') }}",
+        newMixture: "{{ url_for('new_mixture') }}",
+        newCompSt: "{{ url_for('new_compressive_strength') }}",
+        newEmodule: "{{ url_for('new_emodule') }}",
+      }
+    };
+</script>
 <script src="static/js/getMixtures.js"></script>
 <script src="static/js/main.js"></script>
 

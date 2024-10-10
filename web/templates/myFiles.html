@@ -90,8 +90,18 @@
 </div>
 
 <script>
+    window.appConfig = {
+      urls: {
+        getIndividualData: "{{ url_for('get_individual_data') }}",
+        database: "{{ url_for('database') }}",
+        rawDownload: "{{ url_for('raw_download') }}",
+      }
+    };
+</script>
+
+<script>
     function downloadFile(id) {
-        fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
+        fetch(`${window.appConfig.urls.rawDownload}?id=${encodeURIComponent(id)}`, {
             method: 'GET'
         }).then(response => {
             if (!response.ok) {
@@ -120,8 +130,11 @@
 
             console.log(username)
 
+            const adminDataUrl = "{{ url_for('get_admin_data') }}"
+            const deleteByUserUrl = "{{ url_for('update_deleted_by_user') }}"
+
             // Determine the endpoint to call based on the username
-            var endpoint = (username === 'admin') ? '/adminData' : '/updateDeletedByUser';
+            var endpoint = (username === 'admin') ? adminDataUrl : deleteByUserUrl;
 
             fetch(endpoint, {
                 method: 'POST',

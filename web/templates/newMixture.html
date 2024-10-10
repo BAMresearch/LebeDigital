@@ -444,8 +444,10 @@
                 formData.append('file', fileInput.files[0]);
             }
 
+            const endpoint = "{{ url_for('submit_mixture') }}"
+
             // Send data to server
-            fetch('/submit_mixture', {
+            fetch(endpoint, {
                 method: 'POST',
                 body: formData,
             })

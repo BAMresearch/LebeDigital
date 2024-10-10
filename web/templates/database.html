@@ -41,6 +41,14 @@
 <script>
     // Define the data variable
     var data = JSON.parse('{{ data | tojson | safe}}');
+    
+    window.appConfig = {
+      urls: {
+        getIndividualData: "{{ url_for('get_individual_data') }}",
+        database: "{{ url_for('database') }}",
+        rawDownload: "{{ url_for('raw_download') }}",
+      }
+    };
 </script>
 <script src="static/js/database-page.js"></script>
 

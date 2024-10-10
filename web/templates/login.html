@@ -33,7 +33,7 @@
                     </a>
                     <h5 class=" py-3 clr-theme">Sign in to Your Account</h5>
                 </div>
-                <form action="/login" method="post">
+                <form action="{{ url_for('login') }}" method="post">
                     <div class="form-group pb-3">
                         <input type="text" class="form-control" id="usernameInput" name="username" placeholder="Username (e.g. bob@example.com)" required>
                     </div>

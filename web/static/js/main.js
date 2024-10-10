@@ -91,7 +91,9 @@ function uploadData(type, fileID, urlID, label) {
     }
     showMixtureName();
 
-    fetch('/dataUpload', {
+    const dataUploadUrl = window.appConfig.urls.dataUpload;
+
+    fetch(dataUploadUrl, {
         method: 'POST',
         body: formData,
     })
@@ -237,7 +239,7 @@ function GoToMixtureForm() {
     radioButtons.forEach(radio => radio.checked = false);
 
     // Redirect
-    window.location.href = "{{ url_for('new_mixture') }}";  
+    window.location.href = window.appConfig.urls.newMixture;
 }
 
 // Function to check if a mixture is selected before redirecting to another page
@@ -259,10 +261,12 @@ function redirectToPage(page) {
 
 // Redirect user to the compressive strength form
 function GoToComStForm() {
-    checkMixtureAndRedirect('/new_compressive_strength');
+    const compStUrl = window.appConfig.urls.newCompSt;
+    checkMixtureAndRedirect(compStUrl);
 }
 
 // Redirect user to the E-Module form
 function GoToEModuleForm() {
-    checkMixtureAndRedirect('/new_emodule');
+    const emodUrl = window.appConfig.urls.newEmodule;
+    checkMixtureAndRedirect(emodUrl);
 }

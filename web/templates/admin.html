@@ -45,13 +45,13 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@5.0.7/dist/js/tabulator.min.js"></script>
-</body>
-</html>
+
 <script>
     deletedUsers = [];
     // Funktion zum Laden der Konfigurationsdaten
     function loadConfig() {
-        fetch('/adminData')
+        const adminDataUrl = "{{ url_for('get_admin_data') }}"
+        fetch(adminDataUrl)
         .then(response => response.json())  // Umwandlung der Antwort in JSON
         .then(data => {
             // Setzt die Werte der Textfelder auf die abgerufenen Konfigurationsdaten
@@ -95,7 +95,7 @@
         console.log(data);
 
         // Endpoint URL definieren
-        var endpoint = '/adminData';
+        var endpoint = adminDataUrl;
 
         // Fetch API verwenden, um Daten mittels POST zu senden
         fetch(endpoint, {
@@ -116,7 +116,7 @@
         data = {"clearData": true};
         
         // Endpoint URL definieren
-        var endpoint = '/adminData';
+        var endpoint = adminDataUrl;
         // Fetch API verwenden, um Daten mittels POST zu senden
         fetch(endpoint, {
             method: 'POST', // HTTP-Methode
@@ -135,3 +135,5 @@
     // Aufruf der Funktion beim Laden der Seite
     window.onload = loadConfig;
 </script>
+</body>
+</html>

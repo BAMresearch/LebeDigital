@@ -27,7 +27,8 @@ function transformData(bindings, vars) {
 
 function executeSparqlQuery(query, table) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/queryexec', true);
+    const url = window.appConfig.urls.queryExecute;
+    xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onload = function() {

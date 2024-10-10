@@ -3,8 +3,9 @@ function getMixtures() {
     const urlParams = new URLSearchParams(window.location.search);
     const urlMixtureId = urlParams.get('mixtureId');
 
+    const url = window.appConfig.urls.getMixtures;
     // Fetch the list of mixtures from the server
-    fetch('/get-mixtures', {
+    fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

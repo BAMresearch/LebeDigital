@@ -39,7 +39,7 @@ table.on("cellClick", function(e, cell) {
         window.open(url, "_blank");
     } else if (field == "Value" && value == "Download") {
         var id = document.getElementById('fileID').value;
-        fetch(`/rawdownload?id=${encodeURIComponent(id)}`, {
+        fetch(`${window.appConfig.urls.rawDownload}?id=${encodeURIComponent(id)}`, {
             method: 'GET'
         }).then(response => {
             if (!response.ok) {
@@ -76,7 +76,8 @@ async function create_query(enteredName){
 
 // executes the sparql query and returns result as a promise
 async function executeSparqlQuery(unique_id) {
-    const url = '/database_individual';
+    const url = window.appConfig.urls.getIndividualData;
+    console.log(url)
 
     var data = {id: unique_id};
 
@@ -281,7 +282,7 @@ document.getElementById('sparqlForm').addEventListener('submit', function(e) {
     var search_term = document.getElementById('nameInput').value;
 
     // Define the URL and options for the fetch request
-    const url = '/database';
+    const url = window.appConfig.urls.database;
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

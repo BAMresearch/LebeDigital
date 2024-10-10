@@ -57,5 +57,14 @@
 
 
 </div>
+<script>
+    window.appConfig = {
+      urls: {
+        getIndividualData: "{{ url_for('get_individual_data') }}",
+        database: "{{ url_for('database') }}",
+        queryExecute: "{{ url_for('execute_sparql_query') }}",
+      }
+    };
+</script>
 <script src="static/js/querypage.js"></script>
 {% endblock %}
