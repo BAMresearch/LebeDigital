@@ -40,6 +40,7 @@ app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
 app.config['SESSION_TYPE'] = "filesystem"
 
+
 # Load config.json and create Session Key if not present
 with open('config.json', 'r') as file:
     config = json.load(file)

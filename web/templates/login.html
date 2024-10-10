@@ -44,7 +44,7 @@
                     <p id="errormessage" name="errormessage" class="text-danger">{{ errormessage }}</p>
                     <button type="submit" class="btn btn-theme w-100" id="loginButton">Login</button>
                 </form>
-                <p class="text-muted text-center pt-4">Don't have an account? <a href="/signup">Create one</a>.</p>
+                <p class="text-muted text-center pt-4">Don't have an account? <a href="{{ url_for('signup') }}">Create one</a>.</p>
             </div>
         </div>
     </div>

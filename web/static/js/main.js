@@ -237,7 +237,7 @@ function GoToMixtureForm() {
     radioButtons.forEach(radio => radio.checked = false);
 
     // Redirect
-    window.location.href = '/new_mixture';  
+    window.location.href = "{{ url_for('new_mixture') }}";  
 }
 
 // Function to check if a mixture is selected before redirecting to another page
