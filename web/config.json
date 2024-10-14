@@ -1,5 +1,5 @@
 {
     "SECRET_KEY": "vIJf1WYKiB2ydJJe21CxvAjTh9S9XWdj",
     "dataset_name": "dataset.ttl",
-    "APPLICATION_ROOT": "/lebedigial"
+    "APPLICATION_ROOT": "/lebedigital"
 }
