@@ -34,24 +34,37 @@ import re
 
 # --- Setup Flask --- #
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SESSION_PERMANENT'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=3650)  # 10 years
-app.config['SESSION_TYPE'] = "filesystem"
-
-# Load config.json and create Session Key if not present
-with open('config.json', 'r') as file:
-    config = json.load(file)
-    if config['SECRET_KEY'] == 'Your Secret Key (Gets created first run)':
-        config['SECRET_KEY'] = base64.b64encode(os.urandom(24)).decode('utf-8')
-        with open('config.json', 'w') as file:
-            json.dump(config, file, indent=4)
-        app.config['SECRET_KEY'] = config['SECRET_KEY']
+def load_config():
+    # Check if config.json exists, if not create it from template
+    if not os.path.exists('config.json'):
+        with open('config.template.json', 'r') as template_file:
+            config = json.load(template_file)
+            config['SECRET_KEY'] = base64.b64encode(os.urandom(24)).decode('utf-8')
+            with open('config.json', 'w') as config_file:
+                json.dump(config, config_file, indent=4)
     else:
-        app.config['SECRET_KEY'] = config['SECRET_KEY']
+        with open('config.json', 'r') as config_file:
+            config = json.load(config_file)
+            if config['SECRET_KEY'] == 'Your Secret Key (Gets created first run)':
+                config['SECRET_KEY'] = base64.b64encode(os.urandom(24)).decode('utf-8')
+                with open('config.json', 'w') as file:
+                    json.dump(config, file, indent=4)
+    
+    return config
 
+# Initialize Flask
+app = Flask(__name__)
+
+# Load configuration
+config = load_config()
+
+# Configure Flask app
+app.config['SECRET_KEY'] = config['SECRET_KEY']
 app.config['APPLICATION_ROOT'] = config['APPLICATION_ROOT']
+app.config['SQLALCHEMY_DATABASE_URI'] = config['DATABASE']['URI']
+app.config['SESSION_PERMANENT'] = config['SESSION']['PERMANENT']
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=config['SESSION']['LIFETIME_DAYS'])
+app.config['SESSION_TYPE'] = config['SESSION']['TYPE']
 
 
 # --- Setup Logging --- #

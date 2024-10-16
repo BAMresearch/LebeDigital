@@ -1,0 +1,13 @@
+{
+    "SECRET_KEY": "Your Secret Key (Gets created first run)",
+    "APPLICATION_ROOT": "/",
+    "DATABASE": {
+        "URI": "sqlite:///users.db"
+    },
+    "SESSION": {
+        "LIFETIME_DAYS": 3650,
+        "TYPE": "filesystem",
+        "PERMANENT": true
+    },
+    "dataset_name": "dataset.ttl"
+}
