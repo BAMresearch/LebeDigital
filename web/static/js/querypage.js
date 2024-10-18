@@ -131,32 +131,37 @@ const queries = {
         ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
                 <https://w3id.org/pmd/co/value> ?humanReadableID .
         FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
-        
+
         ?mixture <https://w3id.org/pmd/co/characteristic> ?materialComp .
         ?materialComp <https://w3id.org/pmd/co/composedOf> ?admixture .
         ?admixture <https://w3id.org/pmd/co/composedOf> ?admixtureTypeNode .
         ?admixtureTypeNode a <https://w3id.org/cpto/Admixture> ;
                             <https://w3id.org/pmd/co/value> ?admixtureName .
-        
+
         ?admixture <https://w3id.org/pmd/co/characteristic> ?contentNode .
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?admixtureContent .
         }`,
-    query4: `SELECT ?testType ?experimentDate ?laboratory ?testValue
+    query4: `SELECT ?humanReadableID ?compressiveStrength ?WaterCementRatio
         WHERE {
-        ?test a ?testType ;
-                co:value ?testValue ;
-                co:output ?experimentInfo .
-        
-        ?experimentInfo co:output ?dateNode, ?labNode .
-        
-        ?dateNode a co:Date ;
-                    co:value ?experimentDate .
-        
-        ?labNode a co:Laboratory ;
-                co:value ?laboratory .
-        
-        FILTER (?testType IN (cpto:ConcreteCompressiveStrength, co:ModulusOfElasticity))
+        ?specimen a <https://w3id.org/pmd/co/Specimen> .
+        ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
+
+        OPTIONAL {
+            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
+            ?csNode a <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
+                    <https://w3id.org/pmd/co/value> ?compressiveStrength .
+        }
+
+        OPTIONAL {
+            ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
+			?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
+			?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?characteristic .
+			?characteristic <https://w3id.org/pmd/co/value> ?WaterCementRatio  .
+		}
         }`,
     query5: `SELECT ?humanReadableID ?compressiveStrength ?elasticModulus
         WHERE {
@@ -178,9 +183,28 @@ const queries = {
                     <https://w3id.org/pmd/co/value> ?elasticModulus .
         }
         }`,
-    query6: `SELECT ?s ?p ?o WHERE { ?s ?p ?o }`
-};
+    query6: `SELECT ?humanReadableID ?E_Module ?WaterCementRatio
+        WHERE {
+        ?specimen a <https://w3id.org/pmd/co/Specimen> .
+        ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
+        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
+                <https://w3id.org/pmd/co/value> ?humanReadableID .
+        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
 
+        OPTIONAL {
+            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
+            ?csNode a <https://w3id.org/pmd/co/ModulusOfElasticity> ;
+                    <https://w3id.org/pmd/co/value> ?E_Module .
+        }
+
+        OPTIONAL {
+            ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
+			?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
+			?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?characteristic .
+			?characteristic <https://w3id.org/pmd/co/value> ?WaterCementRatio  .
+		}
+        }`
+};
 // Event listener for all query items
 document.querySelectorAll('.query-item').forEach(function(item) {
     item.addEventListener('click', function(e) {
