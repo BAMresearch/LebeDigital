@@ -310,8 +310,10 @@ def async_function(unique_id):
             specimen_json['ID'] = row['unique_id']
             emodule_json['SpecimenID'] = row['unique_id']
             specimen_json['MixtureID'] = row['Mixture_ID']
-            add_data('Json', json.dumps(emodule_json).encode('utf-8'))
-            add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+            emodule = unit_conversion_json(emodule_json)
+            add_data('Json', json.dumps(emodule).encode('utf-8'))
+            specimen = unit_conversion_json(specimen_json)
+            add_data('Json_Specimen', json.dumps(specimen).encode('utf-8'))
         # compressive strength dat extraction
         elif row['type'] == 'CompressiveStrength':
             if row['filetype'] == 'dat':
@@ -326,8 +328,10 @@ def async_function(unique_id):
                 specimen_json['ID'] = row['unique_id']
                 comSt_json['SpecimenID'] = row['unique_id']
                 specimen_json['MixtureID'] = row['Mixture_ID']
-                add_data('Json', json.dumps(comSt_json).encode('utf-8'))
-                add_data('Json_Specimen', json.dumps(specimen_json).encode('utf-8'))
+                comSt = unit_conversion_json(comSt_json)
+                add_data('Json', json.dumps(comSt).encode('utf-8'))
+                specimen = unit_conversion_json(specimen_json)
+                add_data('Json_Specimen', json.dumps(specimen).encode('utf-8'))
 
 
     # ---- Mapping the json to ttl ---- #

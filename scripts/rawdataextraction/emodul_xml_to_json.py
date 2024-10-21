@@ -60,7 +60,7 @@ def xml_to_json(xml_binary, mix_json):
             elif name == 'TestRunName':
                 emodul_data['TestRunName'] = value
             elif name == 'E_Modul':
-                emodul_data['EModule'] = float(value)
+                emodul_data['EModule'] = abs(float(value))
                 emodul_data['EModule_Unit'] = var_data.find('Unit').text
             elif name == 'Druckfestigkeit':
                 emodul_data['InputCompressiveStrength'] = float(value)
