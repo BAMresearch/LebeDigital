@@ -23,7 +23,20 @@ def unit_conversion(input_metadata):
                      "mm^2": "http://qudt.org/vocab/unit/MilliM2",
                      "g/mm^3": "http://qudt.org/vocab/unit/GM-PER-CentiM3",
                      "mm/mm": "http://qudt.org/vocab/unit/PER-MilliM",
-                     "kg": "http://qudt.org/vocab/unit/KiloGM"}
+                     "kg": "http://qudt.org/vocab/unit/KiloGM",
+                     "MilliM": "http://qudt.org/vocab/unit/MilliM",
+                     "GM": "http://qudt.org/vocab/unit/GM",
+                     "KN": "https://qudt.org/vocab/unit/KN",
+                     "KiloGM-PER-M3": "http://qudt.org/vocab/unit/KiloGM-PER-M3",
+                     "KiloGM-PER-DeciM3": "http://qudt.org/vocab/unit/KiloGM-PER-DeciM3",
+                     "DeciM3": "http://qudt.org/vocab/unit/DeciM3",
+                     "DAY": "https://qudt.org/vocab/unit/DAY",
+                     "MegaPA": "http://qudt.org/vocab/unit/MegaPA",
+                     "N-PER-MilliM2": "http://qudt.org/vocab/unit/N-PER-MilliM2",
+                     "MilliM2": "http://qudt.org/vocab/unit/MilliM2",
+                     "GM-PER-CentiM3": "http://qudt.org/vocab/unit/GM-PER-CentiM3",
+                     "PER-MilliM": "http://qudt.org/vocab/unit/PER-MilliM",
+                     "KiloGM": "http://qudt.org/vocab/unit/KiloGM"}
 
     # Add more unit mappings as needed
 

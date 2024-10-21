@@ -14,6 +14,7 @@ from loguru import logger
 import argparse
 import uuid
 import io
+from scripts.mapping.unit_conversion import unit_conversion_json
 
 
 # function to convert german formatting to english
@@ -281,6 +282,8 @@ def extract_metadata_mixdesign(RawData, filename):
             no_empty_annotation('Addition2')
         else:
             logger.error('addition2 not included in json-file')
+        
+        metadata = unit_conversion_json(metadata)
 
         return metadata
 
