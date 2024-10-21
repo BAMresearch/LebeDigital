@@ -136,7 +136,10 @@ main.db
 upload.db
 temp/
 zip/
+dataset.ttl
 
 # files downloaded from db
 */main.db-*
 */upload.db-*
+
+
