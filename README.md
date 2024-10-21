@@ -59,7 +59,7 @@ $ pip install -r requirements.txt
 
 # Set up configuration
 
-$ cp config.json.sample config.json 
+$ cp config.template.json config.json 
 # Open `config.json` and replace placeholders with actual credentials.
 
 # Run the project
