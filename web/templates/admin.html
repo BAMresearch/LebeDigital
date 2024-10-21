@@ -48,9 +48,9 @@
 
 <script>
     deletedUsers = [];
+    const adminDataUrl = "{{ url_for('get_admin_data') }}"
     // Funktion zum Laden der Konfigurationsdaten
     function loadConfig() {
-        const adminDataUrl = "{{ url_for('get_admin_data') }}"
         fetch(adminDataUrl)
         .then(response => response.json())  // Umwandlung der Antwort in JSON
         .then(data => {
