@@ -176,7 +176,7 @@ document.getElementById('insertTextBtn').addEventListener('click', function() {
 
 // Define the SPARQL queries
 const queries = {
-    query1: `SELECT ?humanReadableID ?waterCementRatio
+    query1: `SELECT DISTINCT ?humanReadableID ?waterCementRatio
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -188,7 +188,7 @@ const queries = {
         ?wcrNode a <https://w3id.org/cpto/WaterCementRatio> ;
                 <https://w3id.org/pmd/co/value> ?waterCementRatio .
         }`,
-    query2: `SELECT ?humanReadableID ?cementType ?cementContent
+    query2: `SELECT DISTINCT ?humanReadableID ?cementContent ?cementType
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -206,7 +206,7 @@ const queries = {
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?cementContent .
         }`,
-    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureContent
+    query3: `SELECT DISTINCT ?humanReadableID ?admixtureName ?admixtureContent
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -224,7 +224,7 @@ const queries = {
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?admixtureContent .
         }`,
-    query4: `SELECT ?humanReadableID ?compressiveStrength ?WaterCementRatio
+    query4: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?WaterCementRatio
         WHERE {
         ?specimen a <https://w3id.org/pmd/co/Specimen> .
         ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -245,7 +245,7 @@ const queries = {
 			?characteristic <https://w3id.org/pmd/co/value> ?WaterCementRatio  .
 		}
         }`,
-    query5: `SELECT ?humanReadableID ?compressiveStrength ?elasticModulus
+    query5: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?elasticModulus
         WHERE {
         ?specimen a <https://w3id.org/pmd/co/Specimen> .
         ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -265,7 +265,7 @@ const queries = {
                     <https://w3id.org/pmd/co/value> ?elasticModulus .
         }
         }`,
-    query6: `SELECT ?humanReadableID ?E_Module ?WaterCementRatio
+    query6: `SELECT DISTINCT ?humanReadableID ?E_Module ?WaterCementRatio
         WHERE {
         ?specimen a <https://w3id.org/pmd/co/Specimen> .
         ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
