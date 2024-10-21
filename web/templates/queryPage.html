@@ -31,19 +31,19 @@
                     Get all <strong>admixtures</strong> used in each mixture
                 </a>
                 <a href="#" class="list-group-item list-group-item-action query-item" data-query="query4">
-                    Get <strong>experiment details</strong>  (date, lab) for each test
+                    Compare <strong>water-cement ratio</strong>  with <strong>compressive strength</strong>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action query-item" data-query="query5">
                     Get the <strong>compressive strength</strong> and <strong>elastic modulus</strong> for each specimen
                 </a>
                 <a href="#" class="list-group-item list-group-item-action query-item" data-query="query6">
-                    Compare <strong>water-cement ratio</strong> with <strong>compressive strength </strong>at different <strong>ages</strong>
+                    Compare <strong>water-cement ratio</strong> with <strong>elastic modulus</strong>
                 </a>
             </ol>
         </div>
     </div>
     
-    <div data-query="queryResults" class="text-danger small">
+    <div id="queryResults" class="text-danger small">
         <!-- Query results will be displayed here -->
     </div>
     <div class="d-none justify-content-between" id="downloadBtn">
@@ -53,6 +53,9 @@
     <br>
 
     <div id="resultsTable" class="mt-0 text-small"></div>
+    
+    <canvas id="myChart" width="400" height="200"></canvas>
+
 
 
 
@@ -67,4 +70,6 @@
     };
 </script>
 <script src="static/js/querypage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 {% endblock %}
