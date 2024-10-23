@@ -206,7 +206,7 @@ const queries = {
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?cementContent .
         }`,
-    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureContent
+    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureDensity
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -218,11 +218,11 @@ const queries = {
         ?materialComp <https://w3id.org/pmd/co/composedOf> ?admixture .
         ?admixture <https://w3id.org/pmd/co/composedOf> ?admixtureTypeNode .
         ?admixtureTypeNode a <https://w3id.org/cpto/Admixture> ;
-                            <https://w3id.org/pmd/co/value> ?admixtureName .
-
-        ?admixture <https://w3id.org/pmd/co/characteristic> ?contentNode .
-        ?contentNode a <https://w3id.org/cpto/Content> ;
-                    <https://w3id.org/pmd/co/value> ?admixtureContent .
+                            <https://w3id.org/pmd/co/value> ?admixtureName .  
+  
+	?admixture <https://w3id.org/pmd/co/characteristic> ?densityNode .
+        ?densityNode a <https://w3id.org/cpto/RelativeDensity> ;
+                    <https://w3id.org/pmd/co/value> ?admixtureDensity .
         }`,
     query4: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?WaterCementRatio
         WHERE {
