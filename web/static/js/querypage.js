@@ -263,26 +263,24 @@ const queries = {
                     <https://w3id.org/pmd/co/value> ?elasticModulus .
         }
         }`,
-    query6: `SELECT DISTINCT ?humanReadableID ?E_Module ?WaterCementRatio
-        WHERE {
-        ?specimen a <https://w3id.org/pmd/co/Specimen> .
-        ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
-        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
-                <https://w3id.org/pmd/co/value> ?humanReadableID .
-        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
-
-        OPTIONAL {
-            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
-            ?csNode a <https://w3id.org/pmd/co/ModulusOfElasticity> ;
-                    <https://w3id.org/pmd/co/value> ?E_Module .
-        }
-
-        OPTIONAL {
-            ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
-			?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
-			?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?characteristic .
-			?characteristic <https://w3id.org/pmd/co/value> ?WaterCementRatio  .
-		}
+    query6: `SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?E_Module
+        WHERE { 
+        ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
+        ?MaterialComposition <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_1 .
+        ?hasIdentifier_1 <https://w3id.org/pmd/co/value> ?ID_1 .
+        ?ProvidedIdentifier a <https://w3id.org/pmd/co/ProvidedIdentifier> .
+        ?ProvidedIdentifier <https://w3id.org/pmd/co/value> ?ID_1 .
+        ?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
+        ?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?value_1 .
+        ?value_1 <https://w3id.org/pmd/co/value> ?WaterCementRatio .
+  
+        ?Specimen a <https://w3id.org/pmd/co/Specimen> .
+        ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?ProvidedIdentifier .
+        ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
+  	?hasIdentifier_2 <https://w3id.org/pmd/co/value> ?humanReadableID .
+  	?ElasticM a <https://w3id.org/pmd/co/ModulusOfElasticity> .
+	?ElasticM <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
+  	?ElasticM <https://w3id.org/pmd/co/value> ?E_Module .
         }`
 };
 // Event listener for all query items
