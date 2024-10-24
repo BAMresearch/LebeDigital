@@ -224,23 +224,24 @@ const queries = {
         ?densityNode a <https://w3id.org/cpto/RelativeDensity> ;
                     <https://w3id.org/pmd/co/value> ?admixtureDensity .
         }`,
-    query4: `SELECT DISTINCT ?WaterCementRatio ?value_1 ?CompressiveStrength ?value_2
+    query4: `SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?CompressiveStrength
 	WHERE { 
- 	?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
+	?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
         ?MaterialComposition <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_1 .
         ?hasIdentifier_1 <https://w3id.org/pmd/co/value> ?ID_1 .
         ?ProvidedIdentifier a <https://w3id.org/pmd/co/ProvidedIdentifier> .
         ?ProvidedIdentifier <https://w3id.org/pmd/co/value> ?ID_1 .
 	?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
-        ?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?WaterCementRatio .
-        ?WaterCementRatio <https://w3id.org/pmd/co/value> ?value_1 .
+        ?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?value_1 .
+        ?value_1 <https://w3id.org/pmd/co/value> ?WaterCementRatio .
   
   	?Specimen a <https://w3id.org/pmd/co/Specimen> .
         ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?ProvidedIdentifier .
         ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
-  	?CompressiveStrength a <https://w3id.org/cpto/ConcreteCompressiveStrength> .
-  	?CompressiveStrength <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
-  	?CompressiveStrength <https://w3id.org/pmd/co/value> ?value_2 .
+  	?hasIdentifier_2 <https://w3id.org/pmd/co/value> ?humanReadableID .
+  	?ComSt a <https://w3id.org/cpto/ConcreteCompressiveStrength> .
+  	?ComSt <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
+  	?ComSt <https://w3id.org/pmd/co/value> ?CompressiveStrength .
         }`,
     query5: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?elasticModulus
         WHERE {
