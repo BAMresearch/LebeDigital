@@ -206,7 +206,7 @@ const queries = {
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?cementContent .
         }`,
-    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureContent
+    query3: `SELECT ?humanReadableID ?admixtureName ?admixtureDensity
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -218,32 +218,29 @@ const queries = {
         ?materialComp <https://w3id.org/pmd/co/composedOf> ?admixture .
         ?admixture <https://w3id.org/pmd/co/composedOf> ?admixtureTypeNode .
         ?admixtureTypeNode a <https://w3id.org/cpto/Admixture> ;
-                            <https://w3id.org/pmd/co/value> ?admixtureName .
-
-        ?admixture <https://w3id.org/pmd/co/characteristic> ?contentNode .
-        ?contentNode a <https://w3id.org/cpto/Content> ;
-                    <https://w3id.org/pmd/co/value> ?admixtureContent .
+                            <https://w3id.org/pmd/co/value> ?admixtureName .  
+  
+	?admixture <https://w3id.org/pmd/co/characteristic> ?densityNode .
+        ?densityNode a <https://w3id.org/cpto/RelativeDensity> ;
+                    <https://w3id.org/pmd/co/value> ?admixtureDensity .
         }`,
-    query4: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?WaterCementRatio
-        WHERE {
-        ?specimen a <https://w3id.org/pmd/co/Specimen> .
-        ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
-        ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
-                <https://w3id.org/pmd/co/value> ?humanReadableID .
-        FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
-
-        OPTIONAL {
-            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
-            ?csNode a <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
-                    <https://w3id.org/pmd/co/value> ?compressiveStrength .
-        }
-
-        OPTIONAL {
-            ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
-			?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
-			?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?characteristic .
-			?characteristic <https://w3id.org/pmd/co/value> ?WaterCementRatio  .
-		}
+    query4: `SELECT DISTINCT ?WaterCementRatio ?value_1 ?CompressiveStrength ?value_2
+	WHERE { 
+ 	?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> .
+        ?MaterialComposition <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_1 .
+        ?hasIdentifier_1 <https://w3id.org/pmd/co/value> ?ID_1 .
+        ?ProvidedIdentifier a <https://w3id.org/pmd/co/ProvidedIdentifier> .
+        ?ProvidedIdentifier <https://w3id.org/pmd/co/value> ?ID_1 .
+	?characteristic a <https://w3id.org/cpto/WaterCementRatio> .
+        ?MaterialComposition <https://w3id.org/pmd/co/characteristic> ?WaterCementRatio .
+        ?WaterCementRatio <https://w3id.org/pmd/co/value> ?value_1 .
+  
+  	?Specimen a <https://w3id.org/pmd/co/Specimen> .
+        ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?ProvidedIdentifier .
+        ?Specimen <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
+  	?CompressiveStrength a <https://w3id.org/cpto/ConcreteCompressiveStrength> .
+  	?CompressiveStrength <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
+  	?CompressiveStrength <https://w3id.org/pmd/co/value> ?value_2 .
         }`,
     query5: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?elasticModulus
         WHERE {
