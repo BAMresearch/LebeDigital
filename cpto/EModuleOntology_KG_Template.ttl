@@ -142,6 +142,8 @@ co:MaximumForce a owl:Class .
 
 co:ModulusOfElasticity a owl:Class .
 
+co:ProvidedIdentifier a owl:Class .
+
 co:Specimen a owl:Class .
 
 co:Dataset a owl:Class .
