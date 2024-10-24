@@ -1,5 +1,6 @@
 @prefix co: <https://w3id.org/pmd/co/> .
 @prefix ns1: <https://w3id.org/cpto/> .
+@prefix ns2: <http://purl.org/spar/datacite/> .
 @prefix ns3: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
