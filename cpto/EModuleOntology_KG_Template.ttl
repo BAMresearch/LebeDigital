@@ -99,6 +99,7 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
+    ns2:hasIdentifier ns1:humanreadableID_ ;
     co:characteristic ns1:SpecimenAge_ ;
     co:output ns1:ExperimentInfo_ ;
     co:process ns1:Computation_ ;
@@ -122,6 +123,10 @@ ns1:MeasuredCompressiveStrength_ a owl:NamedIndividual,
         co:MeasuredCompressiveStrength ;
     co:unit <https://w3id.org/cpto/##MeasuredCompressiveStrength_Unit##> ;
     co:value "$$MeasuredCompressiveStrength_Value$$"^^xsd:string .
+
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
 
 co:ComputingNode a owl:Class .
 
