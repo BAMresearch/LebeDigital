@@ -35,8 +35,8 @@
                 <tr class="row">
                     <th class="col-4 clr-theme">File</th>
                     <th class="col-2 clr-theme">Type</th>
-                    <th class="col-4 clr-theme">ID</th>
-                    <th class="col-2 clr-theme">Uploaded at</th>
+                    <th class="col-3 clr-theme">ID</th>
+                    <th class="col-3 clr-theme">Upload Info</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,10 +58,13 @@
                         {% endif %}
                     </td>
                     <td class="col-2">{{ upload['type'] }}</td>
-                    <td class="col-4">{{ upload['Unique_ID'] }}</td>
-                    <td class="col-2">
+                    <td class="col-3">{{ upload['Unique_ID'] }}</td>
+                    <td class="col-3">
                         <div class="d-flex justify-content-between">
-                            {{ upload['uploadDate'] }}  
+                            {% if session['username'] == 'admin' %}
+                                {{ upload['uploadedBy'] }},
+                            {% endif %}
+                            &nbsp; {{ upload['uploadDate'] }}  
                             <a href="#" class="light-red" onclick="deleteFile('{{ upload['Unique_ID'] }}')">
                                 <i class="fa fa-trash"></i>
                             </a>

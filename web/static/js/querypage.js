@@ -407,7 +407,7 @@ const queryVisualizationSettings = {
                 labels: data.map(d => d.humanReadableID),
                 datasets: [{
                     label: 'Admixture Content',
-                    data: data.map(d => parseFloat(d.admixtureContent)),
+                    data: data.map(d => parseFloat(d.admixtureDensity)),
                     backgroundColor: data.map(d => `hsl(${Math.random() * 360}, 70%, 50%)`),
                     borderWidth: 1
                 }]
@@ -419,7 +419,7 @@ const queryVisualizationSettings = {
                         callbacks: {
                             label: function(context) {
                                 const dataPoint = data[context.dataIndex];
-                                return `${dataPoint.admixtureName}: ${dataPoint.admixtureContent}`;
+                                return `${dataPoint.admixtureName}: ${dataPoint.admixtureDensity}`;
                             }
                         }
                     }
@@ -429,7 +429,7 @@ const queryVisualizationSettings = {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Content'
+                            text: 'Density'
                         }
                     }
                 }
@@ -634,6 +634,3 @@ function generateChart(data) {
     // Create new chart
     new Chart(ctx, chartConfig);
 }
-
-
-
