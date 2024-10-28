@@ -254,7 +254,7 @@ def extract_metadata_mixdesign(RawData, filename):
             metadata['Aggregate1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
             metadata['Aggregate1_Content_Unit'] = 'kg/m^3'
             metadata['Aggregate1_Size'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Aggregate1_Size_Unit'] = float('nan')
+            metadata['Aggregate1_Size_Unit'] = 'mm'
             metadata['Aggregate1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Aggregate1_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Aggregate1')
