@@ -1,5 +1,6 @@
 @prefix co: <https://w3id.org/pmd/co/> .
 @prefix ns1: <https://w3id.org/cpto/> .
+@prefix ns2: <http://purl.org/spar/datacite/> .
 @prefix ns3: <http://qudt.org/schema/qudt/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -99,6 +100,7 @@ ns1:RawDataFile_ a owl:NamedIndividual,
 
 ns1:SecantModulusOfElasticty_ a owl:NamedIndividual,
         co:ModulusOfElasticity ;
+    ns2:hasIdentifier ns1:humanreadableID_ ;
     co:characteristic ns1:SpecimenAge_ ;
     co:output ns1:ExperimentInfo_ ;
     co:process ns1:Computation_ ;
@@ -123,6 +125,10 @@ ns1:MeasuredCompressiveStrength_ a owl:NamedIndividual,
     co:unit <https://w3id.org/cpto/##MeasuredCompressiveStrength_Unit##> ;
     co:value "$$MeasuredCompressiveStrength_Value$$"^^xsd:string .
 
+ns1:humanreadableID_ a owl:NamedIndividual,
+        co:ProvidedIdentifier ;
+    co:value "$$humanreadableID_Value$$"^^xsd:string .
+
 co:ComputingNode a owl:Class .
 
 co:Date a owl:Class .
@@ -136,6 +142,8 @@ co:Laboratory a owl:Class .
 co:MaximumForce a owl:Class .
 
 co:ModulusOfElasticity a owl:Class .
+
+co:ProvidedIdentifier a owl:Class .
 
 co:Specimen a owl:Class .
 
