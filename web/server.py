@@ -553,11 +553,11 @@ def my_files():
 
         # admin sees all files
         if user == 'admin':
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
+            query = "SELECT Unique_ID, filename, type, user, uploadDate, mapped, deleted_by_user FROM uploads ORDER BY filename"
             cursor.execute(query) # Execute the query
         else:
             # user sees only his files
-            query = "SELECT Unique_ID, filename, type, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and deleted_by_user = 0 ORDER BY filename"
+            query = "SELECT Unique_ID, filename, type, user, uploadDate, mapped, deleted_by_user FROM uploads WHERE user = ? and deleted_by_user = 0 ORDER BY filename"
             cursor.execute(query, (user,)) # Execute the query
        
         # Fetch the results of the query
@@ -569,15 +569,14 @@ def my_files():
         unmapped_files = False
 
         for row in rows:
-            filename = row[1]
-
             upload = {
                 'Unique_ID': row[0],
-                'filename': filename,
+                'filename': row[1],
                 'type': row[2],
-                'uploadDate': row[3],
-                'mapped': row[4],
-                'deletedByUser': row[5]
+                'uploadedBy': row[3],
+                'uploadDate': row[4],
+                'mapped': row[5],
+                'deletedByUser': row[6]
             }
 
             if upload['mapped'] == 0:
