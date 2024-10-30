@@ -243,25 +243,28 @@ const queries = {
   	?ComSt <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 .
   	?ComSt <https://w3id.org/pmd/co/value> ?CompressiveStrength .
         }`,
-    query5: `SELECT DISTINCT ?humanReadableID ?compressiveStrength ?elasticModulus
-        WHERE {
+    query5: `SELECT DISTINCT ?humanReadableID ?InputCompressiveStrength ?elasticModulus
+    WHERE {
+        # Retrieve the specimen and its associated human-readable ID
         ?specimen a <https://w3id.org/pmd/co/Specimen> .
         ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
         ?idNode a <https://w3id.org/pmd/co/ProvidedIdentifier> ;
                 <https://w3id.org/pmd/co/value> ?humanReadableID .
         FILTER(CONTAINS(STR(?idNode), "humanreadableID"))
 
-        OPTIONAL {
-            ?specimen <https://w3id.org/pmd/co/input> ?csNode .
-            ?csNode a <https://w3id.org/cpto/ConcreteCompressiveStrength> ;
-                    <https://w3id.org/pmd/co/value> ?compressiveStrength .
-        }
+        # Retrieve Modulus of Elasticity (elasticModulus) linked as an input to the specimen
+        ?specimen <https://w3id.org/pmd/co/input> ?elasticityNode .
+        ?elasticityNode a <https://w3id.org/pmd/co/ModulusOfElasticity> ;
+                        <https://w3id.org/pmd/co/value> ?elasticModulus .
 
-        OPTIONAL {
-            ?specimen <https://w3id.org/pmd/co/input> ?emNode .
-            ?emNode a <https://w3id.org/pmd/co/ModulusOfElasticity> ;
-                    <https://w3id.org/pmd/co/value> ?elasticModulus .
-        }
+        # Link specimen to its associated experiment info with Input Compressive Strength
+        ?experimentInfo a <https://w3id.org/cpto/DeterminationOfSecantModulusOfElasticity> ;
+                        <https://w3id.org/pmd/co/output> ?outputNode .
+        ?outputNode a <https://w3id.org/pmd/co/InputCompressiveStrength> ;
+                    <https://w3id.org/pmd/co/value> ?InputCompressiveStrength .
+
+        # Ensure the experiment info is directly associated with the specimen
+        ?elasticityNode <https://w3id.org/pmd/co/output> ?experimentInfo .
         }`,
     query6: `SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?E_Module
         WHERE { 
