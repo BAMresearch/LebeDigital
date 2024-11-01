@@ -148,7 +148,7 @@ function onFileSelected(event, fileLabel) {
     }
     else if(fileLabel == 'fileLabel2'){
         // for comSt
-        allowedFormats.push('dat')
+        allowedFormats.push('dat','xml')
     }
     else{
         allowedFormats.push('xml')

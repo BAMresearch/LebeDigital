@@ -11,6 +11,7 @@ from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.unit_conversion import unit_conversion_json
 from scripts.mapping.mappingscript import placeholderreplacement
 from scripts.rawdataextraction.emodul_xml_to_json import xml_to_json
+from scripts.rawdataextraction.ComSt_xml_to_json import comSt_xml_to_json
 from scripts.rawdataextraction.ComSt_generate_processed_data import processed_rawdata
 from scripts.rawdataextraction.ComSt_metadata_extraction import extract_metadata_ComSt
 from scripts.rawdataextraction.mixture_xml_to_json import mix_metadata
@@ -314,24 +315,30 @@ def async_function(unique_id):
             add_data('Json', json.dumps(emodule).encode('utf-8'))
             specimen = unit_conversion_json(specimen_json)
             add_data('Json_Specimen', json.dumps(specimen).encode('utf-8'))
-        # compressive strength dat extraction
+        # compressive strength extraction
         elif row['type'] == 'CompressiveStrength':
+            mix_data = get_data(row['Mixture_ID'])
             if row['filetype'] == 'dat':
                 # Process the raw data
                 processed_data = processed_rawdata(row['blob'], row['unique_id'])
+
                 # metadata extraction
-                mix_data = get_data(row['Mixture_ID'])
                 comSt_data= extract_metadata_ComSt(row['blob'], mix_data['Json'], processed_data)
-                comSt_json = comSt_data[0]
-                specimen_json = comSt_data[1]
-                comSt_json['ID'] = row['unique_id']
-                specimen_json['ID'] = row['unique_id']
-                comSt_json['SpecimenID'] = row['unique_id']
-                specimen_json['MixtureID'] = row['Mixture_ID']
-                comSt = unit_conversion_json(comSt_json)
-                add_data('Json', json.dumps(comSt).encode('utf-8'))
-                specimen = unit_conversion_json(specimen_json)
-                add_data('Json_Specimen', json.dumps(specimen).encode('utf-8'))
+
+            elif row['filetype'] == 'xml':
+                print('entered')
+                comSt_data = comSt_xml_to_json(row['blob'], mix_data['Json'])
+                
+            comSt_json = comSt_data[0]
+            specimen_json = comSt_data[1]
+            comSt_json['ID'] = row['unique_id']
+            specimen_json['ID'] = row['unique_id']
+            comSt_json['SpecimenID'] = row['unique_id']
+            specimen_json['MixtureID'] = row['Mixture_ID']
+            comSt = unit_conversion_json(comSt_json)
+            add_data('Json', json.dumps(comSt).encode('utf-8'))
+            specimen = unit_conversion_json(specimen_json)
+            add_data('Json_Specimen', json.dumps(specimen).encode('utf-8'))
 
 
     # ---- Mapping the json to ttl ---- #
