@@ -33,16 +33,16 @@
         <table class="table table-hover">
             <thead>
                 <tr class="row">
-                    <th class="col-4 clr-theme">File</th>
+                    <th class="col-3 clr-theme">File</th>
                     <th class="col-2 clr-theme">Type</th>
-                    <th class="col-3 clr-theme">ID</th>
+                    <th class="col-4 clr-theme">ID</th>
                     <th class="col-3 clr-theme">Upload Info</th>
                 </tr>
             </thead>
             <tbody>
                 {% for upload in uploads %}
                 <tr class="row text-small">
-                    <td class="col-4" style=" word-wrap: break-word;">
+                    <td class="col-3" style=" word-wrap: break-word;">
 
                         {% if upload['mapped'] == 0 %}
                             <span title="File couldn't be processed">
@@ -58,7 +58,7 @@
                         {% endif %}
                     </td>
                     <td class="col-2">{{ upload['type'] }}</td>
-                    <td class="col-3">{{ upload['Unique_ID'] }}</td>
+                    <td class="col-4">{{ upload['Unique_ID'] }}</td>
                     <td class="col-3">
                         <div class="d-flex justify-content-between">
                             {% if session['username'] == 'admin' %}

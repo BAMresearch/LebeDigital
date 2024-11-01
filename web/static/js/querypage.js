@@ -35,6 +35,7 @@ async function executeSparqlQuery(query) {
         if (!response.ok) throw new Error('Network response was not ok');
 
         const result = await response.json();
+        console.log(result)
         if (!result.message || result.message.length === 0) {
             document.getElementById('queryResults').innerHTML = 'No results found';
             clearTableAndChart();
@@ -71,12 +72,28 @@ function clearTable(){
 
 // Generate dynamic columns based on query variables
 function generateColumns(vars) {
-    return vars.map(varName => ({
+    let columns = [{
+        title: "#",
+        formatter: function(cell) {
+            let table = cell.getTable();
+            let row = cell.getRow();
+            let page = table.getPage();
+            let pageSize = table.getPageSize();
+            return ((page - 1) * pageSize) + row.getPosition(true) + 1;
+        },
+        width: 40,
+        headerSort: false,
+        download: false
+    }];
+    
+    const dataColumns = vars.map(varName => ({
         title: varName.toUpperCase(),
         field: varName,
         sorter: "string",
         headerFilter: true
     }));
+
+    return columns.concat(dataColumns);
 }
 
 
@@ -148,7 +165,6 @@ function determineQueryType(vars) {
     if (vars.includes('waterCementRatio') && vars.length === 2) {
         return 'waterCementRatio';
     } else if (vars.includes('WaterCementRatio') && vars.includes('CompressiveStrength')) {
-        console.log(22)
         return 'comst-wc';
     } else if (vars.includes('WaterCementRatio') && vars.includes('E_Module')) {
         return 'emod-wc';

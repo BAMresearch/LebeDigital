@@ -923,9 +923,12 @@ def data_upload():
                                 (unique_id, file_name.split(".")[0]))
                     conn.commit()
 
+                    # Call async_function directly instead of in a thread
+                    async_function(unique_id)
+
                     # start async function for each file
-                    thread = threading.Thread(target=async_function, args=(unique_id,))
-                    thread.start()
+                    #thread = threading.Thread(target=async_function, args=(unique_id,))
+                    #thread.start()
 
     elif 'url' in request.form and request.form['url'] != '':
         url = request.form['url']
@@ -961,9 +964,12 @@ def data_upload():
                         (unique_id, file_name.split(".")[0]))
             conn.commit()
 
-            # start async function
-            thread = threading.Thread(target=async_function, args=(unique_id,))
-            thread.start()
+            # Call async_function directly instead of in a thread
+            async_function(unique_id)
+
+            # start async function for each file
+            #thread = threading.Thread(target=async_function, args=(unique_id,))
+            #thread.start()
     else:
         return jsonify({'error': 'No Data found'}), 400
     
@@ -1166,9 +1172,10 @@ def submit_compressive_strength():
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (user, "json", filename, type, comst_json, comst_json, specimen_json, additional_file_blob, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
         conn.commit()
+        async_function(UniqueID)
         # start async function
-        thread = threading.Thread(target=async_function, args=(UniqueID,))
-        thread.start()
+        #thread = threading.Thread(target=async_function, args=(UniqueID,))
+        #thread.start()
     except Exception as e:
         logger.debug(e)
         conn.rollback()
@@ -1247,9 +1254,12 @@ def submit_emodule():
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (user, "json", filename, type, emodule_json, emodule_json, specimen_json, additional_file_blob, specimen['MixtureID'], UniqueID, upload_date, 0, 0))
         conn.commit()
+        
+        async_function(UniqueID)
+
         # start async function
-        thread = threading.Thread(target=async_function, args=(UniqueID,))
-        thread.start()
+        #thread = threading.Thread(target=async_function, args=(UniqueID,))
+        #thread.start()
     except Exception as e:
         logger.debug(e)
         conn.rollback()
