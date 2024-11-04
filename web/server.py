@@ -660,7 +660,7 @@ def get_admin_data():
         if data.get("clearData"):
             if data["clearData"]:
                 clear_dataset(config)
-                logger.info("Ontodocker cleared")
+                logger.info("Fuseki cleared")
                 try:
                     os.remove(upload_db)
                     logger.info("db cleared")

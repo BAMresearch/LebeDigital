@@ -34,7 +34,7 @@
         </form>
         <h2>Users</h2>
         <div id="user-table" style="width: 200px;"></div>
-        <h2>Clear Database and Ontodocker</h2>
+        <h2>Clear Database and Fuseki Data</h2>
         <button onclick="clearData();" class="btn btn-primary mb-3" style="background-color: red; color: white;">Delete</button>
 
 
@@ -113,23 +113,26 @@
     };
     
     function clearData(){
-        data = {"clearData": true};
-        
-        // Endpoint URL definieren
-        var endpoint = adminDataUrl;
-        // Fetch API verwenden, um Daten mittels POST zu senden
-        fetch(endpoint, {
-            method: 'POST', // HTTP-Methode
-            headers: {
-                'Content-Type': 'application/json' // Header um den Content-Typ zu definieren
-            },
-            body: JSON.stringify(data) // Konvertiere Daten in einen JSON-String
-        })
-        .then(response => response.json()) // Konvertierung der Antwort in JSON
-        .then(responseData => {
-            console.log('Server Response:', responseData); // Log der Server-Antwort
-        })
-        .catch(error => console.error('Error sending data:', error)); // Fehlerbehandlung
+        var confirmation = confirm("Are you sure you want to delete all files? This action cannot be reverted.");
+        if(confirmation){
+            data = {"clearData": true};
+            
+            // Endpoint URL definieren
+            var endpoint = adminDataUrl;
+            // Fetch API verwenden, um Daten mittels POST zu senden
+            fetch(endpoint, {
+                method: 'POST', // HTTP-Methode
+                headers: {
+                    'Content-Type': 'application/json' // Header um den Content-Typ zu definieren
+                },
+                body: JSON.stringify(data) // Konvertiere Daten in einen JSON-String
+            })
+            .then(response => response.json()) // Konvertierung der Antwort in JSON
+            .then(responseData => {
+                console.log('Server Response:', responseData); // Log der Server-Antwort
+            })
+            .catch(error => console.error('Error sending data:', error)); // Fehlerbehandlung
+        }
     };
 
     // Aufruf der Funktion beim Laden der Seite
