@@ -79,12 +79,21 @@ def send_sparql_query(query, config):
         # Ausführen der SPARQL-Abfrage
         results = dataset_graph.query(query)
         
-        # Ergebnisse in einer Liste speichern
-        # Konvertieren Sie die Ergebnisse in ein Dictionary
-        results_dict = []
+        # Get the variable names in order from the query results
+        column_order = [str(var) for var in results.vars]
+        
+        # Create results with metadata about column order
+        results_dict = {
+            'columns': column_order,  # Add column order information
+            'data': []  # Actual data rows
+        }
+
         for row in results:
-            row_dict = {str(var): str(row[var]) for var in results.vars}
-            results_dict.append(row_dict)
+            # Create ordered dictionary based on column order
+            row_dict = {}
+            for col in column_order:
+                row_dict[col] = str(row[col])
+            results_dict['data'].append(row_dict)
         
         logger.debug("Query successful.")
         logger.debug(results_dict)
