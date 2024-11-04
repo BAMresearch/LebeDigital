@@ -403,7 +403,7 @@
             document.querySelectorAll('[data-type]').forEach(function(input) {
                 const type = input.getAttribute('data-type');
                 const index = Array.from(input.closest('.row').parentNode.children).indexOf(input.closest('.row')) + 1;
-                const fieldName = `${type}${index}${input.className.split('-').pop()}`;
+                const fieldName = `${type}${index}_${input.className.split('-').pop()}`;
                 input.name = fieldName;
             });
         }

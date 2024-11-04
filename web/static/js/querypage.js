@@ -95,7 +95,7 @@ function generateColumns(columnNames) {
             return ((page - 1) * pageSize) + row.getPosition(true) + 1;
         },
         width: 40,
-        headerSort: true,
+        headerSort: false,
         download: false
     }];
     
@@ -103,6 +103,7 @@ function generateColumns(columnNames) {
         title: columnName.toUpperCase(),
         field: columnName,
         sorter: "string",
+        headerSort: true,
         headerFilter: true
     }));
 
@@ -202,8 +203,8 @@ const queryVisualizationSettings = {
                 datasets: [{
                     label: 'Water-Cement Ratio',
                     data: data.map(d => parseFloat(d.waterCementRatio)),
-                    backgroundColor: data.map(d => `hsl(${Math.random() * 360}, 70%, 50%)`),
-                    borderWidth: 1
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 }]
             },
             options: {
@@ -220,8 +221,8 @@ const queryVisualizationSettings = {
                 datasets: [{
                     label: 'Admixture Content',
                     data: data.map(d => parseFloat(d.admixtureDensity)),
-                    backgroundColor: data.map(d => `hsl(${Math.random() * 360}, 70%, 50%)`),
-                    borderWidth: 1
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)'
                 }]
             },
             options: {
@@ -258,8 +259,8 @@ const queryVisualizationSettings = {
                 datasets: [{
                     label: 'Cement Content',
                     data: data.map(d => parseFloat(d.cementContent)),
-                    backgroundColor: data.map(d => `hsl(${Math.random() * 360}, 70%, 50%)`),
-                    borderWidth: 1
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)'
                 }]
             },
             options: {
