@@ -1,7 +1,7 @@
 var table = null;
 var myChart = null;
 
-function initializeOrUpdateTable(data, vars) {
+function initializeOrUpdateTable(data) {
     const columns = generateColumns(data.columns);
 
     if (!table) {
@@ -38,11 +38,11 @@ async function executeSparqlQuery(query) {
         console.log(result);
 
         // Check if result has data and it's not empty
-        if (!result.message || 
-            !result.message.data || 
-            result.message.data.length === 0 || 
-            !result.message.columns || 
-            result.message.columns.length === 0) {
+        if (!result || 
+            !result.data || 
+            result.data.length === 0 || 
+            !result.columns || 
+            result.columns.length === 0) {
             document.getElementById('queryResults').innerHTML = 'No results found';
             clearTableAndChart();
             return null;
@@ -50,8 +50,8 @@ async function executeSparqlQuery(query) {
 
         // Transform the result to maintain backward compatibility
         const transformedResult = {
-            message: result.message.data,
-            columns: result.message.columns  // Store columns separately for table creation
+            message: result.data,
+            columns: result.columns  // Store columns separately for table creation
         };
 
         return transformedResult;
@@ -142,13 +142,12 @@ function updateChart(data, vars) {
 // Main function to run the query and update UI
 async function runQuery() {
     const query = document.getElementById('sparqlQuery').value;
-    const data = await executeSparqlQuery(query, 1, 10); // Fetch first page with page size 10
+    const data = await executeSparqlQuery(query);
 
     if (!data) return;
 
-    const vars = Object.keys(data.message[0]);
-    initializeOrUpdateTable(data);  // Initialize or update table
-    updateChart(data.message, vars);
+    initializeOrUpdateTable(data);
+    updateChart(data.message, data.columns);
 
     document.getElementById('downloadBtn').classList.replace("d-none", "d-md-flex");
     document.getElementById('queryResults').innerHTML = '';
@@ -221,8 +220,8 @@ const queryVisualizationSettings = {
                 datasets: [{
                     label: 'Admixture Content',
                     data: data.map(d => parseFloat(d.admixtureDensity)),
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
                 }]
             },
             options: {
@@ -259,8 +258,8 @@ const queryVisualizationSettings = {
                 datasets: [{
                     label: 'Cement Content',
                     data: data.map(d => parseFloat(d.cementContent)),
-                    borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
                 }]
             },
             options: {
@@ -299,9 +298,9 @@ const queryVisualizationSettings = {
                         y: parseFloat(d.CompressiveStrength),
                         humanReadableID: d.humanReadableID  // Store ID for tooltip
                     })),
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                    pointRadius: 8,
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    pointRadius: 6,
                     showLine: false
                 }]
             },
@@ -351,7 +350,7 @@ const queryVisualizationSettings = {
                         humanReadableID: d.humanReadableID  // Store ID for tooltip
                     })),
                     borderColor: 'rgb(54, 162, 235)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     pointRadius: 6,
                     showLine: false
                 }]
@@ -401,8 +400,8 @@ const queryVisualizationSettings = {
                         y: parseFloat(d.elasticModulus),
                         humanReadableID: d.humanReadableID  // Store ID for tooltip
                     })),
-                    borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     pointRadius: 6,
                     showLine: false
                 }]

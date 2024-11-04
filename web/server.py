@@ -6,7 +6,7 @@ sys.path.append(os.path.join(script_directory, '..'))  # Add the parent director
 import threading, json, uuid, sqlite3, time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query, upload_binary_to_existing_docker, clear_dataset
+from scripts.upload.upload_script import send_sparql_query, upload_ttl_to_fuseki, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.unit_conversion import unit_conversion_json
 from scripts.mapping.mappingscript import placeholderreplacement
@@ -265,8 +265,8 @@ def async_function(unique_id):
 
     # update the ttl in the dataset
     def upload_to_docker(data):
-        success = upload_binary_to_existing_docker(data, config)
-        if success != 0:
+        success = upload_ttl_to_fuseki(data, config)
+        if success != True:
             add_data('Error', 1)
 
 
@@ -660,7 +660,7 @@ def get_admin_data():
         if data.get("clearData"):
             if data["clearData"]:
                 clear_dataset(config)
-                logger.info("Ontodocker cleared")
+                logger.info("Fuseki cleared")
                 try:
                     os.remove(upload_db)
                     logger.info("db cleared")
