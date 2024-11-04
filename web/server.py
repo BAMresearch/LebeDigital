@@ -462,9 +462,7 @@ def execute_sparql_query():
     if 'username' in session:
         # Send the query to the Ontodocker and return the result
         results = send_sparql_query(request.form['query'], config)
-        return jsonify({
-            'message': results
-        })
+        return jsonify(results)
 
 
 # Query page

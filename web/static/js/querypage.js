@@ -2,7 +2,7 @@ var table = null;
 var myChart = null;
 
 function initializeOrUpdateTable(data, vars) {
-    const columns = generateColumns(vars);
+    const columns = generateColumns(data.columns);
 
     if (!table) {
         // Initialize the table with client-side pagination
@@ -35,14 +35,26 @@ async function executeSparqlQuery(query) {
         if (!response.ok) throw new Error('Network response was not ok');
 
         const result = await response.json();
-        console.log(result)
-        if (!result.message || result.message.length === 0) {
+        console.log(result);
+
+        // Check if result has data and it's not empty
+        if (!result.message || 
+            !result.message.data || 
+            result.message.data.length === 0 || 
+            !result.message.columns || 
+            result.message.columns.length === 0) {
             document.getElementById('queryResults').innerHTML = 'No results found';
             clearTableAndChart();
             return null;
         }
 
-        return result;
+        // Transform the result to maintain backward compatibility
+        const transformedResult = {
+            message: result.message.data,
+            columns: result.message.columns  // Store columns separately for table creation
+        };
+
+        return transformedResult;
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,6 +63,7 @@ async function executeSparqlQuery(query) {
         return null;
     }
 }
+
 
 // Clear chart and table on error or no data
 function clearTableAndChart() {
@@ -71,7 +84,7 @@ function clearTable(){
 
 
 // Generate dynamic columns based on query variables
-function generateColumns(vars) {
+function generateColumns(columnNames) {
     let columns = [{
         title: "#",
         formatter: function(cell) {
@@ -82,13 +95,13 @@ function generateColumns(vars) {
             return ((page - 1) * pageSize) + row.getPosition(true) + 1;
         },
         width: 40,
-        headerSort: false,
+        headerSort: true,
         download: false
     }];
     
-    const dataColumns = vars.map(varName => ({
-        title: varName.toUpperCase(),
-        field: varName,
+    const dataColumns = columnNames.map(columnName => ({
+        title: columnName.toUpperCase(),
+        field: columnName,
         sorter: "string",
         headerFilter: true
     }));
@@ -133,7 +146,7 @@ async function runQuery() {
     if (!data) return;
 
     const vars = Object.keys(data.message[0]);
-    initializeOrUpdateTable(data, vars, data.totalResults);  // Initialize or update table
+    initializeOrUpdateTable(data);  // Initialize or update table
     updateChart(data.message, vars);
 
     document.getElementById('downloadBtn').classList.replace("d-none", "d-md-flex");
@@ -161,7 +174,6 @@ function downloadTable() {
 
 // Determine query type based on variables present in data
 function determineQueryType(vars) {
-    console.log(vars)
     if (vars.includes('waterCementRatio') && vars.length === 2) {
         return 'waterCementRatio';
     } else if (vars.includes('WaterCementRatio') && vars.includes('CompressiveStrength')) {
