@@ -29,6 +29,7 @@ import base64
 import mimetypes
 import magic
 import re
+from collections import deque
 
 # --------------------------------- Setup --------------------------------- #
 
@@ -80,24 +81,14 @@ os.makedirs(logDir, exist_ok=True)
 # Path to the log files
 debugLogPath = os.path.join(logDir, "debug_{time}.log")
 infoLogPath = os.path.join(logDir, "info_{time}.log")
+errorLogPath = os.path.join(logDir, "error_{time}.log")
 
-# Configure the logger
+# Configure the logger, delete 10 days old log
 logger.configure(handlers=[
-    {"sink": debugLogPath, "level": "DEBUG", "rotation": "10 MB", "retention": "5 days"},
-    {"sink": infoLogPath, "level": "INFO", "rotation": "10 MB"}
+    {"sink": errorLogPath, "level": "ERROR", "rotation": "5 MB", "retention": "10 days"},
+    {"sink": debugLogPath, "level": "DEBUG", "rotation": "5 MB", "retention": "10 days"},
+    {"sink": infoLogPath, "level": "INFO", "rotation": "5 MB", "retention": "10 days"}
 ])
-
-# Delete empty log files older than two days
-def delete_empty_logs(directory):
-    for filename in os.listdir(directory):
-        filepath = os.path.join(directory, filename)
-        # check if the file is empty
-        if os.path.isfile(filepath) and os.path.getsize(filepath) == 0:
-            # check if the file is older than two days
-            if time.time() - os.path.getmtime(filepath) > 60:
-                os.remove(filepath)
-
-#delete_empty_logs(logDir)
 
 
 # --- Setup User db --- #
@@ -646,15 +637,62 @@ def get_admin_data():
 
     # GET-Request
     if request.method == 'GET':
-        # return config without 'DOCKER_TOKEN' key
-        filtered_config = {key: value for key, value in config.items() if key != 'DOCKER_TOKEN' and key != 'SECRET_KEY'}
+        # return config without sensitive info
+        filtered_config = config.copy()  # Create a copy of the config
+
+        # Remove sensitive keys
+        sensitive_keys = ['DOCKER_TOKEN', 'SECRET_KEY']
+        for key in sensitive_keys:
+            filtered_config.pop(key, None)
+
+        # Remove password from fuseki config if it exists
+        if 'fuseki' in filtered_config:
+            fuseki_config = filtered_config['fuseki'].copy()  # Create a copy of fuseki config
+            fuseki_config.pop('password', None)  # Remove password
+            filtered_config['fuseki'] = fuseki_config
+        
         users = User.query.all()
         usernames = [user.username for user in users]
-        return jsonify({"config": filtered_config, "users": usernames})
+
+        # Get log files
+        log_data = get_log_files()
+        
+        return jsonify({
+            "config": filtered_config, 
+            "users": usernames,
+            "logs": log_data
+        })
     
     # POST-Request
     elif request.method == 'POST':
         data = request.json
+
+        # Clear logs
+        if data.get("clearLogs"):
+            try:
+                baseDir = Path(__file__).parent
+                logDir = os.path.join(baseDir, "logs")
+                
+                # Get all log files
+                log_files = [f for f in os.listdir(logDir) if f.endswith('.log')]
+                
+                # Delete each log file
+                for file in log_files:
+                    file_path = os.path.join(logDir, file)
+                    try:
+                        os.remove(file_path)
+                    except Exception as e:
+                        logger.error(f"Error deleting log file {file}: {str(e)}")
+                
+                # Create new log files (this will happen automatically when logging resumes)
+                logger.info("All log files cleared by admin")
+                
+                return jsonify({"message": "All logs cleared successfully"})
+            except Exception as e:
+                error_msg = f"Error clearing logs: {str(e)}"
+                logger.error(error_msg)
+                return jsonify({"error": error_msg}), 500
+
 
         # clear data
         if data.get("clearData"):
@@ -714,7 +752,52 @@ def get_admin_data():
     else:
         return jsonify({"error": "Method Not Allowed"}), 405
 
+
+def get_log_files():
+    """Get the most recent log files and their content"""
+    baseDir = Path(__file__).parent
+    logDir = os.path.join(baseDir, "logs")
+    log_data = {}
+    
+    try:
+        # List all files in the logs directory
+        files = os.listdir(logDir)
         
+        # Filter for .log files and sort by modification time (most recent first)
+        log_files = [f for f in files if f.endswith('.log')]
+        log_files.sort(key=lambda x: os.path.getmtime(os.path.join(logDir, x)), reverse=True)
+        
+        # Get the content of each log file (limit to most recent files)
+        for file in log_files:  # Limit to 5 most recent files
+            file_path = os.path.join(logDir, file)
+            file_size = os.path.getsize(file_path)
+            
+            # Skip empty files
+            if file_size == 0:
+                continue
+
+            try:
+                with open(file_path, 'r') as f:
+                    # Read last 1000 lines (or adjust as needed)
+                    content = list(deque(f, 1000))
+                    log_data[file] = {
+                        'content': content,
+                        'size': os.path.getsize(file_path),
+                        'modified': os.path.getmtime(file_path)
+                    }
+            except Exception as e:
+                log_data[file] = {
+                    'error': f"Could not read file: {str(e)}",
+                    'size': os.path.getsize(file_path),
+                    'modified': os.path.getmtime(file_path)
+                }
+                
+    except Exception as e:
+        return {'error': f"Could not access log directory: {str(e)}"}
+    
+    return log_data
+
+       
 @app.route('/get-mixtures', methods=['GET'])
 def get_mixtures():
     if 'username' in session:
