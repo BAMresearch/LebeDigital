@@ -6,7 +6,7 @@ sys.path.append(os.path.join(script_directory, '..'))  # Add the parent director
 import threading, json, uuid, sqlite3, time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query, upload_ttl_to_fuseki, clear_dataset
+from scripts.upload.upload_script import send_sparql_query, upload_ttl_to_ontodocker, clear_dataset
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.unit_conversion import unit_conversion_json
 from scripts.mapping.mappingscript import placeholderreplacement
@@ -256,8 +256,8 @@ def async_function(unique_id):
 
     # update the ttl in the dataset
     def upload_to_docker(data):
-        success = upload_ttl_to_fuseki(data, config)
-        if success != True:
+        success = upload_ttl_to_ontodocker(data, config)
+        if success != 0:
             add_data('Error', 1)
 
 
@@ -453,6 +453,7 @@ def execute_sparql_query():
     if 'username' in session:
         # Send the query to the Ontodocker and return the result
         results = send_sparql_query(request.form['query'], config)
+        print(results)
         return jsonify(results)
 
 
@@ -644,12 +645,6 @@ def get_admin_data():
         sensitive_keys = ['DOCKER_TOKEN', 'SECRET_KEY']
         for key in sensitive_keys:
             filtered_config.pop(key, None)
-
-        # Remove password from fuseki config if it exists
-        if 'fuseki' in filtered_config:
-            fuseki_config = filtered_config['fuseki'].copy()  # Create a copy of fuseki config
-            fuseki_config.pop('password', None)  # Remove password
-            filtered_config['fuseki'] = fuseki_config
         
         users = User.query.all()
         usernames = [user.username for user in users]
@@ -698,7 +693,7 @@ def get_admin_data():
         if data.get("clearData"):
             if data["clearData"]:
                 clear_dataset(config)
-                logger.info("Fuseki cleared")
+                logger.info("Ontodocker cleared")
                 try:
                     os.remove(upload_db)
                     logger.info("db cleared")

@@ -1,87 +1,140 @@
-from loguru import logger
 import requests
-from requests.auth import HTTPBasicAuth
+from loguru import logger
+from SPARQLWrapper import SPARQLWrapper, POST
 
-# Constants for HTTP status codes and content types
-HTTP_SUCCESS_CODES = [200, 201, 204]
-CONTENT_TYPE_TURTLE = 'text/turtle'
-CONTENT_TYPE_FORM = 'application/x-www-form-urlencoded'
-CONTENT_TYPE_JSON = 'application/json'
+from rdflib import Graph, URIRef
 
-def create_auth(config):
+def construct_ontodocker_url(config, endpoint_type):
     """
-    Create HTTP Basic Authentication object from config
+    Construct Ontodocker endpoint URL based on type
     
     Args:
-        config: Configuration dictionary containing Fuseki credentials
-    Returns:
-        HTTPBasicAuth object
-    """
-    return HTTPBasicAuth(
-        config["fuseki"]["username"],
-        config["fuseki"]["password"]
-    )
-
-
-def construct_fuseki_url(config, endpoint_type):
-    """
-    Construct Fuseki endpoint URL based on type
-    
-    Args:
-        config: Configuration dictionary containing Fuseki settings
+        config: Configuration dictionary containing Ontodocker settings
         endpoint_type: Type of endpoint ('data', 'sparql', 'update')
     Returns:
         str: Constructed URL
     """
-    base_url = config["fuseki"]["endpoint_url"].rstrip('/')
-    dataset = config["fuseki"]["dataset_name"]
-    return f"{base_url}/{dataset}/{endpoint_type}"
+    base_url = config["ontodocker_url"].rstrip('/')
+    return f"{base_url}/api/{config['triplestore_server']}/{config['dataset_name']}/{endpoint_type}"
 
-
-def upload_ttl_to_fuseki(binary_data, config):
+def create_headers(config, content_type=None):
     """
-    Upload TTL data to a Fuseki server with authentication
+    Create headers with authorization token
     
     Args:
-        binary_data: The TTL file content
-        config: Configuration dictionary containing Fuseki settings
+        config: Configuration dictionary containing API key
+        content_type: Optional content type to include in headers
     Returns:
-        bool: True if upload was successful, False otherwise
+        dict: Headers dictionary
     """
-    try:
-        upload_url = construct_fuseki_url(config, 'data')
-        logger.debug(f"Attempting to upload to URL: {upload_url}")
-        
-        headers = {'Content-Type': CONTENT_TYPE_TURTLE}
-        
-        response = requests.post(
-            upload_url,
-            data=binary_data,
-            headers=headers,
-            auth=create_auth(config),
-            verify=True
-        )
+    headers = {"Authorization": f"Bearer {config['DOCKER_TOKEN']}"}
+    if content_type:
+        headers['Content-Type'] = content_type
+    return headers
 
-        if response.status_code in HTTP_SUCCESS_CODES:
-            logger.info("Successfully uploaded TTL data to Fuseki server")
-            return True
-        
-        logger.error(f"Failed to upload TTL data. Status code: {response.status_code}")
-        logger.error(f"Response: {response.text}")
-        return False
 
-    except Exception as e:
-        logger.error(f"Error uploading TTL data to Fuseki: {str(e)}")
-        return False
+def extract_specific_triples_from_ttl(binary_data):
+    """
+    Extracts specific triples from a ttl triple file in binary format.
+
+    :param binary_data: ttl triple file in binary format
+    :param triples_to_extract: List of triples to extract
+    :return: List of extracted triples
+    """
+
+    # Parse the ttl file
+    g = Graph()
+    g.parse(data=binary_data, format="turtle")
+
+    # extract all triples from the ttl file
+    triples_to_extract = [(str(s), str(p), str(o)) for s, p, o in g]
+
+    return triples_to_extract
+
+def delete_specific_triples_from_endpoint(ttl_binary, config):
+    """
+    Deletes specific triples from a SPARQL endpoint.
+
+    :param ttl_binary: ttl triple file in binary format
+    :param config: Config-File, containing configurations: SPARQL_ENDPOINT, DOCKER_TOKEN
+    :return: if success 0, else 1
+    """
+    # Set Authorization Header with token
+    headers = {
+        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
+    }
+
+    triples_to_delete = extract_specific_triples_from_ttl(ttl_binary)
+
+    # Prepare the SPARQL DELETE DATA query
+    triples_str = "\n".join(f"<{s}> <{p}> <{o}> ." for s, p, o in triples_to_delete)
+    query = f"""
+        DELETE DATA {{
+            GRAPH <{config['dataset_name']}> {{
+                {triples_str}
+            }}
+        }}
+    """
+
+    logger.info(query)
+    # Post the deletion request to the server
+    response = requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
+                  f'/update',
+                  headers=headers, params={"update": query}).content.decode()
+
+    # Send the SPARQL DELETE DATA query to the endpoint
+    #sparql = SPARQLWrapper(config['SPARQL_ENDPOINT'])
+    #sparql.setMethod(POST)
+    #sparql.setQuery(query)
+    #sparql.addParameter("Authorization", f"Bearer {config['DOCKER_TOKEN']}")
+    logger.debug(response)
+
+    return 0
+
+def upload_ttl_to_ontodocker(binary_data, config):
+    """
+    Uploads a ttl triple file in binary format to the dataset on the ontodocker,
+    configured in the config file.
+
+    :param binary_data: ttl triple file in binary format
+    :param config: Config-File, containing configurations: DOCKER_TOKEN, ontodocker_url,
+                    dataset_name and triplestore_server
+    :return: if success 0, else 1
+    """
+
+    logger.debug("-" * 20)
+    logger.debug(f"Startet uploading to: {config['ontodocker_url']} for file with length: {len(binary_data)}")
+    logger.debug(
+        f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}')
+
+    # Set Authorization Header with token
+    headers = {"Authorization": f"Bearer {config['DOCKER_TOKEN']}", "Content-Type": "text/turtle"}
+
+    # Prepare URL's for upload
+    upload_url = f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}/upload'
+
+    # Upload the binary data to the dataset
+    upload_response = requests.post(upload_url, headers=headers, data=binary_data)
+    logger.debug(upload_response.content.decode())
+
+    # Status based on response code
+    if upload_response.status_code == 200:
+        logger.debug("Data successfully uploaded.")
+        logger.debug("-" * 20)
+        return 0
+    else:
+        logger.error("Failed to upload data to Ontodocker.")
+        logger.debug("-" * 20)
+        return 1
 
 
 def send_sparql_query(query, config):
     """
-    Query the Fuseki dataset with a SPARQL-Query
+    Query the Ontodocker dataset with a SPARQL-Query
 
     Args:
         query: The SPARQL-Query as String
-        config: Config-File containing Fuseki settings
+        config: Config-File containing Ontodocker settings
     Returns:
         dict: Query results if successful, None if error
     """
@@ -89,21 +142,17 @@ def send_sparql_query(query, config):
     logger.debug(f'Sending Sparql-Query: {query}')
 
     try:
-        query_url = construct_fuseki_url(config, 'sparql')
+        query_url = construct_ontodocker_url(config, 'sparql')
+        headers = create_headers(config)
         
-        headers = {
-            'Content-Type': CONTENT_TYPE_FORM,
-            'Accept': CONTENT_TYPE_JSON
-        }
-
-        response = requests.post(
+        response = requests.get(
             query_url,
             headers=headers,
-            auth=create_auth(config),
-            data={'query': query},
+            params={'query': query},
             verify=True
         )
 
+        print(response.json)
         if response.status_code == 200:
             return process_query_results(response.json())
         
@@ -115,17 +164,15 @@ def send_sparql_query(query, config):
         logger.error(f"Error in the query request: {str(e)}")
         return None
 
-
 def process_query_results(json_response):
     """
     Process SPARQL query JSON response into structured format
     
     Args:
-        json_response: JSON response from Fuseki server
+        json_response: JSON response from Ontodocker server
     Returns:
         dict: Processed results with columns and data
     """
-    # Extract variables (column names) from the response
     column_order = json_response.get('head', {}).get('vars', [])
     
     results_dict = {
@@ -133,7 +180,6 @@ def process_query_results(json_response):
         'data': []
     }
 
-    # Process bindings (results)
     bindings = json_response.get('results', {}).get('bindings', [])
     for binding in bindings:
         row_dict = {}
@@ -145,49 +191,40 @@ def process_query_results(json_response):
     logger.debug(results_dict)
     return results_dict
 
+
 def clear_dataset(config):
     """
-    Clears all triples from the Fuseki dataset
-    
-    Args:
-        config: Config-File containing Fuseki settings
-    Returns:
-        bool: True if successful, False otherwise
+    Clears the dataset selected in config
+
+    :param config: Config-File, containing configurations: DOCKER_TOKEN, ontodocker_url,
+                    dataset_name and triplestore_server
+    :return: true
     """
+
     logger.debug("-" * 20)
-    logger.debug("Clearing Fuseki Dataset")
+    logger.debug("Clearing Dataset and Ontodocker.")
+    logger.debug(f'Configuration: {config["ontodocker_url"]}/api/{config["triplestore_server"]}/'
+                 f'{config["dataset_name"]}/update')
 
-    try:
-        update_url = construct_fuseki_url(config, 'update')
-        logger.debug(f"Update endpoint: {update_url}")
+    # Set Authorization Header with token
+    headers = {
+        "Authorization": f"Bearer {config['DOCKER_TOKEN']}"
+    }
 
-        headers = {'Content-Type': CONTENT_TYPE_FORM}
-
-        clear_query = """
-        DELETE {
-            ?s ?p ?o
-        }
-        WHERE {
-            ?s ?p ?o
+    # Set the deletion Query
+    del_query = """
+        DELETE WHERE
+        {
+          ?s ?p ?o .
         }
         """
 
-        response = requests.post(
-            update_url,
-            headers=headers,
-            auth=create_auth(config),
-            data={'update': clear_query},
-            verify=True
-        )
+    # Post the deletion request to the server
+    requests.post(f'{config["ontodocker_url"]}/api/{config["triplestore_server"]}/{config["dataset_name"]}'
+                  f'/update',
+                  headers=headers, params={"update": del_query}).content.decode()
 
-        if response.status_code in HTTP_SUCCESS_CODES:
-            logger.debug("Dataset cleared successfully")
-            return True
-        
-        logger.error(f"Failed to clear dataset. Status code: {response.status_code}")
-        logger.error(f"Response: {response.text}")
-        return False
+    logger.debug("Deletion request successfully sent.")
+    logger.debug("-" * 20)
 
-    except Exception as e:
-        logger.error(f"Error clearing dataset: {str(e)}")
-        return False
+    return True

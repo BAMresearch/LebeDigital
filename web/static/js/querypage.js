@@ -485,7 +485,7 @@ const queries = {
         ?contentNode a <https://w3id.org/cpto/Content> ;
                     <https://w3id.org/pmd/co/value> ?cementContent .
         }`,
-    query3:  `SELECT ?humanReadableID ?admixtureName ?admixtureDensity
+    query3:`SELECT ?humanReadableID ?admixtureName ?admixtureDensity
         WHERE {
         ?mixture a <https://w3id.org/cpto/MaterialComposition> .
         ?mixture <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -503,7 +503,7 @@ const queries = {
         ?densityNode a <https://w3id.org/cpto/RelativeDensity> ;
                 <https://w3id.org/pmd/co/value> ?admixtureDensity .
         }`,
-    query4: `SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?CompressiveStrength WHERE { 
+    query4:`SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?CompressiveStrength WHERE { 
             # Material Composition and WaterCementRatio
             ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> ;
                                 <http://purl.org/spar/datacite/hasIdentifier>/<https://w3id.org/pmd/co/value> ?ID_1 ;
@@ -532,7 +532,7 @@ const queries = {
                 <http://purl.org/spar/datacite/hasIdentifier> ?hasIdentifier_2 ;
                 <https://w3id.org/pmd/co/value> ?CompressiveStrength .
         }`,
-    query5: `SELECT DISTINCT ?humanReadableID ?InputCompressiveStrength ?elasticModulus WHERE {
+    query5:`SELECT DISTINCT ?humanReadableID ?InputCompressiveStrength ?elasticModulus WHERE {
         # Retrieve the specimen and its associated human-readable ID
         ?specimen a <https://w3id.org/pmd/co/Specimen> .
         ?specimen <http://purl.org/spar/datacite/hasIdentifier> ?idNode .
@@ -554,7 +554,7 @@ const queries = {
         # Ensure the experiment info is directly associated with the specimen
         ?elasticityNode <https://w3id.org/pmd/co/output> ?experimentInfo .
         }`,
-    query6: `SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?E_Module WHERE { 
+    query6:`SELECT DISTINCT ?humanReadableID ?WaterCementRatio ?E_Module WHERE { 
             # Material Composition and WaterCementRatio
             ?MaterialComposition a <https://w3id.org/cpto/MaterialComposition> ;
                                 <http://purl.org/spar/datacite/hasIdentifier>/<https://w3id.org/pmd/co/value> ?ID_1 ;
