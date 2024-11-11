@@ -1,5 +1,9 @@
 {
     "SECRET_KEY": "Your Secret Key (Gets created first run)",
+    "DOCKER_TOKEN": "Ontodocker API Key",
+    "ontodocker_url": "https://ontodocker-pmd.bam.de",
+    "dataset_name": "Test",
+    "triplestore_server": "jena",
     "APPLICATION_ROOT": "/",
     "DATABASE": {
         "URI": "sqlite:///users.db"
@@ -8,12 +12,5 @@
         "LIFETIME_DAYS": 3650,
         "TYPE": "filesystem",
         "PERMANENT": true
-    },
-    "dataset_name": "dataset.ttl",
-    "fuseki": {
-        "endpoint_url": "https://fuseki.bam.de",
-        "dataset_name": "db1",
-        "username": "your_username",
-        "password": "your_password"
     }
 }

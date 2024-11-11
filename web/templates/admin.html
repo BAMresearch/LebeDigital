@@ -118,20 +118,12 @@
 
         <!-- Actions Section -->
         <div class="admin-section">
-            <h5>Actions</h5>
-            <p class="mb-4">Manage data settings below. <strong>Be cautious</strong> with actions affecting the database.</p>
-            
-            <p class="text-muted d-block">
-                Reloads the latest configuration settings. No data will be deleted.
-            </p>
-            <button onclick="refreshData()" class="btn btn-primary me-2" title="Refreshes configuration settings">
-                Refresh Data
-            </button>
+            <h5>Delete all data</h5>
             
             <p class="text-danger d-block mt-4">
-                Warning: This will permanently delete *all* files from the database and dataset on the Fuseki server. This action cannot be undone.
+                Warning: This will permanently delete *all* files from the database and dataset on the Ontodocker server. This action cannot be undone.
             </p>
-            <button onclick="clearData()" class="btn btn-danger" title="Deletes all database and Fuseki server files">
+            <button onclick="clearData()" class="btn btn-danger" title="Deletes all database and Ontodocker server files">
                 Clear Database
             </button>
         </div>
