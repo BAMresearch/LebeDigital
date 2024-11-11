@@ -9,7 +9,6 @@
         "TYPE": "filesystem",
         "PERMANENT": true
     },
-    "dataset_name": "dataset.ttl",
     "fuseki": {
         "endpoint_url": "https://fuseki.bam.de",
         "dataset_name": "db1",
