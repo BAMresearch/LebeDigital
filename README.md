@@ -41,12 +41,16 @@ Before starting, you need to have [Git](https://git-scm.com) and [Python](https:
 # Clone this project
 $ git clone https://github.com/BAMresearch/LebeDigital.git
 
+# Go to the web directory
+$ cd web
+
 # Set up configuration
 $ cp config.template.json config.json 
 # Open `config.json` and replace placeholders with actual credentials.
 
-# Setup virtual environment, install the dependencies, and run the project
+# Run the project
 $ python server.py
+# For installing the dependencies, we recmmend you to setup a virtual environment first.
 
 ```
 
