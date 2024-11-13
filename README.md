@@ -50,7 +50,7 @@ $ cp config.template.json config.json
 
 # Run the project
 $ python server.py
-# For installing the dependencies, we recmmend you to setup a virtual environment first.
+# For installing the dependencies, we recommend you to setup a virtual environment first.
 
 ```
 
