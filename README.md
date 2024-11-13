@@ -41,28 +41,11 @@ Before starting, you need to have [Git](https://git-scm.com) and [Python](https:
 # Clone this project
 $ git clone https://github.com/BAMresearch/LebeDigital.git
 
-# Change branch
-$ git checkout workflowTest 
-
-# Activate virtual environment
-# For Linux:
-$ source venv/bin/activate 
-
-# For Windows:
-$ .\venv\Scripts\activate 
-    
-# Access
-$ cd web
-
-# Install dependencies
-$ pip install -r requirements.txt
-
 # Set up configuration
-
 $ cp config.template.json config.json 
 # Open `config.json` and replace placeholders with actual credentials.
 
-# Run the project
+# Setup virtual environment, install the dependencies, and run the project
 $ python server.py
 
 ```
