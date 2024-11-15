@@ -9,5 +9,10 @@
         "TYPE": "filesystem",
         "PERMANENT": true
     },
-    "dataset_name": "dataset.ttl"
+    "fuseki": {
+        "endpoint_url": "https://fuseki.bam.de",
+        "dataset_name": "Lebedigital_test",
+        "username": "your_username",
+        "password": "your_password"
+    }
 }

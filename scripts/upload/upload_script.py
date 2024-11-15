@@ -1,132 +1,193 @@
 from loguru import logger
-from rdflib import Graph
+import requests
+from requests.auth import HTTPBasicAuth
 
-# Scripts for handling the ttl dataset
+# Constants for HTTP status codes and content types
+HTTP_SUCCESS_CODES = [200, 201, 204]
+CONTENT_TYPE_TURTLE = 'text/turtle'
+CONTENT_TYPE_FORM = 'application/x-www-form-urlencoded'
+CONTENT_TYPE_JSON = 'application/json'
 
-def check_if_file_exists(config):
-
-    try:
-        with open(config["dataset_name"], "r") as file:
-            return True
-    except FileNotFoundError:
-        # create empty file
-        with open(config["dataset_name"], "w") as file:
-            file.write("")
-
-
-def upload_binary_to_existing_docker(binary_data, config):
+def create_auth(config):
     """
-    Adds a ttl triple file in binary format to the dataset "datastore.ttl"
-
-    :param binary_data: ttl triple file in binary format
-    :return: if success 0, else 1
-    """
-
-    check_if_file_exists(config)
-
-    logger.debug("-" * 20)
-
-    try:
-        # Create a Fraph for the current dataset
-        dataset_graph = Graph()
-        
-        # Load the current dataset from the file
-        dataset_graph.parse(config["dataset_name"], format="turtle")
-        
-        # Create a new Graph for the new data
-        new_graph = Graph()
-        
-        # Load the new data from the binary file
-        new_graph.parse(data=binary_data, format="turtle")
-        
-        # Add the new data to the current dataset
-        dataset_graph += new_graph
-        
-        # Save the updated dataset to the file
-        dataset_graph.serialize(destination=config["dataset_name"], format="turtle")
-        
-        logger.debug("Data successfully added to the dataset.")
-
-        return 0
+    Create HTTP Basic Authentication object from config
     
-    except Exception as e:
-        logger.error(f"Failed to add data to the dataset: {e}")
+    Args:
+        config: Configuration dictionary containing Fuseki credentials
+    Returns:
+        HTTPBasicAuth object
+    """
+    return HTTPBasicAuth(
+        config["fuseki"]["username"],
+        config["fuseki"]["password"]
+    )
 
-        return 1
+
+def construct_fuseki_url(config, endpoint_type):
+    """
+    Construct Fuseki endpoint URL based on type
+    
+    Args:
+        config: Configuration dictionary containing Fuseki settings
+        endpoint_type: Type of endpoint ('data', 'sparql', 'update')
+    Returns:
+        str: Constructed URL
+    """
+    base_url = config["fuseki"]["endpoint_url"].rstrip('/')
+    dataset = config["fuseki"]["dataset_name"]
+    return f"{base_url}/{dataset}/{endpoint_type}"
+
+
+def upload_ttl_to_fuseki(binary_data, config):
+    """
+    Upload TTL data to a Fuseki server with authentication
+    
+    Args:
+        binary_data: The TTL file content
+        config: Configuration dictionary containing Fuseki settings
+    Returns:
+        bool: True if upload was successful, False otherwise
+    """
+    try:
+        upload_url = construct_fuseki_url(config, 'data')
+        logger.debug(f"Attempting to upload to URL: {upload_url}")
+        
+        headers = {'Content-Type': CONTENT_TYPE_TURTLE}
+        
+        response = requests.post(
+            upload_url,
+            data=binary_data,
+            headers=headers,
+            auth=create_auth(config),
+            verify=True
+        )
+
+        if response.status_code in HTTP_SUCCESS_CODES:
+            logger.info("Successfully uploaded TTL data to Fuseki server")
+            return True
+        
+        logger.error(f"Failed to upload TTL data. Status code: {response.status_code}")
+        logger.error(f"Response: {response.text}")
+        return False
+
+    except Exception as e:
+        logger.error(f"Error uploading TTL data to Fuseki: {str(e)}")
+        return False
 
 
 def send_sparql_query(query, config):
     """
-    Query the dataset with a SPARQL-Query
+    Query the Fuseki dataset with a SPARQL-Query
 
-    :param query: The SPARQL-Query as String
-    :param config: Config-File, containing the dataset name
-    :return: result of Query if successful, else error
+    Args:
+        query: The SPARQL-Query as String
+        config: Config-File containing Fuseki settings
+    Returns:
+        dict: Query results if successful, None if error
     """
-
-    check_if_file_exists(config)
-
     logger.debug("-" * 20)
     logger.debug(f'Sending Sparql-Query: {query}')
 
     try:
-        # Erstellen eines Graphen für das bestehende Dataset
-        dataset_graph = Graph()
+        query_url = construct_fuseki_url(config, 'sparql')
         
-        # Laden des bestehenden Datasets
-        dataset_graph.parse(config["dataset_name"], format="turtle")
-        
-        # Ausführen der SPARQL-Abfrage
-        results = dataset_graph.query(query)
-        
-        # Get the variable names in order from the query results
-        column_order = [str(var) for var in results.vars]
-        
-        # Create results with metadata about column order
-        results_dict = {
-            'columns': column_order,  # Add column order information
-            'data': []  # Actual data rows
+        headers = {
+            'Content-Type': CONTENT_TYPE_FORM,
+            'Accept': CONTENT_TYPE_JSON
         }
 
-        for row in results:
-            # Create ordered dictionary based on column order
-            row_dict = {}
-            for col in column_order:
-                row_dict[col] = str(row[col])
-            results_dict['data'].append(row_dict)
-        
-        logger.debug("Query successful.")
-        logger.debug(results_dict)
-        # Rückgabe der Ergebnisse
-        return results_dict
-    
-    except Exception as e:
-        logger.error(f"Error in the query request: {e}")
+        response = requests.post(
+            query_url,
+            headers=headers,
+            auth=create_auth(config),
+            data={'query': query},
+            verify=True
+        )
 
+        if response.status_code == 200:
+            return process_query_results(response.json())
+        
+        logger.error(f"Query failed with status code: {response.status_code}")
+        logger.error(f"Response: {response.text}")
+        return None
+
+    except Exception as e:
+        logger.error(f"Error in the query request: {str(e)}")
         return None
 
 
+def process_query_results(json_response):
+    """
+    Process SPARQL query JSON response into structured format
+    
+    Args:
+        json_response: JSON response from Fuseki server
+    Returns:
+        dict: Processed results with columns and data
+    """
+    # Extract variables (column names) from the response
+    column_order = json_response.get('head', {}).get('vars', [])
+    
+    results_dict = {
+        'columns': column_order,
+        'data': []
+    }
+
+    # Process bindings (results)
+    bindings = json_response.get('results', {}).get('bindings', [])
+    for binding in bindings:
+        row_dict = {}
+        for col in column_order:
+            row_dict[col] = binding.get(col, {}).get('value', '')
+        results_dict['data'].append(row_dict)
+
+    logger.debug("Query successful.")
+    logger.debug(results_dict)
+    return results_dict
+
 def clear_dataset(config):
     """
-    Clears the dataset selected in config
-
-    :param config: Config-File, containing configurations: DOCKER_TOKEN, ontodocker_url,
-                    dataset_name and triplestore_server
-    :return: true
+    Clears all triples from the Fuseki dataset
+    
+    Args:
+        config: Config-File containing Fuseki settings
+    Returns:
+        bool: True if successful, False otherwise
     """
-
-    check_if_file_exists(config)
-
     logger.debug("-" * 20)
-    logger.debug("Clearing Dataset and Ontodocker.")
+    logger.debug("Clearing Fuseki Dataset")
 
     try:
-        with open (config["dataset_name"], "w") as file:
-            file.write("")
-        
-        logger.debug("Deletion successfull.")
-        logger.debug("-" * 20)
-    except Exception as e:
-        logger.error(f"Error in clearing the dataset: {e}")
+        update_url = construct_fuseki_url(config, 'update')
+        logger.debug(f"Update endpoint: {update_url}")
 
-    return
+        headers = {'Content-Type': CONTENT_TYPE_FORM}
+
+        clear_query = """
+        DELETE {
+            ?s ?p ?o
+        }
+        WHERE {
+            ?s ?p ?o
+        }
+        """
+
+        response = requests.post(
+            update_url,
+            headers=headers,
+            auth=create_auth(config),
+            data={'update': clear_query},
+            verify=True
+        )
+
+        if response.status_code in HTTP_SUCCESS_CODES:
+            logger.debug("Dataset cleared successfully")
+            return True
+        
+        logger.error(f"Failed to clear dataset. Status code: {response.status_code}")
+        logger.error(f"Response: {response.text}")
+        return False
+
+    except Exception as e:
+        logger.error(f"Error clearing dataset: {str(e)}")
+        return False

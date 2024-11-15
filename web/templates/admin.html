@@ -1,139 +1,332 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
-    <title>Admin Page</title>
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tabulator-tables@5.0.7/dist/css/tabulator.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/main.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-</head>
-<body>
-    <nav class="navbar sticky-top shadow-sm flex-md-nowrap p-0 bg-white">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0 py-2 text-dark" href="/">
-            <h4 class="mb-0 mx-md-3"><img src="static/images/BAM-sign.png" class="logo" alt="Logo">&nbsp;<span class="fw-light" style="vertical-align: text-bottom;">BAM</span> <span style="vertical-align: text-bottom;">LeBeDigital</span></h4>
-        </a>
-        <ul class="navbar-nav px-3">
-            {% if session['username'] %}
-                <a class="nav-link" href="{{ url_for('logout') }}"><i class="clr-theme fas fa-sign-out-alt"></i>  Sign out</a>
-            {% else %}
-                <a class="nav-link" href="{{ url_for('login') }}"><i class="clr-theme fas fa-sign-in-alt"></i>  Sign in</a>
-            {% endif %}
-        </ul>
-    </nav>
-    <div class="container mt-5">
-        <button onclick="setData();" class="btn btn-primary mb-3">Aktualisieren</button>
-        <h2>SPARQL Configuration</h2>
-        <form>
-            <div class="mb-3">
-                <label for="dataset" class="form-label">Dataset:</label>
-                <input type="text" class="form-control" id="dataset" name="dataset">
-            </div>
-        </form>
-        <h2>Users</h2>
-        <div id="user-table" style="width: 200px;"></div>
-        <h2>Clear Database and Ontodocker</h2>
-        <button onclick="clearData();" class="btn btn-primary mb-3" style="background-color: red; color: white;">Delete</button>
+{% extends 'base.html' %}
 
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+    <style>
+        .admin-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .log-section {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .log-header {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        .log-content {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            background-color: #f8f9fa;
+        }
+
+        #log-content-pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .modal-dialog {
+            max-width: 80%;
+        }
+
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .log-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .log-link:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #logs-table{
+            font-size: 12px !important;
+        }
+        .tabulator-tableholder {
+            overflow-x: hidden !important;
+        }
+
+        .config-table td {
+            padding: 5px 10px;
+        }
+        .user-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .user-list li {
+            padding: 5px 0;
+        }
+    </style>
+
+    <div class="container p-2">
+        <!-- Logs Section -->
+        <div class="admin-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>System Logs</h5>
+                <button onclick="clearLogs()" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Clear All Logs
+                </button>
+            </div>
+        
+            <div id="logs-container">
+                <div id="log-content-modal" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Log Content</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <pre id="log-content-pre" style="max-height: 500px; overflow-y: auto;"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="logs-table"></div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="admin-section">
+            <h5>Users</h5>
+            <div id="users-content"></div>
+        </div>
+
+        <!-- Configuration Section -->
+        <div class="admin-section">
+            <h5>Configuration</h5>
+            <div id="config-content"></div>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="admin-section">
+            <h5>Actions</h5>
+            <p class="mb-4">Manage data settings below. <strong>Be cautious</strong> with actions affecting the database.</p>
+            
+            <p class="text-muted d-block">
+                Reloads the latest configuration settings. No data will be deleted.
+            </p>
+            <button onclick="refreshData()" class="btn btn-primary me-2" title="Refreshes configuration settings">
+                Refresh Data
+            </button>
+            
+            <p class="text-danger d-block mt-4">
+                Warning: This will permanently delete *all* files from the database and dataset on the Fuseki server. This action cannot be undone.
+            </p>
+            <button onclick="clearData()" class="btn btn-danger" title="Deletes all database and Fuseki server files">
+                Clear Database
+            </button>
+        </div>
+
+
+        
 
     </div>
-    <footer>
-        <!-- Your footer content -->
-    </footer>
-    <script src="static/js/bootstrap.bundle.min.js"></script>
-    <script src="static/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@5.0.7/dist/js/tabulator.min.js"></script>
 
-<script>
-    deletedUsers = [];
-    const adminDataUrl = "{{ url_for('get_admin_data') }}"
-    // Funktion zum Laden der Konfigurationsdaten
-    function loadConfig() {
-        fetch(adminDataUrl)
-        .then(response => response.json())  // Umwandlung der Antwort in JSON
-        .then(data => {
-            // Setzt die Werte der Textfelder auf die abgerufenen Konfigurationsdaten
-            document.getElementById('endpoint').value = data.config.ontodocker_url;
-            document.getElementById('token').value = data.config.DOCKER_TOKEN;
-            document.getElementById('tripleStore').value = data.config.triplestore_server;
-            document.getElementById('dataset').value = data.config.dataset_name;
-            console.log(data.users)
-            // Erstelle die Tabelle mit den Benutzerdaten
-            new Tabulator("#user-table", {
-                data: data.users.map(user => ({name: user})),
-                height: "200px", // Feste Höhe, um Scrollbar zu aktivieren
-                layout: "fitColumns", // Passende Spaltenbreite
+    <script>
+        function displayConfig(config) {
+            const configContent = document.getElementById('config-content');
+            let html = '<table class="config-table">';
+            
+            // Handle nested objects
+            function formatConfig(obj, prefix = '') {
+                let rows = '';
+                for (const [key, value] of Object.entries(obj)) {
+                    if (typeof value === 'object' && value !== null) {
+                        rows += formatConfig(value, `${key}.`);
+                    } else {
+                        rows += `<tr>
+                            <td><strong>${prefix}${key}:</strong></td>
+                            <td>${value}</td>
+                        </tr>`;
+                    }
+                }
+                return rows;
+            }
+
+            html += formatConfig(config);
+            html += '</table>';
+            configContent.innerHTML = html;
+        }
+
+        function displayUsers(users) {
+            const usersContent = document.getElementById('users-content');
+            const html = `
+                <ul class="user-list">
+                    ${users.map(user => `<li>${user}</li>`).join('')}
+                </ul>
+            `;
+            usersContent.innerHTML = html;
+        }
+
+        function displayLogs(logs) {
+            // Convert logs object to array for Tabulator
+            const logsArray = Object.entries(logs).map(([filename, data]) => ({
+                filename: filename,
+                size: data.size,
+                modified: data.modified,
+                content: data.content,
+                error: data.error,
+                type: getLogType(filename)
+            }));
+
+            // Initialize Tabulator
+            const table = new Tabulator("#logs-table", {
+                data: logsArray,
+                pagination: true,
+                paginationSize: 10,
+                paginationSizeSelector: [5, 10, 20, 50],
+                layout: "fitColumns",
+                headerFilter: true,  // Enable header filters
                 columns: [
-                    {title: "Benutzername", field: "name"},
-                    {formatter:"buttonCross", width: 75, width: 3, align:"center", cellClick:function(e, cell){
-                    let userName = cell.getRow().getData().name;
-                    deletedUsers.push(userName); // Fügt den Benutzernamen zur Liste der gelöschten Benutzer hinzu
-                    cell.getRow().delete(); // Löscht die Zeile aus der Tabelle
-                }}
-            ],
-            pagination: "local", // Aktiviere Pagination innerhalb der Tabelle
-            paginationSize: 10, // Anzahl der Zeilen pro Seite
+                    {
+                        title: "Filename",
+                        field: "filename",
+                        headerFilter: "input",  // Add text filter
+                        formatter: function(cell) {
+                            const data = cell.getRow().getData();
+                            const color = getLogTypeColor(data.type);
+                            return `<div>
+                                <a href="#" class="log-link">${cell.getValue()}</a>
+                                <span class="badge bg-${color} ms-2">${data.type}</span>
+                            </div>`;
+                        },
+                        cellClick: function(e, cell) {
+                            if (e.target.classList.contains('log-link')) {
+                                showLogContent(cell.getRow().getData());
+                            }
+                        }
+                    },
+                    {
+                        title: "Size",
+                        field: "size",
+                        headerFilter: "input",
+                        formatter: function(cell) {
+                            return `${(cell.getValue() / 1024).toFixed(2)} KB`;
+                        },
+                        width: 120
+                    },
+                    {
+                        title: "Last Modified",
+                        field: "modified",
+                        headerFilter: "input",
+                        formatter: function(cell) {
+                            return new Date(cell.getValue() * 1000).toLocaleString();
+                        },
+                        width: 200
+                    }
+                ]
             });
-        })
-        .catch(error => console.error('Error fetching admin data:', error));  // Fehlerbehandlung
-    }
-    
-    function setData() {
-        // Sammeln der Formulardaten
-        var data = {
-            config: {
-                ontodocker_url: document.getElementById('endpoint').value,
-                DOCKER_TOKEN: document.getElementById('token').value,
-                triplestore_server: document.getElementById('tripleStore').value,
-                dataset_name: document.getElementById('dataset').value
-            },
-            users: deletedUsers // Array der gelöschten Benutzer
-        };
+        }
 
-        console.log(data);
+        function getLogType(filename) {
+            if (filename.startsWith('error_')) return 'Error';
+            if (filename.startsWith('debug_')) return 'Debug';
+            if (filename.startsWith('info_')) return 'Info';
+            return 'Unknown';
+        }
 
-        // Endpoint URL definieren
-        var endpoint = adminDataUrl;
+        function getLogTypeColor(type) {
+            switch (type) {
+                case 'Error': return 'danger';
+                case 'Debug': return 'primary';
+                case 'Info': return 'success';
+                default: return 'secondary';
+            }
+        }
+        function showLogContent(logData) {
+            const modalElement = document.getElementById('log-content-modal');
+            const contentPre = document.getElementById('log-content-pre');
+            const modalTitle = modalElement.querySelector('.modal-title');
 
-        // Fetch API verwenden, um Daten mittels POST zu senden
-        fetch(endpoint, {
-            method: 'POST', // HTTP-Methode
-            headers: {
-                'Content-Type': 'application/json' // Header um den Content-Typ zu definieren
-            },
-            body: JSON.stringify(data) // Konvertiere Daten in einen JSON-String
-        })
-        .then(response => response.json()) // Konvertierung der Antwort in JSON
-        .then(responseData => {
-            console.log('Server Response:', responseData); // Log der Server-Antwort
-        })
-        .catch(error => console.error('Error sending data:', error)); // Fehlerbehandlung
-    };
-    
-    function clearData(){
-        data = {"clearData": true};
-        
-        // Endpoint URL definieren
-        var endpoint = adminDataUrl;
-        // Fetch API verwenden, um Daten mittels POST zu senden
-        fetch(endpoint, {
-            method: 'POST', // HTTP-Methode
-            headers: {
-                'Content-Type': 'application/json' // Header um den Content-Typ zu definieren
-            },
-            body: JSON.stringify(data) // Konvertiere Daten in einen JSON-String
-        })
-        .then(response => response.json()) // Konvertierung der Antwort in JSON
-        .then(responseData => {
-            console.log('Server Response:', responseData); // Log der Server-Antwort
-        })
-        .catch(error => console.error('Error sending data:', error)); // Fehlerbehandlung
-    };
+            modalTitle.textContent = `Log Content: ${logData.filename}`;
+            
+            if (logData.error) {
+                contentPre.innerHTML = `<span class="text-danger">${logData.error}</span>`;
+            } else {
+                contentPre.textContent = logData.content.join('');
+            }
 
-    // Aufruf der Funktion beim Laden der Seite
-    window.onload = loadConfig;
-</script>
-</body>
-</html>
+            // Create and show Bootstrap modal
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+
+
+        function refreshData() {
+            fetch('/adminData')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    displayConfig(data.config);
+                    displayUsers(data.users);
+                    displayLogs(data.logs);
+                })
+                .catch(error => console.error('Error fetching admin data:', error));
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                fetch('/adminData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clearData: true })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Data cleared successfully');
+                    refreshData();
+                })
+                .catch(error => console.error('Error clearing data:', error));
+            }
+        }
+
+        function clearLogs() {
+            if (confirm('Are you sure you want to delete all log files? This action cannot be undone.')) {
+                fetch('/adminData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clearLogs: true })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error clearing logs: ' + data.error);
+                    } else {
+                        alert('All logs cleared successfully');
+                        refreshData();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error clearing logs:', error);
+                    alert('Error clearing logs. Please check the console for details.');
+                });
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', refreshData);
+    </script>
+{% endblock %}
