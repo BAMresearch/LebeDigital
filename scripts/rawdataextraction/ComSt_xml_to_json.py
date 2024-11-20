@@ -7,7 +7,7 @@ import io
 
 def comSt_xml_to_json(xml_binary, mix_json):
     """
-    Creates two json-files (E-module and Specimen) containing the
+    Creates two json-files (Compressive Strength and Specimen) containing the
     data from the xml file
 
     :param xml_binary: xml BLOB from db
