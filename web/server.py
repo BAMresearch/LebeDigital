@@ -6,7 +6,7 @@ sys.path.append(os.path.join(script_directory, '..'))  # Add the parent director
 import threading, json, uuid, sqlite3, time
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from scripts.upload.upload_script import send_sparql_query, upload_ttl_to_fuseki, clear_dataset
+from scripts.upload.upload_script import send_sparql_query, upload_ttl_to_fuseki, clear_dataset, get_backup
 from scripts.mapping.mixmapping import mappingmixture
 from scripts.mapping.unit_conversion import unit_conversion_json
 from scripts.mapping.mappingscript import placeholderreplacement
@@ -797,7 +797,43 @@ def get_log_files():
     
     return log_data
 
-       
+
+@app.route('/backup', methods=['GET'])
+def backup():
+    # Authentifizierung prüfen
+    if 'username' not in session or session['username'] != 'admin':
+        return jsonify({'error': 'Nicht angemeldet'}), 403
+
+    # Backup der externen Quelle abrufen
+    backup_stream = get_backup(config)
+    if not backup_stream:
+        return jsonify({'error': 'Backup von der externen Quelle fehlgeschlagen.'}), 500
+
+    
+
+    try:
+        # Dateien in eine ZIP-Datei bündeln
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
+            # Lokale Datei hinzufügen
+            zip_file.write("main.db", "main.db")
+            # Externes Backup hinzufügen
+            zip_file.writestr("external_backup.nt", backup_stream.getvalue())
+
+        # Pufferinhalt als ZIP-Datei zurückgeben
+        zip_buffer.seek(0)
+        return send_file(
+            zip_buffer,
+            mimetype='application/zip',
+            as_attachment=True,
+            download_name='backup_files.zip'
+        )
+    except Exception as e:
+        logger.error(f"Fehler beim Erstellen der ZIP-Datei: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+
 @app.route('/get-mixtures', methods=['GET'])
 def get_mixtures():
     if 'username' in session:
@@ -1097,7 +1133,7 @@ def submit_mixture():
             "FiberAmount_Unit": "kg/m^3",
             "AirDensity_Unit": "kg/dm^3",
             "AirAmount_Unit": "kg/m^3",
-            "RawDataFile": "Download",
+            "RawDataFile": "Download"
         }
 
         # Update the filtered_form_data with unit values

@@ -1,6 +1,7 @@
 from loguru import logger
 import requests
 from requests.auth import HTTPBasicAuth
+from io import BytesIO
 
 # Constants for HTTP status codes and content types
 HTTP_SUCCESS_CODES = [200, 201, 204]
@@ -191,3 +192,41 @@ def clear_dataset(config):
     except Exception as e:
         logger.error(f"Error clearing dataset: {str(e)}")
         return False
+
+def get_backup(config):
+    """
+    Get a Backup of the database
+
+    Returns:
+        ttl of database
+    """
+    logger.debug("-" * 20)
+    logger.debug(f'Getting backup:')
+
+    try:
+        query_url = construct_fuseki_url(config, 'get')
+        
+        headers = {
+            'Content-Type': CONTENT_TYPE_FORM,
+            'Accept': CONTENT_TYPE_JSON
+        }
+
+        response = requests.get(
+            query_url,
+            headers=headers,
+            auth=create_auth(config),
+            verify=True
+        )
+
+        if response.status_code == 200:
+            backup_stream = BytesIO(response.content)
+            logger.debug("Backup erfolgreich abgerufen.")
+            return backup_stream
+        
+        logger.error(f"Query failed with status code: {response.status_code}")
+        logger.error(f"Response: {response.text}")
+        return None
+
+    except Exception as e:
+        logger.error(f"Error in the backup request: {str(e)}")
+        return None

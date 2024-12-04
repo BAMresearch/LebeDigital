@@ -127,6 +127,13 @@
             <button onclick="refreshData()" class="btn btn-primary me-2" title="Refreshes configuration settings">
                 Refresh Data
             </button>
+
+            <p class="text-muted d-block">
+                Backup all files on the server. You will get a .db file and the complete triple store (.nt)
+            </p>
+            <button onclick="getBU()" class="btn btn-primary me-2" title="Get complete Backup">
+                Get complete Backup
+            </button>
             
             <p class="text-danger d-block mt-4">
                 Warning: This will permanently delete *all* files from the database and dataset on the Fuseki server. This action cannot be undone.
@@ -269,6 +276,27 @@
             const modal = new bootstrap.Modal(modalElement);
             modal.show();
         }
+
+        function getBU() {
+            fetch('/backup', {
+                method: 'GET'
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            }).then(blob => {
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = `backup_files.zip`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+            }
 
 
         function refreshData() {
