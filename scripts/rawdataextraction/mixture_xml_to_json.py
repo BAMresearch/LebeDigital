@@ -198,22 +198,22 @@ def extract_metadata_mixdesign(RawData, filename):
         # Cement data ('Zement')
         if 'Zement' not in missing_labels:
             idx = labelidx['Zement']
-            metadata['Cement1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Cement1_Content_Unit'] = 'kg/m^3'
-            metadata['Cement1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Cement1_Density_Unit'] = 'kg/dm^3'
-            no_empty_annotation('Cement1')
+            metadata['Binder1_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Binder1_Amount_Unit'] = 'kg/m^3'
+            metadata['Binder1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Binder1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Binder1')
         else:
-            logger.error('cement not included in json-file')
+            logger.error('binder not included in json-file')
 
         # total water data ('Wasser (gesamt)')
         if 'Wasser (wirksam)' not in missing_labels:
             idx = labelidx['Wasser (wirksam)']
-            metadata['Water_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Water_Content_Unit'] = 'kg/m^3'
-            metadata['Water_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Water_Density_Unit'] = 'kg/dm^3'
-            no_empty_annotation('Water')
+            metadata['Water1_Total'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Water1_Total_Unit'] = 'kg/m^3'
+            metadata['Water1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Water1_Density_Unit'] = 'kg/dm^3'
+            no_empty_annotation('Water1')
         else:
             logger.error('Water not included in json-file')
 
@@ -228,8 +228,8 @@ def extract_metadata_mixdesign(RawData, filename):
         # Admixture/Plasticizer ('Zusatzmittel')
         if 'Zusatzmittel1' not in missing_labels:
             idx = labelidx['Zusatzmittel1']
-            metadata['Admixture1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Admixture1_Content_Unit'] = 'kg/m^3'
+            metadata['Admixture1_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Admixture1_Amount_Unit'] = 'kg/m^3'
             metadata['Admixture1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Admixture1_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Admixture1')
@@ -239,8 +239,8 @@ def extract_metadata_mixdesign(RawData, filename):
         # Admixture/Plasticizer ('Zusatzmittel')
         if 'Zusatzmittel2' not in missing_labels:
             idx = labelidx['Zusatzmittel2']
-            metadata['Admixture2_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Admixture2_Content_Unit'] = 'kg/m^3'
+            metadata['Admixture2_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Admixture2_Amount_Unit'] = 'kg/m^3'
             metadata['Admixture2_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Admixture2_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Admixture2')
@@ -251,10 +251,10 @@ def extract_metadata_mixdesign(RawData, filename):
         # Aggregate ('Zuschlag (gesamt)')
         if 'Zuschlag (gesamt)' not in missing_labels:
             idx = labelidx['Zuschlag (gesamt)']
-            metadata['Aggregate1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Aggregate1_Content_Unit'] = 'kg/m^3'
-            metadata['Aggregate1_Size'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
-            metadata['Aggregate1_Size_Unit'] = 'mm'
+            metadata['Aggregate1_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Aggregate1_Amount_Unit'] = 'kg/m^3'
+            metadata['Aggregate1_Fraction'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
+            metadata['Aggregate1_Fraction_Unit'] = 'mm'
             metadata['Aggregate1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Aggregate1_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Aggregate1')
@@ -264,8 +264,8 @@ def extract_metadata_mixdesign(RawData, filename):
         # Addition data ('Zusatzstoff')
         if 'Zusatzstoff1' not in missing_labels:
             idx = labelidx['Zusatzstoff1']
-            metadata['Addition1_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Addition1_Content_Unit'] = 'kg/m^3'
+            metadata['Addition1_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Addition1_Amount_Unit'] = 'kg/m^3'
             metadata['Addition1_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Addition1_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Addition1')
@@ -275,8 +275,8 @@ def extract_metadata_mixdesign(RawData, filename):
         # Addition data ('Zusatzstoff')
         if 'Zusatzstoff2' not in missing_labels:
             idx = labelidx['Zusatzstoff2']
-            metadata['Addition2_Content'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
-            metadata['Addition2_Content_Unit'] = 'kg/m^3'
+            metadata['Addition2_Amount'] = float(replace_comma(str(exceltodf.iat[idx, 2])))
+            metadata['Addition2_Amount_Unit'] = 'kg/m^3'
             metadata['Addition2_Density'] = float(replace_comma(str(exceltodf.iat[idx, 4])))
             metadata['Addition2_Density_Unit'] = 'kg/dm^3'
             no_empty_annotation('Addition2')

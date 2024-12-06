@@ -814,7 +814,7 @@ def backup():
     try:
         # Dateien in eine ZIP-Datei bündeln
         zip_buffer = BytesIO()
-        with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
+        with zipfile.ZipFile(zip_buffer, 'w', compression=zipfile.ZIP_DEFLATED) as zip_file:
             # Lokale Datei hinzufügen
             zip_file.write("main.db", "main.db")
             # Externes Backup hinzufügen
@@ -1118,21 +1118,21 @@ def submit_mixture():
 
         # Additional fixed values
         additional = {
-            "BinderDensity_Unit": "kg/dm^3",
-            "BinderAmount_Unit": "kg/m^3",
-            "WaterDensity_Unit": "kg/dm^3",
-            "WaterTotal_Unit": "kg/m^3",
-            "WaterEffective_Unit": "kg/m^3",
-            "AggregateDensity_Unit": "kg/dm^3",
-            "AggregateAmount_Unit": "kg/m^3",
-            "AdditionDensity_Unit": "kg/dm^3",
-            "AdditionAmount_Unit": "kg/m^3",
-            "AdmixtureDensity_Unit": "kg/dm^3",
-            "AdmixtureAmount_Unit": "kg/m^3",
-            "FiberDensity_Unit": "kg/dm^3",
-            "FiberAmount_Unit": "kg/m^3",
-            "AirDensity_Unit": "kg/dm^3",
-            "AirAmount_Unit": "kg/m^3",
+            "Binder1_Density_Unit": "kg/dm^3",
+            "Binder1_Amount_Unit": "kg/m^3",
+            "Water1_Density_Unit": "kg/dm^3",
+            "Water1_Total_Unit": "kg/m^3",
+            "Water1_Effective_Unit": "kg/m^3",
+            "Aggregate1_Density_Unit": "kg/dm^3",
+            "Aggregate1_Amount_Unit": "kg/m^3",
+            "Addition1_Density_Unit": "kg/dm^3",
+            "Addition1_Amount_Unit": "kg/m^3",
+            "Admixture1_Density_Unit": "kg/dm^3",
+            "Admixture1_Amount_Unit": "kg/m^3",
+            "Fiber1_Density_Unit": "kg/dm^3",
+            "Fiber1_Amount_Unit": "kg/m^3",
+            "Air1_Density_Unit": "kg/dm^3",
+            "Air1_Amount_Unit": "kg/m^3",
             "RawDataFile": "Download"
         }
 
@@ -1173,6 +1173,19 @@ def submit_mixture():
 
         mix_dict = dict(sorted(filtered_form_data.items(), key=lambda item: custom_sort_key(item[0])))
         mix_dict = unit_conversion_json(mix_dict)
+
+        # correcting wrong spelled keys
+
+        if mix_dict.get('Water1_Ratio'):
+            mix_dict['WaterCementRatio'] = mix_dict['Water1_Ratio']
+            mix_dict.pop('Water1_Ratio')
+
+        if mix_dict.get('HumanReadableID'):
+            mix_dict['humanreadableID'] = mix_dict['HumanReadableID']
+            mix_dict.pop('HumanReadableID')
+
+        mix_dict['ID'] = mixtureID
+
         json_blob = json.dumps(mix_dict).encode('utf-8')
         
         # Handle file upload and save as BLOB in the database
@@ -1203,9 +1216,10 @@ def submit_mixture():
                 INSERT INTO uploads 
                 (user, filetype, filename, type, blob, Json, Mixture_ID, Unique_ID, additional_file, UploadDate, Mapped, Error) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (user, fileType, filename, type, json_blob, json_blob, mixtureID, mixtureID, additional_file_blob,  upload_date, 1, 0))
+            ''', (user, fileType, filename, type, json_blob, json_blob, mixtureID, mixtureID, additional_file_blob,  upload_date, 0, 0))
             conn.commit()
             # start async function
+            async_function(mixtureID)
             # thread = threading.Thread(target=async_function, args=(mixtureID,))
             # thread.start()
         except Exception as e:
