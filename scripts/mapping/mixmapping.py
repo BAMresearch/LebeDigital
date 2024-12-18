@@ -682,7 +682,7 @@ def mappingmixture(blob_data):
 
     # check if multiples exist
     for entry in cements:
-        g.add((composition_individual, co.composedOf, URIRef(cpto + f"Cement{entry}_{metadata['ID']}")))
+        g.add((composition_individual, co.composedOf, URIRef(cpto + f"Binder{entry}_{metadata['ID']}")))
 
     try:
         # Serialisiert den Graphen im Turtle-Format und kodiert ihn in UTF-8 als binäre Daten
