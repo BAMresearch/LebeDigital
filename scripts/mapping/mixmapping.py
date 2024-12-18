@@ -450,7 +450,7 @@ def mappingmixture(blob_data):
 
     # iterate through the keys, to find all matching keys, that are different (how many cements were used)
     found_numbers = {match for key in metadata.keys() for match in re.findall(pattern, key)}
-    logger.debug(f'Found {len(found_numbers)} different Admixtures.')
+    logger.debug(f'Found {len(found_numbers)} different Additions.')
 
     # create a list of the amount of Cements
     additions = list(found_numbers)
