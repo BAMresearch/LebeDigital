@@ -370,77 +370,77 @@ def mappingmixture(blob_data):
     logger.debug(f'Found {len(found_numbers)} different Fibers.')
 
     # create a list of the amount of fibers
-    admixtures = list(found_numbers)
+    fibers = list(found_numbers)
 
     # now create the triples for every cement
-    for entry in admixtures:
+    for entry in fibers:
         # add triple
-        admixture_individual = URIRef(cpto + f"Fiber{entry}_{metadata['ID']}")
-        admixture_content = URIRef(cpto + f"Fiber{entry}_Amount_{metadata['ID']}")
-        admixture_date = URIRef(cpto + f"Fiber{entry}_Date_{metadata['ID']}")
-        admixture_density = URIRef(cpto + f"Fiber{entry}_Density_{metadata['ID']}")
-        admixture_kind = URIRef(cpto + f"Fiber{entry}_Kind_{metadata['ID']}")
-        admixture_manufacturer = URIRef(cpto + f"Fiber{entry}_Manufacturer_{metadata['ID']}")
-        admixture_productname = URIRef(cpto + f"Fiber{entry}_ProductName_{metadata['ID']}")
-        admixture_type = URIRef(cpto + f"Fiber{entry}_Type_{metadata['ID']}")
+        fibers_individual = URIRef(cpto + f"Fiber{entry}_{metadata['ID']}")
+        fibers_content = URIRef(cpto + f"Fiber{entry}_Amount_{metadata['ID']}")
+        fibers_date = URIRef(cpto + f"Fiber{entry}_Date_{metadata['ID']}")
+        fibers_density = URIRef(cpto + f"Fiber{entry}_Density_{metadata['ID']}")
+        fibers_kind = URIRef(cpto + f"Fiber{entry}_Kind_{metadata['ID']}")
+        fibers_manufacturer = URIRef(cpto + f"Fiber{entry}_Manufacturer_{metadata['ID']}")
+        fibers_productname = URIRef(cpto + f"Fiber{entry}_ProductName_{metadata['ID']}")
+        fibers_type = URIRef(cpto + f"Fiber{entry}_Type_{metadata['ID']}")
 
         # cement
-        g.add((admixture_individual, RDF.type, co.BaseMaterial))
-        g.add((admixture_individual, RDF.type, owl.NamedIndividual))
-        g.add((admixture_individual, co.characteristic, admixture_content))
-        g.add((admixture_individual, co.characteristic, admixture_date))
-        g.add((admixture_individual, co.characteristic, admixture_density))
-        g.add((admixture_individual, co.characteristic, admixture_kind))
-        g.add((admixture_individual, co.characteristic, admixture_manufacturer))
-        g.add((admixture_individual, co.characteristic, admixture_productname))
-        g.add((admixture_individual, co.composedOf, admixture_type))
+        g.add((fibers_individual, RDF.type, co.BaseMaterial))
+        g.add((fibers_individual, RDF.type, owl.NamedIndividual))
+        g.add((fibers_individual, co.characteristic, fibers_content))
+        g.add((fibers_individual, co.characteristic, fibers_date))
+        g.add((fibers_individual, co.characteristic, fibers_density))
+        g.add((fibers_individual, co.characteristic, fibers_kind))
+        g.add((fibers_individual, co.characteristic, fibers_manufacturer))
+        g.add((fibers_individual, co.characteristic, fibers_productname))
+        g.add((fibers_individual, co.composedOf, fibers_type))
 
         ## AB HIER
         # cement content
-        g.add((admixture_content, RDF.type, cpto.Content))
-        g.add((admixture_content, RDF.type, owl.NamedIndividual))
+        g.add((fibers_content, RDF.type, cpto.Content))
+        g.add((fibers_content, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Amount_Unit'):
-            g.add((admixture_content, co.unit, URIRef(f"{metadata[f'Fiber{entry}_Amount_Unit']}")))
+            g.add((fibers_content, co.unit, URIRef(f"{metadata[f'Fiber{entry}_Amount_Unit']}")))
         if metadata.get(f'Fiber{entry}_Amount'):
-            g.add((admixture_content, co.value, Literal(f"{metadata[f'Fiber{entry}_Amount']}", datatype=xsd.float)))
+            g.add((fibers_content, co.value, Literal(f"{metadata[f'Fiber{entry}_Amount']}", datatype=xsd.float)))
 
         # cement date
-        g.add((admixture_date, RDF.type, cpto.Date))
-        g.add((admixture_date, RDF.type, owl.NamedIndividual))
+        g.add((fibers_date, RDF.type, cpto.Date))
+        g.add((fibers_date, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Date'):
-            g.add((admixture_date, co.value, URIRef(f"{metadata[f'Fiber{entry}_Date']}")))
+            g.add((fibers_date, co.value, URIRef(f"{metadata[f'Fiber{entry}_Date']}")))
 
         # cement density
-        g.add((admixture_density, RDF.type, cpto.RelativeDensity))
-        g.add((admixture_density, RDF.type, owl.NamedIndividual))
+        g.add((fibers_density, RDF.type, cpto.RelativeDensity))
+        g.add((fibers_density, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Density_Unit'):
-            g.add((admixture_density, co.unit, URIRef(f"{metadata[f'Fiber{entry}_Density_Unit']}")))
+            g.add((fibers_density, co.unit, URIRef(f"{metadata[f'Fiber{entry}_Density_Unit']}")))
         if metadata.get(f'Fiber{entry}_Density'):
-            g.add((admixture_density, co.value, Literal(f"{metadata[f'Fiber{entry}_Density']}", datatype=xsd.float)))
+            g.add((fibers_density, co.value, Literal(f"{metadata[f'Fiber{entry}_Density']}", datatype=xsd.float)))
 
         # cement kind
-        g.add((admixture_kind, RDF.type, cpto.Kind))
-        g.add((admixture_kind, RDF.type, owl.NamedIndividual))
+        g.add((fibers_kind, RDF.type, cpto.Kind))
+        g.add((fibers_kind, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Kind'):
-            g.add((admixture_kind, co.value, URIRef(f"{metadata[f'Fiber{entry}_Kind']}")))
+            g.add((fibers_kind, co.value, URIRef(f"{metadata[f'Fiber{entry}_Kind']}")))
 
         # cement manufacturer
-        g.add((admixture_manufacturer, RDF.type, cpto.Manufacturer))
-        g.add((admixture_manufacturer, RDF.type, owl.NamedIndividual))
+        g.add((fibers_manufacturer, RDF.type, cpto.Manufacturer))
+        g.add((fibers_manufacturer, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Manufacturer'):
-            g.add((admixture_manufacturer, co.value, URIRef(f"{metadata[f'Fiber{entry}_Manufacturer']}")))
+            g.add((fibers_manufacturer, co.value, URIRef(f"{metadata[f'Fiber{entry}_Manufacturer']}")))
 
         # cement productname
-        g.add((admixture_productname, RDF.type, co.ProvidedIdentifier))
-        g.add((admixture_productname, RDF.type, owl.NamedIndividual))
+        g.add((fibers_productname, RDF.type, co.ProvidedIdentifier))
+        g.add((fibers_productname, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Name'):
-            g.add((admixture_productname, co.value, URIRef(f"{metadata[f'Fiber{entry}_Name']}")))
+            g.add((fibers_productname, co.value, URIRef(f"{metadata[f'Fiber{entry}_Name']}")))
 
         # cement type
-        g.add((admixture_type, RDF.type, cpto.Admixture))
-        g.add((admixture_type, RDF.type, owl.NamedIndividual))
+        g.add((fibers_type, RDF.type, cpto.fibers))
+        g.add((fibers_type, RDF.type, owl.NamedIndividual))
         if metadata.get(f'Fiber{entry}_Type'):
-            g.add((admixture_type, co.value, Literal(f"{metadata[f'Fiber{entry}_Type']}", datatype=xsd.string)))
+            g.add((fibers_type, co.value, Literal(f"{metadata[f'Fiber{entry}_Type']}", datatype=xsd.string)))
 
 
     # lastly addition
@@ -675,6 +675,10 @@ def mappingmixture(blob_data):
     # check if multiples exist
     for entry in admixtures:
         g.add((composition_individual, co.composedOf, URIRef(cpto + f"Admixture{entry}_{metadata['ID']}")))
+    
+    # check if multiples exist
+    for entry in fibers:
+        g.add((composition_individual, co.composedOf, URIRef(cpto + f"Fiber{entry}_{metadata['ID']}")))
 
     # check if multiples exist
     for entry in aggregates:
