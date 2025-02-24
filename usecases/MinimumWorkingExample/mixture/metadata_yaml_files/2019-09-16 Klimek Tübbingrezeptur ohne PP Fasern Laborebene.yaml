@@ -1,0 +1,32 @@
+operator_date: '2019-09-16'
+tester_name: Haamkens
+specimen_name: Tübbingbeton ohne PP-Fasern
+cement--QuantityInMix: 320.0
+cement--BulkDensity: 3.1
+cement--Volume: 103.2
+cement--Annotation: CEM I 42.5 R Rüdesdorf
+water_total--QuantityInMix: 160.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 160.0
+water_cement_ratio: 0.5
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 80.0
+addition1--BulkDensity: 2.32
+addition1--Volume: 34.5
+addition1--Annotation: Flugasche EFA-Füller HP  - nan
+addition2--QuantityInMix: 0.0
+addition2--BulkDensity: 0.91
+addition2--Volume: 0.0
+addition2--Annotation: PP-Fasern - nan
+admixture--QuantityInMix: 3.52
+admixture--BulkDensity: 1.05
+admixture--Volume: 3.4
+admixture--Annotation: FM 593 BASF
+aggregate--QuantityInMix: 1777.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 678.9000000000001

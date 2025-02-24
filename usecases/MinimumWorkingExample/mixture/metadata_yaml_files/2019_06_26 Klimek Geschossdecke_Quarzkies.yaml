@@ -1,0 +1,32 @@
+operator_date: '2019-06-26'
+tester_name: Haamkens
+specimen_name: Geschossdecke
+cement--QuantityInMix: 270.0
+cement--BulkDensity: 3.1
+cement--Volume: 87.1
+cement--Annotation: CEM I 42.5 R Rüdesdorf
+water_total--QuantityInMix: 175.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 175.0
+water_cement_ratio: 0.6481481481481481
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 80.0
+addition1--BulkDensity: 2.32
+addition1--Volume: 34.5
+addition1--Annotation: Flugasche EFA-Füller HP  - nan
+addition2--QuantityInMix: 0.0
+addition2--BulkDensity: 0.91
+addition2--Volume: 0.0
+addition2--Annotation: PP-Fasern - nan
+admixture--QuantityInMix: 2.7
+admixture--BulkDensity: 1.05
+admixture--Volume: 2.6
+admixture--Annotation: FM 593 BASF
+aggregate--QuantityInMix: 1784.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 680.8

@@ -217,7 +217,7 @@ def check_beam_design(
     -------
     float
         normalized difference of  specified area and required area given the diameter of steel and number of steel bars
-        in the bottom of the section. It is negative if  design is not satisfied and positive if design is satisfied.
+        in the bottom of the section. It is positive if  design is not satisfied and negative if design is satisfied.
         Optimal will be close to zero.
     """
     max_moment, max_shear_force = max_bending_moment_and_shear_force(span, point_load, distributed_load)

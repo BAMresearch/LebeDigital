@@ -1,6 +1,30 @@
 {
-   "paste_phi": {
-     "value" : 1,
-     "unit" : "dimensionless"
-   }
+    "distribution": {
+        "unit": "dimensionless",
+        "value": "normal"
+    },
+    "phi_cov": {
+        "unit": "dimensionless",
+        "value": [
+            [
+                1.0,
+                0.0
+            ],
+            [
+                0.0,
+                1.0
+            ]
+        ]
+    },
+    "phi_mean": {
+        "unit": "dimensionless",
+        "value": [
+            19.0,
+            10.0
+        ]
+    },
+    "seed": {
+        "unit": "dimensionless",
+        "value": 421
+    }
 }

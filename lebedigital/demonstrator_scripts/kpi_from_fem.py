@@ -32,6 +32,7 @@ def kpi_from_fem(df, limit_temp, limit_time):
         - 'time_max_reached_temperature' in hours
         - 'check_reached_temperature' in degree_Celsius
         - 'time_of_demolding' in hours
+        negative is okay and postive value of constrants means failure
     """
     # initialze dictionary
     results = {}

@@ -189,6 +189,15 @@ usecases/optimization_paper/tex/macros/py_macros_TUM.tex
 tests/emodulus_calibration/calibration_data/
 !tests/emodulus_calibration/calibration_data/Wolf 8.2 Probe 1.csv
 
+# model-learning files
+usecases/optimization_paper/model_learning/hydration
+usecases/optimization_paper/model_learning/homogenization
+
+# temp folders set by Atul
+usecases/optimization_paper/[1-100]*
+usecases/optimization_paper/optimization_workflow/Inputs
+usecases/optimization_paper/optimization_workflow/Results
+
 # log for tectonic paper thingy
 **/log_tectonic.txt
 **/log_dag.txt

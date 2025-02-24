@@ -1,0 +1,28 @@
+operator_date: 30.06.
+tester_name: Werner
+specimen_name: BA-Losert MVI
+cement--QuantityInMix: 580.0
+cement--BulkDensity: 3.123
+cement--Volume: 185.7
+cement--Annotation: CEM I 42.5 R
+water_total--QuantityInMix: 173.0
+water_total--BulkDensity: 1.0
+water_total--Volume: 173.0
+water_cement_ratio: 0.2982758620689655
+water_effective--QuantityInMix: .nan
+water_effective--BulkDensity: .nan
+water_effective--Volume: .nan
+air_content--QuantityInMix: 0.0
+air_content--BulkDensity: 0.0
+air_content--Volume: 20.0
+addition1--QuantityInMix: 63.8
+addition1--BulkDensity: 2.39
+addition1--Volume: 26.7
+addition1--Annotation: Mikrosilika
+admixture--QuantityInMix: 5.61
+admixture--BulkDensity: 1.05
+admixture--Volume: 5.3
+admixture--Annotation: FM 595 BASF
+aggregate--QuantityInMix: 1549.0
+aggregate--BulkDensity: .nan
+aggregate--Volume: 589.3
